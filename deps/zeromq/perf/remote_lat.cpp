@@ -37,14 +37,14 @@ int main (int argc, char *argv [])
     unsigned long elapsed;
     double latency;
 
-    if (argc != 4) {
-        printf ("usage: remote_lat <connect-to> <message-size> "
-            "<roundtrip-count>\n");
-        return 1;
-    }
-    connect_to = argv [1];
-    message_size = atoi (argv [2]);
-    roundtrip_count = atoi (argv [3]);
+//     if (argc != 4) {
+//         printf ("usage: remote_lat <connect-to> <message-size> "
+//             "<roundtrip-count>\n");
+//         return 1;
+//     }
+    connect_to = "tcp://127.0.0.1:5555"; //argv [1];
+    message_size = 1024;//atoi (argv [2]);
+    roundtrip_count = 1024;//atoi (argv [3]);
 
     ctx = zmq_init (1);
     if (!ctx) {
@@ -74,7 +74,7 @@ int main (int argc, char *argv [])
     watch = zmq_stopwatch_start ();
 
     for (i = 0; i != roundtrip_count; i++) {
-        rc = zmq_sendmsg (s, &msg, 0);
+       rc = zmq_sendmsg (s, &msg, 0);
         if (rc < 0) {
             printf ("error in zmq_sendmsg: %s\n", zmq_strerror (errno));
             return -1;
@@ -101,8 +101,9 @@ int main (int argc, char *argv [])
     latency = (double) elapsed / (roundtrip_count * 2);
 
     printf ("message size: %d [B]\n", (int) message_size);
-    printf ("roundtrip count: %d\n", (int) roundtrip_count);
-    printf ("average latency: %.3f [us]\n", (double) latency);
+	printf ("roundtrip count: %d\n", (int) roundtrip_count);
+	printf ("average latency: %.3f [us]\n", (double) latency);
+	printf ("time: %.3f [us]\n", (double) elapsed / 1000);
 
     rc = zmq_close (s);
     if (rc != 0) {
@@ -116,5 +117,6 @@ int main (int argc, char *argv [])
         return -1;
     }
 
+	system("pause");
     return 0;
 }

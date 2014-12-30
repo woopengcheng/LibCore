@@ -33,14 +33,17 @@ int main (int argc, char *argv [])
     int i;
     zmq_msg_t msg;
 
-    if (argc != 4) {
-        printf ("usage: local_lat <bind-to> <message-size> "
-            "<roundtrip-count>\n");
-        return 1;
-    }
-    bind_to = argv [1];
-    message_size = atoi (argv [2]);
-    roundtrip_count = atoi (argv [3]);
+//     if (argc != 4) {
+//         printf ("usage: local_lat <bind-to> <message-size> "
+//             "<roundtrip-count>\n");
+//         return 1;
+//     }
+    bind_to = "tcp://127.0.0.1:5555"; //argv [1];
+    message_size = 1024;//atoi (argv [2]);
+    roundtrip_count = 1024;//atoi (argv [3]);
+//     bind_to = argv [1];
+//     message_size = atoi (argv [2]);
+//     roundtrip_count = atoi (argv [3]);
 
     ctx = zmq_init (1);
     if (!ctx) {
@@ -103,5 +106,7 @@ int main (int argc, char *argv [])
         return -1;
     }
 
+
+	system("pause");
     return 0;
 }
