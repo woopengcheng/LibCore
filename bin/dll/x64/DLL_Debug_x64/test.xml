@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<pwdist>
+	<name>accsrv</name>
+	<communicator>
+		<listen_addr>tcp://127.0.0.1:8706</listen_addr>
+	</communicator>
+	<pwaccsrv>
+       <database>
+			<host>127.0.0.1</host>
+			<port>8600</port>
+			<name>account</name>
+			<user>test</user>
+			<pswd>test</pswd>
+		</database>
+	</pwaccsrv>
+	<nodes>
+		<count>1</count>
+		<node1>
+			<name>connsrv</name>
+			<addr>tcp://127.0.0.1:8707</addr>
+		</node1>
+	</nodes>
+    <whitelist>
+        <open>false</open>
+		<count>2</count>
+		<ip1>10.64.72.*</ip1>
+		<ip2>127.0.0.1</ip2>
+    </whitelist>
+</pwdist>
+
+
