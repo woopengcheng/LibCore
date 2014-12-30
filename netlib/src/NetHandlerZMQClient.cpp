@@ -5,7 +5,7 @@
 namespace Net
 {   
 	NetHandlerZMQClient::NetHandlerZMQClient( INetReactor * pNetReactor , ISession * pSession , MsgProcess * pMsgProcess /*= NULL*/ ) 
-		: INetHandler(pNetReactor , pSession)  
+		: NetHandlerTransit(pNetReactor , pSession)  
 		, m_pMsgProcess(pMsgProcess)
 	{   
 		void * pContext = zmq_init (1);

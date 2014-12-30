@@ -4,7 +4,7 @@ extern "C"
 {
 	#include "zmq.h" 
 }
-#include "INetHandler.h"  
+#include "NetHandlerTransit.h"  
 #include "MsgProcess.h"
 
 namespace Net 
@@ -14,19 +14,22 @@ namespace Net
 // 	typedef boost::shared_ptr<zmqSocket> zmqSocketPtr;
 // 	typedef boost::shared_ptr<zmqSocket> zmqContextPtr;
 
-	class DLL_EXPORT NetHandlerZMQClient :public INetHandler
+	class DLL_EXPORT NetHandlerZMQClient :public NetHandlerTransit
 	{
 	public:
 		NetHandlerZMQClient(INetReactor * pNetReactor , ISession * pSession , MsgProcess * pMsgProcess = NULL);
 		virtual ~NetHandlerZMQClient();
-
+		    
 	public:
 		virtual INT32  Init( const char* ip,int port );
 		virtual INT32  Cleanup( void );
 		virtual INT32  OnClose( void ); 
 
 	public:
-		virtual INT32  SendMsg( const char * pBuf , UINT32 unSize ); 
+		virtual INT32  OnMsgRecving( void ){ return 0; }
+		virtual INT32  OnMsgSending( void ){ return 0; }
+		virtual INT32  SendMsg( const char * pBuf , UINT32 unSize );  
+		virtual INT32  HandleMsg(ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength){ return 0; }
 		 
 	protected:
 		INT32  Connect( const char* ip,int port );

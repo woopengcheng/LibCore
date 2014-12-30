@@ -8,7 +8,11 @@ namespace Msg
 {
 
 	RemoteRpcServer::RemoteRpcServer( RpcManager * pRpcManager ,  Net::INetReactor * pNetReactor, Net::ISession * pSession )
+#ifdef USE_ZMQ
+		: Net::NetHandlerZMQServer(pNetReactor , pSession)
+#else
 		: Net::NetHandlerServer(pNetReactor , pSession)
+#endif
 		, m_pRpcManager(pRpcManager) 
 	{
 		SetLastRecvPingTime();
@@ -110,7 +114,8 @@ namespace Msg
 				UINT32 unTargetsCount = (UINT32)*pBuffer;
 				RPCMsgCall * pMsg = new(unTargetsCount * sizeof(Object))RPCMsgCall;  
 				pMsg->UnSerialization(pBuffer); 
-				pMsg->SetSessionName(pSession->GetRemoteName()); 
+				pMsg->SetSessionName(pMsg->m_szRemoteName);
+				memcpy(pMsg->m_szRemoteName , m_pRpcManager->GetRpcInterface()->GetServerName() , strlen( m_pRpcManager->GetRpcInterface()->GetServerName()) + 1);
 
 				return m_pRpcManager->HandleMsg(pSession , pMsg); 
 			}

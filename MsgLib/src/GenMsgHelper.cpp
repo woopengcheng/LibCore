@@ -36,7 +36,7 @@ namespace Msg
 	} 
 
 
-	BOOL GenMsgHelper::GenMsgCall( RPCMsgCall & objMsgCall , BOOL bRecvRequest/* = FALSE*/ , UINT64 ullTimeout/* = 10*/ , UINT64 ullMsgID/* = -1*/)
+	BOOL GenMsgHelper::GenMsgCall( RPCMsgCall & objMsgCall , BOOL bRecvRequest/* = FALSE*/ , UINT64 ullTimeout/* = 10*/ , UINT64 ullMsgID/* = -1*/ , const char * pRemoteName/* = ""*/)
 	{
 		objMsgCall.m_bClientRequest = bRecvRequest;
 		objMsgCall.m_ullTimeout = ullTimeout; 
@@ -49,6 +49,8 @@ namespace Msg
 		{
 			objMsgCall.m_ullMsgID = ullMsgID;
 		}
+
+		memcpy(objMsgCall.m_szRemoteName , pRemoteName , strlen(pRemoteName) + 1);
 		return TRUE;
 	} 
 }

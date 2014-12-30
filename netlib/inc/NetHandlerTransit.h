@@ -17,21 +17,21 @@ namespace Net
 		virtual INT32  Init( void ); 
 		virtual INT32  Cleanup( void ); 
 		virtual INT32  Update( void );
-		virtual INT32  OnClose( void ) ;  
-		virtual INT32  OnMsgRecving( void ); 
-		virtual INT32  OnMsgSending( void ); 
+		virtual INT32  OnClose( void ) ;   
 
-	public:                         
-		virtual INT32  Send( const char * pBuf , UINT32 unSize);
+	public:                   
+		virtual INT32  OnMsgRecving( void ); 
+		virtual INT32  OnMsgSending( void );      
 		virtual INT32  SendMsg( const char * pBuf , UINT32 unSize );
 		virtual INT32  HandleMsg(ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
-		virtual INT32  ParaseRecvMsg();     
-		virtual INT32  RecvToCircleBuffer(char * pBuf , UINT32 unSize);   //5 将消息扔给CircleBuffer 
 
-	private:
+	protected:
+		INT32   Send( const char * pBuf , UINT32 unSize);
+		INT32   ParaseRecvMsg();     
 		INT32   FlushSendBuffer( void );
+		INT32   RecvToCircleBuffer(char * pBuf , UINT32 unSize);   //5 将消息扔给CircleBuffer 
 
-	private:
+	protected:
 		LibCore::CircleBuffer    m_objSendBuf;
 		LibCore::CircleBuffer    m_objRecvBuf;
 	}; 

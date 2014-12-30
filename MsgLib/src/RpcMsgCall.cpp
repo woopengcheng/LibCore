@@ -13,6 +13,8 @@ namespace Msg
 		unSize += sizeof(m_ullTimeout);
 		m_bClientRequest = *(BOOL*)(pMsg + unSize);   
 		unSize += sizeof(m_bClientRequest); 
+		memcpy(m_szRemoteName , (char*)(pMsg + unSize) , sizeof(m_szRemoteName) );   
+		unSize += sizeof(m_szRemoteName); 
 
 		RefreshSize();
 		return unSize;
@@ -26,6 +28,8 @@ namespace Msg
 		unSize += sizeof(m_ullTimeout);
 		memcpy(pMsg + unSize, &m_bClientRequest , sizeof(m_bClientRequest));
 		unSize += sizeof(m_bClientRequest); 
+		memcpy(pMsg + unSize, m_szRemoteName , sizeof(m_szRemoteName));
+		unSize += sizeof(m_szRemoteName);
 
 		return unSize;
 	}
@@ -41,7 +45,7 @@ namespace Msg
 
 	UINT32 RPCMsgCall::RefreshSize()
 	{ 
-		m_unMsgLength = ObjectMsgCall::RefreshSize() + sizeof(m_ullTimeout) + sizeof(m_bClientRequest); 
+		m_unMsgLength = ObjectMsgCall::RefreshSize() + sizeof(m_ullTimeout) + sizeof(m_bClientRequest) + sizeof(m_szRemoteName); 
 		return m_unMsgLength;
 	}
 
@@ -59,6 +63,7 @@ namespace Msg
 		pMsg->m_usPriority     = m_usPriority;
 		memcpy(pMsg->m_szSessionName , m_szSessionName , sizeof(m_szSessionName)); 
 		memcpy(pMsg->m_szMsgMethod , m_szMsgMethod , sizeof(m_szMsgMethod)); 
+		memcpy(pMsg->m_szRemoteName , m_szRemoteName , sizeof(m_szRemoteName)); 
 		m_objParams.Copy(pMsg->m_objParams);  
 
 		UINT32 unTargetsCount = GetTargetsCount();

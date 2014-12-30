@@ -7,6 +7,7 @@ namespace Msg
 	struct DLL_EXPORT SPing
 	{ 
 		UINT16  usRemoteRPCPort;
+		char    szRemoteName[MAX_NAME_LENGTH];
 	};
 }
 

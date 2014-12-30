@@ -48,6 +48,7 @@ namespace Msg
 				continue;
 			} 
 			objPing.usRemoteRPCPort = m_pRpcInterface->GetServerPort();  
+			memcpy(objPing.szRemoteName , pNet->GetSession()->GetRemoteName() , strlen(pNet->GetSession()->GetRemoteName() + 1));
 
 			SendMsg(pNet , DEFAULT_RPC_PING_ID , (const char *)(&objPing) , sizeof(objPing) , TRUE); 
 

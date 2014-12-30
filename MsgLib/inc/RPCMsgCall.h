@@ -26,6 +26,7 @@ namespace Msg
 			, m_nRpcMsgCallType(RPCTYPE_ERROR)
 		{  
 			memset(m_szSessionName , 0 , sizeof(m_szSessionName));
+			memset(m_szRemoteName , 0 , sizeof(m_szRemoteName));
 		}
 		~RPCMsgCall()
 		{ 
@@ -70,6 +71,7 @@ namespace Msg
 	public:    
 		BOOL           m_bClientRequest;
 		UINT64         m_ullTimeout;   
+		char           m_szRemoteName[MAX_NAME_LENGTH];
 
 		//5 下面的参数是不参与网络传输的.
 	protected:

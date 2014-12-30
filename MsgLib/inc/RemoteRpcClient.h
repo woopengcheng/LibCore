@@ -7,7 +7,11 @@ namespace Msg
 { 
 	class RpcManager; 
 	
+#ifdef USE_ZMQ
+	class DLL_EXPORT  RemoteRpcClient : public Net::NetHandlerZMQClient
+#else
 	class DLL_EXPORT  RemoteRpcClient : public Net::NetHandlerClient
+#endif
 	{ 
 	public:
 		DECLARE_BOOST_TEMPLATE_POINTERS(RemoteRpcClient , RemoteRpcClient); 

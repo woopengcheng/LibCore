@@ -101,9 +101,12 @@ namespace Msg
 			memcpy(m_szServerName , str.c_str() , str.length());
 			memcpy(m_szRpcType , strType.c_str() , strType.length()); 
 
+#ifdef USE_ZMQ
+#else
 			NetHandlerRpcListener::NetHandlerRpcListenerPtr pNetHandlerListener(new NetHandlerRpcListener(m_pRpcServerManager , m_pNetReactor , new Net::ISession(strAddress.c_str() , m_usServerPort , str.c_str())));
 			pNetHandlerListener->Init(strAddress.c_str() , m_usServerPort);
-			m_pNetReactor->AddNetHandler(pNetHandlerListener); 
+			m_pNetReactor->AddNetHandler(pNetHandlerListener);
+#endif 
 		}
 	}
 

@@ -29,7 +29,7 @@
 		}\
 		\
 		RPCMsgCall * pMsg = NULL; \
-		m_pRpcMsgCall->Copy(pMsg);   
+		m_pRpcMsgCall->Copy(pMsg);
 
 #define RPC_GEN_RETURN_MSG RPC_GEN_MSG pMsg->m_bClientRequest = TRUE;
 #define RPC_GEN_PROXY_MSG RPC_GEN_MSG pMsg->m_bClientRequest = FALSE;
@@ -200,7 +200,7 @@ namespace Msg
 		{
 			Assert_Re0("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2 , p3 , p4) && "RPC发送参数类型或者数量不对.");
 
-			RPC_GEN_PROXY_MSG;
+			RPC_GEN_PROXY_MSG; 
 
 			GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4); 
 

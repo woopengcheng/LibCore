@@ -95,7 +95,7 @@ namespace Msg
 						RPCMsgCall * pReturnMsg = (RPCMsgCall *)(*iter);
 						if (pReturnMsg)
 						{ 
-							SendMsg(pMsg->GetSessionName() , pReturnMsg , FALSE , FALSE);
+							SendMsg(pMsg->GetSessionName(), pReturnMsg , FALSE , FALSE);
 							SAFE_DELETE(pReturnMsg);
 						}
 					}  
@@ -136,7 +136,7 @@ namespace Msg
 			{
 				RPCMsgCall * pReturnMsg = (RPCMsgCall *)(*iter);
 
-				SendMsg(pSession->GetRemoteName() , pReturnMsg , FALSE , FALSE);
+				SendMsg(pMsg->GetSessionName() , pReturnMsg , FALSE , FALSE);
 				SAFE_DELETE(pReturnMsg);
 			} 
 		}
@@ -179,7 +179,48 @@ namespace Msg
 		return RpcManager::Update();
 	} 
 
+#ifdef USE_ZMQ
+	INT32 RpcServerManager::HandlePing( Net::ISession * pSession , SPing * pPing )
+	{ 
+		if(m_pRpcInterface && pSession && pPing )
+		{  
+			std::string strRemoteRPCName = pPing->szRemoteName; 
 
+			Net::NetHandlerTransitPtr pNetHandler = GetHandlerByName(strRemoteRPCName.c_str());
+			if (!pNetHandler)
+			{
+				pNetHandler = CreateNetHandler(strRemoteRPCName.c_str() , "" , pPing->usRemoteRPCPort , "");
+			}
+
+			RpcClientManager *  pRpcClientManager = m_pRpcInterface->GetRpcClientManager();
+			if (pRpcClientManager)
+			{  
+				Net::NetHandlerTransitPtr pNetHandlerClient = pRpcClientManager->GetHandlerByName(strRemoteRPCName.c_str());
+				if (!pNetHandlerClient)
+				{  
+					pNetHandlerClient = pRpcClientManager->CreateNetHandler(strRemoteRPCName.c_str() , pSession->GetAddress() , pPing->usRemoteRPCPort); 
+				}  
+
+				if(pNetHandlerClient && pNetHandlerClient->GetSession()->GetNetState() == Net::NET_STATE_CONNECTING &&
+					pNetHandler->GetSession()->GetNetState() == Net::NET_STATE_CONNECTING)
+				{   
+					pNetHandler->GetSession()->SetNetState(Net::NET_STATE_CONNECTED);
+					pNetHandlerClient->GetSession()->SetNetState(Net::NET_STATE_CONNECTED); 
+
+					if (m_pRpcInterface->GetRpcListener())
+					{ 
+						m_pRpcInterface->GetRpcListener()->OnListenOn(m_pRpcInterface); 
+					}
+				} 
+			}  
+
+			//			gDebugStream("recv client ping. " << strRemoteRPCName << std::endl);
+		}  
+
+		return TRUE;
+	} 
+
+#else
 	INT32 RpcServerManager::HandlePing( Net::ISession * pSession , SPing * pPing )
 	{ 
 		if(m_pRpcInterface && pSession && pPing )
@@ -223,8 +264,8 @@ namespace Msg
 		}  
 
 		return TRUE;
-	} 
-
+	}  
+#endif
 
 	Net::NetHandlerTransitPtr RpcServerManager::OnCreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::SOCKET socket /*= 0*/ )
 	{
@@ -241,7 +282,10 @@ namespace Msg
 			gDebugStream("accept: ID: " << pServerSession->GetSessionID());
 
 			AddRemoteRpc(pServerSession->GetSessionID() , pRpcServer); 
+
+#ifndef USE_ZMQ 
 			m_pNetReactor->AddNetHandler(pRpcServer);  
+#endif
 
 			return pRpcServer;  
 		}

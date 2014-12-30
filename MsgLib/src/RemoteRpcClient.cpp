@@ -7,7 +7,7 @@ namespace Msg
 { 
 	INT32 RemoteRpcClient::Cleanup( void )
 	{
-		return NetHandlerTransit::Cleanup();
+		return Net::NetHandlerClient::Cleanup();
 	}
 
 
@@ -82,7 +82,11 @@ namespace Msg
 
 
 	RemoteRpcClient::RemoteRpcClient( RpcManager * pRpcManager ,  Net::INetReactor * pNetReactor , Net::ISession * pSession )
+#ifdef USE_ZMQ
+		: Net::NetHandlerZMQClient(pNetReactor , pSession)
+#else
 		: Net::NetHandlerClient(pNetReactor , pSession) 
+#endif
 		, m_pRpcManager(pRpcManager)
 	{
 

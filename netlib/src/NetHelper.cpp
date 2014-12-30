@@ -10,9 +10,9 @@ namespace Net
 	std::string NetHelper::GenerateRemoteName( const char * pNetType , const char * pAddress , const char * pPort )
 	{
 		std::string str = pNetType;
-		str += "-";
+		str += "://";
 		str += pAddress;
-		str += "-";
+		str += ":";
 		str += pPort;
 
 		return str;
