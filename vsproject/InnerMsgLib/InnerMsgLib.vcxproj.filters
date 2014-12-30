@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="inc">
+      <UniqueIdentifier>{99aae3bb-d807-4195-a3d3-502b3b82e81f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{0ea48ea6-bdc7-46c5-948d-7787ccc5fadc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\InnerMsg.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\GenerateMsgParams.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\MsgQueue.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\MsgCommon.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\Parameters.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\Parameter.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\Chunk.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\MsgProxy.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\MsgNameDefine.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\ParameterHelper.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\MsgDispatcher.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\MethodImpl.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\ParaseMsgCall.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\StaticMethodImplHelper.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\ObjectMethodImplHelper.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\ObjectMsgCall.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\ICallableObject.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\InternalMsgTask.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\IObject.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\MsgTimerNode.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\InnerMsgLib\inc\GenMsgHelper.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="InnerMsgLib.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\InnerMsgLib\src\Parameters.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\InnerMsgLib\src\MsgProxy.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\InnerMsgLib\inc\Parameter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DLL_Debug_x64|Win32">
+      <Configuration>DLL_Debug_x64</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DLL_Debug_x64|x64">
+      <Configuration>DLL_Debug_x64</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="LibDebug|Win32">
+      <Configuration>LibDebug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="LibDebug|x64">
+      <Configuration>LibDebug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1C23993E-2F33-4E3F-B81A-F07FA561AB77}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>LibCore</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='LibDebug|x64'">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='LibDebug|x64'">
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'" Label="Configuration">
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v100</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='LibDebug|Win32'">
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|Win32'">
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\lib\$(Platform)\$(Configuration)\</OutDir>
+    <TargetName>$(ProjectName)_vs$(VisualStudioVersion)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\lib\$(Platform)\$(Configuration)\</OutDir>
+    <TargetName>$(ProjectName)_vs$(VisualStudioVersion)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LibDebug|x64'">
+    <OutDir>$(SolutionDir)..\lib\$(Platform)\$(Configuration)\</OutDir>
+    <TargetName>$(ProjectName)_vs$(VisualStudioVersion)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
+    <OutDir>$(SolutionDir)..\bin\dll\$(Platform)\$(Configuration)\</OutDir>
+    <TargetName>$(ProjectName)_vs$(VisualStudioVersion)</TargetName>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBCORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)../Common/;$(SolutionDir)../LogLib/inc;$(SolutionDir)../NetLib/inc;$(SolutionDir)../TimerLib/inc;$(SolutionDir)../InnerMsgLib/inc;$(SolutionDir)../ThreadPoolLib/inc;$(SolutionDir)../deps/tbb/include;$(SolutionDir)../deps/pthread/include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\raknet\lib;$(SolutionDir)..\deps\tbb\lib\intel64\vc10;$(SolutionDir)..\deps\pthread\lib\x64;$(SolutionDir)..\deps\gperftools-2.1\debug;$(SolutionDir)..\deps\log4cpp\msvc10\log4cpp\Debug\x64;$(SolutionDir)..\deps\log4cplus\msvc10\Win32\bin.Debug_Unicode\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>tbb_debug.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBCORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)../Common/;$(SolutionDir)../LogLib/inc;$(SolutionDir)../NetLib/inc;$(SolutionDir)../TimerLib/inc;$(SolutionDir)../InnerMsgLib/inc;$(SolutionDir)../ThreadPoolLib/inc;$(SolutionDir)../deps/tbb/include;$(SolutionDir)../deps/pthread/include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\raknet\lib;$(SolutionDir)..\deps\tbb\lib\intel64\vc10;$(SolutionDir)..\deps\pthread\lib\x64;$(SolutionDir)..\deps\gperftools-2.1\debug;$(SolutionDir)..\deps\log4cpp\msvc10\log4cpp\Debug\x64;$(SolutionDir)..\deps\log4cplus\msvc10\Win32\bin.Debug_Unicode\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>tbb_debug.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBCORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBCORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='LibDebug|x64'">
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\deps\tbb\lib\intel64\vc10;$(SolutionDir)..\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\boost\lib;$(SolutionDir)..\deps\raknet\lib\x64;$(SolutionDir)..\deps\pthread\lib\x64;$(SolutionDir)..\deps\expat\win32\bin\Debug;$(SolutionDir)..\deps\gperftools-2.1\debug;$(SolutionDir)..\deps\glog\Debug;$(SolutionDir)..\deps\log4cpp\msvc10\log4cpp\Debug\x64;$(SolutionDir)..\deps\log4cplus\msvc10\x64\bin.Debug_Unicode</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ws2_32.lib;tbb_debug.lib;libboost_system-vc100-mt-sgd-1_56.lib;pthreadVC2.lib;Log4Cpp.lib;log4cplusUD.lib;RakNet_VS2010_LibStatic_Debug_x64.lib;libglog.lib;libexpat.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)../InnerMsgLib/inc;$(SolutionDir)LibCore;$(SolutionDir)../Common;$(SolutionDir)../NetLib/inc;$(SolutionDir)../ThreadPoolLib/inc;$(SolutionDir)../TimerLib/inc;$(SolutionDir)../LogLib/inc;$(SolutionDir)../XMLLib/inc;$(SolutionDir)../deps/boost;$(SolutionDir)../deps/expat/lib;$(SolutionDir)../deps/tbb/include;$(SolutionDir)../deps/raknet/source;$(SolutionDir)../deps/pthread/include;$(SolutionDir)../deps/glog/src/windows;$(SolutionDir)../deps/log4cpp/include;$(SolutionDir)../deps/log4cplus/include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DLL_EXPORTS;USE_RAKNET;WIN32;_DEBUG;USE_LOG4CPLUS;_CONSOLE;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <CallingConvention>StdCall</CallingConvention>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\deps\tbb\lib\intel64\vc10;$(SolutionDir)..\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\boost\lib;$(SolutionDir)..\deps\raknet\lib\x64;$(SolutionDir)..\deps\pthread\lib\x64;$(SolutionDir)..\deps\zeromq\lib\x64;$(SolutionDir)..\deps\expat\win32\bin\Debug;$(SolutionDir)..\deps\gperftools-2.1\debug;$(SolutionDir)..\deps\glog\Debug;$(SolutionDir)..\deps\log4cpp\msvc10\log4cpp\Debug\x64;$(SolutionDir)..\deps\log4cplus\msvc10\x64\bin.Debug_Unicode</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libzmq_d.lib;ws2_32.lib;tbb_debug.lib;libboost_system-vc100-mt-sgd-1_56.lib;pthreadVC2.lib;Log4Cpp.lib;log4cplusUD.lib;RakNet_VS2010_LibStatic_Debug_x64.lib;libglog.lib;libexpat.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>LIBCMTD;</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <HeapReserveSize>104857600</HeapReserveSize>
+      <HeapCommitSize>104857600</HeapCommitSize>
+      <StackReserveSize>104857600</StackReserveSize>
+      <StackCommitSize>104857600</StackCommitSize>
+      <AssemblyDebug>false</AssemblyDebug>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)../MsgLib/inc;$(SolutionDir)LibCore;$(SolutionDir)../Common;$(SolutionDir)../NetLib/inc;$(SolutionDir)../ThreadPoolLib/inc;$(SolutionDir)../TimerLib/inc;$(SolutionDir)../LogLib/inc;$(SolutionDir)../XMLLib/inc;$(SolutionDir)../deps/boost;$(SolutionDir)../deps/expat/lib;$(SolutionDir)../deps/zeromq/include;$(SolutionDir)../deps/tbb/include;$(SolutionDir)../deps/raknet/source;$(SolutionDir)../deps/pthread/include;$(SolutionDir)../deps/glog/src/windows;$(SolutionDir)../deps/log4cpp/include;$(SolutionDir)../deps/log4cplus/include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DLL_EXPORTS;USE_RAKNET;WIN32;_DEBUG;USE_LOG4CPLUS;_CONSOLE;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <CallingConvention>StdCall</CallingConvention>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Common\BoostHelper.h" />
+    <ClInclude Include="..\..\Common\CircleBuffer.h" />
+    <ClInclude Include="..\..\Common\ClassTypeID.h" />
+    <ClInclude Include="..\..\Common\ClassTypeInterface.h" />
+    <ClInclude Include="..\..\Common\Common.h" />
+    <ClInclude Include="..\..\Common\CommonAssert.h" />
+    <ClInclude Include="..\..\Common\ErrorCode.h" />
+    <ClInclude Include="..\..\common\LibCore.h" />
+    <ClInclude Include="..\..\Common\MsgProcess.h" />
+    <ClInclude Include="..\..\Common\MsgWrapper.h" />
+    <ClInclude Include="..\..\Common\NetCommon.h" />
+    <ClInclude Include="..\..\Common\Platform.h" />
+    <ClInclude Include="..\..\Common\SafeVariable.h" />
+    <ClInclude Include="..\..\Common\ThreadLock.h" />
+    <ClInclude Include="..\..\LogLib\inc\GLogAdaptee.h" />
+    <ClInclude Include="..\..\LogLib\inc\Log.h" />
+    <ClInclude Include="..\..\LogLib\inc\Log4CPlusAdaptee.h" />
+    <ClInclude Include="..\..\LogLib\inc\Log4CppAdaptee.h" />
+    <ClInclude Include="..\..\LogLib\inc\LogAdapter.h" />
+    <ClInclude Include="..\..\LogLib\inc\LogCommon.h" />
+    <ClInclude Include="..\..\LogLib\inc\LogInterface.h" />
+    <ClInclude Include="..\..\MsgLib\inc\Chunk.h" />
+    <ClInclude Include="..\..\MsgLib\inc\GenMsgHelper.h" />
+    <ClInclude Include="..\..\MsgLib\inc\ICallableObject.h" />
+    <ClInclude Include="..\..\MsgLib\inc\InnerMsg.h" />
+    <ClInclude Include="..\..\MsgLib\inc\InternalMsgTask.h" />
+    <ClInclude Include="..\..\MsgLib\inc\IRpcMsgCallableObject.h" />
+    <ClInclude Include="..\..\MsgLib\inc\MethodImpl.h" />
+    <ClInclude Include="..\..\MsgLib\inc\MsgCommon.h" />
+    <ClInclude Include="..\..\MsgLib\inc\MsgDispatcher.h" />
+    <ClInclude Include="..\..\MsgLib\inc\MsgProxy.h" />
+    <ClInclude Include="..\..\MsgLib\inc\MsgQueue.h" />
+    <ClInclude Include="..\..\MsgLib\inc\MsgTimerNode.h" />
+    <ClInclude Include="..\..\MsgLib\inc\NetHandlerRpcListener.h" />
+    <ClInclude Include="..\..\MsgLib\inc\Object.h" />
+    <ClInclude Include="..\..\MsgLib\inc\ObjectMethodImplHelper.h" />
+    <ClInclude Include="..\..\MsgLib\inc\ObjectMsgCall.h" />
+    <ClInclude Include="..\..\MsgLib\inc\Parameter.h" />
+    <ClInclude Include="..\..\MsgLib\inc\ParameterHelper.h" />
+    <ClInclude Include="..\..\MsgLib\inc\Parameters.h" />
+    <ClInclude Include="..\..\MsgLib\inc\ParaseMsgCall.h" />
+    <ClInclude Include="..\..\MsgLib\inc\Ping.h" />
+    <ClInclude Include="..\..\MsgLib\inc\RemoteRpcClient.h" />
+    <ClInclude Include="..\..\MsgLib\inc\RemoteRpcServer.h" />
+    <ClInclude Include="..\..\MsgLib\inc\RpcBase.h" />
+    <ClInclude Include="..\..\MsgLib\inc\RpcClientManager.h" />
+    <ClInclude Include="..\..\MsgLib\inc\RpcInterface.h" />
+    <ClInclude Include="..\..\MsgLib\inc\IRpcListener.h" />
+    <ClInclude Include="..\..\MsgLib\inc\RpcManager.h" />
+    <ClInclude Include="..\..\MsgLib\inc\RPCMsgCall.h" />
+    <ClInclude Include="..\..\MsgLib\inc\RpcMsgHelper.h" />
+    <ClInclude Include="..\..\MsgLib\inc\RpcServerManager.h" />
+    <ClInclude Include="..\..\MsgLib\inc\StaticMethodImplHelper.h" />
+    <ClInclude Include="..\..\netlib\inc\ByteOrder.h" />
+    <ClInclude Include="..\..\netlib\inc\ClientSession.h" />
+    <ClInclude Include="..\..\netlib\inc\INetHandler.h" />
+    <ClInclude Include="..\..\netlib\inc\INetReactor.h" />
+    <ClInclude Include="..\..\netlib\inc\ISession.h" />
+    <ClInclude Include="..\..\netlib\inc\MsgHandler.h" />
+    <ClInclude Include="..\..\netlib\inc\NetBase.h" />
+    <ClInclude Include="..\..\netlib\inc\NetHandlerClient.h" />
+    <ClInclude Include="..\..\netlib\inc\NetHandlerListener.h" />
+    <ClInclude Include="..\..\netlib\inc\NetHandlerServer.h" />
+    <ClInclude Include="..\..\netlib\inc\NetHandlerTransit.h" />
+    <ClInclude Include="..\..\netlib\inc\NetHandlerZMQClient.h" />
+    <ClInclude Include="..\..\netlib\inc\NetHandlerZMQServer.h" />
+    <ClInclude Include="..\..\netlib\inc\NetHelper.h" />
+    <ClInclude Include="..\..\netlib\inc\NetInterface.h" />
+    <ClInclude Include="..\..\netlib\inc\NetReactorEpoll.h" />
+    <ClInclude Include="..\..\netlib\inc\NetReactorRakNet.h" />
+    <ClInclude Include="..\..\netlib\inc\NetReactorSelect.h" />
+    <ClInclude Include="..\..\netlib\inc\NetReactorZMQ.h" />
+    <ClInclude Include="..\..\netlib\inc\RakNetUDPManager.h" />
+    <ClInclude Include="..\..\netlib\inc\ServerSession.h" />
+    <ClInclude Include="..\..\ThreadPoolLib\inc\ThreadCommon.h" />
+    <ClInclude Include="..\..\ThreadPoolLib\inc\ThreadContext.h" />
+    <ClInclude Include="..\..\ThreadPoolLib\inc\ThreadPool.h" />
+    <ClInclude Include="..\..\ThreadPoolLib\inc\ThreadPoolInterface.h" />
+    <ClInclude Include="..\..\ThreadPoolLib\inc\ThreadState.h" />
+    <ClInclude Include="..\..\ThreadPoolLib\inc\ThreadTask.h" />
+    <ClInclude Include="..\..\TimerLib\inc\GlobalTimer.h" />
+    <ClInclude Include="..\..\TimerLib\inc\GlobalTimerTask.h" />
+    <ClInclude Include="..\..\TimerLib\inc\Heap.h" />
+    <ClInclude Include="..\..\TimerLib\inc\InternalTimerTask.h" />
+    <ClInclude Include="..\..\TimerLib\inc\IStrategy.h" />
+    <ClInclude Include="..\..\TimerLib\inc\MinHeap.h" />
+    <ClInclude Include="..\..\TimerLib\inc\MinHeapTimer.h" />
+    <ClInclude Include="..\..\TimerLib\inc\Node.h" />
+    <ClInclude Include="..\..\TimerLib\inc\TimeCount.h" />
+    <ClInclude Include="..\..\TimerLib\inc\TimerClassTypeID.h" />
+    <ClInclude Include="..\..\TimerLib\inc\TimerCommon.h" />
+    <ClInclude Include="..\..\TimerLib\inc\TimerHelp.h" />
+    <ClInclude Include="..\..\TimerLib\inc\TimerInterface.h" />
+    <ClInclude Include="..\..\TimerLib\inc\TimerNode.h" />
+    <ClInclude Include="..\..\TimerLib\inc\TimerTask.h" />
+    <ClInclude Include="..\..\XMLLib\inc\xml.h" />
+    <ClInclude Include="..\..\XMLLib\inc\XMLValue.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Common\CircleBuffer.cpp" />
+    <ClCompile Include="..\..\Common\Common.cpp" />
+    <ClCompile Include="..\..\common\LibCore.cpp" />
+    <ClCompile Include="..\..\LogLib\src\GLogAdaptee.cpp" />
+    <ClCompile Include="..\..\LogLib\src\Log4CPlusAdaptee.cpp" />
+    <ClCompile Include="..\..\LogLib\src\Log4CppAdaptee.cpp" />
+    <ClCompile Include="..\..\LogLib\src\LogInterface.cpp" />
+    <ClCompile Include="..\..\MsgLib\src\GenMsgHelper.cpp" />
+    <ClCompile Include="..\..\MsgLib\src\InnerMsg.cpp" />
+    <ClCompile Include="..\..\MsgLib\src\InternalMsgTask.cpp" />
+    <ClCompile Include="..\..\MsgLib\src\MsgDispatcher.cpp" />
+    <ClCompile Include="..\..\MsgLib\src\MsgQueue.cpp" />
+    <ClCompile Include="..\..\MsgLib\src\NetHandlerRpcListener.cpp" />
+    <ClCompile Include="..\..\MsgLib\src\ObjectMsgCall.cpp" />
+    <ClCompile Include="..\..\MsgLib\src\Parameter.cpp" />
+    <ClCompile Include="..\..\MsgLib\src\Parameters.cpp" />
+    <ClCompile Include="..\..\MsgLib\src\RcMsgHelper.cpp" />
+    <ClCompile Include="..\..\MsgLib\src\RemoteRpcClient.cpp" />
+    <ClCompile Include="..\..\MsgLib\src\RemoteRpcServer.cpp" />
+    <ClCompile Include="..\..\MsgLib\src\RpcBase.cpp" />
+    <ClCompile Include="..\..\MsgLib\src\RpcClientManager.cpp" />
+    <ClCompile Include="..\..\MsgLib\src\RpcInterface.cpp" />
+    <ClCompile Include="..\..\MsgLib\src\RpcManager.cpp" />
+    <ClCompile Include="..\..\MsgLib\src\RpcMsgCall.cpp" />
+    <ClCompile Include="..\..\MsgLib\src\RpcServerManager.cpp" />
+    <ClCompile Include="..\..\netlib\src\ISession.cpp" />
+    <ClCompile Include="..\..\netlib\src\MsgHandler.cpp" />
+    <ClCompile Include="..\..\netlib\src\NetHandlerClient.cpp" />
+    <ClCompile Include="..\..\netlib\src\NetHandlerListener.cpp" />
+    <ClCompile Include="..\..\netlib\src\NetHandlerServer.cpp" />
+    <ClCompile Include="..\..\netlib\src\NetHandlerTransit.cpp" />
+    <ClCompile Include="..\..\netlib\src\NetHandlerZMQClient.cpp" />
+    <ClCompile Include="..\..\netlib\src\NetHandlerZMQServer.cpp" />
+    <ClCompile Include="..\..\netlib\src\NetHelper.cpp" />
+    <ClCompile Include="..\..\netlib\src\NetInterface.cpp" />
+    <ClCompile Include="..\..\netlib\src\NetReactorEpoll.cpp" />
+    <ClCompile Include="..\..\netlib\src\NetReactorSelect.cpp" />
+    <ClCompile Include="..\..\netlib\src\NetReactorZMQ.cpp" />
+    <ClCompile Include="..\..\netlib\src\RakNetUDPManager.cpp" />
+    <ClCompile Include="..\..\ThreadPoolLib\src\ThreadPool.cpp" />
+    <ClCompile Include="..\..\ThreadPoolLib\src\ThreadTask.cpp" />
+    <ClCompile Include="..\..\TimerLib\src\GlobalTimer.cpp" />
+    <ClCompile Include="..\..\TimerLib\src\GlobalTimerTask.cpp" />
+    <ClCompile Include="..\..\TimerLib\src\InternalTimerTask.cpp" />
+    <ClCompile Include="..\..\TimerLib\src\TimeCount.cpp" />
+    <ClCompile Include="..\..\TimerLib\src\TimerHelp.cpp" />
+    <ClCompile Include="..\..\TimerLib\src\TimerInterface.cpp" />
+    <ClCompile Include="..\..\TimerLib\src\TimerNode.cpp" />
+    <ClCompile Include="..\..\TimerLib\src\TimerTask.cpp" />
+    <ClCompile Include="..\..\XMLLib\src\xml.cpp" />
+    <ClCompile Include="dllmain.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="LibCore.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

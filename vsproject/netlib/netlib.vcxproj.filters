@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{192491bd-2e2c-4feb-b57e-77d20d82a6b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc">
+      <UniqueIdentifier>{5f3155c8-c036-4b23-ba6a-1bdc8be21e6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{fc0350e4-64be-4730-a8a0-2d3223137060}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\netlib\src\MsgHandler.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\netlib\src\NetInterface.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\netlib\src\NetReactorSelect.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\netlib\src\RakNetUDPManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\netlib\src\NetReactorEpoll.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\netlib\src\NetHelper.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\netlib\src\NetHandlerListener.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\netlib\src\NetHandlerClient.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\netlib\src\NetHandlerTransit.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\CircleBuffer.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\netlib\src\NetHandlerServer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\netlib\src\ISession.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Common\MsgWrapper.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\NetCommon.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\MsgProcess.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netlib\inc\INetHandler.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netlib\inc\INetReactor.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netlib\inc\ISession.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netlib\inc\MsgHandler.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netlib\inc\NetBase.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netlib\inc\NetInterface.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netlib\inc\NetReactorEpoll.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netlib\inc\NetReactorSelect.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netlib\inc\RakNetUDPManager.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netlib\inc\NetHandlerListener.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netlib\inc\NetHelper.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netlib\inc\NetHandlerClient.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netlib\inc\NetHandlerTransit.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\CircleBuffer.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netlib\inc\NetReactorRakNet.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netlib\inc\NetHandlerServer.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netlib\inc\ServerSession.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netlib\inc\ByteOrder.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\BoostHelper.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netlib\inc\NetHandlerRpcListener.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netlib\inc\ClientSession.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
