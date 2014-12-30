@@ -16,24 +16,6 @@
     <Filter Include="Common">
       <UniqueIdentifier>{494b0b41-fd40-49ee-a185-ceb2ca09d941}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ThreadPool">
-      <UniqueIdentifier>{bd723b83-c67d-4964-a809-1abc3b92304a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ThreadPool\inc">
-      <UniqueIdentifier>{cd135997-43f6-48ba-8cee-aeda2d249cc1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ThreadPool\src">
-      <UniqueIdentifier>{9a2db0b0-bfdc-4e47-9edb-f8c75793227b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Timer">
-      <UniqueIdentifier>{ff1f8679-c4d0-446d-8010-388dc5ff75fd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Timer\inc">
-      <UniqueIdentifier>{75a5da81-e7ec-4b8c-a2ff-fb2da7af55c6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Timer\src">
-      <UniqueIdentifier>{cc00d386-6638-4b74-aec4-58ba5d8432c7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Log">
       <UniqueIdentifier>{06635136-a747-41e4-8494-2ac43a3fd11f}</UniqueIdentifier>
     </Filter>
@@ -52,23 +34,41 @@
     <Filter Include="MsgLib\src">
       <UniqueIdentifier>{7c164ec2-f97b-4705-8875-f93cbca3421d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="XML">
-      <UniqueIdentifier>{2cb40869-3c38-4c3f-8c60-9c6c26e3b7a7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="XML\inc">
-      <UniqueIdentifier>{cb2946fe-e1e8-4e95-8dfc-66b831ec4829}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="XML\src">
-      <UniqueIdentifier>{3a9f1f07-7193-4c72-baad-97bb14de3ccd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Net">
+    <Filter Include="NetLib">
       <UniqueIdentifier>{df44ca66-4187-477c-80a0-4cb5442e83ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Net\inc">
+    <Filter Include="NetLib\inc">
       <UniqueIdentifier>{27419441-2c66-4b0a-b476-5d4fc7624834}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Net\src">
+    <Filter Include="NetLib\src">
       <UniqueIdentifier>{13a29ec1-57cc-49b6-91e6-541d67c880cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThreadPoolLib">
+      <UniqueIdentifier>{bd723b83-c67d-4964-a809-1abc3b92304a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThreadPoolLib\inc">
+      <UniqueIdentifier>{cd135997-43f6-48ba-8cee-aeda2d249cc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThreadPoolLib\src">
+      <UniqueIdentifier>{9a2db0b0-bfdc-4e47-9edb-f8c75793227b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TimerLib">
+      <UniqueIdentifier>{ff1f8679-c4d0-446d-8010-388dc5ff75fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TimerLib\inc">
+      <UniqueIdentifier>{75a5da81-e7ec-4b8c-a2ff-fb2da7af55c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TimerLib\src">
+      <UniqueIdentifier>{cc00d386-6638-4b74-aec4-58ba5d8432c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XMLLib">
+      <UniqueIdentifier>{2cb40869-3c38-4c3f-8c60-9c6c26e3b7a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XMLLib\inc">
+      <UniqueIdentifier>{cb2946fe-e1e8-4e95-8dfc-66b831ec4829}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XMLLib\src">
+      <UniqueIdentifier>{3a9f1f07-7193-4c72-baad-97bb14de3ccd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -81,296 +81,302 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\BoostHelper.h">
+    <ClInclude Include="..\..\LibCore\Common\BoostHelper.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\CircleBuffer.h">
+    <ClInclude Include="..\..\LibCore\Common\CircleBuffer.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\ClassTypeID.h">
+    <ClInclude Include="..\..\LibCore\Common\ClassTypeID.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\ClassTypeInterface.h">
+    <ClInclude Include="..\..\LibCore\Common\ClassTypeInterface.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\Common.h">
+    <ClInclude Include="..\..\LibCore\Common\Common.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\CommonAssert.h">
+    <ClInclude Include="..\..\LibCore\Common\CommonAssert.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\MsgProcess.h">
+    <ClInclude Include="..\..\LibCore\Common\ErrorCode.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\MsgWrapper.h">
+    <ClInclude Include="..\..\LibCore\Common\LibCore.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\NetCommon.h">
+    <ClInclude Include="..\..\LibCore\Common\MsgProcess.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\Platform.h">
+    <ClInclude Include="..\..\LibCore\Common\MsgWrapper.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\SafeVariable.h">
+    <ClInclude Include="..\..\LibCore\Common\NetCommon.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\ThreadLock.h">
+    <ClInclude Include="..\..\LibCore\Common\options.pb.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ThreadPoolLib\inc\ThreadCommon.h">
-      <Filter>ThreadPool\inc</Filter>
+    <ClInclude Include="..\..\LibCore\Common\Platform.h">
+      <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ThreadPoolLib\inc\ThreadTask.h">
-      <Filter>ThreadPool\inc</Filter>
+    <ClInclude Include="..\..\LibCore\Common\SafeVariable.h">
+      <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ThreadPoolLib\inc\ThreadContext.h">
-      <Filter>ThreadPool\inc</Filter>
+    <ClInclude Include="..\..\LibCore\Common\ThreadLock.h">
+      <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ThreadPoolLib\inc\ThreadPool.h">
-      <Filter>ThreadPool\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ThreadPoolLib\inc\ThreadPoolInterface.h">
-      <Filter>ThreadPool\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ThreadPoolLib\inc\ThreadState.h">
-      <Filter>ThreadPool\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\TimerLib\inc\GlobalTimer.h">
-      <Filter>Timer\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\TimerLib\inc\GlobalTimerTask.h">
-      <Filter>Timer\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\TimerLib\inc\Heap.h">
-      <Filter>Timer\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\TimerLib\inc\InternalTimerTask.h">
-      <Filter>Timer\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\TimerLib\inc\IStrategy.h">
-      <Filter>Timer\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\TimerLib\inc\MinHeap.h">
-      <Filter>Timer\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\TimerLib\inc\MinHeapTimer.h">
-      <Filter>Timer\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\TimerLib\inc\Node.h">
-      <Filter>Timer\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\TimerLib\inc\TimeCount.h">
-      <Filter>Timer\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\TimerLib\inc\TimerClassTypeID.h">
-      <Filter>Timer\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\TimerLib\inc\TimerCommon.h">
-      <Filter>Timer\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\TimerLib\inc\TimerHelp.h">
-      <Filter>Timer\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\TimerLib\inc\TimerInterface.h">
-      <Filter>Timer\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\TimerLib\inc\TimerNode.h">
-      <Filter>Timer\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\TimerLib\inc\TimerTask.h">
-      <Filter>Timer\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LogLib\inc\GLogAdaptee.h">
+    <ClInclude Include="..\..\LibCore\LogLib\inc\GLogAdaptee.h">
       <Filter>Log\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LogLib\inc\LogInterface.h">
+    <ClInclude Include="..\..\LibCore\LogLib\inc\Log.h">
       <Filter>Log\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LogLib\inc\Log.h">
+    <ClInclude Include="..\..\LibCore\LogLib\inc\Log4CPlusAdaptee.h">
       <Filter>Log\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LogLib\inc\Log4CPlusAdaptee.h">
+    <ClInclude Include="..\..\LibCore\LogLib\inc\Log4CppAdaptee.h">
       <Filter>Log\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LogLib\inc\Log4CppAdaptee.h">
+    <ClInclude Include="..\..\LibCore\LogLib\inc\LogAdapter.h">
       <Filter>Log\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LogLib\inc\LogAdapter.h">
+    <ClInclude Include="..\..\LibCore\LogLib\inc\LogCommon.h">
       <Filter>Log\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LogLib\inc\LogCommon.h">
+    <ClInclude Include="..\..\LibCore\LogLib\inc\LogInterface.h">
       <Filter>Log\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\XMLLib\inc\xml.h">
-      <Filter>XML\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\XMLLib\inc\XMLValue.h">
-      <Filter>XML\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\ByteOrder.h">
-      <Filter>Net\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\ClientSession.h">
-      <Filter>Net\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\INetHandler.h">
-      <Filter>Net\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\INetReactor.h">
-      <Filter>Net\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\ISession.h">
-      <Filter>Net\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\MsgHandler.h">
-      <Filter>Net\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\NetBase.h">
-      <Filter>Net\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\NetHandlerClient.h">
-      <Filter>Net\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\NetHandlerListener.h">
-      <Filter>Net\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\NetHandlerServer.h">
-      <Filter>Net\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\NetHandlerTransit.h">
-      <Filter>Net\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\NetHelper.h">
-      <Filter>Net\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\NetInterface.h">
-      <Filter>Net\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\NetReactorEpoll.h">
-      <Filter>Net\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\NetReactorRakNet.h">
-      <Filter>Net\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\NetReactorSelect.h">
-      <Filter>Net\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\RakNetUDPManager.h">
-      <Filter>Net\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\ServerSession.h">
-      <Filter>Net\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\Chunk.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\GenerateMsgParams.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\GenMsgHelper.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\GenMsgHelper.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\ICallableObject.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\ICallableObject.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\InnerMsg.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\InnerMsg.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\InternalMsgTask.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\InternalMsgTask.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\IRpcMsgCallableObject.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\IRpcListener.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\MethodImpl.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\IRpcMsgCallableObject.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\MsgCommon.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\MethodImpl.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\MsgDispatcher.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgCommon.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\MsgProxy.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgDispatcher.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\MsgQueue.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgProxy.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\MsgTimerNode.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgQueue.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\NetHandlerRpcListener.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgTimerNode.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\ObjectMethodImplHelper.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\NetHandlerRpcListener.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\ObjectMsgCall.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\Object.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\Parameter.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\ObjectMethodImplHelper.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\ParameterHelper.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\ObjectMsgCall.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\Parameters.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\Parameter.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\ParaseMsgCall.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\ParameterHelper.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\Ping.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\Parameters.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\RemoteRpcClient.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\ParaseMsgCall.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\RemoteRpcServer.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\Ping.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\RpcBase.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\RemoteRpcClient.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\RpcClientManager.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\RemoteRpcServer.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\RpcInterface.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcBase.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\RpcManager.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcClientManager.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\RPCMsgCall.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcInterface.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\RpcServerManager.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcManager.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\StaticMethodImplHelper.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\RPCMsgCall.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\ErrorCode.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\common\LibCore.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\RpcMsgHelper.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcMsgHelper.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\NetReactorZMQ.h">
-      <Filter>Net\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\NetHandlerZMQClient.h">
-      <Filter>Net\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\Object.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcServerManager.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MsgLib\inc\IRpcListener.h">
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\StaticMethodImplHelper.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\netlib\inc\NetHandlerZMQServer.h">
-      <Filter>Net\inc</Filter>
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\Chunk.h">
+      <Filter>MsgLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\ClientSession.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\INetHandler.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\INetReactor.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\ISession.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\MsgHandler.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetBase.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerClient.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerListener.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerServer.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerTransit.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerZMQClient.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerZMQServer.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHelper.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetInterface.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorEpoll.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorRakNet.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorSelect.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorZMQ.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\RakNetUDPManager.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\ServerSession.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\ByteOrder.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\ThreadPoolLib\inc\ThreadCommon.h">
+      <Filter>ThreadPoolLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\ThreadPoolLib\inc\ThreadContext.h">
+      <Filter>ThreadPoolLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\ThreadPoolLib\inc\ThreadPool.h">
+      <Filter>ThreadPoolLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\ThreadPoolLib\inc\ThreadPoolInterface.h">
+      <Filter>ThreadPoolLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\ThreadPoolLib\inc\ThreadState.h">
+      <Filter>ThreadPoolLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\ThreadPoolLib\inc\ThreadTask.h">
+      <Filter>ThreadPoolLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\TimerLib\inc\GlobalTimer.h">
+      <Filter>TimerLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\TimerLib\inc\GlobalTimerTask.h">
+      <Filter>TimerLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\TimerLib\inc\Heap.h">
+      <Filter>TimerLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\TimerLib\inc\InternalTimerTask.h">
+      <Filter>TimerLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\TimerLib\inc\IStrategy.h">
+      <Filter>TimerLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\TimerLib\inc\MinHeap.h">
+      <Filter>TimerLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\TimerLib\inc\MinHeapTimer.h">
+      <Filter>TimerLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\TimerLib\inc\Node.h">
+      <Filter>TimerLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\TimerLib\inc\TimeCount.h">
+      <Filter>TimerLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\TimerLib\inc\TimerClassTypeID.h">
+      <Filter>TimerLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\TimerLib\inc\TimerCommon.h">
+      <Filter>TimerLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\TimerLib\inc\TimerHelp.h">
+      <Filter>TimerLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\TimerLib\inc\TimerInterface.h">
+      <Filter>TimerLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\TimerLib\inc\TimerNode.h">
+      <Filter>TimerLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\TimerLib\inc\TimerTask.h">
+      <Filter>TimerLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\XMLLib\inc\XMLValue.h">
+      <Filter>XMLLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\XMLLib\inc\XML.h">
+      <Filter>XMLLib\inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -383,155 +389,158 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Common\CircleBuffer.cpp">
+    <ClCompile Include="..\..\LibCore\Common\CircleBuffer.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\LogLib\src\GLogAdaptee.cpp">
-      <Filter>Log\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LogLib\src\Log4CPlusAdaptee.cpp">
-      <Filter>Log\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LogLib\src\Log4CppAdaptee.cpp">
-      <Filter>Log\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LogLib\src\LogInterface.cpp">
-      <Filter>Log\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\TimerLib\src\GlobalTimer.cpp">
-      <Filter>Timer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\TimerLib\src\GlobalTimerTask.cpp">
-      <Filter>Timer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\TimerLib\src\InternalTimerTask.cpp">
-      <Filter>Timer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\TimerLib\src\TimeCount.cpp">
-      <Filter>Timer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\TimerLib\src\TimerHelp.cpp">
-      <Filter>Timer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\TimerLib\src\TimerInterface.cpp">
-      <Filter>Timer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\TimerLib\src\TimerNode.cpp">
-      <Filter>Timer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\TimerLib\src\TimerTask.cpp">
-      <Filter>Timer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\ThreadPoolLib\src\ThreadPool.cpp">
-      <Filter>ThreadPool\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\ThreadPoolLib\src\ThreadTask.cpp">
-      <Filter>ThreadPool\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\XMLLib\src\xml.cpp">
-      <Filter>XML\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\netlib\src\ISession.cpp">
-      <Filter>Net\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\netlib\src\MsgHandler.cpp">
-      <Filter>Net\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\netlib\src\NetHandlerClient.cpp">
-      <Filter>Net\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\netlib\src\NetHandlerListener.cpp">
-      <Filter>Net\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\netlib\src\NetHandlerServer.cpp">
-      <Filter>Net\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\netlib\src\NetHandlerTransit.cpp">
-      <Filter>Net\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\netlib\src\NetHelper.cpp">
-      <Filter>Net\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\netlib\src\NetInterface.cpp">
-      <Filter>Net\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\netlib\src\NetReactorEpoll.cpp">
-      <Filter>Net\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\netlib\src\NetReactorSelect.cpp">
-      <Filter>Net\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\netlib\src\RakNetUDPManager.cpp">
-      <Filter>Net\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Common\Common.cpp">
+    <ClCompile Include="..\..\LibCore\Common\Common.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\MsgLib\src\Parameter.cpp">
-      <Filter>MsgLib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\MsgLib\src\Parameters.cpp">
-      <Filter>MsgLib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\common\LibCore.cpp">
+    <ClCompile Include="..\..\LibCore\Common\LibCore.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\MsgLib\src\RcMsgHelper.cpp">
+    <ClCompile Include="..\..\LibCore\Common\options.pb.cc">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\LogLib\src\GLogAdaptee.cpp">
+      <Filter>Log\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\LogLib\src\Log4CPlusAdaptee.cpp">
+      <Filter>Log\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\LogLib\src\Log4CppAdaptee.cpp">
+      <Filter>Log\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\LogLib\src\LogInterface.cpp">
+      <Filter>Log\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\MsgLib\src\GenMsgHelper.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\netlib\src\NetReactorZMQ.cpp">
-      <Filter>Net\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\netlib\src\NetHandlerZMQClient.cpp">
-      <Filter>Net\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\MsgLib\src\ObjectMsgCall.cpp">
+    <ClCompile Include="..\..\LibCore\MsgLib\src\InnerMsg.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\MsgLib\src\RpcBase.cpp">
+    <ClCompile Include="..\..\LibCore\MsgLib\src\InternalMsgTask.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\MsgLib\src\RpcManager.cpp">
+    <ClCompile Include="..\..\LibCore\MsgLib\src\MsgDispatcher.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\MsgLib\src\RpcInterface.cpp">
+    <ClCompile Include="..\..\LibCore\MsgLib\src\MsgQueue.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\MsgLib\src\NetHandlerRpcListener.cpp">
+    <ClCompile Include="..\..\LibCore\MsgLib\src\NetHandlerRpcListener.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\MsgLib\src\RemoteRpcClient.cpp">
+    <ClCompile Include="..\..\LibCore\MsgLib\src\ObjectMsgCall.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\MsgLib\src\RemoteRpcServer.cpp">
+    <ClCompile Include="..\..\LibCore\MsgLib\src\Parameter.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\MsgLib\src\RpcClientManager.cpp">
+    <ClCompile Include="..\..\LibCore\MsgLib\src\Parameters.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\MsgLib\src\RpcServerManager.cpp">
+    <ClCompile Include="..\..\LibCore\MsgLib\src\RcMsgHelper.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\MsgLib\src\RpcMsgCall.cpp">
+    <ClCompile Include="..\..\LibCore\MsgLib\src\RemoteRpcClient.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\MsgLib\src\InternalMsgTask.cpp">
+    <ClCompile Include="..\..\LibCore\MsgLib\src\RemoteRpcServer.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\MsgLib\src\MsgQueue.cpp">
+    <ClCompile Include="..\..\LibCore\MsgLib\src\RpcBase.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\MsgLib\src\InnerMsg.cpp">
+    <ClCompile Include="..\..\LibCore\MsgLib\src\RpcClientManager.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\MsgLib\src\MsgDispatcher.cpp">
+    <ClCompile Include="..\..\LibCore\MsgLib\src\RpcInterface.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\MsgLib\src\GenMsgHelper.cpp">
+    <ClCompile Include="..\..\LibCore\MsgLib\src\RpcManager.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\netlib\src\NetHandlerZMQServer.cpp">
-      <Filter>Net\src</Filter>
+    <ClCompile Include="..\..\LibCore\MsgLib\src\RpcMsgCall.cpp">
+      <Filter>MsgLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\MsgLib\src\RpcServerManager.cpp">
+      <Filter>MsgLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\MsgHandler.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerClient.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerListener.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerServer.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerTransit.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerZMQClient.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerZMQServer.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetHelper.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetInterface.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorEpoll.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorSelect.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorZMQ.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\RakNetUDPManager.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\ISession.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\ThreadPoolLib\src\ThreadPool.cpp">
+      <Filter>ThreadPoolLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\ThreadPoolLib\src\ThreadTask.cpp">
+      <Filter>ThreadPoolLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\TimerLib\src\GlobalTimer.cpp">
+      <Filter>TimerLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\TimerLib\src\GlobalTimerTask.cpp">
+      <Filter>TimerLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\TimerLib\src\InternalTimerTask.cpp">
+      <Filter>TimerLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\TimerLib\src\TimeCount.cpp">
+      <Filter>TimerLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\TimerLib\src\TimerHelp.cpp">
+      <Filter>TimerLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\TimerLib\src\TimerInterface.cpp">
+      <Filter>TimerLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\TimerLib\src\TimerNode.cpp">
+      <Filter>TimerLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\TimerLib\src\TimerTask.cpp">
+      <Filter>TimerLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\XMLLib\src\XML.cpp">
+      <Filter>XMLLib\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

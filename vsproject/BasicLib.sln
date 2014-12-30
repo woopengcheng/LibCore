@@ -33,24 +33,25 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TimerLib", "TimerLib\TimerL
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{7C1DCBD7-A74F-4672-855F-153455905EB6}"
 	ProjectSection(SolutionItems) = preProject
-		..\Common\BoostHelper.h = ..\Common\BoostHelper.h
-		..\Common\CircleBuffer.cpp = ..\Common\CircleBuffer.cpp
-		..\Common\CircleBuffer.h = ..\Common\CircleBuffer.h
-		..\Common\ClassTypeID.h = ..\Common\ClassTypeID.h
-		..\Common\ClassTypeInterface.h = ..\Common\ClassTypeInterface.h
-		..\Common\Common.h = ..\Common\Common.h
-		..\Common\CommonAssert.h = ..\Common\CommonAssert.h
-		..\Common\MsgProcess.h = ..\Common\MsgProcess.h
-		..\Common\MsgWrapper.h = ..\Common\MsgWrapper.h
-		..\Common\NetCommon.h = ..\Common\NetCommon.h
-		..\Common\options.pb.cc = ..\Common\options.pb.cc
-		..\Common\options.pb.h = ..\Common\options.pb.h
-		..\..\..\BaiduYunDownload\Knight_server\vsprojects\Platform.h = ..\..\..\BaiduYunDownload\Knight_server\vsprojects\Platform.h
-		..\Common\Platform.h = ..\Common\Platform.h
-		..\Common\pw_xml.cpp = ..\Common\pw_xml.cpp
-		..\Common\pw_xml.h = ..\Common\pw_xml.h
-		..\Common\SafeVariable.h = ..\Common\SafeVariable.h
-		..\Common\ThreadLock.h = ..\Common\ThreadLock.h
+		..\LibCore\Common\BoostHelper.h = ..\LibCore\Common\BoostHelper.h
+		..\LibCore\Common\CircleBuffer.cpp = ..\LibCore\Common\CircleBuffer.cpp
+		..\LibCore\Common\CircleBuffer.h = ..\LibCore\Common\CircleBuffer.h
+		..\LibCore\Common\ClassTypeID.h = ..\LibCore\Common\ClassTypeID.h
+		..\LibCore\Common\ClassTypeInterface.h = ..\LibCore\Common\ClassTypeInterface.h
+		..\LibCore\Common\Common.cpp = ..\LibCore\Common\Common.cpp
+		..\LibCore\Common\Common.h = ..\LibCore\Common\Common.h
+		..\LibCore\Common\CommonAssert.h = ..\LibCore\Common\CommonAssert.h
+		..\LibCore\Common\ErrorCode.h = ..\LibCore\Common\ErrorCode.h
+		..\LibCore\Common\LibCore.cpp = ..\LibCore\Common\LibCore.cpp
+		..\LibCore\Common\LibCore.h = ..\LibCore\Common\LibCore.h
+		..\LibCore\Common\MsgProcess.h = ..\LibCore\Common\MsgProcess.h
+		..\LibCore\Common\MsgWrapper.h = ..\LibCore\Common\MsgWrapper.h
+		..\LibCore\Common\NetCommon.h = ..\LibCore\Common\NetCommon.h
+		..\LibCore\Common\options.pb.cc = ..\LibCore\Common\options.pb.cc
+		..\LibCore\Common\options.pb.h = ..\LibCore\Common\options.pb.h
+		..\LibCore\Common\Platform.h = ..\LibCore\Common\Platform.h
+		..\LibCore\Common\SafeVariable.h = ..\LibCore\Common\SafeVariable.h
+		..\LibCore\Common\ThreadLock.h = ..\LibCore\Common\ThreadLock.h
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestTimer", "TestTimer\TestTimer.vcxproj", "{9C8E3259-1358-4496-BD76-BDF68B8EBAA4}"
@@ -66,8 +67,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestRpcClientMsgLib", "TestRpcClientMsgLib\TestRpcClientMsgLib.vcxproj", "{20163C74-F306-4FCF-9351-4185F006C4A7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestRpcServerMsgLib", "TestRpcServerMsgLib\TestRpcServerMsgLib.vcxproj", "{4EDEBA82-6667-4AAE-875B-C926B02CC6FD}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GenRpcOrLocalMsg", "GenRpcOrLocalMsg\GenRpcOrLocalMsg.vcxproj", "{A2551785-2870-4B70-BE46-8A909F8F62A0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MysqlLib", "MysqlLib\MysqlLib.vcxproj", "{B2C7C36A-C741-4973-8125-51D8C6249A86}"
 EndProject
@@ -518,31 +517,6 @@ Global
 		{4EDEBA82-6667-4AAE-875B-C926B02CC6FD}.WithOpenPGM|Win32.ActiveCfg = Release|x64
 		{4EDEBA82-6667-4AAE-875B-C926B02CC6FD}.WithOpenPGM|x64.ActiveCfg = Release|x64
 		{4EDEBA82-6667-4AAE-875B-C926B02CC6FD}.WithOpenPGM|x64.Build.0 = Release|x64
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.Debug|Win32.ActiveCfg = Debug|Win32
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.Debug|Win32.Build.0 = Debug|Win32
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.Debug|x64.ActiveCfg = Debug|Win32
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.DLL_Debug_x64|Win32.ActiveCfg = DLL_Debug_x64|Win32
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.DLL_Debug_x64|Win32.Build.0 = DLL_Debug_x64|Win32
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.DLL_Debug_x64|x64.ActiveCfg = DLL_Debug_x64|x64
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.DLL_Debug_x64|x64.Build.0 = DLL_Debug_x64|x64
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.LibDebug|Win32.ActiveCfg = Debug|Win32
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.LibDebug|Win32.Build.0 = Debug|Win32
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.LibDebug|x64.ActiveCfg = LibDebug|x64
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.LibDebug|x64.Build.0 = LibDebug|x64
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.Release|Win32.ActiveCfg = Release|Win32
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.Release|Win32.Build.0 = Release|Win32
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.Release|x64.ActiveCfg = Release|Win32
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.StaticDebug|Win32.ActiveCfg = Debug|Win32
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.StaticDebug|Win32.Build.0 = Debug|Win32
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.StaticDebug|x64.ActiveCfg = Debug|x64
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.StaticDebug|x64.Build.0 = Debug|x64
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.StaticRelease|Win32.ActiveCfg = Release|Win32
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.StaticRelease|Win32.Build.0 = Release|Win32
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.StaticRelease|x64.ActiveCfg = Release|x64
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.StaticRelease|x64.Build.0 = Release|x64
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.WithOpenPGM|Win32.ActiveCfg = Release|x64
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.WithOpenPGM|x64.ActiveCfg = Release|x64
-		{A2551785-2870-4B70-BE46-8A909F8F62A0}.WithOpenPGM|x64.Build.0 = Release|x64
 		{B2C7C36A-C741-4973-8125-51D8C6249A86}.Debug|Win32.ActiveCfg = Debug|Win32
 		{B2C7C36A-C741-4973-8125-51D8C6249A86}.Debug|Win32.Build.0 = Debug|Win32
 		{B2C7C36A-C741-4973-8125-51D8C6249A86}.Debug|x64.ActiveCfg = Debug|Win32
@@ -1008,7 +982,6 @@ Global
 		{4EDEBA82-6667-4AAE-875B-C926B02CC6FD} = {E3C0EE73-B786-4F6F-BF0B-FC4D2E276EE9}
 		{27451ED8-E4B6-48DE-AD77-BD5D3D864930} = {E3C0EE73-B786-4F6F-BF0B-FC4D2E276EE9}
 		{3C60EF6C-5272-46FC-8EC3-964F39552FDE} = {E0544AB3-153F-4BF6-A211-15215DE2257A}
-		{A2551785-2870-4B70-BE46-8A909F8F62A0} = {E0544AB3-153F-4BF6-A211-15215DE2257A}
 		{8FE69B4F-DC0F-4CB7-B563-003794A665A3} = {29B6448E-E2C6-4BA5-B1ED-23CF19DDBA33}
 		{6830E281-FB67-4C0D-8630-1E988381FBF4} = {29B6448E-E2C6-4BA5-B1ED-23CF19DDBA33}
 		{79F94A81-37FC-4B4F-BBB7-654D93529474} = {29B6448E-E2C6-4BA5-B1ED-23CF19DDBA33}
