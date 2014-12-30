@@ -59,11 +59,11 @@
     <ClCompile Include="src\GenerateHelper.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Common\options.pb.cc">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="GenProtobufFiles.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\LibCore\Common\options.pb.cc">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
