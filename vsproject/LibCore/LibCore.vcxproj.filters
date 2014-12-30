@@ -114,9 +114,6 @@
     <ClInclude Include="..\..\LibCore\Common\NetCommon.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\options.pb.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\Common\Platform.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -396,9 +393,6 @@
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\Common\LibCore.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\Common\options.pb.cc">
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\LogLib\src\GLogAdaptee.cpp">

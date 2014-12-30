@@ -205,8 +205,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\deps\tbb\lib\intel64\vc10;$(SolutionDir)..\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\boost\lib;$(SolutionDir)..\deps\raknet\lib\x64;$(SolutionDir)..\deps\pthread\lib\x64;$(SolutionDir)..\deps\zeromq\lib\x64;$(SolutionDir)..\deps\expat\win32\bin\Debug;$(SolutionDir)..\deps\gperftools-2.1\debug;$(SolutionDir)..\deps\glog\Debug;$(SolutionDir)..\deps\log4cpp\msvc10\log4cpp\Debug\x64;$(SolutionDir)..\deps\log4cplus\msvc10\x64\bin.Debug_Unicode</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libzmq_d.lib;ws2_32.lib;tbb_debug.lib;libboost_system-vc100-mt-sgd-1_56.lib;pthreadVC2.lib;Log4Cpp.lib;log4cplusUD.lib;RakNet_VS2010_LibStatic_Debug_x64.lib;libglog.lib;libexpat.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\bin\dll\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\tbb\lib\intel64\vc10;$(SolutionDir)..\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\boost\lib;$(SolutionDir)..\deps\pthread\lib\x64;$(SolutionDir)..\deps\gperftools-2.1\debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libzmq_d.lib;ws2_32.lib;tbb_debug.lib;libboost_system-vc100-mt-sgd-1_56.lib;pthreadVC2.lib;Log4Cpp.lib;log4cplusUD.lib;BasicLib_DLL_DLL_Debug_x64_x64.lib;libglog.lib;expat.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>LIBCMTD;</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <HeapReserveSize>104857600</HeapReserveSize>
@@ -241,7 +241,6 @@
     <ClInclude Include="..\..\LibCore\Common\MsgProcess.h" />
     <ClInclude Include="..\..\LibCore\Common\MsgWrapper.h" />
     <ClInclude Include="..\..\LibCore\Common\NetCommon.h" />
-    <ClInclude Include="..\..\LibCore\Common\options.pb.h" />
     <ClInclude Include="..\..\LibCore\Common\Platform.h" />
     <ClInclude Include="..\..\LibCore\Common\SafeVariable.h" />
     <ClInclude Include="..\..\LibCore\Common\ThreadLock.h" />
@@ -336,7 +335,6 @@
     <ClCompile Include="..\..\LibCore\Common\CircleBuffer.cpp" />
     <ClCompile Include="..\..\LibCore\Common\Common.cpp" />
     <ClCompile Include="..\..\LibCore\Common\LibCore.cpp" />
-    <ClCompile Include="..\..\LibCore\Common\options.pb.cc" />
     <ClCompile Include="..\..\LibCore\LogLib\src\GLogAdaptee.cpp" />
     <ClCompile Include="..\..\LibCore\LogLib\src\Log4CPlusAdaptee.cpp" />
     <ClCompile Include="..\..\LibCore\LogLib\src\Log4CppAdaptee.cpp" />

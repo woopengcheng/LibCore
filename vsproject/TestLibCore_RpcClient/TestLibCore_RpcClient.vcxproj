@@ -216,7 +216,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>USE_LOG4CPLUS;DLL_EXPORTS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)TestLibCore_RpcClient;$(SolutionDir)TestLibCore_RpcClient\rpc;$(SolutionDir)..\XmlLib\inc\;$(SolutionDir)..\MsgLib\rpc;$(SolutionDir)..\MsgLib\inc\;$(SolutionDir)..\LogLib\inc;$(SolutionDir)..\NetLib\inc;$(SolutionDir)..\deps\boost;$(SolutionDir)..\Common;$(SolutionDir)..\TimerLib\inc;$(SolutionDir)..\ThreadPoolLib\inc;$(SolutionDir)../deps/tbb/include;$(SolutionDir)..\deps\pthread\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TestLibCore_RpcClient;$(SolutionDir)TestLibCore_RpcClient\rpc;$(SolutionDir)..\LibCore\XmlLib\inc\;$(SolutionDir)..\LibCore\MsgLib\inc;$(SolutionDir)..\LibCore\MsgLib\rpc;$(SolutionDir)..\LibCore\LogLib\inc;$(SolutionDir)..\LibCore\NetLib\inc;$(SolutionDir)..\LibCore\Common;$(SolutionDir)..\LibCore\TimerLib\inc;$(SolutionDir)..\LibCore\ThreadPoolLib\inc;$(SolutionDir)..\deps\pthread\include;$(SolutionDir)..\deps\tbb\include;$(SolutionDir)..\deps\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
