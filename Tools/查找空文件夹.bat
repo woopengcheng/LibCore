@@ -2,13 +2,14 @@
 setlocal enabledelayedexpansion
 mode con cols=80 lines=25
 set /a sum=0
+cd ..
 echo.
 echo.
 echo 删除当前所在目录及其子目录下10层内的所有空文件夹，以节省空间。
 echo.
 echo       当前工作目录为： %cd%
 echo.
-echo                                                   任意键   开始删除空文件夹
+echo     任意键   开始删除空文件夹
 pause>nul
 echo -----------------------------------------------------------------------------
 
