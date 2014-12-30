@@ -25,7 +25,7 @@ static BOOL  local_call_TestObject(char p1 , INT16 p2, UINT16 p3 , INT32 p4 , UI
 	{ 
 		Msg::RPCMsgCall * pMsg = new(sizeof(Object)*vecTargets.size())Msg::RPCMsgCall;  
 
-		Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10);
+		Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , "TCP://127.0.0.1:8001");
 		Msg::GenMsgHelper::GenMsgCall(*pMsg , 0 , Msg::g_szTestObject_RpcCall , vecTargets , objSrc , usPriority);
 		Msg::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7);
 
