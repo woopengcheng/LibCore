@@ -1,11 +1,10 @@
 #ifndef __net_net_handler_zmq_client_h__
 #define __net_net_handler_zmq_client_h__ 
-extern "C"
-{
-	#include "zmq.h" 
-}
 #include "NetHandlerTransit.h"  
 #include "MsgProcess.h"
+#include "ClientSession.h"
+
+struct zmq_msg_t;
 
 namespace Net 
 {   
@@ -24,6 +23,8 @@ namespace Net
 		virtual INT32  Init( const char* ip,int port );
 		virtual INT32  Cleanup( void );
 		virtual INT32  OnClose( void ); 
+		virtual INT32  Update( void );
+		virtual INT32  OnReconnect( void ){ return TRUE; }
 
 	public:
 		virtual INT32  OnMsgRecving( void ){ return 0; }
@@ -33,12 +34,21 @@ namespace Net
 		 
 	protected:
 		INT32  Connect( const char* ip,int port );
+		BOOL   Reconnect(void) 
+		{ 
+			if (m_pSession && ((Net::ClientSession * )m_pSession)->IsReconnect() && 
+				m_pSession->GetNetState() == NET_STATE_LOSTED && m_pSession->IsClosed())
+			{
+				OnReconnect();
+			}
+			return TRUE;  
+		}
 
 	protected: 
 		MsgProcess *   m_pMsgProcess;
 		zmqSocketPtr   m_pZmqSocket;
 		zmqContextPtr  m_pZmqContext;
-		zmq_msg_t      m_zmqMsg;
+		zmq_msg_t   *  m_pZmqMsg;
 	}; 
 
 	DECLARE_BOOST_POINTERS(NetHandlerZMQClient);

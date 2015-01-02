@@ -251,7 +251,7 @@ namespace Net
 	}
 	  
 	INT32 NetHandlerTransit::Update( void )
-	{  
+	{   
 		return INetHandler::Update();
 	}
 

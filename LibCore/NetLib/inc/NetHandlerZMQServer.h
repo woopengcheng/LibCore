@@ -1,11 +1,9 @@
 #ifndef __net_net_handler_zmq_server_h__
 #define __net_net_handler_zmq_server_h__ 
-extern "C"
-{
-	#include "zmq.h" 
-}
 #include "NetHandlerTransit.h"  
 #include "MsgProcess.h"
+
+struct zmq_msg_t;
 
 namespace Net 
 {   
@@ -34,7 +32,7 @@ namespace Net
 	protected:  
 		zmqSocketPtr   m_pZmqSocket;
 		zmqContextPtr  m_pZmqContext;
-		zmq_msg_t      m_zmqMsg;
+		zmq_msg_t    * m_pZmqMsg;
 	}; 
 
 	DECLARE_BOOST_POINTERS(NetHandlerZMQServer);

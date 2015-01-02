@@ -41,7 +41,9 @@ namespace Msg
 
 	INT32 RemoteRpcServer::Update( void )
 	{ 
+#ifndef USE_ZMQ
 		UpdatePing();
+#endif
 
 		return NetHandlerTransit::Update();
 	}
@@ -90,7 +92,11 @@ namespace Msg
  			m_pRpcManager->CloseNet(GetSession()->GetRemoteName()); 
 		} 
 
+#ifdef USE_ZMQ
+		return NetHandlerZMQServer::OnClose();
+#else 
 		return NetHandlerServer::OnClose();
+#endif
 	}
 
 

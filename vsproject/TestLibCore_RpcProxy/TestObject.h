@@ -32,7 +32,7 @@ namespace Proxy
 		{ 
 			Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*vecTargets.size())Msg::RPCMsgCall;  
 			
-			Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , "TCP://127.0.0.1:8001");
+			Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , "tcp://127.0.0.1:8001");
 			Msg::GenMsgHelper::GenMsgCall(*pMsg , Msg::g_szTestObject_RpcCall , vecTargets , objSrc , usPriority);
 			Msg::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7);
 

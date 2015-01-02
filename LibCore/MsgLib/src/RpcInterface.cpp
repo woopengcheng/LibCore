@@ -7,6 +7,7 @@
 //#include "RpcRegister.h"
 #include "IRpcListener.h"
 #include "NetHelper.h"
+#include "NetReactorZMQ.h"
 
 namespace Msg
 { 
@@ -23,7 +24,11 @@ namespace Msg
 
 		if (!m_pNetReactor)
 		{
+#ifdef USE_ZMQ
+			m_pNetReactor = new Net::NetReactorZMQ; 
+#else
 			m_pNetReactor = new Net::NetReactorSelect; 
+#endif
 			if(-1 == m_pNetReactor->Init())
 			{
 				SAFE_DELETE(m_pNetReactor);
@@ -102,6 +107,7 @@ namespace Msg
 			memcpy(m_szRpcType , strType.c_str() , strType.length()); 
 
 #ifdef USE_ZMQ
+			m_pRpcServerManager->CreateNetHandler(m_szServerName , strAddress.c_str() , m_usServerPort , 0);
 #else
 			NetHandlerRpcListener::NetHandlerRpcListenerPtr pNetHandlerListener(new NetHandlerRpcListener(m_pRpcServerManager , m_pNetReactor , new Net::ISession(strAddress.c_str() , m_usServerPort , str.c_str())));
 			pNetHandlerListener->Init(strAddress.c_str() , m_usServerPort);

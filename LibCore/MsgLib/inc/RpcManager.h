@@ -114,8 +114,8 @@ namespace Msg
 		RpcInterface * GetRpcInterface(){ return m_pRpcInterface; }
 		BOOL   IsRpcInfoVaild(std::string strRpcInfo);
 		SRpcInfo * GetRpcInfo(std::string strRpcInfo);
-		Net::NetHandlerTransitPtr CreateNetHandler( const char * pName , const char * pAddress , const char * pPort , Net::SOCKET socket = 0);
 		Net::NetHandlerTransitPtr CreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::SOCKET socket = 0);
+		Net::NetHandlerTransitPtr CreateNetHandler( const char * pName , const char * pAddress , const char * pPort , Net::SOCKET socket = 0);
 		Net::NetHandlerTransitPtr CreateNetHandler( SRpcInfo & objRpcInfo , Net::SOCKET socket = 0 );
 		 
 	protected: 

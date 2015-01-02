@@ -19,6 +19,7 @@ namespace Msg
 			if(0 == nResult) 
 			{  
 				m_pNetReactor->AddNetHandler(pNetHandlerClient);  
+				pClientSession->SetClosed(FALSE);
 				pClientSession->SetNetState(Net::NET_STATE_CONNECTING);
 				return pNetHandlerClient; 
 			}
@@ -48,7 +49,7 @@ namespace Msg
 				continue;
 			} 
 			objPing.usRemoteRPCPort = m_pRpcInterface->GetServerPort();  
-			memcpy(objPing.szRemoteName , pNet->GetSession()->GetRemoteName() , strlen(pNet->GetSession()->GetRemoteName() + 1));
+			memcpy(objPing.szRemoteName , m_pRpcInterface->GetServerName() , strlen(m_pRpcInterface->GetServerName()) + 1);
 
 			SendMsg(pNet , DEFAULT_RPC_PING_ID , (const char *)(&objPing) , sizeof(objPing) , TRUE); 
 

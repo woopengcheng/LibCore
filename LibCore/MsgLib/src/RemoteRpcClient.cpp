@@ -5,18 +5,30 @@
 
 namespace Msg
 { 
+#ifdef USE_ZMQ 
+	INT32 RemoteRpcClient::Cleanup( void )
+	{
+		return Net::NetHandlerZMQClient::Cleanup();
+	}
+#else
 	INT32 RemoteRpcClient::Cleanup( void )
 	{
 		return Net::NetHandlerClient::Cleanup();
 	}
+#endif
 
 
+#ifdef USE_ZMQ 
 	INT32 RemoteRpcClient::Update( void )
 	{
-		Reconnect();
-		return TRUE;
+		return Net::NetHandlerZMQClient::Update();
 	}
-
+#else
+	INT32 RemoteRpcClient::Update( void )
+	{
+		return Net::NetHandlerClient::Update();
+	}
+#endif 
 
 	INT32 RemoteRpcClient::OnReconnect( void )
 	{   
@@ -46,7 +58,11 @@ namespace Msg
 			m_pRpcManager->CloseNet(GetSession()->GetRemoteName()); 
 		} 
 
+#ifdef USE_ZMQ
+		return NetHandlerZMQClient::OnClose();
+#else 
 		return NetHandlerClient::OnClose();
+#endif
 	}
 
 

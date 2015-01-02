@@ -36,7 +36,7 @@ namespace Net
 
 	INT32 ISession::Init( const char * pAddress ,INT16 usSocktPort , const char * pRemoteName , INT32 nSessionID , SOCKET socket , INT64 llTimeout)
 	{  
-		m_bClosed = FALSE;
+		m_bClosed = TRUE;
 		memcpy(m_szAddress , pAddress , strlen(pAddress) + 1);
 		m_usSocktPort = usSocktPort;  
 		memcpy(m_szRemoteName , pRemoteName , strlen(pRemoteName) + 1);

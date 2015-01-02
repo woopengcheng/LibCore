@@ -93,4 +93,11 @@ namespace Net
 	 {  
 	 }
 
+	 INT32 NetHandlerClient::Update( void )
+	 { 
+		 Reconnect();
+
+		 return NetHandlerTransit::Update();
+	 }
+
 }

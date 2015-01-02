@@ -1,6 +1,11 @@
+extern "C"
+{
+#include "zmq.h" 
+}
 #include "NetHandlerZMQClient.h"
 #include "NetHelper.h"
 #include "INetReactor.h" 
+
 
 namespace Net
 {   
@@ -19,6 +24,11 @@ namespace Net
 			PAssert(0 && "error in zmq_socket", zmq_strerror (errno)); 
 		}
 		m_pZmqSocket  = pSocket; 
+
+		INT32 nTime = 100;
+		zmq_setsockopt(m_pZmqSocket , ZMQ_RECONNECT_IVL , (void *)&nTime , sizeof(nTime));
+
+		m_pZmqMsg = new zmq_msg_t;
 	}
 
 	NetHandlerZMQClient::~NetHandlerZMQClient()
@@ -32,6 +42,8 @@ namespace Net
 		if (nResult != 0) {
 			PAssert(0 && "error in zmq_term:", zmq_strerror (errno)); 
 		} 
+
+		SAFE_DELETE(m_pZmqMsg);
 	} 
 
 	INT32 NetHandlerZMQClient::Init( const char* ip,int port )
@@ -39,14 +51,9 @@ namespace Net
 		m_pSession->SetAddress(ip);
 		m_pSession->SetSocktPort(port);
 		 
-		if (m_pSession->IsClosed() && !Connect(ip , port))
+		if (m_pSession->GetNetState() == Net::NET_STATE_LOSTED  && !Connect(ip , port))
 		{
-
-// 			INT32 nResult = zmq_bind (m_pZmqSocket.get() , str.c_str());
-// 			if (nResult != 0) {
-// 				printf ("error in zmq_bind: %s\n", zmq_strerror (errno));
-// 				return -1;
-// 			}
+			
 			gDebugStream("Connect Init " << m_pSession->GetRemoteName());
 			return INetHandler::Init();
 		}
@@ -61,7 +68,7 @@ namespace Net
 	INT32 NetHandlerZMQClient::Connect( const char* ip,int port )
 	{ 
 		char szPort[20];
-		std::string str = "TCP://";
+		std::string str = "tcp://";
 		str += ip;
 		str += ":";
 		itoa(port , szPort , 10);
@@ -89,25 +96,32 @@ namespace Net
 // 			return -1;
 // 		}
 
-		int nResult = zmq_msg_init_data(&m_zmqMsg, (void *)pBuf , unSize , NULL , NULL);
+		int nResult = zmq_msg_init_data(m_pZmqMsg, (void *)pBuf , unSize , NULL , NULL);
 		if (nResult != 0) {
 			printf ("error in zmq_msg_init_size: %s\n", zmq_strerror (errno));
 			return -1;
 		}
 
-		nResult = zmq_sendmsg (m_pZmqSocket, &m_zmqMsg, 0);
-		if (nResult < 0) {
+		int nCount = zmq_sendmsg (m_pZmqSocket, m_pZmqMsg, 0);
+		if (nCount < 0) {
 			printf ("error in zmq_sendmsg: %s\n", zmq_strerror (errno));
 			return -1;
 		}
 
-		nResult = zmq_msg_close (&m_zmqMsg);
+		nResult = zmq_msg_close (m_pZmqMsg);
 		if (nResult != 0) {
 			printf ("error in zmq_msg_close: %s\n", zmq_strerror (errno));
 			return -1;
 		} 
 
-		return nResult;
+		return nCount;
+	}
+
+	INT32 NetHandlerZMQClient::Update( void )
+	{ 
+ 		Reconnect();
+
+		return NetHandlerTransit::Update();
 	}
 
 

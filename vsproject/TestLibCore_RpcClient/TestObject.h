@@ -26,7 +26,7 @@ namespace Client
 			Msg::GenMsgHelper::GenMsgCall(*pMsg , Msg::g_szTestObject_RpcCall , vecTargets , objSrc , usPriority);
 			Msg::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7);
 
-			return RpcInstance::GetInstance().SendMsg("TCP://127.0.0.1:8001" , pMsg );
+			return RpcInstance::GetInstance().SendMsg("tcp://127.0.0.1:8001" , pMsg );
 		}
 
 		return FALSE;

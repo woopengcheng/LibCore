@@ -1,3 +1,7 @@
+extern "C"
+{
+#include "zmq.h" 
+}
 #include "NetHandlerZMQServer.h"
 #include "NetHelper.h"
 #include "INetReactor.h" 
@@ -13,11 +17,15 @@ namespace Net
 		}
 		m_pZmqContext  = pContext;
 
-		void * pSocket = zmq_socket (pContext, ZMQ_PUSH);
+		void * pSocket = zmq_socket (pContext, ZMQ_PULL);
 		if (!pSocket) {
 			PAssert(0 && "error in zmq_socket", zmq_strerror (errno)); 
 		}
 		m_pZmqSocket  = pSocket; 
+		 
+		m_pZmqMsg = new zmq_msg_t;
+
+		Init(pSession->GetAddress() , pSession->GetPort());
 	}
 
 	NetHandlerZMQServer::~NetHandlerZMQServer()
@@ -31,6 +39,8 @@ namespace Net
 		if (nResult != 0) {
 			PAssert(0 && "error in zmq_term:", zmq_strerror (errno)); 
 		} 
+
+		SAFE_DELETE(m_pZmqMsg);
 	} 
 
 	INT32 NetHandlerZMQServer::Init( const char* ip,int port )
@@ -38,11 +48,12 @@ namespace Net
 		m_pSession->SetAddress(ip);
 		m_pSession->SetSocktPort(port);
 
-		if (m_pSession->IsClosed())
+		if (m_pSession->GetNetState() == Net::NET_STATE_LOSTED)
 		{
 			char szPort[20];
-			std::string str = "TCP://";
+			std::string str = "tcp://";
 			str += ip;
+//			str += "*";
 			str += ":";
 			itoa(port , szPort , 10);
 			str += szPort;  
@@ -71,26 +82,42 @@ namespace Net
 
 	INT32 NetHandlerZMQServer::OnMsgRecving( void )
 	{
-		int nResult = zmq_msg_init (&m_zmqMsg);
+		int nResult = zmq_msg_init (m_pZmqMsg);
 		if (nResult != 0) 
 		{
 			printf ("error in zmq_msg_init: %s\n", zmq_strerror (errno));
 			return -1;
 		}
 
-		nResult = zmq_recvmsg (m_pZmqSocket , &m_zmqMsg, 0);
+		nResult = zmq_recvmsg (m_pZmqSocket , m_pZmqMsg, ZMQ_DONTWAIT);
 		if (nResult < 0) 
 		{
+			if (zmq_errno() == EAGAIN)
+			{
+				nResult = zmq_msg_close (m_pZmqMsg);
+				if (nResult != 0) {
+					printf ("error in zmq_msg_close: %s\n", zmq_strerror (errno));
+					return -1;
+				} 
+				return 0;
+			}
+			
 			printf ("error in zmq_recvmsg: %s\n", zmq_strerror (errno));
 			return -1;
 		}
-		void * pBuf = zmq_msg_data(&m_zmqMsg);
-		size_t usSize = zmq_msg_size(&m_zmqMsg);
+		void * pBuf = zmq_msg_data(m_pZmqMsg);
+		size_t usSize = zmq_msg_size(m_pZmqMsg);
 		MsgHeader * pHeader = (MsgHeader*)pBuf;
+	
+		HandleMsg(m_pSession , pHeader->unMsgID , (char *)pBuf + sizeof(MsgHeader) , usSize - sizeof(MsgHeader));
 
-		return HandleMsg(m_pSession , pHeader->unMsgID , (char *)pBuf + sizeof(MsgHeader) , usSize - sizeof(MsgHeader));
+		nResult = zmq_msg_close (m_pZmqMsg);
+		if (nResult != 0) {
+			printf ("error in zmq_msg_close: %s\n", zmq_strerror (errno));
+			return -1;
+		} 
+		return nResult;
 	}
-
 
 
 }

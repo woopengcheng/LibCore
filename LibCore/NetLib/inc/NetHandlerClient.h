@@ -16,6 +16,7 @@ namespace Net
 		virtual INT32  Init( const char* ip,int port );
 		virtual INT32  Cleanup( void );
 		virtual INT32  OnClose( void );
+		virtual INT32  Update( void );
 		virtual INT32  OnReconnect( void );
 
 	public:

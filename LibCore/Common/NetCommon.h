@@ -37,9 +37,9 @@ namespace Net
 	typedef INT32 SOCKET;
 #endif
 
-#define NET_TYPE_TCP  "TCP"
-#define NET_TYPE_UDP  "UDP"
-#define NET_TYPE_UNIX "UNIX"
+#define NET_TYPE_TCP  "tcp"
+#define NET_TYPE_UDP  "udp"
+#define NET_TYPE_UNIX "unix"
 
 	struct MsgHeader 
 	{

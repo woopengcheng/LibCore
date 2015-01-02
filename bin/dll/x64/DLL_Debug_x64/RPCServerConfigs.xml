@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <RemoteRPC>
 	<RPCServer>
-		<ListenType>TCP</ListenType>
+		<ListenType>tcp</ListenType>
 		<ListenAddress>127.0.0.1</ListenAddress>
 		<ListenPort>8002</ListenPort>
 	</RPCServer>
