@@ -8,7 +8,7 @@ extern "C"
 
 namespace Net
 {   
-	NetHandlerZMQServer::NetHandlerZMQServer( INetReactor * pNetReactor , ISession * pSession , MsgProcess * pMsgProcess /*= NULL*/ ) 
+	NetHandlerZMQServer::NetHandlerZMQServer( INetReactor * pNetReactor , ISession * pSession ) 
 		: NetHandlerTransit(pNetReactor , pSession)   
 	{   
 		void * pContext = zmq_init (1);
@@ -48,7 +48,7 @@ namespace Net
 		m_pSession->SetAddress(ip);
 		m_pSession->SetSocktPort(port);
 
-		if (m_pSession->GetNetState() == Net::NET_STATE_LOSTED)
+//		if (m_pSession->GetNetState() == Net::NET_STATE_LOSTED)
 		{
 			char szPort[20];
 			std::string str = "tcp://";

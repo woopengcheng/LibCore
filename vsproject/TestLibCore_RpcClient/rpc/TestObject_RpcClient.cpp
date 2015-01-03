@@ -2,7 +2,7 @@
 
 Msg::ObjectMsgCall * Client::GlobalRpc::TestObject_RpcClient( char p1 , std::vector<Msg::Object> vecTargets ,Msg:: Object objSrc )
 {   
- 	std::cout << "TestObject_RpcClient" << std::endl; 
+// 	std::cout << "TestObject_RpcClient" << std::endl; 
 	return NULL;
 }
 

@@ -19,7 +19,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	targets.push_back(Msg::Object(1));  
 	int m_asd = 9;
 
-	int n = 1000000;
+	int n = 100000;
 	while (n)
 	{
 		Client::RpcInstance::GetInstance().Update(); 

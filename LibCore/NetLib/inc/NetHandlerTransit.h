@@ -37,6 +37,7 @@ namespace Net
 	}; 
 
 	DECLARE_BOOST_POINTERS(NetHandlerTransit);
+	 
 }
 
 #endif

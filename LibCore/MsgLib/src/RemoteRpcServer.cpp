@@ -8,11 +8,7 @@ namespace Msg
 {
 
 	RemoteRpcServer::RemoteRpcServer( RpcManager * pRpcManager ,  Net::INetReactor * pNetReactor, Net::ISession * pSession )
-#ifdef USE_ZMQ
-		: Net::NetHandlerZMQServer(pNetReactor , pSession)
-#else
 		: Net::NetHandlerServer(pNetReactor , pSession)
-#endif
 		, m_pRpcManager(pRpcManager) 
 	{
 		SetLastRecvPingTime();
@@ -41,7 +37,8 @@ namespace Msg
 
 	INT32 RemoteRpcServer::Update( void )
 	{ 
-#ifndef USE_ZMQ
+
+#ifndef USE_ZMQ     //5 如果是ZMQ,底层有重连机制.
 		UpdatePing();
 #endif
 
@@ -85,18 +82,13 @@ namespace Msg
 	INT32 RemoteRpcServer::OnClose( void )
 	{   
 		if(GetSession() && GetSession()->GetSessionID() != -1 && m_pRpcManager)
-		{ 
-// 			m_pRpcManager->GetRpcInterface()->CloseNet(GetSession()->GetRemoteName()); 
+		{   
 			GetSession()->SetClosed(TRUE);
 			GetSession()->SetNetState(Net::NET_STATE_LOSTED);
  			m_pRpcManager->CloseNet(GetSession()->GetRemoteName()); 
-		} 
+		}  
 
-#ifdef USE_ZMQ
-		return NetHandlerZMQServer::OnClose();
-#else 
-		return NetHandlerServer::OnClose();
-#endif
+		return NetHandlerServer::OnClose(); 
 	}
 
 

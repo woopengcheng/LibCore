@@ -184,13 +184,7 @@ namespace Msg
 	{ 
 		if(m_pRpcInterface && pSession && pPing )
 		{  
-			std::string strRemoteRPCName = pPing->szRemoteName; 
-
-			Net::NetHandlerTransitPtr pNetHandler = GetHandlerByName(strRemoteRPCName.c_str());
-			if (!pNetHandler)
-			{
-				pNetHandler = CreateNetHandler(strRemoteRPCName.c_str() , "" , pPing->usRemoteRPCPort , 0);
-			}
+			std::string strRemoteRPCName = pPing->szRemoteName;  
 
 			RpcClientManager *  pRpcClientManager = m_pRpcInterface->GetRpcClientManager();
 			if (pRpcClientManager)
@@ -201,16 +195,9 @@ namespace Msg
 					pNetHandlerClient = pRpcClientManager->CreateNetHandler(strRemoteRPCName.c_str() , pSession->GetAddress() , pPing->usRemoteRPCPort); 
 				}  
 
-				if(pNetHandlerClient && pNetHandlerClient->GetSession()->GetNetState() == Net::NET_STATE_CONNECTING &&
-					pNetHandler->GetSession()->GetNetState() == Net::NET_STATE_CONNECTING)
+				if(pNetHandlerClient && m_pRpcInterface->GetRpcListener())
 				{   
-					pNetHandler->GetSession()->SetNetState(Net::NET_STATE_CONNECTED);
-					pNetHandlerClient->GetSession()->SetNetState(Net::NET_STATE_CONNECTED); 
-
-					if (m_pRpcInterface->GetRpcListener())
-					{ 
-						m_pRpcInterface->GetRpcListener()->OnListenOn(m_pRpcInterface); 
-					}
+					m_pRpcInterface->GetRpcListener()->OnListenOn(m_pRpcInterface);  
 				} 
 			}  
 
@@ -277,11 +264,12 @@ namespace Msg
 		{
 #ifdef USE_ZMQ
 			Net::ServerSession * pServerSession =  new Net::ServerSession(pAddress , usPort , pName , -1 , 0 , socket);
+			pServerSession->SetNetState(Net::NET_STATE_CONNECTED); 
 #else
 			Net::ServerSession * pServerSession =  new Net::ServerSession(pAddress , 0 , pName , -1 , 0 , socket);
+			pServerSession->SetNetState(Net::NET_STATE_CONNECTING);
 #endif
 			RemoteRpcServer::RemoteRpcServerPtr pRpcServer(new RemoteRpcServer(this , m_pNetReactor , pServerSession)); 
-			pServerSession->SetNetState(Net::NET_STATE_CONNECTING);
 			pServerSession->SetClosed(FALSE);
 
 			gDebugStream("accept: ID: " << pServerSession->GetSessionID());

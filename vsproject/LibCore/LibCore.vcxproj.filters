@@ -261,9 +261,6 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetBase.h">
       <Filter>NetLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerClient.h">
-      <Filter>NetLib\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerListener.h">
       <Filter>NetLib\inc</Filter>
     </ClInclude>
@@ -375,6 +372,15 @@
     <ClInclude Include="..\..\LibCore\XMLLib\inc\XML.h">
       <Filter>XMLLib\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerCommonClient.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerClient.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerCommonServer.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -464,13 +470,7 @@
     <ClCompile Include="..\..\LibCore\NetLib\src\MsgHandler.cpp">
       <Filter>NetLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerClient.cpp">
-      <Filter>NetLib\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerListener.cpp">
-      <Filter>NetLib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerServer.cpp">
       <Filter>NetLib\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerTransit.cpp">
@@ -535,6 +535,12 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\XMLLib\src\XML.cpp">
       <Filter>XMLLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerCommonServer.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerCommonClient.cpp">
+      <Filter>NetLib\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

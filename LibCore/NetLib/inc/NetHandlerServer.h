@@ -1,27 +1,32 @@
 #ifndef __net_net_handler_server_h__
-#define __net_net_handler_server_h__ 
-#include "NetHandlerTransit.h"
+#define __net_net_handler_server_h__  
+#include "NetHandlerZMQServer.h"
+#include "NetHandlerCommonServer.h"
 
-namespace Net 
-{  
-	class DLL_EXPORT NetHandlerServer :public NetHandlerTransit
-	{
+namespace Net
+{ 
+#ifndef USE_ZMQ
+	class NetHandlerServer : public NetHandlerCommonServer
+	{ 
 	public:
 		NetHandlerServer(INetReactor * pNetReactor , ISession * pSession)
-			: NetHandlerTransit(pNetReactor , pSession) 
-		{ 
+			: NetHandlerCommonServer(pNetReactor , pSession) 
+		{
 		}
-		virtual ~NetHandlerServer();
+	};
 
+#else
+	class NetHandlerServer : public NetHandlerZMQServer 
+	{ 
 	public:
-		virtual INT32  OnClose( void )     ;
+		NetHandlerServer(INetReactor * pNetReactor , ISession * pSession)
+			: NetHandlerZMQServer(pNetReactor , pSession) 
+		{
+		}
+	};
 
-	public:
-		virtual INT32 HandleMsg(ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
-
-	}; 
-
-	DECLARE_BOOST_POINTERS(NetHandlerServer);
+#endif
+	DECLARE_BOOST_POINTERS(NetHandlerServer); 
 }
 
 #endif 

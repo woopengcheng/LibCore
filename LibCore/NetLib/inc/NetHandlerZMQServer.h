@@ -8,14 +8,12 @@ struct zmq_msg_t;
 namespace Net 
 {   
 	typedef void * zmqSocketPtr;
-	typedef void * zmqContextPtr;
-	// 	typedef boost::shared_ptr<zmqSocket> zmqSocketPtr;
-	// 	typedef boost::shared_ptr<zmqSocket> zmqContextPtr;
+	typedef void * zmqContextPtr; 
 
 	class DLL_EXPORT NetHandlerZMQServer :public NetHandlerTransit
 	{
 	public:
-		NetHandlerZMQServer(INetReactor * pNetReactor , ISession * pSession , MsgProcess * pMsgProcess = NULL);
+		NetHandlerZMQServer(INetReactor * pNetReactor , ISession * pSession);
 		virtual ~NetHandlerZMQServer();
 
 	public:
@@ -36,6 +34,7 @@ namespace Net
 	}; 
 
 	DECLARE_BOOST_POINTERS(NetHandlerZMQServer);
+
 }
 
 #endif

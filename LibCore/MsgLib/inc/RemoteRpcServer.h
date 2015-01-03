@@ -10,13 +10,8 @@ namespace Msg
 {
 	
 	class RpcManager;
-
-
-#ifdef USE_ZMQ
-	class DLL_EXPORT RemoteRpcServer : public Net::NetHandlerZMQServer 
-#else
+	 
 	class DLL_EXPORT RemoteRpcServer : public Net::NetHandlerServer
-#endif
 	{
 	public:
 		DECLARE_BOOST_TEMPLATE_POINTERS(RemoteRpcServer , RemoteRpcServer); 
@@ -34,8 +29,8 @@ namespace Msg
 		INT32   UpdatePing( void );   
 		void    SetLastRecvPingTime( INT64 ullLstRecfPing = 0);
 
-	private:
-		INT64                m_ullLastRecvPing; 
+	protected:
+		INT64        m_ullLastRecvPing; 
 		RpcManager * m_pRpcManager; 
 	};  
 

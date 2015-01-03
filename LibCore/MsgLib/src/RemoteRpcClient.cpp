@@ -4,31 +4,16 @@
 #include "RPCMsgCall.h"
 
 namespace Msg
-{ 
-#ifdef USE_ZMQ 
-	INT32 RemoteRpcClient::Cleanup( void )
-	{
-		return Net::NetHandlerZMQClient::Cleanup();
-	}
-#else
+{  
 	INT32 RemoteRpcClient::Cleanup( void )
 	{
 		return Net::NetHandlerClient::Cleanup();
-	}
-#endif
-
-
-#ifdef USE_ZMQ 
-	INT32 RemoteRpcClient::Update( void )
-	{
-		return Net::NetHandlerZMQClient::Update();
-	}
-#else
+	}  
+	 
 	INT32 RemoteRpcClient::Update( void )
 	{
 		return Net::NetHandlerClient::Update();
 	}
-#endif 
 
 	INT32 RemoteRpcClient::OnReconnect( void )
 	{   
@@ -53,16 +38,11 @@ namespace Msg
 	INT32 RemoteRpcClient::OnClose( void )
 	{  
 		if(GetSession() && GetSession()->GetSessionID() != -1 && m_pRpcManager)
-		{ 
-//			m_pRpcManager->GetRpcInterface()->CloseNet(GetSession()->GetRemoteName()); 
+		{  
 			m_pRpcManager->CloseNet(GetSession()->GetRemoteName()); 
 		} 
-
-#ifdef USE_ZMQ
-		return NetHandlerZMQClient::OnClose();
-#else 
-		return NetHandlerClient::OnClose();
-#endif
+		 
+		return NetHandlerClient::OnClose(); 
 	}
 
 
@@ -98,11 +78,7 @@ namespace Msg
 
 
 	RemoteRpcClient::RemoteRpcClient( RpcManager * pRpcManager ,  Net::INetReactor * pNetReactor , Net::ISession * pSession )
-#ifdef USE_ZMQ
-		: Net::NetHandlerZMQClient(pNetReactor , pSession)
-#else
 		: Net::NetHandlerClient(pNetReactor , pSession) 
-#endif
 		, m_pRpcManager(pRpcManager)
 	{
 

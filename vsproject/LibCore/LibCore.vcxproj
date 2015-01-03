@@ -224,8 +224,7 @@
       <CallingConvention>StdCall</CallingConvention>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <UndefinePreprocessorDefinitions>
-      </UndefinePreprocessorDefinitions>
+      <UndefinePreprocessorDefinitions>USE_ZMQ;</UndefinePreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -294,6 +293,8 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\MsgHandler.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetBase.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerClient.h" />
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerCommonClient.h" />
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerCommonServer.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerListener.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerServer.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerTransit.h" />
@@ -361,9 +362,9 @@
     <ClCompile Include="..\..\LibCore\MsgLib\src\RpcServerManager.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\ISession.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\MsgHandler.cpp" />
-    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerClient.cpp" />
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerCommonClient.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerListener.cpp" />
-    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerServer.cpp" />
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerCommonServer.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerTransit.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerZMQClient.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerZMQServer.cpp" />

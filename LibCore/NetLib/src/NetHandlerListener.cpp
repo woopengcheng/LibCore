@@ -1,5 +1,4 @@
-#include "NetHandlerListener.h"
-#include "NetHelper.h"
+#include "NetHandlerListener.h" 
 #include "NetHandlerServer.h"
 #include "ServerSession.h"
 #include "INetReactor.h"

@@ -9,9 +9,7 @@ struct zmq_msg_t;
 namespace Net 
 {   
 	typedef void * zmqSocketPtr;
-	typedef void * zmqContextPtr;
-// 	typedef boost::shared_ptr<zmqSocket> zmqSocketPtr;
-// 	typedef boost::shared_ptr<zmqSocket> zmqContextPtr;
+	typedef void * zmqContextPtr; 
 
 	class DLL_EXPORT NetHandlerZMQClient :public NetHandlerTransit
 	{
@@ -52,6 +50,7 @@ namespace Net
 	}; 
 
 	DECLARE_BOOST_POINTERS(NetHandlerZMQClient);
+  
 }
 
 #endif
