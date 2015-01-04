@@ -4,7 +4,9 @@
 
 namespace Msg
 {  
- 	RPC_DEFINE(TestObject);
+	RPC_DEFINE(TestObject);
+	MSG_DEFINE(Test);
+	MSG_DEFINE(TestObject);
 
 }
 

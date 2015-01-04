@@ -264,7 +264,6 @@
     <ClInclude Include="..\..\LibCore\MsgLib\inc\MethodImpl.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgCommon.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgDispatcher.h" />
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgProxy.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgQueue.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgTimerNode.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\NetHandlerRpcListener.h" />
@@ -279,6 +278,7 @@
     <ClInclude Include="..\..\LibCore\MsgLib\inc\RemoteRpcClient.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\RemoteRpcServer.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcBase.h" />
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcCheckParams.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcClientManager.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcInterface.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcManager.h" />
@@ -356,6 +356,7 @@
     <ClCompile Include="..\..\LibCore\MsgLib\src\RemoteRpcClient.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\RemoteRpcServer.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\RpcBase.cpp" />
+    <ClCompile Include="..\..\LibCore\MsgLib\Src\RpcCheckParams.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\RpcClientManager.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\RpcInterface.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\RpcManager.cpp" />

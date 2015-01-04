@@ -1,0 +1,121 @@
+#ifndef __msg_rpc_check_params_h__
+#define __msg_rpc_check_params_h__
+#include "MsgCommon.h"     
+#include "Chunk.h"
+#include "Parameter.h"
+#include "GenMsgHelper.h"
+ 
+namespace Msg
+{   
+	class RpcCheckParams;
+	extern DLL_IMPORT RpcCheckParams * g_pRpcCheckParams; 
+
+#define	CheckParams_0(PARAM) GenMsgHelper::CheckParams(*PARAM) 
+#define	CheckParams_1(PARAM , p1) GenMsgHelper::CheckParams(*PARAM , p1 ) 
+#define	CheckParams_2(PARAM , p1 , p2) GenMsgHelper::CheckParams(*PARAM , p1 , p2 ) 
+#define	CheckParams_3(PARAM , p1 , p2 , p3) GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3 ) 
+#define	CheckParams_4(PARAM , p1 , p2 , p3, p4) GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 ) 
+#define	CheckParams_5(PARAM , p1 , p2 , p3, p4 , p5) GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 ) 
+#define	CheckParams_6(PARAM , p1 , p2 , p3, p4 , p5 , p6) GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 , p6 ) 
+#define	CheckParams_7(PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7) GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7 )  
+#define	CheckParams_8(PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7 , p8) GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7 , p8) 
+
+#define GET_PARAMETER Assert_Re0(g_pRpcCheckParams);\
+	Parameters * pParameter = NULL;\
+	if (bDeliver)\
+		{\
+		pParameter = g_pRpcCheckParams->GetDeliverParams(pFunName);\
+		}\
+		else\
+		{\
+		pParameter = g_pRpcCheckParams->GetReturnParams(pFunName);\
+		} \
+		Assert_Re0(pParameter) 
+
+	class DLL_EXPORT RpcCheckParams
+	{
+	public:
+		typedef std_unordered_map<std::string , Parameters> MapCollectParametersT;
+
+	public:
+		RpcCheckParams()   
+		{  
+		} 
+
+	public: 
+		BOOL CheckRpcParams(BOOL bDeliver , const char * pFunName)
+		{
+			GET_PARAMETER;
+			return CheckParams_0(pParameter);
+		}
+
+		template<typename P1> 
+		BOOL CheckRpcParams(BOOL bDeliver , const char * pFunName , P1 &p1 )
+		{ 
+			GET_PARAMETER;
+			return CheckParams_1(pParameter , p1); 
+		}
+
+		template<typename P1 , typename P2 >
+		BOOL CheckRpcParams(BOOL bDeliver , const char * pFunName , P1 &p1 , P2 &p2)
+		{ 
+			GET_PARAMETER;
+			return CheckParams_2(pParameter , p1 , p2 );	
+		}
+
+		template<typename P1 , typename P2 , typename P3>	
+		BOOL CheckRpcParams(BOOL bDeliver , const char * pFunName , P1 &p1 , P2 &p2 , P3 &p3 ) 
+		{ 
+			GET_PARAMETER;
+			return CheckParams_3(pParameter , p1 , p2 , p3); 
+		}
+
+		template<typename P1 , typename P2 , typename P3 , typename P4 > 
+		BOOL CheckRpcParams(BOOL bDeliver , const char * pFunName , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 )
+		{ 
+			GET_PARAMETER;
+			return CheckParams_4(pParameter , p1 , p2 , p3, p4 );	
+		}
+
+		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 >
+		BOOL CheckRpcParams(BOOL bDeliver , const char * pFunName , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 ) 
+		{ 
+			GET_PARAMETER;
+			return CheckParams_5(pParameter , p1 , p2 , p3, p4 , p5 );
+		}
+
+		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6> 
+		BOOL CheckRpcParams(BOOL bDeliver , const char * pFunName , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 )
+		{
+			GET_PARAMETER;
+			return CheckParams_6(pParameter , p1 , p2 , p3, p4 , p5 , p6);
+		}
+
+		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7>	
+		BOOL CheckRpcParams(BOOL bDeliver , const char * pFunName , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7) 
+		{ 
+			GET_PARAMETER;
+			return CheckParams_7(pParameter , p1 , p2 , p3, p4 , p5 , p6 , p7);
+		}
+
+		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8>
+		BOOL CheckRpcParams(BOOL bDeliver , const char * pFunName , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7 , P8 & p8)
+		{ 
+			GET_PARAMETER;
+			return CheckParams_8(pParameter , p1 , p2 , p3, p4 , p5 , p6 , p7 , p8); 
+		}
+
+	public:  
+		Parameters * GetDeliverParams(std::string strFunName);
+		Parameters * GetReturnParams(std::string strFunName);
+		void         InsertDeliverParams(std::string strFunName , Parameters & objParam);
+		void         InsertReturnParams(std::string strFunName , Parameters & objParam);
+
+	public:  
+		MapCollectParametersT   m_mapReturnParams;
+		MapCollectParametersT   m_mapDeliverParams;
+	}; 
+} 
+
+
+#endif

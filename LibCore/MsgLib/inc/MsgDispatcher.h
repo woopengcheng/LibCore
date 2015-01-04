@@ -43,7 +43,7 @@ namespace Msg
 			MapMethodImplT::iterator result = m_mapMethodImpls.find(pFuncName); 
 			if (result == m_mapMethodImpls.end())
 			{
-				m_mapMethodImpls.insert(pFuncName , pSMI);
+				m_mapMethodImpls.insert(std::make_pair(pFuncName , pSMI));
 			}
 			else
 			{

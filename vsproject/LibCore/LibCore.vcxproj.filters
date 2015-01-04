@@ -174,9 +174,6 @@
     <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgDispatcher.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgProxy.h">
-      <Filter>MsgLib\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgQueue.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
@@ -381,6 +378,9 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerCommonServer.h">
       <Filter>NetLib\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcCheckParams.h">
+      <Filter>MsgLib\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -541,6 +541,9 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerCommonClient.cpp">
       <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\MsgLib\Src\RpcCheckParams.cpp">
+      <Filter>MsgLib\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

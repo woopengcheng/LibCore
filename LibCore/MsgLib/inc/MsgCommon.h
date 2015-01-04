@@ -46,6 +46,8 @@ namespace Msg
 	RPC_NAMEDEFINE(RPC_Name , _RpcClientProxy , _Y)\
 	RPC_NAMEDEFINE(RPC_Name , _RpcTimeout , _T)
 
+#define MSG_DEFINE(MSG_NAME)  static const char * g_szLocal_##MSG_NAME = #MSG_NAME; 
+
 	enum ERPCServerNames
 	{
 		RPC_ConnSrv = 0 ,

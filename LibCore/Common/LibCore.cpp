@@ -2,6 +2,7 @@
 #include "Log.h"
 #include "NetCommon.h" 
 #include "TimerHelp.h"
+#include "RpcCheckParams.h"
 
 #ifdef WIN32
 #include <ObjBase.h>
@@ -47,6 +48,8 @@ namespace LibCore
 	{ 
 		Net::CleanNet(); 
 		Log::Cleanup();
+
+		SAFE_DELETE(Msg::g_pRpcCheckParams);
 		return 0;
 	} 
 }

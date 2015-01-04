@@ -8,57 +8,7 @@
 #include "IRpcMsgCallableObject.h"
 
 namespace Msg
-{ 
-	Parameters * Rpc::GetReturnParams( std::string strFunName )
-	{
-		MapCollectParametersT::iterator iter = m_mapReturnParams.find(strFunName);
-		if (iter != m_mapReturnParams.end())
-		{
-			return &iter->second;
-		}
-
-		return NULL;
-	}
-
-
-	Parameters * Rpc::GetDeliverParams( std::string strFunName )
-	{
-		MapCollectParametersT::iterator iter = m_mapDeliverParams.find(strFunName);
-		if (iter != m_mapDeliverParams.end())
-		{
-			return &iter->second;
-		}
-
-		return NULL;
-	}
-
-	void Rpc::InsertReturnParams( std::string strFunName , Parameters & objParam )
-	{
-		MapCollectParametersT::iterator iter = m_mapReturnParams.find(strFunName);
-		if (iter == m_mapReturnParams.end())
-		{
-			m_mapReturnParams.insert(std::make_pair(strFunName , objParam));
-		}
-		else
-		{
-			Assert(0 && "Has return params");
-		}
-	}
-
-
-	void Rpc::InsertDeliverParams( std::string strFunName , Parameters & objParam )
-	{
-		MapCollectParametersT::iterator iter = m_mapDeliverParams.find(strFunName);
-		if (iter == m_mapDeliverParams.end())
-		{
-			m_mapDeliverParams.insert(std::make_pair(strFunName , objParam)); //5 这里有问题.里面的字符串指针.没有copy.后续采用流式管理.
-		}
-		else
-		{
-			Assert(0 && "Has deliver params");
-		}
-	} 
-
+{  
 	INT32 Rpc::ProxySendBack()
 	{
 		Assert_ReF1("rpc packet is null." && m_pRpcMsgCall); 

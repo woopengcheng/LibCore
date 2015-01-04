@@ -4,23 +4,23 @@
 #include "RpcInterface.h"
 #include "ICallableObject.h"
 #include "RpcBase.h"
- 
+
 namespace Msg
 {
 
 
 
-class DLL_EXPORT  IRpcMsgCallableObject : public Rpc
-{
-public: 
-	IRpcMsgCallableObject(Object id , RpcManager * pRpcManager)
-		: Rpc(pRpcManager , MAX_MSG_TIME_OUT , id)  
-	{ 
-		Assert(pRpcManager);
+	class DLL_EXPORT  IRpcMsgCallableObject : public Rpc
+	{
+	public: 
+		IRpcMsgCallableObject(Object id , RpcManager * pRpcManager)
+			: Rpc(pRpcManager , MAX_MSG_TIME_OUT , id)  
+		{ 
+			Assert(pRpcManager);
 
- 		pRpcManager->AddCallableObject(this);  
-	}   
-};
+			pRpcManager->AddCallableObject(this);  
+		}   
+	};
 
 }
 

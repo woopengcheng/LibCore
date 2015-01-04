@@ -27,16 +27,10 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="rpc\GlobalRpc.h">
-      <Filter>rpc</Filter>
-    </ClInclude>
-    <ClInclude Include="rpc\RpcInstance.h">
-      <Filter>rpc</Filter>
-    </ClInclude>
     <ClInclude Include="rpc\MsgNameDefine.h">
       <Filter>rpc</Filter>
     </ClInclude>
-    <ClInclude Include="rpc\RPCCallFuncs.h">
+    <ClInclude Include="rpc\MsgProxy.h">
       <Filter>rpc</Filter>
     </ClInclude>
   </ItemGroup>
@@ -46,12 +40,6 @@
     </ClCompile>
     <ClCompile Include="TestLibCore_InnerMsg.cpp">
       <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="rpc\TestObject_RpcClient.cpp">
-      <Filter>rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="rpc\RpcRegister.cpp">
-      <Filter>rpc</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

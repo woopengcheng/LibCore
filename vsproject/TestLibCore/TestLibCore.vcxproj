@@ -137,7 +137,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)..\bin\dll\$(Platform)\$(Configuration)\</OutDir>
     <TargetName>$(ProjectName)_vs$(VisualStudioVersion)</TargetName>
-    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
