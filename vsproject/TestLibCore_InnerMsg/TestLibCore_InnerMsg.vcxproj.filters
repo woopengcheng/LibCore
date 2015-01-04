@@ -44,7 +44,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="TestLibCore_RpcClient.cpp">
+    <ClCompile Include="TestLibCore_InnerMsg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="rpc\TestObject_RpcClient.cpp">

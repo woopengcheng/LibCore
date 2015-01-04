@@ -8,7 +8,7 @@
 #include "RpcInstance.h"
 #include "Chunk.h"
 
-namespace Msg
+namespace Client
 {  
 	static char		    g_rpcDefaultParam_char = '0';
 	static INT16		g_rpcDefaultParam_INT16 = 0;
@@ -18,10 +18,10 @@ namespace Msg
 	static ConstCharPtr g_rpcDefaultParam_ConstCharPtr = NULL;
 	static Msg::Chunk	g_rpcDefaultParam_Chunk = Msg::Chunk();  
 
-	class  GlobalRpc : public Msg::IRpcMsgCallableObject
+	class GlobalRpc : public Msg::IRpcMsgCallableObject
 	{
 	public:
-		GlobalRpc(Msg::Object nID , Msg::RpcManager * pRpcManager )
+		GlobalRpc(Msg::Object nID = Msg::DEFAULT_RPC_CALLABLE_ID , Msg::RpcManager * pRpcManager = RpcInstance::GetInstance().GetRpcServerManager())
 			: Msg::IRpcMsgCallableObject(nID , pRpcManager)    
 		{ 
 			Msg::Parameters objDeliverParams , objReturnParams;
@@ -42,8 +42,6 @@ namespace Msg
 		Msg::ObjectMsgCall * TestObject_RpcClient(char p1 , std::vector<Msg::Object> vecTargets , Msg::Object objSrc);
 
 	}; 
-
-	extern GlobalRpc * g_pGlobalRpc;
 } 
 
 

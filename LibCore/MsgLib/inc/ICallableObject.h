@@ -29,7 +29,7 @@ namespace Msg
 		Object      m_objID;
 	};
 	
-	class IMsgCallableObject : public ICallableObject
+	class DLL_EXPORT IMsgCallableObject : public ICallableObject
 	{
 		public:
 			IMsgCallableObject(Object id):ICallableObject(id){}

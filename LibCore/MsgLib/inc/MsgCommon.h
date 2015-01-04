@@ -37,6 +37,14 @@ namespace Msg
 #define RPCServer "_S"
 #define RPCTimeout "_T" 
 
+#define RPC_NAMEDEFINE(RPC_Name , MIDDLE , SUFFIX) static const char * g_sz##RPC_Name##MIDDLE = #RPC_Name#SUFFIX;  
+
+#define RPC_DEFINE(RPC_Name ) static const char * g_sz##RPC_Name##_RpcCall = #RPC_Name; \
+	RPC_NAMEDEFINE(RPC_Name , _RpcServer , _S)\
+	RPC_NAMEDEFINE(RPC_Name , _RpcClient , _C)\
+	RPC_NAMEDEFINE(RPC_Name , _RpcServerProxy , _X)\
+	RPC_NAMEDEFINE(RPC_Name , _RpcClientProxy , _Y)\
+	RPC_NAMEDEFINE(RPC_Name , _RpcTimeout , _T)
 
 	enum ERPCServerNames
 	{

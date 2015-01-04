@@ -1,5 +1,5 @@
 #include "LibCore.h" 
-#include "TestObject.h"
+#include "RPCCallFuncs.h"
 #include "Chunk.h" 
 #include "TimerHelp.h"
 #include "MsgNameDefine.h" 
@@ -24,7 +24,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		Client::RpcInstance::GetInstance().Update(); 
 
- 		if( 0 < Client::local_call_TestObject('a' , 1 , 2 , 3 , 4 , "HelloWorld." , Msg::Chunk("Foobar" , sizeof("Foobar")) , targets , Msg::Object(0) , 1))
+ 		if( 0 < Client::local_call_TestObject("tcp://127.0.0.1:8002" , 'a' , 1 , 2 , 3 , 4 , "HelloWorld." , Msg::Chunk("Foobar" , sizeof("Foobar")) , targets , Msg::Object(0) , 1))
 		{
 			n--;
 		} 
