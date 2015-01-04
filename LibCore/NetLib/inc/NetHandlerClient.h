@@ -6,7 +6,7 @@
 namespace Net 
 {   
 #ifndef USE_ZMQ
-	class NetHandlerClient : public NetHandlerCommonClient 
+	class DLL_EXPORT NetHandlerClient : public NetHandlerCommonClient 
 	{ 
 	public:
 		NetHandlerClient(INetReactor * pNetReactor , ISession * pSession , MsgProcess * pMsgProcess = NULL)
@@ -16,7 +16,7 @@ namespace Net
 	};
 	 
 #else
-	class NetHandlerClient : public NetHandlerZMQClient 
+	class DLL_EXPORT NetHandlerClient : public NetHandlerZMQClient 
 	{ 
 	public:
 		NetHandlerClient(INetReactor * pNetReactor , ISession * pSession , MsgProcess * pMsgProcess = NULL)

@@ -142,6 +142,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)../configs/msg</OutDir>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

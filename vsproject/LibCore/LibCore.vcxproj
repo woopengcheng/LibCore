@@ -126,6 +126,7 @@
     <OutDir>$(SolutionDir)..\bin\dll\$(Platform)\$(Configuration)\</OutDir>
     <TargetName>$(ProjectName)_vs$(VisualStudioVersion)</TargetName>
     <IgnoreImportLibrary>false</IgnoreImportLibrary>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

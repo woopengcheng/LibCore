@@ -11,9 +11,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	LibCore::Init("RpcServer"); 
 	Server::RpcInstance::GetInstance().Init("RPCServerConfigs.xml"); 
 	 
-	Server::TestObject  ObjTestObject;  
-	RPC_DEFINE(TestObject1)
-		std::cout << g_szTestObject1;
+	Server::TestObject  ObjTestObject;   
 	while (1)
 	{
  		Server::RpcInstance::GetInstance().Update();
