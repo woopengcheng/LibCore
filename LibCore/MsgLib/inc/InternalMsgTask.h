@@ -6,19 +6,20 @@
 namespace Msg
 { 
 	class ObjectMsgCall;
+	class InnerMsg;
 	
 	class DLL_EXPORT  InternalMsgTask : public ThreadPool::ThreadTask
 	{   
 	public:
-		InternalMsgTask(ObjectMsgCall * pMsg);
+		InternalMsgTask(InnerMsg * pInnerMsg , ObjectMsgCall * pMsg);
 		virtual ~InternalMsgTask();
 
 	public:
 		virtual INT32 Update( void );
 
-	public: 
+	protected: 
 		ObjectMsgCall * m_pMsg;
-
+		InnerMsg      * m_pInnerMsg;
 	};
 	 
 }

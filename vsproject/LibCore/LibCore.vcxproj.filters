@@ -228,9 +228,6 @@
     <ClInclude Include="..\..\LibCore\MsgLib\inc\RPCMsgCall.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcMsgHelper.h">
-      <Filter>MsgLib\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcServerManager.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
@@ -379,6 +376,12 @@
       <Filter>NetLib\inc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcCheckParams.h">
+      <Filter>MsgLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgHelper.h">
+      <Filter>MsgLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\IMsgCallableObject.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
   </ItemGroup>

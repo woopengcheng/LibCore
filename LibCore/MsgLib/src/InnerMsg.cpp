@@ -1,23 +1,18 @@
 #include "InnerMsg.h"
+#include "InternalMsgTask.h"
+#include "ThreadPoolInterface.h"
 
 namespace Msg
 { 
-	INT32 InnerMsg::Init(UINT32 unMsgThreadPriorityCount /*= 1*/ , UINT32 unMsgHandlerthreadPriorityCount /*= 1*/, UINT32 unMsgThreadPriority /*= DEFAULT_MSG_THREAD_ID*/ ,UINT32 unMsgHandlerthreadPriority /*= DEFAULT_MSG_HANDLE_THREAD_ID*/)
+	INT32 InnerMsg::Init( void )
 	{ 
-		ThreadPool::ThreadPoolInterface::GetInstance().Init(std::map<UINT32 , UINT32>() , TRUE);
-		ThreadPool::ThreadPoolInterface::GetInstance().Startup();
-		ThreadPool::ThreadPoolInterface::GetInstance().CreateThread(unMsgThreadPriority , unMsgThreadPriorityCount);  //5 创建一个全局的计时器线程.
-		ThreadPool::ThreadPoolInterface::GetInstance().CreateThread(unMsgHandlerthreadPriority , unMsgHandlerthreadPriorityCount);  //5 创建处理计时器任务的线程.
-
-		ThreadPool::ThreadPoolInterface::GetInstance().AddTask(this);
-
+		RegisterMsg();
 		return TRUE;
 	}
 
 
 	INT32 InnerMsg::Cleanup( void )
 	{
-		ThreadPool::ThreadPoolInterface::GetInstance().Cleanup();
 
 		return FALSE;
 	}
@@ -31,15 +26,33 @@ namespace Msg
 
 	INT32 InnerMsg::Update( void )
 	{   
+		m_objMsgQueue.Update();  //5 这里更新后,会将到时间的消息加入到队列中
+
 		ObjectMsgCall * pMsg = m_objMsgQueue.FetchMsg();
-		if (pMsg)
-		{ 
-			return ThreadPool::ThreadPoolInterface::GetInstance().AddTask(new InternalMsgTask(pMsg)); 
-		} 
-		else
+		while (pMsg)
 		{
-			Timer::TimerHelper::sleep(1);
-		} 
+			if (pMsg)
+			{ 
+				if (m_pThreadPoolInterface)
+				{
+					return m_pThreadPoolInterface->AddTask(new InternalMsgTask(this , pMsg)); 
+				}
+				else
+				{
+					InternalMsgTask objInnerMsg(this , pMsg);
+					objInnerMsg.Update();
+				}
+			}  
+
+			pMsg = m_objMsgQueue.FetchMsg();
+		}
+
 		return FALSE;
 	}
+
+	void InnerMsg::RegisterMsg( void )
+	{ 
+		OnRegisterMsgs();
+	}
+
 }

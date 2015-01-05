@@ -1,5 +1,5 @@
-#ifndef __msg_i_msg_object_h__
-#define __msg_i_msg_object_h__ 
+#ifndef __msg_i_callable_object_h__
+#define __msg_i_callable_object_h__ 
 #include "MsgCommon.h" 
 
 namespace Msg
@@ -28,12 +28,6 @@ namespace Msg
 	protected:
 		Object      m_objID;
 	};
-	
-	class DLL_EXPORT IMsgCallableObject : public ICallableObject
-	{
-		public:
-			IMsgCallableObject(Object id):ICallableObject(id){}
-	};
-
+	 
 }
 #endif

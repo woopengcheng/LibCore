@@ -257,6 +257,7 @@
     <ClInclude Include="..\..\LibCore\MsgLib\inc\GenerateMsgParams.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\GenMsgHelper.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\ICallableObject.h" />
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\IMsgCallableObject.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\InnerMsg.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\InternalMsgTask.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\IRpcListener.h" />
@@ -283,7 +284,7 @@
     <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcInterface.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcManager.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\RPCMsgCall.h" />
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcMsgHelper.h" />
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgHelper.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcServerManager.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\StaticMethodImplHelper.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\ByteOrder.h" />

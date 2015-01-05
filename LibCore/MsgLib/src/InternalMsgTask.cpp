@@ -6,9 +6,10 @@
 namespace Msg
 {
 
-	InternalMsgTask::InternalMsgTask( ObjectMsgCall * pMsg )
+	InternalMsgTask::InternalMsgTask(InnerMsg * pInnerMsg , ObjectMsgCall * pMsg )
 		: ThreadPool::ThreadTask(DEFAULT_MSG_HANDLE_THREAD_ID , "InternalMsgTask") 
 		, m_pMsg(pMsg)
+		, m_pInnerMsg(pInnerMsg)
 	{  
 	}
 
@@ -20,9 +21,9 @@ namespace Msg
 
 	INT32 InternalMsgTask::Update( void )
 	{
-		if (m_pMsg)
+		if (m_pMsg && m_pInnerMsg)
 		{ 
-			MethodImpl * pMethodImpl = Msg::InnerMsg::GetInstance().GetMethodImpl(m_pMsg->m_szMsgMethod);
+			MethodImpl * pMethodImpl = m_pInnerMsg->GetMethodImpl(m_pMsg->m_szMsgMethod);
 			Assert_Re0(pMethodImpl);
 
 			ParaseMsgCall objParaseMsgCall;
@@ -37,7 +38,7 @@ namespace Msg
 			{
 				for (UINT32 i = 0;i < m_pMsg->GetTargetsCount();++i)
 				{
-					ICallableObject * pICallableObject = InnerMsg::GetInstance().GetCallableObject(m_pMsg->m_aTargets[i]);
+					ICallableObject * pICallableObject = m_pInnerMsg->GetCallableObject(m_pMsg->m_aTargets[i]);
 					if (pICallableObject)
 					{
 						objParaseMsgCall.m_pObj = pICallableObject;
@@ -45,7 +46,11 @@ namespace Msg
 					} 
 				}  
 			}
-			SAFE_DELETE(m_pMsg);    //5 这里释放的是每个函数调用的时候那个指针.
+
+//			if (m_pInnerMsg->GetThreadPool())
+			{
+				SAFE_DELETE(m_pMsg);    //5 这里释放的是每个函数调用的时候那个指针.如果是线程池在这里释放.
+			}
 			return TRUE;
 		}
 

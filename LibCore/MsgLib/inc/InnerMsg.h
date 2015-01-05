@@ -1,39 +1,42 @@
 #ifndef __msg_inner_msg_h__
-#define __msg_inner_msg_h__
-#include "ThreadTask.h"
-#include "InternalMsgTask.h"
+#define __msg_inner_msg_h__ 
 #include "ObjectMsgCall.h"
-#include "MsgQueue.h" 
-#include "ThreadPoolInterface.h"
-#include "TimerHelp.h"
+#include "MsgQueue.h"   
 #include "MsgDispatcher.h"
+
+namespace ThreadPool
+{
+	class ThreadPoolInterface;
+}
 
 namespace Msg
 { 
 	
-	class DLL_EXPORT InnerMsg : public ThreadPool::ThreadSustainTask , public MsgDispatcher
+	class DLL_EXPORT InnerMsg : public MsgDispatcher
 	{
 	public:
-		InnerMsg(): ThreadPool::ThreadSustainTask(DEFAULT_MSG_THREAD_ID , "ThreadSustainTask" , TRUE){}
-		virtual ~InnerMsg(){}
-
-	public:
-		static InnerMsg & GetInstance()
+		InnerMsg(ThreadPool::ThreadPoolInterface * pThreadPoolInterface = NULL)
+			: m_pThreadPoolInterface(pThreadPoolInterface)
 		{
-			static InnerMsg m_sInnerMsg;
-			return m_sInnerMsg;
-		}
 
+		}
+		virtual ~InnerMsg(){}
+		
 	public:
-		virtual  INT32  Init( UINT32 unMsgThreadPriorityCount = 1 , UINT32 unMsgHandlerthreadPriorityCount = 1, UINT32 unMsgThreadPriority = DEFAULT_MSG_THREAD_ID ,UINT32 unMsgHandlerthreadPriority = DEFAULT_MSG_HANDLE_THREAD_ID );
+		virtual  INT32  Init( void );
 		virtual  INT32  Cleanup( void );
 		virtual  INT32  Update( void ); 
+		virtual  void   OnRegisterMsgs(void){}
 
 	public:
+		void   RegisterMsg(void);
 		INT32  SendMsg(ObjectMsgCall * pMsg); 
+		ThreadPool::ThreadPoolInterface * GetThreadPool(void){ return m_pThreadPoolInterface; }
+		void SetThreadPool(ThreadPool::ThreadPoolInterface * pThreadPoolInterface){ m_pThreadPoolInterface = pThreadPoolInterface; }
 
-	private:
-		MsgQueue  m_objMsgQueue;
+	protected:
+		MsgQueue						  m_objMsgQueue;
+		ThreadPool::ThreadPoolInterface * m_pThreadPoolInterface;
 	}; 
 	 
 }

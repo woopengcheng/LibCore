@@ -38,11 +38,11 @@ namespace Msg
 	class RPCMsgCall;
 
 	
-	class DLL_EXPORT  Rpc : public IMsgCallableObject
+	class DLL_EXPORT  Rpc : public ICallableObject
 	{
 	public:
 		Rpc(RpcManager * pRpcManager , UINT64 unTimeout = 0 , Object nID = DEFAULT_RPC_CALLABLE_ID , RPCMsgCall *  pMsg = NULL)
-			: IMsgCallableObject(nID)  
+			: ICallableObject(nID)  
 			, m_pRpcMsgCall(pMsg)
 			, m_pRpcManager(pRpcManager) 
 		{ 

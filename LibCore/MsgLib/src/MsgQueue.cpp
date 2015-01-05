@@ -29,8 +29,9 @@ namespace Msg
 
 		if (pNode && pNode->GetTimeCount().IsExpired())
 		{
-			InternalMsgTask * pTask = new InternalMsgTask(pNode->GetMsgCall()); 
-			ThreadPool::ThreadPoolInterface::GetInstance().AddTask(pTask);
+			AddMsg(pNode->GetMsgCall());
+// 			InternalMsgTask * pTask = new InternalMsgTask()); 
+// 			ThreadPool::ThreadPoolInterface::GetInstance().AddTask(pTask);
 			RemoveTimer(pNode->GetTimerID());
 		}
 

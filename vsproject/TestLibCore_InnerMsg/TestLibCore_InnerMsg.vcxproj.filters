@@ -13,7 +13,7 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="rpc">
+    <Filter Include="inner">
       <UniqueIdentifier>{0a51b341-5315-4b96-9bd5-6f474f067f6f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -27,11 +27,20 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="rpc\MsgNameDefine.h">
-      <Filter>rpc</Filter>
+    <ClInclude Include="Inner\MsgNameDefine.h">
+      <Filter>inner</Filter>
     </ClInclude>
-    <ClInclude Include="rpc\MsgProxy.h">
-      <Filter>rpc</Filter>
+    <ClInclude Include="Inner\MsgInstance.h">
+      <Filter>inner</Filter>
+    </ClInclude>
+    <ClInclude Include="Inner\MsgFuncCalls.h">
+      <Filter>inner</Filter>
+    </ClInclude>
+    <ClInclude Include="Inner\MsgDefines.h">
+      <Filter>inner</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldObject.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -40,6 +49,15 @@
     </ClCompile>
     <ClCompile Include="TestLibCore_InnerMsg.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Inner\MsgRegister.cpp">
+      <Filter>inner</Filter>
+    </ClCompile>
+    <ClCompile Include="Inner\WorldObject_MsgRun.cpp">
+      <Filter>inner</Filter>
+    </ClCompile>
+    <ClCompile Include="Inner\Test_MsgRun.cpp">
+      <Filter>inner</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
