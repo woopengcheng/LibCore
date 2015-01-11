@@ -384,6 +384,9 @@
     <ClInclude Include="..\..\LibCore\MsgLib\inc\IMsgCallableObject.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\Random.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -547,6 +550,9 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\MsgLib\Src\RpcCheckParams.cpp">
       <Filter>MsgLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Common\Random.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

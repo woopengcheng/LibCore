@@ -218,7 +218,7 @@
     </Link>
     <ClCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)LibCore;$(SolutionDir)../LibCore/Common;$(SolutionDir)../LibCore/NetLib/inc;$(SolutionDir)../LibCore/MsgLib/inc;$(SolutionDir)../LibCore/TimerLib/inc;$(SolutionDir)../LibCore/LogLib/inc;$(SolutionDir)../LibCore/XMLLib/inc;$(SolutionDir)../LibCore/ThreadPoolLib/inc;$(SolutionDir)../deps/boost;$(SolutionDir)../deps/expat/lib;$(SolutionDir)../deps/zeromq/include;$(SolutionDir)../deps/tbb/include;$(SolutionDir)../deps/protobuf/src;$(SolutionDir)../deps/raknet/source;$(SolutionDir)../deps/pthread/include;$(SolutionDir)../deps/glog/src/windows;$(SolutionDir)../deps/log4cpp/include;$(SolutionDir)../deps/log4cplus/include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>USE_ZMQ;DLL_EXPORTS;USE_RAKNET;WIN32;_DEBUG;USE_LOG4CPLUS;_CONSOLE;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>HYCOMMONWINAPI_EXPORTS;USE_ZMQ;DLL_EXPORTS;USE_RAKNET;WIN32;_DEBUG;USE_LOG4CPLUS;_CONSOLE;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level3</WarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -244,6 +244,7 @@
     <ClInclude Include="..\..\LibCore\Common\MsgWrapper.h" />
     <ClInclude Include="..\..\LibCore\Common\NetCommon.h" />
     <ClInclude Include="..\..\LibCore\Common\Platform.h" />
+    <ClInclude Include="..\..\LibCore\Common\Random.h" />
     <ClInclude Include="..\..\LibCore\Common\SafeVariable.h" />
     <ClInclude Include="..\..\LibCore\Common\ThreadLock.h" />
     <ClInclude Include="..\..\LibCore\LogLib\inc\GLogAdaptee.h" />
@@ -340,6 +341,7 @@
     <ClCompile Include="..\..\LibCore\Common\CircleBuffer.cpp" />
     <ClCompile Include="..\..\LibCore\Common\Common.cpp" />
     <ClCompile Include="..\..\LibCore\Common\LibCore.cpp" />
+    <ClCompile Include="..\..\LibCore\Common\Random.cpp" />
     <ClCompile Include="..\..\LibCore\LogLib\src\GLogAdaptee.cpp" />
     <ClCompile Include="..\..\LibCore\LogLib\src\Log4CPlusAdaptee.cpp" />
     <ClCompile Include="..\..\LibCore\LogLib\src\Log4CppAdaptee.cpp" />
