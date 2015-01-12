@@ -40,8 +40,9 @@ namespace LibCore
 
 	INT32  Init(std::string strLogFile)
 	{ 
-		Log::Init(strLogFile.c_str() , NULL , 0);
-		Net::InitNet();  
+		INT32 nRes = 0;
+		nRes |= Log::Init(strLogFile.c_str() , NULL , 0);
+		nRes |= Net::InitNet();  
 
 		return 0;
 	}

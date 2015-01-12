@@ -11,7 +11,7 @@ namespace Log
 		virtual ~LogAdapter(){}
 		 
 	public: 
-		virtual  UINT32  Init(const char * pLogName , const char * pLayoutConfig = NULL , BOOL bMultCategory = TRUE) { return FALSE; }
+		virtual  UINT32  Init(const char * pLogName , const char * pLayoutConfig = NULL , BOOL bMultCategory = TRUE) { return ERR_LOG_INIT; }
 		virtual  UINT32  Cleanup(){ return FALSE; }
 
 	public:

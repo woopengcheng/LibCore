@@ -240,9 +240,6 @@
     <ClInclude Include="..\..\LibCore\Common\CommonAssert.h" />
     <ClInclude Include="..\..\LibCore\Common\ErrorCode.h" />
     <ClInclude Include="..\..\LibCore\Common\LibCore.h" />
-    <ClInclude Include="..\..\LibCore\Common\MsgProcess.h" />
-    <ClInclude Include="..\..\LibCore\Common\MsgWrapper.h" />
-    <ClInclude Include="..\..\LibCore\Common\NetCommon.h" />
     <ClInclude Include="..\..\LibCore\Common\Platform.h" />
     <ClInclude Include="..\..\LibCore\Common\Random.h" />
     <ClInclude Include="..\..\LibCore\Common\SafeVariable.h" />
@@ -294,7 +291,10 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\INetReactor.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\ISession.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\MsgHandler.h" />
+    <ClInclude Include="..\..\LibCore\NetLib\inc\MsgProcess.h" />
+    <ClInclude Include="..\..\LibCore\NetLib\inc\MsgWrapper.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetBase.h" />
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetCommon.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerClient.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerCommonClient.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerCommonServer.h" />

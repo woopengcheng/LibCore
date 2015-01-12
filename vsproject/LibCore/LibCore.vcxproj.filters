@@ -105,15 +105,6 @@
     <ClInclude Include="..\..\LibCore\Common\LibCore.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\MsgProcess.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\MsgWrapper.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\NetCommon.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\Common\Platform.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -386,6 +377,15 @@
     </ClInclude>
     <ClInclude Include="..\..\LibCore\Common\Random.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\MsgProcess.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\MsgWrapper.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetCommon.h">
+      <Filter>NetLib\inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
