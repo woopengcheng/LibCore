@@ -39,21 +39,21 @@ namespace LibCore
 	}
 
 	INT32  Init(std::string strLogFile)
-	{ 
-		INT32 nRes = 0;
-		nRes |= Log::Init(strLogFile.c_str() , NULL , 0);
-		nRes |= Net::InitNet();  
+	{  
+		Assert_ReF1(!Log::Init(strLogFile.c_str() , NULL , 0)) ; 
+		Assert_ReF1(!Net::InitNet()); 
 
-		return 0;
+		return ERR_SUCCESS;
 	}
 
 	INT32  Cleanup( void)
 	{ 
-		Net::CleanNet(); 
-		Log::Cleanup();
+		Assert_ReF1(!Net::CleanNet());   
+		Assert_ReF1(!Log::Cleanup()); 
 
 		SAFE_DELETE(Msg::g_pRpcCheckParams);
-		return 0;
+
+		return ERR_SUCCESS;
 	} 
 
 	INT32   strcmp( const char* str1,const char* str2 )

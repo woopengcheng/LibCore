@@ -41,7 +41,7 @@ namespace Log
 				CreateLog((LOG_TYPE)i , pLayoutConfig , (strFileName + "_" + g_strLogTypeName[i] + ".log").c_str()); 
 			}
 		}  
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 	UINT32 GLogAdaptee::Cleanup()
@@ -50,8 +50,7 @@ namespace Log
 	}
 
 	void GLogAdaptee::Debug( std_ostream & os )
-	{   
-//		LOG(INFO , os.str().c_str()); 
+	{    
 		RAW_VLOG(LOG_DEBUG , os.str().c_str()); 
 	}
 
@@ -106,7 +105,7 @@ namespace Log
 				break; 
 		} 
 
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 }

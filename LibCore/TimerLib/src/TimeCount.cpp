@@ -8,7 +8,7 @@ namespace Timer
 		m_ullLastTime = TimerHelper::GetTickCount();
 		m_ullTimeInterval = TimerHelper::GetMicroSecond(ullTimeInterval);
 
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 	INT32 TimeCount::Clean()
@@ -16,7 +16,7 @@ namespace Timer
 		m_ullLastTime = 0;
 		m_ullTimeInterval = 0;
 
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 	BOOL TimeCount::IsExpired(UINT64 unCurTime/* = 0 */, UINT64 * pDiff/* = NULL*/)
@@ -123,7 +123,7 @@ namespace Timer
 		m_ullLastTime = TimerHelper::GetTickCount();
 		m_ullTimeInterval = TimerHelper::GetMicroSecond(ullTimeInterval);
 
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 	INT32 TimeCount_Safe::Clean()
@@ -131,7 +131,7 @@ namespace Timer
 		SetLastTime(0);
 		SetTimeInterval(0);
 
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 	UINT64 TimeCount_Safe::ElapseTicks()
@@ -142,6 +142,6 @@ namespace Timer
 	INT32 TimeCount_Safe::ResetTime()
 	{
 		 SetLastTime(Timer::TimerHelper::GetTickCount()) ;
-		 return TRUE;
+		 return ERR_SUCCESS;
 	}
 }

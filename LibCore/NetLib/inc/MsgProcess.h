@@ -15,7 +15,7 @@ namespace Net
 		virtual BOOL IsAccept(UINT32 unMsgID) { return TRUE; }
 
 	public:
-		virtual INT32 Process(ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength) = 0;  
+		virtual INT32 Process(ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength) = 0 { return ERR_FAILURE; } 
 	};
 	  
 } //Net

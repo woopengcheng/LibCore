@@ -96,9 +96,6 @@
     <ClInclude Include="..\..\LibCore\Common\Common.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\CommonAssert.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\Common\ErrorCode.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -387,12 +384,12 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetCommon.h">
       <Filter>NetLib\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\MsgAssert.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="LibCore.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">

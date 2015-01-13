@@ -18,6 +18,6 @@ namespace Timer
 
 	INT32 TimerTask::SetTimer( UINT32 unInterval , UINT32 unTimes , UINT32 unStartTimer /*= 0*/ )
 	{   
-		return -1;
+		return ERR_FAILURE;
 	} 
 }

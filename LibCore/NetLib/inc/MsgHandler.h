@@ -72,21 +72,20 @@ namespace Net
 		virtual ~MsgHandler();
 
 	public:
-		virtual BOOL             Init();
-		virtual BOOL             Cleanup();  
-		virtual UINT32           AddClient(MsgProcess * pMsgProcess , char* pAddress, UINT16 usPort , BOOL bAutoManagerMemeory = FALSE );
-		virtual INT32            SendMsg( UINT32 unClientIndex , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
-		virtual BOOL             IsConnected(UINT32 unClientIndex);
+		virtual INT32      Init();
+		virtual INT32      Cleanup();  
+		virtual UINT32     AddClient(MsgProcess * pMsgProcess , char* pAddress, UINT16 usPort , BOOL bAutoManagerMemeory = FALSE );
+		virtual INT32      SendMsg( UINT32 unClientIndex , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
+		virtual BOOL       IsConnected(UINT32 unClientIndex);
 
 	private:
 		INT32              GetClientIndex(UINT32 unTimes = 0);
 		MsgHandlerImp *    GetMsgHandlerImp(UINT32 unClientIndex);
 
 	private: 
-		ThreadPool::ThreadSpinRWMutex  m_objThreadLock;
-		UINT32              m_unClientCount; 
-
+		UINT32              m_unClientCount;  
 		MapMsgHandlerImpT   m_mapMsgHandlerImp;
+		ThreadPool::ThreadSpinRWMutex  m_objThreadLock;
 	};
 
 }; 

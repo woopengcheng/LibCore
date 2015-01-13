@@ -62,11 +62,9 @@ namespace ThreadPool
 	INT32 ThreadContext<Context>::Init()
 	{ 
 		static sem_t & objSem = ThreadContext<Context>::GetThreadSem();
-		if( sem_init(&objSem , 0 , 0) )
-		{ 
-			Assert_Re0(0 && "创建信号灯失败...\n"); 
-		} 
-		return pthread_key_create(&ThreadContext<Context>::GetThreadKey() , ThreadContext<Context>::Cleanup);  
+		MsgAssert_ReF1( !sem_init(&objSem , 0 , 0) , "创建信号灯失败..."); 
+
+		return pthread_key_create(&ThreadContext<Context>::GetThreadKey() , ThreadContext<Context>::Cleanup);  //5 成功返回0
 	}
 
 };

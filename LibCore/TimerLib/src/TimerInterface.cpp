@@ -57,7 +57,7 @@ namespace Timer
 	INT32 TimerInterface::Update( void )
 	{ 
 
-		return TRUE;
+		return ERR_SUCCESS;
 	} 
 
 	Node<TimerType> * TimerInterface::GetNode( UINT32 unNodeID )

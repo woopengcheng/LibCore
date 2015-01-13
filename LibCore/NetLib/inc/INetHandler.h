@@ -21,19 +21,19 @@ namespace Net
 		} 
 
 	public:
-		virtual INT32  Init( void )         { return 0; }
+		virtual INT32  Init( void )         { return ERR_SUCCESS; }
 		virtual INT32  Cleanup( void )
 		{
 			if (m_pSession)
 			{
 				return m_pSession->Cleanup();
 			}
-			return FALSE;
+			return ERR_SUCCESS;
 		}
-		virtual INT32  Update( void )       { return 0; }
-		virtual INT32  OnClose( void )      { return 0; } 
-		virtual INT32  OnMsgRecving( void ) { return 0; }
-		virtual INT32  OnMsgSending( void ) { return 0; }  
+		virtual INT32  Update( void )       { return ERR_SUCCESS; }
+		virtual INT32  OnClose( void )      { return ERR_SUCCESS; } 
+		virtual INT32  OnMsgRecving( void ) { return ERR_SUCCESS; }
+		virtual INT32  OnMsgSending( void ) { return ERR_SUCCESS; }  
 
 	public: 
 		ISession * GetSession(){ return m_pSession; }

@@ -33,7 +33,7 @@ namespace Log
 		{
 			return m_pLogAdapter->Init(pLogName , pLayoutConfig , bMultCategory);
 		}
-		return ERR_LOG_INIT;
+		return ERR_FAILURE;
 	}
 
 	INT32 LogInterface::Cleanup()

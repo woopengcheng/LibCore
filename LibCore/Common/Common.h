@@ -1,7 +1,7 @@
 #ifndef __common_h__
 #define __common_h__
 
-#include "CommonAssert.h"
+#include "MsgAssert.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>

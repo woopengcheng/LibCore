@@ -22,7 +22,8 @@ namespace Net
 
 	INT32 NetHandlerListener::Init( const char * pAddress , INT32 nPort , BOOL bResueAddr /*= TRUE */, INT32 nListenerCount /*= DEFAULT_LISTENER_COUNT*/ )
 	{ 
-		Bind(pAddress , nPort);
+		Assert_ReF1(!Bind(pAddress , nPort));
+
 		return Listen(nListenerCount);
 	}
 
@@ -56,7 +57,7 @@ namespace Net
 
 	INT32 NetHandlerListener::Bind( const char * pAddress , INT32 nPort , BOOL bResueAddr)
 	{
-		Assert_Re(pAddress , -1);
+		Assert_ReF1(pAddress);
 		 
 		int nValueTrue = 1;
 		if (bResueAddr)

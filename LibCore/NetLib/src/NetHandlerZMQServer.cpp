@@ -12,15 +12,13 @@ namespace Net
 		: NetHandlerTransit(pNetReactor , pSession)   
 	{   
 		void * pContext = zmq_init (1);
-		if (!pContext) {
-			PAssert(0 && "error in zmq_init", zmq_strerror (errno)); 
-		}
+		MsgAssert(pContext , zmq_strerror (errno) << "error in zmq_init"); 
+
 		m_pZmqContext  = pContext;
 
 		void * pSocket = zmq_socket (pContext, ZMQ_PULL);
-		if (!pSocket) {
-			PAssert(0 && "error in zmq_socket", zmq_strerror (errno)); 
-		}
+		MsgAssert(pSocket , zmq_strerror (errno) << "error in zmq_socket"); 
+
 		m_pZmqSocket  = pSocket; 
 		 
 		m_pZmqMsg = new zmq_msg_t;
@@ -30,15 +28,8 @@ namespace Net
 
 	NetHandlerZMQServer::~NetHandlerZMQServer()
 	{  
-		INT32 nResult = zmq_close (m_pZmqSocket);
-		if (nResult != 0) {
-			PAssert(0 && "error in zmq_close", zmq_strerror (errno)); 
-		}
-
-		nResult = zmq_term (m_pZmqContext);
-		if (nResult != 0) {
-			PAssert(0 && "error in zmq_term:", zmq_strerror (errno)); 
-		} 
+		MsgAssert(!zmq_close (m_pZmqSocket) , zmq_strerror (errno) << "error in zmq_close");   
+		MsgAssert(!zmq_term (m_pZmqContext) , zmq_strerror (errno) << "error in zmq_term:"); 
 
 		SAFE_DELETE(m_pZmqMsg);
 	} 
@@ -47,27 +38,17 @@ namespace Net
 	{   
 		m_pSession->SetAddress(ip);
 		m_pSession->SetSocktPort(port);
-
-//		if (m_pSession->GetNetState() == Net::NET_STATE_LOSTED)
-		{
-			char szPort[20];
-			std::string str = "tcp://";
-			str += ip;
-//			str += "*";
-			str += ":";
-			itoa(port , szPort , 10);
-			str += szPort;  
+		 
+		char szPort[20];
+		std::string str = "tcp://";
+		str += ip; 
+		str += ":";
+		itoa(port , szPort , 10);
+		str += szPort;  
 			 
-			INT32 nResult = zmq_bind (m_pZmqSocket , str.c_str());
-			if (nResult != 0) 
-			{
-				printf ("error in zmq_bind: %s\n", zmq_strerror (errno));
-				return -1;
-			}
+		MsgAssert_ReF1(!zmq_bind (m_pZmqSocket , str.c_str()) , zmq_strerror (errno)); 
 			 
-			return INetHandler::Init();
-		}
-		return -1;  
+		return INetHandler::Init(); 
 	}
 
 	INT32 NetHandlerZMQServer::Cleanup(void)
@@ -85,7 +66,7 @@ namespace Net
 		int nResult = zmq_msg_init (m_pZmqMsg);
 		if (nResult != 0) 
 		{
-			printf ("error in zmq_msg_init: %s\n", zmq_strerror (errno));
+			gErrorStream("error in zmq_msg_init: %s\n", zmq_strerror (errno));
 			return -1;
 		}
 

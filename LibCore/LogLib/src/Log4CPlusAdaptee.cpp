@@ -14,7 +14,7 @@
 #include <log4cplus/loggingmacros.h>
 #include "log4cplus/consoleappender.h"
 #include "log4cplus/tstring.h"
-#include "log4cplus/loggingmacros.h"
+#include "log4cplus/loggingmacros.h" 
 
 namespace Log
 {   
@@ -50,7 +50,7 @@ namespace Log
 				CreateLog(g_strLogTypeName[i].c_str() , pLayoutConfig , (strFileName + "_" + g_strLogTypeName[i] + ".log").c_str()); 
 			}
 		}
-		return 0;
+		return ERR_SUCCESS;
 	}
 
 	UINT32 Log4CPlusAdaptee::CreateLog( const char * pName , const char * pLayoutConfig , const char * pFile )
@@ -80,26 +80,15 @@ namespace Log
 		objLogger.addAppender(pAppender);
 		objLogger.setLogLevel(log4cplus::ALL_LOG_LEVEL);
 
-		return 0;
+		return ERR_SUCCESS;
 	} 
 
 	UINT32 Log4CPlusAdaptee::Cleanup()
 	{
 		log4cplus::Logger::shutdown(); 
-		return 0;
-	}
 
-	//log4cplus::Logger  Log4CPlusInterface::GetLog( LOG_TYPE logType )
-	//{
-	//	if (!m_bMultCategory)
-	//	{
-	//		return log4cplus::Logger::getInstance(log4cplus::helpers::towstring(g_strLogTypeName[logType].c_str())); 
-	//	}
-	//	else
-	//	{ 
-	//		return log4cplus::Logger::getInstance(log4cplus::helpers::towstring(g_strLogTypeName[LOG_ALL_TYPE].c_str())); 
-	//	}
-	//}
+		return ERR_SUCCESS;
+	}
 	  
 	void Log4CPlusAdaptee::Debug( std_ostream & os )
 	{  

@@ -20,18 +20,19 @@ namespace Net
 	INT32 ISession::OnRecvMsg( void )
 	{
 		m_objTimeout.ResetTime();
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 	INT32 ISession::OnSendMsg( void )
 	{ 
 		m_objTimeout.ResetTime();
-		return TRUE;
+
+		return ERR_SUCCESS;
 	}
 
 	INT32 ISession::OnClose( void )
 	{ 
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 	INT32 ISession::Init( const char * pAddress ,INT16 usSocktPort , const char * pRemoteName , INT32 nSessionID , SOCKET socket , INT64 llTimeout)
@@ -44,7 +45,8 @@ namespace Net
 		m_socket = socket;
 
 		m_objTimeout.Start(llTimeout);
-		return TRUE;
+
+		return ERR_SUCCESS;
 	}
 
 	INT32 ISession::Cleanup(void)
@@ -58,7 +60,7 @@ namespace Net
 			NetHelper::CloseSocket(this);
 			m_socket = -1; 
 		}
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 	 
 	void ISession::AutoSetSessionID( void )

@@ -52,9 +52,9 @@ namespace Net
 		~MsgHeader(){}
 	};
 
-	extern void DLL_EXPORT InitNet() ;
+	extern INT32 DLL_EXPORT InitNet() ;
 
-	extern void DLL_EXPORT CleanNet(); 
+	extern INT32 DLL_EXPORT CleanNet(); 
 
 } //Net
 

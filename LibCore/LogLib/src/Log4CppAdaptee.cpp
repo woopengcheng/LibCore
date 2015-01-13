@@ -45,7 +45,7 @@ namespace Log
 			}
 		}
 		 
-		return 0;
+		return ERR_SUCCESS;
 	}
 	 
 	UINT32 Log4CppAdaptee::CreateLog( const char * pName , const char * pLayoutConfig , const char * pFile )
@@ -80,47 +80,14 @@ namespace Log
 		objCategory.setAppender(pAppender);
 		objCategory.setPriority(log4cpp::Priority::DEBUG);     //5 在debug优先级以上的都要存储
 
-		return 0;
+		return ERR_SUCCESS;
 	} 
 
 	UINT32 Log4CppAdaptee::Cleanup()
 	{
 		log4cpp::Category::shutdown(); 
-		return 0;
-	}
- 	// 
- 	//log4cpp::CategoryStream  Log4CppInterface::GetLog( LOG_TYPE logType)
- 	//{ 
- 	//	int nPriority = 0;
- 
- 	//	if (logType == LOG_DEBUG)
- 	//	{
- 	//		nPriority = log4cpp::Priority::DEBUG; 
- 	//	}
- 	//	else if (logType == LOG_ERROR)
- 	//	{
- 	//		nPriority = log4cpp::Priority::ERROR; 
- 	//	}
- 	//	else if (logType == LOG_WARNING)
- 	//	{
- 	//		nPriority = log4cpp::Priority::WARN; 
- 	//	}
- 	//	else if (logType == LOG_OTHERS)
- 	//	{
- 	//		nPriority = log4cpp::Priority::INFO; 
- 	//	} 
- 	//	else if(logType == LOG_TRACE)
- 	//	{
- 	//		nPriority = log4cpp::Priority::INFO; 
- 	//	} 
- 	//	
- 	//	if (m_bMultCategory)
-		//{
- 	//		logType = LOG_ALL_TYPE;
-		//} 
- 	//	 
- 	//	return log4cpp::Category::getInstance(g_strLogTypeName[logType].c_str()).getStream(nPriority);    
- 	//} 
+		return ERR_SUCCESS;
+	} 
 
 	void Log4CppAdaptee::Debug( std_ostream & os )
 	{

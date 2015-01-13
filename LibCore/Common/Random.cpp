@@ -12,8 +12,7 @@ namespace LibCore
 		m_hProv = NULL;
 		if(!CryptAcquireContext(&m_hProv, NULL, NULL, PROV_RSA_FULL, 0)) 
 		{
-			if( !CryptAcquireContext(&m_hProv, NULL, NULL, PROV_RSA_FULL, CRYPT_NEWKEYSET) ) 
-				assert(false && "CryptAcquireContext Failed. \n");
+			MsgAssert( !CryptAcquireContext(&m_hProv, NULL, NULL, PROV_RSA_FULL, CRYPT_NEWKEYSET) , "CryptAcquireContext Failed. \n" ) 
 		}
 	}
 

@@ -206,7 +206,7 @@ namespace Net
 	{ 
 		if(m_pSession && !m_pSession->IsCanWrite())
 		{
-			return -1;
+			return ERR_NET_FAILURE;
 		} 
 
 		UINT32 unTotalSendBytes = 0;
@@ -238,7 +238,7 @@ namespace Net
 
 	INT32 NetHandlerTransit::HandleMsg( ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
 	{
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 	INT32 NetHandlerTransit::OnClose( void )

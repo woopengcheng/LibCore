@@ -29,7 +29,7 @@ namespace Timer
 		Node<TimerType> * pNodeInt64 = GetNode();
 		if (!pNodeInt64)
 		{
-			return FALSE;
+			return ERR_FAILURE;
 		}
 		TimerNode * pNode = pNodeInt64->GetClass<TimerNode>();    //5 获取堆顶的元素.然后进行比较.
 
@@ -41,6 +41,6 @@ namespace Timer
 			return RemoveTimer(pNode->GetTimerID());
 		}
 
-		return TRUE;
+		return ERR_SUCCESS;
 	} 
 }

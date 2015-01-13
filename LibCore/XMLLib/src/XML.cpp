@@ -37,7 +37,7 @@ namespace XML
 
 		if (!fStream.good())
 		{
-			return -1;
+			return ERR_FAILURE;
 		}
 		
 		return LoadFromStream(fStream);
@@ -70,7 +70,7 @@ namespace XML
 		XML_ParserFree(objParser);
 		m_mapXMLValues = objValue.GetXMLValues();
 
-		return 0;
+		return ERR_SUCCESS;
 	}
 
 	INT32 XML::LoadFromString( const std::string strXMLContent )
@@ -90,7 +90,8 @@ namespace XML
 
 		XML_ParserFree(objParser);
 		m_mapXMLValues = objValue.GetXMLValues();
-		return 0;
+
+		return ERR_SUCCESS;
 	}
 
 	std::string XML::GetXMLValue( std::string strXMLPath , std::string strDefaultValue )

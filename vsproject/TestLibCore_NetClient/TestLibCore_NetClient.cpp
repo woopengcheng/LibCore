@@ -19,6 +19,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
 	LibCore::Cleanup(); 
+
 	return 0;
 }
 

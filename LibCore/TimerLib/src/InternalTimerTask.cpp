@@ -39,10 +39,10 @@ namespace Timer
 					m_pNode->SetTimes(--unTimers);
 
 			}
-			return TRUE;
+			return ERR_SUCCESS;
 		}
 
-		return FALSE;
+		return ERR_FAILURE;
 	}
 
 }

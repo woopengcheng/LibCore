@@ -7,14 +7,15 @@ namespace Msg
 	INT32 InnerMsg::Init( void )
 	{ 
 		RegisterMsg();
-		return TRUE;
+
+		return ERR_SUCCESS;
 	}
 
 
 	INT32 InnerMsg::Cleanup( void )
 	{
 
-		return FALSE;
+		return ERR_SUCCESS;
 	}
 
 
@@ -30,24 +31,21 @@ namespace Msg
 
 		ObjectMsgCall * pMsg = m_objMsgQueue.FetchMsg();
 		while (pMsg)
-		{
-			if (pMsg)
-			{ 
-				if (m_pThreadPoolInterface)
-				{
-					return m_pThreadPoolInterface->AddTask(new InternalMsgTask(this , pMsg)); 
-				}
-				else
-				{
-					InternalMsgTask objInnerMsg(this , pMsg);
-					objInnerMsg.Update();
-				}
-			}  
+		{ 
+			if (m_pThreadPoolInterface)
+			{
+				return m_pThreadPoolInterface->AddTask(new InternalMsgTask(this , pMsg)); 
+			}
+			else
+			{
+				InternalMsgTask objInnerMsg(this , pMsg);
+				objInnerMsg.Update();
+			} 
 
 			pMsg = m_objMsgQueue.FetchMsg();
 		}
 
-		return FALSE;
+		return ERR_SUCCESS;
 	}
 
 	void InnerMsg::RegisterMsg( void )

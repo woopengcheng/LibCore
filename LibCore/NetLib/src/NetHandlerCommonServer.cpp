@@ -13,7 +13,8 @@ namespace Net
 		((Net::MsgHeader*)pBuf)->unMsgLength = 6 + sizeof(Net::MsgHeader);
 		memcpy(pBuf + sizeof(Net::MsgHeader) , "woope" , 6);
 		SendMsg(pBuf , 6 + sizeof(Net::MsgHeader)); 
-		return TRUE;
+
+		return ERR_SUCCESS;
 	}
 
 	INT32 NetHandlerCommonServer::OnClose( void )

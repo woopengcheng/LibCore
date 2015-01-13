@@ -11,7 +11,7 @@ namespace Net
 			return m_pMsgProcess->Process(pSession , unMsgID , pBuffer , unLength);
 		}
 
-		return -1;
+		return ERR_NET_FAILURE;
 	}
 
 	 INT32 NetHandlerCommonClient::Init( const char* ip,int port )
@@ -24,7 +24,7 @@ namespace Net
 			 gDebugStream("Connect Init " << m_pSession->GetRemoteName());
 			 return NetHandlerTransit::Init();
 		 }
-		 return -1;  
+		 return ERR_NET_FAILURE;  
 	 }
 
 	 INT32 NetHandlerCommonClient::Cleanup(void)

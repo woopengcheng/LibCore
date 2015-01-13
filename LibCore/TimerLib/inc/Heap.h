@@ -21,13 +21,13 @@ namespace Timer
 		virtual  INT32    Cleanup(void); 
 
 	public:
-		virtual  INT32    InsertNode(UINT32 unNodeID , Node<ValueType> * pNode) { return FALSE; }
-		virtual  INT32    RemoveNode(UINT32 unNodeID) { return FALSE; } 
+		virtual  INT32    InsertNode(UINT32 unNodeID , Node<ValueType> * pNode){ return ERR_SUCCESS; }
+		virtual  INT32    RemoveNode(UINT32 unNodeID) { return ERR_SUCCESS; }
 		virtual  Node<ValueType> * GetNode(UINT32 unNodeID);
 
 	protected:
-		virtual  INT32    HeapRebuildDown(Node<ValueType> * pRebuildNode) { return FALSE; }
-		virtual  INT32    HeapRebuildUp(Node<ValueType>  * pRebuildNode) { return FALSE; }
+		virtual  INT32    HeapRebuildDown(Node<ValueType> * pRebuildNode){ return ERR_SUCCESS; }
+		virtual  INT32    HeapRebuildUp(Node<ValueType>  * pRebuildNode) { return ERR_SUCCESS; }
 
 	public:
 		INT32             GetHeapParentPos(UINT32 unPos);

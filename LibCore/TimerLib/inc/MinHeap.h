@@ -44,7 +44,7 @@ namespace Timer
 
 		if (!pRebuildNode || !pParentNode || pParentNode == pRebuildNode)
 		{
-			return FALSE;
+			return ERR_FAILURE;
 		}
 
 		while (unCurPos > 0)
@@ -62,7 +62,7 @@ namespace Timer
 
 		SwitchNode(pRebuildNode , unCurPos);
 
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 	template <typename ValueType>
@@ -70,7 +70,7 @@ namespace Timer
 	{
 		if (!pRebuildNode)
 		{
-			return FALSE;
+			return ERR_FAILURE;
 		}
 		UINT32 unCurPos   = pRebuildNode->GetNodePos();
 		UINT32 unLeftPos  = GetHeapLeftPos(unCurPos);
@@ -101,7 +101,7 @@ namespace Timer
 				Node<ValueType> * pNextNode = GetNode(unLeftPos);
 				if(!pNextNode || !pCurNode)
 				{
-					return FALSE;
+					return ERR_FAILURE;
 				}  
 				objLeftValue = pCurNode->GetValue();
 				objRightValue =  pNextNode->GetValue();
@@ -118,7 +118,7 @@ namespace Timer
 		}
 
 		SwitchNode(pRebuildNode , unCurPos);
-		return TRUE;
+		return ERR_SUCCESS;
 	} 
 
 	template <typename ValueType>
@@ -131,7 +131,7 @@ namespace Timer
 			Node<ValueType> * pCurNode = result->second;
 			if (!pCurNode)
 			{
-				return FALSE;
+				return ERR_FAILURE;
 			}
 
 			unCurPos = pCurNode->GetNodePos();
@@ -142,7 +142,7 @@ namespace Timer
 				Node<ValueType> * pParentNode = GetNode(GetHeapParentPos(unCurPos));
 				if(!pLastNode || ! pParentNode)
 				{
-					return FALSE; 
+					return ERR_FAILURE; 
 				} 
 
 				SAFE_DELETE(pCurNode);                        //5 删除当前节点.
@@ -158,7 +158,7 @@ namespace Timer
 			}
 		}
 
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 	template <typename ValueType>

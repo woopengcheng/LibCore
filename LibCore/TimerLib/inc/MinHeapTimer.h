@@ -12,9 +12,9 @@ namespace Timer
 		virtual ~MinHeapTimer( void ){}
 
 	public:
-		virtual INT32    Init( void ){ return FALSE; }
-		virtual INT32    Cleanup( void ){ return FALSE; }
- 		virtual INT32    SetTimer(UINT32 unTimeInterval , UINT32 unStartTime , UINT32 unTimes , void * pObj = NULL , TimerCallBackFunc pFunc = NULL){ return -1; }
+		virtual INT32    Init( void ){ return ERR_SUCCESS; }
+		virtual INT32    Cleanup( void ){ return ERR_SUCCESS; }
+ 		virtual INT32    SetTimer(UINT32 unTimeInterval , UINT32 unStartTime , UINT32 unTimes , void * pObj = NULL , TimerCallBackFunc pFunc = NULL){ return ERR_SUCCESS; }
 	};
 } 
 #endif

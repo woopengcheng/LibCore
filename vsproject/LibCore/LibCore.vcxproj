@@ -237,7 +237,7 @@
     <ClInclude Include="..\..\LibCore\Common\ClassTypeID.h" />
     <ClInclude Include="..\..\LibCore\Common\ClassTypeInterface.h" />
     <ClInclude Include="..\..\LibCore\Common\Common.h" />
-    <ClInclude Include="..\..\LibCore\Common\CommonAssert.h" />
+    <ClInclude Include="..\..\LibCore\Common\MsgAssert.h" />
     <ClInclude Include="..\..\LibCore\Common\ErrorCode.h" />
     <ClInclude Include="..\..\LibCore\Common\LibCore.h" />
     <ClInclude Include="..\..\LibCore\Common\Platform.h" />
@@ -404,7 +404,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="LibCore.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

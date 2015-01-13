@@ -8,18 +8,22 @@
 
 namespace Net
 { 
-	void InitNet()
+	INT32 InitNet()
 	{
 #ifdef WIN32
 		WSADATA wsd;
-		WSAStartup(MAKEWORD(2,2),&wsd);
+		return WSAStartup(MAKEWORD(2,2),&wsd);  //5 0代表成功
+#else
+		return ERR_SUCCESS;
 #endif
 	}
 
-	void CleanNet()
+	INT32 CleanNet()
 	{
 #ifdef _WIN32
-		WSACleanup();
+		return WSACleanup();
+#else
+		return ERR_SUCCESS;
 #endif
 
 	}
@@ -172,6 +176,7 @@ namespace Net
 		m_mapNetEvents.insert(std::make_pair(pNetHandler->GetSession()->GetSessionID() , nFDMask));
 
 		++m_nNetHandlerCount;
+
 		return ERR_SUCCESS;
 	}
 

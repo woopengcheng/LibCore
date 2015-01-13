@@ -21,7 +21,7 @@ INT32 Client::Init()
 	m_pNetHandlerClient->Init("127.0.0.1" , 5555);
 	m_pNetReactor->AddNetHandler(m_pNetHandlerClient);
 
-	return TRUE;
+	return ERR_SUCCESS;
 }
 
 INT32 Client::Cleanup()
@@ -29,7 +29,7 @@ INT32 Client::Cleanup()
 	SAFE_DELETE(m_pMsgProcess);
 	SAFE_DELETE(m_pNetReactor);
 
-	return TRUE;
+	return ERR_SUCCESS;
 }
 
 INT32 Client::Update()

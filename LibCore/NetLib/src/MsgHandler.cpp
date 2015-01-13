@@ -18,13 +18,13 @@ namespace Net
 
 	}
 
-	BOOL MsgHandler::Init()
+	INT32 MsgHandler::Init()
 	{
 
-		return TRUE;
+		return ERR_SUCCESS;
 	} 
 
-	BOOL MsgHandler::Cleanup()
+	INT32 MsgHandler::Cleanup()
 	{
 		MapMsgHandlerImpT::iterator iter = m_mapMsgHandlerImp.begin();
 		for (;iter != m_mapMsgHandlerImp.end();++iter)
@@ -34,7 +34,7 @@ namespace Net
 		}
 		m_mapMsgHandlerImp.clear();
 
-		return TRUE;
+		return ERR_SUCCESS;
 	} 
 
 	UINT32 MsgHandler::AddClient( MsgProcess * pMsgProcess , char* pAddress, UINT16 usPort , BOOL bAutoManagerMemeory)
