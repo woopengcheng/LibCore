@@ -40,10 +40,10 @@ namespace Msg
 		if (iter != m_mapRpcInfos.end() )
 		{ 
 			iter->second.nSessionID = -1;     //5 代表断开了.需要重连.  
-			return TRUE;
+			return ERR_SUCCESS;
 		}
 
-		return FALSE;
+		return ERR_FAILURE;
 	}
 
 
@@ -54,10 +54,10 @@ namespace Msg
 		{  
 			pNetHandler->Cleanup(); 
 
-			return TRUE;
+			return ERR_SUCCESS;
 		}  
 
-		return FALSE;
+		return ERR_FAILURE;
 	}
 
 
@@ -74,7 +74,7 @@ namespace Msg
 			}
 		}
 
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 
@@ -104,10 +104,10 @@ namespace Msg
 		SRpcInfo * pInfo = GetRpcInfo(strRpcInfo);
 		if ( !pInfo || strcmp(pInfo->szRemoteName , strRpcInfo.c_str()) != 0)
 		{
-			return FALSE; 
+			return ERR_FAILURE; 
 		} 
 
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 
@@ -138,11 +138,11 @@ namespace Msg
 			if (strcmp(iter->second->GetSession()->GetRemoteName() , "") == 0)
 			{
 				iter->second->GetSession()->SetRemoteName(pName);
-				return TRUE;
+				return ERR_SUCCESS;
 			} 
 		}
 
-		return FALSE;
+		return ERR_FAILURE;
 	}
 
 
@@ -245,7 +245,7 @@ namespace Msg
 
 	INT32 RpcManager::HandleMsg( Net::ISession * pSession , RPCMsgCall * pMsg )
 	{ 
-		return FALSE;
+		return ERR_SUCCESS;
 	}
 
 
@@ -263,7 +263,7 @@ namespace Msg
 			return pRemoteRpc->SendMsg(szBuf , unLength + sizeof(Net::MsgHeader));
 		}
 
-		return -1;
+		return ERR_FAILURE;
 	}
 
 
@@ -290,7 +290,7 @@ namespace Msg
 
 	INT32 RpcManager::SendMsg( INT32 nSessionID , RPCMsgCall * pMsg  , BOOL bForce/* = FALSE*/ , BOOL bAddRpc/* = TRUE*/)
 	{
-		return FALSE; 
+		return ERR_FAILURE; 
 	}
 
 
@@ -301,7 +301,7 @@ namespace Msg
 		{
 			return SendMsg(iter->second.nSessionID , pMsg , bForce , bAddRpc);
 		}
-		return -1;
+		return ERR_FAILURE;
 	}
 
 
@@ -309,7 +309,7 @@ namespace Msg
 	{ 
 		UpdateHandlers();
 
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 
@@ -318,13 +318,14 @@ namespace Msg
 		m_mapRemoteRpcs.clear();
 
 		m_mapRpcInfos.clear();
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 
 	INT32 RpcManager::Init( void )
 	{ 
-		return -1; 
+
+		return ERR_SUCCESS; 
 	}
 
 
@@ -339,7 +340,7 @@ namespace Msg
 
 		DelNetHandler(nSessionID);
 
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 
@@ -354,7 +355,7 @@ namespace Msg
 
 		AddRpcInfo(objRpcInfo);
 
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 }

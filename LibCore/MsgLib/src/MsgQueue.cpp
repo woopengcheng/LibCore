@@ -23,7 +23,7 @@ namespace Msg
 		Timer::Node<INT64> * pNodeInt64 = GetNode(0);
 		if (!pNodeInt64)
 		{
-			return FALSE;
+			return ERR_FAILURE;
 		}
 		MsgTimerNode * pNode = pNodeInt64->GetClass<MsgTimerNode >();    //5 获取堆顶的元素.然后进行比较.
 
@@ -35,23 +35,23 @@ namespace Msg
 			RemoveTimer(pNode->GetTimerID());
 		}
 
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 
 	INT32 MsgQueue::AddMsg(ObjectMsgCall * pMsg )
 	{
-		Assert_Re0(pMsg);
+		Assert_ReF1(pMsg);
 
 		m_queueMsgs.push(pMsg);
 
-		return TRUE; 
+		return ERR_SUCCESS; 
 	} 
 
 
 	INT32 MsgQueue::AddMsg( ObjectMsgCall * pMsg , UINT32 unTimeout )
 	{
-		Assert_Re0(pMsg);
+		Assert_ReF1(pMsg);
 		return SetTimer(pMsg , unTimeout);
 	}
 
@@ -76,7 +76,7 @@ namespace Msg
 			return GetTimerIDCount(); 
 		}
 
-		return -1;
+		return ERR_FAILURE;
 	}
 
 

@@ -443,9 +443,6 @@
     <ClCompile Include="..\..\LibCore\MsgLib\src\Parameters.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\LibCore\MsgLib\src\RcMsgHelper.cpp">
-      <Filter>MsgLib\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\LibCore\MsgLib\src\RemoteRpcClient.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
@@ -550,6 +547,9 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\Common\Random.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\MsgLib\src\RpcMsgHelper.cpp">
+      <Filter>MsgLib\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -67,7 +67,7 @@ namespace Msg
 	public:   
 		INT32 ProxySendMsg(const char * pName) 
 		{
-			Assert_Re0("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && Msg::g_pRpcCheckParams && Msg::g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod ) && "RPC发送参数类型或者数量不对.");
+			Assert_ReF1("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && Msg::g_pRpcCheckParams && Msg::g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod ) && "RPC发送参数类型或者数量不对.");
 
 			RPC_GEN_PROXY_MSG;
 
@@ -79,7 +79,7 @@ namespace Msg
 		template<typename P1 >
 		INT32 ProxySendMsg(const char * pName, P1 &p1) 
 		{
-			Assert_Re0("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 ) && "RPC发送参数类型或者数量不对.");
+			Assert_ReF1("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 ) && "RPC发送参数类型或者数量不对.");
 
 			RPC_GEN_PROXY_MSG;
 
@@ -91,7 +91,7 @@ namespace Msg
 		template<typename P1 , typename P2 >
 		INT32 ProxySendMsg(const char * pName, P1 &p1 , P2 &p2) 
 		{
-			Assert_Re0("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2) && "RPC发送参数类型或者数量不对.");
+			Assert_ReF1("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2) && "RPC发送参数类型或者数量不对.");
 
 			RPC_GEN_PROXY_MSG;
 
@@ -103,7 +103,7 @@ namespace Msg
 		template<typename P1 , typename P2 , typename P3>
 		INT32 ProxySendMsg(const char * pName, P1 &p1 , P2 &p2 , P3 &p3) 
 		{
-			Assert_Re0("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2 , p3 ) && "RPC发送参数类型或者数量不对.");
+			Assert_ReF1("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2 , p3 ) && "RPC发送参数类型或者数量不对.");
 
 			RPC_GEN_PROXY_MSG;
 
@@ -115,7 +115,7 @@ namespace Msg
 		template<typename P1 , typename P2 , typename P3 , typename P4>
 		INT32 ProxySendMsg(const char * pName, P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4) 
 		{
-			Assert_Re0("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2 , p3 , p4) && "RPC发送参数类型或者数量不对.");
+			Assert_ReF1("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2 , p3 , p4) && "RPC发送参数类型或者数量不对.");
 
 			RPC_GEN_PROXY_MSG; 
 
@@ -127,7 +127,7 @@ namespace Msg
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5>
 		INT32 ProxySendMsg(const char * pName, P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5) 
 		{
-			Assert_Re0("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2 , p3 , p4 , p5) && "RPC发送参数类型或者数量不对.");
+			Assert_ReF1("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2 , p3 , p4 , p5) && "RPC发送参数类型或者数量不对.");
 
 			RPC_GEN_PROXY_MSG;
 
@@ -139,7 +139,7 @@ namespace Msg
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6>
 		INT32 ProxySendMsg(const char * pName, P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6) 
 		{
-			Assert_Re0("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2 , p3 , p4 , p5 , p6) && "RPC发送参数类型或者数量不对.");
+			Assert_ReF1("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2 , p3 , p4 , p5 , p6) && "RPC发送参数类型或者数量不对.");
 
 			RPC_GEN_PROXY_MSG;
 
@@ -151,7 +151,7 @@ namespace Msg
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7>
 		INT32 ProxySendMsg(const char * pName, P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7) 
 		{
- 			Assert_Re0("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2 , p3 , p4 , p5 , p6, p7) && "RPC发送参数类型或者数量不对.");
+ 			Assert_ReF1("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2 , p3 , p4 , p5 , p6, p7) && "RPC发送参数类型或者数量不对.");
 
 			RPC_GEN_PROXY_MSG;
 
@@ -163,7 +163,7 @@ namespace Msg
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8>
 		INT32 ProxySendMsg(const char * pName, P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7 , P8 &p8) 
 		{
-			Assert_Re0("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2 , p3 , p4 , p5 , p6, p7 , p8) && "RPC发送参数类型或者数量不对.");
+			Assert_ReF1("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2 , p3 , p4 , p5 , p6, p7 , p8) && "RPC发送参数类型或者数量不对.");
 
 			RPC_GEN_PROXY_MSG;
 

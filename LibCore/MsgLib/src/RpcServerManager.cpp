@@ -36,7 +36,7 @@ namespace Msg
 			}
 		} 
 
-		return TRUE;
+		return ERR_SUCCESS;
 	} 
 
 
@@ -57,7 +57,7 @@ namespace Msg
 
 		SAFE_DELETE(pMsg); 
 
-		return 1;
+		return ERR_SUCCESS;
 	}  
 
 
@@ -116,7 +116,7 @@ namespace Msg
 			SAFE_DELETE(pTemp);  
 		} 
 
-		return 0;
+		return ERR_SUCCESS;
 	}
 
 
@@ -151,18 +151,14 @@ namespace Msg
 		}  
 
 		vecObjectMsgCall.clear(); 
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 
 	INT32 RpcServerManager::Init( UINT32 unMsgThreadPriorityCount /*= 1*/ , UINT32 unMsgHandlerthreadPriorityCount /*= 1*/, UINT32 unMsgThreadPriority /*= DEFAULT_MSG_THREAD_ID*/ ,UINT32 unMsgHandlerthreadPriority /*= DEFAULT_MSG_HANDLE_THREAD_ID*/)
 	{ 
-		if (RpcManager::Init() == -1)
-		{
-			return -1;
-		} 
 
-		return TRUE;
+		return RpcManager::Init();
 	}
 
 

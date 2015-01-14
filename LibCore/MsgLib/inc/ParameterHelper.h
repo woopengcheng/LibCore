@@ -142,10 +142,10 @@ namespace Msg
 				}
 				break; 
 			default:
-				Assert_Re(false && "invalid convert to INT32" , -1);
+				MsgAssert_ReF1(false , "invalid convert to INT32");
 			}
 
-			return -1;
+			return ERR_FAILURE;
 		}
 
 		static void MakeParameter(Parameter & objParam , INT32 nValue)

@@ -52,7 +52,7 @@ namespace Msg
 // 			} 
 		} 
 
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 	UINT32 Parameters::Serialization( char * pMsg )

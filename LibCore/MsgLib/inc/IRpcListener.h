@@ -15,8 +15,8 @@ namespace Msg
 
 		}
 	public:
-		virtual INT32 OnListenOn(RpcInterface * pRpcInterface){ return FALSE;} 
-		virtual INT32 OnListenOff(RpcInterface * pRpcInterface){ return FALSE;}
+		virtual INT32 OnListenOn(RpcInterface * pRpcInterface){ return ERR_SUCCESS;} 
+		virtual INT32 OnListenOff(RpcInterface * pRpcInterface){ return ERR_SUCCESS;}
 	};
 
 }

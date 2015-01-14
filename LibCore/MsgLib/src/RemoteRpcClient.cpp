@@ -5,6 +5,20 @@
 
 namespace Msg
 {  
+
+	RemoteRpcClient::RemoteRpcClient( RpcManager * pRpcManager ,  Net::INetReactor * pNetReactor , Net::ISession * pSession )
+		: Net::NetHandlerClient(pNetReactor , pSession) 
+		, m_pRpcManager(pRpcManager)
+	{
+
+	}
+
+	RemoteRpcClient::~RemoteRpcClient()
+	{
+		Cleanup();
+		SAFE_DELETE(m_pSession);
+	}
+
 	INT32 RemoteRpcClient::Cleanup( void )
 	{
 		return Net::NetHandlerClient::Cleanup();
@@ -32,8 +46,7 @@ namespace Msg
 		}
 
 		return  nResult;  
-	}
-
+	} 
 
 	INT32 RemoteRpcClient::OnClose( void )
 	{  
@@ -43,8 +56,7 @@ namespace Msg
 		} 
 		 
 		return NetHandlerClient::OnClose(); 
-	}
-
+	} 
 
 	INT32 RemoteRpcClient::HandleMsg( Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
 	{ 
@@ -66,22 +78,7 @@ namespace Msg
 			break;
 		}
 
-		return -1;
-	}
-
-
-	RemoteRpcClient::~RemoteRpcClient()
-	{
-		Cleanup();
-		SAFE_DELETE(m_pSession);
-	}
-
-
-	RemoteRpcClient::RemoteRpcClient( RpcManager * pRpcManager ,  Net::INetReactor * pNetReactor , Net::ISession * pSession )
-		: Net::NetHandlerClient(pNetReactor , pSession) 
-		, m_pRpcManager(pRpcManager)
-	{
-
-	}
+		return ERR_FAILURE;
+	} 
 
 }

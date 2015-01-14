@@ -62,7 +62,7 @@ namespace Msg
 			
 			GetSession()->SetClosed(TRUE);
 			GetSession()->SetNetState(Net::NET_STATE_LOSTED);
-			return 0;
+			return ERR_NET_FAILURE;
 		}
 
 		INT64 ullCurTime = Timer::TimerHelper::GetTickCount();
@@ -75,7 +75,7 @@ namespace Msg
 			m_pRpcManager->CloseNet(m_pSession->GetSessionID()); 
 		} 
 
-		return 0;
+		return ERR_SUCCESS;
 	}
 
 
@@ -121,6 +121,6 @@ namespace Msg
 			break;
 		}
 
-		return -1;
+		return ERR_FAILURE;
 	}
 }

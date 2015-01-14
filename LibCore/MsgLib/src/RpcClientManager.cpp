@@ -56,7 +56,7 @@ namespace Msg
 			//			gDebugStream("SendPing " <<  pNet->GetSession()->GetRemoteName());
 		}
 
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 
@@ -69,7 +69,7 @@ namespace Msg
 			return Ping();
 		} 
 
-		return FALSE;
+		return ERR_FAILURE;
 	}  
 
 
@@ -77,7 +77,7 @@ namespace Msg
 	{ 
 		if (!pMsg)
 		{
-			return -1;
+			return ERR_FAILURE;
 		}
 
 		Net::NetHandlerTransitPtr pRemoteRpc = NULL;
@@ -94,7 +94,7 @@ namespace Msg
 			return RpcManager::SendMsg(pRemoteRpc , pMsg , bForce , bAddRpc);  
 		}
 
-		return -1;
+		return ERR_FAILURE;
 	}
 
 

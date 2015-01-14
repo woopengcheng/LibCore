@@ -12,7 +12,7 @@ namespace Msg
 #define GEN_RPC_CALL(pSessionName , rpcCallName , p1 , p2 , p3 , p4 , p5 , p6 , p7 , vecTargets , objSrc , usPriority , pServerName) \
 	if (vecTargets.size() == 0 && !pSessionName && !pServerName)\
 	{\
-		Assert_Re0(FALSE);\
+		Assert_ReF1(FALSE);\
 	}\
 	else\
 	{ \
@@ -25,13 +25,13 @@ namespace Msg
 		return RpcInstance::GetInstance().SendMsg(pSessionName , pMsg );\
 	}\
 	\
-	return TRUE;\
+	return ERR_SUCCESS;\
 	 
 	
 #define GEN_MSG_CALL(rpcCallName , p1 , p2 , p3 , p4 , p5 , p6 , p7 , vecTargets , objSrc , usPriority) \
 	if (vecTargets.size() == 0)\
 	{\
-		Assert_Re0(FALSE);\
+		Assert_ReF1(FALSE);\
 	}\
 	else\
 	{ \
@@ -43,7 +43,7 @@ namespace Msg
 		MsgInstance::GetInstance().SendMsg(pMsg);\
 	}\
 	\
-	return TRUE;\
+	return ERR_SUCCESS;\
 
 }
 #endif

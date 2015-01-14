@@ -72,6 +72,6 @@ namespace Msg
 		{
 			pMsg->m_aTargets[i] = m_aTargets[i];
 		}  
-		return TRUE; 
+		return ERR_SUCCESS; 
 	}
 }

@@ -32,7 +32,7 @@ namespace Msg
 	public: 
 		//5 注册静态类的函数 
 		template< typename Func>
-		UINT32 RegisterFunc(const char * pFuncName , Func pFunc)
+		INT32 RegisterFunc(const char * pFuncName , Func pFunc)
 		{ 
 			StaticMethodImpl< Func> * pSMI = new StaticMethodImpl< Func>;   //5 这里将函数封装在静态函数包里.
 			pSMI->m_cMethodType = METHOD_TYPE_STATIC;  
@@ -53,12 +53,12 @@ namespace Msg
 				SAFE_DELETE(pSMI);
 				return FALSE;
 			}
-			return TRUE;
+			return ERR_SUCCESS;
 		}
 		 
 		//5 注册对象类的函数 , 这里使用了一个小技巧.只传递类对象.Func是可以从参数推到出来的. 
 		template< typename ClassObject , typename Func>
-		UINT32 RegisterFunc(const char * pFuncName , Func pFunc)
+		INT32 RegisterFunc(const char * pFuncName , Func pFunc)
 		{ 
 			ObjectMethodImpl< ClassObject , Func> * pOMI = new ObjectMethodImpl< ClassObject , Func>; 
 			pOMI->m_cMethodType = METHOD_TYPE_OBJECT;
@@ -66,8 +66,7 @@ namespace Msg
 
 			pOMI->m_objFunc = pFunc;
 			pOMI->m_pObj = NULL;
-			pOMI->m_pMethodImpl = ObjectMethodImplHelper::CallFuncEntry< ClassObject , Func>;
-
+			pOMI->m_pMethodImpl = ObjectMethodImplHelper::CallFuncEntry< ClassObject , Func>; 
 
 			MapMethodImplT::iterator result = m_mapMethodImpls.find(pFuncName); 
 			if (result == m_mapMethodImpls.end())
@@ -76,14 +75,15 @@ namespace Msg
 			}
 			else
 			{
-				Assert_Re0(0 && "repeat Methodfunc register.");
+				MsgAssert_ReF1(0 , "Methodfunc repeat register.");
 
 				result->second = pOMI;
 				SAFE_DELETE(pOMI);
-				return FALSE;
+
+				return ERR_FAILURE;
 			} 
 
-			return TRUE;
+			return ERR_SUCCESS;
 		}
 
 	protected:

@@ -35,9 +35,9 @@ namespace Msg
 		{
 			m_mapCallableObjects.insert(std::make_pair(pCallableObject->GetObjectID() , pCallableObject));
 
-			return TRUE;
+			return ERR_SUCCESS;
 		}
-		return FALSE;
+		return ERR_FAILURE;
 	}
 
 	INT32 MsgDispatcher::DelCallableObject( ICallableObject * pCallableObject )
@@ -47,20 +47,20 @@ namespace Msg
 		{ 
 			m_mapCallableObjects.erase(pCallableObject->GetObjectID());
 
-			return TRUE;
+			return ERR_SUCCESS;
 		}
-		return FALSE;
+		return ERR_FAILURE;
 	}
 	 
 	 
 	INT32 MsgDispatcher::Dispatcher( ObjectMsgCall * pObjectMsgCall ,Object obj )
 	{
-		Assert_Re0(pObjectMsgCall);
+		Assert_ReF1(pObjectMsgCall);
 		ParaseMsgCall objParseMsgCall; 
 		objParseMsgCall.m_pMsgCall = pObjectMsgCall;
 
 		objParseMsgCall.m_pMehtodImpl = GetMethodImpl(objParseMsgCall.m_pMsgCall->m_szMsgMethod);  
-		Assert_Re0(objParseMsgCall.m_pMehtodImpl); 
+		Assert_ReF1(objParseMsgCall.m_pMehtodImpl); 
 
 		if (objParseMsgCall.m_pMehtodImpl->m_cMethodType == METHOD_TYPE_STATIC)
 		{
@@ -69,7 +69,7 @@ namespace Msg
 		else
 		{
 			ICallableObject * pCallableObject = GetCallableObject(obj);
-			Assert_Re0(pCallableObject);
+			Assert_ReF1(pCallableObject);
 
 			MapCallableObjectsT::iterator result = m_mapCallableObjects.find(pCallableObject->GetObjectID());
 			if (result != m_mapCallableObjects.end())
@@ -78,10 +78,10 @@ namespace Msg
 				objParseMsgCall.m_pMehtodImpl->m_pMethodImpl(&objParseMsgCall);
 			} 
 			else
-				Assert_Re0(0);
+				Assert_ReF1(0);
 		}
 
-		return TRUE; 
+		return ERR_SUCCESS; 
 	}
 
 	MethodImpl * MsgDispatcher::GetMethodImpl( std::string strFuncName )

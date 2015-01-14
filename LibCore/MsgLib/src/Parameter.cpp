@@ -111,7 +111,7 @@ namespace Msg
 		objParameter.m_unParamSize = m_unParamSize;
 		objParameter.m_unParamType = m_unParamType; 
 
-		return 1;
+		return ERR_SUCCESS;
 	}
 
 }

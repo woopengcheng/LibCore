@@ -17,14 +17,9 @@
 #endif
 
 namespace Msg
-{
-	
-	
-	class Rpc;
-
-	
-	class RemoteRpcClient; 
-
+{ 
+	class Rpc;  
+	class RemoteRpcClient;  
 	
 	class DLL_EXPORT RpcClientManager : public RpcManager
 	{

@@ -25,11 +25,11 @@ namespace Msg
 		if (!m_pNetReactor)
 		{
 #ifdef USE_ZMQ
-			m_pNetReactor = new Net::NetReactorZMQ; 
+			m_pNetReactor = new Net::NetReacgtorZMQ; 
 #else
 			m_pNetReactor = new Net::NetReactorSelect; 
 #endif
-			if(-1 == m_pNetReactor->Init())
+			if(ERR_SUCCESS != m_pNetReactor->Init())
 			{
 				SAFE_DELETE(m_pNetReactor);
 				Assert_Re0(0 && "rpc init net reactor fail."); 
@@ -44,7 +44,7 @@ namespace Msg
 
 		RegisterRpc();
 
-		return TRUE;
+		return ERR_SUCCESS;
 	}
 
 
@@ -89,7 +89,7 @@ namespace Msg
 		}
 
 		Timer::TimerHelper::sleep(1);
-		return -1;
+		return ERR_SUCCESS;
 	}
 
 
@@ -159,10 +159,10 @@ namespace Msg
 		{   
 			m_pRpcServerManager->InsertSendRpc(pMsg); 
 
-			return 1;
+			return ERR_SUCCESS;
 		}
 
-		return -1;
+		return ERR_FAILURE;
 	}
 
 
@@ -172,10 +172,10 @@ namespace Msg
 		{  
 			m_pRpcServerManager->InsertSendRpc(pMsg); 
 
-			return 1;
+			return ERR_SUCCESS;
 		}
 
-		return -1;
+		return ERR_FAILURE;
 	}
 
 
@@ -183,10 +183,10 @@ namespace Msg
 	{ 
 		if (m_pRpcClientManager && m_pRpcServerManager && m_pRpcClientManager->SendMsg(pRemoteRpc , unMsgID , pBuffer , unLength , bForce , bAddRpc) && bAddRpc)
 		{   
-			return 1;
+			return ERR_SUCCESS;
 		}
 
-		return -1;
+		return ERR_FAILURE;
 	}  
 
 
@@ -196,9 +196,9 @@ namespace Msg
 		{  
 			m_pRpcServerManager->InsertSendRpc(pMsg); 
 
-			return 1;
+			return ERR_SUCCESS;
 		} 
-		return -1;
+		return ERR_FAILURE;
 	}  
 
 
@@ -226,6 +226,6 @@ namespace Msg
 			}
 		}
 
-		return TRUE;
+		return ERR_SUCCESS;
 	}  
 }
