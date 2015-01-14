@@ -61,7 +61,7 @@ namespace XML
 			if (XML_Parse(objParser , szBuf , (INT32)strlen(szBuf) , bEOF ? 1 : 0) == XML_STATUS_ERROR)
 			{
 				gErrorStream( XML_ErrorString(XML_GetErrorCode(objParser))  << "at line " <<  XML_GetCurrentLineNumber(objParser));
-				return -1;
+				return ERR_FAILURE;
 			}
 			if(bEOF)
 				break;

@@ -190,7 +190,7 @@ namespace Net
 				m_mapNetEvents.erase(iterEvents);
 			}
 			else
-				Assert_Re("cant find Net Handler\n" && 0 , ERR_NET_FAILURE);
+				MsgAssert_ReF1(0 , "cant find Net Handler\n" );
 			 
 			pNetHandler->OnClose();  
 

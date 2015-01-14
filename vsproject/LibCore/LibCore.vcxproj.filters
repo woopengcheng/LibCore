@@ -70,6 +70,9 @@
     <Filter Include="XMLLib\src">
       <UniqueIdentifier>{3a9f1f07-7193-4c72-baad-97bb14de3ccd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Serialization">
+      <UniqueIdentifier>{e0646cad-03ea-4768-8a4d-51bb140d3fa8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />

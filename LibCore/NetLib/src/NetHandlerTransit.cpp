@@ -62,9 +62,9 @@ namespace Net
 		}
 		else
 		{
-			Assert_Re(false && "buffer full." , ERR_NET_FAILURE);  
+			MsgAssert_Re(0 , ERR_NET_FAILURE , "buffer full.");  
 			this->m_objRecvBuf.SkipBytes(m_objRecvBuf.GetDataLength());
-			return -1;
+			return ERR_NET_FAILURE;
 		}
 		return ERR_SUCCESS;
 	}
@@ -78,23 +78,25 @@ namespace Net
 			INT32 nRecvBuf = (size_t)m_objRecvBuf.TryGetBuffer((char*)&unMsgLength , sizeof(UINT32));
 
 			if(nRecvBuf < sizeof(UINT32))
-				Assert_Re(0 && "msg header failed." , -1);
+			{
+				gErrorStream( "parase msg header failed.");
+				return ERR_NET_FAILURE; 
+			}
 
 //			Convert<UINT32>::ToHostOrder(unMsgLength);
-
-			// ´íÎóµÄ°ü³¤,Ö±½Ó¶Ï¿ª
+			 
 			if(unMsgLength > MAX_MESSAGE_LENGTH || unMsgLength <= 0)
 			{
-				Assert_Re( 0 && "error package len ,discard connection " , -1);  
+				gErrorStream( "error package len ,discard connection");
+				return ERR_NET_FAILURE;   
 			}
 
 			if(m_objRecvBuf.GetDataLength() < unMsgLength)
-				return 1;
+				return ERR_SUCCESS;
 
 			char szBuf[MAX_MESSAGE_LENGTH];
 			m_objRecvBuf.GetBuffer(szBuf , unMsgLength);
-
-			// ½«³¤¶ÈºÍÏûÏ¢id×ª»¯Îª±¾»ú×Ö½ÚË³Ðò
+			 
 			MsgHeader * pHeader = (MsgHeader*)szBuf;
 
 			HandleMsg(m_pSession , pHeader->unMsgID , szBuf + sizeof(MsgHeader) , pHeader->unMsgLength - sizeof(MsgHeader) );
@@ -177,22 +179,24 @@ namespace Net
 				}
 				else if(m_objSendBuf.GetDataLength() == 0)
 				{
-					// ´óÓÚ»º´æÇø´óÐ¡,ÔòÖ±½Ó·¢ËÍ
 					INT32 nSendBytes = Send(pBuf  , unSize);
 					if( nSendBytes <= 0)
 					{
-						Assert_Re(" sendbuffer.length=0,direct send failed,discard=%d\n" , -1); 
+						gErrorStream("sendbuffer.length=0,direct send failed");
+						return ERR_FAILURE;
 					}
 					else if(nSendBytes != unSize)
 					{
-						Assert_Re(" sendbuffer.length=0,len=%d sent=%d\n" , -1); 
+						gErrorStream("sendbuffer.length=0,direct send failed");
+						return ERR_FAILURE; 
 					}
 
-					return (nSendBytes > 0) ? nSendBytes : 0;
+					return (nSendBytes > 0) ? nSendBytes : ERR_FAILURE;
 				}
 				else
 				{
-					Assert_Re(" sendbuff not empty,discard len=%d\n" , -1);  
+					gErrorStream("sendbuff not empty");
+					return ERR_FAILURE;  
 				}
 			}
 			return unSize;

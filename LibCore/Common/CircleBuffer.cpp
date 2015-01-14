@@ -109,7 +109,7 @@ namespace LibCore
 
 		if (unSize > GetSpace() || GetSpace() <= 0)
 		{
-			Assert_Re0(0 && "Buffer full."); 
+			MsgAssert_Re0(0 , "Buffer full."); 
 		}
 
 		while(unSize > 0)

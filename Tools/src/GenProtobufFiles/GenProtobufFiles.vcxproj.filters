@@ -42,6 +42,9 @@
     <ClInclude Include="src\GenerateHelper.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\configs\msg\options.pb.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -62,7 +65,7 @@
     <ClCompile Include="GenProtobufFiles.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\LibCore\Common\options.pb.cc">
+    <ClCompile Include="..\..\..\configs\msg\options.pb.cc">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

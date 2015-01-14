@@ -98,7 +98,7 @@ namespace Msg
 		{
 		case DEFAULT_RPC_PING_ID:
 			{
-				Assert_Re(pBuffer && m_pRpcManager , -1);   
+				Assert_ReF1(pBuffer && m_pRpcManager);   
 
 				SPing objPing;
 				memcpy(&objPing , pBuffer , unLength);
@@ -108,7 +108,7 @@ namespace Msg
 			}break;
 		case DEFAULT_RPC_MSG_ID:
 			{
-				Assert_Re(pBuffer && m_pRpcManager, -1);  
+				Assert_ReF1(pBuffer && m_pRpcManager);  
 				UINT32 unTargetsCount = (UINT32)*pBuffer;
 				RPCMsgCall * pMsg = new(unTargetsCount * sizeof(Object))RPCMsgCall;  
 				pMsg->UnSerialization(pBuffer); 

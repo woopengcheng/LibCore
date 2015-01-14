@@ -71,6 +71,7 @@ namespace Msg
 					} 
 
 					//5 发给服务端的.正常都能找到对应的.
+					MsgAssert_Re0(pICallableObject , "向服务端请求.无此RPC的object对象." );
 					if (pICallableObject)
 					{   
 						pICallableObject->SetRpcMsgCall(pMsg);
@@ -78,10 +79,6 @@ namespace Msg
 
 						vecObjectMsgCall.push_back(pMethodImpl->m_pMethodImpl(&objParaseMsgCall));
 					} 
-					else 
-					{ 
-						Assert_Re0(0 && "向服务端请求.无此RPC的object对象.");
-					}
 				}   
 			}   
 		}
@@ -90,17 +87,15 @@ namespace Msg
 			pICallableObject = dynamic_cast<IRpcMsgCallableObject *>(m_pRpcManager->GetCallableObject(pMsg->m_objSource)); 
 
 			//5 发给客户端的.
+
+			MsgAssert_Re0(pICallableObject , "客户端接受到错误的对象.无此RPC的object对象." );
 			if (pICallableObject)
 			{ 
 				pICallableObject->SetRpcMsgCall(pMsg); 
 				objParaseMsgCall.m_pObj = pICallableObject;
 
 				vecObjectMsgCall.push_back(pMethodImpl->m_pMethodImpl(&objParaseMsgCall));
-			} 
-			else 
-			{ 
-				Assert_Re0(0 && "客户端接受到错误的对象.无此RPC的object对象.");
-			} 
+			}  
 		}
 
 		return TRUE;

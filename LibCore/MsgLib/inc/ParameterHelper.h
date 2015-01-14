@@ -32,7 +32,7 @@ namespace Msg
 				}
 				break;
 			default:
-				Assert_Re0(false && "invalid convert to const char*");
+				MsgAssert_Re0(false , "invalid convert to const char*");
 			}
 
 			return NULL;
@@ -93,7 +93,7 @@ namespace Msg
 				}
 				break;
 			default:
-				Assert_Re(false && "invalid convert to Chunk" , objChunk);
+				MsgAssert_Re(false , objChunk , "invalid convert to Chunk" );
 			}
 
 			return objChunk;
@@ -183,7 +183,7 @@ namespace Msg
 				}
 				break; 
 			default:
-				Assert_Re0(false && "invalid convert to bool");
+				MsgAssert_Re0(false , "invalid convert to bool");
 			}
 
 			return false;
@@ -224,7 +224,7 @@ namespace Msg
 				}
 				break; 
 			default:
-				Assert_Re(false && "invalid convert to INT64" , -1);
+				MsgAssert_ReF1(false , "invalid convert to INT64" );
 			}
 
 			return -1;
@@ -266,7 +266,7 @@ namespace Msg
 				}
 				break; 
 			default:
-				Assert_Re(false && "invalid convert to double" , 0.0f);
+				MsgAssert_Re(false  , 0.0f , "invalid convert to double");
 			}
 
 			return 0.0f;

@@ -323,12 +323,8 @@ namespace ThreadPool
 		UINT32  nCount = 0;
 		pthread_t th;
 		while(m_queueThreads.try_pop(th))
-		{ 
-			INT32 nRe = pthread_cancel(th);
-			if (nRe != 0)
-			{
-				Assert_Re0(0 && "pthread_cancel fail");
-			}
+		{  
+			MsgAssert_Re0(pthread_cancel(th) , "pthread_cancel fail");
 
 			void * pValue = 0;
 			if(pthread_join(th , (void**)(&pValue)))

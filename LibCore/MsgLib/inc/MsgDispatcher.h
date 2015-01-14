@@ -47,12 +47,14 @@ namespace Msg
 			}
 			else
 			{
-				Assert_ReF1(0 && "repeat Methodfunc register.");
- 				
+				MsgAssert_ReF1(0 , "repeat Methodfunc register.");
+
 				result->second = pSMI;
 				SAFE_DELETE(pSMI);
-				return FALSE;
+
+				return ERR_FAILURE;
 			}
+
 			return ERR_SUCCESS;
 		}
 		 

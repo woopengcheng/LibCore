@@ -23,7 +23,8 @@ namespace Log
 	public:
 		LogAdapter  * GetLogAdapter()
 		{
-			Assert_Re0(m_pLogAdapter && "Log has not Init().");
+			MsgAssert_Re0(m_pLogAdapter ,  "LogInterface has not Init.");
+
 			return m_pLogAdapter; 
 		}
 	private:

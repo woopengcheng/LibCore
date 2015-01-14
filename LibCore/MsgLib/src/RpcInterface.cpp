@@ -20,7 +20,7 @@ namespace Msg
 	INT32 RpcInterface::Init( std::string strFilePath )
 	{ 
 		XML::XML xml;  
-		Assert_Re0(-1 != xml.LoadFromFile(strFilePath) && "xml load fail.");  
+		MsgAssert_ReF1(!xml.LoadFromFile(strFilePath) , "xml load fail : " << strFilePath );  
 
 		if (!m_pNetReactor)
 		{
@@ -32,7 +32,7 @@ namespace Msg
 			if(ERR_SUCCESS != m_pNetReactor->Init())
 			{
 				SAFE_DELETE(m_pNetReactor);
-				Assert_Re0(0 && "rpc init net reactor fail."); 
+				MsgAssert_ReF1(0, "rpc init net reactor fail."); 
 			}
 		}
 

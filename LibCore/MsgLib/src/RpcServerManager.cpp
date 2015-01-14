@@ -16,7 +16,7 @@ namespace Msg
 		{
 			Rpc * objRpc = iter->second;
 			RPCMsgCall * pRpcMsgCall = objRpc->GetRpcMsgCall();
-			Assert_Re(pRpcMsgCall && "RpcMsg is NULL." , -1);
+			MsgAssert_ReF1(pRpcMsgCall , "RpcMsg is NULL.");
 
 			if ( objRpc->IsTimeout() )
 			{  
@@ -102,12 +102,12 @@ namespace Msg
 				}
 				else
 				{
-					Assert_ReF1("客户端接受到错误的RPC包.");
+					MsgAssert_ReF1(0 , "客户端接受到错误的RPC包.");
 				}
 			}
 			else
 			{
-				Assert_ReF1("客户端接受到错误的RPC包.");
+				MsgAssert_ReF1(0 , "客户端接受到错误的RPC包.");
 			}
 
 			SAFE_DELETE(result->second);
@@ -147,7 +147,7 @@ namespace Msg
 		}
 		else
 		{
-			Assert_ReF1("服务端接受到错误的RPC包.");
+			MsgAssert_ReF1(0 , "服务端接受到错误的RPC包.");
 		}  
 
 		vecObjectMsgCall.clear(); 
