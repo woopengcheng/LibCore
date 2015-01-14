@@ -509,7 +509,7 @@ def IsPathExist(path):
 	if os.path.exists(path):
 		return True
 	else:
-		return True
+		return False
 
 def GetParams(params):
 	strParams = ""
