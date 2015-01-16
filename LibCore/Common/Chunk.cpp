@@ -37,7 +37,7 @@ namespace LibCore
 
 			Release();
 			m_unSize = unSize;
-			m_pBuf = (char *)pBuf;
+			m_pBuf = pBuf;
 		}
 
 		return *this;
@@ -66,7 +66,7 @@ namespace LibCore
 		Reverse(m_unSize + unLen);
 
 		PtrDiff off = (char *)pPos - (char *)m_pBuf;
-		pPos = m_pBuf + off;
+		pPos = (char *)m_pBuf + off;
 
 		UINT32 unAdjust = m_unSize - (UINT32)off;  //5 这里是万一向中间内存块插入
 		if (unAdjust)
@@ -98,12 +98,12 @@ namespace LibCore
 		return *this;
 	}
 
-	char    * Chunk::End(void)
+	void    * Chunk::End(void)
 	{
-		return m_pBuf + m_unDataLen;
+		return (char *)m_pBuf + m_unDataLen;
 	}
 
-	char    * Chunk::Begin(void)
+	void    * Chunk::Begin(void)
 	{
 		return m_pBuf;
 	}

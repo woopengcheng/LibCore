@@ -12,16 +12,17 @@ namespace LibCore
 		~Chunk();
 
 	public:
-		Chunk   &  Pushback(void * pBegin , UINT32 unLen);
 		Chunk   &  Insert(void * pPos , void * pBegin , UINT32 unLen);
+		Chunk   &  Pushback(void * pBegin , UINT32 unLen); 
+		Chunk   &  Erase(void * pBegin , void * pEnd , UINT32 unLen);
 		Chunk   &  Reverse(UINT32 unSize);
 		void	*  Create(UINT32 unSize);
 		void       Release( void );
-		char    *  End( void );
-		char    *  Begin( void );
+		void    *  Begin( void );
+		void    *  End( void );
 
 	public:
-		char    *  GetBuf(){ return m_pBuf; }
+		void    *  GetBuf(){ return m_pBuf; }
 		void       SetBuf(void * pBuf){ m_pBuf = (char *)pBuf; }
 		UINT32     GetSize(){ return m_unSize; }
 		void       SetSize(UINT32 unChunkSize){ m_unSize = unChunkSize; }
@@ -32,7 +33,7 @@ namespace LibCore
 		UINT32     FitSize(UINT32 unSize);
 
 	private:
-		char    *  m_pBuf;
+		void    *  m_pBuf;
 		UINT32     m_unSize;
 		UINT32     m_unDataLen;
 	};

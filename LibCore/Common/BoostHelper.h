@@ -20,6 +20,9 @@
 	typedef boost::weak_ptr<nametype > name##WeakPtr; \
 	typedef boost::weak_ptr<const nametype > name##ConstWeakPtr;
 
-
+template<bool x> struct StaticFail;
+template<> struct StaticFail<true>{};
+template<int x> struct StaticAssertTest{};
+#define STATIC_ASSERT(x) typedef StaticAssertTest<sizeof(StaticFail<(bool)x>)> StaticAssert_##__LINE__
 
 #endif

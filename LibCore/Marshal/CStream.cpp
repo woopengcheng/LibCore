@@ -47,7 +47,7 @@ namespace LibCore
 			gErrorStream("CStream pop error");
 			return *this;
 		}
-		char * pBuf = m_objChunk.Begin() + m_nCurPos;
+		char * pBuf = (char *)m_objChunk.Begin() + m_nCurPos;
 		t.Pushback(pBuf , unLen);
 		return *this;
 	} 
