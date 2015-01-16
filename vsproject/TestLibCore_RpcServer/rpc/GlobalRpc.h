@@ -16,7 +16,7 @@ namespace Server
 // 	static INT32		g_rpcDefaultParam_INT32 =  0;
 // 	static UINT32		g_rpcDefaultParam_UINT32 = 0;
 // 	static ConstCharPtr g_rpcDefaultParam_ConstCharPtr = NULL;
-// 	static Msg::Chunk	g_rpcDefaultParam_Chunk = Msg::Chunk();  
+// 	static LibCore::Chunk	g_rpcDefaultParam_Chunk = LibCore::Chunk();  
 
 	class GlobalRpc : public Msg::IRpcMsgCallableObject
 	{

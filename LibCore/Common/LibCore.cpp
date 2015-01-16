@@ -316,4 +316,19 @@ namespace LibCore
 		return ::strncat(dest,src,destlen); 
 	}
 
+	void  FastMemmove(void * dst , const void * src , UINT32 unSize)
+	{
+		char * pDst = (char *)dst;
+		char * pSrc = (char *)src;
+
+		if ((pSrc < pDst && pSrc + unSize >= pDst) || (pSrc > pDst) && pDst + unSize >= pSrc )
+		{
+			memmove(dst , src , unSize);
+		}
+		else
+		{
+			memcpy(dst , src , unSize);
+		} 
+	}
+
 }

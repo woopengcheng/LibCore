@@ -72,7 +72,7 @@ namespace Msg
 		}
 	};
 
-	template<> class ParameterHelper<Chunk>
+	template<> class ParameterHelper<LibCore::Chunk>
 	{
 	public:
 		static PARAMETER_TYPE GetParameterType()
@@ -80,26 +80,24 @@ namespace Msg
 			return PARAMETER_TYPE_CHUNK;
 		}
 
-		static Chunk GetParameterValue(Parameter & objParam)
+		static LibCore::Chunk GetParameterValue(Parameter & objParam)
 		{
-			Chunk objChunk;
 			switch (objParam.GetType())
 			{
 			case PARAMETER_TYPE_CHUNK: 
 				{
-					objChunk.SetSize(objParam.GetSize());
-					objChunk.SetBuf(objParam.value_BUF);
+					LibCore::Chunk objChunk(objParam.value_BUF , objParam.GetSize()); 
 					return objChunk;
 				}
 				break;
 			default:
-				MsgAssert_Re(false , objChunk , "invalid convert to Chunk" );
+				MsgAssert_Re(false , LibCore::Chunk() , "invalid convert to Chunk" );
 			}
 
-			return objChunk;
+			return LibCore::Chunk();
 		}
 
-		static void MakeParameter(Parameter & objParam , Chunk pValue)
+		static void MakeParameter(Parameter & objParam , LibCore::Chunk pValue)
 		{ 
 			if (objParam.GetSize() != 0)
 			{

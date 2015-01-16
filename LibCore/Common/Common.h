@@ -23,6 +23,8 @@ typedef unsigned char    UINT8;
 typedef short            INT16;
 typedef unsigned short   UINT16; 
 
+typedef ptrdiff_t        PtrDiff;
+
 typedef int   BOOL;
 typedef int   INT32;
 typedef unsigned int   UINT32; 

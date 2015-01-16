@@ -217,7 +217,7 @@
       <AssemblyDebug>false</AssemblyDebug>
     </Link>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)LibCore;$(SolutionDir)../LibCore/Common;$(SolutionDir)../LibCore/NetLib/inc;$(SolutionDir)../LibCore/MsgLib/inc;$(SolutionDir)../LibCore/TimerLib/inc;$(SolutionDir)../LibCore/LogLib/inc;$(SolutionDir)../LibCore/XMLLib/inc;$(SolutionDir)../LibCore/ThreadPoolLib/inc;$(SolutionDir)../deps/boost;$(SolutionDir)../deps/expat/lib;$(SolutionDir)../deps/zeromq/include;$(SolutionDir)../deps/tbb/include;$(SolutionDir)../deps/protobuf/src;$(SolutionDir)../deps/raknet/source;$(SolutionDir)../deps/pthread/include;$(SolutionDir)../deps/glog/src/windows;$(SolutionDir)../deps/log4cpp/include;$(SolutionDir)../deps/log4cplus/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)LibCore;$(SolutionDir)../LibCore/Marshal;$(SolutionDir)../LibCore/Common;$(SolutionDir)../LibCore/NetLib/inc;$(SolutionDir)../LibCore/MsgLib/inc;$(SolutionDir)../LibCore/TimerLib/inc;$(SolutionDir)../LibCore/LogLib/inc;$(SolutionDir)../LibCore/XMLLib/inc;$(SolutionDir)../LibCore/ThreadPoolLib/inc;$(SolutionDir)../deps/boost;$(SolutionDir)../deps/expat/lib;$(SolutionDir)../deps/zeromq/include;$(SolutionDir)../deps/tbb/include;$(SolutionDir)../deps/protobuf/src;$(SolutionDir)../deps/raknet/source;$(SolutionDir)../deps/pthread/include;$(SolutionDir)../deps/glog/src/windows;$(SolutionDir)../deps/log4cpp/include;$(SolutionDir)../deps/log4cplus/include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>HYCOMMONWINAPI_EXPORTS;USE_ZMQ;DLL_EXPORTS;USE_RAKNET;WIN32;_DEBUG;USE_LOG4CPLUS;_CONSOLE;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level3</WarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -233,6 +233,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\LibCore\Common\BoostHelper.h" />
+    <ClInclude Include="..\..\LibCore\Common\Chunk.h" />
     <ClInclude Include="..\..\LibCore\Common\CircleBuffer.h" />
     <ClInclude Include="..\..\LibCore\Common\ClassTypeID.h" />
     <ClInclude Include="..\..\LibCore\Common\ClassTypeInterface.h" />
@@ -251,7 +252,9 @@
     <ClInclude Include="..\..\LibCore\LogLib\inc\LogAdapter.h" />
     <ClInclude Include="..\..\LibCore\LogLib\inc\LogCommon.h" />
     <ClInclude Include="..\..\LibCore\LogLib\inc\LogInterface.h" />
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\Chunk.h" />
+    <ClInclude Include="..\..\LibCore\Marshal\CStream.h" />
+    <ClInclude Include="..\..\LibCore\Marshal\Marshal.h" />
+    <ClInclude Include="..\..\LibCore\Marshal\MashalTest.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\GenerateMsgParams.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\GenMsgHelper.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\ICallableObject.h" />
@@ -338,6 +341,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\LibCore\Common\Chunk.cpp" />
     <ClCompile Include="..\..\LibCore\Common\CircleBuffer.cpp" />
     <ClCompile Include="..\..\LibCore\Common\Common.cpp" />
     <ClCompile Include="..\..\LibCore\Common\LibCore.cpp" />
@@ -346,6 +350,7 @@
     <ClCompile Include="..\..\LibCore\LogLib\src\Log4CPlusAdaptee.cpp" />
     <ClCompile Include="..\..\LibCore\LogLib\src\Log4CppAdaptee.cpp" />
     <ClCompile Include="..\..\LibCore\LogLib\src\LogInterface.cpp" />
+    <ClCompile Include="..\..\LibCore\Marshal\CStream.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\GenMsgHelper.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\InnerMsg.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\InternalMsgTask.cpp" />

@@ -70,7 +70,7 @@
     <Filter Include="XMLLib\src">
       <UniqueIdentifier>{3a9f1f07-7193-4c72-baad-97bb14de3ccd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Serialization">
+    <Filter Include="Marshal">
       <UniqueIdentifier>{e0646cad-03ea-4768-8a4d-51bb140d3fa8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -223,9 +223,6 @@
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\LibCore\MsgLib\inc\StaticMethodImplHelper.h">
-      <Filter>MsgLib\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\Chunk.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\LibCore\NetLib\inc\ClientSession.h">
@@ -390,6 +387,18 @@
     <ClInclude Include="..\..\LibCore\Common\MsgAssert.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\Chunk.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Marshal\Marshal.h">
+      <Filter>Marshal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Marshal\CStream.h">
+      <Filter>Marshal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Marshal\MashalTest.h">
+      <Filter>Marshal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -553,6 +562,12 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\MsgLib\src\RpcMsgHelper.cpp">
       <Filter>MsgLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Common\Chunk.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Marshal\CStream.cpp">
+      <Filter>Marshal</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

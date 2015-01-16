@@ -20,7 +20,6 @@
 	typedef boost::weak_ptr<nametype > name##WeakPtr; \
 	typedef boost::weak_ptr<const nametype > name##ConstWeakPtr;
 
-namespace Net
-{        
-}
+
+
 #endif

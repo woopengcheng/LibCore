@@ -22,7 +22,7 @@ namespace Proxy
 	private:
 	};
 
-	static BOOL  local_call_TestObject(char p1 , INT16 p2, UINT16 p3 , INT32 p4 , UINT32 p5 , const char * p6 , Msg::Chunk p7 , std::vector<Msg::Object> vecTargets , Msg::Object objSrc , UINT16 usPriority = 0)
+	static BOOL  local_call_TestObject(char p1 , INT16 p2, UINT16 p3 , INT32 p4 , UINT32 p5 , const char * p6 , LibCore::Chunk p7 , std::vector<Msg::Object> vecTargets , Msg::Object objSrc , UINT16 usPriority = 0)
 	{
 		if (vecTargets.size() == 0)
 		{
