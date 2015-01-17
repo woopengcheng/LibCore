@@ -1,6 +1,6 @@
 #ifndef __thread_pool_thread_task_h__
 #define __thread_pool_thread_task_h__
-#include "ThreadCommon.h"
+#include "ThreadPoolLib/inc/ThreadCommon.h"
 
 namespace ThreadPool
 {

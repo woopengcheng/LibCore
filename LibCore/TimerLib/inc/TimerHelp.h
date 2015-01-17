@@ -1,6 +1,6 @@
 #ifndef __timer_timer_help_h__
 #define __timer_timer_help_h__ 
-#include "TimerCommon.h"
+#include "TimerLib/inc/TimerCommon.h"
 
 namespace Timer
 {  

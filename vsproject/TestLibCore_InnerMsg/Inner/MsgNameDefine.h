@@ -1,6 +1,6 @@
 #ifndef __msg_msg_name_define_h__
 #define __msg_msg_name_define_h__
-#include "MsgCommon.h"
+#include "MsgLib/inc/MsgCommon.h"
 
 namespace Client
 {   

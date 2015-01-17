@@ -1,11 +1,11 @@
 #ifndef __msg_msg_proxy_h__
 #define __msg_msg_proxy_h__ 
-#include "MsgCommon.h"
-#include "GenMsgHelper.h"
-#include "ObjectMsgCall.h"
-#include "Object.h"
+#include "MsgLib/inc/MsgCommon.h"
+#include "MsgLib/inc/GenMsgHelper.h"
+#include "MsgLib/inc/ObjectMsgCall.h"
+#include "MsgLib/inc/Object.h"
+#include "MsgLib/inc/MsgHelper.h"
 #include "MsgNameDefine.h"
-#include "MsgHelper.h"
 #include "MsgInstance.h"
 
 namespace Client

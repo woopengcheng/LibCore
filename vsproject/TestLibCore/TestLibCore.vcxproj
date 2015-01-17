@@ -217,7 +217,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>USE_LOG4CPLUS;DLL_EXPORTS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)LibCore;$(SolutionDir)../LibCore/Marshal;$(SolutionDir)../LibCore/Common;$(SolutionDir)../LibCore/NetLib/inc;$(SolutionDir)../LibCore/MsgLib/inc;$(SolutionDir)../LibCore/TimerLib/inc;$(SolutionDir)../LibCore/LogLib/inc;$(SolutionDir)../LibCore/XMLLib/inc;$(SolutionDir)../LibCore/ThreadPoolLib/inc;$(SolutionDir)../deps/boost;$(SolutionDir)../deps/expat/lib;$(SolutionDir)../deps/zeromq/include;$(SolutionDir)../deps/tbb/include;$(SolutionDir)../deps/protobuf/src;$(SolutionDir)../deps/raknet/source;$(SolutionDir)../deps/pthread/include;$(SolutionDir)../deps/glog/src/windows;$(SolutionDir)../deps/log4cpp/include;$(SolutionDir)../deps/log4cplus/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)../LibCore</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

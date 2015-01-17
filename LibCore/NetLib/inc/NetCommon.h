@@ -1,11 +1,11 @@
 #ifndef __net_net_common_h__
 #define __net_net_common_h__
-#include "Common.h"
 #include "tbb/concurrent_unordered_map.h"
 #include "tbb/concurrent_hash_map.h"
 #include "tbb/concurrent_queue.h"
-#include "BoostHelper.h"
-#include "Log.h"
+#include "Common/Common.h"
+#include "Common/BoostHelper.h"
+#include "LogLib/inc/Log.h"
 
 
 #ifdef WIN32

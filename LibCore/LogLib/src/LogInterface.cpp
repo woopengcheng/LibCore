@@ -1,11 +1,11 @@
-#include "LogInterface.h" 
+#include "LogLib/inc/LogInterface.h" 
 
 #ifdef USE_LOG4CPP
-#include "Log4CppAdaptee.h"
+#include "LogLib/inc/Log4CppAdaptee.h"
 #elif defined USE_LOG4CPLUS
-#include "Log4CPlusAdaptee.h"
+#include "LogLib/inc/Log4CPlusAdaptee.h"
 #elif defined USE_GLOG
-#include "GLogAdaptee.h"
+#include "LogLib/inc/GLogAdaptee.h"
 #endif
 
 namespace Log

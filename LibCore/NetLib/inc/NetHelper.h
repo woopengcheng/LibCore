@@ -1,6 +1,6 @@
 #ifndef __net_net_helper_h__
 #define __net_net_helper_h__ 
-#include "NetCommon.h" 
+#include "NetLib/inc/NetCommon.h" 
 
 struct in_addr;
 struct sockaddr_in;

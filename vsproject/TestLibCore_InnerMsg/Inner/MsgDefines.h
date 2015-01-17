@@ -1,9 +1,9 @@
 #ifndef __server_rpc_defines_h__
 #define __server_rpc_defines_h__
-#include "MsgCommon.h"   
-#include "ObjectMsgCall.h"
-#include "Object.h"  
-#include "Chunk.h"
+#include "MsgLib/inc/MsgCommon.h"   
+#include "MsgLib/inc/ObjectMsgCall.h"
+#include "MsgLib/inc/Object.h"  
+#include "Common/Chunk.h"
 
 namespace Client
 {  

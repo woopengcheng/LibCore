@@ -1,7 +1,7 @@
 #ifndef __timer_timer_task_h
 #define __timer_timer_task_h
-#include "TimerCommon.h"  
-#include "ThreadTask.h"
+#include "TimerLib/inc/TimerCommon.h"  
+#include "ThreadPoolLib/inc/ThreadTask.h"
 
 namespace Timer
 { 	 

@@ -1,6 +1,6 @@
-#include "NetHandlerCommonServer.h"
-#include "ISession.h"
-#include "NetHelper.h" 
+#include "NetLib/inc/NetHandlerCommonServer.h"
+#include "NetLib/inc/ISession.h"
+#include "NetLib/inc/NetHelper.h" 
 
 namespace Net
 {   

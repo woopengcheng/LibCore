@@ -1,16 +1,16 @@
 #ifndef __msg_rpc_client_manager_h__
 #define __msg_rpc_client_manager_h__ 
-#include "MsgCommon.h"
-#include "ThreadTask.h" 
-#include "NetReactorSelect.h"
-#include "ThreadPoolInterface.h"
-#include "RemoteRpcServer.h"
-#include "RemoteRpcClient.h"
-#include "NetHandlerRpcListener.h"
-#include "RpcBase.h"
-#include "ISession.h"
-#include "RpcManager.h"
-#include "TimeCount.h"
+#include "MsgLib/inc/MsgCommon.h"
+#include "ThreadPoolLib/inc/ThreadTask.h" 
+#include "NetLib/inc/NetReactorSelect.h"
+#include "MsgLib/inc/InnerMsg.h"
+#include "MsgLib/inc/RemoteRpcServer.h"
+#include "MsgLib/inc/RemoteRpcClient.h"
+#include "MsgLib/inc/NetHandlerRpcListener.h"
+#include "MsgLib/inc/RpcBase.h"
+#include "NetLib/inc/ISession.h"
+#include "MsgLib/inc/RpcManager.h"
+#include "TimerLib/inc/TimeCount.h"
 
 #ifdef WIN32
 #pragma warning( disable :4996)

@@ -1,6 +1,6 @@
 #ifndef __log_log_adapter_h__
 #define __log_log_adapter_h__
-#include "LogCommon.h"
+#include "LogLib/inc/LogCommon.h"
 
 namespace Log
 {

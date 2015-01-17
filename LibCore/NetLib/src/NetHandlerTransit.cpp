@@ -1,9 +1,9 @@
-﻿#include "NetHandlerTransit.h"
-#include "NetHelper.h"
-#include "ByteOrder.h"
-#include "ISession.h"
-#include "INetReactor.h"
-#include "TimerHelp.h"
+﻿#include "NetLib/inc/NetHandlerTransit.h"
+#include "NetLib/inc/NetHelper.h"
+#include "NetLib/inc/ByteOrder.h"
+#include "NetLib/inc/ISession.h"
+#include "NetLib/inc/INetReactor.h"
+#include "TimerLib/inc/TimerHelp.h"
 
 #ifdef WIN32
 #include "Winsock.h"

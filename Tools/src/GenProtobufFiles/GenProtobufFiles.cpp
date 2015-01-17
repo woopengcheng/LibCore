@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include <iostream>
-#include "Common.h"
+#include "Common/Common.h"
 #include "GenerateHelper.h"
 #include "GenerateManager.h"
 #include "GenerateCpp.h"

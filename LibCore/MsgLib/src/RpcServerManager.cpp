@@ -1,8 +1,8 @@
-#include "RpcServerManager.h"
-#include "RpcBase.h"
-#include "RpcClientManager.h"
-#include "IRpcListener.h"
-#include "ServerSession.h"
+#include "MsgLib/inc/RpcServerManager.h"
+#include "MsgLib/inc/RpcBase.h"
+#include "MsgLib/inc/RpcClientManager.h"
+#include "MsgLib/inc/IRpcListener.h"
+#include "NetLib/inc/ServerSession.h"
 
 namespace Msg
 {

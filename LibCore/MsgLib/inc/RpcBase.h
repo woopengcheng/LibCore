@@ -1,11 +1,11 @@
 #ifndef __msg_rpc_h__
 #define __msg_rpc_h__ 
-#include "MsgCommon.h" 
-#include "TimeCount.h" 
-#include "ICallableObject.h"
-#include "RPCMsgCall.h"
-#include "GenMsgHelper.h"
-#include "RpcCheckParams.h"
+#include "MsgLib/inc/MsgCommon.h" 
+#include "TimerLib/inc/TimeCount.h" 
+#include "MsgLib/inc/ICallableObject.h"
+#include "MsgLib/inc/RPCMsgCall.h"
+#include "MsgLib/inc/GenMsgHelper.h"
+#include "MsgLib/inc/RpcCheckParams.h"
 
 #define RPCReturnNULL return NULL;
 #define RPCReturn(p1) return Return(p1);

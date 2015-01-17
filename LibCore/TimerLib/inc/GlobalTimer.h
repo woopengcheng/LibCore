@@ -1,7 +1,7 @@
 #ifndef __timer_global_timer_h
 #define __timer_global_timer_h
-#include "TimerInterface.h"
-#include "ThreadTask.h"
+#include "TimerLib/inc/TimerInterface.h"
+#include "ThreadPoolLib/inc/ThreadTask.h"
 
 namespace Timer
 {   

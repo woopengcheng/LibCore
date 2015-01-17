@@ -1,7 +1,7 @@
 #ifndef __net_net_handler_server_h__
 #define __net_net_handler_server_h__  
-#include "NetHandlerZMQServer.h"
-#include "NetHandlerCommonServer.h"
+#include "NetLib/inc/NetHandlerZMQServer.h"
+#include "NetLib/inc/NetHandlerCommonServer.h"
 
 namespace Net
 { 

@@ -1,8 +1,8 @@
 #ifndef __msg_remote_rpc_client_h__
 #define __msg_remote_rpc_client_h__ 
-#include "NetHandlerZMQClient.h"
-#include "MsgCommon.h"
-#include "NetHandlerClient.h" 
+#include "NetLib/inc/NetHandlerZMQClient.h"
+#include "MsgLib/inc/MsgCommon.h"
+#include "NetLib/inc/NetHandlerClient.h" 
 
 namespace Msg
 { 

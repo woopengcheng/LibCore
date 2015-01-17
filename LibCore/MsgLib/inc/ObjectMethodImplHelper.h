@@ -1,9 +1,9 @@
 #ifndef __msg_object_method_impl_helper_h__
 #define __msg_object_method_impl_helper_h__ 
-#include "MethodImpl.h" 
-#include "ParaseMsgCall.h"
-#include "ParameterHelper.h"
-#include "Object.h"
+#include "MsgLib/inc/MethodImpl.h" 
+#include "MsgLib/inc/ParaseMsgCall.h"
+#include "MsgLib/inc/ParameterHelper.h"
+#include "MsgLib/inc/Object.h"
 
 namespace Msg
 {  

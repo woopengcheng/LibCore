@@ -1,6 +1,6 @@
 #ifndef __timer_min_heap_h__
 #define __timer_min_heap_h__
-#include "Heap.h"
+#include "TimerLib/inc/Heap.h"
 
 namespace Timer
 { 

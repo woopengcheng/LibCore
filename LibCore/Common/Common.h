@@ -8,9 +8,9 @@
 #include <string>
 #include <vector>
 #include <queue>
-#include "ClassTypeID.h"
-#include "Platform.h"
-#include "ErrorCode.h"
+#include "Common/ClassTypeID.h"
+#include "Common/Platform.h"
+#include "Common/ErrorCode.h"
  
 #define TRUE    1
 #define FALSE   0

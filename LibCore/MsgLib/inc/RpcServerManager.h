@@ -1,8 +1,8 @@
 #ifndef __msg_rpc_server_manager_h__
 #define __msg_rpc_server_manager_h__ 
-#include "MsgCommon.h" 
-#include "RpcManager.h"
-#include "RpcInterface.h"
+#include "MsgLib/inc/MsgCommon.h" 
+#include "MsgLib/inc/RpcManager.h"
+#include "MsgLib/inc/RpcInterface.h"
 
 namespace Msg
 { 

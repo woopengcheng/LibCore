@@ -1,5 +1,5 @@
-#include "TimeCount.h"
-#include "TimerHelp.h"
+#include "TimerLib/inc/TimeCount.h"
+#include "TimerLib/inc/TimerHelp.h"
 
 namespace Timer
 {  

@@ -1,12 +1,12 @@
 #ifndef __client_global_rpc_h__
 #define __client_global_rpc_h__
-#include "MsgCommon.h" 
-#include "IRpcMsgCallableObject.h"
-#include "Object.h"
-#include "RPCMsgCall.h"
-#include "RpcServerManager.h"
+#include "MsgLib/inc/MsgCommon.h" 
+#include "MsgLib/inc/IRpcMsgCallableObject.h"
+#include "MsgLib/inc/Object.h"
+#include "MsgLib/inc/RPCMsgCall.h"
+#include "MsgLib/inc/RpcServerManager.h"
 #include "RpcInstance.h"
-#include "Chunk.h"
+#include "Common/Chunk.h"
 
 namespace Proxy
 {  

@@ -1,7 +1,7 @@
-#include "InternalMsgTask.h"
-#include "ObjectMsgCall.h"
-#include "MethodImpl.h"
-#include "InnerMsg.h"
+#include "MsgLib/inc/InternalMsgTask.h"
+#include "MsgLib/inc/ObjectMsgCall.h"
+#include "MsgLib/inc/MethodImpl.h"
+#include "MsgLib/inc/InnerMsg.h"
 
 namespace Msg
 {

@@ -1,6 +1,6 @@
 #ifndef __libcore_random_h__
 #define __libcore_random_h__
-#include "Common.h"
+#include "Common/Common.h"
 
 #ifdef WIN32
 #define WIN32_LEAN_AND_MEAN

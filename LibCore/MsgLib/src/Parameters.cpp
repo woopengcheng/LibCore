@@ -1,4 +1,5 @@
-#include "Parameters.h"
+#include "MsgLib/inc/Parameters.h"
+#include "Marshal/CStream.h"
 
 namespace Msg
 { 
@@ -23,33 +24,7 @@ namespace Msg
 
 		for (UINT32 i = 0;i < m_unParamCount;++i)
 		{
-			m_aParameter[i].Copy(pParam.m_aParameter[i]);
-// 			pParam.m_aParameter[i].SetSize(m_aParameter[i].GetSize());
-// 			pParam.m_aParameter[i].SetType(m_aParameter[i].GetType());
-// 
-// 			switch(m_aParameter[i].GetType())
-// 			{
-// 			case PARAMETER_TYPE_INT32:
-// 				{
-// 					pParam.m_aParameter[i].value_INT32 = m_aParameter[i].value_INT32;
-// 				}break;
-// 			case PARAMETER_TYPE_INT64:
-// 				{
-// 					pParam.m_aParameter[i].value_INT64 = m_aParameter[i].value_INT64;
-// 				}break;
-// 			case PARAMETER_TYPE_DOUBLE:
-// 				{
-// 					pParam.m_aParameter[i].value_DOUBLE = m_aParameter[i].value_DOUBLE;
-// 				}break;
-// 			case PARAMETER_TYPE_CHUNK:
-// 			case PARAMETER_TYPE_STRING:
-// 				{
-// 					pParam.m_aParameter[i].value_BUF = new char[m_aParameter[i].GetSize()];
-// 					memcpy(pParam.m_aParameter[i].value_BUF , m_aParameter[i].value_BUF , m_aParameter[i].GetSize());
-// 				}break; 
-// 			default:
-// 				break;
-// 			} 
+			m_aParameter[i].Copy(pParam.m_aParameter[i]); 
 		} 
 
 		return ERR_SUCCESS;
@@ -93,4 +68,31 @@ namespace Msg
 		 
 	}
 
+	LibCore::CStream & Parameters::marshal( LibCore::CStream & cs )
+	{  
+		MsgAssert_Re(m_unParamCount <= MSG_MAX_PARAMETER_NUMBER , cs , "超出参数表最大个数.");
+		cs << m_unParamCount; 
+		 
+		for (UINT32 i = 0;i < m_unParamCount;++i)
+		{
+			cs << m_aParameter[i];
+		} 
+
+		return cs; 
+
+	}
+
+	LibCore::CStream & Parameters::unMarshal( LibCore::CStream & cs )
+	{  
+		cs >> m_unParamCount; 
+
+		MsgAssert_Re(m_unParamCount <= MSG_MAX_PARAMETER_NUMBER , cs , "超出参数表最大个数.");
+
+		for (UINT32 i = 0;i < m_unParamCount;++i)
+		{
+			cs >> m_aParameter[i];
+		} 
+
+		return cs; 
+	}
 }

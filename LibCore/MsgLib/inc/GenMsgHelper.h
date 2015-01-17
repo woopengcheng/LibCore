@@ -1,10 +1,10 @@
 #ifndef __msg_gen_msg_helper_h__
 #define __msg_gen_msg_helper_h__ 
-#include "MsgCommon.h"
-#include "ParameterHelper.h"
-#include "ObjectMsgCall.h"
-#include "RpcServerManager.h"
-#include "LibCore.h"
+#include "MsgLib/inc/MsgCommon.h"
+#include "MsgLib/inc/ParameterHelper.h"
+#include "MsgLib/inc/ObjectMsgCall.h"
+#include "MsgLib/inc/RpcServerManager.h"
+#include "Common/LibCore.h"
 
 namespace Msg
 {

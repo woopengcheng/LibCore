@@ -1,8 +1,8 @@
 #ifndef __timer_timer_node_h__
 #define __timer_timer_node_h__
-#include "MinHeapTimer.h"
-#include "Node.h"
-#include "TimeCount.h"
+#include "TimerLib/inc/MinHeapTimer.h"
+#include "TimerLib/inc/Node.h"
+#include "TimerLib/inc/TimeCount.h"
 
 namespace Timer
 {   

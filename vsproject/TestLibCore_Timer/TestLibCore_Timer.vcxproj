@@ -217,7 +217,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)TestLibCore_Timer;$(SolutionDir)..\LibCore\Common;$(SolutionDir)..\LibCore\TimerLib\inc;$(SolutionDir)..\LibCore\ThreadPoolLib\inc;$(SolutionDir)..\deps\tbb\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TestLibCore_Timer;$(SolutionDir)..\LibCore;$(SolutionDir)..\deps\boost;$(SolutionDir)..\deps\tbb\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

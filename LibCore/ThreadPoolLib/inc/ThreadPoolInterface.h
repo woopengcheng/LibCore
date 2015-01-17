@@ -1,6 +1,6 @@
 #ifndef __thread_pool_thread_pool_interface_h__
 #define __thread_pool_thread_pool_interface_h__ 
-#include "ThreadPool.h"
+#include "ThreadPoolLib/inc/ThreadPool.h"
 
 namespace ThreadPool
 { 

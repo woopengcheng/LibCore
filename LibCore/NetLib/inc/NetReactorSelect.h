@@ -1,7 +1,7 @@
 #ifndef __net_i_net_reactor_select_h__
 #define __net_i_net_reactor_select_h__ 
-#include "INetHandler.h"
-#include "INetReactor.h"
+#include "NetLib/inc/INetHandler.h"
+#include "NetLib/inc/INetReactor.h"
 
 namespace Net 
 {   

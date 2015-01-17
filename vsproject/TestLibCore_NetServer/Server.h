@@ -1,9 +1,9 @@
 #ifndef __server_h__
 #define __server_h__
-#include "NetReactorSelect.h"
-#include "ServerSession.h"
-#include "TimerHelp.h"
-#include "NetHandlerListener.h"
+#include "NetLib/inc/NetReactorSelect.h"
+#include "NetLib/inc/ServerSession.h"
+#include "TimerLib/inc/TimerHelp.h"
+#include "NetLib/inc/NetHandlerListener.h"
 
 class Server
 {

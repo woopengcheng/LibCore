@@ -1,13 +1,12 @@
-#include "RpcInterface.h"
-#include "RpcServerManager.h"
-#include "RpcClientManager.h"
-#include "xml.h"
-#include "ClientSession.h"
-#include "ServerSession.h"
-//#include "RpcRegister.h"
-#include "IRpcListener.h"
-#include "NetHelper.h"
-#include "NetReactorZMQ.h"
+#include "MsgLib/inc/RpcInterface.h"
+#include "MsgLib/inc/RpcServerManager.h"
+#include "MsgLib/inc/RpcClientManager.h"
+#include "XMLLib/inc/xml.h"
+#include "NetLib/inc/ClientSession.h"
+#include "NetLib/inc/ServerSession.h" 
+#include "MsgLib/inc/IRpcListener.h"
+#include "NetLib/inc/NetHelper.h"
+#include "NetLib/inc/NetReactorZMQ.h"
 
 namespace Msg
 { 

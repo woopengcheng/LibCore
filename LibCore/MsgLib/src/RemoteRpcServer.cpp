@@ -1,8 +1,8 @@
-#include "RemoteRpcServer.h"
-#include "NetHelper.h"
-#include "RpcManager.h"
-#include "RpcInterface.h"
-#include "RPCMsgCall.h"
+#include "MsgLib/inc/RemoteRpcServer.h"
+#include "NetLib/inc/NetHelper.h"
+#include "MsgLib/inc/RpcManager.h"
+#include "MsgLib/inc/RpcInterface.h"
+#include "MsgLib/inc/RPCMsgCall.h"
 
 namespace Msg
 {

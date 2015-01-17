@@ -1,12 +1,12 @@
 ﻿#ifndef __msg_msg_common_h__
 #define __msg_msg_common_h__
-#include "Common.h"
+#include "Common/Common.h"
 #include "tbb/concurrent_unordered_map.h"
 #include "tbb/concurrent_hash_map.h"
 #include "tbb/concurrent_queue.h"
 #include "tbb/concurrent_priority_queue.h"
 #include "vector"
-#include "Object.h"
+#include "MsgLib/inc/Object.h"
 
 #define MSG_ID  UINT64
 

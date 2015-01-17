@@ -2,9 +2,9 @@ extern "C"
 {
 #include "zmq.h" 
 }
-#include "NetHandlerZMQServer.h"
-#include "NetHelper.h"
-#include "INetReactor.h" 
+#include "NetLib/inc/NetHandlerZMQServer.h"
+#include "NetLib/inc/NetHelper.h"
+#include "NetLib/inc/INetReactor.h" 
 
 namespace Net
 {   

@@ -1,10 +1,10 @@
-#include "LibCore.h" 
+#include "Common/LibCore.h" 
 #include "RPCCallFuncs.h"
-#include "Chunk.h" 
-#include "TimerHelp.h"
+#include "Common/Chunk.h" 
+#include "TimerLib/inc/TimerHelp.h"
 #include "MsgNameDefine.h" 
 #include "RpcInstance.h"
-#include "Object.h"
+#include "MsgLib/inc/Object.h"
 
 INT64 g_time = 0;
 

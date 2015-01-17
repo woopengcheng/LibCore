@@ -1,7 +1,7 @@
-#include "ThreadTask.h"
-#include "TimerHelp.h"
-#include "ThreadContext.h"
-#include "ThreadState.h"
+#include "ThreadPoolLib/inc/ThreadTask.h"
+#include "TimerLib/inc/TimerHelp.h"
+#include "ThreadPoolLib/inc/ThreadContext.h"
+#include "ThreadPoolLib/inc/ThreadState.h"
 
 namespace ThreadPool
 { 

@@ -1,7 +1,7 @@
 #ifndef __msg_inner_instance_h__
 #define __msg_inner_instance_h__  
-#include "InnerMsg.h"
-#include "ThreadPoolInterface.h"
+#include "MsgLib/inc/InnerMsg.h"
+#include "ThreadPoolLib/inc/ThreadPoolInterface.h"
  
 
 namespace Client

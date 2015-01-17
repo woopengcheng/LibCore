@@ -1,5 +1,5 @@
-#include "NetHelper.h"
-#include "ISession.h"
+#include "NetLib/inc/NetHelper.h"
+#include "NetLib/inc/ISession.h"
 
 #ifdef WIN32
 #include <Windows.h>  

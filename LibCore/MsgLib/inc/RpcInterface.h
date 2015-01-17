@@ -1,7 +1,7 @@
 #ifndef __msg_rpc_interface_h__
 #define __msg_rpc_interface_h__  
-#include "MsgCommon.h"
-#include "NetHandlerTransit.h"
+#include "MsgLib/inc/MsgCommon.h"
+#include "NetLib/inc/NetHandlerTransit.h"
 
 #ifdef WIN32
 #pragma warning( disable :4996)

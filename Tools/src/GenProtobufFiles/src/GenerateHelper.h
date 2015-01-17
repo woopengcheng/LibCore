@@ -1,6 +1,6 @@
 #ifndef __protobuf_generate_generate_helper_h__
 #define __protobuf_generate_generate_helper_h__ 
-#include "Common.h"  
+#include "Common/Common.h"
 #ifdef WIN32
 #include <Windows.h>
 #endif

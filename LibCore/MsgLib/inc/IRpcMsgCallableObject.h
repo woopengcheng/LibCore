@@ -1,9 +1,9 @@
 ﻿#ifndef __msg_i_rpc_msg_callable_object_h__
 #define __msg_i_rpc_msg_callable_object_h__ 
-#include "MsgCommon.h"  
-#include "RpcInterface.h"
-#include "ICallableObject.h"
-#include "RpcBase.h"
+#include "MsgLib/inc/MsgCommon.h"  
+#include "MsgLib/inc/RpcInterface.h"
+#include "MsgLib/inc/ICallableObject.h"
+#include "MsgLib/inc/RpcBase.h"
 
 namespace Msg
 {

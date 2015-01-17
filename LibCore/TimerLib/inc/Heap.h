@@ -1,8 +1,7 @@
 #ifndef __timer_heap_h__
 #define __timer_heap_h__
-#include "Node.h" 
-#include "ThreadLock.h"
-#include "IStrategy.h"
+#include "TimerLib/inc/Node.h"  
+#include "TimerLib/inc/IStrategy.h"
 
 namespace Timer
 {

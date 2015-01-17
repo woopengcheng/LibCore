@@ -1,7 +1,7 @@
 #ifndef __log_log4cplus_adaptee_h__
 #define __log_log4cplus_adaptee_h__ 
 #include "log4cplus/logger.h"
-#include "LogAdapter.h"
+#include "LogLib/inc/LogAdapter.h"
  
 namespace Log
 {    

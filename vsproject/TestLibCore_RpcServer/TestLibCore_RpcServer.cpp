@@ -4,7 +4,7 @@
 #include "stdafx.h"  
 #include "TestObject.h" 
 #include "RpcInstance.h" 
-#include "LibCore.h" 
+#include "Common/LibCore.h" 
   
 int _tmain(int argc, _TCHAR* argv[])
 {

@@ -1,6 +1,6 @@
 #ifndef __msg_i_callable_object_h__
 #define __msg_i_callable_object_h__ 
-#include "MsgCommon.h" 
+#include "MsgLib/inc/MsgCommon.h" 
 
 namespace Msg
 {  

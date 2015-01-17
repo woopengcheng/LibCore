@@ -1,9 +1,9 @@
 // TestTimer.cpp : 定义控制台应用程序的入口点。
 //
 
-#include "GlobalTimer.h"
-#include "GlobalTimerTask.h"
-#include "TimerHelp.h"
+#include "TimerLib/inc/GlobalTimer.h"
+#include "TimerLib/inc/GlobalTimerTask.h"
+#include "TimerLib/inc/TimerHelp.h"
 
 #include "stdafx.h"
 

@@ -1,5 +1,5 @@
-#include "GLogAdaptee.h"
-#include "TimerHelp.h"
+#include "LogLib/inc/GLogAdaptee.h"
+#include "TimerLib/inc/TimerHelp.h"
 #include "glog/raw_logging.h"
 #include "glog/logging.h"
 

@@ -1,5 +1,5 @@
-#include "TimerHelp.h"
-#include "Log4CPlusAdaptee.h" 
+#include "TimerLib/inc/TimerHelp.h"
+#include "LogLib/inc/Log4CPlusAdaptee.h" 
 
 #ifdef WIN32
 #include <direct.h>

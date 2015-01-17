@@ -1,8 +1,8 @@
 #ifndef __timer_node_h__
 #define __timer_node_h__
-#include "TimerCommon.h"
-#include "ThreadLock.h"
-#include "ClassTypeInterface.h" 
+#include "TimerLib/inc/TimerCommon.h"
+#include "NetLib/inc/INetHandler.h"
+#include "Common/ClassTypeInterface.h" 
 
 namespace Timer
 { 

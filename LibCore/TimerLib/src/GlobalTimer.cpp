@@ -1,7 +1,9 @@
-#include "GlobalTimer.h" 
-#include "ThreadPoolInterface.h"
-#include "InternalTimerTask.h" 
-#include "TimerNode.h" 
+#include "TimerLib/inc/GlobalTimer.h" 
+#include "MsgLib/inc/InnerMsg.h"
+#include "TimerLib/inc/InternalTimerTask.h" 
+#include "TimerLib/inc/TimerNode.h" 
+#include "ThreadPoolLib/inc/ThreadPool.h"
+#include "ThreadPoolLib/inc/ThreadPoolInterface.h"
 
 namespace Timer
 {  

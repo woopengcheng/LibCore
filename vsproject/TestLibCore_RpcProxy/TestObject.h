@@ -3,10 +3,10 @@
 
 #include "stdafx.h"  
 #include "MsgNameDefine.h"  
-#include "IRpcMsgCallableObject.h"
-#include "RpcServerManager.h"
+#include "MsgLib/inc/IRpcMsgCallableObject.h"
+#include "MsgLib/inc/RpcServerManager.h"
 #include "RpcInstance.h"
-#include "Object.h"
+#include "MsgLib/inc/Object.h"
  
 
 namespace Proxy

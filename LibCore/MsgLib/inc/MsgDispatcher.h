@@ -1,10 +1,10 @@
 #ifndef __msg_msg_dispatcher_h__
 #define __msg_msg_dispatcher_h__
-#include "MsgCommon.h"
-#include "MethodImpl.h"
-#include "ParaseMsgCall.h" 
-#include "StaticMethodImplHelper.h"
-#include "ObjectMethodImplHelper.h"
+#include "MsgLib/inc/MsgCommon.h"
+#include "MsgLib/inc/MethodImpl.h"
+#include "MsgLib/inc/ParaseMsgCall.h" 
+#include "MsgLib/inc/StaticMethodImplHelper.h"
+#include "MsgLib/inc/ObjectMethodImplHelper.h"
 
 namespace Msg 
 { 

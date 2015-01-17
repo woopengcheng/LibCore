@@ -1,8 +1,8 @@
 #ifndef __msg_parameter_helper_h__
 #define __msg_parameter_helper_h__
-#include "MsgCommon.h"
-#include "Parameter.h"
-#include "Chunk.h"
+#include "MsgLib/inc/MsgCommon.h"
+#include "MsgLib/inc/Parameter.h"
+#include "Common/Chunk.h"
 
 namespace Msg 
 { 

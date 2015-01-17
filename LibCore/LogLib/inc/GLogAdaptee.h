@@ -1,6 +1,6 @@
 #ifndef __log_glog_adaptee_h__
 #define __log_glog_adaptee_h__  
-#include "LogAdapter.h"
+#include "LogLib/inc/LogAdapter.h"
 #include "glog/logging.h"
 
 namespace Log

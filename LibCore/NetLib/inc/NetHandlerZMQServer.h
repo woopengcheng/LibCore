@@ -1,7 +1,7 @@
 #ifndef __net_net_handler_zmq_server_h__
 #define __net_net_handler_zmq_server_h__ 
-#include "NetHandlerTransit.h"  
-#include "MsgProcess.h"
+#include "NetLib/inc/NetHandlerTransit.h"  
+#include "NetLib/inc/MsgProcess.h"
 
 struct zmq_msg_t;
 

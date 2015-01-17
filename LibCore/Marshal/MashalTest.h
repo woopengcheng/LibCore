@@ -1,7 +1,7 @@
 #ifndef __libcore_marshal_test_h__
 #define __libcore_marshal_test_h__
-#include "Marshal.h"
-#include "Log.h"
+#include "Marshal/Marshal.h"
+#include "LogLib/inc/Log.h"
 
 namespace LibCore
 {

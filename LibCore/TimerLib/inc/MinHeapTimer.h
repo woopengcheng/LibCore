@@ -1,7 +1,7 @@
 #ifndef __timer_min_heap_timer_h
 #define __timer_min_heap_timer_h
-#include "TimerCommon.h"
-#include "MinHeap.h"
+#include "TimerLib/inc/TimerCommon.h"
+#include "TimerLib/inc/MinHeap.h"
 
 namespace Timer
 { 

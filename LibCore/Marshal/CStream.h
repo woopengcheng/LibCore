@@ -1,8 +1,8 @@
 #ifndef __libcore_c_stream_h__
 #define __libcore_c_stream_h__
-#include "Common.h"
-#include "Chunk.h"
-#include "Marshal.h"
+#include "Common/Common.h"
+#include "Common/Chunk.h"
+#include "Marshal/Marshal.h"
 
 namespace LibCore
 {
@@ -25,6 +25,13 @@ namespace LibCore
 
 			return * this;
 		}
+		 
+		CStream & Pushback(void * pBuf , UINT32 unSize)
+		{
+			m_objChunk.Pushback(pBuf , unSize); 
+
+			return * this;
+		}
 
 		template<typename T>
 		CStream & Pop(T & t)
@@ -37,6 +44,14 @@ namespace LibCore
 			return * this;
 		}
 
+		CStream & Pop(void *& pBuf , UINT32 unSize)
+		{
+			MsgAssert_Re (m_nCurPos + unSize <= m_objChunk.GetDataLen() , *this , "CStream pop error.");
+			pBuf = ( (char *)m_objChunk.Begin() + m_nCurPos);
+			m_nCurPos += unSize;
+
+			return * this;
+		}
 	public:
 		CStream & operator << (char t)				{ return Pushback(t);} 
 		CStream & operator << (UINT8 t)				{ return Pushback(t);} 
@@ -93,7 +108,7 @@ namespace LibCore
 			t.assign((T*)((char *)m_objChunk.Begin() + m_nCurPos) , unBytes / sizeof(T));
 		}
 
-		template<typename T1 , typename T2> CStream & operator << (std::pair<T1 , T2> & t)
+		template<typename T1 , typename T2> CStream & operator >> (std::pair<T1 , T2> & t)
 		{
 			return *this >> t.first >> t.second;
 		}
@@ -119,8 +134,13 @@ namespace LibCore
 					MsgAssert_Re(0 , *this , "Marshal::Transaction type error.");
 				}
 			}
-			return *this << t.first << t.second;
+			return *this;
 		}
+
+		public: 
+			UINT32  GetDataLen( void ){ return m_objChunk.GetDataLen(); }
+			INT32   GetCurPos( void ){ return m_nCurPos; }
+
 	protected:
 		INT32   m_nCurPos;			 //5 记录当前流的位置.
 		INT32   m_nTransactionPos;   //5 将流作为事务处理.

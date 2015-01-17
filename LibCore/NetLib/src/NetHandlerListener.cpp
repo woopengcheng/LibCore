@@ -1,8 +1,8 @@
-#include "NetHandlerListener.h" 
-#include "NetHandlerServer.h"
-#include "ServerSession.h"
-#include "INetReactor.h"
-#include "NetHelper.h"
+#include "NetLib/inc/NetHandlerListener.h" 
+#include "NetLib/inc/NetHandlerServer.h"
+#include "NetLib/inc/ServerSession.h"
+#include "NetLib/inc/INetReactor.h"
+#include "NetLib/inc/NetHelper.h"
 #ifdef WIN32
 #include <WinSock.h>
 #endif

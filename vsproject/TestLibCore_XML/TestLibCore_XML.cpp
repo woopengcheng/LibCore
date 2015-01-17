@@ -2,9 +2,9 @@
 //
 
 #include "stdafx.h" 
-#include "xml.h"
-#include "Log.h"
-#include "LibCore.h" 
+#include "XMLLib/inc/xml.h"
+#include "LogLib/inc/Log.h"
+#include "Common/LibCore.h" 
 
 int _tmain(int argc, _TCHAR* argv[])
 { 

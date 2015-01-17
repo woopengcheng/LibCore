@@ -1,4 +1,5 @@
-#include "ObjectMsgCall.h"
+#include "MsgLib/inc/ObjectMsgCall.h"
+#include "Marshal/CStream.h"
 
 namespace Msg
 {
@@ -86,4 +87,32 @@ namespace Msg
 
 		return ERR_SUCCESS;
 	} 
+
+	LibCore::CStream & ObjectMsgCall::marshal( LibCore::CStream & cs )
+	{ 
+		cs << m_unTargetsCount;
+		cs.Pushback(m_aTargets , m_unTargetsCount * sizeof(Object));
+		cs << m_objSource << m_usPriority << m_szMsgMethod << m_unMsgLength << m_ullMsgID << m_objParams; 
+
+		return cs;
+	}
+
+	LibCore::CStream & ObjectMsgCall::unMarshal( LibCore::CStream & cs )
+	{
+		cs >> m_unTargetsCount;
+
+		void * pBuf = NULL;
+		cs.Pop(pBuf , m_unTargetsCount);
+		memcpy(m_aTargets , pBuf , m_unTargetsCount * sizeof(Object));
+		 
+		cs >> m_objSource >> m_usPriority >> m_szMsgMethod >> m_unMsgLength >> m_ullMsgID >> m_objParams; 
+
+		return cs;
+	}
+
+	UINT32 ObjectMsgCall::GetPacketSize( void )
+	{
+		return RefreshSize();
+	}
+
 }

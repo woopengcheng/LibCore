@@ -1,7 +1,7 @@
-#include "InternalTimerTask.h"
-#include "TimerNode.h"
-#include "TimerTask.h"
-#include "GlobalTimer.h"
+#include "TimerLib/inc/InternalTimerTask.h"
+#include "TimerLib/inc/TimerNode.h"
+#include "TimerLib/inc/TimerTask.h"
+#include "TimerLib/inc/GlobalTimer.h"
 
 namespace Timer
 { 

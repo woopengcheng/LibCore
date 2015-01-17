@@ -1,7 +1,7 @@
 #ifndef __timer_time_count_h__
-#define __timer_time_count_h__
-#include "ThreadLock.h"
-#include "TimerCommon.h"
+#define __timer_time_count_h__ 
+#include "TimerLib/inc/TimerCommon.h"
+#include "ThreadPoolLib/inc/ThreadLock.h"
 
 namespace Timer
 {

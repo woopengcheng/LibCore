@@ -1,7 +1,7 @@
 #ifndef __msg_rpc_msg_call_h__
 #define __msg_rpc_msg_call_h__ 
-#include "MsgCommon.h"  
-#include "ObjectMsgCall.h"   
+#include "MsgLib/inc/MsgCommon.h"  
+#include "MsgLib/inc/ObjectMsgCall.h"   
 
 namespace Msg
 {
@@ -48,6 +48,7 @@ namespace Msg
 		virtual void   RefreshTargets();
 		virtual UINT32 Serialization(char * pMsg);
 		virtual UINT32 UnSerialization(const char * pMsg);
+		virtual UINT32 GetPacketSize( void );
 
 	public:
 		//************************************
@@ -67,6 +68,10 @@ namespace Msg
 		Object GetProxySrcID(){ return m_objProxySrcID; }
 		INT32  GetRpcMsgCallType() const { return m_nRpcMsgCallType; }
 		void   SetRpcMsgCallType(INT32 val) { m_nRpcMsgCallType = val; }
+
+	public: 
+		virtual LibCore::CStream & marshal(LibCore::CStream & cs);
+		virtual LibCore::CStream & unMarshal(LibCore::CStream & cs);
 
 	public:    
 		BOOL           m_bClientRequest;

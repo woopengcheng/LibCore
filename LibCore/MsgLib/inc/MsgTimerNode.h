@@ -1,9 +1,9 @@
 #ifndef __msg_msg_timer_node_h__
 #define __msg_msg_timer_node_h__ 
-#include "Node.h"
-#include "TimeCount.h" 
-#include "TimerNode.h"
-#include "ObjectMsgCall.h"
+#include "TimerLib/inc/Node.h"
+#include "TimerLib/inc/TimeCount.h" 
+#include "TimerLib/inc/TimerNode.h"
+#include "MsgLib/inc/ObjectMsgCall.h"
 
 namespace Msg
 {   

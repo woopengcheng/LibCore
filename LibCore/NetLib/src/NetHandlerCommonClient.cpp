@@ -1,6 +1,6 @@
-#include "NetHandlerClient.h"
-#include "NetHelper.h"
-#include "INetReactor.h" 
+#include "NetLib/inc/NetHandlerClient.h"
+#include "NetLib/inc/NetHelper.h"
+#include "NetLib/inc/INetReactor.h" 
 
 namespace Net
 {   

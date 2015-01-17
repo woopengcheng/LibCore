@@ -1,9 +1,9 @@
 #ifndef __thread_pool_thread_context_h__
 #define __thread_pool_thread_context_h__
-#include "ThreadCommon.h"
+#include "ThreadPoolLib/inc/ThreadCommon.h"
 #include "pthread.h"  
 #include "semaphore.h"
-#include "ThreadState.h"
+#include "ThreadPoolLib/inc/ThreadState.h"
 #include <fcntl.h>
 
 namespace ThreadPool

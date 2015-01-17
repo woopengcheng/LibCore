@@ -1,6 +1,7 @@
-#include "InnerMsg.h"
-#include "InternalMsgTask.h"
-#include "ThreadPoolInterface.h"
+#include "MsgLib/inc/InnerMsg.h"
+#include "MsgLib/inc/InternalMsgTask.h"
+#include "MsgLib/inc/InnerMsg.h"
+#include "ThreadPoolLib/inc/ThreadPoolInterface.h"
 
 namespace Msg
 { 

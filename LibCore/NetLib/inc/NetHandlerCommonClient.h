@@ -1,8 +1,8 @@
 #ifndef __net_net_handler_common_client_h__
 #define __net_net_handler_common_client_h__ 
-#include "NetHandlerTransit.h"
-#include "MsgProcess.h"
-#include "ClientSession.h"
+#include "NetLib/inc/NetHandlerTransit.h"
+#include "NetLib/inc/MsgProcess.h"
+#include "NetLib/inc/ClientSession.h"
 
 namespace Net 
 {  

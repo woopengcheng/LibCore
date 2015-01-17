@@ -1,6 +1,6 @@
 ﻿#ifndef __libcore_class_type_interface_h__
 #define __libcore_class_type_interface_h__
-#include "Common.h"
+#include "Common/Common.h"
 
 #define CLASS_TYPE_ID(CurClass , ParentClass , CurClassTypeID) CLASS_TYPE_ID_DECLARE(ParentClass::_CLASS_ALL_TYPE_ID , CurClassTypeID)
 #define CLASS_TYPE_ID_DECLARE(ParentClassAllTypeID , CurClassTypeID)\

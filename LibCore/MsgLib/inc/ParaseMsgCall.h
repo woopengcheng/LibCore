@@ -1,7 +1,7 @@
 #ifndef __msg_parase_msg_call_h__
 #define __msg_parase_msg_call_h__ 
-#include "ICallableObject.h"
-#include "MethodImpl.h"
+#include "MsgLib/inc/ICallableObject.h"
+#include "MsgLib/inc/MethodImpl.h"
 
 namespace Msg
 {   

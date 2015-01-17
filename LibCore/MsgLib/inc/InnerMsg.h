@@ -1,8 +1,8 @@
 #ifndef __msg_inner_msg_h__
 #define __msg_inner_msg_h__ 
-#include "ObjectMsgCall.h"
-#include "MsgQueue.h"   
-#include "MsgDispatcher.h"
+#include "MsgLib/inc/ObjectMsgCall.h"
+#include "MsgLib/inc/MsgQueue.h"   
+#include "MsgLib/inc/MsgDispatcher.h"
 
 namespace ThreadPool
 {

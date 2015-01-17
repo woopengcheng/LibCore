@@ -1,10 +1,10 @@
 #ifndef __msg_remote_rpc_server_h__
 #define __msg_remote_rpc_server_h__ 
-#include "NetHandlerZMQServer.h"
-#include "MsgCommon.h"
-#include "NetHandlerServer.h" 
-#include "TimerHelp.h"
-#include "Ping.h"
+#include "NetLib/inc/NetHandlerZMQServer.h"
+#include "MsgLib/inc/MsgCommon.h"
+#include "NetLib/inc/NetHandlerServer.h" 
+#include "TimerLib/inc/TimerHelp.h"
+#include "MsgLib/inc/Ping.h"
 
 namespace Msg
 {

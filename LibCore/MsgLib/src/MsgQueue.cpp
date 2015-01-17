@@ -1,8 +1,8 @@
-#include "MsgQueue.h"
-#include "ObjectMsgCall.h"
-#include "MsgTimerNode.h"
-#include "InternalMsgTask.h"
-#include "ThreadPoolInterface.h"
+#include "MsgLib/inc/MsgQueue.h"
+#include "MsgLib/inc/ObjectMsgCall.h"
+#include "MsgLib/inc/MsgTimerNode.h"
+#include "MsgLib/inc/InternalMsgTask.h"
+#include "MsgLib/inc/InnerMsg.h"
 
 namespace Msg
 { 

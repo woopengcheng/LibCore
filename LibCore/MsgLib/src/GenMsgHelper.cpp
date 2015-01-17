@@ -1,5 +1,5 @@
-#include "GenMsgHelper.h"
-#include "RPCMsgCall.h"
+#include "MsgLib/inc/GenMsgHelper.h"
+#include "MsgLib/inc/RPCMsgCall.h"
 
 namespace Msg
 { 

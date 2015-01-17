@@ -2,9 +2,9 @@
 //
 
 #include "stdafx.h"
-#include "CStream.h"
-#include "MashalTest.h"
-#include "LibCore.h"
+#include "Marshal/CStream.h"
+#include "Marshal/MashalTest.h"
+#include "Common/LibCore.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {

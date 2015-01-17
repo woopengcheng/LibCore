@@ -1,8 +1,8 @@
 #ifndef __msg_object_msg_call_h__
 #define __msg_object_msg_call_h__
-#include "MsgCommon.h"
-#include "Parameters.h"
-#include "Object.h"
+#include "MsgLib/inc/MsgCommon.h"
+#include "MsgLib/inc/Parameters.h"
+#include "MsgLib/inc/Object.h"
 
 #ifdef WIN32
 #pragma warning(disable : 4200)
@@ -10,7 +10,7 @@
 
 namespace Msg
 { 
-	class DLL_EXPORT  ObjectMsgCall
+	class DLL_EXPORT  ObjectMsgCall : public LibCore::Marshal
 	{ 
 	public:
 		ObjectMsgCall() :m_ullMsgID(0) ,m_unMsgLength(0) , m_unTargetsCount(0) , m_usPriority(0) , m_aTargets(NULL)
@@ -48,6 +48,7 @@ namespace Msg
 		virtual void   RefreshTargets();
 		virtual UINT32 Serialization(char * pMsg);
 		virtual UINT32 UnSerialization(const char * pMsg);
+		virtual UINT32 GetPacketSize( void );
 
 	public:
 		void    SetMethodName(const char * pName){ memcpy(m_szMsgMethod , pName , strlen(pName) + 1);}
@@ -56,6 +57,11 @@ namespace Msg
 		UINT32  Copy(ObjectMsgCall *& pMsg);
 		UINT32  GetTargetsCount(){ return m_unTargetsCount; }
 		void    SetTargetsCount(UINT32 unTargetsCount){ m_unTargetsCount = unTargetsCount; RefreshTargets(); RefreshSize(); }
+
+
+	public: 
+		virtual LibCore::CStream & marshal(LibCore::CStream & cs);
+		virtual LibCore::CStream & unMarshal(LibCore::CStream & cs);
 
 	public:      
 		UINT64             m_ullMsgID;                                 //5 消息的ID,在进程内部.这个变量基本上无用了.

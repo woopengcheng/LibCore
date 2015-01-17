@@ -1,8 +1,8 @@
-#include "RakNetUDPManager.h"
+#include "NetLib/inc/RakNetUDPManager.h"
 #include "RakPeerInterface.h"
 #include "BitStream.h"
 #include "RakNetTypes.h"
-#include "MsgWrapper.h"
+#include "NetLib/inc/MsgWrapper.h"
 #include "MessageIdentifiers.h"
 
 namespace Net

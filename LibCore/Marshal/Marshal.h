@@ -1,7 +1,7 @@
 #ifndef __libcore_marshal_h__
 #define __libcore_marshal_h__
-#include "Common.h"
-#include "Log.h" 
+#include "Common/Common.h"
+#include "LogLib/inc/Log.h" 
 
 
 namespace LibCore

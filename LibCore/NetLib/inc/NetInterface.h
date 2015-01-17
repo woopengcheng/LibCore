@@ -1,6 +1,7 @@
 #ifndef __net_net_interface_h__
 #define __net_net_interface_h__
-#include "NetCommon.h" 
+#include "NetLib/inc/NetCommon.h" 
+
 namespace Net
 {
 	class MsgProcess;

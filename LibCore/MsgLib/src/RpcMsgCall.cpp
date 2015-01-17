@@ -1,4 +1,5 @@
-#include "RPCMsgCall.h"
+#include "MsgLib/inc/RPCMsgCall.h"
+#include "Marshal/CStream.h"
 
 namespace Msg
 {
@@ -6,7 +7,7 @@ namespace Msg
 
 	UINT32 RPCMsgCall::UnSerialization(const char * pMsg )
 	{  
-		RefreshTargets();
+//		RefreshTargets();
 
 		UINT32 unSize = ObjectMsgCall::UnSerialization(pMsg);
 		m_ullTimeout = *(UINT32*)(pMsg + unSize);  
@@ -74,4 +75,30 @@ namespace Msg
 		}  
 		return ERR_SUCCESS; 
 	}
+
+	LibCore::CStream & RPCMsgCall::marshal( LibCore::CStream & cs )
+	{  
+		ObjectMsgCall::marshal(cs);
+		cs << m_ullTimeout << m_bClientRequest << m_szRemoteName ;
+		 
+		return cs;
+	}
+
+	LibCore::CStream & RPCMsgCall::unMarshal( LibCore::CStream & cs )
+	{
+		RefreshTargets();
+		ObjectMsgCall::unMarshal(cs);
+
+		cs >> m_ullTimeout >> m_bClientRequest >> m_szRemoteName; 
+
+		RefreshSize(); 
+		 
+		return cs;
+	}
+
+	UINT32 RPCMsgCall::GetPacketSize( void ) 
+	{
+		return ObjectMsgCall::RefreshSize() + RefreshSize();
+	}
+
 }

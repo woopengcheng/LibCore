@@ -1,6 +1,6 @@
 #ifndef __msg_method_impl_h__
 #define __msg_method_impl_h__
-#include "ObjectMsgCall.h"
+#include "MsgLib/inc/ObjectMsgCall.h"
 
 namespace Msg 
 {  

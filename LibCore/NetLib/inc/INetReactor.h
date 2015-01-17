@@ -1,7 +1,7 @@
 #ifndef __net_i_net_reactor_h__
 #define __net_i_net_reactor_h__ 
-#include "INetHandler.h"
-#include "NetCommon.h"
+#include "NetLib/inc/INetHandler.h"
+#include "NetLib/inc/NetCommon.h"
 
 #ifdef WIN32
 #include <Windows.h>

@@ -1,6 +1,6 @@
 #ifndef __circle_buffer_h__
 #define __circle_buffer_h__
-#include "Common.h"
+#include "Common/Common.h"
 
 namespace LibCore
 {  

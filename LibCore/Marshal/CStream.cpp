@@ -1,5 +1,5 @@
-#include "CStream.h"
-#include "MashalTest.h"
+#include "Marshal\CStream.h"
+#include "Marshal\MashalTest.h"
 
 
 namespace LibCore
@@ -15,7 +15,7 @@ namespace LibCore
 
 
 	CStream & MarshalTest::marshal(CStream & cs)
-	{ 
+	{  
 		cs << m_nTest;
 		cs.Pushback(m_nTest);
 		gDebugStream(m_nTest << " MarshalTest::marshal m_nTest ");

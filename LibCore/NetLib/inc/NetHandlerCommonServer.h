@@ -1,6 +1,6 @@
 #ifndef __net_net_handler_common_server_h__
 #define __net_net_handler_common_server_h__ 
-#include "NetHandlerTransit.h"
+#include "NetLib/inc/NetHandlerTransit.h"
 
 namespace Net 
 {  

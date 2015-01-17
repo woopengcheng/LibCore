@@ -1,6 +1,6 @@
 //#ifndef __safe_variable_h__
 //#define __safe_variable_h__
-//#include "ThreadLock.h"
+//#include "NetLib/inc/INetHandler.h"
 //
 //namespace ThreadPool
 //{

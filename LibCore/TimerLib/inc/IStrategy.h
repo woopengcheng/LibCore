@@ -1,6 +1,6 @@
 #ifndef __timer_i_strategy_h__
 #define __timer_i_strategy_h__ 
-#include "Node.h"  
+#include "TimerLib/inc/Node.h"  
 
 
 namespace Timer

@@ -1,7 +1,7 @@
-#include "TimerInterface.h"
-#include "InternalTimerTask.h" 
-#include "TimerNode.h" 
-#include "IStrategy.h"
+#include "TimerLib/inc/TimerInterface.h"
+#include "TimerLib/inc/InternalTimerTask.h" 
+#include "TimerLib/inc/TimerNode.h" 
+#include "TimerLib/inc/IStrategy.h"
 
 namespace Timer
 { 

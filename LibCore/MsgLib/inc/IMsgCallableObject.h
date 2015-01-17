@@ -1,7 +1,7 @@
 #ifndef __msg_i_msg_callable_object_h__
 #define __msg_i_msg_callable_object_h__ 
-#include "ICallableObject.h" 
-#include "InnerMsg.h"
+#include "MsgLib/inc/ICallableObject.h" 
+#include "MsgLib/inc/InnerMsg.h"
 
 namespace Msg
 {   

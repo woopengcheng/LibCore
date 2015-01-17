@@ -569,5 +569,8 @@
     <ClCompile Include="..\..\LibCore\Marshal\CStream.cpp">
       <Filter>Marshal</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\LibCore\MsgLib\src\Object.cpp">
+      <Filter>MsgLib\src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

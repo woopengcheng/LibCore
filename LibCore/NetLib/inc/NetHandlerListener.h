@@ -1,6 +1,6 @@
 #ifndef __net_net_handler_listener_h__
 #define __net_net_handler_listener_h__  
-#include "INetHandler.h"
+#include "NetLib/inc/INetHandler.h"
 
 struct sockaddr_in;
 

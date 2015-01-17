@@ -1,11 +1,11 @@
 #ifndef __msg_parameters_h__
 #define __msg_parameters_h__ 
-#include "MsgCommon.h"
-#include "Parameter.h"
+#include "MsgLib/inc/MsgCommon.h"
+#include "MsgLib/inc/Parameter.h"
 
 namespace Msg
 { 
-	class DLL_EXPORT Parameters
+	class DLL_EXPORT Parameters : public LibCore::Marshal
 	{
 	public: 
 		Parameters() : m_unParamCount(0){}
@@ -44,6 +44,10 @@ namespace Msg
 		UINT32     Serialization(char * pMsg);
 		UINT32     UnSerialization(const char * pMsg);
 		void       Clear(void);
+
+	public: 
+		virtual LibCore::CStream & marshal(LibCore::CStream & cs);
+		virtual LibCore::CStream & unMarshal(LibCore::CStream & cs);
 
 	public:
 		UINT32     m_unParamCount;

@@ -1,6 +1,6 @@
 #ifndef __server_rpc_defines_h__
 #define __server_rpc_defines_h__
-#include "MsgCommon.h"  
+#include "MsgLib/inc/MsgCommon.h"  
 
 namespace Server
 {  

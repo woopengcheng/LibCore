@@ -1,7 +1,7 @@
 #ifndef __net_byte_order_h__
 #define __net_byte_order_h__
 
-#include "NetCommon.h" 
+#include "NetLib/inc/NetCommon.h" 
 
 #ifdef WIN32
 #include <Windows.h>

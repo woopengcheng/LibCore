@@ -1,6 +1,6 @@
 #ifndef __libcore_h__
 #define __libcore_h__
-#include "Common.h"
+#include "Common/Common.h"
  
 namespace LibCore
 { 

@@ -1,6 +1,6 @@
-#include "NetReactorZMQ.h"
-#include "NetHandlerClient.h"
-#include "TimerHelp.h"
+#include "NetLib/inc/NetReactorZMQ.h"
+#include "NetLib/inc/NetHandlerClient.h"
+#include "TimerLib/inc/TimerHelp.h"
 
 #ifdef WIN32
 #include <windows.h>

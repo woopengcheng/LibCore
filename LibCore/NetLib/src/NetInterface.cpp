@@ -1,6 +1,7 @@
-#include "NetInterface.h"
-#include "MsgHandler.h"
-#include "ThreadPoolInterface.h" 
+#include "NetLib/inc/NetInterface.h"
+#include "NetLib/inc/MsgHandler.h"
+#include "MsgLib/inc/InnerMsg.h" 
+#include "ThreadPoolLib/inc/ThreadPoolInterface.h"
 
 namespace Net
 {

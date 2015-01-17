@@ -1,7 +1,7 @@
 #ifndef __net_raknet_udp_manager_h__
 #define __net_raknet_udp_manager_h__
-#include "NetCommon.h"
-#include "NetBase.h"
+#include "NetLib/inc/NetCommon.h"
+#include "NetLib/inc/NetBase.h"
 
 namespace RakNet
 {

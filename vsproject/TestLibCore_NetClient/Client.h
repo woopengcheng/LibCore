@@ -1,8 +1,8 @@
-#include "NetReactorSelect.h"
-#include "ISession.h"
-#include "NetHandlerClient.h"
-#include "TimerHelp.h"
-#include "MsgProcess.h"
+#include "NetLib/inc/NetReactorSelect.h"
+#include "NetLib/inc/ISession.h"
+#include "NetLib/inc/NetHandlerClient.h"
+#include "TimerLib/inc/TimerHelp.h"
+#include "NetLib/inc/MsgProcess.h"
 
 class TestMsgProcess : public Net::MsgProcess
 {

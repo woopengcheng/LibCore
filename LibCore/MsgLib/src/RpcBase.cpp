@@ -1,11 +1,11 @@
-#include "RpcBase.h"
-#include "RpcInterface.h"
-#include "ICallableObject.h"
-#include "GenMsgHelper.h"
-#include "Parameters.h"
-#include "RPCMsgCall.h"
-#include "Chunk.h"
-#include "IRpcMsgCallableObject.h"
+#include "MsgLib/inc/RpcBase.h"
+#include "MsgLib/inc/RpcInterface.h"
+#include "MsgLib/inc/ICallableObject.h"
+#include "MsgLib/inc/GenMsgHelper.h"
+#include "MsgLib/inc/Parameters.h"
+#include "MsgLib/inc/RPCMsgCall.h"
+#include "MsgLib/inc/IRpcMsgCallableObject.h"
+#include "Common/Chunk.h"
 
 namespace Msg
 {  

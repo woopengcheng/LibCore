@@ -1,7 +1,7 @@
-#include "NetHandlerRpcListener.h" 
-#include "RpcManager.h"
-#include "NetHelper.h"
-#include "RpcInterface.h"
+#include "MsgLib/inc/NetHandlerRpcListener.h" 
+#include "MsgLib/inc/RpcManager.h"
+#include "NetLib/inc/NetHelper.h"
+#include "MsgLib/inc/RpcInterface.h"
 
 namespace Msg
 { 

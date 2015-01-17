@@ -1,9 +1,9 @@
 #ifndef __net_msg_handler_h__
 #define __net_msg_handler_h__
-#include "NetCommon.h"  
-#include "ThreadLock.h"
-#include "ThreadTask.h"
-#include "MsgProcess.h"
+#include "NetLib/inc/NetCommon.h"  
+#include "NetLib/inc/INetHandler.h"
+#include "ThreadPoolLib/inc/ThreadTask.h"
+#include "NetLib/inc/MsgProcess.h"
 
 namespace Net
 {   

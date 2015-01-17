@@ -1,7 +1,6 @@
 #ifndef __net_msg_wrapper_h__
-#define __net_msg_wrapper_h__
-
-#include "NetCommon.h"
+#define __net_msg_wrapper_h__ 
+#include "NetLib/inc/NetCommon.h"
 
 namespace Net
 {

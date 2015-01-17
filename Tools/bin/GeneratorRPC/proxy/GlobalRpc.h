@@ -6,10 +6,10 @@
 namespace Proxy
 {
 	// static defaultParams define here. 
-	static INT16 g_rpcDefaultParam_INT16 = 0;
-	static INT32 g_rpcDefaultParam_INT32 = 0;
-	static UNT16 g_rpcDefaultParam_UNT16 = 0;
 	static UNT32 g_rpcDefaultParam_UNT32 = 0;
+	static UNT16 g_rpcDefaultParam_UNT16 = 0;
+	static INT32 g_rpcDefaultParam_INT32 = 0;
+	static INT16 g_rpcDefaultParam_INT16 = 0;
 
 	class GlobalRpc : public Msg::IRpcMsgCallableObject
 	{

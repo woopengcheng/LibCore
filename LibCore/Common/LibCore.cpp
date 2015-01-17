@@ -1,10 +1,10 @@
-#include "LibCore.h"
-#include "Log.h"
-#include "NetCommon.h" 
-#include "TimerHelp.h"
-#include "RpcCheckParams.h"
+#include "Common/LibCore.h"
+#include "LogLib/inc/Log.h"
+#include "NetLib/inc/NetCommon.h" 
+#include "TimerLib/inc/TimerHelp.h"
+#include "MsgLib/inc/RpcCheckParams.h"
 #include <sstream>
-#include "Random.h"
+#include "Common/Random.h"
 
 #ifdef WIN32
 #include <ObjBase.h>

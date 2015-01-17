@@ -1,5 +1,5 @@
-#include "Chunk.h"
-#include "LibCore.h"
+#include "Common/Chunk.h"
+#include "Common/LibCore.h"
 
 namespace LibCore
 { 

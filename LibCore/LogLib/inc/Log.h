@@ -1,6 +1,6 @@
 #ifndef __log_h__
 #define __log_h__ 
-#include "LogInterface.h"
+#include "LogLib/inc/LogInterface.h"
 
 #define gDebugStream(LOG_STREAM)  { Log::std_ostream out;out<<LOG_STREAM; Log::LogInterface::GetInstance().GetLogAdapter()->Debug(out);}
 #define gErrorStream(LOG_STREAM)  { Log::std_ostream out;out<<LOG_STREAM; Log::LogInterface::GetInstance().GetLogAdapter()->Error(out);}

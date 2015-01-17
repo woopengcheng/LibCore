@@ -1,4 +1,4 @@
-#include "MsgDispatcher.h"
+#include "MsgLib/inc/MsgDispatcher.h"
 
 namespace Msg
 {

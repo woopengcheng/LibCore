@@ -1,6 +1,6 @@
 #ifndef __net_client_session_h__
 #define __net_client_session_h__ 
-#include "ISession.h"
+#include "NetLib/inc/ISession.h"
 
 namespace Net 
 {   

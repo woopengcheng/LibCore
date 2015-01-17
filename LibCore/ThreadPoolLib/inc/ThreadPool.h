@@ -1,6 +1,6 @@
 #ifndef __thread_pool_thread_pool_h__
 #define __thread_pool_thread_pool_h__
-#include "ThreadCommon.h"
+#include "ThreadPoolLib/inc/ThreadCommon.h"
 #include "pthread.h" 
 #include <map> 
 

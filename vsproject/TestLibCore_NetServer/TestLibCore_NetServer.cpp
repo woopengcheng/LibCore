@@ -2,10 +2,11 @@
 //
 
 #include "stdafx.h"  
-#include "ThreadPoolInterface.h"
-#include "ThreadTask.h"  
+#include "MsgLib/inc/InnerMsg.h"
+#include "ThreadPoolLib/inc/ThreadTask.h"  
+#include "ThreadPoolLib/inc/ThreadPoolInterface.h"  
 #include "Server.h"
-#include "LibCore.h"
+#include "Common/LibCore.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {   

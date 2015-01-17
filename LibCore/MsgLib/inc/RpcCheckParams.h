@@ -1,9 +1,9 @@
 #ifndef __msg_rpc_check_params_h__
 #define __msg_rpc_check_params_h__
-#include "MsgCommon.h"     
-#include "Chunk.h"
-#include "Parameter.h"
-#include "GenMsgHelper.h"
+#include "MsgLib/inc/MsgCommon.h"     
+#include "Common/Chunk.h"
+#include "MsgLib/inc/Parameter.h"
+#include "MsgLib/inc/GenMsgHelper.h"
  
 namespace Msg
 {   

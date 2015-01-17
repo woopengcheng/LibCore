@@ -1,6 +1,6 @@
-#include "xml.h"
+#include "XMLLib/inc/xml.h"
 #include "fstream"
-#include "Log.h"
+#include "LogLib/inc/Log.h"
 extern "C"
 {
 #include <expat.h> 

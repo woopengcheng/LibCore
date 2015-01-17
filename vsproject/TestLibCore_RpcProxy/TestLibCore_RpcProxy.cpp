@@ -2,11 +2,11 @@
 //
 
 #include "stdafx.h" 
-#include "TimerHelp.h"  
+#include "TimerLib/inc/TimerHelp.h"  
 #include "MsgNameDefine.h"  
 #include "TestObject.h" 
 #include "RpcInstance.h"
-#include "LibCore.h"   
+#include "Common/LibCore.h"   
 
 int _tmain(int argc, _TCHAR* argv[])
 {

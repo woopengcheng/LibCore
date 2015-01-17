@@ -1,8 +1,8 @@
 #ifndef __log_log4cpp_interface_h__
 #define __log_log4cpp_interface_h__ 
-#include "LogCommon.h"    
+#include "LogLib/inc/LogCommon.h"    
 #include "log4cpp/CategoryStream.hh"
-#include "LogAdapter.h"
+#include "LogLib/inc/LogAdapter.h"
  
 namespace Log
 {  

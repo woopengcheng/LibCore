@@ -237,7 +237,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\LibCore\Common;$(SolutionDir)..\configs\msg\;$(SolutionDir)..\deps\protobuf\src;$(SolutionDir)..\tools\src\GenProtobufFiles\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\LibCore\;$(SolutionDir)..\configs\msg\;$(SolutionDir)..\deps\protobuf\src;$(SolutionDir)..\tools\src\GenProtobufFiles\src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

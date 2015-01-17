@@ -2,7 +2,7 @@
 #define __msg_rpc_call_funcs_h__
 
 #include "stdafx.h" 
-#include "MsgHelper.h"
+#include "MsgLib/inc/MsgHelper.h"
 #include "RpcInstance.h"
 #include "MsgNameDefine.h"
 

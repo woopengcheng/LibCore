@@ -1,7 +1,7 @@
 #ifndef __xml_xml_h__
 #define __xml_xml_h__   
 #include <iostream>
-#include "XMLValue.h"
+#include "XMLLib/inc/XMLValue.h"
 
 namespace XML
 { 

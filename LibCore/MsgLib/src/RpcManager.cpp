@@ -1,7 +1,7 @@
-#include "RpcManager.h"
-#include "RemoteRpcServer.h"
-#include "RemoteRpcClient.h" 
-#include "RpcBase.h"
+#include "MsgLib/inc/RpcManager.h"
+#include "MsgLib/inc/RemoteRpcServer.h"
+#include "MsgLib/inc/RemoteRpcClient.h" 
+#include "MsgLib/inc/RpcBase.h"
 
 namespace Msg
 {  

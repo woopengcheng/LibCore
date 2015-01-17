@@ -217,7 +217,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>DLL_EXPORTS;WIN32;_DEBUG;_CONSOLE;USE_LOG4CPLUS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)TestLibCore_RpcProxy;$(SolutionDir)TestLibCore_RpcProxy\rpc;$(SolutionDir)..\LibCore\XmlLib\inc\;$(SolutionDir)..\LibCore\MsgLib\inc;$(SolutionDir)..\LibCore\MsgLib\rpc;$(SolutionDir)..\LibCore\LogLib\inc;$(SolutionDir)..\LibCore\NetLib\inc;$(SolutionDir)..\LibCore\Common;$(SolutionDir)..\LibCore\TimerLib\inc;$(SolutionDir)..\LibCore\ThreadPoolLib\inc;$(SolutionDir)..\deps\pthread\include;$(SolutionDir)..\deps\tbb\include;$(SolutionDir)..\deps\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TestLibCore_RpcProxy;$(SolutionDir)TestLibCore_RpcProxy\rpc;$(SolutionDir)..\LibCore;$(SolutionDir)..\deps\boost;$(SolutionDir)..\deps\tbb\include;$(SolutionDir)..\deps\pthread\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>

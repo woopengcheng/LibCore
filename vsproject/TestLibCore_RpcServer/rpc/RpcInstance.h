@@ -1,6 +1,6 @@
 #ifndef __msg_rpc_instance_h__
 #define __msg_rpc_instance_h__  
-#include "RpcInterface.h"
+#include "MsgLib/inc/RpcInterface.h"
  
 
 namespace Server

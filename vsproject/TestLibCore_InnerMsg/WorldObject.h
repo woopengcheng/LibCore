@@ -1,13 +1,13 @@
 #pragma once
 #include "MsgInstance.h"
-#include "ObjectMsgCall.h"
-#include "TimerHelp.h"
-#include "IMsgCallableObject.h"
+#include "MsgLib/inc/ObjectMsgCall.h"
+#include "MsgLib/inc/IMsgCallableObject.h"
+#include "TimerLib/inc/TimerHelp.h"
 #include "MsgFuncCalls.h"
 #include "MsgNameDefine.h" 
-#include "Object.h" 
-#include "Chunk.h"
-#include "LibCore.h"
+#include "MsgLib/inc/Object.h" 
+#include "Common/Chunk.h"
+#include "Common/LibCore.h"
 #include "MsgDefines.h"
 
 

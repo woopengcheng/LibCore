@@ -1,10 +1,10 @@
 #ifndef __msg_rpc_msg_helper_h__
 #define __msg_rpc_msg_helper_h__
-#include "MsgCommon.h" 
-#include "RPCMsgCall.h"  
-#include "Chunk.h"
-#include "RpcServerManager.h"  
-#include "GenMsgHelper.h"
+#include "MsgLib/inc/MsgCommon.h" 
+#include "MsgLib/inc/RPCMsgCall.h"  
+#include "Common/Chunk.h"
+#include "MsgLib/inc/RpcServerManager.h"  
+#include "MsgLib/inc/GenMsgHelper.h"
 
 namespace Msg
 {  

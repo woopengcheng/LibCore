@@ -1,7 +1,7 @@
 #ifndef __net_i_net_handler_h__
 #define __net_i_net_handler_h__ 
-#include "NetCommon.h"
-#include "ISession.h"
+#include "NetLib/inc/NetCommon.h"
+#include "NetLib/inc/ISession.h"
 
 namespace Net 
 {  

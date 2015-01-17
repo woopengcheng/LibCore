@@ -1,5 +1,5 @@
-#include "TimerHelp.h"
-#include "GlobalTimer.h"
+#include "TimerLib/inc/TimerHelp.h"
+#include "TimerLib/inc/GlobalTimer.h"
 
 namespace Timer
 {  

@@ -1,7 +1,7 @@
 #ifndef __net_net_handler_client_h__
 #define __net_net_handler_client_h__  
-#include "NetHandlerCommonClient.h"
-#include "NetHandlerZMQClient.h"
+#include "NetLib/inc/NetHandlerCommonClient.h"
+#include "NetLib/inc/NetHandlerZMQClient.h"
 
 namespace Net 
 {   
