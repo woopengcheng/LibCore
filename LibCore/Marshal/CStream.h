@@ -65,11 +65,11 @@ namespace LibCore
 		CStream & operator << (float t)				{ return Pushback(t);} 
 		CStream & operator << (double t)			{ return Pushback(t);} 
 		CStream & operator << (Marshal & t)			{ return t.marshal(*this); } 
-		CStream & operator << (Chunk & t);	
+		CStream & operator << (Chunk & t);	 
 
 		template<typename T> CStream & operator << (std::basic_string<T> & t)
 		{
-			STATIC_ASSERT(sizeof(t) == 1);  //5 测试是否是单字节.utf16和utf32.单独处理
+			STATIC_ASSERT(sizeof(T) == 1);  //5 测试是否是单字节.utf16和utf32.单独处理
 			UINT32 unBytes = t.length() * sizeof(T);
 			Pushback(unBytes);
 			m_objChunk.Insert(m_objChunk.End() , t.c_str() , unBytes);

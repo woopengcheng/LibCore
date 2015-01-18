@@ -3,16 +3,7 @@
 
 
 namespace LibCore
-{ 
-
-
-
-
-
-
-
-
-
+{  
 
 	CStream & MarshalTest::marshal(CStream & cs)
 	{  
@@ -28,8 +19,7 @@ namespace LibCore
 		cs.Pop(m_nTest);
 		gDebugStream(m_nTest << " MarshalTest::unMarshal m_nTest ");
 		return cs;
-	}
-
+	} 
 
 	CStream & CStream::operator<<(Chunk & t)			
 	{

@@ -399,6 +399,9 @@
     <ClInclude Include="..\..\LibCore\Marshal\MashalTest.h">
       <Filter>Marshal</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\Marshal\CommonMarshal.h">
+      <Filter>Marshal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -571,6 +574,9 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\MsgLib\src\Object.cpp">
       <Filter>MsgLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Marshal\CommonMarshal.cpp">
+      <Filter>Marshal</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -3,43 +3,44 @@
 #include "MsgLib/inc/MsgCommon.h"
 #include "MsgLib/inc/Parameter.h"
 #include "Common/Chunk.h"
+#include "Marshal/CStream.h"
+#include "Marshal/CommonMarshal.h"
 
 namespace Msg 
 { 
 
-	template<typename T>
-	class  ParameterHelper
-	{
-
-	};
+	template<typename T> class  ParameterHelper { };
 
 	template<> class ParameterHelper<const char *>
 	{
 	public:
-		static PARAMETER_TYPE GetParameterType()
-		{
-			return PARAMETER_TYPE_STRING;
-		}
-
+		static PARAMETER_TYPE GetParameterType(){ return PARAMETER_TYPE_STRING; } 
 		static const char * GetParameterValue(Parameter & objParam)
 		{
-			switch (objParam.GetType())
-			{
-			case PARAMETER_TYPE_CHUNK:
-			case PARAMETER_TYPE_STRING:
-				{
-					return objParam.value_BUF;
-				}
-				break;
-			default:
-				MsgAssert_Re0(false , "invalid convert to const char*");
-			}
+			INT32 nType = 0 , nSize = 0;
 
-			return NULL;
+			objParam.GetParamStream() >> nType;  
+			MsgAssert_Re0(objParam.GetType() == PARAMETER_TYPE_STRING , "paramter type is error. :" << objParam.GetType() << " cur: " << PARAMETER_TYPE_STRING);
+			objParam.SetType(nType);
+
+			objParam.GetParamStream() >> nSize;
+			MsgAssert_Re0(!(nSize > objParam.GetParamStream().GetDataLen() - objParam.GetParamStream().GetCurPos()) , "unMarshal invalid length.");
+			objParam.SetSize(nSize); 
+			 
+			void * pBuf = NULL;
+			objParam.GetParamStream().Pop(pBuf , nSize);
+			objParam.value_BUF = (char *)pBuf;
+
+			const char * pBuf = NULL;
+			objParam.GetParamStream() >> pBuf;
+
+			return objParam.value_BUF; 
 		}
 
 		static void MakeParameter(Parameter & objParam , const char * pValue)
 		{ 
+			cs << m_unLen;  
+			cs.Pushback(m_pBuf , m_unLen);
 			if (objParam.GetSize() != 0)
 			{
 				SAFE_DELETE_ARRAY(objParam.value_BUF);

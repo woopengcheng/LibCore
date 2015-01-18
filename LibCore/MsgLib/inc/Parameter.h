@@ -58,6 +58,7 @@ namespace Msg
 		void       SetSize(UINT32 unParamSize){ m_unParamSize = unParamSize;}
 		UINT32     GetType(){ return m_objParamType; }
 		void       SetType(UINT32 unParamType){ m_objParamType = unParamType; }
+		LibCore::CStream & GetParamStream() const { return m_objParamStream; } 
 
 		union
 		{
@@ -79,7 +80,7 @@ namespace Msg
 	private:
 		UINT32			   m_unParamSize;         //5 参数的大小  
 		INT32              m_objParamType;         //5 参数的类型.对应PARAMETER_TYPE
-
+		LibCore::CStream   m_objParamStream;
 	};
 
 }

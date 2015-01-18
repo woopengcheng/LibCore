@@ -252,6 +252,7 @@
     <ClInclude Include="..\..\LibCore\LogLib\inc\LogAdapter.h" />
     <ClInclude Include="..\..\LibCore\LogLib\inc\LogCommon.h" />
     <ClInclude Include="..\..\LibCore\LogLib\inc\LogInterface.h" />
+    <ClInclude Include="..\..\LibCore\Marshal\CommonMarshal.h" />
     <ClInclude Include="..\..\LibCore\Marshal\CStream.h" />
     <ClInclude Include="..\..\LibCore\Marshal\Marshal.h" />
     <ClInclude Include="..\..\LibCore\Marshal\MashalTest.h" />
@@ -350,6 +351,7 @@
     <ClCompile Include="..\..\LibCore\LogLib\src\Log4CPlusAdaptee.cpp" />
     <ClCompile Include="..\..\LibCore\LogLib\src\Log4CppAdaptee.cpp" />
     <ClCompile Include="..\..\LibCore\LogLib\src\LogInterface.cpp" />
+    <ClCompile Include="..\..\LibCore\Marshal\CommonMarshal.cpp" />
     <ClCompile Include="..\..\LibCore\Marshal\CStream.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\GenMsgHelper.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\InnerMsg.cpp" />
