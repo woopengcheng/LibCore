@@ -14,7 +14,7 @@ namespace LibCore
 	public:
 		Chunk   &  Insert(void * pPos , void * pBegin , UINT32 unLen);
 		Chunk   &  Pushback(void * pBegin , UINT32 unLen); 
-		Chunk   &  Erase(void * pBegin , void * pEnd , UINT32 unLen);
+		Chunk   &  Erase(void * pBegin , void * pEnd);
 		Chunk   &  Reverse(UINT32 unSize);
 		void	*  Create(UINT32 unSize);
 		void       Release( void );

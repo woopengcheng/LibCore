@@ -108,4 +108,14 @@ namespace LibCore
 		return m_pBuf;
 	}
 
+	Chunk   & Chunk::Erase(void * pBegin , void * pEnd)
+	{
+		if (pBegin != pEnd)
+		{
+			FastMemmove(pBegin , pEnd , ((char *)m_pBuf + m_unDataLen ) - pBegin);
+		}
+
+		return *this;
+	}
+
 }
