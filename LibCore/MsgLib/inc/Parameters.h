@@ -33,10 +33,8 @@ namespace Msg
 
 	public:  
 		UINT32     GetSize();
-		UINT32     Copy(Parameters & pParam);
-// 		UINT32     Serialization(char * pMsg);
-// 		UINT32     UnSerialization(const char * pMsg);
-// 		void       Clear(void);
+		UINT32     Copy(Parameters & pParam); 
+		void       Clear(void);
 
 	public: 
 		virtual LibCore::CStream & marshal(LibCore::CStream & cs);

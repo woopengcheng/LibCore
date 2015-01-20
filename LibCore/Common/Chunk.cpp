@@ -23,7 +23,6 @@ namespace LibCore
 		m_unDataLen = objChunk.GetDataLen();
 		m_unSize = objChunk.GetSize();
 
-		return * this;
 	}
 
 	Chunk	& Chunk::operator=(const Chunk & objChunk)
@@ -133,7 +132,7 @@ namespace LibCore
 	{
 		if (pBegin != pEnd)
 		{
-			FastMemmove(pBegin , pEnd , ((char *)m_pBuf + m_unDataLen ) - pBegin);
+			FastMemmove(pBegin , pEnd , ((char *)m_pBuf + m_unDataLen ) - (char *)pBegin);
 		}
 
 		return *this;

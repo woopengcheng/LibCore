@@ -76,19 +76,20 @@ namespace Msg
 	LibCore::CStream & RPCMsgCall::marshal( LibCore::CStream & cs )
 	{  
 		ObjectMsgCall::marshal(cs);
-		cs << m_ullTimeout << m_bClientRequest << m_szRemoteName ;
+		cs << m_ullTimeout << m_bClientRequest;
+		cs.Pushback(m_szRemoteName , sizeof(m_szRemoteName));
 		 
 		return cs;
 	}
 
 	LibCore::CStream & RPCMsgCall::unMarshal( LibCore::CStream & cs )
-	{
-		RefreshTargets();
+	{ 
 		ObjectMsgCall::unMarshal(cs);
 
-		cs >> m_ullTimeout >> m_bClientRequest >> m_szRemoteName; 
-
-		RefreshSize(); 
+		cs >> m_ullTimeout >> m_bClientRequest;
+		void * pBuf = NULL;
+		cs.Pop(pBuf , sizeof(m_szRemoteName)); 
+		memcpy(m_szRemoteName , pBuf , sizeof(m_szRemoteName));
 		 
 		return cs;
 	}

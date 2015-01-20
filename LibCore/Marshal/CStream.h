@@ -45,6 +45,8 @@ namespace LibCore
 			m_nCurPos = cs.GetCurPos();
 			m_nTransactionPos = cs.GetTransactionPos();
 			m_objChunk = cs.GetData();
+
+			return *this;
 		}
 
 	public:
@@ -168,8 +170,8 @@ namespace LibCore
 		}
 
 		public: 
-			UINT32  GetDataLen( void ){ return m_objChunk.GetDataLen(); }
-			INT32   GetCurPos( void ){ return m_nCurPos; }
+			UINT32  GetDataLen( void ) const { return m_objChunk.GetDataLen(); }
+			INT32   GetCurPos( void )const { return m_nCurPos; }
 			INT32   GetTransactionPos( void ) const { return m_nTransactionPos;	}
 			Chunk   GetData( void ) const { return m_objChunk;	}
 			void  * Begin(){ return m_objChunk.Begin(); }

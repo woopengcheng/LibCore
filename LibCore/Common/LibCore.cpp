@@ -316,7 +316,7 @@ namespace LibCore
 		return ::strncat(dest,src,destlen); 
 	}
 
-	void  FastMemmove(void * dst , const void * src , UINT32 unSize)
+	void  FastMemmove(void * dst , const void * src , INT64 unSize)
 	{
 		char * pDst = (char *)dst;
 		char * pSrc = (char *)src;

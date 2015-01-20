@@ -90,7 +90,9 @@ namespace Msg
 	{ 
 		cs << m_unTargetsCount;
 		cs.Pushback(m_aTargets , m_unTargetsCount * sizeof(Object));
-		cs << m_objSource << m_usPriority << m_szMsgMethod << m_unMsgLength << m_ullMsgID << m_objParams; 
+		cs << m_objSource << m_usPriority;
+		cs.Pushback(m_szMsgMethod , MAX_MSG_METHOD_NAME_LENGTH);
+		cs << m_unMsgLength << m_ullMsgID << m_objParams; 
 
 		return cs;
 	}
@@ -103,7 +105,10 @@ namespace Msg
 		cs.Pop(pBuf , m_unTargetsCount);
 		memcpy(m_aTargets , pBuf , m_unTargetsCount * sizeof(Object));
 		 
-		cs >> m_objSource >> m_usPriority >> m_szMsgMethod >> m_unMsgLength >> m_ullMsgID >> m_objParams; 
+		cs >> m_objSource >> m_usPriority;
+		cs.Pop(pBuf , sizeof(m_szMsgMethod));
+		memcpy(m_szMsgMethod , pBuf ,  sizeof(m_szMsgMethod)); 
+		cs >> m_unMsgLength >> m_ullMsgID >> m_objParams; 
 
 		return cs;
 	}

@@ -2,6 +2,7 @@
 #define __msg_parameter_h__ 
 #include "MsgLib/inc/MsgCommon.h"
 #include "Marshal/Marshal.h"
+#include "Marshal/CStream.h"
 
 namespace Msg
 { 
@@ -30,63 +31,27 @@ namespace Msg
 	struct DLL_EXPORT Parameter : public LibCore::Marshal
 	{
 	public:
-		Parameter() 
-			: m_pData(NULL)
-			, m_unParamSize(0)
-			, m_nParamType(0)
-		{
+		Parameter(); 
+		Parameter(INT32 nType , UINT32 unSize , void * pData); 
+		Parameter(const Parameter & objParameter) ;
 
-		}
+		virtual ~Parameter(){}
 
-		Parameter(INT32 nType , UINT32 unSize , void * pData) 
-			: m_pData(pData)
-			, m_unParamSize(unSize)
-			, m_nParamType(nType)
-		{
-
-		}
-
-		Parameter(const Parameter & objParameter) 
-		{  
-			m_unParamSize = objParameter.m_unParamSize;
-			m_nParamType = objParameter.m_nParamType; 
-			m_objParamStream = objParameter.m_objParamStream;
-		}
-
-		virtual ~Parameter()
-		{
-
-		}
-
-		Parameter & operator = (const Parameter & objParameter)
-		{ 
-			m_unParamSize = objParameter.m_unParamSize;
-			m_nParamType = objParameter.m_nParamType; 
-			m_objParamStream = objParameter.m_objParamStream; 
-
-			return *this;
-		} 
+		Parameter & operator = (const Parameter & objParameter);
 
 	public:
+		void       Clear(void);
 		UINT32     GetSize( void );
 		UINT32     GetType( void );
 		void    *  GetData( void );
 		UINT32     Copy(Parameter & objParam);
-		LibCore::CStream & GetParamStream() const { return m_objParamStream; } 
-// 		 
-// 	public:
-// 		void       Clear(void);
-// 		UINT32     Serialization(char * pMsg);
-// 		UINT32     UnSerialization(const char * pMsg);
+		LibCore::CStream  GetParamStream() const { return m_objParamStream; } 
 
 	public: 
 		virtual LibCore::CStream & marshal(LibCore::CStream & cs);
 		virtual LibCore::CStream & unMarshal(LibCore::CStream & cs);
 
 	private:
-		INT32              m_nParamType;         //5 参数的类型.对应PARAMETER_TYPE
-		UINT32			   m_unParamSize;        //5 参数的大小  
-		void     *         m_pData;
 		LibCore::CStream   m_objParamStream;
 	};
 

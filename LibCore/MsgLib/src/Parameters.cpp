@@ -95,4 +95,13 @@ namespace Msg
 
 		return cs; 
 	}
+
+	void Parameters::Clear( void )
+	{ 
+		for (UINT32 i = 0;i < m_unParamCount;++i)
+		{
+			m_aParameter[i].Clear();
+		} 
+	}
+
 }

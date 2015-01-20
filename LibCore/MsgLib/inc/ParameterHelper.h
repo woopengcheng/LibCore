@@ -8,10 +8,10 @@
 
 namespace Msg 
 { 
-#define GEN_PARAMTER_HELPER(type_name , type_macro , )	template<> class ParameterHelper<type_name>\
+#define GEN_PARAMTER_HELPER(type_name , type_macro )	template<> class ParameterHelper<type_name>\
 	{\
 	public:\
-		static PARAMETER_TYPE GetParameterType()\
+		static INT32 GetParameterType()\
 		{\
 			return type_macro ;\
 		}\
@@ -19,7 +19,7 @@ namespace Msg
 		static type_name GetParameterValue(Parameter & objParam)\
 		{ \
 			UINT32 unType = 0 , unSize = 0;\
-			type_name  val;\
+			type_name  val = 0;\
 			\
 			objParam.GetParamStream() >> unType >> unSize >> val;   \
 			MsgAssert_Re0(unType == type_macro && unSize == sizeof(val) , "获取参数值错误.");\
@@ -44,17 +44,6 @@ namespace Msg
 	
 	template<typename T> class  ParameterHelper { };
 
-	GEN_PARAMTER_HELPER(bool , PARAMETER_TYPE_BOOL); 
-	GEN_PARAMTER_HELPER(INT16 , PARAMETER_TYPE_INT16);
-	GEN_PARAMTER_HELPER(UINT16 , PARAMETER_TYPE_UINT16);
-	GEN_PARAMTER_HELPER(long , PARAMETER_TYPE_LONG); 
-	GEN_PARAMTER_HELPER(INT32 , PARAMETER_TYPE_INT32); 
-	GEN_PARAMTER_HELPER(UINT32 , PARAMETER_TYPE_UINT32);
-	GEN_PARAMTER_HELPER(INT64 , PARAMETER_TYPE_INT64);
-	GEN_PARAMTER_HELPER(UINT64 , PARAMETER_TYPE_UINT64); 
-	GEN_PARAMTER_HELPER(float , PARAMETER_TYPE_FLOAT);
-	GEN_PARAMTER_HELPER(double , PARAMETER_TYPE_DOUBLE); 
-	  
 
 	template<> class ParameterHelper<const char *>
 	{
@@ -66,7 +55,7 @@ namespace Msg
 
 			objParam.GetParamStream() >> nType >> nSize;
 			MsgAssert_Re0(objParam.GetType() == PARAMETER_TYPE_STRING , "paramter type is error. :" << objParam.GetType() << " cur: " << PARAMETER_TYPE_STRING);
-			MsgAssert_Re0(!(nSize > objParam.GetParamStream().GetDataLen() - objParam.GetParamStream().GetCurPos()) , "unMarshal invalid length."); 
+			MsgAssert_Re0(!((UINT32)nSize > objParam.GetParamStream().GetDataLen() - objParam.GetParamStream().GetCurPos()) , "unMarshal invalid length."); 
 			 
 			void * pBuf = NULL;
 			objParam.GetParamStream().Pop(pBuf , nSize);
@@ -133,6 +122,19 @@ namespace Msg
 			return FALSE;
 		}
 	}; 
+
+	GEN_PARAMTER_HELPER(bool , PARAMETER_TYPE_BOOL); 
+	GEN_PARAMTER_HELPER(char , PARAMETER_TYPE_INT8);
+	GEN_PARAMTER_HELPER(UINT8 , PARAMETER_TYPE_UINT8);
+	GEN_PARAMTER_HELPER(INT16 , PARAMETER_TYPE_INT16);
+	GEN_PARAMTER_HELPER(UINT16 , PARAMETER_TYPE_UINT16);
+	GEN_PARAMTER_HELPER(long , PARAMETER_TYPE_LONG); 
+	GEN_PARAMTER_HELPER(INT32 , PARAMETER_TYPE_INT32); 
+	GEN_PARAMTER_HELPER(UINT32 , PARAMETER_TYPE_UINT32);
+	GEN_PARAMTER_HELPER(INT64 , PARAMETER_TYPE_INT64);
+	GEN_PARAMTER_HELPER(UINT64 , PARAMETER_TYPE_UINT64); 
+	GEN_PARAMTER_HELPER(float , PARAMETER_TYPE_FLOAT);
+	GEN_PARAMTER_HELPER(double , PARAMETER_TYPE_DOUBLE); 
 
 }
 

@@ -36,7 +36,7 @@ namespace LibCore
 	extern void   DLL_EXPORT  tohex(const char* ibuf,size_t ilen,char* obuf,size_t& olen);
 	extern void	  DLL_EXPORT  create_token(char* buf,size_t len);
 	extern char   DLL_EXPORT* strncat(char* dest,const char* src,size_t destlen); 
-	extern void   DLL_EXPORT  FastMemmove(void * dst , const void * src , UINT32 unSize);
+	extern void   DLL_EXPORT  FastMemmove(void * dst , const void * src , INT64 unSize);
 
 	extern void   DLL_EXPORT GenerateUUIDBySys( char* buf );
  	extern INT64  DLL_EXPORT GenerateUUIDByTime( void );
