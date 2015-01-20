@@ -45,9 +45,9 @@ namespace Msg
 
 	public:   
 		virtual UINT32 RefreshSize(); 
-		virtual void   RefreshTargets();
-		virtual UINT32 Serialization(char * pMsg);
-		virtual UINT32 UnSerialization(const char * pMsg);
+//		virtual void   RefreshTargets();
+// 		virtual UINT32 Serialization(char * pMsg);
+// 		virtual UINT32 UnSerialization(const char * pMsg);
 		virtual UINT32 GetPacketSize( void );
 
 	public:

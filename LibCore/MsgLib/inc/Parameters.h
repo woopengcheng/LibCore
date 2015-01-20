@@ -31,19 +31,12 @@ namespace Msg
 			return *this;
 		} 
 
-	public:
-		//************************************
-		// Method:    GetSize
-		// FullName:  Msg::Parameters::GetSize
-		// Access:    public 
-		// Returns:   UINT32
-		// Qualifier: 这个函数的使用一定要放在对参数已经模板化了后使用.并且这个参数只获取所有参数的大小.不包括本身的数据.
-		//************************************
+	public:  
 		UINT32     GetSize();
 		UINT32     Copy(Parameters & pParam);
-		UINT32     Serialization(char * pMsg);
-		UINT32     UnSerialization(const char * pMsg);
-		void       Clear(void);
+// 		UINT32     Serialization(char * pMsg);
+// 		UINT32     UnSerialization(const char * pMsg);
+// 		void       Clear(void);
 
 	public: 
 		virtual LibCore::CStream & marshal(LibCore::CStream & cs);

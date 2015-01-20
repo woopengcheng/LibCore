@@ -29,44 +29,44 @@ namespace Msg
 
 		return ERR_SUCCESS;
 	}
-
-	UINT32 Parameters::Serialization( char * pMsg )
-	{
-		UINT32 unSize = 0;
-
-		memcpy(pMsg , &m_unParamCount , sizeof(m_unParamCount));
-		unSize += sizeof(m_unParamCount);
-		
-		for (UINT32 i = 0;i < m_unParamCount;++i)
-		{  
-			unSize += m_aParameter[i].Serialization(pMsg + unSize);
-		}  
-
-		return unSize;
-	}
-
-	UINT32 Parameters::UnSerialization(const char * pMsg )
-	{    
-		m_unParamCount = *(UINT32*)(pMsg);
-		UINT32 unSize = sizeof(m_unParamCount); 
-
-		for (UINT32 i = 0;i < m_unParamCount;++i)
-		{ 
-			unSize += m_aParameter[i].UnSerialization(pMsg + unSize); 
-		}  
-
-		return unSize;
-	}
-
-	void Parameters::Clear( void )
-	{
-		for(int i = 0;i < MSG_MAX_PARAMETER_NUMBER;++i)
-		{
-			m_aParameter[i].Clear();
-		}
-		m_unParamCount = 0;
-		 
-	}
+// 
+// 	UINT32 Parameters::Serialization( char * pMsg )
+// 	{
+// 		UINT32 unSize = 0;
+// 
+// 		memcpy(pMsg , &m_unParamCount , sizeof(m_unParamCount));
+// 		unSize += sizeof(m_unParamCount);
+// 		
+// 		for (UINT32 i = 0;i < m_unParamCount;++i)
+// 		{  
+// 			unSize += m_aParameter[i].Serialization(pMsg + unSize);
+// 		}  
+// 
+// 		return unSize;
+// 	}
+// 
+// 	UINT32 Parameters::UnSerialization(const char * pMsg )
+// 	{    
+// 		m_unParamCount = *(UINT32*)(pMsg);
+// 		UINT32 unSize = sizeof(m_unParamCount); 
+// 
+// 		for (UINT32 i = 0;i < m_unParamCount;++i)
+// 		{ 
+// 			unSize += m_aParameter[i].UnSerialization(pMsg + unSize); 
+// 		}  
+// 
+// 		return unSize;
+// 	}
+// 
+// 	void Parameters::Clear( void )
+// 	{
+// 		for(int i = 0;i < MSG_MAX_PARAMETER_NUMBER;++i)
+// 		{
+// 			m_aParameter[i].Clear();
+// 		}
+// 		m_unParamCount = 0;
+// 		 
+// 	}
 
 	LibCore::CStream & Parameters::marshal( LibCore::CStream & cs )
 	{  

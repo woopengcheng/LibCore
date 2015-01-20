@@ -242,6 +242,7 @@
     <ClInclude Include="..\..\LibCore\Common\ErrorCode.h" />
     <ClInclude Include="..\..\LibCore\Common\LibCore.h" />
     <ClInclude Include="..\..\LibCore\Common\Platform.h" />
+    <ClInclude Include="..\..\LibCore\Common\Refcounted.h" />
     <ClInclude Include="..\..\LibCore\Common\Random.h" />
     <ClInclude Include="..\..\LibCore\Common\SafeVariable.h" />
     <ClInclude Include="..\..\LibCore\Common\ThreadLock.h" />

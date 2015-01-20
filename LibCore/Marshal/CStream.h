@@ -15,7 +15,37 @@ namespace LibCore
 		{
 
 		}
+
+		CStream(const CStream & cs) 
+		{
+			m_nCurPos = cs.GetCurPos();
+			m_nTransactionPos = cs.GetTransactionPos();
+			m_objChunk = cs.GetData();
+		}
+
+		CStream(const char * pBuf , UINT32 unLength)
+			: m_nCurPos(0)
+			, m_nTransactionPos(0)
+			, m_objChunk((void*)pBuf , unLength)
+		{
+
+		}
 		~CStream(){}
+
+		void Copy(const CStream & cs) 
+		{
+			m_nCurPos = cs.GetCurPos();
+			m_nTransactionPos = cs.GetTransactionPos();
+			m_objChunk = cs.GetData();
+		}
+
+	public:
+		CStream & operator = (const CStream & cs)
+		{
+			m_nCurPos = cs.GetCurPos();
+			m_nTransactionPos = cs.GetTransactionPos();
+			m_objChunk = cs.GetData();
+		}
 
 	public:
 		template<typename T>
@@ -140,6 +170,11 @@ namespace LibCore
 		public: 
 			UINT32  GetDataLen( void ){ return m_objChunk.GetDataLen(); }
 			INT32   GetCurPos( void ){ return m_nCurPos; }
+			INT32   GetTransactionPos( void ) const { return m_nTransactionPos;	}
+			Chunk   GetData( void ) const { return m_objChunk;	}
+			void  * Begin(){ return m_objChunk.Begin(); }
+			void  * End(){ return m_objChunk.End(); }
+			void    Insert(void * pPos , void * pBegin , UINT32 unLen){ m_objChunk.Insert(pPos , pBegin , unLen); } 
 
 	protected:
 		INT32   m_nCurPos;			 //5 记录当前流的位置.

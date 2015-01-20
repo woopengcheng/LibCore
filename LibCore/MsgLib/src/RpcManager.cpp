@@ -2,6 +2,7 @@
 #include "MsgLib/inc/RemoteRpcServer.h"
 #include "MsgLib/inc/RemoteRpcClient.h" 
 #include "MsgLib/inc/RpcBase.h"
+#include "Marshal/CStream.h"
 
 namespace Msg
 {  
@@ -274,14 +275,22 @@ namespace Msg
 			bForce || pRemoteRpc->GetSession()->GetNetState() == Net::NET_STATE_CONNECTED))
 		{   
 
-			char szBuf[MAX_MESSAGE_LENGTH]; 
+ 			char szBuf[MAX_MESSAGE_LENGTH]; 
 			memset(szBuf , 0 , sizeof(szBuf));
-			UINT32 unSerializationSize = pRpcMsg->Serialization(szBuf + sizeof(Net::MsgHeader)); 
+// 			UINT32 unSerializationSize = pRpcMsg->Serialization(szBuf + sizeof(Net::MsgHeader)); 
+			LibCore::CStream objStream;
+			pRpcMsg->marshal(objStream);
+			UINT32 unSerializationSize = pRpcMsg->GetPacketSize();
+		
+			MsgAssert_ReF1(unSerializationSize == objStream.GetDataLen() , "sendMsg Length error. " << unSerializationSize << " stream: " <<objStream.GetDataLen());
+			
+			INT32 nMsgID = DEFAULT_RPC_MSG_ID , nMsgLength = unSerializationSize + sizeof(Net::MsgHeader);
+			objStream.Insert(objStream.Begin() , &nMsgID , sizeof(nMsgID));
+			objStream.Insert((char *)objStream.Begin() + sizeof(nMsgID) , &nMsgLength , sizeof(nMsgLength));
+//			((Net::MsgHeader*)szBuf)->unMsgID = DEFAULT_RPC_MSG_ID;
+//			((Net::MsgHeader*)szBuf)->unMsgLength = unSerializationSize + sizeof(Net::MsgHeader);  
 
-			((Net::MsgHeader*)szBuf)->unMsgID = DEFAULT_RPC_MSG_ID;
-			((Net::MsgHeader*)szBuf)->unMsgLength = unSerializationSize + sizeof(Net::MsgHeader); 
-
-			return pRemoteRpc->SendMsg(szBuf , unSerializationSize + sizeof(Net::MsgHeader)); 
+			return pRemoteRpc->SendMsg((const char *)objStream.Begin() , nMsgLength); 
 		}
 
 		return -1;

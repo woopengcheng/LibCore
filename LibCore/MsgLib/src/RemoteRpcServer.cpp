@@ -109,13 +109,25 @@ namespace Msg
 		case DEFAULT_RPC_MSG_ID:
 			{
 				Assert_ReF1(pBuffer && m_pRpcManager);  
+
+				LibCore::CStream cs(pBuffer , unLength);
 				UINT32 unTargetsCount = (UINT32)*pBuffer;
+				cs >> unTargetsCount;
+
 				RPCMsgCall * pMsg = new(unTargetsCount * sizeof(Object))RPCMsgCall;  
-				pMsg->UnSerialization(pBuffer); 
+				pMsg->unMarshal(cs);
+
 				pMsg->SetSessionName(pMsg->m_szRemoteName);
 				memcpy(pMsg->m_szRemoteName , m_pRpcManager->GetRpcInterface()->GetServerName() , strlen( m_pRpcManager->GetRpcInterface()->GetServerName()) + 1);
 
 				return m_pRpcManager->HandleMsg(pSession , pMsg); 
+// 				Assert_ReF1(pBuffer && m_pRpcManager);  
+// 				UINT32 unTargetsCount = (UINT32)*pBuffer;
+// 				RPCMsgCall * pMsg = new(unTargetsCount * sizeof(Object))RPCMsgCall;  
+// 				pMsg->UnSerialization(pBuffer); 
+// 				pMsg->SetSessionName(pMsg->m_szRemoteName);
+// 				memcpy(pMsg->m_szRemoteName , m_pRpcManager->GetRpcInterface()->GetServerName() , strlen( m_pRpcManager->GetRpcInterface()->GetServerName()) + 1);
+
 			}
 		default:
 			break;

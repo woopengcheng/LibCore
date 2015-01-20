@@ -2,6 +2,7 @@
 #include "MsgLib/inc/RpcManager.h"
 #include "MsgLib/inc/RpcInterface.h"
 #include "MsgLib/inc/RPCMsgCall.h"
+#include "Marshal/CStream.h"
 
 namespace Msg
 {  
@@ -68,9 +69,13 @@ namespace Msg
 		case DEFAULT_RPC_MSG_ID:
 			{
 				Assert_ReF1(pBuffer && m_pRpcManager);  
+				LibCore::CStream cs(pBuffer , unLength);
 				UINT32 unTargetsCount = (UINT32)*pBuffer;
+				cs >> unTargetsCount;
+
 				RPCMsgCall * pMsg = new(unTargetsCount * sizeof(Object))RPCMsgCall;  
-				pMsg->UnSerialization(pBuffer);
+//				pMsg->UnSerialization(pBuffer);
+				pMsg->unMarshal(cs);
 
 				return m_pRpcManager->HandleMsg(pSession , pMsg);  
 			}

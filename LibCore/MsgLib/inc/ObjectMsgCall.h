@@ -45,9 +45,9 @@ namespace Msg
 
 	public: 
 		virtual UINT32 RefreshSize();                                  //5 注意:更改了发送对象的数量.一定要调用这个函数.
-		virtual void   RefreshTargets();
-		virtual UINT32 Serialization(char * pMsg);
-		virtual UINT32 UnSerialization(const char * pMsg);
+// 		virtual void   RefreshTargets();
+// 		virtual UINT32 Serialization(char * pMsg);
+// 		virtual UINT32 UnSerialization(const char * pMsg);
 		virtual UINT32 GetPacketSize( void );
 
 	public:
@@ -56,7 +56,7 @@ namespace Msg
 		void    SetMethodNameBySubSuffix(const char * pName){ Assert((strlen(m_szMsgMethod) - strlen(pName)) > 0);	m_szMsgMethod[strlen(m_szMsgMethod) - strlen(pName)] = '\0'; }
 		UINT32  Copy(ObjectMsgCall *& pMsg);
 		UINT32  GetTargetsCount(){ return m_unTargetsCount; }
-		void    SetTargetsCount(UINT32 unTargetsCount){ m_unTargetsCount = unTargetsCount; RefreshTargets(); RefreshSize(); }
+		void    SetTargetsCount(UINT32 unTargetsCount){ m_unTargetsCount = unTargetsCount; /*RefreshTargets();*/ RefreshSize(); }
 
 
 	public: 

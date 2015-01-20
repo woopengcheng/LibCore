@@ -3,54 +3,51 @@
 
 namespace Msg
 {
-
-
-	UINT32 RPCMsgCall::UnSerialization(const char * pMsg )
-	{  
-//		RefreshTargets();
-
-		UINT32 unSize = ObjectMsgCall::UnSerialization(pMsg);
-		m_ullTimeout = *(UINT32*)(pMsg + unSize);  
-		unSize += sizeof(m_ullTimeout);
-		m_bClientRequest = *(BOOL*)(pMsg + unSize);   
-		unSize += sizeof(m_bClientRequest); 
-		memcpy(m_szRemoteName , (char*)(pMsg + unSize) , sizeof(m_szRemoteName) );   
-		unSize += sizeof(m_szRemoteName); 
-
-		RefreshSize();
-		return unSize;
-	}
-
-
-	UINT32 RPCMsgCall::Serialization( char * pMsg )
-	{  
-		UINT32 unSize = ObjectMsgCall::Serialization(pMsg);
-		memcpy(pMsg + unSize , &m_ullTimeout , sizeof(m_ullTimeout));
-		unSize += sizeof(m_ullTimeout);
-		memcpy(pMsg + unSize, &m_bClientRequest , sizeof(m_bClientRequest));
-		unSize += sizeof(m_bClientRequest); 
-		memcpy(pMsg + unSize, m_szRemoteName , sizeof(m_szRemoteName));
-		unSize += sizeof(m_szRemoteName);
-
-		return unSize;
-	}
-
-
-	void RPCMsgCall::RefreshTargets()
-	{
-		m_aTargets = NULL;
-		const char * pThis = (const char * )this;
-		m_aTargets = new ((void*)(pThis + sizeof(RPCMsgCall)))Object;  //5 这里是用多申请的内存作为这里的指针进行初始化.
-	}
-
+	
+// 	UINT32 RPCMsgCall::UnSerialization(const char * pMsg )
+// 	{  
+// //		RefreshTargets();
+// 
+// 		UINT32 unSize = ObjectMsgCall::UnSerialization(pMsg);
+// 		m_ullTimeout = *(UINT32*)(pMsg + unSize);  
+// 		unSize += sizeof(m_ullTimeout);
+// 		m_bClientRequest = *(BOOL*)(pMsg + unSize);   
+// 		unSize += sizeof(m_bClientRequest); 
+// 		memcpy(m_szRemoteName , (char*)(pMsg + unSize) , sizeof(m_szRemoteName) );   
+// 		unSize += sizeof(m_szRemoteName); 
+// 
+// 		RefreshSize();
+// 		return unSize;
+// 	}
+// 
+// 
+// 	UINT32 RPCMsgCall::Serialization( char * pMsg )
+// 	{  
+// 		UINT32 unSize = ObjectMsgCall::Serialization(pMsg);
+// 		memcpy(pMsg + unSize , &m_ullTimeout , sizeof(m_ullTimeout));
+// 		unSize += sizeof(m_ullTimeout);
+// 		memcpy(pMsg + unSize, &m_bClientRequest , sizeof(m_bClientRequest));
+// 		unSize += sizeof(m_bClientRequest); 
+// 		memcpy(pMsg + unSize, m_szRemoteName , sizeof(m_szRemoteName));
+// 		unSize += sizeof(m_szRemoteName);
+// 
+// 		return unSize;
+// 	}
+// 
+// 
+// 	void RPCMsgCall::RefreshTargets()
+// 	{
+// 		m_aTargets = NULL;
+// 		const char * pThis = (const char * )this;
+// 		m_aTargets = new ((void*)(pThis + sizeof(RPCMsgCall)))Object;  //5 这里是用多申请的内存作为这里的指针进行初始化.
+// 	}
 
 	UINT32 RPCMsgCall::RefreshSize()
 	{ 
 		m_unMsgLength = ObjectMsgCall::RefreshSize() + sizeof(m_ullTimeout) + sizeof(m_bClientRequest) + sizeof(m_szRemoteName); 
 		return m_unMsgLength;
 	}
-
-
+	
 	UINT32 RPCMsgCall::Copy( RPCMsgCall *& pMsg )
 	{
 		pMsg = new(sizeof(Object) * GetTargetsCount())RPCMsgCall;  

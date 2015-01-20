@@ -16,6 +16,27 @@ namespace LibCore
 		}
 	}
 
+	Chunk::Chunk(const Chunk & objChunk)
+	{
+		Reverse(objChunk.GetSize());
+		memcpy(m_pBuf , objChunk.GetBuf() , objChunk.GetDataLen());
+		m_unDataLen = objChunk.GetDataLen();
+		m_unSize = objChunk.GetSize();
+
+		return * this;
+	}
+
+	Chunk	& Chunk::operator=(const Chunk & objChunk)
+	{
+		Reverse(objChunk.GetSize());
+		memcpy(m_pBuf , objChunk.GetBuf() , objChunk.GetDataLen());
+		m_unDataLen = objChunk.GetDataLen();
+		m_unSize = objChunk.GetSize();
+
+		return * this;
+	}
+
+
 	Chunk::~Chunk()
 	{
 		Release();

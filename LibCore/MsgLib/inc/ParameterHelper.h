@@ -8,8 +8,53 @@
 
 namespace Msg 
 { 
-
+#define GEN_PARAMTER_HELPER(type_name , type_macro , )	template<> class ParameterHelper<type_name>\
+	{\
+	public:\
+		static PARAMETER_TYPE GetParameterType()\
+		{\
+			return type_macro ;\
+		}\
+		\
+		static type_name GetParameterValue(Parameter & objParam)\
+		{ \
+			UINT32 unType = 0 , unSize = 0;\
+			type_name  val;\
+			\
+			objParam.GetParamStream() >> unType >> unSize >> val;   \
+			MsgAssert_Re0(unType == type_macro && unSize == sizeof(val) , "获取参数值错误.");\
+			\
+			return val;\
+		}\
+		\
+		static void MakeParameter(Parameter & objParam , type_name val)\
+		{ \
+			objParam.GetParamStream() << type_macro << sizeof(val) << val;      \
+		}\
+		\
+		static BOOL CheckParamType(Parameter & objParam)\
+		{\
+			if (objParam.GetType() == type_macro)\
+			{\
+				return TRUE;\
+			}\
+			return FALSE;\
+		}\
+	};
+	
 	template<typename T> class  ParameterHelper { };
+
+	GEN_PARAMTER_HELPER(bool , PARAMETER_TYPE_BOOL); 
+	GEN_PARAMTER_HELPER(INT16 , PARAMETER_TYPE_INT16);
+	GEN_PARAMTER_HELPER(UINT16 , PARAMETER_TYPE_UINT16);
+	GEN_PARAMTER_HELPER(long , PARAMETER_TYPE_LONG); 
+	GEN_PARAMTER_HELPER(INT32 , PARAMETER_TYPE_INT32); 
+	GEN_PARAMTER_HELPER(UINT32 , PARAMETER_TYPE_UINT32);
+	GEN_PARAMTER_HELPER(INT64 , PARAMETER_TYPE_INT64);
+	GEN_PARAMTER_HELPER(UINT64 , PARAMETER_TYPE_UINT64); 
+	GEN_PARAMTER_HELPER(float , PARAMETER_TYPE_FLOAT);
+	GEN_PARAMTER_HELPER(double , PARAMETER_TYPE_DOUBLE); 
+	  
 
 	template<> class ParameterHelper<const char *>
 	{
@@ -19,47 +64,29 @@ namespace Msg
 		{
 			INT32 nType = 0 , nSize = 0;
 
-			objParam.GetParamStream() >> nType;  
+			objParam.GetParamStream() >> nType >> nSize;
 			MsgAssert_Re0(objParam.GetType() == PARAMETER_TYPE_STRING , "paramter type is error. :" << objParam.GetType() << " cur: " << PARAMETER_TYPE_STRING);
-			objParam.SetType(nType);
-
-			objParam.GetParamStream() >> nSize;
-			MsgAssert_Re0(!(nSize > objParam.GetParamStream().GetDataLen() - objParam.GetParamStream().GetCurPos()) , "unMarshal invalid length.");
-			objParam.SetSize(nSize); 
+			MsgAssert_Re0(!(nSize > objParam.GetParamStream().GetDataLen() - objParam.GetParamStream().GetCurPos()) , "unMarshal invalid length."); 
 			 
 			void * pBuf = NULL;
 			objParam.GetParamStream().Pop(pBuf , nSize);
-			objParam.value_BUF = (char *)pBuf;
 
-			const char * pBuf = NULL;
-			objParam.GetParamStream() >> pBuf;
-
-			return objParam.value_BUF; 
+			return (const char * )pBuf; 
 		}
 
 		static void MakeParameter(Parameter & objParam , const char * pValue)
-		{ 
-			cs << m_unLen;  
-			cs.Pushback(m_pBuf , m_unLen);
-			if (objParam.GetSize() != 0)
-			{
-				SAFE_DELETE_ARRAY(objParam.value_BUF);
-				objParam.SetSize(0);
-			}
+		{  
 			if (!pValue)
 			{
-				objParam.SetSize(0);
-				objParam.value_BUF = NULL;
-				objParam.SetType(PARAMETER_TYPE_STRING);
+				objParam.GetParamStream() << PARAMETER_TYPE_STRING << 0;  
+				objParam.GetParamStream().Pushback((void*)pValue , 0);
 			}
 			else
 			{
 				UINT32 unSize = (UINT32)strlen(pValue) + 1;
-				objParam.SetSize(unSize);
-				objParam.SetType(PARAMETER_TYPE_STRING);
 
-				objParam.value_BUF = new char[unSize];
-				memcpy(objParam.value_BUF , pValue , unSize);  
+				objParam.GetParamStream() << PARAMETER_TYPE_STRING << unSize;  
+				objParam.GetParamStream().Pushback((void*)pValue , unSize);
 			} 
 		}
 
@@ -83,34 +110,18 @@ namespace Msg
 
 		static LibCore::Chunk GetParameterValue(Parameter & objParam)
 		{
-			switch (objParam.GetType())
-			{
-			case PARAMETER_TYPE_CHUNK: 
-				{
-					LibCore::Chunk objChunk(objParam.value_BUF , objParam.GetSize()); 
-					return objChunk;
-				}
-				break;
-			default:
-				MsgAssert_Re(false , LibCore::Chunk() , "invalid convert to Chunk" );
-			}
+			UINT32 unType = 0 , unSize = 0;
+			LibCore::Chunk val; 
 
-			return LibCore::Chunk();
+			objParam.GetParamStream() >> unType >> unSize >> val;   
+			MsgAssert_Re(unType == PARAMETER_TYPE_CHUNK && unSize == val.GetDataLen() , val , "获取参数值错误."); 
+
+			return val;
 		}
 
-		static void MakeParameter(Parameter & objParam , LibCore::Chunk pValue)
+		static void MakeParameter(Parameter & objParam , LibCore::Chunk val)
 		{ 
-			if (objParam.GetSize() != 0)
-			{
-				SAFE_DELETE_ARRAY(objParam.value_BUF);
-				objParam.SetSize(0);
-			}
-
-			objParam.SetSize(pValue.GetSize());
-			objParam.SetType(PARAMETER_TYPE_CHUNK);
-
-			objParam.value_BUF = new char[pValue.GetSize()]; 
-			memcpy(objParam.value_BUF , pValue.GetBuf() , pValue.GetSize());  
+			objParam.GetParamStream() << PARAMETER_TYPE_CHUNK << val.GetDataLen() << val;    
 		}
 
 		static BOOL CheckParamType(Parameter & objParam)
@@ -121,179 +132,8 @@ namespace Msg
 			}
 			return FALSE;
 		}
-	};
+	}; 
 
-	template<> class ParameterHelper<INT32>
-	{
-	public:
-		static PARAMETER_TYPE GetParameterType()
-		{
-			return PARAMETER_TYPE_INT32;
-		}
-
-		static INT32 GetParameterValue(Parameter & objParam)
-		{ 
-			switch (objParam.GetType())
-			{
-			case PARAMETER_TYPE_INT32: 
-				{ 
-					return objParam.value_INT32;
-				}
-				break; 
-			default:
-				MsgAssert_ReF1(false , "invalid convert to INT32");
-			}
-
-			return ERR_FAILURE;
-		}
-
-		static void MakeParameter(Parameter & objParam , INT32 nValue)
-		{ 
-			objParam.SetSize(sizeof(INT64));
-			objParam.SetType(PARAMETER_TYPE_INT32);
-			objParam.value_INT32 = nValue;
-		}
-
-		static BOOL CheckParamType(Parameter & objParam)
-		{
-			if (objParam.GetType() == PARAMETER_TYPE_INT32)
-			{
-				return TRUE;
-			}
-			return FALSE;
-		}
-	};
-
-	template<> class ParameterHelper<bool>
-	{
-	public:
-		static PARAMETER_TYPE GetParameterType()
-		{
-			return PARAMETER_TYPE_INT32;
-		}
-
-		static bool GetParameterValue(Parameter & objParam)
-		{ 
-			switch (objParam.GetType())
-			{
-			case PARAMETER_TYPE_INT32: 
-				{ 
-					return objParam.value_INT32 == 1;
-				}
-				break; 
-			default:
-				MsgAssert_Re0(false , "invalid convert to bool");
-			}
-
-			return false;
-		}
-
-		static void MakeParameter(Parameter & objParam , bool bValue)
-		{ 
-			objParam.SetSize(sizeof(INT64));
-			objParam.SetType(PARAMETER_TYPE_INT32);
-			objParam.value_INT32 = bValue;
-		}
-
-		static BOOL CheckParamType(Parameter & objParam)
-		{
-			if (objParam.GetType() == PARAMETER_TYPE_INT32)
-			{
-				return TRUE;
-			}
-			return FALSE;
-		}
-	};
-
-	template<> class ParameterHelper<INT64>
-	{
-	public:
-		static PARAMETER_TYPE GetParameterType()
-		{
-			return PARAMETER_TYPE_INT64;
-		}
-
-		static INT64 GetParameterValue(Parameter & objParam)
-		{ 
-			switch (objParam.GetType())
-			{ 
-			case PARAMETER_TYPE_INT64: 
-				{ 
-					return objParam.value_INT64;
-				}
-				break; 
-			default:
-				MsgAssert_ReF1(false , "invalid convert to INT64" );
-			}
-
-			return -1;
-		}
-
-		static void MakeParameter(Parameter & objParam , INT64 nValue)
-		{ 
-			objParam.SetSize(sizeof(INT64));
-			objParam.SetType(PARAMETER_TYPE_INT64);
-			objParam.value_INT64 = nValue;
-		}
-
-		static BOOL CheckParamType(Parameter & objParam)
-		{
-			if (objParam.GetType() == PARAMETER_TYPE_INT64)
-			{
-				return TRUE;
-			}
-			return FALSE;
-		}
-	};
-
-
-	template<> class ParameterHelper<double>
-	{
-	public:
-		static PARAMETER_TYPE GetParameterType()
-		{
-			return PARAMETER_TYPE_DOUBLE;
-		}
-
-		static double GetParameterValue(Parameter & objParam)
-		{ 
-			switch (objParam.GetType())
-			{ 
-			case PARAMETER_TYPE_DOUBLE: 
-				{ 
-					return objParam.value_DOUBLE;
-				}
-				break; 
-			default:
-				MsgAssert_Re(false  , 0.0f , "invalid convert to double");
-			}
-
-			return 0.0f;
-		}
-
-		static void MakeParameter(Parameter & objParam , double dValue)
-		{ 
-			objParam.SetSize(sizeof(INT64));
-			objParam.SetType(PARAMETER_TYPE_DOUBLE);
-			objParam.value_DOUBLE = dValue;
-		}
-
-		static BOOL CheckParamType(Parameter & objParam)
-		{
-			if (objParam.GetType() == PARAMETER_TYPE_DOUBLE)
-			{
-				return TRUE;
-			}
-			return FALSE;
-		}
-	};
-
-	template<> struct ParameterHelper<char> : public ParameterHelper<INT32> {};
-	template<> struct ParameterHelper<INT16> : public ParameterHelper<INT32> {};
-	template<> struct ParameterHelper<UINT16> : public ParameterHelper<INT32> {}; 
-	template<> struct ParameterHelper<UINT32> : public ParameterHelper<INT32> {};
-	template<> struct ParameterHelper<long> : public ParameterHelper<INT64> {}; 
-	template<> struct ParameterHelper<UINT64> : public ParameterHelper<INT64> {}; 
 }
 
 #endif

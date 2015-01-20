@@ -11,62 +11,60 @@ namespace Msg
 		return m_unMsgLength;
 	}  
 
-	void ObjectMsgCall::RefreshTargets()
-	{  
-		m_aTargets = NULL; 
-		const char * pThis = (const char * )this;
-		m_aTargets = new ((void*)(pThis + sizeof(ObjectMsgCall)))Object;  //5 这里是用多申请的内存作为这里的指针进行初始化.
-
-	}
-
-	UINT32 ObjectMsgCall::Serialization( char * pMsg )
-	{   
-		UINT32 unSize = 0;
-
-		memcpy(pMsg + unSize , &m_unTargetsCount , sizeof(m_unTargetsCount));
-		unSize += sizeof(m_unTargetsCount);
-		memcpy(pMsg + unSize , m_aTargets , m_unTargetsCount * sizeof(Object));
-		unSize += m_unTargetsCount * sizeof(Object);
-		memcpy(pMsg + unSize , &m_objSource , sizeof(m_objSource));
-		unSize += sizeof(m_objSource);
-		memcpy(pMsg + unSize , &m_usPriority , sizeof(m_usPriority));
-		unSize += sizeof(m_usPriority);
-		memcpy(pMsg + unSize , m_szMsgMethod , sizeof(m_szMsgMethod));
-		unSize += sizeof(m_szMsgMethod);
-		memcpy(pMsg + unSize , &m_unMsgLength , sizeof(m_unMsgLength));
-		unSize += sizeof(m_unMsgLength);
-		memcpy(pMsg + unSize, &m_ullMsgID , sizeof(m_ullMsgID));
-		unSize += sizeof(m_ullMsgID);
-
-		unSize += m_objParams.Serialization(pMsg + unSize); 
-
-		return unSize;
-	} 
-
-	UINT32 ObjectMsgCall::UnSerialization(const char * pMsg )
-	{
-		UINT32 unSize = 0;      
-
-		m_unTargetsCount = *(UINT32*)(pMsg);     //5 第一位必须是他.否则有问题.
-		unSize += sizeof(m_unTargetsCount); 
-		memcpy(m_aTargets , pMsg + unSize , m_unTargetsCount * sizeof(Object));
-		unSize += m_unTargetsCount * sizeof(Object);
-		m_objSource = *(Object*)(pMsg + unSize);
-		unSize += sizeof(m_objSource);
-		m_usPriority = *(UINT16*)(pMsg + unSize);
-		unSize += sizeof(m_usPriority);
-		memcpy(m_szMsgMethod , pMsg + unSize , sizeof(m_szMsgMethod));
-		unSize += sizeof(m_szMsgMethod);
-		m_unMsgLength = *(UINT32*)(pMsg + unSize);
-		unSize += sizeof(m_unMsgLength);
-		m_ullMsgID = *(UINT64*)((pMsg + unSize));
-		unSize += sizeof(m_ullMsgID);
-
-		unSize += m_objParams.UnSerialization(pMsg + unSize);   
-		return unSize;
-	}
-
-
+// 	void ObjectMsgCall::RefreshTargets()
+// 	{  
+// 		m_aTargets = NULL; 
+// 		const char * pThis = (const char * )this;
+// 		m_aTargets = new ((void*)(pThis + sizeof(ObjectMsgCall)))Object;  //5 这里是用多申请的内存作为这里的指针进行初始化.
+// 
+// 	}
+//
+// 	UINT32 ObjectMsgCall::Serialization( char * pMsg )
+// 	{   
+// 		UINT32 unSize = 0;
+// 
+// 		memcpy(pMsg + unSize , &m_unTargetsCount , sizeof(m_unTargetsCount));
+// 		unSize += sizeof(m_unTargetsCount);
+// 		memcpy(pMsg + unSize , m_aTargets , m_unTargetsCount * sizeof(Object));
+// 		unSize += m_unTargetsCount * sizeof(Object);
+// 		memcpy(pMsg + unSize , &m_objSource , sizeof(m_objSource));
+// 		unSize += sizeof(m_objSource);
+// 		memcpy(pMsg + unSize , &m_usPriority , sizeof(m_usPriority));
+// 		unSize += sizeof(m_usPriority);
+// 		memcpy(pMsg + unSize , m_szMsgMethod , sizeof(m_szMsgMethod));
+// 		unSize += sizeof(m_szMsgMethod);
+// 		memcpy(pMsg + unSize , &m_unMsgLength , sizeof(m_unMsgLength));
+// 		unSize += sizeof(m_unMsgLength);
+// 		memcpy(pMsg + unSize, &m_ullMsgID , sizeof(m_ullMsgID));
+// 		unSize += sizeof(m_ullMsgID);
+// 
+// 		unSize += m_objParams.Serialization(pMsg + unSize); 
+// 
+// 		return unSize;
+// 	} 
+// 
+// 	UINT32 ObjectMsgCall::UnSerialization(const char * pMsg )
+// 	{
+// 		UINT32 unSize = 0;      
+// 
+// 		m_unTargetsCount = *(UINT32*)(pMsg);     //5 第一位必须是他.否则有问题.
+// 		unSize += sizeof(m_unTargetsCount); 
+// 		memcpy(m_aTargets , pMsg + unSize , m_unTargetsCount * sizeof(Object));
+// 		unSize += m_unTargetsCount * sizeof(Object);
+// 		m_objSource = *(Object*)(pMsg + unSize);
+// 		unSize += sizeof(m_objSource);
+// 		m_usPriority = *(UINT16*)(pMsg + unSize);
+// 		unSize += sizeof(m_usPriority);
+// 		memcpy(m_szMsgMethod , pMsg + unSize , sizeof(m_szMsgMethod));
+// 		unSize += sizeof(m_szMsgMethod);
+// 		m_unMsgLength = *(UINT32*)(pMsg + unSize);
+// 		unSize += sizeof(m_unMsgLength);
+// 		m_ullMsgID = *(UINT64*)((pMsg + unSize));
+// 		unSize += sizeof(m_ullMsgID);
+// 
+// 		unSize += m_objParams.UnSerialization(pMsg + unSize);   
+// 		return unSize;
+// 	}
 
 	UINT32 ObjectMsgCall::Copy(ObjectMsgCall *& pMsg)
 	{  
