@@ -5,8 +5,8 @@ namespace LibCore
 { 
 
 	Chunk::Chunk(void * pBuf , UINT32 unChunkSize)
-		: m_unSize(unChunkSize)
-		, m_unDataLen(unChunkSize)
+		: m_unSize(0)
+		, m_unDataLen(0)
 		, m_pBuf(NULL)
 	{
 		if (unChunkSize)
@@ -17,6 +17,9 @@ namespace LibCore
 	}
 
 	Chunk::Chunk(const Chunk & objChunk)
+		: m_unSize(0)
+		, m_unDataLen(0)
+		, m_pBuf(NULL)
 	{
 		Reverse(objChunk.GetSize());
 		memcpy(m_pBuf , objChunk.GetBuf() , objChunk.GetDataLen());
