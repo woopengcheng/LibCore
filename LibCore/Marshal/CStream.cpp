@@ -1,6 +1,6 @@
 #include "Marshal\CStream.h"
 #include "Marshal\MashalTest.h"
-
+#include "MsgLib\inc\Object.h"
 
 namespace LibCore
 {  
@@ -23,7 +23,7 @@ namespace LibCore
 
 	CStream & CStream::operator<<(Chunk & t)			
 	{
-		Pushback(m_objChunk.GetDataLen()); 
+		Pushback(t.GetDataLen()); 
 		m_objChunk.Pushback(t.Begin() , t.GetDataLen());
 		return *this;
 	} 
@@ -42,4 +42,17 @@ namespace LibCore
 		return *this;
 	} 
 
+	CStream & CStream::operator<<(Msg::Object & t)			
+	{
+		*this << t.m_llObjID;
+		 
+		return *this;
+	} 
+
+	CStream & CStream::operator>>(Msg::Object & t)			
+	{
+		*this >> t.m_llObjID;
+
+		return *this;
+	} 
 }

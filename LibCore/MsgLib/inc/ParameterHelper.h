@@ -29,7 +29,7 @@ namespace Msg
 		\
 		static void MakeParameter(Parameter & objParam , type_name val)\
 		{ \
-			objParam.GetParamStream() << type_macro << sizeof(val) << val;      \
+			objParam.GetParamStream() << (INT32)type_macro << (INT32)sizeof(val) << val;      \
 		}\
 		\
 		static BOOL CheckParamType(Parameter & objParam)\
@@ -67,14 +67,14 @@ namespace Msg
 		{  
 			if (!pValue)
 			{
-				objParam.GetParamStream() << PARAMETER_TYPE_STRING << 0;  
+				objParam.GetParamStream() << (INT32)PARAMETER_TYPE_STRING << 0;  
 				objParam.GetParamStream().Pushback((void*)pValue , 0);
 			}
 			else
 			{
 				UINT32 unSize = (UINT32)strlen(pValue) + 1;
 
-				objParam.GetParamStream() << PARAMETER_TYPE_STRING << unSize;  
+				objParam.GetParamStream() << (INT32)PARAMETER_TYPE_STRING << unSize;  
 				objParam.GetParamStream().Pushback((void*)pValue , unSize);
 			} 
 		}
@@ -110,7 +110,7 @@ namespace Msg
 
 		static void MakeParameter(Parameter & objParam , LibCore::Chunk val)
 		{ 
-			objParam.GetParamStream() << PARAMETER_TYPE_CHUNK << val.GetDataLen() << val;    
+			objParam.GetParamStream() << (INT32)PARAMETER_TYPE_CHUNK << val.GetDataLen() << val;    
 		}
 
 		static BOOL CheckParamType(Parameter & objParam)

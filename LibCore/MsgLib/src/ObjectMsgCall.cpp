@@ -11,13 +11,10 @@ namespace Msg
 		return m_unMsgLength;
 	}  
 
-// 	void ObjectMsgCall::RefreshTargets()
-// 	{  
-// 		m_aTargets = NULL; 
-// 		const char * pThis = (const char * )this;
-// 		m_aTargets = new ((void*)(pThis + sizeof(ObjectMsgCall)))Object;  //5 这里是用多申请的内存作为这里的指针进行初始化.
-// 
-// 	}
+	void ObjectMsgCall::RefreshTargets()
+	{  
+		m_aTargets = (Object *)((const char * )this + sizeof(ObjectMsgCall));
+	}
 //
 // 	UINT32 ObjectMsgCall::Serialization( char * pMsg )
 // 	{   
@@ -102,7 +99,7 @@ namespace Msg
 		cs >> m_unTargetsCount;
 
 		void * pBuf = NULL;
-		cs.Pop(pBuf , m_unTargetsCount);
+		cs.Pop(pBuf , m_unTargetsCount * sizeof(Object));
 		memcpy(m_aTargets , pBuf , m_unTargetsCount * sizeof(Object));
 		 
 		cs >> m_objSource >> m_usPriority;

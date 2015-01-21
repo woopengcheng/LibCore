@@ -4,7 +4,7 @@
 #include "Marshal/Marshal.h"
 namespace Msg
 { 
-	class DLL_EXPORT  Object : public LibCore::Marshal
+	class DLL_EXPORT  Object/* : public LibCore::Marshal*/
 	{ 
 	public:
 		Object()
@@ -58,9 +58,9 @@ namespace Msg
 			return true;
 		}
 
-	public: 
-		virtual LibCore::CStream & marshal(LibCore::CStream & cs);
-		virtual LibCore::CStream & unMarshal(LibCore::CStream & cs);
+// 	public: 
+// 		virtual LibCore::CStream & marshal(LibCore::CStream & cs);
+// 		virtual LibCore::CStream & unMarshal(LibCore::CStream & cs);
 
 	public:
 		INT64   m_llObjID;

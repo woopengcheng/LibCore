@@ -34,13 +34,11 @@ namespace Msg
 // 		return unSize;
 // 	}
 // 
-// 
-// 	void RPCMsgCall::RefreshTargets()
-// 	{
-// 		m_aTargets = NULL;
-// 		const char * pThis = (const char * )this;
-// 		m_aTargets = new ((void*)(pThis + sizeof(RPCMsgCall)))Object;  //5 这里是用多申请的内存作为这里的指针进行初始化.
-// 	}
+
+	void RPCMsgCall::RefreshTargets()
+	{  
+		m_aTargets = (Object *)((const char * )this + sizeof(RPCMsgCall));  //5 这里是用多申请的内存作为这里的指针进行初始化.
+	}
 
 	UINT32 RPCMsgCall::RefreshSize()
 	{ 

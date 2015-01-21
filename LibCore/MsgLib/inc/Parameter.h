@@ -46,6 +46,7 @@ namespace Msg
 		void    *  GetData( void );
 		UINT32     Copy(Parameter & objParam);
 		LibCore::CStream  GetParamStream() const { return m_objParamStream; } 
+		LibCore::CStream & GetParamStream() { return m_objParamStream; } 
 
 	public: 
 		virtual LibCore::CStream & marshal(LibCore::CStream & cs);

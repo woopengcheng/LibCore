@@ -4,6 +4,11 @@
 #include "Common/Chunk.h"
 #include "Marshal/Marshal.h"
 
+namespace Msg
+{
+	class Object;
+}
+
 namespace LibCore
 {
 	class DLL_EXPORT CStream
@@ -98,6 +103,7 @@ namespace LibCore
 		CStream & operator << (double t)			{ return Pushback(t);} 
 		CStream & operator << (Marshal & t)			{ return t.marshal(*this); } 
 		CStream & operator << (Chunk & t);	 
+		CStream & operator << (Msg::Object & t);	 
 
 		template<typename T> CStream & operator << (std::basic_string<T> & t)
 		{
@@ -126,6 +132,7 @@ namespace LibCore
 		CStream & operator >> (double t)			{ return Pop(t);} 
 		CStream & operator >> (Marshal & t)			{ return t.unMarshal(*this); } 
 		CStream & operator >> (Chunk & t);
+		CStream & operator >> (Msg::Object & t);
 
 		template<typename T> CStream & operator >> (std::basic_string<T> & t)
 		{

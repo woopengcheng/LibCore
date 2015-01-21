@@ -6,14 +6,14 @@ namespace Msg
 
 	Parameter::Parameter() 
 	{  
-		m_objParamStream << (INT32)0 << (INT32)0;   
+//		m_objParamStream << (INT32)0 << (INT32)0;   
 	}
 
 	Parameter::Parameter( INT32 nType , UINT32 unSize , void * pData ) 
 	{
-		MsgAssert(!(nType > PARAMETER_TYPE_ERROR || nType < PARAMETER_TYPE_COUNT) , "ParamType error.");
-		m_objParamStream << nType << unSize;    
-		m_objParamStream.Pushback(pData , unSize);
+// 		MsgAssert(!(nType > PARAMETER_TYPE_ERROR || nType < PARAMETER_TYPE_COUNT) , "ParamType error.");
+// 		m_objParamStream << nType << unSize;    
+// 		m_objParamStream.Pushback(pData , unSize);
 	} 
 
 	Parameter::Parameter( const Parameter & objParameter )

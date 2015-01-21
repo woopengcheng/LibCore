@@ -45,7 +45,7 @@ namespace Msg
 
 	public: 
 		virtual UINT32 RefreshSize();                                  //5 注意:更改了发送对象的数量.一定要调用这个函数.
-// 		virtual void   RefreshTargets();
+		virtual void   RefreshTargets();
 // 		virtual UINT32 Serialization(char * pMsg);
 // 		virtual UINT32 UnSerialization(const char * pMsg);
 		virtual UINT32 GetPacketSize( void );
@@ -56,8 +56,7 @@ namespace Msg
 		void    SetMethodNameBySubSuffix(const char * pName){ Assert((strlen(m_szMsgMethod) - strlen(pName)) > 0);	m_szMsgMethod[strlen(m_szMsgMethod) - strlen(pName)] = '\0'; }
 		UINT32  Copy(ObjectMsgCall *& pMsg);
 		UINT32  GetTargetsCount(){ return m_unTargetsCount; }
-		void    SetTargetsCount(UINT32 unTargetsCount){ m_unTargetsCount = unTargetsCount; /*RefreshTargets();*/ RefreshSize(); }
-
+		void    SetTargetsCount(UINT32 unTargetsCount){ m_unTargetsCount = unTargetsCount; RefreshTargets(); RefreshSize(); }
 
 	public: 
 		virtual LibCore::CStream & marshal(LibCore::CStream & cs);
@@ -68,13 +67,11 @@ namespace Msg
 		UINT32             m_unMsgLength;                              //5 整个消息的长度,这里只记录发送消息的长度.
 		char               m_szMsgMethod[MAX_MSG_METHOD_NAME_LENGTH];  //5 调用消息的函数
 		Parameters         m_objParams;                                //5 消息函数的参数. 
-		UINT16             m_usPriority;
+		UINT16             m_usPriority;							   //5 优先级
+		Object			   m_objSource;								   //5 消息源
 
-		Object			   m_objSource;       //5 消息源
-		Object			 * m_aTargets;      //5 目标采用柔性数组来做,这样更节省空间.但是有一个问题.真正的不能保证这个数组的大小.如果是游戏客户端可能会产生Bug.这里是内部通信.数据是有保证的.
-	
-	private:
 		UINT32			   m_unTargetsCount;
+		Object		*	   m_aTargets;      //5 本来想采用柔性数组.但是要继承就不可以.所以就替换了方案.
 	};
 
 	
