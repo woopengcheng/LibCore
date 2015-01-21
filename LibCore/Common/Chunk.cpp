@@ -13,6 +13,7 @@ namespace LibCore
 		{
 			Reverse(unChunkSize); 
 			memcpy(m_pBuf , pBuf , unChunkSize);
+			m_unDataLen = unChunkSize;
 		}
 	}
 
@@ -21,19 +22,17 @@ namespace LibCore
 		, m_unDataLen(0)
 		, m_pBuf(NULL)
 	{
-		Reverse(objChunk.GetSize());
+		Reverse(objChunk.GetDataLen());
 		memcpy(m_pBuf , objChunk.GetBuf() , objChunk.GetDataLen());
 		m_unDataLen = objChunk.GetDataLen();
-		m_unSize = objChunk.GetSize();
 
 	}
 
 	Chunk	& Chunk::operator=(const Chunk & objChunk)
 	{
-		Reverse(objChunk.GetSize());
+		Reverse(objChunk.GetDataLen());
 		memcpy(m_pBuf , objChunk.GetBuf() , objChunk.GetDataLen());
 		m_unDataLen = objChunk.GetDataLen();
-		m_unSize = objChunk.GetSize();
 
 		return * this;
 	}
@@ -86,12 +85,13 @@ namespace LibCore
 
 	Chunk   & Chunk::Insert(void * pPos , void * pBegin , UINT32 unLen)
 	{
-		Reverse(m_unSize + unLen);
-
 		PtrDiff off = (char *)pPos - (char *)m_pBuf;
+
+		Reverse(m_unDataLen + unLen);
+
 		pPos = (char *)m_pBuf + off;
 
-		UINT32 unAdjust = m_unSize - (UINT32)off;  //5 这里是万一向中间内存块插入
+		UINT32 unAdjust = m_unDataLen - (UINT32)off;  //5 这里是万一向中间内存块插入
 		if (unAdjust)
 		{
 			FastMemmove((char *)pPos + unLen , pPos , unAdjust);
@@ -107,13 +107,13 @@ namespace LibCore
 	{
 		if (m_unSize != 0 && m_pBuf)
 		{
-			SAFE_DELETE(m_pBuf);
+			SAFE_DELETE_ARRAY(m_pBuf);
 		}
 	}
 
 	Chunk   & Chunk::Pushback(void * pBegin , UINT32 unLen)
 	{
-		Reverse(m_unSize + unLen);
+		Reverse(m_unDataLen + unLen);
 
 		FastMemmove((char *)m_pBuf + m_unDataLen , pBegin , unLen);
 		m_unDataLen += unLen;

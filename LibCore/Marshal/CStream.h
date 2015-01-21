@@ -119,17 +119,18 @@ namespace LibCore
 		}
 
 	public:
-		CStream & operator >> (char t)				{ return Pop(t);} 
-		CStream & operator >> (UINT8 t)				{ return Pop(t);} 
-		CStream & operator >> (bool t)				{ return Pop(t);} 
-		CStream & operator >> (INT16 t)				{ return Pop(t);} 
-		CStream & operator >> (UINT16 t)			{ return Pop(t);} 
-		CStream & operator >> (INT32 t)				{ return Pop(t);} 
-		CStream & operator >> (UINT32 t)			{ return Pop(t);} 
-		CStream & operator >> (INT64 t)				{ return Pop(t);} 
-		CStream & operator >> (UINT64 t)			{ return Pop(t);} 
-		CStream & operator >> (float t)				{ return Pop(t);} 
-		CStream & operator >> (double t)			{ return Pop(t);} 
+		CStream & operator >> (char & t)			{ return Pop(t);} 
+		CStream & operator >> (UINT8 & t)			{ return Pop(t);} 
+		CStream & operator >> (bool & t)			{ return Pop(t);} 
+		CStream & operator >> (INT16 & t)			{ return Pop(t);} 
+		CStream & operator >> (UINT16 & t)			{ return Pop(t);} 
+		CStream & operator >> (long & t)			{ return Pop(t);} 
+		CStream & operator >> (INT32 & t)			{ return Pop(t);} 
+		CStream & operator >> (UINT32 & t)			{ return Pop(t);} 
+		CStream & operator >> (INT64 & t)			{ return Pop(t);} 
+		CStream & operator >> (UINT64 & t)			{ return Pop(t);} 
+		CStream & operator >> (float & t)			{ return Pop(t);} 
+		CStream & operator >> (double & t)			{ return Pop(t);} 
 		CStream & operator >> (Marshal & t)			{ return t.unMarshal(*this); } 
 		CStream & operator >> (Chunk & t);
 		CStream & operator >> (Msg::Object & t);

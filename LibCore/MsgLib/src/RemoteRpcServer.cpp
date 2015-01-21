@@ -111,7 +111,7 @@ namespace Msg
 				Assert_ReF1(pBuffer && m_pRpcManager);  
 
 				LibCore::CStream cs(pBuffer , unLength);
-				UINT32 unTargetsCount = (UINT32)*pBuffer;
+				UINT32 unTargetsCount = 0;
 				cs >> unTargetsCount;
 
 				RPCMsgCall * pMsg = new(unTargetsCount * sizeof(Object))RPCMsgCall;  

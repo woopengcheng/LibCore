@@ -275,14 +275,14 @@ namespace Msg
 			bForce || pRemoteRpc->GetSession()->GetNetState() == Net::NET_STATE_CONNECTED))
 		{   
 
- 			char szBuf[MAX_MESSAGE_LENGTH]; 
-			memset(szBuf , 0 , sizeof(szBuf));
+//  		char szBuf[MAX_MESSAGE_LENGTH]; 
+// 			memset(szBuf , 0 , sizeof(szBuf));
 // 			UINT32 unSerializationSize = pRpcMsg->Serialization(szBuf + sizeof(Net::MsgHeader)); 
 			LibCore::CStream objStream;
 			pRpcMsg->marshal(objStream);
-			UINT32 unSerializationSize = pRpcMsg->GetPacketSize();
+			UINT32 unSerializationSize = objStream.GetDataLen();//pRpcMsg->GetPacketSize();
 		
-			MsgAssert_ReF1(unSerializationSize == objStream.GetDataLen() , "sendMsg Length error. " << unSerializationSize << " stream: " <<objStream.GetDataLen());
+//			MsgAssert_ReF1(unSerializationSize == objStream.GetDataLen() , "sendMsg Length error. " << unSerializationSize << " stream: " <<objStream.GetDataLen());
 			
 			INT32 nMsgID = DEFAULT_RPC_MSG_ID , nMsgLength = unSerializationSize + sizeof(Net::MsgHeader);
 			objStream.Insert(objStream.Begin() , &nMsgID , sizeof(nMsgID));

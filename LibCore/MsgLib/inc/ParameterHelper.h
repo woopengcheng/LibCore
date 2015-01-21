@@ -54,7 +54,7 @@ namespace Msg
 			INT32 nType = 0 , nSize = 0;
 
 			objParam.GetParamStream() >> nType >> nSize;
-			MsgAssert_Re0(objParam.GetType() == PARAMETER_TYPE_STRING , "paramter type is error. :" << objParam.GetType() << " cur: " << PARAMETER_TYPE_STRING);
+			MsgAssert_Re0(nType == PARAMETER_TYPE_STRING , "paramter type is error. :" << nType << " cur: " << PARAMETER_TYPE_STRING);
 			MsgAssert_Re0(!((UINT32)nSize > objParam.GetParamStream().GetDataLen() - objParam.GetParamStream().GetCurPos()) , "unMarshal invalid length."); 
 			 
 			void * pBuf = NULL;
@@ -99,7 +99,7 @@ namespace Msg
 
 		static LibCore::Chunk GetParameterValue(Parameter & objParam)
 		{
-			UINT32 unType = 0 , unSize = 0;
+			INT32 unType = 0 , unSize = 0;
 			LibCore::Chunk val; 
 
 			objParam.GetParamStream() >> unType >> unSize >> val;   
