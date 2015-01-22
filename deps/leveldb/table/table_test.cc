@@ -60,7 +60,7 @@ class ReverseKeyComparator : public Comparator {
     *key = Reverse(s);
   }
 };
-}  // namespace
+}
 static ReverseKeyComparator reverse_key_comparator;
 
 static void Increment(const Comparator* cmp, std::string* key) {
@@ -85,7 +85,7 @@ struct STLLessThan {
     return cmp->Compare(Slice(a), Slice(b)) < 0;
   }
 };
-}  // namespace
+}
 
 class StringSink: public WritableFile {
  public:
@@ -168,6 +168,8 @@ class Constructor {
   // Construct the data structure from the data in "data"
   virtual Status FinishImpl(const Options& options, const KVMap& data) = 0;
 
+  virtual size_t NumBytes() const = 0;
+
   virtual Iterator* NewIterator() const = 0;
 
   virtual const KVMap& data() { return data_; }
@@ -183,6 +185,7 @@ class BlockConstructor: public Constructor {
   explicit BlockConstructor(const Comparator* cmp)
       : Constructor(cmp),
         comparator_(cmp),
+        block_size_(-1),
         block_(NULL) { }
   ~BlockConstructor() {
     delete block_;
@@ -198,21 +201,22 @@ class BlockConstructor: public Constructor {
       builder.Add(it->first, it->second);
     }
     // Open the block
-    data_ = builder.Finish().ToString();
-    BlockContents contents;
-    contents.data = data_;
-    contents.cachable = false;
-    contents.heap_allocated = false;
-    block_ = new Block(contents);
+    Slice block_data = builder.Finish();
+    block_size_ = block_data.size();
+    char* block_data_copy = new char[block_size_];
+    memcpy(block_data_copy, block_data.data(), block_size_);
+    block_ = new Block(block_data_copy, block_size_);
     return Status::OK();
   }
+  virtual size_t NumBytes() const { return block_size_; }
+
   virtual Iterator* NewIterator() const {
     return block_->NewIterator(comparator_);
   }
 
  private:
   const Comparator* comparator_;
-  std::string data_;
+  int block_size_;
   Block* block_;
 
   BlockConstructor();
@@ -249,6 +253,7 @@ class TableConstructor: public Constructor {
     table_options.comparator = options.comparator;
     return Table::Open(table_options, source_, sink.contents().size(), &table_);
   }
+  virtual size_t NumBytes() const { return source_->Size(); }
 
   virtual Iterator* NewIterator() const {
     return table_->NewIterator(ReadOptions());
@@ -337,6 +342,10 @@ class MemTableConstructor: public Constructor {
     }
     return Status::OK();
   }
+  virtual size_t NumBytes() const {
+    return memtable_->ApproximateMemoryUsage();
+  }
+
   virtual Iterator* NewIterator() const {
     return new KeyConvertingIterator(memtable_->NewIterator());
   }
@@ -370,6 +379,13 @@ class DBConstructor: public Constructor {
     }
     return Status::OK();
   }
+  virtual size_t NumBytes() const {
+    Range r("", "\xff\xff");
+    uint64_t size;
+    db_->GetApproximateSizes(&r, 1, &size);
+    return size;
+  }
+
   virtual Iterator* NewIterator() const {
     return db_->NewIterator(ReadOptions());
   }
@@ -644,36 +660,6 @@ class Harness {
   Constructor* constructor_;
 };
 
-// Test empty table/block.
-TEST(Harness, Empty) {
-  for (int i = 0; i < kNumTestArgs; i++) {
-    Init(kTestArgList[i]);
-    Random rnd(test::RandomSeed() + 1);
-    Test(&rnd);
-  }
-}
-
-// Special test for a block with no restart entries.  The C++ leveldb
-// code never generates such blocks, but the Java version of leveldb
-// seems to.
-TEST(Harness, ZeroRestartPointsInBlock) {
-  char data[sizeof(uint32_t)];
-  memset(data, 0, sizeof(data));
-  BlockContents contents;
-  contents.data = Slice(data, sizeof(data));
-  contents.cachable = false;
-  contents.heap_allocated = false;
-  Block block(contents);
-  Iterator* iter = block.NewIterator(BytewiseComparator());
-  iter->SeekToFirst();
-  ASSERT_TRUE(!iter->Valid());
-  iter->SeekToLast();
-  ASSERT_TRUE(!iter->Valid());
-  iter->Seek("foo");
-  ASSERT_TRUE(!iter->Valid());
-  delete iter;
-}
-
 // Test the empty key
 TEST(Harness, SimpleEmptyKey) {
   for (int i = 0; i < kNumTestArgs; i++) {
@@ -823,7 +809,7 @@ TEST(TableTest, ApproximateOffsetOfPlain) {
   ASSERT_TRUE(Between(c.ApproximateOffsetOf("k05"),  210000, 211000));
   ASSERT_TRUE(Between(c.ApproximateOffsetOf("k06"),  510000, 511000));
   ASSERT_TRUE(Between(c.ApproximateOffsetOf("k07"),  510000, 511000));
-  ASSERT_TRUE(Between(c.ApproximateOffsetOf("xyz"),  610000, 612000));
+  ASSERT_TRUE(Between(c.ApproximateOffsetOf("xyz"),  610000, 611000));
 
 }
 
@@ -861,7 +847,7 @@ TEST(TableTest, ApproximateOffsetOfCompressed) {
   ASSERT_TRUE(Between(c.ApproximateOffsetOf("xyz"),    4000,   6000));
 }
 
-}  // namespace leveldb
+}
 
 int main(int argc, char** argv) {
   return leveldb::test::RunAllTests();

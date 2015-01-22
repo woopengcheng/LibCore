@@ -23,9 +23,6 @@
 
 namespace leveldb {
 
-// WriteBatch header has an 8-byte sequence number followed by a 4-byte count.
-static const size_t kHeader = 12;
-
 WriteBatch::WriteBatch() {
   Clear();
 }
@@ -36,16 +33,16 @@ WriteBatch::Handler::~Handler() { }
 
 void WriteBatch::Clear() {
   rep_.clear();
-  rep_.resize(kHeader);
+  rep_.resize(12);
 }
 
 Status WriteBatch::Iterate(Handler* handler) const {
   Slice input(rep_);
-  if (input.size() < kHeader) {
+  if (input.size() < 12) {
     return Status::Corruption("malformed WriteBatch (too small)");
   }
 
-  input.remove_prefix(kHeader);
+  input.remove_prefix(12);
   Slice key, value;
   int found = 0;
   while (!input.empty()) {
@@ -123,7 +120,7 @@ class MemTableInserter : public WriteBatch::Handler {
     sequence_++;
   }
 };
-}  // namespace
+}
 
 Status WriteBatchInternal::InsertInto(const WriteBatch* b,
                                       MemTable* memtable) {
@@ -134,14 +131,8 @@ Status WriteBatchInternal::InsertInto(const WriteBatch* b,
 }
 
 void WriteBatchInternal::SetContents(WriteBatch* b, const Slice& contents) {
-  assert(contents.size() >= kHeader);
+  assert(contents.size() >= 12);
   b->rep_.assign(contents.data(), contents.size());
 }
 
-void WriteBatchInternal::Append(WriteBatch* dst, const WriteBatch* src) {
-  SetCount(dst, Count(dst) + Count(src));
-  assert(src->rep_.size() >= kHeader);
-  dst->rep_.append(src->rep_.data() + kHeader, src->rep_.size() - kHeader);
 }
-
-}  // namespace leveldb

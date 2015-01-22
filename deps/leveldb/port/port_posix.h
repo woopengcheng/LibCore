@@ -7,37 +7,18 @@
 #ifndef STORAGE_LEVELDB_PORT_PORT_POSIX_H_
 #define STORAGE_LEVELDB_PORT_PORT_POSIX_H_
 
-#undef PLATFORM_IS_LITTLE_ENDIAN
-#if defined(OS_MACOSX)
+#if defined(OS_MACOSX) || defined(OS_FREEBSD)
   #include <machine/endian.h>
-  #if defined(__DARWIN_LITTLE_ENDIAN) && defined(__DARWIN_BYTE_ORDER)
-    #define PLATFORM_IS_LITTLE_ENDIAN \
-        (__DARWIN_BYTE_ORDER == __DARWIN_LITTLE_ENDIAN)
-  #endif
 #elif defined(OS_SOLARIS)
   #include <sys/isa_defs.h>
   #ifdef _LITTLE_ENDIAN
-    #define PLATFORM_IS_LITTLE_ENDIAN true
+    #define LITTLE_ENDIAN
   #else
-    #define PLATFORM_IS_LITTLE_ENDIAN false
+    #define BIG_ENDIAN
   #endif
-#elif defined(OS_FREEBSD) || defined(OS_OPENBSD) ||\
-      defined(OS_NETBSD) || defined(OS_DRAGONFLYBSD)
-  #include <sys/types.h>
-  #include <sys/endian.h>
-  #define PLATFORM_IS_LITTLE_ENDIAN (_BYTE_ORDER == _LITTLE_ENDIAN)
-#elif defined(OS_HPUX)
-  #define PLATFORM_IS_LITTLE_ENDIAN false
-#elif defined(OS_ANDROID)
-  // Due to a bug in the NDK x86 <sys/endian.h> definition,
-  // _BYTE_ORDER must be used instead of __BYTE_ORDER on Android.
-  // See http://code.google.com/p/android/issues/detail?id=39824
-  #include <endian.h>
-  #define PLATFORM_IS_LITTLE_ENDIAN  (_BYTE_ORDER == _LITTLE_ENDIAN)
 #else
   #include <endian.h>
 #endif
-
 #include <pthread.h>
 #ifdef SNAPPY
 #include <snappy.h>
@@ -46,36 +27,26 @@
 #include <string>
 #include "port/atomic_pointer.h"
 
-#ifndef PLATFORM_IS_LITTLE_ENDIAN
-#define PLATFORM_IS_LITTLE_ENDIAN (__BYTE_ORDER == __LITTLE_ENDIAN)
+#ifdef LITTLE_ENDIAN
+#define IS_LITTLE_ENDIAN true
+#else
+#define IS_LITTLE_ENDIAN (__BYTE_ORDER == __LITTLE_ENDIAN)
 #endif
 
-#if defined(OS_MACOSX) || defined(OS_SOLARIS) || defined(OS_FREEBSD) ||\
-    defined(OS_NETBSD) || defined(OS_OPENBSD) || defined(OS_DRAGONFLYBSD) ||\
-    defined(OS_ANDROID) || defined(OS_HPUX) || defined(CYGWIN)
-// Use fread/fwrite/fflush on platforms without _unlocked variants
+#if defined(OS_MACOSX) || defined(OS_SOLARIS) || defined(OS_FREEBSD)
 #define fread_unlocked fread
 #define fwrite_unlocked fwrite
 #define fflush_unlocked fflush
 #endif
 
-#if defined(OS_MACOSX) || defined(OS_FREEBSD) ||\
-    defined(OS_OPENBSD) || defined(OS_DRAGONFLYBSD)
-// Use fsync() on platforms without fdatasync()
-#define fdatasync fsync
-#endif
-
-#if defined(OS_ANDROID) && __ANDROID_API__ < 9
-// fdatasync() was only introduced in API level 9 on Android. Use fsync()
-// when targetting older platforms.
+#if defined(OS_MACOSX) || defined(OS_FREEBSD)
 #define fdatasync fsync
 #endif
 
 namespace leveldb {
 namespace port {
 
-static const bool kLittleEndian = PLATFORM_IS_LITTLE_ENDIAN;
-#undef PLATFORM_IS_LITTLE_ENDIAN
+static const bool kLittleEndian = IS_LITTLE_ENDIAN;
 
 class CondVar;
 
@@ -108,10 +79,6 @@ class CondVar {
   pthread_cond_t cv_;
   Mutex* mu_;
 };
-
-typedef pthread_once_t OnceType;
-#define LEVELDB_ONCE_INIT PTHREAD_ONCE_INIT
-extern void InitOnce(OnceType* once, void (*initializer)());
 
 inline bool Snappy_Compress(const char* input, size_t length,
                             ::std::string* output) {

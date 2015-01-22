@@ -33,18 +33,14 @@ void Log(Logger* info_log, const char* format, ...) {
   }
 }
 
-static Status DoWriteStringToFile(Env* env, const Slice& data,
-                                  const std::string& fname,
-                                  bool should_sync) {
+Status WriteStringToFile(Env* env, const Slice& data,
+                         const std::string& fname) {
   WritableFile* file;
   Status s = env->NewWritableFile(fname, &file);
   if (!s.ok()) {
     return s;
   }
   s = file->Append(data);
-  if (s.ok() && should_sync) {
-    s = file->Sync();
-  }
   if (s.ok()) {
     s = file->Close();
   }
@@ -53,16 +49,6 @@ static Status DoWriteStringToFile(Env* env, const Slice& data,
     env->DeleteFile(fname);
   }
   return s;
-}
-
-Status WriteStringToFile(Env* env, const Slice& data,
-                         const std::string& fname) {
-  return DoWriteStringToFile(env, data, fname, false);
-}
-
-Status WriteStringToFileSync(Env* env, const Slice& data,
-                             const std::string& fname) {
-  return DoWriteStringToFile(env, data, fname, true);
 }
 
 Status ReadFileToString(Env* env, const std::string& fname, std::string* data) {
@@ -93,4 +79,4 @@ Status ReadFileToString(Env* env, const std::string& fname, std::string* data) {
 EnvWrapper::~EnvWrapper() {
 }
 
-}  // namespace leveldb
+}

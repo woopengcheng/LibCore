@@ -25,21 +25,15 @@
 //      overwrite     -- overwrite N values in random key order in async mode
 //      fillsync      -- write N/100 values in random key order in sync mode
 //      fill100K      -- write N/1000 100K values in random order in async mode
-//      deleteseq     -- delete N keys in sequential order
-//      deleterandom  -- delete N keys in random order
 //      readseq       -- read N times sequentially
 //      readreverse   -- read N times in reverse order
 //      readrandom    -- read N times in random order
-//      readmissing   -- read N missing keys in random order
 //      readhot       -- read N times in random order from 1% section of DB
-//      seekrandom    -- N random seeks
-//      open          -- cost of opening a DB
 //      crc32c        -- repeated crc32c of 4K of data
 //      acquireload   -- load N*1000 times
 //   Meta operations:
 //      compact     -- Compact the entire DB
 //      stats       -- Print DB stats
-//      sstables    -- Print sstable info
 //      heapprofile -- Dump a heap profile (if supported by this port)
 static const char* FLAGS_benchmarks =
     "fillseq,"
@@ -91,17 +85,13 @@ static int FLAGS_cache_size = -1;
 // Maximum number of files to keep open at the same time (use default if == 0)
 static int FLAGS_open_files = 0;
 
-// Bloom filter bits per key.
-// Negative means use default settings.
-static int FLAGS_bloom_bits = -1;
-
 // If true, do not destroy the existing database.  If you set this
 // flag and also specify a benchmark that wants a fresh database, that
 // benchmark will fail.
 static bool FLAGS_use_existing_db = false;
 
 // Use the db with the following name.
-static const char* FLAGS_db = NULL;
+static const char* FLAGS_db = "/tmp/dbbench";
 
 namespace leveldb {
 
@@ -129,7 +119,7 @@ class RandomGenerator {
     pos_ = 0;
   }
 
-  Slice Generate(size_t len) {
+  Slice Generate(int len) {
     if (pos_ + len > data_.size()) {
       pos_ = 0;
       assert(len < data_.size());
@@ -140,11 +130,11 @@ class RandomGenerator {
 };
 
 static Slice TrimSpace(Slice s) {
-  size_t start = 0;
+  int start = 0;
   while (start < s.size() && isspace(s[start])) {
     start++;
   }
-  size_t limit = s.size();
+  int limit = s.size();
   while (limit > start && isspace(s[limit-1])) {
     limit--;
   }
@@ -298,12 +288,11 @@ struct ThreadState {
   }
 };
 
-}  // namespace
+}
 
 class Benchmark {
  private:
   Cache* cache_;
-  const FilterPolicy* filter_policy_;
   DB* db_;
   int num_;
   int value_size_;
@@ -389,9 +378,6 @@ class Benchmark {
  public:
   Benchmark()
   : cache_(FLAGS_cache_size >= 0 ? NewLRUCache(FLAGS_cache_size) : NULL),
-    filter_policy_(FLAGS_bloom_bits >= 0
-                   ? NewBloomFilterPolicy(FLAGS_bloom_bits)
-                   : NULL),
     db_(NULL),
     num_(FLAGS_num),
     value_size_(FLAGS_value_size),
@@ -400,7 +386,7 @@ class Benchmark {
     heap_counter_(0) {
     std::vector<std::string> files;
     Env::Default()->GetChildren(FLAGS_db, &files);
-    for (size_t i = 0; i < files.size(); i++) {
+    for (int i = 0; i < files.size(); i++) {
       if (Slice(files[i]).starts_with("heap-")) {
         Env::Default()->DeleteFile(std::string(FLAGS_db) + "/" + files[i]);
       }
@@ -413,7 +399,6 @@ class Benchmark {
   ~Benchmark() {
     delete db_;
     delete cache_;
-    delete filter_policy_;
   }
 
   void Run() {
@@ -432,7 +417,7 @@ class Benchmark {
         benchmarks = sep + 1;
       }
 
-      // Reset parameters that may be overridden below
+      // Reset parameters that may be overriddden bwlow
       num_ = FLAGS_num;
       reads_ = (FLAGS_reads < 0 ? FLAGS_num : FLAGS_reads);
       value_size_ = FLAGS_value_size;
@@ -443,11 +428,7 @@ class Benchmark {
       bool fresh_db = false;
       int num_threads = FLAGS_threads;
 
-      if (name == Slice("open")) {
-        method = &Benchmark::OpenBench;
-        num_ /= 10000;
-        if (num_ < 1) num_ = 1;
-      } else if (name == Slice("fillseq")) {
+      if (name == Slice("fillseq")) {
         fresh_db = true;
         method = &Benchmark::WriteSeq;
       } else if (name == Slice("fillbatch")) {
@@ -476,19 +457,11 @@ class Benchmark {
         method = &Benchmark::ReadReverse;
       } else if (name == Slice("readrandom")) {
         method = &Benchmark::ReadRandom;
-      } else if (name == Slice("readmissing")) {
-        method = &Benchmark::ReadMissing;
-      } else if (name == Slice("seekrandom")) {
-        method = &Benchmark::SeekRandom;
       } else if (name == Slice("readhot")) {
         method = &Benchmark::ReadHot;
       } else if (name == Slice("readrandomsmall")) {
         reads_ /= 1000;
         method = &Benchmark::ReadRandom;
-      } else if (name == Slice("deleteseq")) {
-        method = &Benchmark::DeleteSeq;
-      } else if (name == Slice("deleterandom")) {
-        method = &Benchmark::DeleteRandom;
       } else if (name == Slice("readwhilewriting")) {
         num_threads++;  // Add extra thread for writing
         method = &Benchmark::ReadWhileWriting;
@@ -505,9 +478,7 @@ class Benchmark {
       } else if (name == Slice("heapprofile")) {
         HeapProfile();
       } else if (name == Slice("stats")) {
-        PrintStats("leveldb.stats");
-      } else if (name == Slice("sstables")) {
-        PrintStats("leveldb.sstables");
+        PrintStats();
       } else {
         if (name != Slice()) {  // No error message for empty name
           fprintf(stderr, "unknown benchmark '%s'\n", name.ToString().c_str());
@@ -698,20 +669,10 @@ class Benchmark {
     options.create_if_missing = !FLAGS_use_existing_db;
     options.block_cache = cache_;
     options.write_buffer_size = FLAGS_write_buffer_size;
-    options.max_open_files = FLAGS_open_files;
-    options.filter_policy = filter_policy_;
     Status s = DB::Open(options, FLAGS_db, &db_);
     if (!s.ok()) {
       fprintf(stderr, "open error: %s\n", s.ToString().c_str());
       exit(1);
-    }
-  }
-
-  void OpenBench(ThreadState* thread) {
-    for (int i = 0; i < num_; i++) {
-      delete db_;
-      Open();
-      thread->stats.FinishedSingleOp();
     }
   }
 
@@ -782,28 +743,10 @@ class Benchmark {
   void ReadRandom(ThreadState* thread) {
     ReadOptions options;
     std::string value;
-    int found = 0;
     for (int i = 0; i < reads_; i++) {
       char key[100];
       const int k = thread->rand.Next() % FLAGS_num;
       snprintf(key, sizeof(key), "%016d", k);
-      if (db_->Get(options, key, &value).ok()) {
-        found++;
-      }
-      thread->stats.FinishedSingleOp();
-    }
-    char msg[100];
-    snprintf(msg, sizeof(msg), "(%d of %d found)", found, num_);
-    thread->stats.AddMessage(msg);
-  }
-
-  void ReadMissing(ThreadState* thread) {
-    ReadOptions options;
-    std::string value;
-    for (int i = 0; i < reads_; i++) {
-      char key[100];
-      const int k = thread->rand.Next() % FLAGS_num;
-      snprintf(key, sizeof(key), "%016d.", k);
       db_->Get(options, key, &value);
       thread->stats.FinishedSingleOp();
     }
@@ -820,53 +763,6 @@ class Benchmark {
       db_->Get(options, key, &value);
       thread->stats.FinishedSingleOp();
     }
-  }
-
-  void SeekRandom(ThreadState* thread) {
-    ReadOptions options;
-    int found = 0;
-    for (int i = 0; i < reads_; i++) {
-      Iterator* iter = db_->NewIterator(options);
-      char key[100];
-      const int k = thread->rand.Next() % FLAGS_num;
-      snprintf(key, sizeof(key), "%016d", k);
-      iter->Seek(key);
-      if (iter->Valid() && iter->key() == key) found++;
-      delete iter;
-      thread->stats.FinishedSingleOp();
-    }
-    char msg[100];
-    snprintf(msg, sizeof(msg), "(%d of %d found)", found, num_);
-    thread->stats.AddMessage(msg);
-  }
-
-  void DoDelete(ThreadState* thread, bool seq) {
-    RandomGenerator gen;
-    WriteBatch batch;
-    Status s;
-    for (int i = 0; i < num_; i += entries_per_batch_) {
-      batch.Clear();
-      for (int j = 0; j < entries_per_batch_; j++) {
-        const int k = seq ? i+j : (thread->rand.Next() % FLAGS_num);
-        char key[100];
-        snprintf(key, sizeof(key), "%016d", k);
-        batch.Delete(key);
-        thread->stats.FinishedSingleOp();
-      }
-      s = db_->Write(write_options_, &batch);
-      if (!s.ok()) {
-        fprintf(stderr, "del error: %s\n", s.ToString().c_str());
-        exit(1);
-      }
-    }
-  }
-
-  void DeleteSeq(ThreadState* thread) {
-    DoDelete(thread, true);
-  }
-
-  void DeleteRandom(ThreadState* thread) {
-    DoDelete(thread, false);
   }
 
   void ReadWhileWriting(ThreadState* thread) {
@@ -903,9 +799,9 @@ class Benchmark {
     db_->CompactRange(NULL, NULL);
   }
 
-  void PrintStats(const char* key) {
+  void PrintStats() {
     std::string stats;
-    if (!db_->GetProperty(key, &stats)) {
+    if (!db_->GetProperty("leveldb.stats", &stats)) {
       stats = "(failed)";
     }
     fprintf(stdout, "\n%s\n", stats.c_str());
@@ -933,12 +829,11 @@ class Benchmark {
   }
 };
 
-}  // namespace leveldb
+}
 
 int main(int argc, char** argv) {
   FLAGS_write_buffer_size = leveldb::Options().write_buffer_size;
   FLAGS_open_files = leveldb::Options().max_open_files;
-  std::string default_db_path;
 
   for (int i = 1; i < argc; i++) {
     double d;
@@ -966,8 +861,6 @@ int main(int argc, char** argv) {
       FLAGS_write_buffer_size = n;
     } else if (sscanf(argv[i], "--cache_size=%d%c", &n, &junk) == 1) {
       FLAGS_cache_size = n;
-    } else if (sscanf(argv[i], "--bloom_bits=%d%c", &n, &junk) == 1) {
-      FLAGS_bloom_bits = n;
     } else if (sscanf(argv[i], "--open_files=%d%c", &n, &junk) == 1) {
       FLAGS_open_files = n;
     } else if (strncmp(argv[i], "--db=", 5) == 0) {
@@ -976,13 +869,6 @@ int main(int argc, char** argv) {
       fprintf(stderr, "Invalid flag '%s'\n", argv[i]);
       exit(1);
     }
-  }
-
-  // Choose a location for the test database if none given with --db=<path>
-  if (FLAGS_db == NULL) {
-      leveldb::Env::Default()->GetTestDirectory(&default_db_path);
-      default_db_path += "/dbbench";
-      FLAGS_db = default_db_path.c_str();
   }
 
   leveldb::Benchmark benchmark;

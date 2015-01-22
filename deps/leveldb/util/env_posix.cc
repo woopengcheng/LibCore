@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file. See the AUTHORS file for names of contributors.
 
+#include <deque>
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -15,13 +16,13 @@
 #include <sys/types.h>
 #include <time.h>
 #include <unistd.h>
-#include <deque>
-#include <set>
+#if defined(LEVELDB_PLATFORM_ANDROID)
+#include <sys/stat.h>
+#endif
 #include "leveldb/env.h"
 #include "leveldb/slice.h"
 #include "port/port.h"
 #include "util/logging.h"
-#include "util/mutexlock.h"
 #include "util/posix_logger.h"
 
 namespace leveldb {
@@ -65,7 +66,6 @@ class PosixSequentialFile: public SequentialFile {
   }
 };
 
-// pread() based random-access
 class PosixRandomAccessFile: public RandomAccessFile {
  private:
   std::string filename_;
@@ -89,166 +89,172 @@ class PosixRandomAccessFile: public RandomAccessFile {
   }
 };
 
-// Helper class to limit mmap file usage so that we do not end up
-// running out virtual memory or running into kernel performance
-// problems for very large databases.
-class MmapLimiter {
- public:
-  // Up to 1000 mmaps for 64-bit binaries; none for smaller pointer sizes.
-  MmapLimiter() {
-    SetAllowed(sizeof(void*) >= 8 ? 1000 : 0);
-  }
-
-  // If another mmap slot is available, acquire it and return true.
-  // Else return false.
-  bool Acquire() {
-    if (GetAllowed() <= 0) {
-      return false;
-    }
-    MutexLock l(&mu_);
-    intptr_t x = GetAllowed();
-    if (x <= 0) {
-      return false;
-    } else {
-      SetAllowed(x - 1);
-      return true;
-    }
-  }
-
-  // Release a slot acquired by a previous call to Acquire() that returned true.
-  void Release() {
-    MutexLock l(&mu_);
-    SetAllowed(GetAllowed() + 1);
-  }
-
- private:
-  port::Mutex mu_;
-  port::AtomicPointer allowed_;
-
-  intptr_t GetAllowed() const {
-    return reinterpret_cast<intptr_t>(allowed_.Acquire_Load());
-  }
-
-  // REQUIRES: mu_ must be held
-  void SetAllowed(intptr_t v) {
-    allowed_.Release_Store(reinterpret_cast<void*>(v));
-  }
-
-  MmapLimiter(const MmapLimiter&);
-  void operator=(const MmapLimiter&);
-};
-
-// mmap() based random-access
-class PosixMmapReadableFile: public RandomAccessFile {
+// We preallocate up to an extra megabyte and use memcpy to append new
+// data to the file.  This is safe since we either properly close the
+// file before reading from it, or for log files, the reading code
+// knows enough to skip zero suffixes.
+class PosixMmapFile : public WritableFile {
  private:
   std::string filename_;
-  void* mmapped_region_;
-  size_t length_;
-  MmapLimiter* limiter_;
+  int fd_;
+  size_t page_size_;
+  size_t map_size_;       // How much extra memory to map at a time
+  char* base_;            // The mapped region
+  char* limit_;           // Limit of the mapped region
+  char* dst_;             // Where to write next  (in range [base_,limit_])
+  char* last_sync_;       // Where have we synced up to
+  uint64_t file_offset_;  // Offset of base_ in file
 
- public:
-  // base[0,length-1] contains the mmapped contents of the file.
-  PosixMmapReadableFile(const std::string& fname, void* base, size_t length,
-                        MmapLimiter* limiter)
-      : filename_(fname), mmapped_region_(base), length_(length),
-        limiter_(limiter) {
+  // Have we done an munmap of unsynced data?
+  bool pending_sync_;
+
+  // Roundup x to a multiple of y
+  static size_t Roundup(size_t x, size_t y) {
+    return ((x + y - 1) / y) * y;
   }
 
-  virtual ~PosixMmapReadableFile() {
-    munmap(mmapped_region_, length_);
-    limiter_->Release();
-  }
-
-  virtual Status Read(uint64_t offset, size_t n, Slice* result,
-                      char* scratch) const {
-    Status s;
-    if (offset + n > length_) {
-      *result = Slice();
-      s = IOError(filename_, EINVAL);
-    } else {
-      *result = Slice(reinterpret_cast<char*>(mmapped_region_) + offset, n);
-    }
+  size_t TruncateToPageBoundary(size_t s) {
+    s -= (s & (page_size_ - 1));
+    assert((s % page_size_) == 0);
     return s;
   }
-};
 
-class PosixWritableFile : public WritableFile {
- private:
-  std::string filename_;
-  FILE* file_;
+  bool UnmapCurrentRegion() {
+    bool result = true;
+    if (base_ != NULL) {
+      if (last_sync_ < limit_) {
+        // Defer syncing this data until next Sync() call, if any
+        pending_sync_ = true;
+      }
+      if (munmap(base_, limit_ - base_) != 0) {
+        result = false;
+      }
+      file_offset_ += limit_ - base_;
+      base_ = NULL;
+      limit_ = NULL;
+      last_sync_ = NULL;
+      dst_ = NULL;
+
+      // Increase the amount we map the next time, but capped at 1MB
+      if (map_size_ < (1<<20)) {
+        map_size_ *= 2;
+      }
+    }
+    return result;
+  }
+
+  bool MapNewRegion() {
+    assert(base_ == NULL);
+    if (ftruncate(fd_, file_offset_ + map_size_) < 0) {
+      return false;
+    }
+    void* ptr = mmap(NULL, map_size_, PROT_READ | PROT_WRITE, MAP_SHARED,
+                     fd_, file_offset_);
+    if (ptr == MAP_FAILED) {
+      return false;
+    }
+    base_ = reinterpret_cast<char*>(ptr);
+    limit_ = base_ + map_size_;
+    dst_ = base_;
+    last_sync_ = base_;
+    return true;
+  }
 
  public:
-  PosixWritableFile(const std::string& fname, FILE* f)
-      : filename_(fname), file_(f) { }
+  PosixMmapFile(const std::string& fname, int fd, size_t page_size)
+      : filename_(fname),
+        fd_(fd),
+        page_size_(page_size),
+        map_size_(Roundup(65536, page_size)),
+        base_(NULL),
+        limit_(NULL),
+        dst_(NULL),
+        last_sync_(NULL),
+        file_offset_(0),
+        pending_sync_(false) {
+    assert((page_size & (page_size - 1)) == 0);
+  }
 
-  ~PosixWritableFile() {
-    if (file_ != NULL) {
-      // Ignoring any potential errors
-      fclose(file_);
+
+  ~PosixMmapFile() {
+    if (fd_ >= 0) {
+      PosixMmapFile::Close();
     }
   }
 
   virtual Status Append(const Slice& data) {
-    size_t r = fwrite_unlocked(data.data(), 1, data.size(), file_);
-    if (r != data.size()) {
-      return IOError(filename_, errno);
+    const char* src = data.data();
+    size_t left = data.size();
+    while (left > 0) {
+      assert(base_ <= dst_);
+      assert(dst_ <= limit_);
+      size_t avail = limit_ - dst_;
+      if (avail == 0) {
+        if (!UnmapCurrentRegion() ||
+            !MapNewRegion()) {
+          return IOError(filename_, errno);
+        }
+      }
+
+      size_t n = (left <= avail) ? left : avail;
+      memcpy(dst_, src, n);
+      dst_ += n;
+      src += n;
+      left -= n;
     }
     return Status::OK();
   }
 
   virtual Status Close() {
-    Status result;
-    if (fclose(file_) != 0) {
-      result = IOError(filename_, errno);
-    }
-    file_ = NULL;
-    return result;
-  }
-
-  virtual Status Flush() {
-    if (fflush_unlocked(file_) != 0) {
-      return IOError(filename_, errno);
-    }
-    return Status::OK();
-  }
-
-  Status SyncDirIfManifest() {
-    const char* f = filename_.c_str();
-    const char* sep = strrchr(f, '/');
-    Slice basename;
-    std::string dir;
-    if (sep == NULL) {
-      dir = ".";
-      basename = f;
-    } else {
-      dir = std::string(f, sep - f);
-      basename = sep + 1;
-    }
     Status s;
-    if (basename.starts_with("MANIFEST")) {
-      int fd = open(dir.c_str(), O_RDONLY);
-      if (fd < 0) {
-        s = IOError(dir, errno);
-      } else {
-        if (fsync(fd) < 0) {
-          s = IOError(dir, errno);
-        }
-        close(fd);
+    size_t unused = limit_ - dst_;
+    if (!UnmapCurrentRegion()) {
+      s = IOError(filename_, errno);
+    } else if (unused > 0) {
+      // Trim the extra space at the end of the file
+      if (ftruncate(fd_, file_offset_ - unused) < 0) {
+        s = IOError(filename_, errno);
       }
     }
+
+    if (close(fd_) < 0) {
+      if (s.ok()) {
+        s = IOError(filename_, errno);
+      }
+    }
+
+    fd_ = -1;
+    base_ = NULL;
+    limit_ = NULL;
     return s;
   }
 
+  virtual Status Flush() {
+    return Status::OK();
+  }
+
   virtual Status Sync() {
-    // Ensure new files referred to by the manifest are in the filesystem.
-    Status s = SyncDirIfManifest();
-    if (!s.ok()) {
-      return s;
+    Status s;
+
+    if (pending_sync_) {
+      // Some unmapped data was not synced
+      pending_sync_ = false;
+      if (fdatasync(fd_) < 0) {
+        s = IOError(filename_, errno);
+      }
     }
-    if (fflush_unlocked(file_) != 0 ||
-        fdatasync(fileno(file_)) != 0) {
-      s = Status::IOError(filename_, strerror(errno));
+
+    if (dst_ > last_sync_) {
+      // Find the beginnings of the pages that contain the first and last
+      // bytes to be synced.
+      size_t p1 = TruncateToPageBoundary(last_sync_ - base_);
+      size_t p2 = TruncateToPageBoundary(dst_ - base_ - 1);
+      last_sync_ = dst_;
+      if (msync(base_ + p1, p2 - p1 + page_size_, MS_SYNC) < 0) {
+        s = IOError(filename_, errno);
+      }
     }
+
     return s;
   }
 };
@@ -267,34 +273,14 @@ static int LockOrUnlock(int fd, bool lock) {
 class PosixFileLock : public FileLock {
  public:
   int fd_;
-  std::string name_;
-};
-
-// Set of locked files.  We keep a separate set instead of just
-// relying on fcntrl(F_SETLK) since fcntl(F_SETLK) does not provide
-// any protection against multiple uses from the same process.
-class PosixLockTable {
- private:
-  port::Mutex mu_;
-  std::set<std::string> locked_files_;
- public:
-  bool Insert(const std::string& fname) {
-    MutexLock l(&mu_);
-    return locked_files_.insert(fname).second;
-  }
-  void Remove(const std::string& fname) {
-    MutexLock l(&mu_);
-    locked_files_.erase(fname);
-  }
 };
 
 class PosixEnv : public Env {
  public:
   PosixEnv();
   virtual ~PosixEnv() {
-    char msg[] = "Destroying Env::Default()\n";
-    fwrite(msg, 1, sizeof(msg), stderr);
-    abort();
+    fprintf(stderr, "Destroying Env::Default()\n");
+    exit(1);
   }
 
   virtual Status NewSequentialFile(const std::string& fname,
@@ -311,41 +297,24 @@ class PosixEnv : public Env {
 
   virtual Status NewRandomAccessFile(const std::string& fname,
                                      RandomAccessFile** result) {
-    *result = NULL;
-    Status s;
     int fd = open(fname.c_str(), O_RDONLY);
     if (fd < 0) {
-      s = IOError(fname, errno);
-    } else if (mmap_limit_.Acquire()) {
-      uint64_t size;
-      s = GetFileSize(fname, &size);
-      if (s.ok()) {
-        void* base = mmap(NULL, size, PROT_READ, MAP_SHARED, fd, 0);
-        if (base != MAP_FAILED) {
-          *result = new PosixMmapReadableFile(fname, base, size, &mmap_limit_);
-        } else {
-          s = IOError(fname, errno);
-        }
-      }
-      close(fd);
-      if (!s.ok()) {
-        mmap_limit_.Release();
-      }
-    } else {
-      *result = new PosixRandomAccessFile(fname, fd);
+      *result = NULL;
+      return IOError(fname, errno);
     }
-    return s;
+    *result = new PosixRandomAccessFile(fname, fd);
+    return Status::OK();
   }
 
   virtual Status NewWritableFile(const std::string& fname,
                                  WritableFile** result) {
     Status s;
-    FILE* f = fopen(fname.c_str(), "w");
-    if (f == NULL) {
+    const int fd = open(fname.c_str(), O_CREAT | O_RDWR | O_TRUNC, 0644);
+    if (fd < 0) {
       *result = NULL;
       s = IOError(fname, errno);
     } else {
-      *result = new PosixWritableFile(fname, f);
+      *result = new PosixMmapFile(fname, fd, page_size_);
     }
     return s;
   }
@@ -375,7 +344,7 @@ class PosixEnv : public Env {
       result = IOError(fname, errno);
     }
     return result;
-  }
+  };
 
   virtual Status CreateDir(const std::string& name) {
     Status result;
@@ -383,7 +352,7 @@ class PosixEnv : public Env {
       result = IOError(name, errno);
     }
     return result;
-  }
+  };
 
   virtual Status DeleteDir(const std::string& name) {
     Status result;
@@ -391,7 +360,7 @@ class PosixEnv : public Env {
       result = IOError(name, errno);
     }
     return result;
-  }
+  };
 
   virtual Status GetFileSize(const std::string& fname, uint64_t* size) {
     Status s;
@@ -419,17 +388,12 @@ class PosixEnv : public Env {
     int fd = open(fname.c_str(), O_RDWR | O_CREAT, 0644);
     if (fd < 0) {
       result = IOError(fname, errno);
-    } else if (!locks_.Insert(fname)) {
-      close(fd);
-      result = Status::IOError("lock " + fname, "already held by process");
     } else if (LockOrUnlock(fd, true) == -1) {
       result = IOError("lock " + fname, errno);
       close(fd);
-      locks_.Remove(fname);
     } else {
       PosixFileLock* my_lock = new PosixFileLock;
       my_lock->fd_ = fd;
-      my_lock->name_ = fname;
       *lock = my_lock;
     }
     return result;
@@ -441,7 +405,6 @@ class PosixEnv : public Env {
     if (LockOrUnlock(my_lock->fd_, false) == -1) {
       result = IOError("unlock", errno);
     }
-    locks_.Remove(my_lock->name_);
     close(my_lock->fd_);
     delete my_lock;
     return result;
@@ -497,7 +460,7 @@ class PosixEnv : public Env {
   void PthreadCall(const char* label, int result) {
     if (result != 0) {
       fprintf(stderr, "pthread %s: %s\n", label, strerror(result));
-      abort();
+      exit(1);
     }
   }
 
@@ -508,6 +471,7 @@ class PosixEnv : public Env {
     return NULL;
   }
 
+  size_t page_size_;
   pthread_mutex_t mu_;
   pthread_cond_t bgsignal_;
   pthread_t bgthread_;
@@ -517,12 +481,10 @@ class PosixEnv : public Env {
   struct BGItem { void* arg; void (*function)(void*); };
   typedef std::deque<BGItem> BGQueue;
   BGQueue queue_;
-
-  PosixLockTable locks_;
-  MmapLimiter mmap_limit_;
 };
 
-PosixEnv::PosixEnv() : started_bgthread_(false) {
+PosixEnv::PosixEnv() : page_size_(getpagesize()),
+                       started_bgthread_(false) {
   PthreadCall("mutex_init", pthread_mutex_init(&mu_, NULL));
   PthreadCall("cvar_init", pthread_cond_init(&bgsignal_, NULL));
 }
@@ -591,7 +553,7 @@ void PosixEnv::StartThread(void (*function)(void* arg), void* arg) {
               pthread_create(&t, NULL,  &StartThreadWrapper, state));
 }
 
-}  // namespace
+}
 
 static pthread_once_t once = PTHREAD_ONCE_INIT;
 static Env* default_env;
@@ -602,4 +564,4 @@ Env* Env::Default() {
   return default_env;
 }
 
-}  // namespace leveldb
+}

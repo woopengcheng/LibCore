@@ -77,7 +77,6 @@ class TableBuilder {
  private:
   bool ok() const { return status().ok(); }
   void WriteBlock(BlockBuilder* block, BlockHandle* handle);
-  void WriteRawBlock(const Slice& data, CompressionType, BlockHandle* handle);
 
   struct Rep;
   Rep* rep_;
@@ -87,6 +86,6 @@ class TableBuilder {
   void operator=(const TableBuilder&);
 };
 
-}  // namespace leveldb
+}
 
 #endif  // STORAGE_LEVELDB_INCLUDE_TABLE_BUILDER_H_
