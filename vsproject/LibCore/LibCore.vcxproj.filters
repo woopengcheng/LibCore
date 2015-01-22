@@ -405,6 +405,9 @@
     <ClInclude Include="..\..\LibCore\Common\Refcounted.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\UnitTest.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -580,6 +583,9 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\Marshal\CommonMarshal.cpp">
       <Filter>Marshal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Common\UnitTest.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

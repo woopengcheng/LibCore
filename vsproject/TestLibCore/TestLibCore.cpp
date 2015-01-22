@@ -18,6 +18,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	objCS << objTest;
 	objCS >> objTest2;
 
+	std::set<int> s;
+	s.insert(s.end() , 1);
+
+	objCS << s;
+
 	LibCore::Cleanup();
 	return 0;
 }

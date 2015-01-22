@@ -3,6 +3,7 @@
 #include "Common/Common.h"
 #include "Common/Chunk.h"
 #include "Marshal/Marshal.h"
+#include "Marshal/CommonMarshal.h"
 
 namespace Msg
 {
@@ -117,7 +118,32 @@ namespace LibCore
 		template<typename T1 , typename T2> CStream & operator << (std::pair<T1 , T2> & t)
 		{
 			return *this << t.first << t.second;
-		}
+		} 
+
+		template<typename T1> CStream & operator << (std::vector<T1> & t)
+		{
+			return *this << STLContainer<std::vector<T1>>(t);
+		} 
+
+		template<typename T1> CStream & operator << (std::list<T1> & t)
+		{
+			return *this << STLContainer<std::list<T1>>(t);
+		} 
+		
+		template<typename T1> CStream & operator << (std::deque<T1> & t)
+		{
+			return *this << STLContainer<std::deque<T1>>(t);
+		} 
+
+		template<typename T1> CStream & operator << (std::set<T1> & t)
+		{
+			return *this << STLContainer<std::set<T1>>(t);
+		} 
+
+		template<typename T1 , typename T2> CStream & operator << (std::map<T1 , T2> & t)
+		{
+			return *this << STLContainer<std::map<T1 , T2> >(t);
+		} 
 
 	public:
 		CStream & operator >> (char & t)			{ return Pop(t);} 
@@ -135,6 +161,7 @@ namespace LibCore
 		CStream & operator >> (Marshal & t)			{ return t.unMarshal(*this); } 
 		CStream & operator >> (Chunk & t);
 		CStream & operator >> (Msg::Object & t);
+		CStream & operator >> (CStream & t);	 
 
 		template<typename T> CStream & operator >> (std::basic_string<T> & t)
 		{
@@ -153,7 +180,31 @@ namespace LibCore
 		{
 			return *this >> t.first >> t.second;
 		}
+		
+		template<typename T1> CStream & operator >> (std::vector<T1> & t)
+		{
+			return *this >> STLContainer<std::vector<T1>>(t);
+		} 
 
+		template<typename T1> CStream & operator >> (std::list<T1> & t)
+		{
+			return *this >> STLContainer<std::list<T1>>(t);
+		} 
+		
+		template<typename T1> CStream & operator >> (std::deque<T1> & t)
+		{
+			return *this >> STLContainer<std::deque<T1>>(t);
+		} 
+
+		template<typename T1> CStream & operator >> (std::set<T1> & t)
+		{
+			return *this >> STLContainer<std::set<T1>>(t);
+		} 
+
+		template<typename T1 , typename T2> CStream & operator >> (std::map<T1 , T2> & t)
+		{
+			return *this >> STLContainer<std::map<T1 , T2> >(t);
+		} 
 		CStream & operator >> (Marshal::Transaction  t) 
 		{
 			switch(t)

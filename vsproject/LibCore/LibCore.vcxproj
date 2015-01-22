@@ -207,7 +207,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)..\bin\dll\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\tbb\lib\intel64\vc10;$(SolutionDir)..\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\boost\lib;$(SolutionDir)..\deps\pthread\lib\x64;$(SolutionDir)..\deps\gperftools-2.1\debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libzmq_d.lib;ws2_32.lib;tbb_debug.lib;pthreadVC2.lib;Log4Cpp.lib;log4cplusUD.lib;BasicLib_DLL_DLL_Debug_x64_x64.lib;libglog.lib;expat.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libzmq_d.lib;ws2_32.lib;tbb_debug.lib;pthreadVC2.lib;Log4Cpp.lib;log4cplusUD.lib;BasicLib_DLL_DLL_Debug_x64_x64.lib;libglog.lib;expat.lib;UnitTest.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>LIBCMTD;</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <HeapReserveSize>104857600</HeapReserveSize>
@@ -217,7 +217,7 @@
       <AssemblyDebug>false</AssemblyDebug>
     </Link>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)LibCore;$(SolutionDir)../LibCore/;$(SolutionDir)../deps/boost;$(SolutionDir)../deps/expat/lib;$(SolutionDir)../deps/zeromq/include;$(SolutionDir)../deps/tbb/include;$(SolutionDir)../deps/protobuf/src;$(SolutionDir)../deps/raknet/source;$(SolutionDir)../deps/pthread/include;$(SolutionDir)../deps/glog/src/windows;$(SolutionDir)../deps/log4cpp/include;$(SolutionDir)../deps/log4cplus/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)LibCore;$(SolutionDir)../LibCore/;$(SolutionDir)../deps/boost;$(SolutionDir)../deps/expat/lib;$(SolutionDir)../deps/zeromq/include;$(SolutionDir)../deps/tbb/include;$(SolutionDir)../deps/UnitTest++/;$(SolutionDir)../deps/protobuf/src;$(SolutionDir)../deps/raknet/source;$(SolutionDir)../deps/pthread/include;$(SolutionDir)../deps/glog/src/windows;$(SolutionDir)../deps/log4cpp/include;$(SolutionDir)../deps/log4cplus/include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>HYCOMMONWINAPI_EXPORTS;USE_ZMQ;DLL_EXPORTS;USE_RAKNET;WIN32;_DEBUG;USE_LOG4CPLUS;_CONSOLE;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level3</WarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -246,6 +246,7 @@
     <ClInclude Include="..\..\LibCore\Common\Random.h" />
     <ClInclude Include="..\..\LibCore\Common\SafeVariable.h" />
     <ClInclude Include="..\..\LibCore\Common\ThreadLock.h" />
+    <ClInclude Include="..\..\LibCore\Common\UnitTest.h" />
     <ClInclude Include="..\..\LibCore\LogLib\inc\GLogAdaptee.h" />
     <ClInclude Include="..\..\LibCore\LogLib\inc\Log.h" />
     <ClInclude Include="..\..\LibCore\LogLib\inc\Log4CPlusAdaptee.h" />
@@ -348,6 +349,7 @@
     <ClCompile Include="..\..\LibCore\Common\Common.cpp" />
     <ClCompile Include="..\..\LibCore\Common\LibCore.cpp" />
     <ClCompile Include="..\..\LibCore\Common\Random.cpp" />
+    <ClCompile Include="..\..\LibCore\Common\UnitTest.cpp" />
     <ClCompile Include="..\..\LibCore\LogLib\src\GLogAdaptee.cpp" />
     <ClCompile Include="..\..\LibCore\LogLib\src\Log4CPlusAdaptee.cpp" />
     <ClCompile Include="..\..\LibCore\LogLib\src\Log4CppAdaptee.cpp" />

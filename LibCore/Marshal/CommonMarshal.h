@@ -21,6 +21,46 @@ namespace LibCore
 		char * m_pBuf;
 		UINT32 m_unLen;
 	};
+
+	template<typename Container>
+	class DLL_EXPORT STLContainer : public LibCore::Marshal
+	{ 
+	public:
+		explicit STLContainer( Container * pContainer ): m_pContainer(pContainer) {}  //5 默认隐式转换.不加explicit
+		explicit STLContainer( Container & pContainer ): m_pContainer(&pContainer) {}  //5 默认隐式转换.不加explicit
+
+	public:
+		virtual CStream & marshal( CStream & cs )
+		{
+			cs << m_pContainer->size();
+
+			Container::iterator iter = m_pContainer->begin();
+			for (;iter != m_pContainer->end(); ++iter)
+			{
+				cs << *iter;
+			}
+
+			return cs;
+		}
+		virtual CStream & unMarshal (CStream & cs)
+		{
+			m_pContainer->clear();
+			UINT32 unCount = 0;
+			cs >> unCount;
+			for (;unCount > 0; --unCount)
+			{
+				typename Container::value_type val;
+				cs >> val;
+
+				m_pContainer->insert(m_pContainer->end() , val);
+			}
+
+			return cs;
+		}
+
+	protected:
+		Container * m_pContainer;
+	};
 }
 
 #endif

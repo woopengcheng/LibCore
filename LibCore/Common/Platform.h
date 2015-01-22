@@ -1,11 +1,6 @@
 #ifndef __platform_h__
 #define __platform_h__ 
 
-#include <unordered_map>
-#include <unordered_set>
-#include <set>
-#include <vector>
-#include <list>
 
 #ifndef WIN32  
 #include <uuid/uuid.h>

@@ -2,7 +2,6 @@
 #define __thread_pool_thread_pool_h__
 #include "ThreadPoolLib/inc/ThreadCommon.h"
 #include "pthread.h" 
-#include <map> 
 
 
 namespace ThreadPool

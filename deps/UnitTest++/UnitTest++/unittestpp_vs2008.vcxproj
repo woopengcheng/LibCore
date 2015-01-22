@@ -244,6 +244,7 @@
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='win32_static_vc90_mt_release|x64'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='win32_static_vc90_mt_release|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='win32_static_vc90_mt_release|x64'" />
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">UnitTest</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='win32_static_vc90_md_debug|Win32'">
     <ClCompile>

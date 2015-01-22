@@ -55,4 +55,29 @@ namespace LibCore
 
 		return *this;
 	} 
+
+	CStream & CStream::operator<<(CStream & t)			
+	{
+		UINT32 unSize =  t.GetDataLen();
+		*this << unSize;
+		this->Pushback(t.Begin() , unSize);
+		 
+		return *this;
+	} 
+
+	CStream & CStream::operator>>(CStream & t)			
+	{
+		UINT32 unSize = 0;
+		void * pBuf = NULL;
+
+		*this >> unSize;
+		if (unSize > 0)
+		{
+			this->Pop(pBuf , unSize);
+		}
+
+		t.Pushback(pBuf , unSize);
+
+		return *this;
+	} 
 }

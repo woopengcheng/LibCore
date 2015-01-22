@@ -1,7 +1,6 @@
 #ifndef __log_log_common_h__
 #define __log_log_common_h__
 #include "Common/Common.h"
-#include <sstream>
 
 namespace Log
 {

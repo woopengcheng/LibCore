@@ -3,8 +3,9 @@
 #include "NetLib/inc/NetCommon.h" 
 #include "TimerLib/inc/TimerHelp.h"
 #include "MsgLib/inc/RpcCheckParams.h"
-#include <sstream>
 #include "Common/Random.h"
+#include "Common/UnitTest.h"
+#include "UnitTest++/UnitTestPP.h"
 
 #ifdef WIN32
 #include <ObjBase.h>
@@ -42,6 +43,8 @@ namespace LibCore
 	{  
 		Assert_ReF1(!Log::Init(strLogFile.c_str() , NULL , 0)) ; 
 		Assert_ReF1(!Net::InitNet()); 
+
+		UnitTestStart();
 
 		return ERR_SUCCESS;
 	}
@@ -332,4 +335,14 @@ namespace LibCore
 		} 
 	}
 
+
+	TEST(UnitTestTestCHECK1)
+	{
+		int i = 4;
+		CHECK_EQUAL(5, ++i); // succeeds
+		CHECK_EQUAL(5, i); // succeeds
+		CHECK_CLOSE(3.14, 3.1415, 0.01); // succeeds¸¡µãÊý¼ì²é
+		CHECK(std::strstr("zaza", "az") != 0); // succeeds
+		//		CHECK_EQUAL("foo", "bar"); // fails
+	}
 }

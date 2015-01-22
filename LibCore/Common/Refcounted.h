@@ -1,7 +1,5 @@
 #ifndef __libcore_refcounted_h__
 #define __libcore_refcounted_h__
-
-#include <pthread.h>
 #include "Common/Common.h"
 
 namespace LibCore

@@ -1,17 +1,26 @@
 #ifndef __common_h__
 #define __common_h__
 
-#include "MsgAssert.h"
+#include "Common/MsgAssert.h" 
+#include "Common/ClassTypeID.h"
+#include "Common/Platform.h"
+#include "Common/ErrorCode.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 #include <string>
 #include <vector>
 #include <queue>
-#include "Common/ClassTypeID.h"
-#include "Common/Platform.h"
-#include "Common/ErrorCode.h"
- 
+#include <map>
+#include <list>
+#include <set>
+#include <sstream>
+#include <time.h>
+#include <unordered_map>
+#include <unordered_set>  
+#include <iostream>
+
 #define TRUE    1
 #define FALSE   0
 
