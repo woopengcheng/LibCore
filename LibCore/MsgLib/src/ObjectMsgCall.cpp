@@ -6,9 +6,9 @@ namespace Msg
 
 	UINT32 ObjectMsgCall::RefreshSize()
 	{  
-		m_unMsgLength =  m_unTargetsCount * sizeof(Object) + sizeof(m_ullMsgID) + sizeof(m_unTargetsCount)+ sizeof(m_unMsgLength) 
-			+ sizeof(m_szMsgMethod) + m_objParams.GetSize() + sizeof(m_usPriority) + sizeof(m_objSource);
-		return m_unMsgLength;
+		UINT32 unMsgLength =  m_unTargetsCount * sizeof(Object) + sizeof(m_ullMsgID) + sizeof(m_unTargetsCount) +
+			sizeof(m_szMsgMethod) + m_objParams.GetSize() + sizeof(m_usPriority) + sizeof(m_objSource);
+		return unMsgLength;
 	}  
 
 	void ObjectMsgCall::RefreshTargets()
@@ -68,7 +68,6 @@ namespace Msg
 		pMsg = new(sizeof(Object)*m_unTargetsCount)ObjectMsgCall;
 
 		pMsg->m_ullMsgID       = m_ullMsgID;
-		pMsg->m_unMsgLength    = m_unMsgLength; 
 		pMsg->m_objSource      = m_objSource;
 		pMsg->m_usPriority     = m_usPriority;
 		m_objParams.Copy(pMsg->m_objParams);  
@@ -89,7 +88,7 @@ namespace Msg
 		cs.Pushback(m_aTargets , m_unTargetsCount * sizeof(Object));
 		cs << m_objSource << m_usPriority;
 		cs.Pushback(m_szMsgMethod , MAX_MSG_METHOD_NAME_LENGTH);
-		cs << m_unMsgLength << m_ullMsgID << m_objParams; 
+		cs << m_ullMsgID << m_objParams; 
 
 		return cs;
 	}
@@ -105,7 +104,7 @@ namespace Msg
 		cs >> m_objSource >> m_usPriority;
 		cs.Pop(pBuf , sizeof(m_szMsgMethod));
 		memcpy(m_szMsgMethod , pBuf ,  sizeof(m_szMsgMethod)); 
-		cs >> m_unMsgLength >> m_ullMsgID >> m_objParams; 
+		cs >> m_ullMsgID >> m_objParams; 
 
 		return cs;
 	}

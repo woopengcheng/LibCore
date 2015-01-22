@@ -42,8 +42,8 @@ namespace Msg
 
 	UINT32 RPCMsgCall::RefreshSize()
 	{ 
-		m_unMsgLength = ObjectMsgCall::RefreshSize() + sizeof(m_ullTimeout) + sizeof(m_bClientRequest) + sizeof(m_szRemoteName); 
-		return m_unMsgLength;
+		UINT32 unMsgLength = ObjectMsgCall::RefreshSize() + sizeof(m_ullTimeout) + sizeof(m_bClientRequest) + sizeof(m_szRemoteName); 
+		return unMsgLength;
 	}
 	
 	UINT32 RPCMsgCall::Copy( RPCMsgCall *& pMsg )
@@ -53,7 +53,6 @@ namespace Msg
 		pMsg->m_objProxySrcID  = m_objProxySrcID;
 		pMsg->m_ullTimeout     = m_ullTimeout;
 		pMsg->m_bClientRequest = m_bClientRequest;   
-		pMsg->m_unMsgLength    = m_unMsgLength; 
 		pMsg->m_ullMsgID       = m_ullMsgID; 
 		pMsg->m_objSource      = m_objSource;
 		pMsg->m_usPriority     = m_usPriority;

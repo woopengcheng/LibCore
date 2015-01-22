@@ -285,8 +285,8 @@ namespace Msg
 //			MsgAssert_ReF1(unSerializationSize == objStream.GetDataLen() , "sendMsg Length error. " << unSerializationSize << " stream: " <<objStream.GetDataLen());
 			
 			INT32 nMsgID = DEFAULT_RPC_MSG_ID , nMsgLength = unSerializationSize + sizeof(Net::MsgHeader);
-			objStream.Insert(objStream.Begin() , &nMsgID , sizeof(nMsgID));
-			objStream.Insert((char *)objStream.Begin() + sizeof(nMsgID) , &nMsgLength , sizeof(nMsgLength));
+			objStream.Insert(objStream.Begin() , &nMsgLength , sizeof(nMsgLength));
+			objStream.Insert((char *)objStream.Begin() + sizeof(nMsgLength) , &nMsgID , sizeof(nMsgID));
 //			((Net::MsgHeader*)szBuf)->unMsgID = DEFAULT_RPC_MSG_ID;
 //			((Net::MsgHeader*)szBuf)->unMsgLength = unSerializationSize + sizeof(Net::MsgHeader);  
 

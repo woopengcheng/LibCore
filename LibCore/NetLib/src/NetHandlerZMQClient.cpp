@@ -5,6 +5,7 @@ extern "C"
 #include "NetLib/inc/NetHandlerZMQClient.h"
 #include "NetLib/inc/NetHelper.h"
 #include "NetLib/inc/INetReactor.h" 
+#include "Common/LibCore.h"
 
 
 namespace Net
@@ -55,13 +56,11 @@ namespace Net
 	}
 
 	INT32 NetHandlerZMQClient::Connect( const char* ip,int port )
-	{ 
-		char szPort[20];
+	{  
 		std::string str = "tcp://";
 		str += ip;
 		str += ":";
-		itoa(port , szPort , 10);
-		str += szPort;  
+		str += LibCore::itoa((INT64)port); 
 
 		INT32 nResult = zmq_connect (m_pZmqSocket , str.c_str());
 		if (nResult != 0)

@@ -3,6 +3,7 @@
 #include "MsgLib/inc/RpcManager.h"
 #include "MsgLib/inc/RpcInterface.h"
 #include "MsgLib/inc/RPCMsgCall.h"
+#include "Marshal/Marshal.h"
 
 namespace Msg
 {
@@ -98,8 +99,8 @@ namespace Msg
 		{
 		case DEFAULT_RPC_PING_ID:
 			{
-				Assert_ReF1(pBuffer && m_pRpcManager);   
-
+				Assert_ReF1(pBuffer && m_pRpcManager && unLength == sizeof(SPing));   
+				
 				SPing objPing;
 				memcpy(&objPing , pBuffer , unLength);
 
@@ -112,7 +113,7 @@ namespace Msg
 
 				LibCore::CStream cs(pBuffer , unLength);
 				UINT32 unTargetsCount = 0;
-				cs >> unTargetsCount;
+				cs >> LibCore::Marshal::Begin >> unTargetsCount >> LibCore::Marshal::Rollback;
 
 				RPCMsgCall * pMsg = new(unTargetsCount * sizeof(Object))RPCMsgCall;  
 				pMsg->unMarshal(cs);

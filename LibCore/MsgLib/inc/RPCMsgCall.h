@@ -27,6 +27,7 @@ namespace Msg
 		{  
 			memset(m_szSessionName , 0 , sizeof(m_szSessionName));
 			memset(m_szRemoteName , 0 , sizeof(m_szRemoteName));
+			RefreshTargets();
 		}
 		~RPCMsgCall()
 		{ 

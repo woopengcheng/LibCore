@@ -13,8 +13,9 @@ namespace Msg
 	class DLL_EXPORT  ObjectMsgCall : public LibCore::Marshal
 	{ 
 	public:
-		ObjectMsgCall() :m_ullMsgID(0) ,m_unMsgLength(0) , m_unTargetsCount(0) , m_usPriority(0) , m_aTargets(NULL)
+		ObjectMsgCall() :m_ullMsgID(0) , m_unTargetsCount(0) , m_usPriority(0) , m_aTargets(NULL)
 		{  
+			RefreshTargets();
 		}
 		~ObjectMsgCall()
 		{ 
@@ -56,7 +57,7 @@ namespace Msg
 		void    SetMethodNameBySubSuffix(const char * pName){ Assert((strlen(m_szMsgMethod) - strlen(pName)) > 0);	m_szMsgMethod[strlen(m_szMsgMethod) - strlen(pName)] = '\0'; }
 		UINT32  Copy(ObjectMsgCall *& pMsg);
 		UINT32  GetTargetsCount(){ return m_unTargetsCount; }
-		void    SetTargetsCount(UINT32 unTargetsCount){ m_unTargetsCount = unTargetsCount; RefreshTargets(); RefreshSize(); }
+		void    SetTargetsCount(UINT32 unTargetsCount){ m_unTargetsCount = unTargetsCount;  }
 
 	public: 
 		virtual LibCore::CStream & marshal(LibCore::CStream & cs);
@@ -64,7 +65,6 @@ namespace Msg
 
 	public:      
 		UINT64             m_ullMsgID;                                 //5 消息的ID,在进程内部.这个变量基本上无用了.
-		UINT32             m_unMsgLength;                              //5 整个消息的长度,这里只记录发送消息的长度.
 		char               m_szMsgMethod[MAX_MSG_METHOD_NAME_LENGTH];  //5 调用消息的函数
 		Parameters         m_objParams;                                //5 消息函数的参数. 
 		UINT16             m_usPriority;							   //5 优先级

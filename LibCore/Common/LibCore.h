@@ -18,7 +18,7 @@ namespace LibCore
 	extern std::string  DLL_EXPORT  itoa(INT64 val); 
 	extern void   DLL_EXPORT  ftoa(char* str,double val);
 	extern INT32  DLL_EXPORT  floatcmp(float value1,float value2);
-	extern char   DLL_EXPORT* strncpy(char* dst,const char* src,size_t len);
+	extern char   DLL_EXPORT* strncpy(char* dst,size_t len,const char* src);
 	extern INT64  DLL_EXPORT  rdtsc();
 	extern INT64  DLL_EXPORT  random();
 	extern INT32  DLL_EXPORT  random(INT32 start,INT32 end);

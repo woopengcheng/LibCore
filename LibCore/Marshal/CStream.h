@@ -104,6 +104,7 @@ namespace LibCore
 		CStream & operator << (Marshal & t)			{ return t.marshal(*this); } 
 		CStream & operator << (Chunk & t);	 
 		CStream & operator << (Msg::Object & t);	 
+		CStream & operator << (CStream & t);	 
 
 		template<typename T> CStream & operator << (std::basic_string<T> & t)
 		{
@@ -153,7 +154,7 @@ namespace LibCore
 			return *this >> t.first >> t.second;
 		}
 
-		CStream & operator >> (Marshal::Transaction & t)
+		CStream & operator >> (Marshal::Transaction  t) 
 		{
 			switch(t)
 			{

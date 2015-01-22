@@ -1,13 +1,13 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Client::GlobalRpc::TestObject1_RpcClient(INT32 localid/* = 0*/ , INT32 userid/* = 0*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc 
+Msg::ObjectMsgCall * Client::GlobalRpc::TestObject1_RpcClient(INT32 userid/* = 0*/ , INT32 localid/* = 0*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc 
 {
 
 
-	RPCReturn(localid , userid);
+	RPCReturn(userid , localid);
 }
 
-Msg::ObjectMsgCall * Client::GlobalRpc::TestObject1_RpcTimeout(INT32 localid/* = 0*/ , INT32 userid/* = 0*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Client::GlobalRpc::TestObject1_RpcTimeout(INT32 userid/* = 0*/ , INT32 localid/* = 0*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
 {
 
 

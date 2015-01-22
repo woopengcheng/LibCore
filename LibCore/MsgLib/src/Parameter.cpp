@@ -37,6 +37,8 @@ namespace Msg
 
 	LibCore::CStream & Parameter::marshal( LibCore::CStream & cs )
 	{  
+		UINT32 unSize =  m_objParamStream.GetDataLen();
+		cs << unSize;
 		cs.Pushback(m_objParamStream.Begin() , m_objParamStream.GetDataLen());
 		 
 		return cs; 
@@ -44,16 +46,15 @@ namespace Msg
 
 	LibCore::CStream & Parameter::unMarshal( LibCore::CStream & cs )
 	{  
-		UINT32 unSize = 0 , unType = 0;
+		UINT32 unSize = 0;
 		void * pBuf = NULL;
 
-		cs >> unType >> unSize;
+		cs >> unSize;
 		if (unSize > 0)
 		{
 			cs.Pop(pBuf , unSize);
 		}
 
-		m_objParamStream << unType << unSize;
 		m_objParamStream.Pushback(pBuf , unSize);
 		return cs; 
 	}
@@ -61,7 +62,7 @@ namespace Msg
 	UINT32 Parameter::GetSize()
 	{
 		UINT32 unSize = 0 , unType = 0;
-		m_objParamStream << LibCore::Marshal::Begin << unType << unSize << LibCore::Marshal::Rollback;
+		m_objParamStream >> LibCore::Marshal::Begin >> unType >> unSize >> LibCore::Marshal::Rollback;
 
 		return unSize;
 	}
@@ -69,7 +70,7 @@ namespace Msg
 	UINT32 Parameter::GetType()
 	{
 		UINT32 unType = 0;
-		m_objParamStream << LibCore::Marshal::Begin << unType << LibCore::Marshal::Rollback;
+		m_objParamStream >> LibCore::Marshal::Begin >> unType >> LibCore::Marshal::Rollback;
 
 		return unType;
 	}
@@ -79,12 +80,12 @@ namespace Msg
 		UINT32 unSize = 0 , unType = 0;
 		void * pBuf = NULL;
 
-		m_objParamStream << LibCore::Marshal::Begin << unType << unSize;
+		m_objParamStream >> LibCore::Marshal::Transaction::Begin >> unType >> unSize;
 		if (unSize > 0)
 		{
 			m_objParamStream.Pop(pBuf , unSize);
 		}
-		m_objParamStream << LibCore::Marshal::Rollback; 
+		m_objParamStream >> LibCore::Marshal::Rollback; 
 
 		return pBuf;
 	}

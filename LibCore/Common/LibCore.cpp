@@ -109,10 +109,11 @@ namespace LibCore
 		sprintf(str,"%f",val);
 	}
 
-	char*   strncpy( char* dst,const char* src,size_t len )
+	char*   strncpy( char* dst,size_t len,const char* src )
 	{
 #ifdef WIN32
-		return ::strncpy(dst,src,len);
+		strcpy_s(dst,len , src);
+		return dst;
 #else
 		return ::strncpy(dst,src,len);
 #endif
@@ -279,7 +280,7 @@ namespace LibCore
 	{
 		std::stringstream ss;
 		ss << std::hex << val << std::dec;
-		strncpy(obuf,ss.str().c_str(),len);
+		strncpy(obuf,len,ss.str().c_str());
 	}
 
 	void    tohex( const char* ibuf,size_t ilen,char* obuf,size_t& olen )

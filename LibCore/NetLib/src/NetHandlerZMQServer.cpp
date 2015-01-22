@@ -5,6 +5,7 @@ extern "C"
 #include "NetLib/inc/NetHandlerZMQServer.h"
 #include "NetLib/inc/NetHelper.h"
 #include "NetLib/inc/INetReactor.h" 
+#include "Common/LibCore.h"
 
 namespace Net
 {   
@@ -38,13 +39,11 @@ namespace Net
 	{   
 		m_pSession->SetAddress(ip);
 		m_pSession->SetSocktPort(port);
-		 
-		char szPort[20];
+		  
 		std::string str = "tcp://";
 		str += ip; 
 		str += ":";
-		itoa(port , szPort , 10);
-		str += szPort;  
+		str += LibCore::itoa(port); 
 			 
 		MsgAssert_ReF1(!zmq_bind (m_pZmqSocket , str.c_str()) , zmq_strerror (errno)); 
 			 
@@ -66,7 +65,7 @@ namespace Net
 		int nResult = zmq_msg_init (m_pZmqMsg);
 		if (nResult != 0) 
 		{
-			gErrorStream("error in zmq_msg_init: %s\n", zmq_strerror (errno));
+			gErrorStream("error in zmq_msg_init: %s\n" << zmq_strerror (errno));
 			return -1;
 		}
 
@@ -90,7 +89,7 @@ namespace Net
 		size_t usSize = zmq_msg_size(m_pZmqMsg);
 		MsgHeader * pHeader = (MsgHeader*)pBuf;
 	
-		HandleMsg(m_pSession , pHeader->unMsgID , (char *)pBuf + sizeof(MsgHeader) , usSize - sizeof(MsgHeader));
+		HandleMsg(m_pSession , pHeader->unMsgID , (char *)pBuf + sizeof(MsgHeader) , (UINT32)(usSize - sizeof(MsgHeader)));
 
 		nResult = zmq_msg_close (m_pZmqMsg);
 		if (nResult != 0) {
