@@ -245,7 +245,6 @@
     <ClInclude Include="..\..\LibCore\Common\Refcounted.h" />
     <ClInclude Include="..\..\LibCore\Common\Random.h" />
     <ClInclude Include="..\..\LibCore\Common\SafeVariable.h" />
-    <ClInclude Include="..\..\LibCore\Common\ThreadLock.h" />
     <ClInclude Include="..\..\LibCore\Common\UnitTest.h" />
     <ClInclude Include="..\..\LibCore\LogLib\inc\GLogAdaptee.h" />
     <ClInclude Include="..\..\LibCore\LogLib\inc\Log.h" />

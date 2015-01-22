@@ -114,9 +114,6 @@
     <ClInclude Include="..\..\LibCore\Common\SafeVariable.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\ThreadLock.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\LogLib\inc\GLogAdaptee.h">
       <Filter>Log\inc</Filter>
     </ClInclude>
