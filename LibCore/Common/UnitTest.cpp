@@ -10,7 +10,7 @@ namespace LibCore
 		CHECK_EQUAL(5, i); // succeeds
 		CHECK_CLOSE(3.14, 3.1415, 0.01); // succeeds¸¡µãÊý¼ì²é
 		CHECK(std::strstr("zaza", "az") != 0); // succeeds
-		CHECK_EQUAL("foo", "bar"); // fails
+//		CHECK_EQUAL("foo", "bar"); // fails
 	}
 
 	SUITE(UnitTestTestCHECKSuite)

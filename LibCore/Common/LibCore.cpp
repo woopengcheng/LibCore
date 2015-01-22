@@ -5,7 +5,6 @@
 #include "MsgLib/inc/RpcCheckParams.h"
 #include "Common/Random.h"
 #include "Common/UnitTest.h"
-#include "UnitTest++/UnitTestPP.h"
 
 #ifdef WIN32
 #include <ObjBase.h>
@@ -172,14 +171,13 @@ namespace LibCore
 		return (float)(start + (end - start) * d); 
 	}
 
-	char*   strlower( char* str )
+	std::string  strlower(const  char* szBuf )
 	{
 		std::locale loc;
+		std::string str = szBuf;
 
-		for(size_t i = 0; ;++i)
-		{
-			if(str[i] == 0)
-				break;
+		for(size_t i = 0;i < str.size();++i)
+		{ 
 #ifdef WIN32
 			str[i] = ::tolower(str[i]);
 #else
@@ -189,14 +187,13 @@ namespace LibCore
 		return str; 
 	}
 
-	char*   strupper( char* str )
+	std::string strupper(const  char* szBuf )
 	{
 		std::locale loc;
+		std::string str = szBuf; 
 
-		for(size_t i = 0; ;++i)
-		{
-			if(str[i] == 0)
-				break;
+		for(size_t i = 0;i < str.size();++i)
+		{  
 #ifdef WIN32
 			str[i] = ::toupper(str[i]);
 #else
@@ -333,16 +330,6 @@ namespace LibCore
 		{
 			memcpy(dst , src , unSize);
 		} 
-	}
+	} 
 
-
-	TEST(UnitTestTestCHECK1)
-	{
-		int i = 4;
-		CHECK_EQUAL(5, ++i); // succeeds
-		CHECK_EQUAL(5, i); // succeeds
-		CHECK_CLOSE(3.14, 3.1415, 0.01); // succeeds¸¡µãÊý¼ì²é
-		CHECK(std::strstr("zaza", "az") != 0); // succeeds
-		//		CHECK_EQUAL("foo", "bar"); // fails
-	}
 }

@@ -390,6 +390,7 @@
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorSelect.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorZMQ.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\RakNetUDPManager.cpp" />
+    <ClCompile Include="..\..\LibCore\Test\LibCore_Test.cpp" />
     <ClCompile Include="..\..\LibCore\ThreadPoolLib\src\ThreadPool.cpp" />
     <ClCompile Include="..\..\LibCore\ThreadPoolLib\src\ThreadTask.cpp" />
     <ClCompile Include="..\..\LibCore\TimerLib\src\GlobalTimer.cpp" />

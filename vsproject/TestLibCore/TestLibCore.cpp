@@ -5,6 +5,7 @@
 #include "Marshal/CStream.h"
 #include "Marshal/MashalTest.h"
 #include "Common/LibCore.h"
+#include "ctype.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -22,6 +23,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	s.insert(s.end() , 1);
 
 	objCS << s;
+
 
 	LibCore::Cleanup();
 	return 0;

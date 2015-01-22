@@ -73,6 +73,9 @@
     <Filter Include="Marshal">
       <UniqueIdentifier>{e0646cad-03ea-4768-8a4d-51bb140d3fa8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{b0c0b0a0-f8e1-46f8-a209-790d8f997701}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -586,6 +589,9 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\Common\UnitTest.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Test\LibCore_Test.cpp">
+      <Filter>Test</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -23,8 +23,8 @@ namespace LibCore
 	extern INT64  DLL_EXPORT  random();
 	extern INT32  DLL_EXPORT  random(INT32 start,INT32 end);
 	extern float  DLL_EXPORT  random(float start,float end);
-	extern char   DLL_EXPORT* strupper(char* str);
-	extern char   DLL_EXPORT* strlower(char* str);
+	extern std::string   DLL_EXPORT strupper(const char* szBuf);
+	extern std::string   DLL_EXPORT strlower(const char* szBuf); 
 	extern BOOL	  DLL_EXPORT  is_between(float start,float end,float value);
 	extern BOOL	  DLL_EXPORT  is_between(INT64 start,INT64 end,INT64 value);
 	extern BOOL	  DLL_EXPORT  is_between(INT32 start,INT32 end,INT32 value);
