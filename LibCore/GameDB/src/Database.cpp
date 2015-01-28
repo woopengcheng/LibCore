@@ -44,7 +44,7 @@ namespace GameDB
 		}
 
 		//5 如果用户自定义缓存没有或者没有自定义缓存.就去数据库中查找.
-		m_pLevelDB->Get(leveldb::ReadOptions() , objKey , &strVal);
+		return	m_pLevelDB->Get(leveldb::ReadOptions() , objKey , &strVal); 
 	}
 
 	Status Database::QuickWrite(const Slice & objKey , const Slice & objVal)
@@ -100,6 +100,60 @@ namespace GameDB
 			std::string * pNewValue = new std::string(objVal.data(),objVal.size());
 			m_pCustomCache->Insert(objKey , pNewValue , objVal.size() , fnCustomCacheDeleter);
 		} 
+	}
+
+	BOOL Database::Open()
+	{
+		Assert_Re0(0 == m_pLevelDB);
+
+		leveldb::Options objOptions(m_objOptions);
+		objOptions.create_if_missing = false;
+		objOptions.error_if_exists = false;
+
+		Status objStatus = leveldb::DB::Open(objOptions , m_strName , &m_pLevelDB);
+		if (!objStatus.ok())
+		{
+			MsgAssert_Re0(objStatus.ok() , objStatus.ToString())
+		}
+
+		return m_pLevelDB != 0;
+	}
+
+	BOOL Database::Create()
+	{
+		Assert_Re0(0 == m_pLevelDB);
+
+		leveldb::Options objOptions(m_objOptions);
+		objOptions.create_if_missing = true;
+		objOptions.error_if_exists = true;
+
+		Status objStatus = leveldb::DB::Open(objOptions , m_strName , &m_pLevelDB);
+		if (!objStatus.ok())
+		{
+			MsgAssert_Re0(objStatus.ok() , objStatus.ToString())
+		}
+
+		return objStatus.ok();
+	}
+
+	BOOL Database::RemoveDatabase()
+	{
+		Assert_Re0(0 == m_pLevelDB);
+
+		Status objStatus = leveldb::DestroyDB(m_strDirectory,leveldb::Options());
+		if (!objStatus.ok())
+		{
+			MsgAssert_Re0(objStatus.ok() , objStatus.ToString())
+		}
+
+		return objStatus.ok();
+	}
+
+	void Database::RemoveDatas()
+	{
+		this->Close();
+		this->RemoveDatabase();
+		this->Create(); 
 	}
 
 }

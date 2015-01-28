@@ -7,17 +7,39 @@
 
 namespace GameDB
 {
+	class Database;
+	class Comparator;
+
 	class Environment 
 	{
+	public:
+		typedef std_unordered_map<std::string , Database *> CollectionDatabasesT;
+
 	public:
 		Environment(const std::string strDirectory , Json::Value & objValue);
 		~Environment(){}
 		
 	public:
+		Database * OpenDatabase(const std::string & strName);
+		BOOL       CloseDatabase(const std::string & strName);
+		Database * CreateDatabase(const std::string & strName);
+		BOOL       RemoveDatabase(const std::string & strName);
+		BOOL       RepairDatabase(const std::string & strName);
+		Database * GetDatabase(const std::string & strName);
+		void       GetAllDatabase(std::vector<std::string> & vecDatabases);
+
+	public:
 		leveldb::Env * GetLevelDBEnv() const { return m_pLevelDBEnv; } 
 
 	protected:
-		leveldb::Env * m_pLevelDBEnv;
+		void       MakeOptions(leveldb::Options & objOptions);
+
+	protected:
+		std::string		  	  m_strDirectory; 
+		leveldb::Env		* m_pLevelDBEnv;
+		Comparator          * m_pComparator;		//5 数据库排序使用的比较函数. 
+		Json::Value           m_objDefaultOptions;
+		CollectionDatabasesT  m_mapDatabases;
 	};
 }
 

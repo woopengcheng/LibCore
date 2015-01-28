@@ -429,6 +429,12 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\Environment.h">
       <Filter>GameDB\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\GameDBHelper.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\Comparator.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -615,6 +621,15 @@
       <Filter>GameDB\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\GameDB\src\CustomDefinedCacheHandler.cpp">
+      <Filter>GameDB\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\GameDB\src\Environment.cpp">
+      <Filter>GameDB\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\GameDB\src\GameDBHelper.cpp">
+      <Filter>GameDB\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\GameDB\src\Comparator.cpp">
       <Filter>GameDB\src</Filter>
     </ClCompile>
   </ItemGroup>

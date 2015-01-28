@@ -8,6 +8,8 @@
 
 namespace GameDB
 {
+	static const char * g_szSystemDatabase = "SystemDatabase";
+
 typedef leveldb::Status Status;
 typedef leveldb::Slice  Slice;
 

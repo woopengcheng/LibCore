@@ -1,6 +1,11 @@
 #ifndef __libcore_h__
 #define __libcore_h__
 #include "Common/Common.h"
+
+namespace Json
+{
+	class Value;
+}
  
 namespace LibCore
 { 
@@ -37,6 +42,8 @@ namespace LibCore
 	extern void	  DLL_EXPORT  create_token(char* buf,size_t len);
 	extern char   DLL_EXPORT* strncat(char* dest,const char* src,size_t destlen); 
 	extern void   DLL_EXPORT  FastMemmove(void * dst , const void * src , INT64 unSize);
+	extern INT64  DLL_EXPORT  ParseHumanSizeFromString(const std::string strSize);
+	extern INT64  DLL_EXPORT  ParseHumanSizeFromJson(const Json::Value & value);
 
 	extern void   DLL_EXPORT GenerateUUIDBySys( char* buf );
  	extern INT64  DLL_EXPORT GenerateUUIDByTime( void );

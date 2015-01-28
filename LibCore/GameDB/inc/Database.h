@@ -19,6 +19,11 @@ namespace GameDB
 		Status   QuickDel(const Slice & objKey);
 
 	public:
+		BOOL	 Open();
+		void	 Close();
+		BOOL	 Create();
+		BOOL	 RemoveDatabase();
+		void	 RemoveDatas();
 		void	 UpdateCache(const Slice & objKey , const Slice & objVal);  //5 也可能回被leveldb递归调用.
 
 	public:
@@ -27,8 +32,7 @@ namespace GameDB
 		leveldb::DB	   * GetLevelDB() const { return m_pLevelDB; } 
 		leveldb::Options GetObjOptions() const { return m_objOptions; } 
 		 
-	private:
-		void	Close();
+	public:
 
 	private:
 		std::string			m_strName;

@@ -5,6 +5,7 @@
 #include "MsgLib/inc/RpcCheckParams.h"
 #include "Common/Random.h"
 #include "Common/UnitTest.h"
+#include "json/value.h"
 
 #ifdef WIN32
 #include <ObjBase.h>
@@ -331,5 +332,42 @@ namespace LibCore
 			memcpy(dst , src , unSize);
 		} 
 	} 
+
+	INT64  ParseHumanSizeFromString(const std::string strSize)
+	{  
+		INT64 llFactor = 1;
+		switch(strSize[strSize.length()])
+		{
+		case 'G':
+		case 'g':
+			llFactor = 1024*1024*1024;
+			break;
+		case 'M':
+		case 'm':
+			llFactor = 1024*1024;
+			break;
+		case 'k':
+		case 'K':
+			llFactor = 1024;
+			break;
+		}  
+
+		return  atoi(strSize.c_str()) * llFactor;  //5 这里遇到字符串会自动截取掉后面的.
+	}
+
+	INT64  ParseHumanSizeFromJson(const Json::Value & objValue)
+	{
+		if(objValue.isInt() || objValue.isUInt() || objValue.isNumeric())
+			return objValue.asInt();
+		
+		if(objValue.isString())
+		{
+			return ParseHumanSizeFromString(objValue.asString());
+		}
+
+		gErrorStream (" invalid value:" << objValue.toStyledString());
+		
+		return -1;
+	}
 
 }
