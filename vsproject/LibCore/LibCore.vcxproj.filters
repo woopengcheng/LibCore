@@ -76,6 +76,15 @@
     <Filter Include="Test">
       <UniqueIdentifier>{b0c0b0a0-f8e1-46f8-a209-790d8f997701}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameDB">
+      <UniqueIdentifier>{0d12fcea-054c-47a7-ae0f-120bcf8189f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameDB\inc">
+      <UniqueIdentifier>{c947d939-45c6-4337-9d13-ea6e21df61f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameDB\src">
+      <UniqueIdentifier>{4bad0acd-eca5-4d87-a4ef-1dbef43d0a02}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -408,6 +417,18 @@
     <ClInclude Include="..\..\LibCore\Common\UnitTest.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\Database.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DatabaseCommon.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\CustomDefinedCacheHandler.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\Environment.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -589,6 +610,12 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\Test\LibCore_Test.cpp">
       <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\GameDB\src\Database.cpp">
+      <Filter>GameDB\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\GameDB\src\CustomDefinedCacheHandler.cpp">
+      <Filter>GameDB\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
