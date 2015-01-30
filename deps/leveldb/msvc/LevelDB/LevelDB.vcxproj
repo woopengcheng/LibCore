@@ -151,7 +151,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>LEVELDB_PLATFORM_WINDOWS;OS_WIN;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)../../;$(ProjectDir)../../db;$(ProjectDir)../../include/;$(ProjectDir)../../table;$(ProjectDir)../../util;$(ProjectDir)../../port/win;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)../../;$(ProjectDir)../../db;$(ProjectDir)../../include/;$(ProjectDir)../../table;$(ProjectDir)../../util;$(ProjectDir)../../port/win;$(SolutionDir)../deps/boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <StringPooling>false</StringPooling>
     </ClCompile>
@@ -229,6 +229,10 @@
     <ClCompile Include="..\..\util\comparator.cc" />
     <ClCompile Include="..\..\util\crc32c.cc" />
     <ClCompile Include="..\..\util\env.cc" />
+    <ClCompile Include="..\..\util\env_boost.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\util\env_win.cc" />
     <ClCompile Include="..\..\util\hash.cc" />
     <ClCompile Include="..\..\util\histogram.cc" />
     <ClCompile Include="..\..\util\logging.cc" />

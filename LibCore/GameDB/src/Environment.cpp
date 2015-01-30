@@ -15,7 +15,7 @@ namespace GameDB
 	{
 		m_pLevelDBEnv = leveldb::Env::Default();
 		m_pComparator = new Comparator;
-//		m_pLevelDBEnv = leveldb::NewBackupEnv(leveldb::Env::Default());
+// 		m_pLevelDBEnv = leveldb::NewBackupEnv(leveldb::Env::Default());
 	
 		std::vector<std::string> vecDatabases;
 		leveldb::Env::Default()->CreateDir(m_strDirectory);

@@ -153,6 +153,12 @@
     <ClCompile Include="..\..\db\write_batch.cc">
       <Filter>db</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\util\env_boost.cc">
+      <Filter>port</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\util\env_win.cc">
+      <Filter>util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\port\win\stdint.h">
