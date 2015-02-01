@@ -5,6 +5,7 @@
 #include "leveldb/iterator.h"
 #include "leveldb/comparator.h"
 
+const size_t MAX_DB_TEMP_BUFFER_LENGTH = (64*1024*1024);
 
 namespace GameDB
 {

@@ -31,6 +31,9 @@
     <Filter Include="port\win">
       <UniqueIdentifier>{bbf7f45d-0b27-4a7e-8b87-6e414298e676}</UniqueIdentifier>
     </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{91c5bc32-66f7-4bc5-ba88-1f50faa4cbfc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -158,6 +161,57 @@
     </ClCompile>
     <ClCompile Include="..\..\util\env_win.cc">
       <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\db\c_test.c">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\db\log_test.cc">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\db\filename_test.cc">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\db\dbformat_test.cc">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\db\db_test.cc">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\db\corruption_test.cc">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\util\env_test.cc">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\util\crc32c_test.cc">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\util\coding_test.cc">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\util\cache_test.cc">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\util\arena_test.cc">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\table\table_test.cc">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\helpers\memenv\memenv_test.cc">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\db\write_batch_test.cc">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\db\version_set_test.cc">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\db\version_edit_test.cc">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\db\skiplist_test.cc">
+      <Filter>test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

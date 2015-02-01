@@ -201,19 +201,32 @@
   <ItemGroup>
     <ClCompile Include="..\..\db\builder.cc" />
     <ClCompile Include="..\..\db\c.cc" />
+    <ClCompile Include="..\..\db\corruption_test.cc" />
+    <ClCompile Include="..\..\db\c_test.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\db\dbformat.cc" />
+    <ClCompile Include="..\..\db\dbformat_test.cc" />
     <ClCompile Include="..\..\db\db_bench.cc" />
     <ClCompile Include="..\..\db\db_impl.cc" />
     <ClCompile Include="..\..\db\db_iter.cc" />
+    <ClCompile Include="..\..\db\db_test.cc" />
     <ClCompile Include="..\..\db\filename.cc" />
+    <ClCompile Include="..\..\db\filename_test.cc" />
     <ClCompile Include="..\..\db\log_reader.cc" />
+    <ClCompile Include="..\..\db\log_test.cc" />
     <ClCompile Include="..\..\db\log_writer.cc" />
     <ClCompile Include="..\..\db\memtable.cc" />
     <ClCompile Include="..\..\db\repair.cc" />
+    <ClCompile Include="..\..\db\skiplist_test.cc" />
     <ClCompile Include="..\..\db\table_cache.cc" />
     <ClCompile Include="..\..\db\version_edit.cc" />
+    <ClCompile Include="..\..\db\version_edit_test.cc" />
     <ClCompile Include="..\..\db\version_set.cc" />
+    <ClCompile Include="..\..\db\version_set_test.cc" />
     <ClCompile Include="..\..\db\write_batch.cc" />
+    <ClCompile Include="..\..\db\write_batch_test.cc" />
+    <ClCompile Include="..\..\helpers\memenv\memenv_test.cc" />
     <ClCompile Include="..\..\port\port_win.cc" />
     <ClCompile Include="..\..\table\block.cc" />
     <ClCompile Include="..\..\table\block_builder.cc" />
@@ -222,16 +235,22 @@
     <ClCompile Include="..\..\table\merger.cc" />
     <ClCompile Include="..\..\table\table.cc" />
     <ClCompile Include="..\..\table\table_builder.cc" />
+    <ClCompile Include="..\..\table\table_test.cc" />
     <ClCompile Include="..\..\table\two_level_iterator.cc" />
     <ClCompile Include="..\..\util\arena.cc" />
+    <ClCompile Include="..\..\util\arena_test.cc" />
     <ClCompile Include="..\..\util\cache.cc" />
+    <ClCompile Include="..\..\util\cache_test.cc" />
     <ClCompile Include="..\..\util\coding.cc" />
+    <ClCompile Include="..\..\util\coding_test.cc" />
     <ClCompile Include="..\..\util\comparator.cc" />
     <ClCompile Include="..\..\util\crc32c.cc" />
+    <ClCompile Include="..\..\util\crc32c_test.cc" />
     <ClCompile Include="..\..\util\env.cc" />
     <ClCompile Include="..\..\util\env_boost.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\util\env_test.cc" />
     <ClCompile Include="..\..\util\env_win.cc" />
     <ClCompile Include="..\..\util\hash.cc" />
     <ClCompile Include="..\..\util\histogram.cc" />

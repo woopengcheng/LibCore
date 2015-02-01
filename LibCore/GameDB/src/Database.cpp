@@ -1,7 +1,7 @@
 #include "GameDB/inc/Database.h"
+#include "GameDB/inc/CustomDefinedCacheHandler.h"
 #include "leveldb/env.h"
 #include "leveldb/cache.h"
-#include "GameDB/inc/CustomDefinedCacheHandler.h"
 
 namespace GameDB
 {  
