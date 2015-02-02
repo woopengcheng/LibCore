@@ -1,21 +1,20 @@
 #include "GameDB/inc/Environment.h"
 #include "GameDB/inc/Comparator.h"
 #include "GameDB/inc/Database.h" 
+#include "GameDB/inc/BackupEnvironment.h" 
 #include "leveldb/cache.h"
 #include "LogLib/inc/Log.h"
 #include "Common/LibCore.h"
 
 namespace GameDB
 {
-
-
+	 
 	Environment::Environment(const std::string strDirectory , Json::Value & objValue)
 		: m_strDirectory(strDirectory)
 		, m_objDefaultOptions(objValue) 
 	{
-		m_pLevelDBEnv = leveldb::Env::Default();
 		m_pComparator = new Comparator;
-// 		m_pLevelDBEnv = leveldb::NewBackupEnv(leveldb::Env::Default());
+		m_pBackupEnv = new BackupEnvironment(leveldb::Env::Default()); 
 	
 		std::vector<std::string> vecDatabases;
 		leveldb::Env::Default()->CreateDir(m_strDirectory);
@@ -38,6 +37,21 @@ namespace GameDB
 		}
 	}
 
+	Environment::~Environment()
+	{
+		CollectionDatabasesT::iterator iter = m_mapDatabases.begin();
+		for(;iter != m_mapDatabases.end(); ++iter)
+		{
+			Database* pDB = iter->second;
+			pDB->Close();
+			delete pDB;
+		}
+		m_mapDatabases.clear();
+
+		SAFE_DELETE(m_pBackupEnv);
+		SAFE_DELETE(m_pComparator); 
+	}
+	
 	Database * Environment::OpenDatabase(const std::string & strName)
 	{
 		Database * pDatabase = GetDatabase(strName);
@@ -52,7 +66,7 @@ namespace GameDB
 		objOptions.error_if_exists = true;
 		objOptions.comparator = m_pComparator;
 
-		pDatabase = new Database(strName , m_strDirectory , objOptions);
+		pDatabase = new Database(strName , m_strDirectory , objOptions , m_pBackupEnv);
 		pDatabase->Open();
 	
 		if (pDatabase->GetLevelDB())
@@ -98,7 +112,7 @@ namespace GameDB
 		objOptions.error_if_exists = true;
 		objOptions.comparator = m_pComparator;
 
-		pDatabase = new Database(strName , m_strDirectory , objOptions);
+		pDatabase = new Database(strName , m_strDirectory , objOptions , m_pBackupEnv);
 		pDatabase->Create();
 
 		if (pDatabase->GetLevelDB())
@@ -192,7 +206,7 @@ namespace GameDB
 		if (strCompress == "snappy") 
 			objOptions.compression = leveldb::kSnappyCompression;
 
-		objOptions.env = m_pLevelDBEnv;
+		objOptions.env = m_pBackupEnv;
 	}
 
 }

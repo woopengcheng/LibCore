@@ -1,5 +1,4 @@
 #ifdef WIN32
-#define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 #endif
 
@@ -9,7 +8,7 @@
 namespace GameDB
 { 
 
-	Status BackupEnvironment::DeleteFile(const std::string & strFile)
+	Status BackupEnvironment::RemoveFile(const std::string & strFile)
 	{
 		m_objMutex.Lock();
 
@@ -118,7 +117,7 @@ namespace GameDB
 		{
 			if (CanCopyFile(vecFiles[i]))
 			{
-				objStatus = this->CopyFile(arg , vecFiles[i] , vecFileLengths[i]);
+				objStatus = this->CloneFile(arg , vecFiles[i] , vecFileLengths[i]);
 				if (!objStatus.ok())
 				{
 					break;
@@ -139,7 +138,7 @@ namespace GameDB
 		return objStatus;
 	}
 
-	Status BackupEnvironment::CopyFile(void * arg , const std::string & strFile , int64_t llFileLength)
+	Status BackupEnvironment::CloneFile(void * arg , const std::string & strFile , int64_t llFileLength)
 	{
 		SBackupDB * pBackup = (SBackupDB * )arg;
 
@@ -153,13 +152,13 @@ namespace GameDB
 		}
 		else
 		{
-			objStatus = CopyFile(strSrc , strDst , llFileLength);
+			objStatus = CloneFile(strSrc , strDst , llFileLength);
 		}
 	
 		return objStatus;
 	}
 
-	Status BackupEnvironment::CopyFile( const std::string& strSrc,const std::string& strDst,int64_t llFileLength )
+	Status BackupEnvironment::CloneFile( const std::string& strSrc,const std::string& strDst,int64_t llFileLength )
 	{
 		leveldb::WritableFile * pWriteFile = NULL;
 		leveldb::SequentialFile * pReadFile = NULL;
@@ -211,6 +210,19 @@ namespace GameDB
 			}
 		}
 
-
+		return objStatus;
 	}
+
+	Status BackupEnvironment::TouchFile(const std::string & strDir)
+	{
+		leveldb::WritableFile* pWriteFile = NULL;
+		leveldb::Status objStatus = target()->NewWritableFile(strDir , &pWriteFile);
+		if(!objStatus.ok())
+			return objStatus;
+
+		delete pWriteFile;
+
+		return objStatus;
+	} 
+
 }

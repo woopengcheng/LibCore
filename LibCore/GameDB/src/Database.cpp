@@ -1,17 +1,19 @@
 #include "GameDB/inc/Database.h"
 #include "GameDB/inc/CustomDefinedCacheHandler.h"
+#include "GameDB/inc/BackupEnvironment.h"
 #include "leveldb/env.h"
 #include "leveldb/cache.h"
 
 namespace GameDB
 {  
 	 
-	Database::Database(const std::string& strName,const std::string& strDirectory,const leveldb::Options& objOptions)
+	Database::Database(const std::string& strName,const std::string& strDirectory,const leveldb::Options& objOptions , BackupEnvironment * pBackupEnv)
 		: m_strName(strName)
 		, m_strDirectory(strDirectory)
 		, m_objOptions(objOptions)
 		, m_pLevelDB(NULL) 
 		, m_pCustomCache(NULL)
+		, m_pBackupEnv(pBackupEnv)
 	{ 
 		m_strDirectory = strDirectory + m_strName;
 //		m_pCustomCache = leveldb::NewLRUCache(500*1024*1024);
@@ -20,7 +22,7 @@ namespace GameDB
 	Database::~Database()
 	{ 
 		Close();
-		SAFE_DELETE(m_pCustomCache);
+//		SAFE_DELETE(m_pCustomCache);
 	}
 
 	void Database::Close()
@@ -154,6 +156,23 @@ namespace GameDB
 		this->Close();
 		this->RemoveDatabase();
 		this->Create(); 
+	}
+
+	BOOL Database::Backup(const std::string & strBackupName , const std::string & strDir)
+	{
+		SBackupDB objContext;
+		objContext.strSrcDir = m_strDirectory;
+		objContext.strDstFileName = strBackupName;
+		objContext.strDstDir = strDir;
+	
+		leveldb::Env::Default()->CreateDir(objContext.strDstDir + strBackupName);
+		if (m_pBackupEnv)
+		{
+			m_pBackupEnv->Backup(m_strDirectory , &objContext);
+			m_pBackupEnv->TouchFile(strDir + strBackupName + "/LOCK");
+		}
+		
+		return TRUE;
 	}
 
 }

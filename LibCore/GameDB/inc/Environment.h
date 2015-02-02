@@ -9,6 +9,7 @@ namespace GameDB
 {
 	class Database;
 	class Comparator;
+	class BackupEnvironment;
 
 	class Environment 
 	{
@@ -17,7 +18,7 @@ namespace GameDB
 
 	public:
 		Environment(const std::string strDirectory , Json::Value & objValue);
-		~Environment(){}
+		~Environment();
 		
 	public:
 		Database * OpenDatabase(const std::string & strName);
@@ -29,14 +30,14 @@ namespace GameDB
 		void       GetAllDatabase(std::vector<std::string> & vecDatabases);
 
 	public:
-		leveldb::Env * GetLevelDBEnv() const { return m_pLevelDBEnv; } 
+		BackupEnvironment * GetBackupEnv() const { return m_pBackupEnv; } 
 
 	protected:
 		void       MakeOptions(leveldb::Options & objOptions);
 
 	protected:
 		std::string		  	  m_strDirectory; 
-		leveldb::Env		* m_pLevelDBEnv;
+		BackupEnvironment	* m_pBackupEnv;
 		Comparator          * m_pComparator;		//5 数据库排序使用的比较函数. 
 		Json::Value           m_objDefaultOptions;
 		CollectionDatabasesT  m_mapDatabases;
