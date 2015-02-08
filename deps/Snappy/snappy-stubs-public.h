@@ -1,4 +1,4 @@
-// Copyright 2011 Google Inc. All Rights Reserved.
+﻿// Copyright 2011 Google Inc. All Rights Reserved.
 // Author: sesse@google.com (Steinar H. Gunderson)
 //
 // Redistribution and use in source and binary forms, with or without
