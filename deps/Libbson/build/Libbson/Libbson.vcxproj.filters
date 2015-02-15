@@ -1,216 +1,68 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\..\src\bson\bcon.c">
-      <Filter>bson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\bson\bson-atomic.c">
-      <Filter>bson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\bson\bson-clock.c">
-      <Filter>bson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\bson\bson-context.c">
-      <Filter>bson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\bson\bson-error.c">
-      <Filter>bson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\bson\bson-iter.c">
-      <Filter>bson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\bson\bson-json.c">
-      <Filter>bson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\bson\bson-keys.c">
-      <Filter>bson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\bson\bson-md5.c">
-      <Filter>bson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\bson\bson-memory.c">
-      <Filter>bson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\bson\bson-oid.c">
-      <Filter>bson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\bson\bson-reader.c">
-      <Filter>bson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\bson\bson-string.c">
-      <Filter>bson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\bson\bson-utf8.c">
-      <Filter>bson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\bson\bson-value.c">
-      <Filter>bson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\bson\bson-writer.c">
-      <Filter>bson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\bson\bson.c">
-      <Filter>bson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\yajl\yajl.c">
-      <Filter>yajl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\yajl\yajl_alloc.c">
-      <Filter>yajl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\yajl\yajl_buf.c">
-      <Filter>yajl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\yajl\yajl_encode.c">
-      <Filter>yajl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\yajl\yajl_gen.c">
-      <Filter>yajl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\yajl\yajl_lex.c">
-      <Filter>yajl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\yajl\yajl_parser.c">
-      <Filter>yajl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\yajl\yajl_tree.c">
-      <Filter>yajl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\yajl\yajl_version.c">
-      <Filter>yajl</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\src\bson\b64_ntop.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\b64_pton.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bcon.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-atomic.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-clock.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-compat.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-config.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-context-private.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-context.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-endian.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-error.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-iter.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-json.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-keys.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-macros.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-md5.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-memory.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-oid.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-private.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-reader.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-stdint-win32.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-stdint.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-string.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-thread-private.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-types.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-utf8.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-value.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-version.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\bson\bson-writer.h">
-      <Filter>bson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\yajl\yajl_alloc.h">
-      <Filter>yajl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\yajl\yajl_buf.h">
-      <Filter>yajl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\yajl\yajl_bytestack.h">
-      <Filter>yajl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\yajl\yajl_common.h">
-      <Filter>yajl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\yajl\yajl_encode.h">
-      <Filter>yajl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\yajl\yajl_gen.h">
-      <Filter>yajl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\yajl\yajl_lex.h">
-      <Filter>yajl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\yajl\yajl_parse.h">
-      <Filter>yajl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\yajl\yajl_parser.h">
-      <Filter>yajl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\yajl\yajl_tree.h">
-      <Filter>yajl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\yajl\yajl_version.h">
-      <Filter>yajl</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
     <Filter Include="bson">
-      <UniqueIdentifier>{c47bf33b-b029-4a5e-af5c-0b129dbc6a10}</UniqueIdentifier>
+      <UniqueIdentifier>{7694b4bc-0f1a-4b7b-b0fe-330546f00425}</UniqueIdentifier>
     </Filter>
-    <Filter Include="yajl">
-      <UniqueIdentifier>{43f541e7-b492-4858-bcc2-2b13949654d9}</UniqueIdentifier>
+    <Filter Include="bson\util">
+      <UniqueIdentifier>{e76a1444-3cdf-407d-94d5-16903c8f1ae9}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\bson\bson-inl.h">
+      <Filter>bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\bson\bson.h">
+      <Filter>bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\bson\bson_builder_base.h">
+      <Filter>bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\bson\bson_field.h">
+      <Filter>bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\bson\bsonelement.h">
+      <Filter>bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\bson\bsonmisc.h">
+      <Filter>bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\bson\bsonobj.h">
+      <Filter>bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\bson\bsonobjbuilder.h">
+      <Filter>bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\bson\bsonobjiterator.h">
+      <Filter>bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\bson\bsontypes.h">
+      <Filter>bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\bson\inline_decls.h">
+      <Filter>bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\bson\ordering.h">
+      <Filter>bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\bson\util\atomic_int.h">
+      <Filter>bson\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\bson\util\builder.h">
+      <Filter>bson\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\bson\util\misc.h">
+      <Filter>bson\util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\bson\README">
+      <Filter>bson</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\bson\bson.cpp">
+      <Filter>bson</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
