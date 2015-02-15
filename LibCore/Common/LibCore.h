@@ -9,6 +9,14 @@ namespace Json
  
 namespace LibCore
 { 
+#ifndef __min
+#define __min(a,b)  (((a) < (b)) ? (a) : (b))
+#endif
+
+#ifndef __max
+#define __max(a,b)  (((a) > (b)) ? (a) : (b))
+#endif
+
 	extern INT32  DLL_EXPORT  Init(std::string strLogFile = "LibCore");
 	extern INT32  DLL_EXPORT  Cleanup( void );
 
@@ -44,6 +52,7 @@ namespace LibCore
 	extern void   DLL_EXPORT  FastMemmove(void * dst , const void * src , INT64 unSize);
 	extern INT64  DLL_EXPORT  ParseHumanSizeFromString(const std::string strSize);
 	extern INT64  DLL_EXPORT  ParseHumanSizeFromJson(const Json::Value & value);
+	extern INT64  DLL_EXPORT  CityHash(const void* pBuf,UINT32 len,INT64 seed);
 
 	extern void   DLL_EXPORT GenerateUUIDBySys( char* buf );
  	extern INT64  DLL_EXPORT GenerateUUIDByTime( void );

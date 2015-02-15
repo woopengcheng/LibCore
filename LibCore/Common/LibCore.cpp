@@ -370,4 +370,9 @@ namespace LibCore
 		return -1;
 	}
 
+	INT64 CityHash(const void* pBuf,UINT32 len,INT64 seed)
+	{
+		return (int64)cityhash::CityHash64WithSeed((const char*)buf,len,seed); 
+	}
+
 }

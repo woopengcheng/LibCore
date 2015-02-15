@@ -438,6 +438,18 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\BackupEnvironment.h">
       <Filter>GameDB\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\LinkedPtr.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\Orm.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\User.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\StringEx.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -636,6 +648,9 @@
       <Filter>GameDB\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\GameDB\src\BackupEnvironment.cpp">
+      <Filter>GameDB\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\GameDB\src\User.cpp">
       <Filter>GameDB\src</Filter>
     </ClCompile>
   </ItemGroup>
