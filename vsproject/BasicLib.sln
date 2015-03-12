@@ -1,43 +1,15 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{E0544AB3-153F-4BF6-A211-15215DE2257A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GenProtobufFiles", "..\Tools\src\GenProtobufFiles\GenProtobufFiles.vcxproj", "{3C60EF6C-5272-46FC-8EC3-964F39552FDE}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{7C1DCBD7-A74F-4672-855F-153455905EB6}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibCore", "LibCore\LibCore.vcxproj", "{1C23993E-2F33-4E3F-B81A-F07FA561AB77}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LibCoreTest", "LibCoreTest", "{29B6448E-E2C6-4BA5-B1ED-23CF19DDBA33}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLibCore", "TestLibCore\TestLibCore.vcxproj", "{8FE69B4F-DC0F-4CB7-B563-003794A665A3}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLibCore_Log", "TestLibCore_Log\TestLibCore_Log.vcxproj", "{6830E281-FB67-4C0D-8630-1E988381FBF4}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLibCore_XML", "TestLibCore_XML\TestLibCore_XML.vcxproj", "{79F94A81-37FC-4B4F-BBB7-654D93529474}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLibCore_Timer", "TestLibCore_Timer\TestLibCore_Timer.vcxproj", "{87AC24C2-3677-4063-BAC1-1042DEC3AA54}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLibCore_NetClient", "TestLibCore_NetClient\TestLibCore_NetClient.vcxproj", "{8DAE6D14-937E-43A7-ACC6-A5FD74FB7785}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLibCore_NetServer", "TestLibCore_NetServer\TestLibCore_NetServer.vcxproj", "{01533A26-DA29-47AD-AA9B-BE4F3B49FA2B}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLibCore_RpcClient", "TestLibCore_RpcClient\TestLibCore_RpcClient.vcxproj", "{7E9994D6-BC17-4386-8FFD-135759E7A63E}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLibCore_RpcServer", "TestLibCore_RpcServer\TestLibCore_RpcServer.vcxproj", "{BD32A02D-9774-49C4-893C-500E9035F2EF}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLibCore_RpcProxy", "TestLibCore_RpcProxy\TestLibCore_RpcProxy.vcxproj", "{892EA724-D923-4764-B3D2-569B40DAF2EC}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deps", "deps", "{F118A4B2-B999-478C-B1D8-A848EDBD3244}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libzmq", "..\deps\zeromq\builds\msvc\libzmq\libzmq.vcxproj", "{641C5F36-32EE-4323-B740-992B651CF9D6}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ZeroMQ", "ZeroMQ", "{C024C3EA-507A-49E2-8CD6-2E029B726D78}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "local_thr", "..\deps\zeromq\builds\msvc\c_local_thr\c_local_thr.vcxproj", "{8EF2DF6B-6646-460F-8032-913B70FE0E94}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "remote_thr", "..\deps\zeromq\builds\msvc\c_remote_thr\c_remote_thr.vcxproj", "{B15E059C-0CBB-4A82-8C42-6567FB650802}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Log4Cpp", "Log4Cpp", "{CFAE0B8E-55DD-4397-9EF2-6B2328931FEF}"
 EndProject
@@ -51,113 +23,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RakNet", "RakNet", "{AD512B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Glog", "Glog", "{98BA369A-9B71-41D4-8746-756AF10CB9BF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "elements", "..\deps\expat\examples\elements.vcxproj", "{32E1C3BC-8355-48A8-8397-D4C5B06EBAAB}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "expat", "..\deps\expat\lib\expat.vcxproj", "{3403DF0D-6B72-48DE-980C-A0FAB5EEC42B}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "expat_static", "..\deps\expat\lib\expat_static.vcxproj", "{63C6AE2D-A937-492A-B127-F0966131DA3F}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "expatw", "..\deps\expat\lib\expatw.vcxproj", "{48C10DD9-B78B-4D8E-8A17-FBA1FAF08145}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "expatw_static", "..\deps\expat\lib\expatw_static.vcxproj", "{ED550119-999E-45B6-B787-BB9373728DED}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "outline", "..\deps\expat\examples\outline.vcxproj", "{249E4426-0D64-4073-9112-D2752CF8010A}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xmlwf", "..\deps\expat\xmlwf\xmlwf.vcxproj", "{36D33893-9E59-4E89-AA83-63F23F127BAB}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libglog", "..\deps\glog\vsprojects\libglog\libglog.vcxproj", "{34BD04BD-BC1D-4BFC-AAFC-ED02D9E960F1}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "logging_unittest", "..\deps\glog\vsprojects\logging_unittest\logging_unittest.vcxproj", "{DD0690AA-5E09-46B5-83FD-4B28604CABA8}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libglog_static", "..\deps\glog\vsprojects\libglog_static\libglog_static.vcxproj", "{772C2111-BBBF-49E6-B912-198A7F7A88E5}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "logging_unittest_static", "..\deps\glog\vsprojects\logging_unittest_static\logging_unittest_static.vcxproj", "{9B239B45-84A9-4E06-AC46-8E220CD43974}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{92DEA81D-81ED-4283-BBC7-41975647F69E}"
 	ProjectSection(SolutionItems) = preProject
 		..\deps\log4cplus\msvc10\tests\log4cplus_tests.props = ..\deps\log4cplus\msvc10\tests\log4cplus_tests.props
 	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "appender_test", "..\deps\log4cplus\msvc10\tests\appender_test.vcxproj", "{63AF3784-3FFB-46AC-B341-76B55AEE3148}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fileappender_test", "..\deps\log4cplus\msvc10\tests\fileappender_test.vcxproj", "{434FBB6C-6D3C-466A-86DB-DE999065B5E5}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "filter_test", "..\deps\log4cplus\msvc10\tests\filter_test.vcxproj", "{66FE475D-D26C-4457-8B1C-B057D770C716}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hierarchy_test", "..\deps\log4cplus\msvc10\tests\hierarchy_test.vcxproj", "{07817E6D-9FAB-4261-9D62-C5AD13810258}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "log4cplus", "..\deps\log4cplus\msvc10\log4cplus.vcxproj", "{917836A4-0DDC-47BE-B930-1B3BFDF6C940}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "log4cplusS", "..\deps\log4cplus\msvc10\log4cplusS.vcxproj", "{BEC0CD2F-60CD-40E2-A89B-AB10E902F1D5}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "loggingserver", "..\deps\log4cplus\msvc10\loggingserver.vcxproj", "{B8E88AF6-0427-4839-88AC-0C6E12615B10}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "loglog_test", "..\deps\log4cplus\msvc10\tests\loglog_test.vcxproj", "{1F8CC79C-876D-4A13-BA92-98A3A51B2749}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ndc_test", "..\deps\log4cplus\msvc10\tests\ndc_test.vcxproj", "{FBCE50FB-C87B-4A28-9551-7D1BFDAA65EC}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "performance_test", "..\deps\log4cplus\msvc10\tests\performance_test.vcxproj", "{94EF9EE0-6E68-4F5F-9174-D09896518894}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "configandwatch_test", "..\deps\log4cplus\msvc10\tests\configandwatch_test.vcxproj", "{0A878274-362D-4184-B5C6-A1C80D22A170}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "customloglevel_test", "..\deps\log4cplus\msvc10\tests\customloglevel_test.vcxproj", "{040B829F-8ED6-4D35-9043-0DF31597F7FB}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ostream_test", "..\deps\log4cplus\msvc10\tests\ostream_test.vcxproj", "{C133DEF0-FAF5-4635-8D5A-2C789B424371}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "priority_test", "..\deps\log4cplus\msvc10\tests\priority_test.vcxproj", "{CBD762A9-79BC-4AE7-8890-76360F539D76}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "socket_test", "..\deps\log4cplus\msvc10\tests\socket_test.vcxproj", "{D405C4A0-D62F-4EE7-96D2-76AD808C7319}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "thread_test", "..\deps\log4cplus\msvc10\tests\thread_test.vcxproj", "{F83D31E0-B607-4D3E-AF53-BA2A19BE17ED}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "timeformat_test", "..\deps\log4cplus\msvc10\tests\timeformat_test.vcxproj", "{7EFABA06-71CD-498F-BF10-C41A7D2DCF3B}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "patternlayout_test", "..\deps\log4cplus\msvc10\tests\patternlayout_test.vcxproj", "{AE4CF05D-9770-4BF2-BB73-1DA37E2A1508}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CLFSAppender", "..\deps\log4cplus\msvc10\CLFSAppender.vcxproj", "{C0C6F651-99D8-404E-B2EC-507B261E820C}"
-	ProjectSection(ProjectDependencies) = postProject
-		{917836A4-0DDC-47BE-B930-1B3BFDF6C940} = {917836A4-0DDC-47BE-B930-1B3BFDF6C940}
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Qt4DebugAppender", "..\deps\log4cplus\msvc10\Qt4DebugAppender.vcxproj", "{18B64AA1-A2F7-46BE-8D48-7882AA471FA9}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "propertyconfig_test", "..\deps\log4cplus\msvc10\tests\propertyconfig_test.vcxproj", "{44D4D0A3-FAFA-4134-9806-BCB830594E28}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "log4cpp", "..\deps\log4cpp\msvc10\log4cpp\log4cpp.vcxproj", "{8C796FDD-5BB9-41D5-8471-DDC897C8C486}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testCategory", "..\deps\log4cpp\msvc10\testCategory\testCategory.vcxproj", "{8BED5BF6-AF42-4347-F0BA-D3463996E9CA}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testDLL", "..\deps\log4cpp\msvc10\testDLL\testDLL.vcxproj", "{7608E036-C32C-96E6-7173-F8771842C1C3}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testMain", "..\deps\log4cpp\msvc10\testMain\testMain.vcxproj", "{7E130378-13BA-ABBC-5B8E-C91D4766537E}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testNDC", "..\deps\log4cpp\msvc10\testNDC\testNDC.vcxproj", "{9FA08C78-821B-4B59-EED7-FC1D396238FB}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testNTEventLog", "..\deps\log4cpp\msvc10\testNTEventLog\testNTEventLog.vcxproj", "{D6731AC4-6F9F-94FD-30D6-EC3E4DDBEDD7}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testPattern", "..\deps\log4cpp\msvc10\testPattern\testPattern.vcxproj", "{695558C7-80E0-39E4-FAB0-FAFE96E7F20A}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testPropConfig", "..\deps\log4cpp\msvc10\testPropConfig\testPropConfig.vcxproj", "{1C8B13BD-954A-18D5-31F6-F856B3AD54FC}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "log4cppLIB", "..\deps\log4cpp\msvc10\log4cppLIB\log4cppLIB.vcxproj", "{AFA856A0-2388-4673-9277-CE4061709569}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libprotobuf", "..\deps\protobuf\vsprojects\libprotobuf.vcxproj", "{3E283F37-A4ED-41B7-A3E6-A2D89D131A30}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libprotoc", "..\deps\protobuf\vsprojects\libprotoc.vcxproj", "{B84FF31A-5F9A-46F8-AB22-DBFC9BECE3BE}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protoc", "..\deps\protobuf\vsprojects\protoc.vcxproj", "{1738D5F6-ED1E-47E0-B2F0-456864B93C1E}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "..\deps\protobuf\vsprojects\tests.vcxproj", "{4DF72760-C055-40A5-A77E-30A17E2AC2DB}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest", "..\deps\protobuf\gtest\msvc\gtest.vcxproj", "{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest_main", "..\deps\protobuf\gtest\msvc\gtest_main.vcxproj", "{3AF54C8A-10BF-4332-9147-F68ED9862032}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libprotobuf-lite", "..\deps\protobuf\vsprojects\libprotobuf-lite.vcxproj", "{49EA010D-706F-4BE2-A397-77854B72A040}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lite-test", "..\deps\protobuf\vsprojects\lite-test.vcxproj", "{12015ACE-42BE-4952-A5A0-44A9A46908E2}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_plugin", "..\deps\protobuf\vsprojects\test_plugin.vcxproj", "{CBBD34E5-02B0-40D5-B6D8-BFEA83E18B32}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Autopatcher", "Autopatcher", "{82B9C30B-4865-4402-BAF2-D3A40A963216}"
 EndProject
@@ -206,6 +75,156 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scaleform", "Scaleform", "{845008A6-1271-4B6D-96F9-AAB40BA1E2FC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{12E0057C-C1E5-4644-9CE2-97F25E6A42B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Boost", "Boost", "{87E982A0-AA59-474D-9BDA-53613DFB54FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest++", "UnitTest++", "{7B2A2F42-2DF5-424F-B781-EA1DECD399A9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gperftools", "gperftools", "{EF12BA23-FE5F-43D5-AD2F-B7D1C3F097B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharePtr", "SharePtr", "{2478BB4C-3A58-4BED-8CF0-D48358D3E086}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LevelDB", "LevelDB", "{F27C4EAC-485A-4A0A-A934-D8BDD8E3852D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jsoncpp", "Jsoncpp", "{504CFEDA-C446-4CC1-A9B7-0F0B375DADDD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libiconv", "libiconv", "{7A949A98-CDA9-485A-8258-05D1B9147962}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lua", "Lua", "{1A164EF7-59CB-4C54-9958-FED98AA38813}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Snappy", "Snappy", "{A7D08E92-D3DD-4639-9C54-7832F05086B9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libbson", "Libbson", "{EC5F07F3-31D4-45A7-AEC2-2EAA2E69473F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CityHash", "CityHash", "{8DB6877B-01BA-4428-9D5A-6E2021893525}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GenProtobufFiles", "..\Tools\src\GenProtobufFiles\GenProtobufFiles.vcxproj", "{3C60EF6C-5272-46FC-8EC3-964F39552FDE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibCore", "LibCore\LibCore.vcxproj", "{1C23993E-2F33-4E3F-B81A-F07FA561AB77}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLibCore", "TestLibCore\TestLibCore.vcxproj", "{8FE69B4F-DC0F-4CB7-B563-003794A665A3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLibCore_Log", "TestLibCore_Log\TestLibCore_Log.vcxproj", "{6830E281-FB67-4C0D-8630-1E988381FBF4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLibCore_XML", "TestLibCore_XML\TestLibCore_XML.vcxproj", "{79F94A81-37FC-4B4F-BBB7-654D93529474}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLibCore_Timer", "TestLibCore_Timer\TestLibCore_Timer.vcxproj", "{87AC24C2-3677-4063-BAC1-1042DEC3AA54}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLibCore_NetClient", "TestLibCore_NetClient\TestLibCore_NetClient.vcxproj", "{8DAE6D14-937E-43A7-ACC6-A5FD74FB7785}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLibCore_NetServer", "TestLibCore_NetServer\TestLibCore_NetServer.vcxproj", "{01533A26-DA29-47AD-AA9B-BE4F3B49FA2B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLibCore_RpcClient", "TestLibCore_RpcClient\TestLibCore_RpcClient.vcxproj", "{7E9994D6-BC17-4386-8FFD-135759E7A63E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLibCore_RpcServer", "TestLibCore_RpcServer\TestLibCore_RpcServer.vcxproj", "{BD32A02D-9774-49C4-893C-500E9035F2EF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLibCore_RpcProxy", "TestLibCore_RpcProxy\TestLibCore_RpcProxy.vcxproj", "{892EA724-D923-4764-B3D2-569B40DAF2EC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libzmq", "..\deps\zeromq\builds\msvc\libzmq\libzmq.vcxproj", "{641C5F36-32EE-4323-B740-992B651CF9D6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "local_thr", "..\deps\zeromq\builds\msvc\c_local_thr\c_local_thr.vcxproj", "{8EF2DF6B-6646-460F-8032-913B70FE0E94}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "remote_thr", "..\deps\zeromq\builds\msvc\c_remote_thr\c_remote_thr.vcxproj", "{B15E059C-0CBB-4A82-8C42-6567FB650802}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "elements", "..\deps\expat\examples\elements.vcxproj", "{32E1C3BC-8355-48A8-8397-D4C5B06EBAAB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "expat", "..\deps\expat\lib\expat.vcxproj", "{3403DF0D-6B72-48DE-980C-A0FAB5EEC42B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "expat_static", "..\deps\expat\lib\expat_static.vcxproj", "{63C6AE2D-A937-492A-B127-F0966131DA3F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "expatw", "..\deps\expat\lib\expatw.vcxproj", "{48C10DD9-B78B-4D8E-8A17-FBA1FAF08145}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "expatw_static", "..\deps\expat\lib\expatw_static.vcxproj", "{ED550119-999E-45B6-B787-BB9373728DED}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "outline", "..\deps\expat\examples\outline.vcxproj", "{249E4426-0D64-4073-9112-D2752CF8010A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xmlwf", "..\deps\expat\xmlwf\xmlwf.vcxproj", "{36D33893-9E59-4E89-AA83-63F23F127BAB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libglog", "..\deps\glog\vsprojects\libglog\libglog.vcxproj", "{34BD04BD-BC1D-4BFC-AAFC-ED02D9E960F1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "logging_unittest", "..\deps\glog\vsprojects\logging_unittest\logging_unittest.vcxproj", "{DD0690AA-5E09-46B5-83FD-4B28604CABA8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libglog_static", "..\deps\glog\vsprojects\libglog_static\libglog_static.vcxproj", "{772C2111-BBBF-49E6-B912-198A7F7A88E5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "logging_unittest_static", "..\deps\glog\vsprojects\logging_unittest_static\logging_unittest_static.vcxproj", "{9B239B45-84A9-4E06-AC46-8E220CD43974}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "appender_test", "..\deps\log4cplus\msvc10\tests\appender_test.vcxproj", "{63AF3784-3FFB-46AC-B341-76B55AEE3148}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fileappender_test", "..\deps\log4cplus\msvc10\tests\fileappender_test.vcxproj", "{434FBB6C-6D3C-466A-86DB-DE999065B5E5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "filter_test", "..\deps\log4cplus\msvc10\tests\filter_test.vcxproj", "{66FE475D-D26C-4457-8B1C-B057D770C716}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hierarchy_test", "..\deps\log4cplus\msvc10\tests\hierarchy_test.vcxproj", "{07817E6D-9FAB-4261-9D62-C5AD13810258}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "log4cplus", "..\deps\log4cplus\msvc10\log4cplus.vcxproj", "{917836A4-0DDC-47BE-B930-1B3BFDF6C940}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "log4cplusS", "..\deps\log4cplus\msvc10\log4cplusS.vcxproj", "{BEC0CD2F-60CD-40E2-A89B-AB10E902F1D5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "loggingserver", "..\deps\log4cplus\msvc10\loggingserver.vcxproj", "{B8E88AF6-0427-4839-88AC-0C6E12615B10}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "loglog_test", "..\deps\log4cplus\msvc10\tests\loglog_test.vcxproj", "{1F8CC79C-876D-4A13-BA92-98A3A51B2749}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ndc_test", "..\deps\log4cplus\msvc10\tests\ndc_test.vcxproj", "{FBCE50FB-C87B-4A28-9551-7D1BFDAA65EC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "performance_test", "..\deps\log4cplus\msvc10\tests\performance_test.vcxproj", "{94EF9EE0-6E68-4F5F-9174-D09896518894}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "configandwatch_test", "..\deps\log4cplus\msvc10\tests\configandwatch_test.vcxproj", "{0A878274-362D-4184-B5C6-A1C80D22A170}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "customloglevel_test", "..\deps\log4cplus\msvc10\tests\customloglevel_test.vcxproj", "{040B829F-8ED6-4D35-9043-0DF31597F7FB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ostream_test", "..\deps\log4cplus\msvc10\tests\ostream_test.vcxproj", "{C133DEF0-FAF5-4635-8D5A-2C789B424371}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "priority_test", "..\deps\log4cplus\msvc10\tests\priority_test.vcxproj", "{CBD762A9-79BC-4AE7-8890-76360F539D76}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "socket_test", "..\deps\log4cplus\msvc10\tests\socket_test.vcxproj", "{D405C4A0-D62F-4EE7-96D2-76AD808C7319}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "thread_test", "..\deps\log4cplus\msvc10\tests\thread_test.vcxproj", "{F83D31E0-B607-4D3E-AF53-BA2A19BE17ED}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "timeformat_test", "..\deps\log4cplus\msvc10\tests\timeformat_test.vcxproj", "{7EFABA06-71CD-498F-BF10-C41A7D2DCF3B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "patternlayout_test", "..\deps\log4cplus\msvc10\tests\patternlayout_test.vcxproj", "{AE4CF05D-9770-4BF2-BB73-1DA37E2A1508}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CLFSAppender", "..\deps\log4cplus\msvc10\CLFSAppender.vcxproj", "{C0C6F651-99D8-404E-B2EC-507B261E820C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Qt4DebugAppender", "..\deps\log4cplus\msvc10\Qt4DebugAppender.vcxproj", "{18B64AA1-A2F7-46BE-8D48-7882AA471FA9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "propertyconfig_test", "..\deps\log4cplus\msvc10\tests\propertyconfig_test.vcxproj", "{44D4D0A3-FAFA-4134-9806-BCB830594E28}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "log4cpp", "..\deps\log4cpp\msvc10\log4cpp\log4cpp.vcxproj", "{8C796FDD-5BB9-41D5-8471-DDC897C8C486}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testCategory", "..\deps\log4cpp\msvc10\testCategory\testCategory.vcxproj", "{8BED5BF6-AF42-4347-F0BA-D3463996E9CA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testDLL", "..\deps\log4cpp\msvc10\testDLL\testDLL.vcxproj", "{7608E036-C32C-96E6-7173-F8771842C1C3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testMain", "..\deps\log4cpp\msvc10\testMain\testMain.vcxproj", "{7E130378-13BA-ABBC-5B8E-C91D4766537E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testNDC", "..\deps\log4cpp\msvc10\testNDC\testNDC.vcxproj", "{9FA08C78-821B-4B59-EED7-FC1D396238FB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testNTEventLog", "..\deps\log4cpp\msvc10\testNTEventLog\testNTEventLog.vcxproj", "{D6731AC4-6F9F-94FD-30D6-EC3E4DDBEDD7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testPattern", "..\deps\log4cpp\msvc10\testPattern\testPattern.vcxproj", "{695558C7-80E0-39E4-FAB0-FAFE96E7F20A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testPropConfig", "..\deps\log4cpp\msvc10\testPropConfig\testPropConfig.vcxproj", "{1C8B13BD-954A-18D5-31F6-F856B3AD54FC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "log4cppLIB", "..\deps\log4cpp\msvc10\log4cppLIB\log4cppLIB.vcxproj", "{AFA856A0-2388-4673-9277-CE4061709569}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libprotobuf", "..\deps\protobuf\vsprojects\libprotobuf.vcxproj", "{3E283F37-A4ED-41B7-A3E6-A2D89D131A30}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libprotoc", "..\deps\protobuf\vsprojects\libprotoc.vcxproj", "{B84FF31A-5F9A-46F8-AB22-DBFC9BECE3BE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protoc", "..\deps\protobuf\vsprojects\protoc.vcxproj", "{1738D5F6-ED1E-47E0-B2F0-456864B93C1E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "..\deps\protobuf\vsprojects\tests.vcxproj", "{4DF72760-C055-40A5-A77E-30A17E2AC2DB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest", "..\deps\protobuf\gtest\msvc\gtest.vcxproj", "{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest_main", "..\deps\protobuf\gtest\msvc\gtest_main.vcxproj", "{3AF54C8A-10BF-4332-9147-F68ED9862032}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libprotobuf-lite", "..\deps\protobuf\vsprojects\libprotobuf-lite.vcxproj", "{49EA010D-706F-4BE2-A397-77854B72A040}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lite-test", "..\deps\protobuf\vsprojects\lite-test.vcxproj", "{12015ACE-42BE-4952-A5A0-44A9A46908E2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_plugin", "..\deps\protobuf\vsprojects\test_plugin.vcxproj", "{CBBD34E5-02B0-40D5-B6D8-BFEA83E18B32}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLL", "..\deps\RakNet\Lib\DLL\DLL_vc9.vcxproj", "{BC75CD23-CB75-4233-A305-B7328825A9A5}"
 EndProject
@@ -373,13 +392,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lobby3", "..\deps\RakNet\Sa
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLibCore_InnerMsg", "TestLibCore_InnerMsg\TestLibCore_InnerMsg.vcxproj", "{25D8C9C8-D200-4770-9698-5C17771E993F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Boost", "Boost", "{87E982A0-AA59-474D-9BDA-53613DFB54FE}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest++", "UnitTest++", "{7B2A2F42-2DF5-424F-B781-EA1DECD399A9}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "unittestpp_vs2008", "..\deps\UnitTest++\UnitTest++\unittestpp_vs2008.vcxproj", "{64A4FEFE-0461-4E95-8CC1-91EF5F57DBC6}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gperftools", "gperftools", "{EF12BA23-FE5F-43D5-AD2F-B7D1C3F097B4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libtcmalloc_minimal", "..\deps\gperftools\vsprojects\libtcmalloc_minimal\libtcmalloc_minimal.vcxproj", "{55E2B3AE-3CA1-4DB6-97F7-0A044D6F446F}"
 EndProject
@@ -423,15 +436,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "addr2line-pdb", "..\deps\gp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nm-pdb", "..\deps\gperftools\vsprojects\nm-pdb\nm-pdb.vcxproj", "{3A559C75-FD26-4300-B86B-165FD43EE1CE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharePtr", "SharePtr", "{2478BB4C-3A58-4BED-8CF0-D48358D3E086}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GenRpcs", "..\Tools\src\GenRpcs\GenRpcs.vcxproj", "{E806565C-8C34-4CA2-A511-7F2EC6285C61}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LevelDB", "LevelDB", "{F27C4EAC-485A-4A0A-A934-D8BDD8E3852D}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LevelDB", "..\deps\leveldb\msvc\LevelDB\LevelDB.vcxproj", "{1A245BC8-8047-4850-9A02-D15A1A97D7D0}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jsoncpp", "Jsoncpp", "{504CFEDA-C446-4CC1-A9B7-0F0B375DADDD}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lib_json", "..\deps\jsoncpp\makefiles\msvc2010\lib_json.vcxproj", "{1E6C2C1C-6453-4129-AE3F-0EE8E6599C89}"
 EndProject
@@ -439,29 +446,21 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jsontest", "..\deps\jsoncpp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_lib_json", "..\deps\jsoncpp\makefiles\msvc2010\test_lib_json.vcxproj", "{B7A96B78-2782-40D2-8F37-A2DEF2B9C26D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libiconv", "libiconv", "{7A949A98-CDA9-485A-8258-05D1B9147962}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libiconv_static", "..\deps\libiconv\MSVC11\libiconv_static\libiconv_static.vcxproj", "{F9C13A95-C7EB-40F3-A599-3695C1E0CF38}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libiconv_dll", "..\deps\libiconv\MSVC11\libiconv_dll\libiconv_dll.vcxproj", "{7EA4EC62-EA19-4ACC-86E2-0513E381292B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lua", "Lua", "{1A164EF7-59CB-4C54-9958-FED98AA38813}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lua", "..\deps\lua\vsprojects\lua\lua.vcxproj", "{797D911E-BB35-4D78-82A4-EEB3110CD643}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Snappy", "..\deps\Snappy\vsprojects\Snappy\Snappy.vcxproj", "{4B707F34-30A9-4BDB-A43C-BB9BCDBA94A7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Snappy", "Snappy", "{A7D08E92-D3DD-4639-9C54-7832F05086B9}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libbson", "Libbson", "{EC5F07F3-31D4-45A7-AEC2-2EAA2E69473F}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestGameDB", "TestGameDB\TestGameDB.vcxproj", "{F916E28B-4959-426D-91E9-5B091EEA5621}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CityHash", "CityHash", "{8DB6877B-01BA-4428-9D5A-6E2021893525}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CityHash", "..\deps\CityHash\vsprojects\CityHash\CityHash.vcxproj", "{3DC16DD2-9373-4CF1-AC9E-CC02DF500A0D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Libbson", "..\deps\Libbson\build\Libbson\Libbson.vcxproj", "{90DAD1D4-0FF7-4222-BD00-DB5A4C0E22FB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibbsonTest", "..\deps\Libbson\build\LibbsonTest\LibbsonTest.vcxproj", "{D014B240-5728-43A8-A803-A5994E2D1937}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9927,7 +9926,7 @@ Global
 		{3DC16DD2-9373-4CF1-AC9E-CC02DF500A0D}.Debug|x64.ActiveCfg = Debug|Win32
 		{3DC16DD2-9373-4CF1-AC9E-CC02DF500A0D}.DLL_Debug_x64|Win32.ActiveCfg = Debug|Win32
 		{3DC16DD2-9373-4CF1-AC9E-CC02DF500A0D}.DLL_Debug_x64|Win32.Build.0 = Debug|Win32
-		{3DC16DD2-9373-4CF1-AC9E-CC02DF500A0D}.DLL_Debug_x64|x64.ActiveCfg = Debug|Win32
+		{3DC16DD2-9373-4CF1-AC9E-CC02DF500A0D}.DLL_Debug_x64|x64.ActiveCfg = DLL_Debug_x64|x64
 		{3DC16DD2-9373-4CF1-AC9E-CC02DF500A0D}.LibDebug|Win32.ActiveCfg = Debug|Win32
 		{3DC16DD2-9373-4CF1-AC9E-CC02DF500A0D}.LibDebug|Win32.Build.0 = Debug|Win32
 		{3DC16DD2-9373-4CF1-AC9E-CC02DF500A0D}.LibDebug|x64.ActiveCfg = Debug|Win32
@@ -9980,7 +9979,6 @@ Global
 		{90DAD1D4-0FF7-4222-BD00-DB5A4C0E22FB}.DLL_Debug_x64|Win32.ActiveCfg = DLL_Debug_x64|Win32
 		{90DAD1D4-0FF7-4222-BD00-DB5A4C0E22FB}.DLL_Debug_x64|Win32.Build.0 = DLL_Debug_x64|Win32
 		{90DAD1D4-0FF7-4222-BD00-DB5A4C0E22FB}.DLL_Debug_x64|x64.ActiveCfg = DLL_Debug_x64|x64
-		{90DAD1D4-0FF7-4222-BD00-DB5A4C0E22FB}.DLL_Debug_x64|x64.Build.0 = DLL_Debug_x64|x64
 		{90DAD1D4-0FF7-4222-BD00-DB5A4C0E22FB}.LibDebug|Win32.ActiveCfg = Debug|Win32
 		{90DAD1D4-0FF7-4222-BD00-DB5A4C0E22FB}.LibDebug|Win32.Build.0 = Debug|Win32
 		{90DAD1D4-0FF7-4222-BD00-DB5A4C0E22FB}.LibDebug|x64.ActiveCfg = Debug|x64
@@ -10024,6 +10022,57 @@ Global
 		{90DAD1D4-0FF7-4222-BD00-DB5A4C0E22FB}.WithOpenPGM|Win32.ActiveCfg = Release|x64
 		{90DAD1D4-0FF7-4222-BD00-DB5A4C0E22FB}.WithOpenPGM|x64.ActiveCfg = Release|x64
 		{90DAD1D4-0FF7-4222-BD00-DB5A4C0E22FB}.WithOpenPGM|x64.Build.0 = Release|x64
+		{D014B240-5728-43A8-A803-A5994E2D1937}.Debug with Boost|Win32.ActiveCfg = Debug|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.Debug with Boost|Win32.Build.0 = Debug|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.Debug with Boost|x64.ActiveCfg = Debug|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.Debug_Unicode|Win32.ActiveCfg = Debug|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.Debug_Unicode|Win32.Build.0 = Debug|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.Debug_Unicode|x64.ActiveCfg = Debug|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.Debug|Win32.Build.0 = Debug|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.Debug|x64.ActiveCfg = Debug|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.DLL_Debug_x64|Win32.ActiveCfg = Debug|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.DLL_Debug_x64|Win32.Build.0 = Debug|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.DLL_Debug_x64|x64.ActiveCfg = DLL_Debug_x64|x64
+		{D014B240-5728-43A8-A803-A5994E2D1937}.LibDebug|Win32.ActiveCfg = Debug|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.LibDebug|Win32.Build.0 = Debug|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.LibDebug|x64.ActiveCfg = Debug|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.Release with Boost|Win32.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.Release with Boost|Win32.Build.0 = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.Release with Boost|x64.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.Release_Unicode|Win32.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.Release_Unicode|Win32.Build.0 = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.Release_Unicode|x64.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.Release|Win32.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.Release|Win32.Build.0 = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.Release|x64.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.StaticDebug|Win32.ActiveCfg = Debug|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.StaticDebug|Win32.Build.0 = Debug|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.StaticDebug|x64.ActiveCfg = Debug|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.StaticRelease|Win32.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.StaticRelease|Win32.Build.0 = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.StaticRelease|x64.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.win32_dll_vc90_debug|Win32.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.win32_dll_vc90_debug|Win32.Build.0 = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.win32_dll_vc90_debug|x64.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.win32_dll_vc90_release|Win32.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.win32_dll_vc90_release|Win32.Build.0 = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.win32_dll_vc90_release|x64.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.win32_static_vc90_md_debug|Win32.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.win32_static_vc90_md_debug|Win32.Build.0 = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.win32_static_vc90_md_debug|x64.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.win32_static_vc90_md_release|Win32.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.win32_static_vc90_md_release|Win32.Build.0 = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.win32_static_vc90_md_release|x64.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.win32_static_vc90_mt_debug|Win32.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.win32_static_vc90_mt_debug|Win32.Build.0 = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.win32_static_vc90_mt_debug|x64.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.win32_static_vc90_mt_release|Win32.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.win32_static_vc90_mt_release|Win32.Build.0 = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.win32_static_vc90_mt_release|x64.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.WithOpenPGM|Win32.ActiveCfg = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.WithOpenPGM|Win32.Build.0 = Release|Win32
+		{D014B240-5728-43A8-A803-A5994E2D1937}.WithOpenPGM|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -10248,6 +10297,7 @@ Global
 		{797D911E-BB35-4D78-82A4-EEB3110CD643} = {1A164EF7-59CB-4C54-9958-FED98AA38813}
 		{4B707F34-30A9-4BDB-A43C-BB9BCDBA94A7} = {A7D08E92-D3DD-4639-9C54-7832F05086B9}
 		{90DAD1D4-0FF7-4222-BD00-DB5A4C0E22FB} = {EC5F07F3-31D4-45A7-AEC2-2EAA2E69473F}
+		{D014B240-5728-43A8-A803-A5994E2D1937} = {EC5F07F3-31D4-45A7-AEC2-2EAA2E69473F}
 		{3DC16DD2-9373-4CF1-AC9E-CC02DF500A0D} = {8DB6877B-01BA-4428-9D5A-6E2021893525}
 	EndGlobalSection
 	GlobalSection(DPCodeReviewSolutionGUID) = preSolution

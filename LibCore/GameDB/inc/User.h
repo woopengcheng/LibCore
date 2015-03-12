@@ -1,7 +1,7 @@
 #ifndef __gamedb_user_h__
 #define __gamedb_user_h__
-#include "GameDB/inc/DatabaseCommon.h"
 #include "Common/StringEx.h"
+#include "GameDB/inc/Orm.h"
 
 namespace GameDB
 { 
@@ -14,27 +14,27 @@ namespace GameDB
 		User* Clone();
 
 	public:
-		static const char* meta() { return "user"; }
-		static const int64 meta_hash = 1920115394819; 
+		static const char* TableName() { return "user"; }
+		static const INT64 meta_hash = 1920115394819; 
 
-	public:
+	public: 
 		virtual std::string GetKey();
 		virtual std::string GetRawKey();
 		virtual std::string GetTableName();
-		virtual std::string IsDefaultValue();
+		virtual bool        IsDefaultValue();
 
 	public:
 		virtual void		ToBson(std::string & strBuf);
-		virtual void		ToBson(bson::bo & objBson);
+		virtual void		ToBson(_bson::bsonobj & objBson);
 		virtual void		FromBson(const char * pData , INT32 nSize);
-		virtual void		FromBson(const bson::bo & objBson);
-		virtual void		ToCompress(bson::bo & objBson);
-		virtual void		FromCompress(const char* data,size_t size);
+		virtual void		FromBson(const _bson::bsonobj & objBson);
+		virtual void		ToCompress(std::string & __buf); 
+		virtual void		FromCompress(const char* data,INT32 size);
 		virtual void		FromCompress(const std::string & strBuf);
 
 	public:
 		virtual INT64		HashMake(INT64 llSeed);
-		virtual INT64		CurHash();
+		virtual INT64		CurHash(){ return __hash; }
 		virtual void		HashUpdate(INT64 llHash);
 
 	public:
@@ -42,7 +42,7 @@ namespace GameDB
 		virtual void		SetMasterID(INT64 llID);
 		virtual void		SetMasterID(const char* pID);
 		virtual INT64		GetMasterID();
-		virtual const char*	GetMasterID();  
+		virtual const char*	GetMasterStrID();   
 
 	public:
 		const char* get_name() const;
@@ -59,7 +59,7 @@ namespace GameDB
 		LibCore::StringEx<64> pswd;
 
 	public:
-		int64 __hash;
+		INT64 __hash;
 	};
 
 }

@@ -6,6 +6,8 @@
 #include "Common/Random.h"
 #include "Common/UnitTest.h"
 #include "json/value.h"
+#include "city.h"
+#include "snappy.h"
 
 #ifdef WIN32
 #include <ObjBase.h>
@@ -79,13 +81,26 @@ namespace LibCore
 			return 0LL;
 
 #ifdef WIN32
-		return _atoi64(str);
+		return _atoi64(str); 
 #else
 		return ::atoll(str);
 #endif
 
 	}
 
+	UINT64   atoull(const char* str)
+	{
+		if(str == NULL)
+			return 0LL;
+
+#ifdef WIN32
+		return _strtoui64(str , NULL , 10); 
+#else
+		return ::strtouq(str);
+#endif
+
+
+	}
 	double  atof( const char* str )
 	{
 		return ::atof(str);
@@ -370,9 +385,58 @@ namespace LibCore
 		return -1;
 	}
 
-	INT64 CityHash(const void* pBuf,UINT32 len,INT64 seed)
+	UINT64 CityHash(const void* pBuf,UINT32 len,INT64 seed)
 	{
-		return (int64)cityhash::CityHash64WithSeed((const char*)buf,len,seed); 
+		return (INT64)CityHash64WithSeed((const char*)pBuf,len,seed); 
 	}
+
+	UINT32 Compress(const char * pBuf , UINT32 unLength , std::string & strUncompressed)
+	{
+		return (UINT32)snappy::Compress(pBuf,unLength,&strUncompressed);
+	}
+
+	bool UnCompress(const char * pBuf , UINT32 unLength , std::string & strUncompressed)
+	{
+		return snappy::Uncompress(pBuf , unLength , &strUncompressed);
+	}
+
+	INT64 strtoll(const char* str, char** endptr, INT32 base)
+	{
+ 		return _strtoui64(str, endptr, base);
+	}
+
+	UINT64 strtoull(const char* str, char** endptr, INT32 base)
+	{
+		return _strtoui64(str , NULL , 10); 
+	}
+
+	INT64 BKDRHash(const char* pBuf)
+	{
+		unsigned int seed = 131; // 31 131 1313 13131 131313 etc..
+		unsigned int hash = 0;
+
+		while (*pBuf)
+		{
+			hash = hash * seed + (*pBuf++);
+		}
+
+		return (hash & 0x7FFFFFFF); 
+	}
+
+	INT64 BKDRHashSum(const char* pBuf)
+	{
+		INT64 sum = 0;
+		unsigned int seed = 131; // 31 131 1313 13131 131313 etc..
+		unsigned int hash = 0;
+
+		while (*pBuf)
+		{
+			sum += *pBuf;
+			hash = hash * seed + (*pBuf++);
+		}
+
+		return (sum << 32) + (hash & 0x7FFFFFFF); 
+	}
+
 
 }

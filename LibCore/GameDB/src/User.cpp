@@ -1,4 +1,5 @@
-#include "User.h"
+#include "GameDB/inc/User.h" 
+#include "Common/BsonToCpp.h"
 
 namespace GameDB
 { 
@@ -13,7 +14,7 @@ namespace GameDB
 	User::~User()
 	{
 	}
-	std::string User::rawkey()
+	std::string User::GetRawKey()
 	{
 		std::string result;
 		result.reserve(64);
@@ -22,24 +23,24 @@ namespace GameDB
 		return result;
 	}
 
-	std::string User::getkey()
+	std::string User::GetKey()
 	{
-		return this->rawkey();
+		return this->GetRawKey();
 	}
 
-	std::string User::getmeta()
+	std::string User::GetTableName()
 	{
-		return User::meta();
+		return User::TableName();
 	}
 
-	void User::set_autoincr(int64 key)
+	void User::AutoIncrease(INT64 llKey)
 	{
 		assert(false);
 	}
 
 	User* User::Clone()
-	{
-		bson::bo obj;
+	{ 
+		_bson::bsonobj obj;
 		ToBson(obj);
 		User* pNew = new User();
 		pNew->FromBson(obj);
@@ -48,22 +49,22 @@ namespace GameDB
 
 	void User::ToCompress(std::string & __buf)
 	{
-		bson::bo __obj;
+		_bson::bsonobj __obj;
 		ToBson(__obj);
-		snappy::Compress(__obj.objdata(),__obj.objsize(),&__buf);
+		LibCore::Compress(__obj.objdata(),__obj.objsize(),__buf);
 	}
-
+	  
 	void User::ToBson(std::string& __buf)
 	{
-		bson::bo __obj;
+		_bson::bsonobj __obj;
 		ToBson(__obj);
 		__buf = std::string(__obj.objdata(),__obj.objsize());
 	}
 
-	void User::ToBson(bson::bo& __obj)
+	void User::ToBson(_bson::bsonobj & __obj)
 	{
-		mongo::BSONObjBuilder __builder;
-		__builder.append("_T",meta());
+		_bson::bsonobjbuilder __builder;
+		__builder.append("_T",TableName());
 		if(name != "")
 			__builder.append("name",name);
 		if(pswd != "")
@@ -76,72 +77,72 @@ namespace GameDB
 	void User::FromCompress(const std::string& __inbuf)
 	{
 		std::string tmpbuf;
-		snappy::Uncompress(__inbuf.c_str(),__inbuf.length(),&tmpbuf);
-		bson::bo __obj(tmpbuf.c_str());
+		LibCore::UnCompress(__inbuf.c_str(),__inbuf.length(),tmpbuf);
+		_bson::bsonobj __obj(tmpbuf.c_str());
 		assert(__obj.objsize() == tmpbuf.length());
 		FromBson(__obj);
 	}
 
-	void User::FromCompress(const char* __data,size_t __size)
+	void User::FromCompress(const char* __data,INT32 __size)
 	{
 		std::string tmpbuf;
-		snappy::Uncompress(__data,__size,&tmpbuf);
-		bson::bo __obj(tmpbuf.c_str());
+		LibCore::UnCompress(__data,__size,tmpbuf);
+		_bson::bsonobj __obj(tmpbuf.c_str());
 		assert(__obj.objsize() == tmpbuf.length());
 		FromBson(__obj);
 	}
 
-	void User::FromBson(const char* __data,size_t __size)
+	void User::FromBson(const char* __data,INT32 __size)
 	{
-		bson::bo __obj(__data);
+		_bson::bsonobj __obj(__data);
 		assert(__obj.objsize() == __size);
 		FromBson(__obj);
 	}
 
-	void User::FromBson(const bson::bo& __obj)
+	void User::FromBson(const _bson::bsonobj & __obj)
 	{
-		mongo::BSONObjIterator iter(__obj);
+		_bson::bsonobjiterator iter(__obj); 
 		while(iter.more())
 		{
-			mongo::BSONElement __be = iter.next();
+			_bson::bsonelement __be = iter.next(); 
 			const char* fieldName = __be.fieldName();
-			int64 hash = pwutils::bkdr_hash_and_sum(fieldName);
+			INT64 hash = LibCore::BKDRHashSum(fieldName);
 			switch(hash)
 			{
 			case 768799158513: // _T
 				{
-					assert(pwutils::strcmp(__be.valuestr(),meta()) == 0);
+					assert(LibCore::strcmp(__be.valuestr(),TableName()) == 0);
 				}
 				break;
 			case 1791250331439: // name type: string
 				{
-					pwutils::bsonToCppVariable(name,__be);
+					LibCore::BsonToCpp(name,__be);
 				}
 				break;
 			case 1915809189412: // pswd type: string
 				{
-					pwutils::bsonToCppVariable(pswd,__be);
+					LibCore::BsonToCpp(pswd,__be);
 				}
 				break;
 			case 3427387595580: // sysuser type: bool
 				{
-					pwutils::bsonToCppVariable(sysuser,__be);
+					LibCore::BsonToCpp(sysuser,__be);
 				}
 				break;
 			}
 		}
-		__hash = hash_make(0);
+		__hash = HashMake(0);
 	}
 
 
-	int64 User::hash_make(int64 seed)
+	INT64 User::HashMake(INT64 seed)
 	{
-		int64 _result = seed;
-		_result = LibCore::city_hash(&name,sizeof(name),_result);
+		INT64 _result = seed;
+		_result = LibCore::CityHash(&name,sizeof(name),_result);
 
-		_result = pwutils::city_hash(&pswd,sizeof(pswd),_result);
+		_result = LibCore::CityHash(&pswd,sizeof(pswd),_result);
 
-		_result = pwutils::city_hash(&sysuser,sizeof(sysuser),_result);
+		_result = LibCore::CityHash(&sysuser,sizeof(sysuser),_result);
 
 		return _result;
 	}
@@ -189,6 +190,31 @@ namespace GameDB
 			return false;
 
 		return true;
+	}
+
+	void User::HashUpdate(INT64 llHash)
+	{ 
+		__hash = llHash; 
+	}
+
+	void User::SetMasterID(INT64 llID)
+	{
+
+	}
+
+	void User::SetMasterID(const char* pID)
+	{
+
+	}
+
+	INT64 User::GetMasterID()
+	{
+		return 0;
+	}
+
+	const char* User::GetMasterStrID()
+	{
+		return "";
 	}
 
 }

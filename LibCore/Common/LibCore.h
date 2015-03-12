@@ -26,6 +26,9 @@ namespace LibCore
 	extern INT32  DLL_EXPORT  strcmp(const char* str1,const char* str2);
 	extern INT32  DLL_EXPORT  stricmp(const char* str1,const char* str2);
 	extern INT64  DLL_EXPORT  atoi(const char* str);
+	extern UINT64  DLL_EXPORT atoull(const char* str);
+	extern INT64  DLL_EXPORT  strtoll(const char* str, char** endptr = NULL, INT32 base = 10);
+	extern UINT64  DLL_EXPORT strtoull(const char* str, char** endptr = NULL, INT32 base = 10);
 	extern double DLL_EXPORT  atof(const char* str);
 	extern void   DLL_EXPORT  itoa(char* str,INT64 val);
 	extern std::string  DLL_EXPORT  itoa(INT64 val); 
@@ -52,7 +55,11 @@ namespace LibCore
 	extern void   DLL_EXPORT  FastMemmove(void * dst , const void * src , INT64 unSize);
 	extern INT64  DLL_EXPORT  ParseHumanSizeFromString(const std::string strSize);
 	extern INT64  DLL_EXPORT  ParseHumanSizeFromJson(const Json::Value & value);
-	extern INT64  DLL_EXPORT  CityHash(const void* pBuf,UINT32 len,INT64 seed);
+	extern UINT64 DLL_EXPORT  CityHash(const void* pBuf,UINT32 len,INT64 seed); 
+	extern INT64  DLL_EXPORT  BKDRHash(const char* pBuf);
+	extern INT64  DLL_EXPORT  BKDRHashSum(const char* pBuf);
+	extern UINT32 DLL_EXPORT  Compress(const char * pBuf , UINT32 unLength , std::string & strUncompressed);
+	extern bool   DLL_EXPORT  UnCompress(const char * pBuf , UINT32 unLength , std::string & strUncompressed);
 
 	extern void   DLL_EXPORT GenerateUUIDBySys( char* buf );
  	extern INT64  DLL_EXPORT GenerateUUIDByTime( void );

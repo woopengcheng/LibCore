@@ -9,7 +9,7 @@ namespace LibCore
 	{
 	public:
 		virtual void  Init(const char * pStr , UINT32 unLength) = 0;
-		virtual const char * c_str() = 0;
+		virtual const char * c_str() const = 0 ;
 	};
 
 	template<UINT32 L>
@@ -34,12 +34,12 @@ namespace LibCore
 
 		StringEx<L> & operator = (const char * pStr)
 		{
-			Init(pStr);
+			Init(pStr , strlen(pStr));
 
 			return * this;
 		}
 
-		operator const char * () const
+		operator const char * ()
 		{
 			return m_szString;
 		}

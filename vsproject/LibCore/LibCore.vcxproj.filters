@@ -450,6 +450,9 @@
     <ClInclude Include="..\..\LibCore\Common\StringEx.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\BsonToCpp.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -652,6 +655,9 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\GameDB\src\User.cpp">
       <Filter>GameDB\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Common\BsonToCpp.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
