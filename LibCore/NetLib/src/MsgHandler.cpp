@@ -46,12 +46,12 @@ namespace Net
 		
 		pMsgHandlerImp->Init(pMsgProcess , bAutoManagerMemeory);
 		  
-		if(ERR_NET_FAILURE == pMsgHandlerImp->ConnectServer( pAddress , usPort))
+		if(ERR_FAILURE == pMsgHandlerImp->ConnectServer( pAddress , usPort))
 		{ 
 			pMsgHandlerImp->Cleanup();
 			SAFE_DELETE(pMsgHandlerImp);
 
-			return ERR_NET_FAILURE;
+			return ERR_FAILURE;
 		}
 
 		ThreadPool::ThreadPoolInterface::GetInstance().AddTask(pMsgHandlerImp);
@@ -98,7 +98,7 @@ namespace Net
 			return pMsgHandlerImp->SendMsg(unMsgID , pBuffer , unLength);
 		}
 		
-		return ERR_NET_FAILURE;
+		return ERR_FAILURE;
 	}
 
 	MsgHandlerImp * MsgHandler::GetMsgHandlerImp( UINT32 unClientIndex )
@@ -120,7 +120,7 @@ namespace Net
 			return pMsgHandlerImp->IsConnected();
 		}
 
-		return ERR_NET_FAILURE;
+		return ERR_FAILURE;
 
 	}
 
@@ -136,7 +136,7 @@ namespace Net
 				return m_pNet->Connect(pAddress , usPort);
 		}
 
-		return ERR_NET_FAILURE;
+		return ERR_FAILURE;
 	}
 	
 	INT32 MsgHandlerImp::Update()
@@ -177,7 +177,7 @@ namespace Net
 			return m_pNet->IsConnected();
 		}
 
-		return ERR_NET_FAILURE;
+		return ERR_FAILURE;
 	}
 
 	INT32 MsgHandlerImp::InflowRecvBuffer( void )
@@ -195,7 +195,7 @@ namespace Net
 			return ERR_SUCCESS;
 		}
 
-		return ERR_NET_FAILURE;
+		return ERR_FAILURE;
 	}
 
 	INT32 MsgHandlerImp::PorcessMsg()
@@ -217,7 +217,7 @@ namespace Net
 			return ERR_SUCCESS;
 		} 
 		
-		return ERR_NET_FAILURE; 
+		return ERR_FAILURE; 
 	}
 
 	INT32 MsgHandlerImp::FetchMsgFromRecvBuffer( MsgWrapper *& pMsg )
@@ -227,7 +227,7 @@ namespace Net
 
 	INT32 MsgHandlerImp::OutflowSendBuffer()
 	{
-		INT32 nCodeError = ERR_NET_FAILURE;
+		INT32 nCodeError = ERR_FAILURE;
 		if (m_pNet)
 		{
 			MsgWrapper * pMsgWrapper = NULL;

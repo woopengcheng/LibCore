@@ -4,28 +4,48 @@
 namespace LibCore
 { 
 
-	Chunk::Chunk(void * pBuf , UINT32 unChunkSize)
+	Chunk::Chunk(void * pBuf , UINT32 unChunkSize, BOOL bMustRelease /*= TRUE*/)
 		: m_unSize(0)
 		, m_unDataLen(0)
 		, m_pBuf(NULL)
+		, m_bMustRelease(bMustRelease)
 	{
-		if (unChunkSize)
+		if (unChunkSize && bMustRelease)
 		{
 			Reverse(unChunkSize); 
 			memcpy(m_pBuf , pBuf , unChunkSize);
 			m_unDataLen = unChunkSize;
 		}
+		else
+		{
+			m_pBuf = pBuf;
+			m_unDataLen = unChunkSize;
+			m_unSize = unChunkSize;
+		} 
 	}
 
+	Chunk::Chunk(UINT32 unChunkSize)
+		: m_unSize(0)
+		, m_unDataLen(0)
+		, m_pBuf(NULL)
+		, m_bMustRelease(TRUE)
+	{
+		if (unChunkSize)
+		{
+			Reverse(unChunkSize);  
+			m_unDataLen = unChunkSize;
+		}  
+	}
+	 
 	Chunk::Chunk(const Chunk & objChunk)
 		: m_unSize(0)
 		, m_unDataLen(0)
 		, m_pBuf(NULL)
+		, m_bMustRelease(TRUE)
 	{
 		Reverse(objChunk.GetDataLen());
 		memcpy(m_pBuf , objChunk.GetBuf() , objChunk.GetDataLen());
 		m_unDataLen = objChunk.GetDataLen();
-
 	}
 
 	Chunk	& Chunk::operator=(const Chunk & objChunk)
@@ -60,6 +80,7 @@ namespace LibCore
 			Release();
 			m_unSize = unSize;
 			m_pBuf = pBuf;
+			m_bMustRelease = TRUE;
 		}
 
 		return *this;
@@ -105,7 +126,7 @@ namespace LibCore
 
 	void Chunk::Release(void)
 	{
-		if (m_unSize != 0 && m_pBuf)
+		if (m_unSize != 0 && m_pBuf && m_bMustRelease)
 		{
 			SAFE_DELETE_ARRAY(m_pBuf);
 		}
@@ -140,5 +161,6 @@ namespace LibCore
 
 		return *this;
 	}
-
+	 
+	 
 }

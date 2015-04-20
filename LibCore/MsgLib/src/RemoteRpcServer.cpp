@@ -63,7 +63,7 @@ namespace Msg
 			
 			GetSession()->SetClosed(TRUE);
 			GetSession()->SetNetState(Net::NET_STATE_LOSTED);
-			return ERR_NET_FAILURE;
+			return ERR_FAILURE;
 		}
 
 		INT64 ullCurTime = Timer::TimerHelper::GetTickCount();

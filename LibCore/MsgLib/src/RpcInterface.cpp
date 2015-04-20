@@ -154,7 +154,7 @@ namespace Msg
 
 	INT32 RpcInterface::SendMsg( const char * pRpcServerName , RPCMsgCall * pMsg  , BOOL bForce/* = FALSE*/ , BOOL bAddRpc/* = TRUE*/)
 	{
-		if (m_pRpcClientManager && m_pRpcServerManager && m_pRpcClientManager->SendMsg(pRpcServerName , pMsg , bForce , bAddRpc) != ERR_NET_FAILURE && bAddRpc)
+		if (m_pRpcClientManager && m_pRpcServerManager && m_pRpcClientManager->SendMsg(pRpcServerName , pMsg , bForce , bAddRpc) != ERR_FAILURE && bAddRpc)
 		{   
 			m_pRpcServerManager->InsertSendRpc(pMsg); 
 
@@ -167,7 +167,7 @@ namespace Msg
 
 	INT32 RpcInterface::SendMsg( INT32 nSessionID , RPCMsgCall * pMsg  , BOOL bForce/* = FALSE*/ , BOOL bAddRpc/* = TRUE*/)
 	{   
-		if (m_pRpcClientManager && m_pRpcServerManager && m_pRpcClientManager->SendMsg(nSessionID , pMsg , bForce , bAddRpc) != ERR_NET_FAILURE && bAddRpc)
+		if (m_pRpcClientManager && m_pRpcServerManager && m_pRpcClientManager->SendMsg(nSessionID , pMsg , bForce , bAddRpc) != ERR_FAILURE && bAddRpc)
 		{  
 			m_pRpcServerManager->InsertSendRpc(pMsg); 
 
@@ -180,7 +180,7 @@ namespace Msg
 
 	INT32 RpcInterface::SendMsg(Net::NetHandlerTransitPtr pRemoteRpc , UINT32 unMsgID, const char* pBuffer, UINT32 unLength , BOOL bForce/* = FALSE*/ , BOOL bAddRpc/* = TRUE*/)
 	{ 
-		if (m_pRpcClientManager && m_pRpcServerManager && m_pRpcClientManager->SendMsg(pRemoteRpc , unMsgID , pBuffer , unLength , bForce , bAddRpc) != ERR_NET_FAILURE  && bAddRpc)
+		if (m_pRpcClientManager && m_pRpcServerManager && m_pRpcClientManager->SendMsg(pRemoteRpc , unMsgID , pBuffer , unLength , bForce , bAddRpc) != ERR_FAILURE  && bAddRpc)
 		{   
 			return ERR_SUCCESS;
 		}
@@ -191,7 +191,7 @@ namespace Msg
 
 	INT32 RpcInterface::SendMsg( Net::NetHandlerTransitPtr pRemoteRpc , RPCMsgCall * pMsg , BOOL bForce/* = FALSE*/ , BOOL bAddRpc/* = TRUE*/)
 	{ 
-		if (m_pRpcClientManager && m_pRpcServerManager && m_pRpcClientManager->SendMsg(pRemoteRpc , pMsg , bForce , bAddRpc) != ERR_NET_FAILURE && bAddRpc)
+		if (m_pRpcClientManager && m_pRpcServerManager && m_pRpcClientManager->SendMsg(pRemoteRpc , pMsg , bForce , bAddRpc) != ERR_FAILURE && bAddRpc)
 		{  
 			m_pRpcServerManager->InsertSendRpc(pMsg); 
 

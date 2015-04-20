@@ -48,7 +48,7 @@ namespace Net
 			return m_pMsgHandler->AddClient(pMsgProcess , pAddress , usPort , bAutoManagerMemeory); 
 		}
 
-		return ERR_NET_FAILURE;
+		return ERR_FAILURE;
 	}
 
 	BOOL NetInterface::IsConnected( UINT32 unClientIndex )
@@ -68,7 +68,7 @@ namespace Net
 			return m_pMsgHandler->SendMsg(unClientIndex , unMsgID , pBuffer , unLength);
 		}
 		
-		return ERR_NET_FAILURE;
+		return ERR_FAILURE;
 	}
 
 

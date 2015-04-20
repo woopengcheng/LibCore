@@ -47,7 +47,7 @@ namespace Net
 			return INetHandler::Init();
 		}
 
-		return ERR_NET_FAILURE;  
+		return ERR_FAILURE;  
 	}
 
 	INT32 NetHandlerZMQClient::Cleanup(void)
@@ -66,7 +66,7 @@ namespace Net
 		if (nResult != 0)
 		{
 			gErrorStream ("error in zmq_connect: %s\n" << zmq_strerror (errno));
-			return ERR_NET_FAILURE;
+			return ERR_FAILURE;
 		}
 
 		return  ERR_SUCCESS;

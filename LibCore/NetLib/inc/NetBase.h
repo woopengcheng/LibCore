@@ -20,7 +20,7 @@ namespace Net
 		virtual INT32          SendMsg(MsgWrapper* pMsg) = 0;
 		virtual MsgWrapper *   RecvMsg(void) = 0;
 		virtual void           Run(void) = 0;
-		virtual BOOL           IsConnected(void){ return ERR_NET_FAILURE; }
+		virtual BOOL           IsConnected(void){ return ERR_FAILURE; }
 
 	public:
 //		virtual INT32 SendSpace() = 0;

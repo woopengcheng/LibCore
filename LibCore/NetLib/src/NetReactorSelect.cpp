@@ -71,7 +71,7 @@ namespace Net
 	{
 		if (m_nNetHandlerCount == 0)
 		{
-			return ERR_NET_FAILURE;
+			return ERR_FAILURE;
 		}
 
 		fd_set* pFdSetWrites = (fd_set*)m_pFdSetWrites;
@@ -210,7 +210,7 @@ namespace Net
 			iterEvents->second = objMask;
 		}
 		else
-			return  ERR_NET_FAILURE;
+			return  ERR_FAILURE;
 
 		return ERR_SUCCESS;
 	}

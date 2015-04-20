@@ -257,6 +257,9 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\DatabaseCommon.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\Environment.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\GameDBHelper.h" />
+    <ClInclude Include="..\..\LibCore\GameDB\inc\HashTable.h" />
+    <ClInclude Include="..\..\LibCore\GameDB\inc\Operate.h" />
+    <ClInclude Include="..\..\LibCore\GameDB\inc\OperateRecord.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\Orm.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\User.h" />
     <ClInclude Include="..\..\LibCore\LogLib\inc\GLogAdaptee.h" />
@@ -369,6 +372,8 @@
     <ClCompile Include="..\..\LibCore\GameDB\src\Database.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\Environment.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\GameDBHelper.cpp" />
+    <ClCompile Include="..\..\LibCore\GameDB\src\HashTable.cpp" />
+    <ClCompile Include="..\..\LibCore\GameDB\src\OperateRecord.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\User.cpp" />
     <ClCompile Include="..\..\LibCore\LogLib\src\GLogAdaptee.cpp" />
     <ClCompile Include="..\..\LibCore\LogLib\src\Log4CPlusAdaptee.cpp" />

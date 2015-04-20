@@ -30,7 +30,7 @@ namespace Net
 		
 		if (objResult != RakNet::RAKNET_STARTED)
 		{
-			return ERR_NET_FAILURE;
+			return ERR_FAILURE;
 		}
 		m_pRakPeerInstance->SetOccasionalPing(true);
 		
@@ -50,7 +50,7 @@ namespace Net
 	{ 
 		if (pIPAddress == NULL)
 		{
-			return ERR_NET_FAILURE;
+			return ERR_FAILURE;
 		}
 
 		char * pPassword = NULL;      //5 这个其实就是一开始发送了一个验证密码.
@@ -72,7 +72,7 @@ namespace Net
 #endif 
         if(car != RakNet::CONNECTION_ATTEMPT_STARTED)
 		{
-			return ERR_NET_FAILURE;
+			return ERR_FAILURE;
 		}
 		 
 		return ERR_SUCCESS;
@@ -103,7 +103,7 @@ namespace Net
 			
 		UINT32 unResult = m_pRakPeerInstance->Send(&bs, HIGH_PRIORITY , RELIABLE_ORDERED, 0, m_pRakPeerInstance->GetSystemAddressFromIndex(0), false);
 		if (unResult == 0)
-			return ERR_NET_FAILURE;
+			return ERR_FAILURE;
 		else
 			return ERR_SUCCESS;
 	}

@@ -38,7 +38,7 @@ namespace Net
 			if( nBufSize <  0 && NetHelper::IsSocketEagain())
 				return 0;
 			if( nBufSize <= 0 )
-				return ERR_NET_FAILURE;
+				return ERR_FAILURE;
 
 			int result = RecvToCircleBuffer( szBuf , nBufSize);
 			if( result < 0 )
@@ -62,9 +62,9 @@ namespace Net
 		}
 		else
 		{
-			MsgAssert_Re(0 , ERR_NET_FAILURE , "buffer full.");  
+			MsgAssert_Re(0 , ERR_FAILURE , "buffer full.");  
 			this->m_objRecvBuf.SkipBytes(m_objRecvBuf.GetDataLength());
-			return ERR_NET_FAILURE;
+			return ERR_FAILURE;
 		}
 		return ERR_SUCCESS;
 	}
@@ -80,7 +80,7 @@ namespace Net
 			if(nRecvBuf < sizeof(UINT32))
 			{
 				gErrorStream( "parase msg header failed.");
-				return ERR_NET_FAILURE; 
+				return ERR_FAILURE; 
 			}
 
 //			Convert<UINT32>::ToHostOrder(unMsgLength);
@@ -88,7 +88,7 @@ namespace Net
 			if(unMsgLength > MAX_MESSAGE_LENGTH || unMsgLength <= 0)
 			{
 				gErrorStream( "error package len ,discard connection");
-				return ERR_NET_FAILURE;   
+				return ERR_FAILURE;   
 			}
 
 			if(m_objRecvBuf.GetDataLength() < unMsgLength)
@@ -210,7 +210,7 @@ namespace Net
 	{ 
 		if(m_pSession && !m_pSession->IsCanWrite())
 		{
-			return ERR_NET_FAILURE;
+			return ERR_FAILURE;
 		} 
 
 		UINT32 unTotalSendBytes = 0;
