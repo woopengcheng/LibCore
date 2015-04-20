@@ -2,14 +2,16 @@
 
 
 namespace GameDB
-{ 
+{
+	const char  *  g_szGlobalHashtableSizeName = "__hsize__";
+
 	void HashTable::EncodeKey(const Slice& table,const Slice& key,Slice& outEncodedKey , DEFAULT_STACKCHUNK & sChunk)
 	{  
 		sChunk.Pushback((void*)&PREFIX_HASHTABLE,1);
 		sChunk.Pushback((void*)&SEPARATOR_FIRST,1);
-		sChunk.Pushback((void*)(table.data()),table.size());
+		sChunk.Pushback((void*)(table.data()),(UINT32)table.size());
 		sChunk.Pushback((void*)&SEPARATOR_SECOND,1);
-		sChunk.Pushback((void*)(key.data()),key.size());
+		sChunk.Pushback((void*)(key.data()),(UINT32)key.size());
 
 		outEncodedKey = Slice((const char *)(sChunk.Begin()) , sChunk.GetDataLen());
 	}
@@ -50,20 +52,132 @@ namespace GameDB
 
 	}
 
-	void HashTable::HCount_Initial(Database &db,const Slice & countkey,INT64 & llOldCount)
+	void HashTable::HCount_Initial(Database &db,const Slice & countKey,INT64 & llOldCount)
 	{
 		std::string strOldCount;
-		leveldb::Status status = db.QuickGet(countkey,strOldCount);
+		Status status = db.QuickGet(countKey,strOldCount);
 		if(status.ok())
 			llOldCount = *reinterpret_cast<const INT64*>(strOldCount.c_str());
 		else
 			llOldCount = 0;
 	}
 
+	bool HashTable::HCount_IncrIfNonExists(Database &db,const Slice& dbKey,INT64& size)
+	{
+		std::string oldVal;
+		Status status = db.QuickGet(dbKey,oldVal);
+		if(status.IsNotFound())
+		{
+			++size;
+			return true;
+		}
+		return false;
+
+	}
+
+	bool HashTable::HCount_DecrIfExists(Database &db,const Slice& dbKey,INT64& size)
+	{
+		std::string oldVal;
+		Status status = db.QuickGet(dbKey,oldVal);
+		if(status.ok())
+		{
+			--size;
+			return true;
+		}
+		return false;
+
+	}
+
 	void HashTable::HCount_SaveToDB(const Slice & countKey,INT64 countVal,WriteBatch& batch,Operate & or)
 	{
 		batch.Put(countKey , Slice((const char *)&countVal , sizeof(countVal)));
 		or.GetOperateRecord()->Insert(countKey , Slice((const char *)&countVal , sizeof(countVal)));
+	}
+
+	HashTable::CHECK_RESULT HashTable::CheckExists(Database &db,const Slice& dbKey,const Slice& newValue)
+	{
+		std::string strOldValue;
+		leveldb::Status status = db.QuickGet(dbKey,strOldValue);
+		if(status.IsNotFound())
+			return CHECK_RESULT_NOTEXISTS;
+		if(!status.ok())
+			return CHECK_RESULT_ERROR;
+
+		if(newValue.size() == strOldValue.length() && memcmp(newValue.data(),strOldValue.c_str(),strOldValue.length()) == 0)
+			return CHECK_RESULT_SAME;
+
+		return CHECK_RESULT_EXISTS; 
+	}
+
+	void HashTable::HSet(Database &db,Operate & or,const Slice& table,const Slice& key,const Slice& val)
+	{
+		DEFAULT_STACKCHUNK sc;
+		Slice encodedKey; 
+		leveldb::Status status;
+		 
+		EncodeKey(table,key,encodedKey , sc);
+
+		INT64 sizeVal = -1;
+		Slice sizeKey;
+		{
+			HCount_EncodeKey(table,sizeKey);
+			HCount_Initial(db,sizeKey,sizeVal);
+		}
+
+		switch(CheckExists(db,encodedKey,val))
+		{
+		case CHECK_RESULT_EXISTS:
+			break;
+		case CHECK_RESULT_NOTEXISTS:
+			++sizeVal;
+			break;
+		case CHECK_RESULT_SAME:
+			{
+				or.SetErrorCode(ERR_SUCCESS);
+				return ;
+			}
+			break;
+		}
+
+		WriteBatch batch;
+		batch.Put(encodedKey,val);
+		HCount_SaveToDB(sizeKey,sizeVal,batch,or);
+
+		status = db.QuickWrite(&batch);
+
+		or.GetOperateRecord()->Insert(encodedKey,val);
+		or.SetErrorCode(status); 
+	}
+
+	void HashTable::HSetNX(Database &db,Operate & or,const Slice& table,const Slice& key,const Slice& val)
+	{
+		DEFAULT_STACKCHUNK sc;
+		Slice	encodedKey; 
+		leveldb::Status status;
+
+		EncodeKey(table,key,encodedKey , sc);
+
+		INT64 sizeVal = -1;
+		Slice sizeKey;
+		{
+			HCount_EncodeKey(table,sizeKey);
+			HCount_Initial(db,sizeKey,sizeVal);
+			if(!HCount_IncrIfNonExists(db,encodedKey,sizeVal))
+			{
+				or.SetErrorCode(ERR_HAS_EXISTS);
+				return ;
+			}
+		}
+
+		leveldb::WriteBatch batch;
+		batch.Put(encodedKey,val);
+		HCount_SaveToDB(sizeKey,sizeVal,batch,or);
+
+		status = db.QuickWrite(&batch);
+
+		//result.MutableOplog()->Put(encodedKey,val);  //5 这里可能会有问题.
+		or.SetErrorCode(status);
+
 	}
 
 }

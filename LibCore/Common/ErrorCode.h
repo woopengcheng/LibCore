@@ -10,6 +10,7 @@ enum ERROR_CODE
 	ERR_NOTFOUND ,						//5 数据库未找到
 	ERR_CORRUPTION,						//5 数据库被占用
 	ERR_INVALIDARGUMENT,				//5 数据库被占用
+	ERR_HAS_EXISTS,						//5 数据库已经存在这条记录,插入失败.
 
 	ERR_NUM,
 };

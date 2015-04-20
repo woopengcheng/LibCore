@@ -36,7 +36,7 @@ namespace GameDB
 	const char     PREFIX_ZSET_SCORE = 's';  //5 zset记录score的数据结构类型前缀
 	const char     PREFIX_KEY_VALUE = 'k';   //5 单纯记录key,value的数据结构类型前缀
 	 
-	const char  *  g_szGlobalHashtableSizeName = "__hsize__";  //5 用于hash内部存储每个表的数量用的.
+	extern const char  *  g_szGlobalHashtableSizeName;  //5 用于hash内部存储每个表的数量用的.
 	//5 ***************************************************************
 
 	//5 ***************************宏定义数值************************************
