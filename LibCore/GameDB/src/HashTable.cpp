@@ -53,17 +53,17 @@ namespace GameDB
 	void HashTable::HCount_Initial(Database &db,const Slice & countkey,INT64 & llOldCount)
 	{
 		std::string strOldCount;
-		leveldb::Status status = db->QuickGet(countkey,&strOldCount);
+		leveldb::Status status = db.QuickGet(countkey,strOldCount);
 		if(status.ok())
-			llOldCount = *reinterpret_cast<const int64*>(strOldCount.c_str());
+			llOldCount = *reinterpret_cast<const INT64*>(strOldCount.c_str());
 		else
 			llOldCount = 0;
 	}
 
 	void HashTable::HCount_SaveToDB(const Slice & countKey,INT64 countVal,WriteBatch& batch,Operate & or)
 	{
-		batch.Put(countKey , countVal);
-		or.GetOperateRecord()->Insert(countKey , Slice((const char *)&countVal , sizeof(countVal));
+		batch.Put(countKey , Slice((const char *)&countVal , sizeof(countVal)));
+		or.GetOperateRecord()->Insert(countKey , Slice((const char *)&countVal , sizeof(countVal)));
 	}
 
 }

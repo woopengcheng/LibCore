@@ -40,9 +40,9 @@ namespace GameDB
 		{
 			if(status.ok())
 				m_nErrorCode = ERR_SUCCESS;
-			else if(status.code() == leveldb::Status::kIOError)
+			else if(status.IsIOError())
 				m_nErrorCode = ERR_IOERROR;
-			else if(status.code() == leveldb::Status::kCorruption)
+			else if(status.IsCorruption())
 				m_nErrorCode = ERR_CORRUPTION;
 			else if(status.IsNotFound())
 				m_nErrorCode = ERR_NOTFOUND;

@@ -1,6 +1,8 @@
 #ifndef __gamedb_hashtable_h__
 #define __gamedb_hashtable_h__ 
 #include "GameDB/inc/DatabaseCommon.h"
+#include "GameDB/inc/Database.h"
+#include "GameDB/inc/Operate.h"
 
 namespace GameDB
 {  
@@ -15,7 +17,7 @@ namespace GameDB
 		static void HCount_Initial(Database &db,const Slice & countkey,INT64 & llOldCount);
 //		static bool HCount_IncrIfNonExists(OperateEnv& env,const Slice& dbkey,int64& size);
 //		static bool HCount_DecrIfExists(OperateEnv& env,const Slice& dbkey,int64& size);
-		static void HCount_SaveToDB(const Slice & countKey,INT64 countVal,WriteBatch& batch,OperateRecord & or);
+		static void HCount_SaveToDB(const Slice & countKey,INT64 countVal,WriteBatch& batch,Operate & or);
 		
 
 		enum CHECK_RESULT
@@ -29,7 +31,7 @@ namespace GameDB
 
 		static void Set(Database &db,OperateRecord & or,const Slice& name,const Slice& key,const Slice& val);
 		static void SetNX(Database &db,OperateRecord & or,const Slice& name,const Slice& key,const Slice& val);
-		static void SetOW(Database &db,OperationResult1Val& result,const Slice& name,const Slice& key,const Slice& val);
+//		static void SetOW(Database &db,OperationResult1Val& result,const Slice& name,const Slice& key,const Slice& val);
 // 		static void Get(Database &db,OperationResult1Val& result,const Slice& name,const Slice& key);
 // 		static void Del(Database &db,OperationResult1Val& result,const Slice& name,const Slice& key);
 // 

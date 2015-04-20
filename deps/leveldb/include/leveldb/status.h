@@ -53,6 +53,8 @@ class Status {
 
   // Returns true iff the status indicates a NotFound error.
   bool IsNotFound() const { return code() == kNotFound; }
+  bool IsIOError() const { return code() == kIOError; }
+  bool IsCorruption() const { return code() == kCorruption; }
 
   // Return a string representation of this status suitable for printing.
   // Returns the string "OK" for success.

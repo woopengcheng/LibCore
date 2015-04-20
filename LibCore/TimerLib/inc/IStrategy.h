@@ -19,7 +19,7 @@ namespace Timer
 	public:
 		virtual INT32  InsertNode(UINT32 unNodeID , Node<ValueType> * pNode) = 0 { return ERR_SUCCESS; }
 		virtual INT32  RemoveNode(UINT32 unNodeID) = 0 { return ERR_SUCCESS; }
-		virtual Node<ValueType> * GetNode(UINT32 unNodeID) = 0{ return ERR_SUCCESS; }
+		virtual Node<ValueType> * GetNode(UINT32 unNodeID) = 0{ return NULL; }
 	};   
 } 
 #endif
