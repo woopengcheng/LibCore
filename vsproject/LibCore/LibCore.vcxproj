@@ -255,6 +255,7 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\CustomDefinedCacheHandler.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\Database.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\DatabaseCommon.h" />
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerNetHandler.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\Environment.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\GameDBHelper.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\HashTable.h" />
