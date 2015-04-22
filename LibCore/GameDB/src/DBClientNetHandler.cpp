@@ -16,6 +16,11 @@ namespace GameDB
 		SAFE_DELETE(m_pSession);
 	}
 
+	INT32 DBClientNetHandler::Init(const char* ip,int port)
+	{
+		return Net::NetHandlerCommonClient::Init(ip , port);
+	}
+
 	INT32 DBClientNetHandler::Cleanup( void )
 	{
 		return Net::NetHandlerCommonClient::Cleanup();
