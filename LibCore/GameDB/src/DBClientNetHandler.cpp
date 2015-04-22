@@ -37,14 +37,11 @@ namespace GameDB
 		if (m_pSession && m_pSession->IsClosed())
 		{
 			nResult = Connect(m_pSession->GetAddress() , m_pSession->GetPort());
-// 			if (!nResult)
-// 			{ 
-// 				m_pSession->SetNetState(Net::NET_STATE_CONNECTING);
-// 				m_pSession->SetClosed(FALSE);
-// 
-// 				Net::NetHandlerTransitPtr pHandler = m_pRpcManager->GetNetHandlerBySessionID(m_pSession->GetSessionID());
-// 				m_pNetReactor->AddNetHandler(pHandler);
-// 			} 
+			if (!nResult)
+			{ 
+				m_pSession->SetNetState(Net::NET_STATE_CONNECTING);
+				m_pSession->SetClosed(FALSE);
+			} 
 		}
 
 		return  nResult;  
