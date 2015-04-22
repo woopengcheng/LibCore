@@ -6,12 +6,8 @@ namespace Msg
 {    
 	class RpcManager;
 
-	class DLL_EXPORT  NetHandlerRpcListener 
-		: public Net::NetHandlerListener
+	class DLL_EXPORT  NetHandlerRpcListener : public Net::NetHandlerListener
 	{
-	public:
-		DECLARE_BOOST_TEMPLATE_POINTERS(NetHandlerRpcListener , NetHandlerRpcListener); 
-
 	public:
 		NetHandlerRpcListener(RpcManager * pRpcManager , Net::INetReactor * pNetReactor , Net::ISession * pSession)
 			: Net::NetHandlerListener(pNetReactor , pSession) 
@@ -35,6 +31,9 @@ namespace Msg
 	private:
 		RpcManager * m_pRpcManager; 
 	}; 
+
+	DECLARE_BOOST_POINTERS(NetHandlerRpcListener); 
+
 }
 
 #endif

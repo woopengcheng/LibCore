@@ -3,6 +3,7 @@
 #include "GameDB/inc/DatabaseCommon.h"
 #include "GameDB/inc/Database.h"
 #include "GameDB/inc/Operate.h"
+#include "GameDB/inc/OperateReturns.h"
 
 namespace GameDB
 {  
@@ -29,10 +30,10 @@ namespace GameDB
 		};
 		static CHECK_RESULT CheckExists(Database &db,const Slice& dbKey,const Slice& newValue);
 
-		static void HSet(Database &db,Operate & or,const Slice& table,const Slice& key,const Slice& val);
-		static void HSetNX(Database &db,Operate & or,const Slice& table,const Slice& key,const Slice& val);
-// 		static void SetOW(Database &db,Operate1Val& result,const Slice& name,const Slice& key,const Slice& val);  //5 只写入数据,不写入计数
-// 		static void Get(Database &db,OperationResult1Val& result,const Slice& name,const Slice& key);
+		static void HSet(Database &db,Operate & oper,const Slice& table,const Slice& key,const Slice& val);
+		static void HSetNX(Database &db,Operate & oper,const Slice& table,const Slice& key,const Slice& val);
+ 		static void HSetOW(Database &db,Operate& oper,const Slice& table,const Slice& key,const Slice& val);  //5 只写入数据,不写入计数
+ 		static void HGet(Database &db,Operate& oper,const Slice& table,const Slice& key);
 // 		static void Del(Database &db,OperationResult1Val& result,const Slice& name,const Slice& key);
 // 
 // 		static void MultiSet(Database &db,OperateRecord & or,const Slice& name,const CollectionSlicesT& keys,const CollectionSlicesT& vals);

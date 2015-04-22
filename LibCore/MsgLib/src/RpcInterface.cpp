@@ -109,7 +109,7 @@ namespace Msg
 			m_pRpcServerManager->CreateNetHandler(m_szServerName , strAddress.c_str() , m_usServerPort , 0);
 #else
 			Net::ISession * pSeesion = new Net::ISession(strAddress.c_str() , m_usServerPort , str.c_str());
-			NetHandlerRpcListener::NetHandlerRpcListenerPtr pNetHandlerListener(new NetHandlerRpcListener(m_pRpcServerManager , m_pNetReactor , pSeesion));
+			NetHandlerRpcListenerPtr pNetHandlerListener(new NetHandlerRpcListener(m_pRpcServerManager , m_pNetReactor , pSeesion));
 			pNetHandlerListener->Init(strAddress.c_str() , m_usServerPort);
 			pSeesion->SetClosed(FALSE);
 			pSeesion->SetNetState(Net::NET_STATE_CONNECTED);

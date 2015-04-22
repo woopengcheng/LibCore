@@ -6,6 +6,7 @@
 #include "leveldb/comparator.h"
 #include "Common/LibCore.h"
 #include "Common/Chunk.h"
+#include "MsgLib/inc/Parameters.h"
 #include "NetLib/inc/NetHandlerListener.h" 
 
 const size_t MAX_DB_TEMP_BUFFER_LENGTH = (64*1024*1024);
@@ -19,6 +20,7 @@ namespace GameDB
 	typedef leveldb::Status			 Status;
 	typedef leveldb::WriteBatch		 WriteBatch;
 	typedef Net::NetHandlerListener  IDBListener;
+	typedef Msg::Parameters      Parameters;
 
 	typedef LibCore::Chunk  Chunk; 
 

@@ -265,7 +265,7 @@ namespace Msg
 			Net::ServerSession * pServerSession =  new Net::ServerSession(pAddress , 0 , pName , -1 , 0 , socket);
 			pServerSession->SetNetState(Net::NET_STATE_CONNECTING);
 #endif
-			RemoteRpcServer::RemoteRpcServerPtr pRpcServer(new RemoteRpcServer(this , m_pNetReactor , pServerSession)); 
+			RemoteRpcServerPtr pRpcServer(new RemoteRpcServer(this , m_pNetReactor , pServerSession)); 
 			pServerSession->SetClosed(FALSE);
 
 			gDebugStream("accept: ID: " << pServerSession->GetSessionID());

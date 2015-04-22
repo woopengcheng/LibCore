@@ -2,6 +2,7 @@
 #define __gamedb_operate_h__ 
 #include "GameDB/inc/DatabaseCommon.h"
 #include "GameDB/inc/OperateRecord.h"
+#include "GameDB/inc/OperateReturns.h"
 
 namespace GameDB
 {
@@ -62,9 +63,13 @@ namespace GameDB
 
 			return m_pOperateRecord;
 		}
+		OperateReturns & GetOperateReturns(){ return m_objOperateReturns; }
+		Parameters     & GetParamters(){ return m_objOperateReturns.GetWriter(); }
+
 	private:
-		ERROR_CODE      m_nErrorCode;
-		OperateRecord * m_pOperateRecord;
+		ERROR_CODE       m_nErrorCode;
+		OperateRecord  * m_pOperateRecord;
+		OperateReturns   m_objOperateReturns;
 	};
 }
 

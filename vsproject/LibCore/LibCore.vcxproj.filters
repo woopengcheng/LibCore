@@ -462,7 +462,19 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\OperateRecord.h">
       <Filter>GameDB\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\OperateReturns.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerNetHandler.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\CommandHandler.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBCommandHandler.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientNetHandler.h">
       <Filter>GameDB\inc</Filter>
     </ClInclude>
   </ItemGroup>
@@ -675,6 +687,15 @@
       <Filter>GameDB\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\GameDB\src\OperateRecord.cpp">
+      <Filter>GameDB\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\GameDB\src\DBCommandHandler.cpp">
+      <Filter>GameDB\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\GameDB\src\DBServerNetHandler.cpp">
+      <Filter>GameDB\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\GameDB\src\DBClientNetHandler.cpp">
       <Filter>GameDB\src</Filter>
     </ClCompile>
   </ItemGroup>

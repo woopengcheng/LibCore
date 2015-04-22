@@ -1,5 +1,5 @@
 #include "GameDB/inc/HashTable.h"
-
+#include "MsgLib/inc/GenMsgHelper.h" 
 
 namespace GameDB
 {
@@ -109,7 +109,7 @@ namespace GameDB
 		return CHECK_RESULT_EXISTS; 
 	}
 
-	void HashTable::HSet(Database &db,Operate & or,const Slice& table,const Slice& key,const Slice& val)
+	void HashTable::HSet(Database &db,Operate & oper,const Slice& table,const Slice& key,const Slice& val)
 	{
 		DEFAULT_STACKCHUNK sc;
 		Slice encodedKey; 
@@ -133,7 +133,7 @@ namespace GameDB
 			break;
 		case CHECK_RESULT_SAME:
 			{
-				or.SetErrorCode(ERR_SUCCESS);
+				oper.SetErrorCode(ERR_SUCCESS);
 				return ;
 			}
 			break;
@@ -141,15 +141,15 @@ namespace GameDB
 
 		WriteBatch batch;
 		batch.Put(encodedKey,val);
-		HCount_SaveToDB(sizeKey,sizeVal,batch,or);
+		HCount_SaveToDB(sizeKey,sizeVal,batch,oper);
 
 		status = db.QuickWrite(&batch);
 
-		or.GetOperateRecord()->Insert(encodedKey,val);
-		or.SetErrorCode(status); 
+		oper.GetOperateRecord()->Insert(encodedKey,val);
+		oper.SetErrorCode(status); 
 	}
 
-	void HashTable::HSetNX(Database &db,Operate & or,const Slice& table,const Slice& key,const Slice& val)
+	void HashTable::HSetNX(Database &db,Operate & oper,const Slice& table,const Slice& key,const Slice& val)
 	{
 		DEFAULT_STACKCHUNK sc;
 		Slice	encodedKey; 
@@ -164,20 +164,63 @@ namespace GameDB
 			HCount_Initial(db,sizeKey,sizeVal);
 			if(!HCount_IncrIfNonExists(db,encodedKey,sizeVal))
 			{
-				or.SetErrorCode(ERR_HAS_EXISTS);
+				oper.SetErrorCode(ERR_HAS_EXISTS);
 				return ;
 			}
 		}
 
 		leveldb::WriteBatch batch;
 		batch.Put(encodedKey,val);
-		HCount_SaveToDB(sizeKey,sizeVal,batch,or);
+		HCount_SaveToDB(sizeKey,sizeVal,batch,oper);
 
 		status = db.QuickWrite(&batch);
 
 		//result.MutableOplog()->Put(encodedKey,val);  //5 这里可能会有问题.
-		or.SetErrorCode(status);
+		oper.SetErrorCode(status);
 
+	}
+
+	void HashTable::HSetOW(Database &db,Operate& oper,const Slice& table,const Slice& key,const Slice& val)
+	{
+		DEFAULT_STACKCHUNK sc;
+		Slice	encodedKey; 
+		leveldb::Status status;
+
+		EncodeKey(table,key,encodedKey , sc);
+
+		switch(CheckExists(db,encodedKey,val))
+		{
+		case CHECK_RESULT_SAME:
+			{
+				oper.SetErrorCode(ERR_SUCCESS);
+				return ;
+			};
+		case CHECK_RESULT_NOTEXISTS:
+			{
+				oper.SetErrorCode(ERR_NOTFOUND); 
+				return ;
+			}
+		} 
+
+		status = db.QuickWrite(encodedKey,val);
+
+		oper.GetOperateRecord()->Insert(encodedKey,val);  
+		oper.SetErrorCode(status); 
+	}
+
+	void HashTable::HGet(Database &db,Operate& oper,const Slice& table,const Slice& key)
+	{
+		DEFAULT_STACKCHUNK sc;
+		Slice	encodedKey;
+		leveldb::Status status;
+
+		EncodeKey(table , key , encodedKey , sc);
+
+		std::string strValue; 
+		status = db.QuickGet(encodedKey,strValue); 
+		Msg::GenMsgHelper::GenMsgParams(oper.GetParamters() , strValue);
+
+		oper.SetErrorCode(status); 
 	}
 
 }

@@ -11,7 +11,7 @@ namespace Msg
 		if (!pNetHandler)
 		{
 			Net::ClientSession * pClientSession =  new Net::ClientSession(pAddress , usPort , pName);
-			RemoteRpcClient::RemoteRpcClientPtr pNetHandlerClient = RemoteRpcClient::RemoteRpcClientPtr(new RemoteRpcClient(this , m_pNetReactor , pClientSession)); 
+			RemoteRpcClientPtr pNetHandlerClient = RemoteRpcClientPtr(new RemoteRpcClient(this , m_pNetReactor , pClientSession)); 
 
 			int nResult = pNetHandlerClient->Init(pAddress, usPort); 
 			AddRemoteRpc(pClientSession->GetSessionID() , pNetHandlerClient); 

@@ -1,16 +1,15 @@
 #ifndef __gamedb_db_server_net_handler_h__
 #define __gamedb_db_server_net_handler_h__  
-#include "NetLib/inc/NetHandlerServer.h"
+#include "NetLib/inc/NetHandlerCommonServer.h"
+#include "NetLib/inc/INetReactor.h"
+#include "NetLib/inc/ISession.h"
 
 namespace GameDB
 {     
-	class DLL_EXPORT DBServerNetHandler : public Net::NetHandlerServer
-	{
+	class DLL_EXPORT DBServerNetHandler : public Net::NetHandlerCommonServer
+	{  
 	public:
-		DECLARE_BOOST_TEMPLATE_POINTERS(DBServerNetHandler , RemoteRpcServer); 
-
-	public:
-		DBServerNetHandler(RpcManager * pRpcManager , Net::INetReactor * pNetReactor , Net::ISession * pSession);
+		DBServerNetHandler(Net::INetReactor * pNetReactor , Net::ISession * pSession);
 		virtual ~DBServerNetHandler();
 
 	public: 
@@ -24,8 +23,9 @@ namespace GameDB
 
 	protected:
 		INT64        m_ullLastRecvPing; 
-		RpcManager * m_pRpcManager; 
 	};
+
+	DECLARE_BOOST_POINTERS(DBServerNetHandler); 
 }
 
 #endif

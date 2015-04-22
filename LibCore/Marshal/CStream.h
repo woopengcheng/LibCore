@@ -4,6 +4,7 @@
 #include "Common/Chunk.h"
 #include "Marshal/Marshal.h"
 #include "Marshal/CommonMarshal.h"
+#include "Common/BoostHelper.h"
 
 namespace Msg
 {
@@ -110,9 +111,11 @@ namespace LibCore
 		template<typename T> CStream & operator << (std::basic_string<T> & t)
 		{
 			STATIC_ASSERT(sizeof(T) == 1);  //5 测试是否是单字节.utf16和utf32.单独处理
-			UINT32 unBytes = t.length() * sizeof(T);
+			size_t unBytes = t.length() * sizeof(T);
 			Pushback(unBytes);
-			m_objChunk.Insert(m_objChunk.End() , t.c_str() , unBytes);
+			m_objChunk.Insert(m_objChunk.End() , (void*)t.c_str() , unBytes);
+
+			return *this;
 		}
 
 		template<typename T1 , typename T2> CStream & operator << (std::pair<T1 , T2> & t)

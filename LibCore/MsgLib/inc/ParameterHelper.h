@@ -89,6 +89,43 @@ namespace Msg
 		}
 	};
 
+	template<> class ParameterHelper<std::string>
+	{
+	public:
+		static PARAMETER_TYPE GetParameterType(){ return PARAMETER_TYPE_STD_STRING; } 
+		static std::string GetParameterValue(Parameter & objParam)
+		{
+			INT32 nType = 0 , nSize = 0;
+
+			objParam.GetParamStream() >> nType >> nSize;
+			MsgAssert_Re0(nType == PARAMETER_TYPE_STD_STRING , "paramter type is error. :" << nType << " cur: " << PARAMETER_TYPE_STD_STRING);
+			MsgAssert_Re0(!((UINT32)nSize > objParam.GetParamStream().GetDataLen() - objParam.GetParamStream().GetCurPos()) , "unMarshal invalid length."); 
+
+			std::string strValue;
+			objParam.GetParamStream() >> strValue;;
+
+			return strValue; 
+		}
+
+		static void MakeParameter(Parameter & objParam , std::string strValue)
+		{   
+				UINT32 unSize = strValue.length() + 1;
+
+				objParam.GetParamStream() << (INT32)PARAMETER_TYPE_STD_STRING << unSize;  
+				objParam.GetParamStream() << strValue;
+//				objParam.GetParamStream().Pushback((void*)strValue.c_str() , unSize); 
+		}
+
+		static BOOL CheckParamType(Parameter & objParam)
+		{
+			if (objParam.GetType() == PARAMETER_TYPE_STD_STRING)
+			{
+				return TRUE;
+			}
+			return FALSE;
+		}
+	};
+
 	template<> class ParameterHelper<LibCore::Chunk>
 	{
 	public:
