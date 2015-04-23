@@ -22,7 +22,7 @@ namespace GameDB
 			strBackupDir = strBackupDir + "/";
 
 		m_nMode = nMode;
-		m_pEnvironment = new Environment(strDir , dbConfig);
+//		m_pEnvironment = new Environment(strDir , dbConfig);
 		m_strBackupDir = strBackupDir;
 
 		leveldb::Env::Default()->CreateDir(m_strBackupDir);
@@ -53,6 +53,18 @@ namespace GameDB
 		{
 			pDBServerListener->Cleanup();   //5 这里会释放pSeesion 
 		}
+
+		return ERR_SUCCESS;
+	}
+
+	INT32 DBServer::Cleanup(void)
+	{
+		return ERR_SUCCESS;
+	}
+
+	INT32 DBServer::Update(void)
+	{
+		m_pNetReactor->Update();
 
 		return ERR_SUCCESS;
 	}
@@ -111,8 +123,6 @@ namespace GameDB
 		}
 
 		return ERR_SUCCESS; 
-	}
-
-
+	} 
 
 }
