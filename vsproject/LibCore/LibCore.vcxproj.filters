@@ -477,6 +477,12 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientNetHandler.h">
       <Filter>GameDB\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBServer.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerListener.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -696,6 +702,12 @@
       <Filter>GameDB\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\GameDB\src\DBClientNetHandler.cpp">
+      <Filter>GameDB\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\GameDB\src\DBServer.cpp">
+      <Filter>GameDB\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\GameDB\src\DBServerListener.cpp">
       <Filter>GameDB\src</Filter>
     </ClCompile>
   </ItemGroup>

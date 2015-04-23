@@ -5,11 +5,13 @@
 #include "NetLib/inc/ISession.h"
 
 namespace GameDB
-{     
+{   
+	class DBServer ;
+
 	class DLL_EXPORT DBServerNetHandler : public Net::NetHandlerCommonServer
 	{  
 	public:
-		DBServerNetHandler(Net::INetReactor * pNetReactor , Net::ISession * pSession);
+		DBServerNetHandler(DBServer	* pDBServer , Net::INetReactor * pNetReactor , Net::ISession * pSession);
 		virtual ~DBServerNetHandler();
 
 	public: 
@@ -22,7 +24,8 @@ namespace GameDB
 		void    SetLastRecvPingTime( INT64 ullLstRecfPing = 0);
 
 	protected:
-		INT64        m_ullLastRecvPing; 
+		INT64         m_ullLastRecvPing; 
+		DBServer	* m_pDBServer;
 	};
 
 	DECLARE_BOOST_POINTERS(DBServerNetHandler); 

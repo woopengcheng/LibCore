@@ -5,8 +5,9 @@ namespace GameDB
 {
 
 
-	DBServerNetHandler::DBServerNetHandler( Net::INetReactor * pNetReactor, Net::ISession * pSession )
+	DBServerNetHandler::DBServerNetHandler(DBServer	* pDBServer , Net::INetReactor * pNetReactor, Net::ISession * pSession )
 		: Net::NetHandlerCommonServer(pNetReactor , pSession) 
+		, m_pDBServer(pDBServer)
 	{
 		SetLastRecvPingTime();
 	} 
