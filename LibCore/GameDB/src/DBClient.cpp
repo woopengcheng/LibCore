@@ -65,7 +65,6 @@ namespace GameDB
 
 		if(ERR_SUCCESS == m_pHandlers->Init(pAddress, usPort)) 
 		{  
-			m_pNetReactor->AddNetHandler(m_pHandlers);  
 			pClientSession->SetClosed(FALSE);
 			pClientSession->SetNetState(Net::NET_STATE_CONNECTED);
 			 
@@ -76,6 +75,7 @@ namespace GameDB
 			pClientSession->SetClosed(TRUE);
 			pClientSession->SetNetState(Net::NET_STATE_LOSTED); 
 		}
+		m_pNetReactor->AddNetHandler(m_pHandlers);  
 
 		return ERR_FAILURE;
 	} 

@@ -78,13 +78,20 @@ namespace GameDB
 		case 0:
 			{
 				std::cout << pBuffer << std::endl;
+
+				char pBuf[1024]; 
+				((Net::MsgHeader*)pBuf)->unMsgID = 0;
+				((Net::MsgHeader*)pBuf)->unMsgLength = 6+ sizeof(Net::MsgHeader);
+				memcpy(pBuf + sizeof(Net::MsgHeader) , "ddddd" , 6);
+				SendMsg(pBuf , 6 + sizeof(Net::MsgHeader));
+
 // 				Assert_ReF1(pBuffer && unLength == sizeof(SPing));   
 // 
 // 				SPing objPing;
 // 				memcpy(&objPing , pBuffer , unLength);
 // 
 // 				SetLastRecvPingTime();
-//				return m_pRpcManager->HandlePing(pSession , &objPing); 
+//				return m_pRpcManager->HandlePing(pSession , &objPing);  
 			}
 			break;
 		default:

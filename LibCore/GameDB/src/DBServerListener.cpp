@@ -3,7 +3,7 @@
 
 namespace GameDB
 {
-	void DBServerListener::OnAccept(SOCKET socket , sockaddr_in * addr)
+	void DBServerListener::OnAccept(Net::SOCKET socket , sockaddr_in * addr)
 	{
 		if (m_pDBServer)
 		{

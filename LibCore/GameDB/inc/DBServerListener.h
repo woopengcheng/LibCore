@@ -22,7 +22,7 @@ namespace GameDB
 		virtual ~DBServerListener( void ){}  
 
 	public: 
-		virtual void   OnAccept(SOCKET socket , sockaddr_in * addr); 
+		virtual void   OnAccept(Net::SOCKET socket , sockaddr_in * addr);  
 
 	private:
 		DBServer * m_pDBServer;

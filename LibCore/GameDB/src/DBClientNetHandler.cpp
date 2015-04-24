@@ -59,6 +59,7 @@ namespace GameDB
 		{
 		case 0:
 			{
+				std::cout << pBuffer << std::endl;
 			}break; 
 		default:
 			break;

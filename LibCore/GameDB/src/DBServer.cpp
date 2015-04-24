@@ -82,9 +82,9 @@ namespace GameDB
 		UINT16 usPort;
 		Net::NetHelper::GetAddressAndPortByAddrIn(addr , szAddress , usPort);
 		
-		Net::ISession * pSession = new Net::ServerSession(szAddress , usPort , "");
+		Net::ISession * pSession = new Net::ServerSession(szAddress , usPort , "" , -1 , 0 , socket);
 		DBServerNetHandlerPtr pHandler(new DBServerNetHandler(this , m_pNetReactor , pSession));
-
+		 
 		pSession->SetNetState(Net::NET_STATE_CONNECTED);
 		pSession->SetClosed(FALSE);
 		
