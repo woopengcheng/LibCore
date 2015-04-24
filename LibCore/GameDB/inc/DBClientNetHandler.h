@@ -5,11 +5,13 @@
 #include "NetLib/inc/ISession.h"
 
 namespace GameDB
-{     
+{   
+	class DBClient;
+
 	class DLL_EXPORT  DBClientNetHandler : public Net::NetHandlerCommonClient 
 	{ 
 	public:
-		DBClientNetHandler( Net::INetReactor * pNetReactor , Net::ISession * pSession);
+		DBClientNetHandler(DBClient  * pDBClient , Net::INetReactor * pNetReactor , Net::ISession * pSession);
 		virtual ~DBClientNetHandler();
 
 	public: 
@@ -20,6 +22,8 @@ namespace GameDB
 		virtual INT32  OnReconnect( void );
 		virtual INT32  HandleMsg(Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength); 
 		 
+	private:
+		DBClient  * m_pDBClient;
 	};    
 	 
 	DECLARE_BOOST_POINTERS(DBClientNetHandler); 

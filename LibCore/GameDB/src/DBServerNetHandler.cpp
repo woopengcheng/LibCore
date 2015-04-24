@@ -77,6 +77,7 @@ namespace GameDB
 		{
 		case 0:
 			{
+				std::cout << pBuffer << std::endl;
 // 				Assert_ReF1(pBuffer && unLength == sizeof(SPing));   
 // 
 // 				SPing objPing;

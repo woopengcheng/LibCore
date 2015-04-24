@@ -10,6 +10,7 @@ namespace GameDB
 	DBServer::DBServer(Json::Value & conf)
 		: ThreadPool::ThreadSustainTask(DEFAULT_RPC_MSG_THREAD_ID , "DBServer")
 		, m_pNetReactor(NULL)
+		, m_pEnvironment(NULL)
 	{
 		int nMode				 = conf.get("auth_mode","0").asInt();
 		std::string strDir		 = conf.get("dir","./db/").asCString();
@@ -28,6 +29,11 @@ namespace GameDB
 		leveldb::Env::Default()->CreateDir(m_strBackupDir);
 
 		m_pNetReactor = new Net::NetReactorSelect;
+		if(ERR_SUCCESS != m_pNetReactor->Init())
+		{
+			SAFE_DELETE(m_pNetReactor);
+			MsgAssert(0, "rpc init net reactor fail."); 
+		}
 	}
 
 	DBServer::~DBServer(void)
@@ -59,6 +65,7 @@ namespace GameDB
 
 	INT32 DBServer::Cleanup(void)
 	{
+		m_mapHandlers.clear();
 		return ERR_SUCCESS;
 	}
 
@@ -82,6 +89,8 @@ namespace GameDB
 		pSession->SetClosed(FALSE);
 		
 		m_pNetReactor->AddNetHandler(pHandler);
+		AddNetHandler(pSession->GetSessionID() , pHandler);
+
 		gDebugStream("accept: ID: " << pSession->GetSessionID());
 
 		return pHandler;

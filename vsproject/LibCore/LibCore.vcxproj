@@ -256,6 +256,7 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\CustomDefinedCacheHandler.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\Database.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\DatabaseCommon.h" />
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBClient.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientNetHandler.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBCommandHandler.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerListener.h" />
@@ -377,6 +378,7 @@
     <ClCompile Include="..\..\LibCore\GameDB\src\Comparator.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\CustomDefinedCacheHandler.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\Database.cpp" />
+    <ClCompile Include="..\..\LibCore\GameDB\src\DBClient.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\DBClientNetHandler.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\DBCommandHandler.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\DBServerListener.cpp" />

@@ -4,8 +4,9 @@
 namespace GameDB
 {
 
-	DBClientNetHandler::DBClientNetHandler( Net::INetReactor * pNetReactor , Net::ISession * pSession )
+	DBClientNetHandler::DBClientNetHandler(DBClient  * pDBClient , Net::INetReactor * pNetReactor , Net::ISession * pSession )
 		: Net::NetHandlerCommonClient(pNetReactor , pSession)  
+		, m_pDBClient(pDBClient)
 	{
 
 	}

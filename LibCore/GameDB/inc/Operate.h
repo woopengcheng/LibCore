@@ -36,7 +36,7 @@ namespace GameDB
 	public:
 		bool		IsSuccess(){ return m_nErrorCode == ERR_SUCCESS; }
 		bool		IsNotFound(){ return m_nErrorCode == ERR_NOTFOUND; }
-		void		SetErrorCode(ERROR_CODE code){ m_nErrorCode = code; }
+		void		SetErrorCode(ErrCode code){ m_nErrorCode = code; }
 		void		SetErrorCode(const leveldb::Status& status)
 		{
 			if(status.ok())
@@ -50,7 +50,7 @@ namespace GameDB
 			else
 				m_nErrorCode = ERR_INVALIDARGUMENT;
 		}
-		ERROR_CODE  GetErrorCode(){ return m_nErrorCode; }
+		ErrCode  GetErrorCode(){ return m_nErrorCode; }
 		std::string GetErrorString(){ return g_szErrorString[m_nErrorCode]; }
 
 	public:
@@ -67,7 +67,7 @@ namespace GameDB
 		Parameters     & GetParamters(){ return m_objOperateReturns.GetWriter(); }
 
 	private:
-		ERROR_CODE       m_nErrorCode;
+		ErrCode	         m_nErrorCode;
 		OperateRecord  * m_pOperateRecord;
 		OperateReturns   m_objOperateReturns;
 	};

@@ -1,7 +1,7 @@
 #ifndef __error_code_h__
 #define __error_code_h__ 
 
-enum ERROR_CODE
+enum ErrCode
 {
 	ERR_SUCCESS = 0,					//5 所有的成功标记都是为0
 	ERR_FAILURE = 1,					//5 所有的错误 
