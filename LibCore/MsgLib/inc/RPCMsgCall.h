@@ -15,7 +15,19 @@ namespace Msg
 		RPCTYPE_TIMEOUT , 
 	};
 
-	
+	enum EMSG_SYNC_TYPE
+	{
+		SYNC_TYPE_SYNC = 0,
+		SYNC_TYPE_NONSYNC = 1,
+	};
+
+	enum EMSG_SYNC_RESULT
+	{
+		SYNC_RESULT_START_RETURN = -1,
+		SYNC_RESULT_SUCCESS = 0,
+		SYNC_RESULT_FALSE = 1,
+	};
+
 	class DLL_EXPORT  RPCMsgCall : public ObjectMsgCall
 	{ 
 	public:
@@ -24,6 +36,8 @@ namespace Msg
 			, m_ullTimeout(MAX_MSG_TIME_OUT)  
 			, m_objProxySrcID(DEFAULT_RPC_CALLABLE_ID)
 			, m_nRpcMsgCallType(RPCTYPE_ERROR)
+			, m_objSyncType(SYNC_TYPE_NONSYNC)
+			, m_objSyncResult(SYNC_RESULT_START_RETURN)
 		{  
 			memset(m_szSessionName , 0 , sizeof(m_szSessionName));
 			memset(m_szRemoteName , 0 , sizeof(m_szRemoteName));
@@ -69,6 +83,10 @@ namespace Msg
 		Object GetProxySrcID(){ return m_objProxySrcID; }
 		INT32  GetRpcMsgCallType() const { return m_nRpcMsgCallType; }
 		void   SetRpcMsgCallType(INT32 val) { m_nRpcMsgCallType = val; }
+		void   SetSyncType(EMSG_SYNC_TYPE val) { m_objSyncType = val; }
+		EMSG_SYNC_TYPE GetSyncType( void ){ return m_objSyncType; }
+		void   SetSyncResult(EMSG_SYNC_RESULT val) { m_objSyncResult = val; }
+		EMSG_SYNC_RESULT GetSyncResult( void ){ return m_objSyncResult; }
 
 	public: 
 		virtual LibCore::CStream & marshal(LibCore::CStream & cs);
@@ -81,10 +99,11 @@ namespace Msg
 
 		//5 下面的参数是不参与网络传输的.
 	protected:
-		char           m_szSessionName[MAX_NAME_LENGTH];
-		Object         m_objProxySrcID;
-		INT32          m_nRpcMsgCallType;
-		
+		char			 m_szSessionName[MAX_NAME_LENGTH];
+		Object			 m_objProxySrcID;
+		INT32			 m_nRpcMsgCallType;
+		EMSG_SYNC_TYPE	 m_objSyncType;
+		EMSG_SYNC_RESULT m_objSyncResult;
 	};  
 
 }

@@ -102,13 +102,13 @@ namespace Msg
 	public: 
 		Net::NetHandlerTransitPtr   GetNetHandlerBySessionID(INT32 nSessionID);
 		Net::NetHandlerTransitPtr   GetNetHandlerByName(std::string strNetHandlerName);
-		MapRpcsT & GetSendRpcs( void ){ return m_mapSendRpcs; }  
+		MapRpcsT & GetSendRpcs( void ){ return m_mapSendRpcs; }   
 		Net::NetHandlerTransitPtr   GetHandlerByName(const char * pRpcServerName); 
 		Net::NetHandlerTransitPtr   GetHandlerBySimilarName(const char * pRpcServerName); 
 		MapRpcInfosT & GetMapRpcInfos() { return m_mapRpcInfos; }
 		Net::INetReactor *  GetNetReactor() { return m_pNetReactor; }
 		BOOL  IsHasSessionByName(const char * pRpcServerName);  
-		BOOL  ChangeNameBySesson(const INT32 nSessionID , const char * pName);  
+		BOOL  ChangeNameBySesson(const INT32 nSessionID , const char * pName);   
 		void  InsertSendRpc(RPCMsgCall * pMsg);
 		void  InsertSendRpc(UINT64 ullRpcMsgID, Rpc * objRpc);
 		RpcInterface * GetRpcInterface(){ return m_pRpcInterface; }
@@ -117,14 +117,14 @@ namespace Msg
 		Net::NetHandlerTransitPtr CreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::SOCKET socket = 0);
 		Net::NetHandlerTransitPtr CreateNetHandler( const char * pName , const char * pAddress , const char * pPort , Net::SOCKET socket = 0);
 		Net::NetHandlerTransitPtr CreateNetHandler( SRpcInfo & objRpcInfo , Net::SOCKET socket = 0 );
-		 
-	protected: 
+
+	protected:  
 		MapRpcsT					  m_mapSendRpcs;   
 		MapRpcInfosT				  m_mapRpcInfos;   //5 存下服务器的session.用来发送信息.
-		Net::INetReactor			* m_pNetReactor;         //5 没有访问机会.不会加锁
+		Net::INetReactor			* m_pNetReactor;   //5 没有访问机会.不会加锁
 		RpcInterface				* m_pRpcInterface;
 		MapSessionToHandlersT		  m_mapRemoteRpcs;
-		ThreadPool::ThreadSpinRWMutex m_objLock;   //5 用来锁住
+		ThreadPool::ThreadSpinRWMutex m_objLock;       //5 用来锁住
 	};  
 
 }

@@ -36,8 +36,9 @@ namespace Msg
 	} 
 
 
-	BOOL GenMsgHelper::GenMsgCall( RPCMsgCall & objMsgCall , BOOL bRecvRequest/* = FALSE*/ , UINT64 ullTimeout/* = 10*/ , UINT64 ullMsgID/* = -1*/ , const char * pRemoteName/* = ""*/)
+	BOOL GenMsgHelper::GenMsgCall( RPCMsgCall & objMsgCall , BOOL bRecvRequest/* = FALSE*/ , UINT64 ullTimeout/* = 10*/ , UINT64 ullMsgID/* = -1*/ , const char * pRemoteName/* = ""*/ , EMSG_SYNC_TYPE objSyncType /*= SYNC_TYPE_NONSYNC*/)
 	{
+		objMsgCall.SetSyncType(objSyncType);
 		objMsgCall.m_bClientRequest = bRecvRequest;
 		objMsgCall.m_ullTimeout = ullTimeout; 
 

@@ -9,7 +9,7 @@
 namespace Msg
 {  
 
-#define GEN_RPC_CALL(pSessionName , rpcCallName , p1 , p2 , p3 , p4 , p5 , p6 , p7 , vecTargets , objSrc , usPriority , pServerName) \
+#define GEN_RPC_CALL(pSessionName , rpcCallName , p1 , p2 , p3 , p4 , p5 , p6 , p7 , vecTargets , objSrc , usPriority , pServerName , objSyncType) \
 	if (vecTargets.size() == 0 && !pSessionName && !pServerName)\
 	{\
 		Assert_ReF1(FALSE);\

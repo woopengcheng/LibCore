@@ -158,6 +158,7 @@ namespace Msg
 		{   
 			m_pRpcServerManager->InsertSendRpc(pMsg); 
 
+			TakeOverSync(pMsg);
 			return ERR_SUCCESS;
 		}
 
@@ -171,6 +172,7 @@ namespace Msg
 		{  
 			m_pRpcServerManager->InsertSendRpc(pMsg); 
 
+			TakeOverSync(pMsg);
 			return ERR_SUCCESS;
 		}
 
@@ -193,13 +195,28 @@ namespace Msg
 	{ 
 		if (m_pRpcClientManager && m_pRpcServerManager && m_pRpcClientManager->SendMsg(pRemoteRpc , pMsg , bForce , bAddRpc) != ERR_FAILURE && bAddRpc)
 		{  
-			m_pRpcServerManager->InsertSendRpc(pMsg); 
+			m_pRpcServerManager->InsertSendRpc(pMsg);
+			TakeOverSync(pMsg);
 
 			return ERR_SUCCESS;
 		} 
 		return ERR_FAILURE;
 	}  
 
+	void RpcInterface::TakeOverSync(RPCMsgCall * pMsg)
+	{
+		if (pMsg->GetSyncType() == SYNC_TYPE_SYNC)
+		{ 
+			while (pMsg->GetSyncResult() > SYNC_RESULT_START_RETURN)
+			{
+				if(m_pNetReactor)
+				{
+					m_pNetReactor->Update();  //5 这里其实是接管网络的消息部分用于同步处理.也相当于这个线程阻塞了.
+				}
+			}
+			SAFE_DELETE(pMsg);
+		}
+	}
 
 	INT32 RpcInterface::CloseNet(const char * pName)
 	{ 

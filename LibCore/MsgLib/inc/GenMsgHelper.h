@@ -2,7 +2,7 @@
 #define __msg_gen_msg_helper_h__ 
 #include "MsgLib/inc/MsgCommon.h"
 #include "MsgLib/inc/ParameterHelper.h"
-#include "MsgLib/inc/ObjectMsgCall.h"
+#include "MsgLib/inc/RPCMsgCall.h"
 #include "MsgLib/inc/RpcServerManager.h"
 #include "Common/LibCore.h"
 
@@ -12,7 +12,7 @@ namespace Msg
 	{ 
 	public: 
 		
-		static BOOL GenMsgCall(RPCMsgCall & objMsgCall , BOOL bRecvRequest = FALSE , UINT64 ullTimeout = MAX_MSG_TIME_OUT , UINT64 ullMsgID = 0 , const char * pRemoteName = "");
+		static BOOL GenMsgCall(RPCMsgCall & objMsgCall , BOOL bRecvRequest = FALSE , UINT64 ullTimeout = MAX_MSG_TIME_OUT , UINT64 ullMsgID = 0 , const char * pRemoteName = "" , EMSG_SYNC_TYPE objSyncType = SYNC_TYPE_NONSYNC);
 		static BOOL GenMsgCall(ObjectMsgCall & objMsgCall , const char * pMsgCallName , UINT16 usPriority = 0);
 		static BOOL GenMsgCall(ObjectMsgCall & objMsgCall , const char * pMsgCallName , std::vector<Object> & vtTargets , Object objSrc , UINT16 usPriority = 0);
 		

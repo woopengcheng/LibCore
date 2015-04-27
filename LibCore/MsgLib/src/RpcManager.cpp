@@ -109,8 +109,7 @@ namespace Msg
 		} 
 
 		return ERR_SUCCESS;
-	}
-
+	} 
 
 	void RpcManager::InsertSendRpc( UINT64 ullRpcMsgID, Rpc * objRpc )
 	{ 

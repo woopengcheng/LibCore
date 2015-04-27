@@ -76,33 +76,70 @@ namespace Msg
 
 			objRpc->SetRpcMsgCall(pMsg);
 			if (pMsg->m_bClientRequest)
-			{     
-				if (HasSimilarRegisterFunc(pMsg->m_szMsgMethod , RPCClient))
-				{  
-					pMsg->SetRpcMsgCallType(RPCTYPE_CLIENT); 
-					objRpc->OnClient(pMsg , vecObjectMsgCall);  
-				}
-				else if (HasSimilarRegisterFunc(pMsg->m_szMsgMethod , RPCClientProxy))
-				{   
-					pMsg->SetRpcMsgCallType(RPCTYPE_CLIENT_PROXY); 
-					pMsg->m_objSource = pTemp->GetProxySrcID();  
+			{   
+				if (pTemp->GetSyncType() == SYNC_TYPE_NONSYNC)
+				{
+					if (HasSimilarRegisterFunc(pMsg->m_szMsgMethod , RPCClient))
+					{  
+						pMsg->SetRpcMsgCallType(RPCTYPE_CLIENT); 
+						objRpc->OnClient(pMsg , vecObjectMsgCall);  
+					}
+					else if (HasSimilarRegisterFunc(pMsg->m_szMsgMethod , RPCClientProxy))
+					{   
+						pMsg->SetRpcMsgCallType(RPCTYPE_CLIENT_PROXY); 
+						pMsg->m_objSource = pTemp->GetProxySrcID();  
 
-					objRpc->OnProxy(pMsg , vecObjectMsgCall);   
+						objRpc->OnProxy(pMsg , vecObjectMsgCall);   
 
-					Rpc::VecObjectMsgCallT::iterator iter = vecObjectMsgCall.begin();
-					for (;iter != vecObjectMsgCall.end();++iter)  
+						Rpc::VecObjectMsgCallT::iterator iter = vecObjectMsgCall.begin();
+						for (;iter != vecObjectMsgCall.end();++iter)  
+						{
+							RPCMsgCall * pReturnMsg = (RPCMsgCall *)(*iter);
+							if (pReturnMsg)
+							{ 
+								SendMsg(pMsg->GetSessionName(), pReturnMsg , FALSE , FALSE);
+								SAFE_DELETE(pReturnMsg);
+							}
+						}  
+					}
+					else
 					{
-						RPCMsgCall * pReturnMsg = (RPCMsgCall *)(*iter);
-						if (pReturnMsg)
-						{ 
-							SendMsg(pMsg->GetSessionName(), pReturnMsg , FALSE , FALSE);
-							SAFE_DELETE(pReturnMsg);
+						MsgAssert_ReF1(0 , "客户端接受到错误的RPC包.");
+					}
+				}
+				else if(pTemp->GetSyncType() == SYNC_TYPE_SYNC)
+				{
+					if (HasSimilarRegisterFunc(pMsg->m_szMsgMethod , RPCClient))
+					{  
+						pMsg->SetRpcMsgCallType(RPCTYPE_CLIENT); 
+						if(FALSE == objRpc->OnClient(pMsg , vecObjectMsgCall))
+						{
+							pTemp->SetSyncResult(SYNC_RESULT_FALSE);
 						}
-					}  
+						else
+						{
+							pTemp->SetSyncResult(SYNC_RESULT_SUCCESS);
+						}
+
+						Rpc::VecObjectMsgCallT::iterator iter = vecObjectMsgCall.begin();
+						for (;iter != vecObjectMsgCall.end();++iter)  
+						{
+							RPCMsgCall * pReturnMsg = (RPCMsgCall *)(*iter);
+							if (pReturnMsg)
+							{ 
+								SAFE_DELETE(pReturnMsg);
+							}
+						} 
+					} 
+					else
+					{
+						MsgAssert_ReF1(0 , "error sync rpc packet.");
+						pTemp->SetSyncResult(SYNC_RESULT_FALSE);
+					} 
 				}
 				else
 				{
-					MsgAssert_ReF1(0 , "客户端接受到错误的RPC包.");
+					MsgAssert_ReF1(0 , "unkown sync_type packet.");
 				}
 			}
 			else
@@ -113,7 +150,11 @@ namespace Msg
 			SAFE_DELETE(result->second);
 			m_mapSendRpcs.erase(result);
 			vecObjectMsgCall.clear();
-			SAFE_DELETE(pTemp);  
+
+			if (pTemp->GetSyncType() == SYNC_TYPE_NONSYNC)
+			{
+				SAFE_DELETE(pTemp);  
+			}
 		} 
 
 		return ERR_SUCCESS;
@@ -144,6 +185,14 @@ namespace Msg
 		{
 			pMsg->SetRpcMsgCallType(RPCTYPE_SERVER_PROXY);
 			objRpc.OnProxy(pMsg , vecObjectMsgCall);  
+
+			Rpc::VecObjectMsgCallT::iterator iter = vecObjectMsgCall.begin();
+			for (;iter != vecObjectMsgCall.end();++iter)  
+			{
+				RPCMsgCall * pReturnMsg = (RPCMsgCall *)(*iter);
+
+				SAFE_DELETE(pReturnMsg);
+			} 
 		}
 		else
 		{

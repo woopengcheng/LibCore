@@ -41,7 +41,7 @@ namespace Msg
 			strMethod += RPCTimeout;
 			break;
 		default: 
-			return 0;
+			return FALSE;
 		}
 		MethodImpl * pMethodImpl = m_pRpcManager->GetMethodImpl(strMethod.c_str());
 		Assert_Re0(pMethodImpl);

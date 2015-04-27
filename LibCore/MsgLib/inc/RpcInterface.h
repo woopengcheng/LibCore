@@ -61,6 +61,7 @@ namespace Msg
 	private:
 		void   StartupRPCServer(XML::XML * pXML);
 		void   StartupRPCClient(XML::XML * pXML);
+		void   TakeOverSync(RPCMsgCall * pMsg);
 
 	protected: 
 		UINT16               m_usServerPort;
