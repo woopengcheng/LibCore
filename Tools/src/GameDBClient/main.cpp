@@ -6,14 +6,22 @@
 #include <fstream>
 #include <iostream>
 
+#include "Common/LibCore.h" 
+#include "Common/Chunk.h" 
+#include "TimerLib/inc/TimerHelp.h"
+#include "MsgNameDefine.h" 
+#include "RPCCallFuncs.h"
+#include "RpcInstance.h"
+#include "MsgLib/inc/Object.h"
 #include "DBClient.h"
 #include "Common/LibCore.h" 
 #include "json/json.h"
 #include "TimerLib/inc/TimerHelp.h"
 
+INT64 g_time = 0;
 int _tmain(int argc, _TCHAR* argv[])
 {  
-	LibCore::Init("DBServer"); 
+	LibCore::Init("DBClient"); 
 
 	std::string defaultConf = "./gdbClient.conf";
 	if(argc > 1)
@@ -34,27 +42,56 @@ int _tmain(int argc, _TCHAR* argv[])
 		return 1;
 	}
 	fs.close();
+	 
+	 
+	Client::DBClient::GetInstance().Init(root); 
 
-	DB::DBClient db;
-	db.Init(root);
+	g_time = Timer::TimerHelper::GetTickSecond();
+	int gime = g_time;
+	std::vector<Msg::Object> targets;
+	targets.push_back(Msg::Object(1));  
+	int m_asd = 9;
 
-	while(1)
+	int n = 100000;
+	while (n)
 	{
-		db.Update();
+		Client::DBClient::GetInstance().Update(); 
 
-		char pBuf[1024]; 
-		((Net::MsgHeader*)pBuf)->unMsgID = 0;
-		((Net::MsgHeader*)pBuf)->unMsgLength = 6+ sizeof(Net::MsgHeader);
-		memcpy(pBuf + sizeof(Net::MsgHeader) , "asdfa" , 6);
-
-		if (db.GetNetHandler())
+		if( 0 < Client::local_call_TestObject("tcp://127.0.0.1:8001" , 'a' , 1 , 2 , 3 , 4 , "HelloWorld." , LibCore::Chunk("Foobar" , sizeof("Foobar")) , targets , Msg::Object(0) , 1))
 		{
-			db.GetNetHandler()->SendMsg(pBuf , 6 + sizeof(Net::MsgHeader));
+			n--;
 		} 
-		Timer::TimerHelper::sleep(1);
-	}
 
-	db.Cleanup();
+		if (n % 100 == 0)
+		{
+			std::cout << "n " << n << std::endl;
+			int nRemain = Timer::TimerHelper::GetTickSecond() - gime;
+			gime = Timer::TimerHelper::GetTickSecond();
+			std::cout << "timer " << nRemain << std::endl;
+		}
+	}
+	g_time = Timer::TimerHelper::GetTickSecond() - g_time;
+	std::cout << "timer" << g_time << std::endl;
+
+	Client::DBClient::GetInstance().Cleanup(); 
+	LibCore::Cleanup();
+
+
+	system("pause");
+	return 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	LibCore::Cleanup(); 
 	return 0;

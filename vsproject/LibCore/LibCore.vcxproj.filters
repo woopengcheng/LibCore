@@ -483,7 +483,16 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerListener.h">
       <Filter>GameDB\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBClient.h">
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientManager.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientInterface.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerManager.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerInterface.h">
       <Filter>GameDB\inc</Filter>
     </ClInclude>
   </ItemGroup>
@@ -713,7 +722,16 @@
     <ClCompile Include="..\..\LibCore\GameDB\src\DBServerListener.cpp">
       <Filter>GameDB\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\LibCore\GameDB\src\DBClient.cpp">
+    <ClCompile Include="..\..\LibCore\GameDB\src\DBClientManager.cpp">
+      <Filter>GameDB\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\GameDB\src\DBClientInterface.cpp">
+      <Filter>GameDB\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\GameDB\src\DBServerManager.cpp">
+      <Filter>GameDB\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\GameDB\src\DBServerInterface.cpp">
       <Filter>GameDB\src</Filter>
     </ClCompile>
   </ItemGroup>

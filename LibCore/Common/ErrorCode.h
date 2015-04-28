@@ -3,8 +3,9 @@
 
 enum ErrCode
 {
+	ERR_WRONG = -1,						//5 所有的错误 
 	ERR_SUCCESS = 0,					//5 所有的成功标记都是为0
-	ERR_FAILURE = 1,					//5 所有的错误 
+	ERR_FAILURE = 1,					//5 失败标记
 	ERR_IOERROR,						//5 IO错误
 
 	ERR_NOTFOUND ,						//5 数据库未找到

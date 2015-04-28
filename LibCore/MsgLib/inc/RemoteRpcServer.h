@@ -13,9 +13,6 @@ namespace Msg
 	 
 	class DLL_EXPORT RemoteRpcServer : public Net::NetHandlerServer
 	{
-//	public:
-//		DECLARE_BOOST_TEMPLATE_POINTERS(RemoteRpcServer , RemoteRpcServer); 
-
 	public:
 		RemoteRpcServer(RpcManager * pRpcManager , Net::INetReactor * pNetReactor , Net::ISession * pSession);
 		virtual ~RemoteRpcServer();

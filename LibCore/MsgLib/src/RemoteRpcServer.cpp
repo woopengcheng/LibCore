@@ -134,6 +134,6 @@ namespace Msg
 			break;
 		}
 
-		return ERR_FAILURE;
+		return ERR_SUCCESS;
 	}
 }

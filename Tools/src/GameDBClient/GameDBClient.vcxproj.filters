@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\rpc\TestObject_RpcClient.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\RpcRegister.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{0af7dc79-afc5-4ee2-a892-815d69a7d76e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\rpc">
+      <UniqueIdentifier>{e62d973b-0a0a-4018-919e-63cc923b4762}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\DBClient.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rpc\GlobalRpc.h">
+      <Filter>src\rpc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rpc\MsgNameDefine.h">
+      <Filter>src\rpc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rpc\RPCCallFuncs.h">
+      <Filter>src\rpc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rpc\RpcInstance.h">
+      <Filter>src\rpc</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -2,6 +2,7 @@
 #define __msg_rpc_interface_h__  
 #include "MsgLib/inc/MsgCommon.h"
 #include "NetLib/inc/NetHandlerTransit.h"
+#include "json/json.h"
 
 #ifdef WIN32
 #pragma warning( disable :4996)
@@ -22,23 +23,18 @@ namespace Msg
 	class DLL_EXPORT  RpcInterface
 	{ 
 	public:
-		RpcInterface(void) 
-			: m_usServerPort(0)
-			, m_pNetReactor(NULL)
-			, m_pRpcServerManager(NULL)
-			, m_pRpcClientManager(NULL)
-			, m_pRpcListener(NULL) 
-		{
-			memset(m_szServerName , 0 , sizeof(m_szServerName));
-			memset(m_szRpcType , 0 , sizeof(m_szRpcType));
-		}
-		virtual ~RpcInterface(void){} 
+		RpcInterface(void) ;
+		virtual ~RpcInterface(void);
 
 	public:
 		virtual INT32  Init(std::string strFilePath);
+		virtual INT32  Init(Json::Value & conf);
 		virtual INT32  Cleanup(void);
 		virtual INT32  Update(void); 
 		virtual void   OnRegisterRpcs(void){}
+		virtual void   StartupRPCServer(const std::string & strType , const std::string & strAddress , const std::string & strPort);
+		virtual void   StartupRPCClient(XML::XML * pXML);
+		virtual void   StartupRPCClient(const Json::Value & rpc_clients);
 
 	public:
 		virtual INT32  SendMsg(const char * pRpcServerName , RPCMsgCall * pMsg , BOOL bForce = FALSE , BOOL bAddRpc = TRUE);
@@ -59,8 +55,6 @@ namespace Msg
 		IRpcListener * GetRpcListener( ){ return m_pRpcListener; } 
 
 	private:
-		void   StartupRPCServer(XML::XML * pXML);
-		void   StartupRPCClient(XML::XML * pXML);
 		void   TakeOverSync(RPCMsgCall * pMsg);
 
 	protected: 

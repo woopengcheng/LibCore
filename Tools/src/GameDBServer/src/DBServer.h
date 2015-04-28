@@ -1,14 +1,20 @@
-#include "GameDB/inc/DBServer.h"
+#include "GameDB/inc/DBServerInterface.h"
+#include "json/json.h"
 
-
-namespace  DB
+namespace  Server
 {
-	class DBServer : public GameDB::DBServer
+	class DBServer : public GameDB::DBServerInterface
 	{
 	public:
-		DBServer( Json::Value & conf ):GameDB::DBServer(conf){}
+		DBServer( ):GameDB::DBServerInterface(){}
 		virtual ~DBServer(void){}
-	protected:
+
+	public:
+		static DBServer & GetInstance()
+		{
+			static DBServer m_sRpcInterface;
+			return m_sRpcInterface;
+		} 
 	private:
 	};
 }

@@ -10,6 +10,8 @@
 #include "Common/LibCore.h" 
 #include "json/json.h"
 #include "TimerLib/inc/TimerHelp.h"
+#include "TestObject.h" 
+#include "RpcInstance.h"  
 
 int _tmain(int argc, _TCHAR* argv[])
 {  
@@ -35,18 +37,18 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 	fs.close();
 
-	DB::DBServer db(root);
-	db.Init(root);
+	LibCore::Init("RpcServer"); 
+	Server::DBServer::GetInstance().Init(root); 
 
-	while(1)
+	Server::TestObject  ObjTestObject;   
+	while (1)
 	{
-		db.Update();
-		Timer::TimerHelper::sleep(1);
+		Server::DBServer::GetInstance().Update();
 	}
 
-	db.Cleanup();
-
-	LibCore::Cleanup(); 
+	Server::DBServer::GetInstance().Cleanup();  
+	LibCore::Cleanup();
+	 
 	return 0;
 }
 
