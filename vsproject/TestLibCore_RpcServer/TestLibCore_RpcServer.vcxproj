@@ -217,7 +217,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>DLL_EXPORTS;WIN32;_DEBUG;_CONSOLE;USE_LOG4CPLUS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)TestLibCore_RpcServer;$(SolutionDir)TestLibCore_RpcServer\rpc;$(SolutionDir)..\LibCore\;$(SolutionDir)..\deps\pthread\include;$(SolutionDir)..\deps\tbb\include;$(SolutionDir)..\deps\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)../deps/jsoncpp/include;$(SolutionDir)TestLibCore_RpcServer;$(SolutionDir)TestLibCore_RpcServer\rpc;$(SolutionDir)..\LibCore\;$(SolutionDir)..\deps\pthread\include;$(SolutionDir)..\deps\tbb\include;$(SolutionDir)..\deps\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
