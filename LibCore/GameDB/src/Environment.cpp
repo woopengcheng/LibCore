@@ -109,7 +109,7 @@ namespace GameDB
 		leveldb::Options objOptions;
 		MakeOptions(objOptions); 
 		objOptions.create_if_missing = true;
-//		objOptions.error_if_exists = true;
+ 		objOptions.error_if_exists = false;
 		objOptions.comparator = m_pComparator;
 
 		pDatabase = new Database(strName , m_strDirectory , objOptions , m_pBackupEnv);

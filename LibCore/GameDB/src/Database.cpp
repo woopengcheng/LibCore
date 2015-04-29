@@ -112,7 +112,7 @@ namespace GameDB
 		objOptions.create_if_missing = false;
 		objOptions.error_if_exists = false;
 
-		Status objStatus = leveldb::DB::Open(objOptions , m_strName , &m_pLevelDB);
+		Status objStatus = leveldb::DB::Open(objOptions , m_strDirectory , &m_pLevelDB);
 		if (!objStatus.ok())
 		{
 			MsgAssert_Re0(objStatus.ok() , objStatus.ToString())
@@ -129,7 +129,7 @@ namespace GameDB
 		objOptions.create_if_missing = true;
 		objOptions.error_if_exists = true;
 
-		Status objStatus = leveldb::DB::Open(objOptions , m_strName , &m_pLevelDB);
+		Status objStatus = leveldb::DB::Open(objOptions , m_strDirectory , &m_pLevelDB);
 		if (!objStatus.ok())
 		{
 			MsgAssert_Re0(objStatus.ok() , objStatus.ToString())

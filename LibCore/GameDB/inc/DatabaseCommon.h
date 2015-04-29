@@ -13,7 +13,7 @@ const size_t MAX_DB_TEMP_BUFFER_LENGTH = (64*1024*1024);
 namespace GameDB
 {	
 
-	static const char * g_szSystemDatabase = "SystemDatabase";
+	static const char * g_szSystemDatabase = ".sys";
 
 	typedef leveldb::Slice			 Slice;
 	typedef leveldb::Status			 Status;
