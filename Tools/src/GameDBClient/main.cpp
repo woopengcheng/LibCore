@@ -17,6 +17,7 @@
 #include "Common/LibCore.h" 
 #include "json/json.h"
 #include "TimerLib/inc/TimerHelp.h"
+#include "RpcInstance.h"
 
 INT64 g_time = 0;
 int _tmain(int argc, _TCHAR* argv[])
@@ -44,7 +45,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	fs.close();
 	 
 	 
-	Client::DBClient::GetInstance().Init(root); 
+	Client::RpcInstance::GetInstance().Init(root); 
 
 	g_time = Timer::TimerHelper::GetTickSecond();
 	int gime = g_time;
@@ -55,7 +56,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	int n = 100000;
 	while (n)
 	{
-		Client::DBClient::GetInstance().Update(); 
+		Client::RpcInstance::GetInstance().Update(); 
 
 		if( 0 < Client::local_call_TestObject("tcp://127.0.0.1:8001" , 'a' , 1 , 2 , 3 , 4 , "HelloWorld." , LibCore::Chunk("Foobar" , sizeof("Foobar")) , targets , Msg::Object(0) , 1))
 		{
@@ -73,7 +74,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	g_time = Timer::TimerHelper::GetTickSecond() - g_time;
 	std::cout << "timer" << g_time << std::endl;
 
-	Client::DBClient::GetInstance().Cleanup(); 
+	Client::RpcInstance::GetInstance().Cleanup(); 
 	LibCore::Cleanup();
 
 

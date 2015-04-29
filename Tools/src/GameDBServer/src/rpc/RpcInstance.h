@@ -1,11 +1,11 @@
 #ifndef __msg_rpc_instance_h__
 #define __msg_rpc_instance_h__  
 #include "MsgLib/inc/RpcInterface.h"
- 
+#include "GameDB/inc/DBServerInterface.h"
 
 namespace Server
 {  
-	class  RpcInstance : public Msg::RpcInterface
+	class  RpcInstance : public GameDB::DBServerInterface
 	{ 
 	public:
 		RpcInstance(void)  

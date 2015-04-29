@@ -37,15 +37,15 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 	fs.close();
 
-	Server::DBServer::GetInstance().Init(root); 
+	Server::RpcInstance::GetInstance().Init(root); 
 
 	Server::TestObject  ObjTestObject;   
 	while (1)
 	{
-		Server::DBServer::GetInstance().Update();
+		Server::RpcInstance::GetInstance().Update();
 	}
 
-	Server::DBServer::GetInstance().Cleanup();  
+	Server::RpcInstance::GetInstance().Cleanup();  
 	LibCore::Cleanup();
 	 
 	return 0;

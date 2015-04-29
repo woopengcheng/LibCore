@@ -196,7 +196,7 @@ namespace Msg
 		}
 		else
 		{
-			MsgAssert_ReF1(0 , "服务端接受到错误的RPC包.");
+			MsgAssert_ReF1(0 , "recv wrong rpc.may not register.name:" << pMsg->m_szMsgMethod << ",from:" << pMsg->GetSessionName());
 		}  
 
 		vecObjectMsgCall.clear(); 
@@ -292,7 +292,7 @@ namespace Msg
 				} 
 			}  
 
-			gDebugStream("recv client ping. " << strRemoteRPCName << std::endl);
+//			gDebugStream("recv client ping. " << strRemoteRPCName << std::endl);
 		}  
 
 		return TRUE;

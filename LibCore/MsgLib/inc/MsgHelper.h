@@ -9,7 +9,7 @@
 namespace Msg
 {  
 
-#define GEN_RPC_CALL(pSessionName , rpcCallName , p1 , p2 , p3 , p4 , p5 , p6 , p7 , vecTargets , objSrc , usPriority , pServerName , objSyncType) \
+#define GEN_RPC_CALL(pSendInstance , pSessionName , rpcCallName , p1 , p2 , p3 , p4 , p5 , p6 , p7 , vecTargets , objSrc , usPriority , pServerName , objSyncType) \
 	if (vecTargets.size() == 0 && !pSessionName && !pServerName)\
 	{\
 		Assert_ReF1(FALSE);\
@@ -22,7 +22,7 @@ namespace Msg
 		Msg::GenMsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		Msg::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7);\
 		\
-		return RpcInstance::GetInstance().SendMsg(pSessionName , pMsg );\
+		return pSendInstance->SendMsg(pSessionName , pMsg );\
 	}\
 	\
 	return ERR_SUCCESS;\
