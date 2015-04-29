@@ -33,7 +33,7 @@ namespace GameDB
 
 		m_pRpcClientManager = new DBClientManager(this , m_pNetReactor);  
 
-		Json::Value rpc_clients = conf.get("rpc_clients" , Json::Value()); 
+		Json::Value rpc_clients = conf.get("rpc_client" , Json::Value()); 
 		StartupRPCClient(rpc_clients); 
 
 		RegisterRpc();

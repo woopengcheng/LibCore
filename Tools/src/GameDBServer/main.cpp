@@ -37,7 +37,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 	fs.close();
 
-	LibCore::Init("RpcServer"); 
 	Server::DBServer::GetInstance().Init(root); 
 
 	Server::TestObject  ObjTestObject;   

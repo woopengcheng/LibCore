@@ -5,9 +5,11 @@
 #include "MsgNameDefine.h"  
 #include "MsgLib/inc/IRpcMsgCallableObject.h"
 #include "MsgLib/inc/RpcServerManager.h"
-#include "RpcInstance.h"
 #include "MsgLib/inc/Object.h"
 #include "RpcDefines.h" 
+#include "MsgLib/inc/RpcServerManager.h"
+#include "MsgLib/inc/RpcInterface.h"
+#include "DBServer.h"
 
 namespace Server
 {  
@@ -16,7 +18,7 @@ namespace Server
 		RPC_DEFINE_TestObject;
 	public:
 		TestObject()
-			: Msg::IRpcMsgCallableObject(Msg::Object(1) , RpcInstance::GetInstance().GetRpcServerManager()){}
+			: Msg::IRpcMsgCallableObject(Msg::Object(1) , DBServer::GetInstance().GetRpcServerManager()){}
 	public:
 		virtual INT32 Update(){ return 0; } 
 

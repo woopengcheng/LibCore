@@ -1,3 +1,6 @@
+#ifndef __client_db_client_h__
+#define __client_db_client_h__
+
 #include "GameDB/inc/DBClientInterface.h"
 
 
@@ -17,3 +20,5 @@ namespace  Client
 	private:
 	};
 }
+
+#endif

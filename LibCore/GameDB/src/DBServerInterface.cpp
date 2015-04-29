@@ -36,7 +36,7 @@ namespace GameDB
 		std::string strAddress = rpc_server.get("listen_address" , "127.0.0.1").asCString();
 		std::string strPort = rpc_server.get("listen_port" , "8003").asCString();
 
-		StartupRPCServer(strType,  strAddress , strType); 
+		StartupRPCServer(strType,  strAddress , strPort); 
 		  
 		RegisterRpc();
 

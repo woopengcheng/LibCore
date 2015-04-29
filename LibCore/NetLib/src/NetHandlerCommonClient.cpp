@@ -56,8 +56,10 @@ namespace Net
 		 {
 			 NetHelper::CloseSocket(socket);
 			 m_pSession->SetSocket(-1);  
+
+			 gErrorStream("Connect failure ip:" << m_pSession->GetRemoteName() << "socket:" << socket);
 		 }
-		 gDebugStream("Connect " << m_pSession->GetRemoteName());
+		 gDebugStream("Connect success ip:" << m_pSession->GetRemoteName() << "socket:" << socket);
 		 return  nResult;
 	 }
 
