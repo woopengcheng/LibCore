@@ -107,7 +107,6 @@
     <ClCompile Include="src\rpc\TestObject_RpcServer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\DBServer.h" />
     <ClInclude Include="src\rpc\GlobalRpc.h" />
     <ClInclude Include="src\rpc\MsgNameDefine.h" />
     <ClInclude Include="src\rpc\RpcDefines.h" />
