@@ -10,6 +10,7 @@ namespace Net
 namespace Msg
 {
 	class RpcInterface;
+	class RPCMsgCall;
 }
 
 namespace GameDB
@@ -20,8 +21,8 @@ namespace GameDB
 		DBServerManager(Msg::RpcInterface * pRpcInterface ,Net::INetReactor * pNetReactor) 
 			: RpcServerManager(pRpcInterface , pNetReactor)
 		{}
-		virtual ~DBServerManager(void){}  
-		 
+		virtual ~DBServerManager(void){}   
+
 	public: 
 		virtual Net::NetHandlerTransitPtr OnCreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::SOCKET socket = 0);
 

@@ -82,15 +82,21 @@ namespace Msg
 			}
 		}
 
-		m_pRpcClientManager = new RpcClientManager(this , m_pNetReactor);
-		m_pRpcServerManager = new RpcServerManager(this , m_pNetReactor);
+		if (m_pRpcServerManager)
+		{
+			m_pRpcServerManager = new RpcServerManager(this , m_pNetReactor);
+		}
+		if (m_pRpcClientManager)
+		{
+			m_pRpcClientManager = new RpcClientManager(this , m_pNetReactor);
+		}
 
 		Json::Value rpc_server = conf.get("rpc_server" , Json::Value()); 
 		std::string strType = rpc_server.get("listen_type" , "tcp").asCString();
 		std::string strAddress = rpc_server.get("listen_address" , "127.0.0.1").asCString();
 		std::string strPort = rpc_server.get("listen_port" , "8003").asCString();
 		  
-		StartupRPCServer(strType,  strAddress , strType);
+		StartupRPCServer(strType,  strAddress , strPort);
 
 		Json::Value rpc_clients = conf.get("rpc_clients" , Json::Value()); 
 		StartupRPCClient(rpc_clients); 

@@ -1,6 +1,7 @@
 #include "GameDB/inc/DBServerInterface.h"  
 #include "NetLib/inc/NetReactorSelect.h"
 #include "GameDB/inc/DBServerManager.h"
+#include "GameDB/inc/DBClientManager.h"
 #include "LogLib/inc/Log.h" 
 
 namespace GameDB
@@ -65,6 +66,10 @@ namespace GameDB
 		{
 			m_pRpcServerManager = new DBServerManager(this , m_pNetReactor); 
 		} 
+		if (!m_pRpcClientManager)
+		{
+			m_pRpcClientManager = new DBClientManager(this , m_pNetReactor); 
+		} 
 
 		Json::Value rpc_server = conf.get("rpc_server" , Json::Value()); 
 		std::string strType = rpc_server.get("listen_type" , "tcp").asCString();
@@ -72,6 +77,9 @@ namespace GameDB
 		std::string strPort = rpc_server.get("listen_port" , "8003").asCString();
 
 		StartupRPCServer(strType,  strAddress , strPort); 
+
+		Json::Value rpc_clients = conf.get("rpc_clients" , Json::Value());
+		StartupRPCClient(rpc_clients);
 
 		RegisterRpc(); 
 

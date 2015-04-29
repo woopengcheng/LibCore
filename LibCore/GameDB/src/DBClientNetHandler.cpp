@@ -13,19 +13,19 @@ namespace GameDB
 	{ 
 	} 
 
-	INT32 DBClientNetHandler::HandleMsg( Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
-	{ 
-		switch(unMsgID)
-		{
-		case 0:
-			{
-				std::cout << pBuffer << std::endl;
-			}break; 
-		default:
-			break;
-		}
-
-		return ERR_FAILURE;
-	} 
+// 	INT32 DBClientNetHandler::HandleMsg( Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
+// 	{ 
+// 		switch(unMsgID)
+// 		{
+// 		case 0:
+// 			{
+// 				std::cout << pBuffer << std::endl;
+// 			}break; 
+// 		default:
+// 			break;
+// 		}
+// 
+// 		return ERR_FAILURE;
+// 	} 
 
 }

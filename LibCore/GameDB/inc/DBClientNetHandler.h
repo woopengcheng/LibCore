@@ -12,8 +12,8 @@ namespace GameDB
 		DBClientNetHandler( Msg::RpcManager * pRpcManager ,  Net::INetReactor * pNetReactor , Net::ISession * pSession);
 		virtual ~DBClientNetHandler();
 
-	public: 
-		virtual INT32  HandleMsg(Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength); 
+// 	public: 
+// 		virtual INT32  HandleMsg(Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength); 
 		  
 	};    
 	 

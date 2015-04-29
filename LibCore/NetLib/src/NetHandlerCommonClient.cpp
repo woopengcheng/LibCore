@@ -59,7 +59,8 @@ namespace Net
 
 			 gErrorStream("Connect failure ip:" << m_pSession->GetRemoteName() << "socket:" << socket);
 		 }
-		 gDebugStream("Connect success ip:" << m_pSession->GetRemoteName() << "socket:" << socket);
+		 else
+			 gDebugStream("Connect success ip:" << m_pSession->GetRemoteName() << "socket:" << socket);
 		 return  nResult;
 	 }
 
