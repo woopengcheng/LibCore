@@ -34,7 +34,7 @@ class RpcServerName(ParentPoint):
 		self.outputPath = None
 		self.include = None
 		self.namespace = None
-		
+		self.rpcInterface = None 
 
 class DefaultParam(ParentPoint):
 	def __init__(self, parentPoint): 
@@ -136,6 +136,9 @@ def handleRpcServerName(rpcServerNames , xmlRpcServerName):
 		if attr == "namespace":
 			rpcServerName.namespace = xmlRpcServerName.attrib[attr]
 			print(attr ,  " ", rpcServerName.namespace)
+		if attr == "rpcInterface":
+			rpcServerName.rpcInterface = xmlRpcServerName.attrib[attr]
+			print(attr , " " , rpcServerName.rpcInterface)
 
 	rpcServerNames[rpcServerName.serverName] = rpcServerName
 
@@ -292,7 +295,7 @@ def GenerateRPCDefines():
 def GenerateRPCDefine(rpc , fileRpc): 
 	strParams = GetParams(rpc.call.params) 
 	print(strParams)
-	fileRpc.write("#define  RPC_DEFINE_" + rpc.name + " public:\\\n")
+	fileRpc.write("#define  RPC_DEFINE_" + rpc.classes + " public:\\\n")
 	fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcServer(" + strParams + "std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\n\n")
 
 
@@ -395,7 +398,7 @@ def GenerateRpcRegister():
 		fileRpc.write(oneTab + "//5 defaultParams define here.\n")
 		WriteDefaultParams(fileRpc)
 		
-		fileRpc.write(oneTab + "void RpcInstance::OnRegisterRpcs( void )\n")
+		fileRpc.write(oneTab + "void " + rpcServerName.rpcInterface + "::OnRegisterRpcs( void )\n")
 		fileRpc.write(oneTab + "{\n")
 		fileRpc.write(twoTab + "Assert(m_pRpcServerManager && Msg::g_pRpcCheckParams);	\n")
 		fileRpc.write(twoTab + "Msg::GlobalRpc * g_pGlobalRpc  = new Msg::GlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcServerManager); \n\n") 
@@ -435,7 +438,7 @@ def GenerateRpcRegisterFuncs(rpcs , fileRpc , serverName):
 	#生成所有的rpc
 	for index , rpc in rpcs.items():    
 		if rpc.server == serverName: 
-			fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ rpc.name + " >(Msg::g_sz" + rpc.name + "_RpcServer , &" + rpc.name + "::" + rpc.name + "_RpcServer); \n") 
+			fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ rpc.classes + " >(Msg::g_sz" + rpc.name + "_RpcServer , &" + rpc.classes + "::" + rpc.name + "_RpcServer); \n") 
 	  
 		if rpc.proxy == serverName: 
 			fileRpc.write(threeTab + "\n")
@@ -509,7 +512,10 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 
 			fileRpc.write("Msg::ObjectMsgCall * Msg::GlobalRpc::" + rpc.name + "_RpcClientProxy(") 
 			strParams = GetParamsExcludeDefault(rpc.returns.params) 
-			fileRpc.write(strParams + "std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )\n{\n\n\n ")
+			fileRpc.write(strParams + "std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )\n{\n ")
+			WriteDefineParams(fileRpc , rpc.returns.params)
+			fileRpc.write("\n\n")
+			
 			fileRpc.write(oneTab + "std::cout << \"" + rpc.name + "_RpcClientProxy\" << std::endl;\n")
 
 			strParamsNoType= GetParamsExcludeDefaultAndType(rpc.returns.params)
@@ -539,7 +545,9 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 
 			fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + rpc.classes + "::" + rpc.name + "_RpcServer(")
 			strParams = GetParamsExcludeDefault(rpc.call.params)
-			fileRpc.write(strParams + "std::vector<Msg::Object> vecTargets , Msg::Object objSrc )\n{\n\n\n")
+			fileRpc.write(strParams + "std::vector<Msg::Object> vecTargets , Msg::Object objSrc )\n{\n")
+			WriteDefineParams(fileRpc , rpc.returns.params)
+			fileRpc.write("\n\n")
 			
 			strParamsNoType= GetParamsExcludeDefaultAndType(rpc.returns.params)
 			strReturnCount = len(rpc.returns.params)
@@ -679,6 +687,26 @@ def GetRpcParamsIncludeDefault(call):
 		strParams += GetDefaultParamValue(param.type)
 
 	return strParams
+def WriteDefaultParams(fileRpc):
+	for index , defaultParam in g_rpcMsgs.defaultParams.items():
+		fileRpc.write(oneTab + "static " + defaultParam.type + " g_rpcDefaultParam_" + defaultParam.type + " = " + defaultParam.value + ";\n")
+	fileRpc.write("\n")
+	
+def WriteDefineParams(fileRpc , params):
+	for index , param in params.items():  
+		strParams = oneTab 
+		strParams += param.type
+		strParams += " "
+		strParams += param.name
+		strParams += " = "
+
+		if param.default == "":
+			strParams += GetAndCheckDefaultParam(param.type)
+		else:
+			strParams += param.default
+
+		strParams += ";\n" 
+		fileRpc.write(strParams) 
 
 def GetParamsExcludeDefault(params):
 	strParams = ""

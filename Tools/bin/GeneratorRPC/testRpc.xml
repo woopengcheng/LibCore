@@ -45,9 +45,9 @@
 	<DefaultParams INT32='0' UINT32='0'/>
 	<DefaultParams INT16='0' UINT16='0'/>
 
-	<RpcServerName serverName="Server" namespace="Server" include="RpcInstance.h" outputPath="../../../vsproject/TestLibCore_RpcServer/rpc/"/>
-	<RpcServerName serverName="Client" namespace="Client" include="RpcInstance.h" outputPath="../../../vsproject/TestLibCore_RpcClient/rpc/"/>
-	<RpcServerName serverName="Proxy" namespace="Proxy" include="RpcInstance.h" outputPath="../../../vsproject/TestLibCore_RpcProxy/rpc/"/>
+	<RpcServerName serverName="Server" namespace="Server" include="RpcInstance.h" rpcInterface="RpcInstance" outputPath="../../../vsproject/TestLibCore_RpcServer/rpc/"/>
+	<RpcServerName serverName="Client" namespace="Client" include="RpcInstance.h" rpcInterface="RpcInstance" outputPath="../../../vsproject/TestLibCore_RpcClient/rpc/"/>
+	<RpcServerName serverName="Proxy" namespace="Proxy" include="RpcInstance.h" rpcInterface="RpcInstance" outputPath="../../../vsproject/TestLibCore_RpcProxy/rpc/"/>
 	
 	<Rpcs>  
 		<RpcData name="UserLogin">

@@ -12,9 +12,9 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::TestObject_RpcServerProxy(INT32 userid/* = 
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::TestObject_RpcClientProxy(std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
 {
+ 
 
-
- 	std::cout << "TestObject_RpcClientProxy" << std::endl;
+	std::cout << "TestObject_RpcClientProxy" << std::endl;
 	RPCReturn0();
 }
 

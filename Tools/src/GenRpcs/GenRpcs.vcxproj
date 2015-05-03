@@ -158,7 +158,7 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>$(SolutionDir)..\Tools\bin\GeneratorRPC\GeneratorRpc.bat</Command>
+      <Command>$(SolutionDir)..\Tools\bin\GeneratorRPC\GeneratorRpcTest.bat</Command>
     </PreBuildEvent>
     <CustomBuildStep>
       <Command>
