@@ -6,18 +6,17 @@
 #include <fstream>
 #include <iostream>
 
-#include "DBServer.h"
+#include "TimerLib/inc/TimerHelp.h"
 #include "Common/LibCore.h" 
 #include "json/json.h"
-#include "TimerLib/inc/TimerHelp.h"
-#include "TestObject.h" 
-#include "RpcInstance.h"  
+#include "ServerHandler.h"  
+#include "DBServer.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {  
 	LibCore::Init("DBServer"); 
 
-	std::string defaultConf = "./gdb.conf";
+	std::string defaultConf = "./gdbServer.conf";
 	if(argc > 1)
 		defaultConf = argv[1];
 	
@@ -37,15 +36,15 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 	fs.close();
 
-	Server::RpcInstance::GetInstance().Init(root); 
+	Server::DBServer::GetInstance().Init(root); 
 
-	Server::TestObject  ObjTestObject;   
+	Server::ServerHandler  ObjTestObject;   
 	while (1)
 	{
-		Server::RpcInstance::GetInstance().Update();
+		Server::DBServer::GetInstance().Update();
 	}
 
-	Server::RpcInstance::GetInstance().Cleanup();  
+	Server::DBServer::GetInstance().Cleanup();  
 	LibCore::Cleanup();
 	 
 	return 0;

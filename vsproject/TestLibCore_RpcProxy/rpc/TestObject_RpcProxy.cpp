@@ -1,23 +1,28 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Proxy::GlobalRpc::TestObject_RpcServerProxy(char p1 , INT16 p2, UINT16 p3 , INT32 p4 , UINT32 p5 , const char * p6 , LibCore::Chunk p7  , std::vector<Msg::Object> vecTargets , Msg::Object objSrc)
-{   
-	std::cout << "TestObject_RpcServerProxy" << std::endl; 
+Msg::ObjectMsgCall * Msg::GlobalRpc::TestObject_RpcServerProxy(INT32 userid/* = 0*/ , INT32 localid/* = 0*/, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
+{
 
-	ProxySendMsg("tcp://127.0.0.1:8002" , p1 , p2 , p3 , p4 , p5 , p6 , p7);
+
+ 	ProxySendMsg("tcp://127.0.0.1:8002" , userid , localid);
+	std::cout << "TestObject_RpcServerProxy" << std::endl;
+	//RPCReturn0();
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Proxy::GlobalRpc::TestObject_RpcClientProxy( char p1 , std::vector<Msg::Object> vecTargets , Msg::Object objSrc )
-{ 
-	std::cout << "TestObject_RpcClientProxy" << std::endl; 
-	RPCReturn(p1);
+Msg::ObjectMsgCall * Msg::GlobalRpc::TestObject_RpcClientProxy(std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
+{
+
+
+ 	std::cout << "TestObject_RpcClientProxy" << std::endl;
+	RPCReturn0();
 }
 
-Msg::ObjectMsgCall * Proxy::GlobalRpc::TestObject_RpcTimeoutProxy( char p1 , INT16 p2, UINT16 p3 , INT32 p4 , UINT32 p5 , const char * p6 , LibCore::Chunk p7  , std::vector<Msg::Object> vecTargets , Msg::Object objSrc)
-{ 
-	std::cout << "TestObject_RpcTimeoutProxy" << std::endl; 
+Msg::ObjectMsgCall * Msg::GlobalRpc::TestObject_RpcTimeout(INT32 userid/* = 0*/ , INT32 localid/* = 0*/, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
+{
 
+
+ 	std::cout << "TestObject_RpcTimeout" << std::endl;
 	RPCReturnNULL;
 }
- 
+

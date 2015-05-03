@@ -30,15 +30,13 @@
     <ClInclude Include="rpc\GlobalRpc.h">
       <Filter>rpc</Filter>
     </ClInclude>
-    <ClInclude Include="rpc\RpcInstance.h">
-      <Filter>rpc</Filter>
-    </ClInclude>
     <ClInclude Include="rpc\MsgNameDefine.h">
       <Filter>rpc</Filter>
     </ClInclude>
     <ClInclude Include="rpc\RPCCallFuncs.h">
       <Filter>rpc</Filter>
     </ClInclude>
+    <ClInclude Include="rpc\RpcInstance.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

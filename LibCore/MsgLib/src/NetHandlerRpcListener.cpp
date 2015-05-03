@@ -27,10 +27,14 @@ namespace Msg
 
 			std::string strRemoteRPCName = Net::NetHelper::GenerateRemoteName(m_pRpcManager->GetRpcInterface()->GetServerType()  , szAddress , usPort); 
 
-			if(NULL != m_pRpcManager->CreateNetHandler(strRemoteRPCName.c_str() , szAddress , usPort , socket))
+			if(NULL == m_pRpcManager->CreateNetHandler(strRemoteRPCName.c_str() , szAddress , usPort , socket))
+			{
 				gErrorStream("Accept client error," << strRemoteRPCName);
-			
-			gDebugStream( "Accpet client , address:" << szAddress << ",port:" << usPort);
+			}
+			else
+			{
+				gDebugStream( "Accpet client , address:" << szAddress << ",port:" << usPort);
+			}
 		}
 	}   
 }

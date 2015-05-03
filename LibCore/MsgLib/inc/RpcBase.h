@@ -8,7 +8,17 @@
 #include "MsgLib/inc/RpcCheckParams.h"
 
 #define RPCReturnNULL return NULL;
-#define RPCReturn(p1) return Return(p1);
+#define RPCReturn0() return Return();
+#define RPCReturn1(p1) return Return(p1);
+#define RPCReturn2(p1 , p2) return Return(p1 , p2);
+#define RPCReturn3(p1 , p2 , p3) return Return(p1 , p2 , p3);
+#define RPCReturn4(p1 , p2 , p3 , p4) return Return(p1 , p2 , p3 , p4 );
+#define RPCReturn5(p1 , p2 , p3 , p4 , p5) return Return(p1 , p2 , p3 , p4 , p5);
+#define RPCReturn6(p1 , p2 , p3 , p4 , p5 , p6) return Return(p1 , p2 , p3 , p4 , p5 , p6 );
+#define RPCReturn7(p1 , p2 , p3 , p4 , p5 , p6 , p7) return Return(p1 , p2 , p3 , p4 , p5 , p6 , p7);
+#define RPCReturn8(p1 , p2 , p3 , p4 , p5 , p6 , p7 , p8) return Return(p1 , p2 , p3 , p4 , p5 , p6 , p7 , p8);
+
+
 #define RPC_MSG_SEND_TYPE_DELIVER "Deliver"
 #define RPC_MSG_SEND_TYPE_RETURN  "Return"
 

@@ -11,13 +11,13 @@
 #include "TimerLib/inc/TimerHelp.h"
 #include "MsgNameDefine.h" 
 #include "RPCCallFuncs.h"
-#include "RpcInstance.h"
+#include "DBClient.h"
 #include "MsgLib/inc/Object.h"
 #include "DBClient.h"
 #include "Common/LibCore.h" 
 #include "json/json.h"
 #include "TimerLib/inc/TimerHelp.h"
-#include "RpcInstance.h"
+#include "DBClient.h"
 
 INT64 g_time = 0;
 int _tmain(int argc, _TCHAR* argv[])
@@ -45,7 +45,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	fs.close();
 	 
 	 
-	Client::RpcInstance::GetInstance().Init(root); 
+	Client::DBClient::GetInstance().Init(root); 
 
 	g_time = Timer::TimerHelper::GetTickSecond();
 	int gime = g_time;
@@ -56,9 +56,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	int n = 100000;
 	while (n)
 	{
-		Client::RpcInstance::GetInstance().Update(); 
+		Client::DBClient::GetInstance().Update(); 
 
-		if( 0 < Client::local_call_TestObject("tcp://127.0.0.1:8001" , 'a' , 1 , 2 , 3 , 4 , "HelloWorld." , LibCore::Chunk("Foobar" , sizeof("Foobar")) , targets , Msg::Object(0) , 1))
+		if( 0 < Client::local_call_HandleHSet("tcp://127.0.0.1:8001" , 1 , 2 , targets , Msg::Object(0) , 1))
 		{
 			n--;
 		} 
@@ -74,7 +74,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	g_time = Timer::TimerHelper::GetTickSecond() - g_time;
 	std::cout << "timer" << g_time << std::endl;
 
-	Client::RpcInstance::GetInstance().Cleanup(); 
+	Client::DBClient::GetInstance().Cleanup(); 
 	LibCore::Cleanup();
 
 

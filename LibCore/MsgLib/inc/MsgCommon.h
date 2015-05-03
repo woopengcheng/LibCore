@@ -33,6 +33,7 @@ namespace Msg
 
 #define RPCServerProxy "_X" 
 #define RPCClientProxy "_Y" 
+//#define RPCTimeoutProxy "_Z" 
 #define RPCClient "_C"
 #define RPCServer "_S"
 #define RPCTimeout "_T" 
@@ -48,6 +49,7 @@ namespace Msg
 
 #define MSG_DEFINE(MSG_NAME)  static const char * g_szLocal_##MSG_NAME = #MSG_NAME; 
 
+#define VECTOR_TARGETS_NULL (std::vector<Msg::Object>())
 	enum ERPCServerNames
 	{
 		RPC_ConnSrv = 0 ,

@@ -8,8 +8,6 @@
 namespace Msg
 {
 
-
-
 	class DLL_EXPORT  IRpcMsgCallableObject : public Rpc
 	{
 	public: 

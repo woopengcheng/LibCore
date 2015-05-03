@@ -1,23 +1,22 @@
 #ifndef __msg_rpc_instance_h__
 #define __msg_rpc_instance_h__  
 #include "MsgLib/inc/RpcInterface.h"
-#include "GameDB/inc/DBClientInterface.h"
- 
+#include "GameDB/inc/DBServerInterface.h"
 
-namespace Client
+namespace Server
 {  
-	class  RpcInstance : public GameDB::DBClientInterface
+	class  DBServer : public GameDB::DBServerInterface
 	{ 
 	public:
-		RpcInstance(void)  
+		DBServer(void)  
 		{ 
 		}
-		virtual ~RpcInstance(void){} 
+		virtual ~DBServer(void){} 
 
 	public:
-		static RpcInstance & GetInstance()
+		static DBServer & GetInstance()
 		{
-			static RpcInstance m_sRpcInterface;
+			static DBServer m_sRpcInterface;
 			return m_sRpcInterface;
 		} 
 

@@ -5,6 +5,7 @@
 #include "MsgNameDefine.h" 
 #include "RpcInstance.h"
 #include "MsgLib/inc/Object.h"
+#include "stdafx.h"
 
 INT64 g_time = 0;
 
@@ -24,7 +25,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		Client::RpcInstance::GetInstance().Update(); 
 
- 		if( 0 < Client::local_call_TestObject("tcp://127.0.0.1:8002" , 'a' , 1 , 2 , 3 , 4 , "HelloWorld." , LibCore::Chunk("Foobar" , sizeof("Foobar")) , targets , Msg::Object(0) , 1))
+ 		if( 0 < Client::local_call_TestObject("tcp://127.0.0.1:8001" , 1 , 2 , targets , Msg::Object(0) , 1))
 		{
 			n--;
 		} 

@@ -1,3 +1,3 @@
 cd %~dp0
-python %~dp0test.py
+python %~dp0GeneratorRpc.py testRpc.xml
 pause

@@ -21,9 +21,11 @@ namespace Client
 		} 
 
 	public: 
-		virtual void OnRegisterRpcs(void); 
+		virtual void OnRegisterRpcs(); 
 	};  
 
+	//5 这句话必须定义.给RPC或者消息调用.
+#define MSG_INSTANCE (Client::RpcInstance::GetInstance())
 }
 
 

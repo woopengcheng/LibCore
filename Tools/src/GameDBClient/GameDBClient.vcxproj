@@ -103,14 +103,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\rpc\HandleHSet_RpcClient.cpp" />
     <ClCompile Include="src\rpc\RpcRegister.cpp" />
-    <ClCompile Include="src\rpc\TestObject_RpcClient.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\rpc\DBClient.h" />
     <ClInclude Include="src\rpc\GlobalRpc.h" />
     <ClInclude Include="src\rpc\MsgNameDefine.h" />
     <ClInclude Include="src\rpc\RPCCallFuncs.h" />
-    <ClInclude Include="src\rpc\RpcInstance.h" />
+    <ClInclude Include="src\rpc\RpcDatas.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
