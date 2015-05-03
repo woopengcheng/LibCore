@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!--
+	使用方法:RPCMsgs包含了所有的RPC的消息.
+		DefaultParams:
+			目的是为了方便,如果不给类型加参数的话,系统会默认增加参数.
+			如果需要增加新的类型.这个新类型需要包含默认参数.默认参数需要在<DefaultParams />中声明类型和值.类型只能为1个单字.不能出现const char * 或者Msg::Chunk这种.
+		
+		RpcServerName:指的是作为RPC服务器的功能.
+			serverName: 
+				指的是当前服务器的功能.主要分为,client发起端,server接收端,proxy代理转发端.
+				serverName不可更改.不然无法解析.
+			include: 
+				需要包含的继承自RPCInterface的class的头文件包含路径..
+			outputPath: 
+				当前的RPC服务器输出的文件地方.注意末尾加/
+			
+		RpcNamespace:
+			Rpc要转发的服务器列表.需要给出服务器列表的名字和路径.这也是RPC的生成路径.
+		RPCS:
+			这里是所有的RPC对于RPC而言可以传递声明的参数类型也可以传递RpcData.RpcData的参数类型需要在默认参数中声明.且需要名字就可以了.
+			RpcData:
+				定义一个结构体,用于传递消息时,大家可以共用一份.
+			Rpc:
+				对于一个Rpc而言.需要知道这个Rpc的名字.在哪个类里面使用.客户端(远程调用)名字.服务器名字.代理服务器名字.代理服务器没有则为空.但必须有客户端和服务器.
+				name:
+					RPC名字
+				class:
+					当前RPC的类名
+				include:
+					
+				支持的服务器类型
+					client="Client" proxy="Proxy" server="Server"
+				
+			call和Return:
+				call为一个RPC的发起调用.或者超时时调用的函数.return为RPC从服务器返回的多个值.
+		
+-->
+
+
+<RpcMsgs>			
+	<DefaultParams INT32='0' UINT32='0'/>
+	<DefaultParams INT16='0' UINT16='0'/>
+
+
+	<RpcServerName serverName="Server" include="DBServer.h" namespace="Server" rpcInterface="DBServer" outputPath="../../../Tools/src/GameDBServer/src/rpc/"/>
+	<RpcServerName serverName="Client" include="DBClient.h" namespace="Client" rpcInterface="DBClient" outputPath="../../../Tools/src/GameDBClient/src/rpc/"/> 
+	
+	<Rpcs>  
+		<RpcData name="UserLogin">
+			<Param type="INT32" name="userid" default="0"/>
+			<Param type="INT32" name="localid" default="0"/> 
+		</RpcData>
+
+		<Rpc name="HandleHSet" class="ServerHandler" include="ServerHandler.h" client="Client" server="Server" syncType="1">
+			<Call >
+				<Param name="userid" type="INT32" default="0"/>
+				<Param name="localid" type="INT32" default="1"/>
+			</Call>
+
+			<Return>
+				<Param name="resCode" type="INT32" default="0"/> 
+			</Return>
+		</Rpc> 
+	</Rpcs>
+</RpcMsgs>
