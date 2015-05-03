@@ -37,6 +37,9 @@
       <Filter>rpc</Filter>
     </ClInclude>
     <ClInclude Include="rpc\RpcInstance.h" />
+    <ClInclude Include="rpc\RpcDatas.h">
+      <Filter>rpc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -49,6 +52,9 @@
       <Filter>rpc</Filter>
     </ClCompile>
     <ClCompile Include="rpc\RpcRegister.cpp">
+      <Filter>rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="rpc\TestObject1_RpcClient.cpp">
       <Filter>rpc</Filter>
     </ClCompile>
   </ItemGroup>

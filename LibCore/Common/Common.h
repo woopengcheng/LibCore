@@ -37,6 +37,7 @@ typedef ptrdiff_t        PtrDiff;
 typedef int   BOOL;
 typedef int   INT32;
 typedef unsigned int   UINT32; 
+typedef std::string    std_string;
 
 #define MAX_NAME_LENGTH          50
 

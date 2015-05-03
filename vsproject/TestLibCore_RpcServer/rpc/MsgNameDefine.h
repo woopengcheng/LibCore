@@ -4,6 +4,8 @@
 
 namespace Msg
 {
+	//5 TestObject1 declare here
+	RPC_DEFINE(TestObject1);
 	//5 TestObject declare here
 	RPC_DEFINE(TestObject);
 }

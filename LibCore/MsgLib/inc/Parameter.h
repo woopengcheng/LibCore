@@ -11,7 +11,7 @@ namespace Msg
 	{ 
 		PARAMETER_TYPE_NIL  = 0 ,
 		PARAMETER_TYPE_BOOL  , 
-		PARAMETER_TYPE_INT8  , 
+		PARAMETER_TYPE_SINT8  , 
 		PARAMETER_TYPE_UINT8  , 
 		PARAMETER_TYPE_INT16  , 
 		PARAMETER_TYPE_UINT16  , 
@@ -52,7 +52,7 @@ namespace Msg
 	public:
 		bool	   IsNil(){ return GetType() == PARAMETER_TYPE_NIL; }
 		bool	   IsBoolean(){ return GetType() == PARAMETER_TYPE_BOOL; }
-		bool	   IsInt8(){ return GetType() == PARAMETER_TYPE_INT8; }
+		bool	   IsInt8(){ return GetType() == PARAMETER_TYPE_SINT8; }
 		bool	   IsUInt8(){ return GetType() == PARAMETER_TYPE_UINT8; }
 		bool	   IsInt16(){ return GetType() == PARAMETER_TYPE_INT16; }
 		bool	   IsUInt16(){ return GetType() == PARAMETER_TYPE_UINT16; }

@@ -387,6 +387,7 @@ def GenerateRpcRegister():
 		fileRpc.write("#include \"MsgLib/inc/RpcServerManager.h\"\n")
 		fileRpc.write("#include \"MsgLib/inc/RpcCheckParams.h\"\n") 
 		fileRpc.write("#include \"MsgLib/inc/IRpcMsgCallableObject.h\"\n") 
+		fileRpc.write("#include \"Common/Chunk.h\"\n") 
 		fileRpc.write("#include \"GlobalRpc.h\"\n")  
 		fileRpc.write("#include \"MsgNameDefine.h\"\n")  
 		fileRpc.write("#include \"" + rpcServerName.include + "\"\n")
@@ -654,7 +655,7 @@ def GetParams(params):
 		strParams = strParams + param.name
 		strParams = strParams + " = "
 
-		if param.default == "":
+		if param.default == "" or param.default == None:
 			strParams = strParams + GetAndCheckDefaultParam(param.type)
 		else:
 			strParams = strParams + param.default
@@ -700,7 +701,7 @@ def WriteDefineParams(fileRpc , params):
 		strParams += param.name
 		strParams += " = "
 
-		if param.default == "":
+		if param.default == "" or param.default == None:
 			strParams += GetAndCheckDefaultParam(param.type)
 		else:
 			strParams += param.default
@@ -719,7 +720,7 @@ def GetParamsExcludeDefault(params):
 		strParams = strParams + param.name
 		strParams = strParams + "/* = "
 
-		if param.default == "":
+		if param.default == "" or param.default == None:
 			strParams = strParams + GetAndCheckDefaultParam(param.type)
 		else:
 			strParams = strParams + param.default

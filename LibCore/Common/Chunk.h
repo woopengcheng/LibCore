@@ -59,4 +59,5 @@ namespace LibCore
 		char  m_szBuffer[unSize];
 	};
 }
+#define LibCore_Chunk LibCore::Chunk
 #endif

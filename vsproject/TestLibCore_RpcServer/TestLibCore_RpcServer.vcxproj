@@ -271,6 +271,7 @@
   <ItemGroup>
     <ClInclude Include="rpc\GlobalRpc.h" />
     <ClInclude Include="rpc\MsgNameDefine.h" />
+    <ClInclude Include="rpc\RpcDatas.h" />
     <ClInclude Include="rpc\RpcDefines.h" />
     <ClInclude Include="rpc\RpcInstance.h" />
     <ClInclude Include="stdafx.h" />
@@ -279,6 +280,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="rpc\RpcRegister.cpp" />
+    <ClCompile Include="rpc\TestObject1_RpcServer.cpp" />
     <ClCompile Include="rpc\TestObject_RpcServer.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="TestLibCore_RpcServer.cpp" />

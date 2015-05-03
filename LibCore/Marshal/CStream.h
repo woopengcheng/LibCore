@@ -92,7 +92,7 @@ namespace LibCore
 			return * this;
 		}
 	public:
-		CStream & operator << (char t)				{ return Pushback(t);} 
+		CStream & operator << (char t)				{ return Pushback(t);}  
 		CStream & operator << (UINT8 t)				{ return Pushback(t);} 
 		CStream & operator << (bool t)				{ return Pushback(t);} 
 		CStream & operator << (INT16 t)				{ return Pushback(t);} 
@@ -113,7 +113,7 @@ namespace LibCore
 			STATIC_ASSERT(sizeof(T) == 1);  //5 测试是否是单字节.utf16和utf32.单独处理
 			size_t unBytes = t.length() * sizeof(T);
 			Pushback(unBytes);
-			m_objChunk.Insert(m_objChunk.End() , (void*)t.c_str() , unBytes);
+			m_objChunk.Insert(m_objChunk.End() , (void*)t.c_str() , (UINT32)unBytes);
 
 			return *this;
 		}
@@ -149,7 +149,7 @@ namespace LibCore
 		} 
 
 	public:
-		CStream & operator >> (char & t)			{ return Pop(t);} 
+		CStream & operator >> (char & t)			{ return Pop(t);}  
 		CStream & operator >> (UINT8 & t)			{ return Pop(t);} 
 		CStream & operator >> (bool & t)			{ return Pop(t);} 
 		CStream & operator >> (INT16 & t)			{ return Pop(t);} 
