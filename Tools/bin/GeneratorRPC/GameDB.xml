@@ -12,7 +12,11 @@
 				指的是当前服务器的功能.主要分为,client发起端,server接收端,proxy代理转发端.
 				serverName不可更改.不然无法解析.
 			include: 
-				需要包含的继承自RPCInterface的class的头文件包含路径..
+				需要包含的继承自RPCInterface的class的头文件包含路径.
+			namespace:
+				指的是当前RPC服务器所使用的命名空间
+			rpcInterface:
+				指的是当前RPC服务器继承自RPCInterface的接口.
 			outputPath: 
 				当前的RPC服务器输出的文件地方.注意末尾加/
 			
@@ -27,10 +31,10 @@
 				name:
 					RPC名字
 				class:
-					当前RPC的类名
+					当前RPC所属于的类
 				include:
-					
-				支持的服务器类型
+					此RPC属于的头文件.
+				支持的服务器类型,必须和上面登记的一样.
 					client="Client" proxy="Proxy" server="Server"
 				
 			call和Return:
@@ -39,10 +43,17 @@
 -->
 
 
-<RpcMsgs>			
-	<DefaultParams INT32='0' UINT32='0'/>
+<RpcMsgs>	
+	<!--
+		以下为基本类型,在Parameter中含有的.也可以在代码中定义,不过需要的是只能为一个单词.当然也可以自定义rpcdata
+	-->		
+	<DefaultParams SINT8='0'  UINT8='0'/>
 	<DefaultParams INT16='0' UINT16='0'/>
-
+	<DefaultParams INT32='0' UINT32='0'/>
+	<DefaultParams INT64='0' UINT64='0'/> 
+	<DefaultParams double='0.0f' float='0.0f'/> 
+	<DefaultParams std_string='std::string()'/> 
+	<DefaultParams LibCore_Chunk='LibCore::Chunk()'/>
 
 	<RpcServerName serverName="Server" include="DBServer.h" namespace="Server" rpcInterface="DBServer" outputPath="../../../Tools/src/GameDBServer/src/rpc/"/>
 	<RpcServerName serverName="Client" include="DBClient.h" namespace="Client" rpcInterface="DBClient" outputPath="../../../Tools/src/GameDBClient/src/rpc/"/> 

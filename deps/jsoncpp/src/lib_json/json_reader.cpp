@@ -14,6 +14,8 @@
 #include <cassert>
 #include <cstring>
 #include <istream>
+#include <fstream>
+#include <iostream>
 
 #if defined(_MSC_VER) && _MSC_VER < 1500 // VC++ 8.0 and below
 #define snprintf _snprintf
@@ -895,4 +897,23 @@ std::istream& operator>>(std::istream& sin, Value& root) {
   return sin;
 }
 
+int JsonParase(const char * pPath , Json::Value & root)
+{
+	std::fstream fs;
+	fs.open(pPath,std::ios_base::in);
+	if(!fs.good())
+	{
+		std::cerr << "Open Configure File " << pPath << " Failed" << std::endl;
+		return 1;
+	} 
+	Json::Reader reader;
+	if(!reader.parse(fs,root))
+	{
+		std::cerr << "Parse Configure File Failed:" << reader.getFormatedErrorMessages() << std::endl;
+		return 1;
+	}
+	fs.close();
+
+	return 0;
+}
 } // namespace Json

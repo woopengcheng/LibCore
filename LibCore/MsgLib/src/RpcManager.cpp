@@ -366,4 +366,44 @@ namespace Msg
 		return ERR_SUCCESS;
 	}
 
+	BOOL RpcManager::IsConnected(const char * pRpcServerName)
+	{
+		Net::NetHandlerTransitPtr pHandler = GetHandlerByName(pRpcServerName);
+		if (pHandler && pHandler->GetSession())
+		{
+			if(Net::NET_STATE_CONNECTED == pHandler->GetSession()->GetNetState())
+				return TRUE;
+		}
+		return FALSE;
+	}
+
+	BOOL RpcManager::IsConnected(INT32 nSessionID)
+	{
+		Net::NetHandlerTransitPtr pHandler = GetNetHandlerBySessionID(nSessionID);
+		if (pHandler && pHandler->GetSession())
+		{
+			if(Net::NET_STATE_CONNECTED == pHandler->GetSession()->GetNetState())
+				return TRUE;
+		}
+		return FALSE;
+	}
+
+	BOOL RpcManager::IsAllConnected()
+	{
+		BOOL bSuccess = TRUE;
+		MapSessionToHandlersT::iterator iter = m_mapRemoteRpcs.begin();
+		for (;iter != m_mapRemoteRpcs.end();++iter)
+		{
+			Net::NetHandlerTransitPtr pHandler = iter->second; 
+			 
+			if (pHandler && pHandler->GetSession())
+			{
+				if(Net::NET_STATE_CONNECTED != pHandler->GetSession()->GetNetState())
+					bSuccess = FALSE;
+			}
+		}
+
+		return bSuccess; 
+	}
+
 }

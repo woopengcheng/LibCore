@@ -233,8 +233,10 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\LibCore\Common\arg_parser.h" />
     <ClInclude Include="..\..\LibCore\Common\BoostHelper.h" />
     <ClInclude Include="..\..\LibCore\Common\BsonToCpp.h" />
+    <ClInclude Include="..\..\LibCore\Common\carg_parser.h" />
     <ClInclude Include="..\..\LibCore\Common\Chunk.h" />
     <ClInclude Include="..\..\LibCore\Common\CircleBuffer.h" />
     <ClInclude Include="..\..\LibCore\Common\ClassTypeID.h" />
@@ -368,7 +370,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\LibCore\Common\arg_parser.cc" />
     <ClCompile Include="..\..\LibCore\Common\BsonToCpp.cpp" />
+    <ClCompile Include="..\..\LibCore\Common\carg_parser.c" />
     <ClCompile Include="..\..\LibCore\Common\Chunk.cpp" />
     <ClCompile Include="..\..\LibCore\Common\CircleBuffer.cpp" />
     <ClCompile Include="..\..\LibCore\Common\Common.cpp" />

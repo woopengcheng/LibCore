@@ -12,4 +12,10 @@
 #include "writer.h"
 #include "features.h"
 
+namespace Json
+{
+	extern int JsonParase(const char * pPath , Json::Value & root); 
+
+}
+
 #endif // JSON_JSON_H_INCLUDED

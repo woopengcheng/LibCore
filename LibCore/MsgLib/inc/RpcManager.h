@@ -100,6 +100,9 @@ namespace Msg
 		virtual Net::NetHandlerTransitPtr OnCreateNetHandler(const char * pName , const char * pAddress , UINT16 usPort , Net::SOCKET socket = 0){ return Net::NetHandlerTransitPtr(NULL); }
 		  
 	public: 
+		BOOL IsAllConnected();
+		BOOL IsConnected(const char * pRpcServerName);
+		BOOL IsConnected(INT32 nSessionID);
 		Net::NetHandlerTransitPtr   GetNetHandlerBySessionID(INT32 nSessionID);
 		Net::NetHandlerTransitPtr   GetNetHandlerByName(std::string strNetHandlerName);
 		MapRpcsT & GetSendRpcs( void ){ return m_mapSendRpcs; }   

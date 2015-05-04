@@ -489,6 +489,12 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerInterface.h">
       <Filter>GameDB\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\carg_parser.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\arg_parser.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -721,6 +727,12 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\GameDB\src\DBServerInterface.cpp">
       <Filter>GameDB\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Common\carg_parser.c">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Common\arg_parser.cc">
+      <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

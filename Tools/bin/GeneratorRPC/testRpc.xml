@@ -9,8 +9,9 @@
 		
 		RpcServerName:指的是作为RPC服务器的功能.
 			serverName: 
-				指的是当前服务器的功能.主要分为,client发起端,server接收端,proxy代理转发端.
-				serverName不可更改.不然无法解析.
+				指的是当前服务器的名字
+				服务器功能包含,client发起端,server接收端,proxy代理转发端.
+				serverName,可更改,但需要和rpc的相对于
 			include: 
 				需要包含的继承自RPCInterface的class的头文件包含路径.
 			namespace:
