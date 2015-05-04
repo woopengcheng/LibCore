@@ -42,10 +42,6 @@ namespace Proxy
 			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szTestObject1_RpcServerProxy , &Msg::GlobalRpc::TestObject1_RpcServerProxy); 
 			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szTestObject1_RpcClientProxy , &Msg::GlobalRpc::TestObject1_RpcClientProxy); 
 			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szTestObject1_RpcTimeout , &Msg::GlobalRpc::TestObject1_RpcTimeout); 
-			
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szTestObject_RpcServerProxy , &Msg::GlobalRpc::TestObject_RpcServerProxy); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szTestObject_RpcClientProxy , &Msg::GlobalRpc::TestObject_RpcClientProxy); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szTestObject_RpcTimeout , &Msg::GlobalRpc::TestObject_RpcTimeout); 
 		}
 
 		//5 TestObject generate default deliver and return check param here
@@ -56,10 +52,6 @@ namespace Proxy
 			Msg::g_pRpcCheckParams->InsertReturnParams("TestObject", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szTestObject1_RpcServerProxy , &Msg::GlobalRpc::TestObject1_RpcServerProxy); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szTestObject1_RpcClientProxy , &Msg::GlobalRpc::TestObject1_RpcClientProxy); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szTestObject1_RpcTimeout , &Msg::GlobalRpc::TestObject1_RpcTimeout); 
 			
 			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szTestObject_RpcServerProxy , &Msg::GlobalRpc::TestObject_RpcServerProxy); 
 			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szTestObject_RpcClientProxy , &Msg::GlobalRpc::TestObject_RpcClientProxy); 

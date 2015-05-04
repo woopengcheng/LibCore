@@ -22,9 +22,10 @@ namespace LibCore
 		virtual Chunk   &  Erase(void * pBegin , void * pEnd);
 		virtual Chunk   &  Reverse(UINT32 unSize);
 		virtual void	*  Create(UINT32 unSize);
-		virtual void       Release( void );
 		virtual void    *  Begin( void );
 		virtual void    *  End( void );
+		virtual void       Clear( void );
+		virtual void       Release( void );
 
 	public:
 		void    *  GetBuf() const { return m_pBuf; }

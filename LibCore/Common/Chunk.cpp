@@ -161,6 +161,15 @@ namespace LibCore
 
 		return *this;
 	}
-	 
+
+	void Chunk::Clear(void)
+	{
+		Release();
+		m_unSize = 0;
+		m_unDataLen = 0;
+		m_bMustRelease = FALSE;
+	}
+
+
 	 
 }

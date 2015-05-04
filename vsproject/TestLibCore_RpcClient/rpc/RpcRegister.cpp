@@ -40,8 +40,6 @@ namespace Client
 			objReturnParams.Clear();
 			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szTestObject1_RpcTimeout , &Msg::GlobalRpc::TestObject1_RpcTimeout); 
 			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szTestObject1_RpcClient , &Msg::GlobalRpc::TestObject1_RpcClient); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szTestObject_RpcTimeout , &Msg::GlobalRpc::TestObject_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szTestObject_RpcClient , &Msg::GlobalRpc::TestObject_RpcClient); 
 		}
 
 		//5 TestObject generate default deliver and return check param here
@@ -52,8 +50,6 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("TestObject", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szTestObject1_RpcTimeout , &Msg::GlobalRpc::TestObject1_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szTestObject1_RpcClient , &Msg::GlobalRpc::TestObject1_RpcClient); 
 			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szTestObject_RpcTimeout , &Msg::GlobalRpc::TestObject_RpcTimeout); 
 			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szTestObject_RpcClient , &Msg::GlobalRpc::TestObject_RpcClient); 
 		}

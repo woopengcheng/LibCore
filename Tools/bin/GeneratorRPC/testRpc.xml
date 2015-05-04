@@ -79,12 +79,13 @@
 		<Rpc name="TestObject" class="TestObject" include="TestObject.h" client="Client" proxy="Proxy" server="Server" syncType="0">
 			<Call >
 				<Param type="SINT8" name="userid1" default="0"/> 
-				<Param type="INT16" name="userid3" default="0"/>
+-				<Param type="INT16" name="userid3" default="0"/>
 				<Param type="UINT16" name="localid4" default="0"/>  
 				<Param type="INT32" name="localid6" default="0"/> 
 				<Param type="UINT32" name="userid7" default="0"/>
 				<Param type="INT64" name="localid8" default="0"/> 
 				<Param type="UINT64" name="userid9" default="0"/>
+
 			</Call>
 
 			<Return> 

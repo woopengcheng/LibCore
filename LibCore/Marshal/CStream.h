@@ -177,6 +177,8 @@ namespace LibCore
 			MsgAssert_Re(!(unBytes > m_objChunk.GetDataLen() - m_nCurPos) , *this , "unMarshal invalid length.");
 			
 			t.assign((T*)((char *)m_objChunk.Begin() + m_nCurPos) , unBytes / sizeof(T));
+
+			return *this;
 		}
 
 		template<typename T1 , typename T2> CStream & operator >> (std::pair<T1 , T2> & t)
@@ -240,6 +242,7 @@ namespace LibCore
 			void  * Begin(){ return m_objChunk.Begin(); }
 			void  * End(){ return m_objChunk.End(); }
 			void    Insert(void * pPos , void * pBegin , UINT32 unLen){ m_objChunk.Insert(pPos , pBegin , unLen); } 
+			void    Clear(){ m_objChunk.Clear(); m_nCurPos = 0; m_nTransactionPos = 0; } 
 
 	protected:
 		INT32   m_nCurPos;			 //5 记录当前流的位置.

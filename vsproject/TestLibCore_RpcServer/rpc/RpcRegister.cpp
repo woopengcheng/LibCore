@@ -41,7 +41,6 @@ namespace Server
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
 			m_pRpcServerManager->RegisterFunc<TestObject >(Msg::g_szTestObject1_RpcServer , &TestObject::TestObject1_RpcServer); 
-			m_pRpcServerManager->RegisterFunc<TestObject >(Msg::g_szTestObject_RpcServer , &TestObject::TestObject_RpcServer); 
 		}
 
 		//5 TestObject generate default deliver and return check param here
@@ -52,7 +51,6 @@ namespace Server
 			Msg::g_pRpcCheckParams->InsertReturnParams("TestObject", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<TestObject >(Msg::g_szTestObject1_RpcServer , &TestObject::TestObject1_RpcServer); 
 			m_pRpcServerManager->RegisterFunc<TestObject >(Msg::g_szTestObject_RpcServer , &TestObject::TestObject_RpcServer); 
 		}
 

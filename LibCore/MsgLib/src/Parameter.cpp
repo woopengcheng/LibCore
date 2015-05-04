@@ -80,9 +80,8 @@ namespace Msg
 	}
 
 	void      Parameter::Clear( void )
-	{
-		void * pBuf = NULL;
-		m_objParamStream.Pop(pBuf , m_objParamStream.GetDataLen());
+	{ 
+		m_objParamStream.Clear();
 	}
 
 }

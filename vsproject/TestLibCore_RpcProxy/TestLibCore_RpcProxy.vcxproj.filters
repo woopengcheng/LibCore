@@ -42,6 +42,12 @@
     <ClInclude Include="rpc\RpcDatas.h">
       <Filter>rpc</Filter>
     </ClInclude>
+    <ClInclude Include="rpc\RPCDefines.h">
+      <Filter>rpc</Filter>
+    </ClInclude>
+    <ClInclude Include="rpc\RPCCallFuncs.h">
+      <Filter>rpc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
