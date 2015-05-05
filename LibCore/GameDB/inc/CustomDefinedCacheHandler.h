@@ -7,7 +7,7 @@ namespace GameDB
 {
 	class Database;
 
-	class DLL_EXPORT CustomDefinedCacheHandler : public leveldb::WriteBatch::Handler
+	class CustomDefinedCacheHandler : public leveldb::WriteBatch::Handler
 	{
 	public:
 		CustomDefinedCacheHandler(Database * pDatabase)

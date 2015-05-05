@@ -109,7 +109,7 @@ namespace Msg
 
 		static void MakeParameter(Parameter & objParam , std::string strValue)
 		{   
-				UINT32 unSize = strValue.length() + 1;
+				UINT32 unSize = (UINT32)(strValue.length() + 1);
 
 				objParam.GetParamStream() << (INT32)PARAMETER_TYPE_STD_STRING << unSize;  
 				objParam.GetParamStream() << strValue;

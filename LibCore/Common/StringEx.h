@@ -22,7 +22,7 @@ namespace LibCore
 		}
 		StringEx(const char * pStr)
 		{
-			Init(pStr , strlen(pStr)); //5 故意少拷贝一个.结尾时自动加上.
+			Init(pStr , (UINT32)strlen(pStr)); //5 故意少拷贝一个.结尾时自动加上.
 		}
 
 		virtual void  Init(const char * pStr , UINT32 unLength)
@@ -34,7 +34,7 @@ namespace LibCore
 
 		StringEx<L> & operator = (const char * pStr)
 		{
-			Init(pStr , strlen(pStr));
+			Init(pStr , (UINT32)strlen(pStr));
 
 			return * this;
 		}
@@ -66,7 +66,7 @@ namespace LibCore
 		
 		UINT32 length()
 		{
-			return strlen(m_szString);
+			return (UINT32)strlen(m_szString);
 		}
 	protected:
 		char m_szString[L];

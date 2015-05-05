@@ -44,7 +44,7 @@ static void * ap_resize_buffer( void * buf, const int min_size )
 static char push_back_record( struct Arg_parser * const ap,
                               const int code, const char * const argument )
   {
-  const int len = strlen( argument );
+  const int len = (int)strlen( argument );
   struct ap_Record *p;
   void * tmp = ap_resize_buffer( ap->data,
                  ( ap->data_size + 1 ) * sizeof (struct ap_Record) );

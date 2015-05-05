@@ -187,7 +187,7 @@ namespace _bson {
         }
 
         void appendStr(const StringData &str , bool includeEndingNull = true ) {
-            const int len = str.size() + ( includeEndingNull ? 1 : 0 );
+            const int len = (int)(str.size()) + ( includeEndingNull ? 1 : 0 );
             str.copyTo( grow(len), includeEndingNull );
         }
 
@@ -308,7 +308,7 @@ namespace _bson {
 
         void write( const char* buf, int len) { memcpy( _buf.grow( len ) , buf , len ); }
 
-        void append( const StringData& str ) { str.copyTo( _buf.grow( str.size() ), false ); }
+        void append( const StringData& str ) { str.copyTo( _buf.grow( (int)str.size() ), false ); }
 
         StringBuilderImpl& operator<<( const StringData& str ) {
             append( str );

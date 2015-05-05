@@ -34,7 +34,7 @@ namespace GameDB
 			GetSession()->SetNetState(Net::NET_STATE_LOSTED);
 			return ERR_FAILURE;
 		}
-
+		return ERR_SUCCESS;
 	}
 
 // 	INT32 DBServerNetHandler::HandleMsg(Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )

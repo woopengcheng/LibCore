@@ -91,7 +91,7 @@ public:
   const std::string & error() const { return error_; }
 
       // The number of arguments parsed (may be different from argc)
-  int arguments() const { return data.size(); }
+  int arguments() const { return (int)data.size(); }
 
       // If code( i ) is 0, argument( i ) is a non-option.
       // Else argument( i ) is the option's argument (or empty).

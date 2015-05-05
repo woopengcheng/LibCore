@@ -6,7 +6,7 @@
 namespace GameDB
 {
 	//5 用于levelDB排序用的.
-	class DLL_EXPORT Comparator :public leveldb::Comparator
+	class Comparator :public leveldb::Comparator
 	{
 	public:
 		Comparator(){}

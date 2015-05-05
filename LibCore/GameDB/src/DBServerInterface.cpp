@@ -1,5 +1,6 @@
 #include "GameDB/inc/DBServerInterface.h"  
 #include "NetLib/inc/NetReactorSelect.h"
+#include "NetLib/inc/NetReactorZMQ.h"
 #include "GameDB/inc/DBServerManager.h"
 #include "GameDB/inc/DBClientManager.h"
 #include "LogLib/inc/Log.h" 
