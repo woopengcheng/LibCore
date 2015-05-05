@@ -307,7 +307,7 @@ namespace Msg
 	}  
 #endif
 
-	Net::NetHandlerTransitPtr RpcServerManager::OnCreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::SOCKET socket /*= 0*/ )
+	Net::NetHandlerTransitPtr RpcServerManager::OnCreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket /*= 0*/ )
 	{
 		Assert_Re0(pAddress);   
 		std::string strRemoteName = Net::NetHelper::GenerateRemoteName(m_pRpcInterface->GetServerType()  , pAddress , usPort );

@@ -13,7 +13,7 @@ namespace Net
 		: INetHandler(pNetReactor , pSession)
 	{ 
 		Assert(m_pSession); 
-		SOCKET socket = NetHelper::CreateSocket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
+		NetSocket socket = NetHelper::CreateSocket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
 
 		int nValueTrue = 1;
 		NetHelper::SetIOCtrl(socket , FIOASYNC , &nValueTrue);
@@ -41,7 +41,7 @@ namespace Net
 #else
 		INT32 nAddrLen = sizeof(sockaddr_in);
 #endif
-		SOCKET socket = ::accept(m_pSession->GetSocket(),(sockaddr*)&addr , &nAddrLen);
+		NetSocket socket = ::accept(m_pSession->GetSocket(),(sockaddr*)&addr , &nAddrLen);
 		if( socket != -1)
 		{ 
 			NetHelper::SetSocket(socket);	  
@@ -77,7 +77,7 @@ namespace Net
 		return ::bind(m_pSession->GetSocket() , (sockaddr*)&addr , sizeof(sockaddr_in));
 	}
 
-	void NetHandlerListener::OnAccept( SOCKET socket , sockaddr_in * addr )
+	void NetHandlerListener::OnAccept( NetSocket socket , sockaddr_in * addr )
 	{
 		if (m_pNetReactor)
 		{

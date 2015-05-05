@@ -49,7 +49,7 @@ namespace Net
 		return str;
 	}
 
-	void NetHelper::SetSocket( SOCKET & socket )
+	void NetHelper::SetSocket( NetSocket & socket )
 	{
 		linger s = {0};
 		s.l_onoff = 1;
@@ -61,7 +61,7 @@ namespace Net
 		SetIOCtrl(socket,FIOASYNC,&valuetrue);
 	}
 
-	INT32 NetHelper::RecvMsg(SOCKET socket , char * pBuf , UINT32 unSize )
+	INT32 NetHelper::RecvMsg(NetSocket socket , char * pBuf , UINT32 unSize )
 	{
 #ifdef __linux
 		return ::recv(socket , pBuf , unSize , MSG_DONTWAIT);
@@ -162,7 +162,7 @@ namespace Net
 		return TRUE;
 	}
 
-	INT32 NetHelper::SetDefaultSocket( SOCKET & socket , INT32 nSendBufSize/* = DEFAULT_SOCKET_BUFFER_SIZE */ , INT32 nRecvBufSize/* = DEFAULT_SOCKET_BUFFER_SIZE */)
+	INT32 NetHelper::SetDefaultSocket( NetSocket & socket , INT32 nSendBufSize/* = DEFAULT_SOCKET_BUFFER_SIZE */ , INT32 nRecvBufSize/* = DEFAULT_SOCKET_BUFFER_SIZE */)
 	{ 
 		INT32 nRes = 0;
 		if (socket > 0)
@@ -178,7 +178,7 @@ namespace Net
 		return nRes;
 	}
 
-	void NetHelper::CloseSocket( SOCKET  socket )
+	void NetHelper::CloseSocket( NetSocket  socket )
 	{
 		::closesocket(socket); 
 	}
@@ -193,7 +193,7 @@ namespace Net
 
 	}
 
-	SOCKET NetHelper::CreateSocket( INT32 af, INT32 type, INT32 protocol )
+	NetSocket NetHelper::CreateSocket( INT32 af, INT32 type, INT32 protocol )
 	{
 		return ::socket(af , type , protocol);
 	}

@@ -87,7 +87,7 @@ namespace Net
 			MapNetHandlersT::iterator iterHandlers = m_mapNetHandlers.begin();
 			for (;iterEvents != m_mapNetEvents.end() && iterHandlers != m_mapNetHandlers.end() ;++iterEvents , ++ iterHandlers)
 			{
-				SOCKET socket = -1;
+				NetSocket socket = -1;
 				INetHandlerPtr pINetHandler = iterHandlers->second;
 				if (pINetHandler)
 				{
@@ -116,7 +116,7 @@ namespace Net
 				INetHandlerPtr  pNetHandler  = iterHandlers->second;
 				if (pNetHandler)
 				{
-					SOCKET socket = pNetHandler->GetSession()->GetSocket(); 
+					NetSocket socket = pNetHandler->GetSession()->GetSocket(); 
 
 					if (FD_ISSET(socket , pFdSetReads))
 					{

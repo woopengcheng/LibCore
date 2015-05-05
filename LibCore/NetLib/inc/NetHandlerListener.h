@@ -20,7 +20,7 @@ namespace Net
 	public:
 		virtual INT32  Init(const char * pAddress , INT32 nPort , BOOL bResueAddr = TRUE , INT32  nListenerCount = DEFAULT_LISTENER_COUNT);
 		virtual INT32  Cleanup(); 
-		virtual void   OnAccept(SOCKET socket , sockaddr_in * addr);
+		virtual void   OnAccept(NetSocket socket , sockaddr_in * addr);
 
 	protected:
 		INT32   Listen(INT32  nListenerCount = DEFAULT_LISTENER_COUNT);

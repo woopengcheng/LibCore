@@ -5,7 +5,7 @@ namespace Net
 { 
 	static   INT32   g_nSessionCount = 0; 
 
-	ISession::ISession( const char * pAddress  , INT16 usSocktPort ,  const char * pRemoteName/* = NULL*/ , INT32 nSessionID/* = -1*/ , INT32 nNetState/* = 0*/ , SOCKET socket /*= -1*/ , INT64 llTimeout /*= 0*/)
+	ISession::ISession( const char * pAddress  , INT16 usSocktPort ,  const char * pRemoteName/* = NULL*/ , INT32 nSessionID/* = -1*/ , INT32 nNetState/* = 0*/ , NetSocket socket /*= -1*/ , INT64 llTimeout /*= 0*/)
 		: m_nNetState(nNetState)
 		, m_bCanWrite(TRUE) 
 	{ 
@@ -35,7 +35,7 @@ namespace Net
 		return ERR_SUCCESS;
 	}
 
-	INT32 ISession::Init( const char * pAddress ,INT16 usSocktPort , const char * pRemoteName , INT32 nSessionID , SOCKET socket , INT64 llTimeout)
+	INT32 ISession::Init( const char * pAddress ,INT16 usSocktPort , const char * pRemoteName , INT32 nSessionID , NetSocket socket , INT64 llTimeout)
 	{  
 		m_bClosed = TRUE;
 		memcpy(m_szAddress , pAddress , strlen(pAddress) + 1);

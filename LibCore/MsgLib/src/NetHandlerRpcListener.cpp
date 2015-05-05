@@ -15,7 +15,7 @@ namespace Msg
 		return NetHandlerListener::Cleanup();
 	} 
 
-	void NetHandlerRpcListener::OnAccept( Net::SOCKET socket , sockaddr_in * addr )
+	void NetHandlerRpcListener::OnAccept( Net::NetSocket socket , sockaddr_in * addr )
 	{
 		if (m_pNetReactor)
 		{

@@ -6,18 +6,18 @@
 
 namespace Msg
 {  
-	Net::NetHandlerTransitPtr RpcManager::CreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::SOCKET socket /*= 0*/ )
+	Net::NetHandlerTransitPtr RpcManager::CreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket /*= 0*/ )
 	{
 		return OnCreateNetHandler(pName , pAddress , usPort , socket);
 	} 
 
-	Net::NetHandlerTransitPtr  RpcManager::CreateNetHandler( const char * pName , const char * pAddress , const char * pPort , Net::SOCKET socket /*= 0*/)
+	Net::NetHandlerTransitPtr  RpcManager::CreateNetHandler( const char * pName , const char * pAddress , const char * pPort , Net::NetSocket socket /*= 0*/)
 	{ 
 		return OnCreateNetHandler(pName , pAddress , atoi(pPort) , socket);
 	}
 
 
-	Net::NetHandlerTransitPtr RpcManager::CreateNetHandler( SRpcInfo & objRpcInfo , Net::SOCKET socket /*= 0*/ )
+	Net::NetHandlerTransitPtr RpcManager::CreateNetHandler( SRpcInfo & objRpcInfo , Net::NetSocket socket /*= 0*/ )
 	{
 		return OnCreateNetHandler(objRpcInfo.szRemoteName , objRpcInfo.szAddress , objRpcInfo.usPort , socket);
 	}

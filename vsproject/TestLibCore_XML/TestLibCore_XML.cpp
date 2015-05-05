@@ -15,6 +15,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	 
 	gErrorStream ("xmdl");
 	Log::Cleanup();
+
+	system("pause");
 	return 0;
 }
 

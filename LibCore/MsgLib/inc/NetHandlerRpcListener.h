@@ -26,7 +26,7 @@ namespace Msg
 		virtual INT32  Cleanup();  
 
 	public:   
-		virtual void   OnAccept(Net::SOCKET socket , sockaddr_in * addr); 
+		virtual void   OnAccept(Net::NetSocket socket , sockaddr_in * addr); 
 
 	private:
 		RpcManager * m_pRpcManager; 

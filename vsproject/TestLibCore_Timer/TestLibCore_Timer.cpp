@@ -48,5 +48,6 @@ int _tmain(int argc, _TCHAR* argv[])
 		Timer::TimerHelper::sleep(1);
 	}
 	Timer::GlobalTimer::GetInstance().Cleanup();
+	system("pause");
 	return 0;
 }

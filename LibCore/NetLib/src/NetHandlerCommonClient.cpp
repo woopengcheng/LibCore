@@ -46,7 +46,7 @@ namespace Net
 	 {
 		 Assert_ReF1(m_pSession && ip); 
 		  
-		 SOCKET socket = m_pSession->GetSocket();
+		 NetSocket socket = m_pSession->GetSocket();
 		 if (socket == -1)
 		 { 
 			 socket =  NetHelper::CreateSocket(AF_INET , SOCK_STREAM , 0);  

@@ -4,7 +4,7 @@
 namespace GameDB
 {
 
-	Net::NetHandlerTransitPtr DBClientManager::OnCreateNetHandler(const char * pName , const char * pAddress , UINT16 usPort , Net::SOCKET socket /*= 0*/)
+	Net::NetHandlerTransitPtr DBClientManager::OnCreateNetHandler(const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket /*= 0*/)
 	{ 
 		Assert_Re0(pName && pAddress); 
 
