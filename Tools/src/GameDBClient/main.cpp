@@ -86,7 +86,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	 
 	//5 连接服务器,并建立双连接..
 	Client::DBClient::GetInstance().Init(root); 
-	int n = 1000;
+	int n = 100;
 	while (n--)
 	{
 		Client::DBClient::GetInstance().Update(); 

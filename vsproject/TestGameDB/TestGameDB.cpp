@@ -24,6 +24,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	objCS << s;
 
+	GameDB::Environment * pEnv;
 
 	LibCore::Cleanup();
 	return 0;

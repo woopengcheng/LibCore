@@ -41,7 +41,7 @@ namespace Msg
 		T GetValue(INT32 nPos = 0)
 		{
 			T t;
-			MsgAssert_Re(nPos <= MSG_MAX_PARAMETER_NUMBER && nPos > 0 , t , "pos error."); 
+			MsgAssert_Re( nPos >= 0 && nPos <= MSG_MAX_PARAMETER_NUMBER, t , "pos error."); 
 
 			LibCore::CStream cs;
 			m_aParameter[nPos].marshal(cs);

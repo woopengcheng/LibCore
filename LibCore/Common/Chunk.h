@@ -39,7 +39,7 @@ namespace LibCore
 	private:
 		UINT32     FitSize(UINT32 unSize);
 
-	private:
+	protected:
 		void    *  m_pBuf;
 		UINT32     m_unSize;
 		UINT32     m_unDataLen;
@@ -53,7 +53,7 @@ namespace LibCore
 		StackChunk()
 			: Chunk((void*)m_szBuffer , unSize , FALSE)
 		{
-
+			m_unDataLen = 0; 
 		}
 
 	private:
