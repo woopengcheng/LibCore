@@ -4,7 +4,7 @@
 
 namespace GameDB
 { 
-	class OperateRecord
+	class DLL_EXPORT OperateRecord
 	{
 	public:
 		static const INT32 OPERATE_RECODE_INSERT = 0;

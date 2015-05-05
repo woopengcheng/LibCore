@@ -8,9 +8,14 @@
 
 namespace Client
 {
-	static INT32  local_call_HandleHSet(const char * pSessionName , INT32 userid/* = 0*/ , INT32 localid/* = 1*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  local_call_HandleHGet(const char * pSessionName , std_string table/* = std::string()*/ , std_string key/* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
-		GEN_RPC_CALL_2((&MSG_INSTANCE) , pSessionName , Msg::g_szHandleHSet_RpcCall , userid , localid , vecTargets , objSrc , usPriority , MSG_INSTANCE.GetServerName() , objSyncType);
+		GEN_RPC_CALL_2((&MSG_INSTANCE) , pSessionName , Msg::g_szHandleHGet_RpcCall , table , key , vecTargets , objSrc , usPriority , MSG_INSTANCE.GetServerName() , objSyncType);
+	}
+
+	static INT32  local_call_HandleHSet(const char * pSessionName , std_string table/* = std::string()*/ , std_string value/* = std::string()*/ , std_string key/* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	{
+		GEN_RPC_CALL_3((&MSG_INSTANCE) , pSessionName , Msg::g_szHandleHSet_RpcCall , table , value , key , vecTargets , objSrc , usPriority , MSG_INSTANCE.GetServerName() , objSyncType);
 	}
 
 }

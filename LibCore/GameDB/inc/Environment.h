@@ -11,7 +11,7 @@ namespace GameDB
 	class Comparator;
 	class BackupEnvironment;
 
-	class Environment 
+	class DLL_EXPORT Environment 
 	{
 	public:
 		typedef std_unordered_map<std::string , Database *> CollectionDatabasesT;

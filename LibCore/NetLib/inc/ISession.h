@@ -15,7 +15,7 @@ namespace Net
 	class DLL_EXPORT ISession
 	{
 	public:
-		ISession( const char * pAddress ,INT16 usSocktPort , const char * pRemoteName , INT32 nSessionID = -1 , INT32 nNetState = 0 , SOCKET socket = 0 , INT64 llTimeout = 0);
+		ISession( const char * pAddress ,INT16 usSocktPort , const char * pRemoteName , INT32 nSessionID = -1 , INT32 nNetState = 0 , SOCKET socket = -1 , INT64 llTimeout = 0);
 		virtual ~ISession( void )
 		{
 			Cleanup();

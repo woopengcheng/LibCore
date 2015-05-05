@@ -13,6 +13,7 @@ namespace Net
 		virtual ~NetHandlerCommonClient();
 
 	public:
+		virtual INT32  Init( void ); 
 		virtual INT32  Init( const char* ip,int port );
 		virtual INT32  Cleanup( void );
 		virtual INT32  OnClose( void );

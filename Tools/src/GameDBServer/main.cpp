@@ -38,7 +38,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	Server::DBServer::GetInstance().Init(root); 
 
-	Server::ServerHandler  ObjTestObject;   
+	Server::ServerHandler  ObjTestObject(&Server::DBServer::GetInstance());   
 	while (1)
 	{
 		Server::DBServer::GetInstance().Update();

@@ -5,7 +5,7 @@ namespace Net
 { 
 	static   INT32   g_nSessionCount = 0; 
 
-	ISession::ISession( const char * pAddress  , INT16 usSocktPort ,  const char * pRemoteName/* = NULL*/ , INT32 nSessionID/* = -1*/ , INT32 nNetState/* = 0*/ , SOCKET socket /*= 0*/ , INT64 llTimeout /*= 0*/)
+	ISession::ISession( const char * pAddress  , INT16 usSocktPort ,  const char * pRemoteName/* = NULL*/ , INT32 nSessionID/* = -1*/ , INT32 nNetState/* = 0*/ , SOCKET socket /*= -1*/ , INT64 llTimeout /*= 0*/)
 		: m_nNetState(nNetState)
 		, m_bCanWrite(TRUE) 
 	{ 

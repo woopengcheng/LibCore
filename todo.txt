@@ -6,3 +6,4 @@ SOCKET不能这么写.
 GEN_RPC_CALL 没写完整.
 RPCInterface 拆分为两个线程处理,一个处理逻辑,一个处理网络.(优化功能.)(貌似不用.)
 RPCReturn 这个要改为RPCReturn1-9个参数支持.
+GetNextValue 这个性能不够高.可以改进.

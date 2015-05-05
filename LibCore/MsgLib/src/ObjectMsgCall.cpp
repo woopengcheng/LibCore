@@ -82,6 +82,24 @@ namespace Msg
 		return ERR_SUCCESS;
 	} 
 
+	UINT32 ObjectMsgCall::CopyExcludeParams(ObjectMsgCall *& pMsg)
+	{
+		pMsg = new(sizeof(Object)*m_unTargetsCount)ObjectMsgCall;
+
+		pMsg->m_ullMsgID       = m_ullMsgID;
+		pMsg->m_objSource      = m_objSource;
+		pMsg->m_usPriority     = m_usPriority; 
+		memcpy(pMsg->m_szMsgMethod , m_szMsgMethod , MAX_MSG_METHOD_NAME_LENGTH); 
+
+		pMsg->SetTargetsCount(m_unTargetsCount); 
+		for (UINT32 i = 0;i < m_unTargetsCount;++i)
+		{
+			pMsg->m_aTargets[i] = m_aTargets[i];
+		} 
+
+		return ERR_SUCCESS; 
+	}
+
 	LibCore::CStream & ObjectMsgCall::marshal( LibCore::CStream & cs )
 	{ 
 		cs << m_unTargetsCount;

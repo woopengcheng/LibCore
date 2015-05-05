@@ -2,10 +2,16 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\rpc\RpcRegister.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ClientCommands.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="src\rpc\HandleHSet_RpcClient.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\RpcRegister.cpp">
+    <ClCompile Include="src\rpc\HandleHGet_RpcClient.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
   </ItemGroup>
@@ -31,6 +37,12 @@
       <Filter>src\rpc</Filter>
     </ClInclude>
     <ClInclude Include="src\rpc\RpcDatas.h">
+      <Filter>src\rpc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ClientCommands.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rpc\RPCDefines.h">
       <Filter>src\rpc</Filter>
     </ClInclude>
   </ItemGroup>

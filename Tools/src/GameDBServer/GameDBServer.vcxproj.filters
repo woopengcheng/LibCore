@@ -8,6 +8,9 @@
     <ClCompile Include="src\rpc\HandleHSet_RpcServer.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
+    <ClCompile Include="src\rpc\HandleHGet_RpcServer.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -35,6 +38,9 @@
     </ClInclude>
     <ClInclude Include="src\ServerHandler.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rpc\RPCCallFuncs.h">
+      <Filter>src\rpc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

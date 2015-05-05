@@ -11,11 +11,12 @@
 #include "MsgLib/inc/RpcClientManager.h"
 #include "MsgLib/inc/Object.h"
 #include "TimerLib/inc/TimerHelp.h" 
+#include "Common/carg_parser.h"
 #include "json/json.h" 
 #include "MsgNameDefine.h"  
 #include "RPCCallFuncs.h"
 #include "DBClient.h" 
-#include "Common/carg_parser.h"
+#include "ClientCommands.h"
 
 enum ClientError
 {
@@ -70,51 +71,7 @@ void ParseLine( char * line , INT32 & argc , char ** argv)
 		result++;
 	}
 	argc = result;
-}
-
-INT32 HandLine(INT32 argc , char ** argv)
-{ 
-	struct Arg_parser::Option options[] = 
-	{
-		{ 'h',"hset",Arg_parser::yes, },
-		{ 'p',"hget",Arg_parser::yes, },
-		{ 'n',"prefix",Arg_parser::yes, },
-		{ 's',"start",Arg_parser::yes, },
-		{ 'e',"ended",Arg_parser::yes, },
-		{ 'g',"spec pswd",Arg_parser::yes, },
-
-		{ 'U',"user",Arg_parser::yes, },
-		{ 'P',"pswd",Arg_parser::yes, },
-		{ 'D',"dbname",Arg_parser::yes, },
-	};
-
-	Arg_parser parser(argc,argv,options,false);
-	if(parser.error().length() > 0)
-	{
-		gErrorStream("error args:" << parser.error().c_str());
-		return ERROR_ARGS;
-	}
-
-	std::string account;
-	int start = 0;
-	int ended = 0;
-
-	for( int i = 0; i < parser.arguments(); ++i)
-	{
-		int code = parser.code(i);
-		const char* arg = parser.argument(i).c_str();
-
-		switch(code)
-		{
-		case 'N':
-			account = arg;
-			break;
-
-		}
-	}
-
-	return 0;
-}
+} 
 
 int _tmain(int argc, _TCHAR* argv[])
 {  
@@ -127,15 +84,29 @@ int _tmain(int argc, _TCHAR* argv[])
 	Json::Value root;
 	JsonParase(defaultConf.c_str() , root); 
 	 
+	//5 连接服务器,并建立双连接..
 	Client::DBClient::GetInstance().Init(root); 
-	  
-	std::vector<Msg::Object> targets;
-	targets.push_back(Msg::Object(1));   
-	 
+	int n = 1000;
+	while (n--)
+	{
+		Client::DBClient::GetInstance().Update(); 
+		Timer::TimerHelper::sleep(1);
+	}
+	
+	Client::ClientCommands clientComands; 
+
+	int nargc = 0;
+	char pargv[10][256];
+	char **parg = (char **)pargv;
 	while (1)
 	{
 		Client::DBClient::GetInstance().Update(); 
-		 
+
+		if (!Client::DBClient::GetInstance().GetRpcClientManager()->IsAllConnected())
+		{ 
+			continue;
+		}
+
 		if (Client::DBClient::GetInstance().GetRpcClientManager()->IsAllConnected())
 		{
 			char * pLine = ReadLine();
@@ -144,19 +115,13 @@ int _tmain(int argc, _TCHAR* argv[])
 				break;
 			}
 
-			int argc = 0;
-			char ** argv = NULL;
-			ParseLine(pLine , argc , argv);
-			
-			INT32 nRes = HandLine(argc , argv);
-			if (nRes > 0)
-			{
-				break;
-			}
+			ParseLine(pLine , nargc , parg);
+			 
+			clientComands.Execute(&Client::DBClient::GetInstance() , nargc , parg);
 		}
-		if( 0 < Client::local_call_HandleHSet("tcp://127.0.0.1:8001" , 1 , 2 , targets , Msg::Object(0) , 1))
-		{ 
-		}   
+// 		if( 0 < Client::local_call_HandleHSet("tcp://127.0.0.1:8001" , 1 , 2 , targets , Msg::Object(0) , 1))
+// 		{ 
+// 		}   
 	}
 
 	Client::DBClient::GetInstance().Cleanup(); 

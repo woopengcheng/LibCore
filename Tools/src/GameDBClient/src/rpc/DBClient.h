@@ -1,5 +1,5 @@
-#ifndef __msg_rpc_instance_h__
-#define __msg_rpc_instance_h__   
+#ifndef __client_dbclient_h__
+#define __client_dbclient_h__   
 #include "GameDB/inc/DBClientInterface.h"
  
 

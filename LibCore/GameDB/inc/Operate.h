@@ -21,7 +21,7 @@ namespace GameDB
 // 		Database    * m_pDataBase;
 // 	};
 
-	class Operate
+	class DLL_EXPORT Operate
 	{
 	public:
 		Operate()

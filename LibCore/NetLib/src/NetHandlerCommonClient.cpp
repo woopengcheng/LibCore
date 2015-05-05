@@ -27,6 +27,16 @@ namespace Net
 		 return ERR_FAILURE;  
 	 }
 
+	 INT32 NetHandlerCommonClient::Init(void)
+	 {
+		 if (m_pSession)
+		 {
+			 return Init(m_pSession->GetAddress() , m_pSession->GetPort());
+		 }
+
+		 return ERR_FAILURE;
+	 }
+
 	 INT32 NetHandlerCommonClient::Cleanup(void)
 	 { 
 		 return NetHandlerTransit::Cleanup();

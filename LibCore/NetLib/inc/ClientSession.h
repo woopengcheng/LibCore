@@ -7,7 +7,7 @@ namespace Net
 	class DLL_EXPORT ClientSession : public ISession
 	{
 	public:
-		ClientSession( const char * pAddress ,INT16 usSocktPort , const char * pRemoteName , INT32 nSessionID = -1 , INT32 nNetState = 0 , SOCKET socket = 0 , INT64 llTimeout = 0 , BOOL bReconnect = TRUE ) 
+		ClientSession( const char * pAddress ,INT16 usSocktPort , const char * pRemoteName , INT32 nSessionID = -1 , INT32 nNetState = 0 , SOCKET socket = -1 , INT64 llTimeout = 0 , BOOL bReconnect = TRUE ) 
 			: ISession(pAddress , usSocktPort , pRemoteName , nSessionID , nNetState , socket , llTimeout)
 			, m_bReconnect(bReconnect)
 		{}

@@ -36,7 +36,8 @@
 					此RPC属于的头文件.
 				支持的服务器类型,必须和上面登记的一样.
 					client="Client" proxy="Proxy" server="Server"
-				
+				syncType:
+					0代表同步.1代表异步,
 			call和Return:
 				call为一个RPC的发起调用.或者超时时调用的函数.return为RPC从服务器返回的多个值.
 		
@@ -64,14 +65,26 @@
 			<Param type="INT32" name="localid" default="0"/> 
 		</RpcData>
 
-		<Rpc name="HandleHSet" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="1">
+		<Rpc name="HandleHSet" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0">
 			<Call >
-				<Param name="userid" type="INT32" default="0"/>
-				<Param name="localid" type="INT32" default="1"/>
+				<Param name="table" type="std_string" default=""/>
+				<Param name="key" type="std_string" default=""/>
+				<Param name="value" type="std_string" default=""/>
 			</Call>
 
 			<Return>
 				<Param name="resCode" type="INT32" default="0"/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleHGet" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0">
+			<Call >
+				<Param name="table" type="std_string" default=""/>
+				<Param name="key" type="std_string" default=""/>
+			</Call>
+
+			<Return> 
+				<Param name="value" type="std_string" default=""/>
 			</Return>
 		</Rpc> 
 	</Rpcs>

@@ -278,6 +278,14 @@ namespace Msg
 				{  
 					pNetHandler = pRpcClientManager->CreateNetHandler(strRemoteRPCName.c_str() , pSession->GetAddress() , pPing->usRemoteRPCPort); 
 				}  
+				else if(pNetHandler->GetSession() && pNetHandler->GetSession()->IsClosed())
+				{
+					if(ERR_SUCCESS == pNetHandler->Init())
+					{
+						pNetHandler->GetSession()->SetNetState(Net::NET_STATE_CONNECTING); 
+						pNetHandler->GetSession()->SetClosed(FALSE); 
+					}
+				}
 
 				if(pNetHandler && pNetHandler->GetSession()->GetNetState() == Net::NET_STATE_CONNECTING &&
 					pSession->GetNetState() == Net::NET_STATE_CONNECTING)

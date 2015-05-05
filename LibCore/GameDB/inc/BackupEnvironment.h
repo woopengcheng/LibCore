@@ -13,7 +13,7 @@ namespace GameDB
 		std::string strDstDir;
 	};
 
-	class BackupEnvironment : public leveldb::EnvWrapper
+	class DLL_EXPORT BackupEnvironment : public leveldb::EnvWrapper
 	{
 	public:
 		typedef std::vector<std::string> CollectionWillDeleteFilesT;

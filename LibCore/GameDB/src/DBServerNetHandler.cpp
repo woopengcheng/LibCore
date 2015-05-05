@@ -1,4 +1,7 @@
 #include "GameDB/inc/DBServerNetHandler.h" 
+#include "MsgLib/inc/RpcManager.h"
+#include "NetLib/inc/NetHelper.h"
+#include "MsgLib/inc/RpcInterface.h"
 
 namespace GameDB
 {
@@ -13,6 +16,26 @@ namespace GameDB
 	DBServerNetHandler::~DBServerNetHandler()
 	{  
 	}  
+
+	INT32 DBServerNetHandler::UpdatePing(void)
+	{
+		if (m_ullLastRecvPing == 0)
+		{
+			SetLastRecvPingTime();
+		}
+
+		std::string strRemoteRPCName = Net::NetHelper::GenerateRemoteName(m_pRpcManager->GetRpcInterface()->GetServerType()  , m_pSession->GetAddress() , m_pSession->GetPort()); 
+
+		if (m_pSession->IsClosed() && strcmp(strRemoteRPCName.c_str() , m_pSession->GetRemoteName()) != 0)
+		{
+			gErrorStream ("重复新建的.应删除" << m_pSession->GetRemoteName()); 
+
+			GetSession()->SetClosed(TRUE);
+			GetSession()->SetNetState(Net::NET_STATE_LOSTED);
+			return ERR_FAILURE;
+		}
+
+	}
 
 // 	INT32 DBServerNetHandler::HandleMsg(Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
 // 	{

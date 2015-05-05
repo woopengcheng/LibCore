@@ -19,11 +19,11 @@ namespace Msg
 
 	public: 
 		virtual INT32  OnClose( void );    
+		virtual INT32  UpdatePing( void ); 
 		virtual INT32  HandleMsg(Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);  
 
 	public:
-		INT32   Update( void );   
-		INT32   UpdatePing( void );   
+		INT32   Update( void );     
 		void    SetLastRecvPingTime( INT64 ullLstRecfPing = 0);
 
 	protected:

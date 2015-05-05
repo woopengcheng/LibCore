@@ -4,7 +4,7 @@
 
 namespace GameDB
 { 
-	class DBCommandHandler
+	class DLL_EXPORT DBCommandHandler
 	{
 	public:
 //		typedef int (ServerConnection::*fnCommandHandler)(gdb::SProtocolPacket** packets,size_t count);

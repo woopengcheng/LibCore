@@ -4,7 +4,7 @@
 
 namespace GameDB
 {  
-	class OperateReturns
+	class DLL_EXPORT OperateReturns
 	{
 	public:
 		Parameters & GetWriter(){ return m_objParamters; }

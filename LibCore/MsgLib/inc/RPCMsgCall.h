@@ -75,6 +75,7 @@ namespace Msg
 		// Parameter: RpcMsgCall * pMsg
 		//************************************
 		UINT32 Copy(RPCMsgCall *& pMsg);
+		UINT32 CopyExcludeParams(RPCMsgCall *& pMsg);
 
 	public:
 		void   SetSessionName(const char * pName){ memcpy(m_szSessionName , pName , strlen(pName) + 1); }

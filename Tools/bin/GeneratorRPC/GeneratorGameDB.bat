@@ -1,3 +1,3 @@
 cd %~dp0
-python %~dp0GameDB.py GameDB.xml
+python %~dp0GeneratorRpc.py GameDB.xml
 pause

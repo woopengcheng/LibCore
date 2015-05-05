@@ -8,7 +8,7 @@ namespace GameDB
 {
 	class BackupEnvironment;
 
-	class Database
+	class DLL_EXPORT Database
 	{
 	public:
 		Database(const std::string& strName,const std::string& strDirectory,const leveldb::Options& objOptions , BackupEnvironment * pBackupEnv);

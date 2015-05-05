@@ -58,8 +58,7 @@ namespace Msg
 
 		if (m_pSession->IsClosed() && strcmp(strRemoteRPCName.c_str() , m_pSession->GetRemoteName()) != 0)
 		{
-			gErrorStream ("重复新建的.应删除" << m_pSession->GetRemoteName());
-// 			m_pRpcManager->GetRpcInterface()->CloseNet(strRemoteRPCName.c_str());
+			gErrorStream ("重复新建的.应删除" << m_pSession->GetRemoteName()); 
 			
 			GetSession()->SetClosed(TRUE);
 			GetSession()->SetNetState(Net::NET_STATE_LOSTED);

@@ -30,7 +30,7 @@
 		}\
 		\
 		RPCMsgCall * pMsg = NULL; \
-		m_pRpcMsgCall->Copy(pMsg);
+		m_pRpcMsgCall->CopyExcludeParams(pMsg);
 
 #define RPC_GEN_RETURN_MSG RPC_GEN_MSG pMsg->m_bClientRequest = TRUE;
 #define RPC_GEN_PROXY_MSG RPC_GEN_MSG pMsg->m_bClientRequest = FALSE;

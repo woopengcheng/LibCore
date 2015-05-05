@@ -111,9 +111,10 @@ namespace LibCore
 		template<typename T> CStream & operator << (std::basic_string<T> & t)
 		{
 			STATIC_ASSERT(sizeof(T) == 1);  //5 测试是否是单字节.utf16和utf32.单独处理
-			size_t unBytes = t.length() * sizeof(T);
+			UINT32 unBytes = (UINT32)(t.length() + 1 )* sizeof(T);
 			Pushback(unBytes);
-			m_objChunk.Insert(m_objChunk.End() , (void*)t.c_str() , (UINT32)unBytes);
+//			m_objChunk.Insert(m_objChunk.End() , (void*)t.c_str() , (UINT32)unBytes);
+			m_objChunk.Pushback((void*)t.c_str() , (UINT32)unBytes);
 
 			return *this;
 		}
@@ -173,11 +174,11 @@ namespace LibCore
 			UINT32 unBytes = 0;
 			Pop(unBytes);
 
-			MsgAssert_Re(!(unBytes % sizeof(unBytes)) , *this , "unMarshal invalid length.");
+			MsgAssert_Re(!(unBytes % sizeof(T)) , *this , "unMarshal invalid length.");
 			MsgAssert_Re(!(unBytes > m_objChunk.GetDataLen() - m_nCurPos) , *this , "unMarshal invalid length.");
 			
 			t.assign((T*)((char *)m_objChunk.Begin() + m_nCurPos) , unBytes / sizeof(T));
-
+			m_nCurPos += unBytes;
 			return *this;
 		}
 

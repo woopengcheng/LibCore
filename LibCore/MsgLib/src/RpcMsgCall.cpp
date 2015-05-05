@@ -70,6 +70,30 @@ namespace Msg
 		return ERR_SUCCESS; 
 	}
 
+	UINT32 RPCMsgCall::CopyExcludeParams(RPCMsgCall *& pMsg)
+	{
+		pMsg = new(sizeof(Object) * GetTargetsCount())RPCMsgCall;  
+
+		pMsg->m_objProxySrcID  = m_objProxySrcID;
+		pMsg->m_ullTimeout     = m_ullTimeout;
+		pMsg->m_bClientRequest = m_bClientRequest;   
+		pMsg->m_ullMsgID       = m_ullMsgID; 
+		pMsg->m_objSource      = m_objSource;
+		pMsg->m_usPriority     = m_usPriority;
+		memcpy(pMsg->m_szSessionName , m_szSessionName , sizeof(m_szSessionName)); 
+		memcpy(pMsg->m_szMsgMethod , m_szMsgMethod , sizeof(m_szMsgMethod)); 
+		memcpy(pMsg->m_szRemoteName , m_szRemoteName , sizeof(m_szRemoteName));  
+
+		UINT32 unTargetsCount = GetTargetsCount();
+		pMsg->SetTargetsCount(unTargetsCount);    //5 这个必须放在最后刷新内存.
+		for (UINT32 i = 0;i < unTargetsCount;++i)
+		{
+			pMsg->m_aTargets[i] = m_aTargets[i];
+		}  
+		return ERR_SUCCESS; 
+
+	}
+
 	LibCore::CStream & RPCMsgCall::marshal( LibCore::CStream & cs )
 	{  
 		ObjectMsgCall::marshal(cs);
@@ -95,5 +119,6 @@ namespace Msg
 	{
 		return ObjectMsgCall::RefreshSize() + RefreshSize();
 	}
+
 
 }

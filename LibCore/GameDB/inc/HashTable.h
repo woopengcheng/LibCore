@@ -7,7 +7,7 @@
 
 namespace GameDB
 {  
-	class HashTable
+	class DLL_EXPORT HashTable
 	{
 	public:
 		static void EncodeKey(const Slice& table,const Slice& key,Slice& outEncodedKey , DEFAULT_STACKCHUNK & sChunk);

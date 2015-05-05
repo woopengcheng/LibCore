@@ -22,12 +22,14 @@ namespace GameDB
 				m_pNetReactor->AddNetHandler(pNetHandlerClient);  
 				pClientSession->SetClosed(FALSE);
 				pClientSession->SetNetState(Net::NET_STATE_CONNECTED);
+				pClientSession->SetReconnect(FALSE);   //5 断线不重连
 				return pNetHandlerClient; 
 			}
 			else
 			{ 
 				pClientSession->SetClosed(TRUE);
 				pClientSession->SetNetState(Net::NET_STATE_LOSTED); 
+				pClientSession->SetReconnect(FALSE);   //5 断线不重连
 			}
 		}
 

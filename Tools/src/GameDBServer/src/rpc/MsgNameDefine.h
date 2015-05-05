@@ -4,6 +4,8 @@
 
 namespace Msg
 {
+	//5 HandleHGet declare here
+	RPC_DEFINE(HandleHGet);
 	//5 HandleHSet declare here
 	RPC_DEFINE(HandleHSet);
 }

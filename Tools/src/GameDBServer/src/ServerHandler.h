@@ -14,14 +14,18 @@ namespace Server
 	{ 
 		RPC_DEFINE_ServerHandler;
 	public:
-		ServerHandler()
-			: Msg::IRpcMsgCallableObject(Msg::Object(1) , DBServer::GetInstance().GetRpcServerManager()){}
+		ServerHandler(DBServer * pDBServer)
+			: Msg::IRpcMsgCallableObject(Msg::Object(1) , pDBServer->GetRpcServerManager())
+			, m_pDBServer(pDBServer)
+		{}
 	public:
 		virtual INT32 Update(){ return 0; } 
+		 
+	public:
+		DBServer * GetDBServer(){ return m_pDBServer; }
 
-		
-	protected:
 	private:
+		DBServer * m_pDBServer;
 	}; 
 }
 

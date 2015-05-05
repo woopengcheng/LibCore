@@ -18,7 +18,7 @@ namespace Msg
 	{ \
 		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*vecTargets.size())Msg::RPCMsgCall;  \
 		\
-		Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , pServerName);\
+		Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , pServerName , objSyncType);\
 		Msg::GenMsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		Msg::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7);\
 		\
@@ -36,7 +36,7 @@ namespace Msg
 	{ \
 		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*vecTargets.size())Msg::RPCMsgCall;  \
 		\
-		Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , pServerName);\
+		Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , pServerName , objSyncType);\
 		Msg::GenMsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		Msg::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7);\
 		\
@@ -54,7 +54,7 @@ namespace Msg
 	{ \
 		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*vecTargets.size())Msg::RPCMsgCall;  \
 		\
-		Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , pServerName);\
+		Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , pServerName , objSyncType);\
 		Msg::GenMsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		Msg::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 );\
 		\
@@ -72,7 +72,7 @@ namespace Msg
 	{ \
 		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*vecTargets.size())Msg::RPCMsgCall;  \
 		\
-		Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , pServerName);\
+		Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , pServerName , objSyncType);\
 		Msg::GenMsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		Msg::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5);\
 		\
@@ -90,7 +90,7 @@ namespace Msg
 	{ \
 		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*vecTargets.size())Msg::RPCMsgCall;  \
 		\
-		Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , pServerName);\
+		Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , pServerName , objSyncType);\
 		Msg::GenMsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		Msg::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4);\
 		\
@@ -108,7 +108,7 @@ namespace Msg
 	{ \
 		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*vecTargets.size())Msg::RPCMsgCall;  \
 		\
-		Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , pServerName);\
+		Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , pServerName , objSyncType);\
 		Msg::GenMsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		Msg::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3);\
 		\
@@ -126,7 +126,7 @@ namespace Msg
 	{ \
 		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*vecTargets.size())Msg::RPCMsgCall;  \
 		\
-		Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , pServerName);\
+		Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , pServerName , objSyncType);\
 		Msg::GenMsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		Msg::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2);\
 		\
@@ -144,7 +144,7 @@ namespace Msg
 	{ \
 		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*vecTargets.size())Msg::RPCMsgCall;  \
 		\
-		Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , pServerName);\
+		Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , pServerName , objSyncType);\
 		Msg::GenMsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		Msg::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1);\
 		\
@@ -162,7 +162,7 @@ namespace Msg
 	{ \
 		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*vecTargets.size())Msg::RPCMsgCall;  \
 		\
-		Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , pServerName);\
+		Msg::GenMsgHelper::GenMsgCall(*pMsg , FALSE , 10 , 0 , pServerName , objSyncType);\
 		Msg::GenMsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		Msg::GenMsgHelper::GenMsgParams(pMsg->m_objParams);\
 		\

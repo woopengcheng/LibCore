@@ -9,9 +9,8 @@
 		
 		RpcServerName:指的是作为RPC服务器的功能.
 			serverName: 
-				指的是当前服务器的名字
-				服务器功能包含,client发起端,server接收端,proxy代理转发端.
-				serverName,可更改,但需要和rpc的相对于
+				指的是当前服务器的功能.主要分为,client发起端,server接收端,proxy代理转发端.
+				serverName不可更改.不然无法解析.
 			include: 
 				需要包含的继承自RPCInterface的class的头文件包含路径.
 			namespace:
@@ -37,7 +36,8 @@
 					此RPC属于的头文件.
 				支持的服务器类型,必须和上面登记的一样.
 					client="Client" proxy="Proxy" server="Server"
-				
+				syncType:
+					0代表同步.1代表异步,
 			call和Return:
 				call为一个RPC的发起调用.或者超时时调用的函数.return为RPC从服务器返回的多个值.
 		

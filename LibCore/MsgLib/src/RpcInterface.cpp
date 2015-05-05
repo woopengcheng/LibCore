@@ -306,7 +306,7 @@ namespace Msg
 	{
 		if (pMsg->GetSyncType() == SYNC_TYPE_SYNC)
 		{ 
-			while (pMsg->GetSyncResult() > SYNC_RESULT_START_RETURN)
+			while (pMsg->GetSyncResult() == SYNC_RESULT_START_RETURN)
 			{
 				if(m_pNetReactor)
 				{

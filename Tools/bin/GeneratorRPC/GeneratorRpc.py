@@ -468,7 +468,8 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 			outputPath += "_RpcClient.cpp"
 
 			if IsPathExist(outputPath):
-				os.remove(outputPath)
+#				os.remove(outputPath)
+				continue
 
 			fileRpc = open(outputPath , "a")   
 
@@ -494,7 +495,8 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 			outputPath += "_RpcProxy.cpp"
 
 			if IsPathExist(outputPath):
-				os.remove(outputPath)
+#				os.remove(outputPath)
+				continue
 
 			fileRpc = open(outputPath , "a")   
 
@@ -539,7 +541,8 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 			outputPath += "_RpcServer.cpp"
 
 			if IsPathExist(outputPath):
-				os.remove(outputPath)
+#				os.remove(outputPath)
+				continue
 
 			fileRpc = open(outputPath , "a")   
 

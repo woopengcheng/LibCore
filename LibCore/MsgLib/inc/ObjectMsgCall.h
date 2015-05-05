@@ -56,6 +56,7 @@ namespace Msg
 		void    SetMethodNameByAddSuffix(const char * pName){ memcpy(m_szMsgMethod + strlen(m_szMsgMethod), pName , strlen(pName) + 1);}
 		void    SetMethodNameBySubSuffix(const char * pName){ Assert((strlen(m_szMsgMethod) - strlen(pName)) > 0);	m_szMsgMethod[strlen(m_szMsgMethod) - strlen(pName)] = '\0'; }
 		UINT32  Copy(ObjectMsgCall *& pMsg);
+		UINT32  CopyExcludeParams(ObjectMsgCall *& pMsg);
 		UINT32  GetTargetsCount(){ return m_unTargetsCount; }
 		void    SetTargetsCount(UINT32 unTargetsCount){ m_unTargetsCount = unTargetsCount;  }
 

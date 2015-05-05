@@ -15,7 +15,7 @@ namespace Msg
 
 namespace GameDB
 {
-	class DBServerManager : public Msg::RpcServerManager
+	class DLL_EXPORT DBServerManager : public Msg::RpcServerManager
 	{
 	public:
 		DBServerManager(Msg::RpcInterface * pRpcInterface ,Net::INetReactor * pNetReactor) 

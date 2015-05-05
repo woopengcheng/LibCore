@@ -4,7 +4,7 @@
 
 namespace GameDB
 {
-	class GameDBHelper
+	class DLL_EXPORT GameDBHelper
 	{
 
 	};
