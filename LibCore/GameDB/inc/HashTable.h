@@ -1,6 +1,6 @@
 #ifndef __gamedb_hashtable_h__
 #define __gamedb_hashtable_h__ 
-#include "GameDB/inc/DatabaseCommon.h"
+#include "GameDB/inc/DBCommon.h"
 #include "GameDB/inc/Database.h"
 #include "GameDB/inc/Operate.h"
 #include "GameDB/inc/OperateReturns.h"

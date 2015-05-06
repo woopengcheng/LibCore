@@ -1,10 +1,13 @@
 #ifndef __gamedb_orm_h__
 #define __gamedb_orm_h__
-#include "GameDB/inc/DatabaseCommon.h"
+#include "GameDB/inc/DBCommon.h"
 #include "bson/bson.h"
 
 namespace GameDB
 {
+	//5 Ä¬ÈÏhashÖÖ×Ó
+#define DEFAULT_HASH_SEED 0
+
 	class Orm
 	{
 	public:
@@ -27,7 +30,7 @@ namespace GameDB
 		virtual void		FromCompress(const std::string & strBuf) = 0;
 
 	public:
-		virtual INT64		HashMake(INT64 llSeed) = 0;
+		virtual INT64		HashMake(INT64 llSeed = DEFAULT_HASH_SEED) = 0;
 		virtual INT64		CurHash() = 0;
 		virtual void		HashUpdate(INT64 llHash) = 0;
 

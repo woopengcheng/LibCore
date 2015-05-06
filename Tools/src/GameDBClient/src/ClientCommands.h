@@ -1,6 +1,6 @@
 #ifndef __client_client_commands_h__ 
 #define __client_client_commands_h__
-#include "GameDB/inc/DatabaseCommon.h"
+#include "GameDB/inc/DBCommon.h"
 #include "DBClient.h"
 
 namespace Client

@@ -5,6 +5,7 @@
 
 namespace GameDB
 { 
+
 	class User : public Orm
 	{ 
 	public:
@@ -33,7 +34,7 @@ namespace GameDB
 		virtual void		FromCompress(const std::string & strBuf);
 
 	public:
-		virtual INT64		HashMake(INT64 llSeed);
+		virtual INT64		HashMake(INT64 llSeed = DEFAULT_HASH_SEED);
 		virtual INT64		CurHash(){ return __hash; }
 		virtual void		HashUpdate(INT64 llHash);
 

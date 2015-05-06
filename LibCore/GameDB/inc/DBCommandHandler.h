@@ -1,6 +1,6 @@
 #ifndef __gamedb_db_command_handler_h__ 
 #define __gamedb_db_command_handler_h__
-#include "GameDB/inc/DatabaseCommon.h"
+#include "GameDB/inc/DBCommon.h"
 
 namespace GameDB
 { 

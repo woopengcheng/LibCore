@@ -420,9 +420,6 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\Database.h">
       <Filter>GameDB\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DatabaseCommon.h">
-      <Filter>GameDB\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\GameDB\inc\CustomDefinedCacheHandler.h">
       <Filter>GameDB\inc</Filter>
     </ClInclude>
@@ -494,6 +491,9 @@
     </ClInclude>
     <ClInclude Include="..\..\LibCore\Common\arg_parser.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBCommon.h">
+      <Filter>GameDB\inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

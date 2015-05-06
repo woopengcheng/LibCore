@@ -1,6 +1,6 @@
 #ifndef __gamedb_environment_h__ 
 #define __gamedb_environment_h__
-#include "GameDB/inc/DatabaseCommon.h"
+#include "GameDB/inc/DBCommon.h"
 #include "leveldb/options.h"
 #include "leveldb/env.h"
 #include "json/value.h"

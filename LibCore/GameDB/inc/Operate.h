@@ -1,6 +1,6 @@
 #ifndef __gamedb_operate_h__
 #define __gamedb_operate_h__ 
-#include "GameDB/inc/DatabaseCommon.h"
+#include "GameDB/inc/DBCommon.h"
 #include "GameDB/inc/OperateRecord.h"
 #include "GameDB/inc/OperateReturns.h"
 

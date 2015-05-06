@@ -49,17 +49,17 @@ namespace Server
 // 				gDebugStream("HGet: " << val << " success."); 
 // 			}
 
-			leveldb::Iterator* iter = pDB->GetLevelDB()->NewIterator(leveldb::ReadOptions());
-			iter->SeekToFirst();
-			while(iter->Valid())
-			{
-				GameDB::Slice key = iter->key();
-				GameDB::Slice val = iter->value();
-
-				gDebugStream("HGet: "<< (char *)key.data()  << "  "  << (char *)val.data() << " success."); 
-				iter->Next();
-			}
-			delete iter;
+// 			leveldb::Iterator* iter = pDB->GetLevelDB()->NewIterator(leveldb::ReadOptions());
+// 			iter->SeekToFirst();
+// 			while(iter->Valid())
+// 			{
+// 				GameDB::Slice key = iter->key();
+// 				GameDB::Slice val = iter->value();
+// 
+// 				gDebugStream("HGet: "<< (char *)key.data()  << "  "  << (char *)val.data() << " success."); 
+// 				iter->Next();
+// 			}
+// 			delete iter;
 
 			return DBServerInterface::Update();
 		}

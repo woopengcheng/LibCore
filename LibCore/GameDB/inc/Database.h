@@ -1,6 +1,6 @@
 #ifndef __gamedb_database_h__ 
 #define __gamedb_database_h__
-#include "DatabaseCommon.h"
+#include "DBCommon.h"
 #include "leveldb/db.h"
 #include "leveldb/write_batch.h"
 

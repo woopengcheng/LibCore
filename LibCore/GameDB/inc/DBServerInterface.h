@@ -1,6 +1,6 @@
 #ifndef __gamedb_db_server_interface_h__
 #define __gamedb_db_server_interface_h__   
-#include "GameDB/inc/DatabaseCommon.h" 
+#include "GameDB/inc/DBCommon.h" 
 #include "MsgLib/inc/RpcInterface.h" 
 #include "json/json.h"
 #include "GameDB/inc/Environment.h"

@@ -1,6 +1,6 @@
 #ifndef __gamedb_comparator_h__ 
 #define __gamedb_comparator_h__
-#include "GameDB/inc/DatabaseCommon.h"
+#include "GameDB/inc/DBCommon.h"
 #include "leveldb/comparator.h"
 
 namespace GameDB

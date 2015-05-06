@@ -1,6 +1,6 @@
 #ifndef __gamedb_db_client_interface_h__
 #define __gamedb_db_client_interface_h__   
-#include "GameDB/inc/DatabaseCommon.h" 
+#include "GameDB/inc/DBCommon.h" 
 #include "MsgLib/inc/RpcInterface.h" 
 #include "GameDB/inc/DBClientNetHandler.h"
 

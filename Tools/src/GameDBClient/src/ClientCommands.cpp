@@ -1,5 +1,7 @@
 #include "ClientCommands.h"
 #include "RPCCallFuncs.h"
+#include "GameDB/inc/User.h"
+#include "OrmHelper.h"
 
 namespace Client
 { 
@@ -32,21 +34,35 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(argc , 4);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleHSet("tcp://127.0.0.1:8001" , argv[1] , argv[2] , argv[3] , targets , Msg::Object(0) , 1);
-		
+// 		std::vector<Msg::Object> targets;
+// 		targets.push_back(Msg::Object(1));   
+// 		Client::local_call_HandleHSet("tcp://127.0.0.1:8001" , argv[1] , argv[2] , argv[3] , targets , Msg::Object(0) , 1);
+
+		GameDB::User user;
+		user.set_name("Woo");
+		user.set_pswd("peng");
+		user.set_sysuser(true);
+
+		GameDB::OrmHelper::OrmInsert(&user);
+
 		std::cout << "pfnHandleHSet" << std::endl;
 	}
 
 	void ClientCommands::pfnHandleHGet(DBClient * pClient , INT32 argc , char ** argv)
 	{
 		CHECK_ARGS_EQUAL_COUNT(argc , 3);
+// 
+// 		std::vector<Msg::Object> targets;
+// 		targets.push_back(Msg::Object(1));   
+// 		Client::local_call_HandleHGet("tcp://127.0.0.1:8001" , argv[1] , argv[2]  , targets , Msg::Object(0) , 1);
+// 		
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleHGet("tcp://127.0.0.1:8001" , argv[1] , argv[2]  , targets , Msg::Object(0) , 1);
-		
+		GameDB::User user;
+		user.set_name("Woo");
+		user.set_pswd("cheng");
+		user.set_sysuser(true);
+
+		GameDB::OrmHelper::OrmUpdate(&user);
 		std::cout << "pfnHandleHGet" << std::endl;
 	}
 

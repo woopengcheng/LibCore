@@ -258,7 +258,7 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\Comparator.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\CustomDefinedCacheHandler.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\Database.h" />
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DatabaseCommon.h" />
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBCommon.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientInterface.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientManager.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientNetHandler.h" />
