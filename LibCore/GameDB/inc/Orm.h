@@ -8,7 +8,7 @@ namespace GameDB
 	//5 Ä¬ÈÏhashÖÖ×Ó
 #define DEFAULT_HASH_SEED 0
 
-	class Orm
+	class DLL_EXPORT Orm
 	{
 	public:
 		Orm(){}

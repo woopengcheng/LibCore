@@ -18,17 +18,19 @@ namespace LibCore
 	public:
 		StringEx(const char * pStr , UINT32 unLength)
 		{
+			memset(m_szString , 0 , sizeof(m_szString));
 			Init(pStr , unLength);
 		}
 		StringEx(const char * pStr)
 		{
+			memset(m_szString , 0 , sizeof(m_szString));
 			Init(pStr , (UINT32)strlen(pStr)); //5 故意少拷贝一个.结尾时自动加上.
 		}
 
 		virtual void  Init(const char * pStr , UINT32 unLength)
 		{
-			INT32 nSize = __min(unLength , L);
-			strncpy(m_szString , nSize , pStr);
+			INT32 nSize = __min(unLength , L); 
+			strncpy(m_szString , L , pStr);
 			m_szString[nSize] = 0;
 		}
 

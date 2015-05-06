@@ -6,7 +6,7 @@
 namespace GameDB
 { 
 
-	class User : public Orm
+	class DLL_EXPORT User : public Orm
 	{ 
 	public:
 		User();
