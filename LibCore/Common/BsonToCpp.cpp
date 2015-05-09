@@ -3,7 +3,7 @@
 namespace LibCore
 {
 
-	void BsonToCpp(bool& var,_bson::bsonelement& be)
+	void BsonToCpp(bool& var,mongo::BSONElement& be)
 	{
 		if(be.isBoolean())
 		{
@@ -14,7 +14,7 @@ namespace LibCore
 		Assert(false && "BsonToCpp: invalid convert");
 	}
 
-	void BsonToCpp(UINT8& var,_bson::bsonelement& be)
+	void BsonToCpp(UINT8& var,mongo::BSONElement& be)
 	{
 		if(be.isNumber())
 		{
@@ -25,7 +25,7 @@ namespace LibCore
 		Assert(false && "BsonToCpp: invalid convert");
 	}
 
-	void BsonToCpp(INT16& var,_bson::bsonelement& be)
+	void BsonToCpp(INT16& var,mongo::BSONElement& be)
 	{
 		if(be.isNumber())
 		{
@@ -36,7 +36,7 @@ namespace LibCore
 		Assert(false && "BsonToCpp: invalid convert");
 	}
 
-	void BsonToCpp(float& var,_bson::bsonelement& be)
+	void BsonToCpp(float& var,mongo::BSONElement& be)
 	{
 		if(be.isNumber())
 		{
@@ -47,7 +47,7 @@ namespace LibCore
 		Assert(false && "BsonToCpp: invalid convert");
 	}
 
-	void BsonToCpp(double& var,_bson::bsonelement& be)
+	void BsonToCpp(double& var,mongo::BSONElement& be)
 	{
 		if(be.isNumber())
 		{
@@ -58,7 +58,7 @@ namespace LibCore
 		Assert(false && "BsonToCpp: invalid convert");
 	}
 
-	void BsonToCpp(INT32& var,_bson::bsonelement& be)
+	void BsonToCpp(INT32& var,mongo::BSONElement& be)
 	{
 		if(be.isNumber())
 		{
@@ -69,7 +69,7 @@ namespace LibCore
 		Assert(false && "BsonToCpp: invalid convert");
 	}
 
-	void BsonToCpp(INT64& var,_bson::bsonelement& be)
+	void BsonToCpp(INT64& var,mongo::BSONElement& be)
 	{
 		if(be.isNumber())
 		{
@@ -80,14 +80,14 @@ namespace LibCore
 		Assert(false && "BsonToCpp: invalid convert");
 	}
 
-	void BsonToCpp(std::string& var,_bson::bsonelement& be)
+	void BsonToCpp(std::string& var,mongo::BSONElement& be)
 	{
-		if(be.type() == _bson::String)
+		if(be.type() == mongo::String)
 		{
 			var = std::string(be.valuestrsafe(),be.valuestrsize()-1);
 			return;
 		}
-		else if(be.type() == _bson::BinData)
+		else if(be.type() == mongo::BinData)
 		{
 			int len = 0;
 			const char* data = be.binData(len);
@@ -99,9 +99,9 @@ namespace LibCore
 		Assert(false && "BsonToCpp: invalid convert");
 	}
 
-	void BsonToCpp(StringExBase& var,_bson::bsonelement& be)
+	void BsonToCpp(StringExBase& var,mongo::BSONElement& be)
 	{
-		if(be.type() == _bson::String)
+		if(be.type() == mongo::String)
 		{
 			var.Init(be.valuestrsafe(),be.valuestrsize());
 			return;
@@ -110,7 +110,7 @@ namespace LibCore
 		Assert(false && "BsonToCpp: invalid convert");
 	}
 
-	void BsonToCpp( UINT32& var,_bson::bsonelement& be )
+	void BsonToCpp( UINT32& var,mongo::BSONElement& be )
 	{
 		if(be.isNumber())
 		{
@@ -121,7 +121,7 @@ namespace LibCore
 		Assert(false && "BsonToCpp: invalid convert");
 	}
 
-	void BsonToCpp( UINT64& var,_bson::bsonelement& be )
+	void BsonToCpp( UINT64& var,mongo::BSONElement& be )
 	{
 		if(be.isNumber())
 		{

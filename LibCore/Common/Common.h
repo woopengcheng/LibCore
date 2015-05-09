@@ -20,6 +20,7 @@
 #include <unordered_map>
 #include <unordered_set>  
 #include <iostream>
+#include "Common/BoostHelper.h"
 
 #define TRUE    1
 #define FALSE   0

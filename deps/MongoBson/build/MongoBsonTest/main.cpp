@@ -1,31 +1,24 @@
-/* 
-    g++ example1.cpp ../bson/json.cpp ../bson/bson.cpp ../bson/time_support.cpp ../bson/parse_number.cpp  ../bson/base64.cpp 
-
-    vstudio: see build/examples/examples.sln
- */
-
 #include <iostream>
 #include <string>
-#include "../bson/json.h"
-#include "../bson/bsonobjbuilder.h"
+#include "bson.h"
+#include "bsonobjbuilder.h"
 
 using namespace std;
-using namespace _bson;
 
 void go1() { 
     // example of the use of fromjson
-    bsonobjbuilder b;
-    stringstream s("{x:3,y:\"hello world\"}");
-    bsonobj o = fromjson(s, b);
-    cout << o.toString() << endl;
+//     mongo::BSONObjBuilder b;
+//     stringstream s("{x:3,y:\"hello world\"}");
+//     mongo::BSONObj o = mongo::fromjson(s, b);
+//     cout << o.toString() << endl;
 }
-void go3( bsonobj & o)
+void go3( mongo::BSONObj & o)
 { 
 	// example of using bsonobjbuilder and of nesting documents
-	bsonobjbuilder b;
+	mongo::BSONObjBuilder  b;
 	b.append("x", 3.14);
 	b.append("y", true);
-	bsonobjbuilder a();
+	mongo::BSONObjBuilder  a;
 	a.append("x", 2);
 	a.append("yy", b.obj());
 
@@ -35,7 +28,7 @@ void go3( bsonobj & o)
 void go2() { 
    
 
-	bsonobj o;
+	mongo::BSONObj  o;
 	go3(o);
 	cout << o.toString() << endl;
 	std::string str(o.objdata() , o.objsize());
@@ -52,9 +45,7 @@ void go() {
 }
 
 int main(int argc, char* argv[])
-{
-    // the bson library throws exceptions, for example when encountering malformed data.
-    // thus the try catch block
+{ 
     try {
         go();
     }

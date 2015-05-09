@@ -3,6 +3,9 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp> 
 #include <boost/enable_shared_from_this.hpp>
+#include "boost/core/noncopyable.hpp"
+#include "Common/intrusive_ptr.h"
+//#include "boost/intrusive_ptr.hpp"
 
 #ifndef __SPU__
 #include <boost/mem_fn.hpp>
@@ -23,6 +26,8 @@
 template<bool x> struct StaticFail;
 template<> struct StaticFail<true>{};
 template<int x> struct StaticAssertTest{};
+
 #define STATIC_ASSERT(x) typedef StaticAssertTest<sizeof(StaticFail<(bool)x>)> StaticAssert_##__LINE__
+ 
 
 #endif

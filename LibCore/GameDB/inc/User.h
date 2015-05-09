@@ -26,9 +26,9 @@ namespace GameDB
 
 	public:
 		virtual void		ToBson(std::string & strBuf);
-		virtual void		ToBson(_bson::bsonobj & objBson);
+		virtual void		ToBson(mongo::BSONObj  & objBson);
 		virtual void		FromBson(const char * pData , INT32 nSize);
-		virtual void		FromBson(const _bson::bsonobj & objBson);
+		virtual void		FromBson(const mongo::BSONObj  & objBson);
 		virtual void		ToCompress(std::string & __buf); 
 		virtual void		FromCompress(const char* data,INT32 size);
 		virtual void		FromCompress(const std::string & strBuf);

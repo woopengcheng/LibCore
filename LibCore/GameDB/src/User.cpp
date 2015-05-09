@@ -40,7 +40,7 @@ namespace GameDB
 
 	User* User::Clone()
 	{ 
-		_bson::bsonobj obj;
+		mongo::BSONObj  obj;
 		ToBson(obj);
 		User* pNew = new User();
 		pNew->FromBson(obj);
@@ -49,21 +49,21 @@ namespace GameDB
 
 	void User::ToCompress(std::string & __buf)
 	{
-		_bson::bsonobj __obj;
+		mongo::BSONObj  __obj;
 		ToBson(__obj);
 		LibCore::Compress(__obj.objdata(),__obj.objsize(),__buf);
 	}
 	  
 	void User::ToBson(std::string& __buf)
 	{
-		_bson::bsonobj __obj;
+		mongo::BSONObj  __obj;
 		ToBson(__obj);
 		__buf = std::string(__obj.objdata(),__obj.objsize());
 	}
 
-	void User::ToBson(_bson::bsonobj & __obj)
+	void User::ToBson(mongo::BSONObj  & __obj)
 	{
-		_bson::bsonobjbuilder __builder;
+		mongo::BSONObjBuilder __builder;
 		__builder.append("_T",TableName());
 		if(name != "")
 			__builder.append("name",name);
@@ -77,8 +77,8 @@ namespace GameDB
 	void User::FromCompress(const std::string& __inbuf)
 	{
 		std::string tmpbuf;
-		LibCore::UnCompress(__inbuf.c_str(),__inbuf.length(),tmpbuf);
-		_bson::bsonobj __obj(tmpbuf.c_str());
+		LibCore::UnCompress(__inbuf.c_str(),(UINT32)__inbuf.length(),tmpbuf);
+		mongo::BSONObj  __obj(tmpbuf.c_str());
 		assert(__obj.objsize() == tmpbuf.length());
 		FromBson(__obj);
 	}
@@ -87,24 +87,24 @@ namespace GameDB
 	{
 		std::string tmpbuf;
 		LibCore::UnCompress(__data,__size,tmpbuf);
-		_bson::bsonobj __obj(tmpbuf.c_str());
+		mongo::BSONObj  __obj(tmpbuf.c_str());
 		assert(__obj.objsize() == tmpbuf.length());
 		FromBson(__obj);
 	}
 
 	void User::FromBson(const char* __data,INT32 __size)
 	{
-		_bson::bsonobj __obj(__data);
+		mongo::BSONObj  __obj(__data);
 		assert(__obj.objsize() == __size);
 		FromBson(__obj);
 	}
 
-	void User::FromBson(const _bson::bsonobj & __obj)
+	void User::FromBson(const mongo::BSONObj  & __obj)
 	{
-		_bson::bsonobjiterator iter(__obj); 
+		mongo::BSONObjIterator  iter(__obj); 
 		while(iter.more())
 		{
-			_bson::bsonelement __be = iter.next(); 
+			mongo::BSONElement __be = iter.next(); 
 			const char* fieldName = __be.fieldName();
 			INT64 hash = LibCore::BKDRHashSum(fieldName);
 			switch(hash)

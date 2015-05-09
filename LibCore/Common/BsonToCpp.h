@@ -6,17 +6,17 @@
 
 namespace LibCore
 {
-	extern void BsonToCpp(UINT8 & var,_bson::bsonelement& be);
-	extern void BsonToCpp(INT16& var,_bson::bsonelement& be);
-	extern void BsonToCpp(INT32& var,_bson::bsonelement& be);
-	extern void BsonToCpp(UINT32& var,_bson::bsonelement& be);
-	extern void BsonToCpp(INT64& var,_bson::bsonelement& be);
-	extern void BsonToCpp(UINT64& var,_bson::bsonelement& be);
-	extern void BsonToCpp(float& var,_bson::bsonelement& be);
-	extern void BsonToCpp(double& var,_bson::bsonelement& be);
-	extern void BsonToCpp(bool& var,_bson::bsonelement& be);
-	extern void BsonToCpp(std::string& var,_bson::bsonelement& be);
-	extern void BsonToCpp(StringExBase & var,_bson::bsonelement& be);
+	extern void BsonToCpp(UINT8 & var,mongo::BSONElement& be);
+	extern void BsonToCpp(INT16& var,mongo::BSONElement& be);
+	extern void BsonToCpp(INT32& var,mongo::BSONElement& be);
+	extern void BsonToCpp(UINT32& var,mongo::BSONElement& be);
+	extern void BsonToCpp(INT64& var,mongo::BSONElement& be);
+	extern void BsonToCpp(UINT64& var,mongo::BSONElement& be);
+	extern void BsonToCpp(float& var,mongo::BSONElement& be);
+	extern void BsonToCpp(double& var,mongo::BSONElement& be);
+	extern void BsonToCpp(bool& var,mongo::BSONElement& be);
+	extern void BsonToCpp(std::string& var,mongo::BSONElement& be);
+	extern void BsonToCpp(StringExBase & var,mongo::BSONElement& be);
 }
 
 #endif
