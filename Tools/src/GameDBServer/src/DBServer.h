@@ -2,6 +2,8 @@
 #define __msg_rpc_instance_h__  
 #include "MsgLib/inc/RpcInterface.h"
 #include "GameDB/inc/DBServerInterface.h"
+#include "ThreadPoolLib/inc/ThreadTask.h"
+#include "json/json.h"
 
 
 #include "GameDB/inc/HashTable.h"
@@ -11,10 +13,11 @@
 
 namespace Server
 {  
-	class  DBServer : public GameDB::DBServerInterface
+	class  DBServer : public GameDB::DBServerInterface , ThreadPool::ThreadSustainTask
 	{ 
 	public:
-		DBServer(void)  
+		DBServer(void) 
+			: ThreadPool::ThreadSustainTask(1 , "DBServer" )
 		{ 
 		}
 		virtual ~DBServer(void){} 
@@ -26,43 +29,9 @@ namespace Server
 			return m_sRpcInterface;
 		} 
 
-	public: 
-		virtual void OnRegisterRpcs(void); 
-		virtual INT32 Update(void)
-		{ 
-			GameDB::Database * pDB = m_pEnvironment->GetDatabase(".sys");
-			if (!pDB)
-			{
-				return 1;
-			}
-// 			 
-// 			GameDB::Status s = pDB->QuickWrite("woo" , "peng"); 
-// 			if (s.ok())
-// 			{
-// 				gDebugStream("HSet: "  << "success."); 
-// 			}
-// 
-// 			std::string val;
-// 			GameDB::Status s2 = pDB->QuickGet("woo" , val);
-// 			if (s2.ok())
-// 			{
-// 				gDebugStream("HGet: " << val << " success."); 
-// 			}
-
-// 			leveldb::Iterator* iter = pDB->GetLevelDB()->NewIterator(leveldb::ReadOptions());
-// 			iter->SeekToFirst();
-// 			while(iter->Valid())
-// 			{
-// 				GameDB::Slice key = iter->key();
-// 				GameDB::Slice val = iter->value();
-// 
-// 				gDebugStream("HGet: "<< (char *)key.data()  << "  "  << (char *)val.data() << " success."); 
-// 				iter->Next();
-// 			}
-// 			delete iter;
-
-			return DBServerInterface::Update();
-		}
+	public:  
+		virtual void   OnRegisterRpcs(void); 
+		virtual INT32  Update(void); 
 	};  
 	 
 

@@ -34,7 +34,7 @@ namespace Msg
 		virtual void   OnRegisterRpcs(void){}
 		virtual void   StartupRPCServer(const std::string & strType , const std::string & strAddress , const std::string & strPort);
 		virtual void   StartupRPCClient(XML::XML * pXML);
-		virtual void   StartupRPCClient(const Json::Value & rpc_clients);
+		virtual void   StartupRPCClient(const Json::Value & clients);
 
 	public:
 		virtual INT32  SendMsg(const char * pRpcServerName , RPCMsgCall * pMsg , BOOL bForce = FALSE , BOOL bAddRpc = TRUE);

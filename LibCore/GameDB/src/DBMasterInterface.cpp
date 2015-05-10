@@ -1,4 +1,4 @@
-#include "GameDB/inc/DBServerInterface.h"  
+#include "GameDB/inc/DBMasterInterface.h"  
 #include "NetLib/inc/NetReactorSelect.h"
 #include "NetLib/inc/NetReactorZMQ.h"
 #include "GameDB/inc/DBServerManager.h"
@@ -7,47 +7,22 @@
 
 namespace GameDB
 {  
-	DBServerInterface::DBServerInterface()  
-		: m_pEnvironment(NULL)
-		, m_nMode(0)
-		, m_strBackupDir("./db_backups/")
+	DBMasterInterface::DBMasterInterface()   
 	{  		
 	}
 
-	DBServerInterface::~DBServerInterface(void)
+	DBMasterInterface::~DBMasterInterface(void)
 	{  
 	}
 
-	INT32 DBServerInterface::Init(Json::Value & conf)
-	{   
-		InitDB(conf);
+	INT32 DBMasterInterface::Init(Json::Value & conf)
+	{    
 		InitNet(conf);
 
 		return ERR_SUCCESS; 
 	}
-
-	INT32 DBServerInterface::InitDB(const Json::Value & conf)
-	{ 
-		m_nMode					 = conf.get("auth_mode","0").asInt();
-		m_strBackupDir			 = conf.get("backup_dir","./db_backups/").asCString();
-		std::string strDir		 = conf.get("dir","./db/").asCString();
-		Json::Value dbConfig	 = conf.get("dbconf",Json::Value());
-
-		if(strDir[strDir.length() - 1] != '/')
-			strDir = strDir + "/";
-		if(m_strBackupDir[m_strBackupDir.length() - 1] != '/')
-			m_strBackupDir = m_strBackupDir + "/";
-
-		if (!m_pEnvironment)
-		{
-			m_pEnvironment = new Environment(strDir , dbConfig); 
-		}
-		leveldb::Env::Default()->CreateDir(m_strBackupDir);
-
-		return ERR_SUCCESS;
-	}
-
-	INT32 DBServerInterface::InitNet(const Json::Value & conf)
+	 
+	INT32 DBMasterInterface::InitNet(const Json::Value & conf)
 	{
 		if (!m_pNetReactor)
 		{
@@ -86,7 +61,7 @@ namespace GameDB
 		return ERR_SUCCESS;
 	}
 
-	INT32 DBServerInterface::Cleanup(void)
+	INT32 DBMasterInterface::Cleanup(void)
 	{ 
 		if (m_pNetReactor)
 		{
@@ -99,17 +74,12 @@ namespace GameDB
 			m_pRpcServerManager->Cleanup();
 		}
 		SAFE_DELETE(m_pRpcServerManager); 
-
-		if (m_pEnvironment)
-		{
-//			m_pEnvironment->Cleanup();
-		}
-		SAFE_DELETE(m_pEnvironment); 
+		  
 
 		return ERR_SUCCESS;
 	}
 
-	INT32 DBServerInterface::Update(void)
+	INT32 DBMasterInterface::Update(void)
 	{ 
 		return RpcInterface::Update();
 	}  

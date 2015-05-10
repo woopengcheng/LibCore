@@ -16,7 +16,7 @@ namespace GameDB
 		virtual INT32  Init(Json::Value & conf); 
 		virtual INT32  Cleanup(void);
 		virtual INT32  Update(void);  
-		virtual void   StartupRPCClient(const Json::Value & rpc_client); 
+		virtual void   StartupRPCClient(const Json::Value & client); 
 	};
 
 	DECLARE_BOOST_POINTERS(DBClientInterface); 

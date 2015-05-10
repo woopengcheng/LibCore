@@ -498,6 +498,15 @@
     <ClInclude Include="..\..\LibCore\Common\intrusive_ptr.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBMasterInterface.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBSlaveInterface.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBSlaveManager.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -736,6 +745,12 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\Common\arg_parser.cc">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\GameDB\src\DBMasterInterface.cpp">
+      <Filter>GameDB\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\GameDB\src\DBSlaveInterface.cpp">
+      <Filter>GameDB\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

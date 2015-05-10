@@ -36,15 +36,15 @@ namespace GameDB
 		if(!m_pRpcServerManager)
 			m_pRpcServerManager = new DBServerManager(this , m_pNetReactor);  
 
-		Json::Value rpc_server = conf.get("rpc_server" , Json::Value()); 
-		std::string strType = rpc_server.get("listen_type" , "tcp").asCString();
-		std::string strAddress = rpc_server.get("listen_address" , "127.0.0.1").asCString();
-		std::string strPort = rpc_server.get("listen_port" , "8003").asCString();
+		Json::Value server = conf.get("server" , Json::Value()); 
+		std::string strType = server.get("listen_type" , "tcp").asCString();
+		std::string strAddress = server.get("listen_address" , "127.0.0.1").asCString();
+		std::string strPort = server.get("listen_port" , "8003").asCString();
 
 		StartupRPCServer(strType,  strAddress , strPort);
 		
-		Json::Value rpc_clients = conf.get("rpc_client" , Json::Value()); 
-		StartupRPCClient(rpc_clients); 
+		Json::Value client = conf.get("client" , Json::Value()); 
+		StartupRPCClient(client); 
 
 		RegisterRpc();
 
@@ -73,11 +73,11 @@ namespace GameDB
 		return RpcInterface::Update();
 	} 
 
-	void DBClientInterface::StartupRPCClient(const Json::Value & rpc_client)
+	void DBClientInterface::StartupRPCClient(const Json::Value & client)
 	{ 
-		std::string strType = rpc_client.get("type" , "tcp").asCString();
-		std::string strAddress = rpc_client.get("address" , "127.0.0.1").asCString();
-		std::string strPort = rpc_client.get("port" , "8001").asCString(); 
+		std::string strType = client.get("type" , "tcp").asCString();
+		std::string strAddress = client.get("address" , "127.0.0.1").asCString();
+		std::string strPort = client.get("port" , "8001").asCString(); 
 
 		std::string strRemoteRPCName = Net::NetHelper::GenerateRemoteName(strType.c_str() , strAddress.c_str() , strPort.c_str());
 

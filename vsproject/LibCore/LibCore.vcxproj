@@ -264,9 +264,12 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientManager.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientNetHandler.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBCommandHandler.h" />
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBMasterInterface.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerInterface.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerManager.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerNetHandler.h" />
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBSlaveInterface.h" />
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBSlaveManager.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\OperateReturns.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\Environment.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\GameDBHelper.h" />
@@ -389,9 +392,11 @@
     <ClCompile Include="..\..\LibCore\GameDB\src\DBClientManager.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\DBClientNetHandler.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\DBCommandHandler.cpp" />
+    <ClCompile Include="..\..\LibCore\GameDB\src\DBMasterInterface.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\DBServerInterface.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\DBServerManager.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\DBServerNetHandler.cpp" />
+    <ClCompile Include="..\..\LibCore\GameDB\src\DBSlaveInterface.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\Environment.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\GameDBHelper.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\HashTable.cpp" />

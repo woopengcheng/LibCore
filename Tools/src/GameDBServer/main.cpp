@@ -11,6 +11,7 @@
 #include "json/json.h"
 #include "ServerHandler.h"  
 #include "DBServer.h"
+#include "DBMaster.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {  
@@ -19,24 +20,15 @@ int _tmain(int argc, _TCHAR* argv[])
 	std::string defaultConf = "./gdbServer.conf";
 	if(argc > 1)
 		defaultConf = argv[1];
-	
-	std::fstream fs;
-	fs.open(defaultConf.c_str(),std::ios_base::in);
-	if(!fs.good())
-	{
-		std::cerr << "Open Configure File " << defaultConf << " Failed" << std::endl;
-		return 1;
-	}
+	 
 	Json::Value root;
-	Json::Reader reader;
-	if(!reader.parse(fs,root))
-	{
-		std::cerr << "Parse Configure File Failed:" << reader.getFormatedErrorMessages() << std::endl;
-		return 1;
-	}
-	fs.close();
+	Json::JsonParase(defaultConf.c_str() , root); 
 
-	Server::DBServer::GetInstance().Init(root); 
+	Json::Value objDBServer = root.get("db_server" , Json::Value());
+	Server::DBServer::GetInstance().Init(objDBServer); 
+
+	Json::Value objMaster = root.get("master_server" , Json::Value());
+	Server::DBMaster::GetInstance().Init(objMaster);
 
 	Server::ServerHandler  ObjTestObject(&Server::DBServer::GetInstance());   
 	while (1)

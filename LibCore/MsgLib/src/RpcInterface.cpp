@@ -91,15 +91,15 @@ namespace Msg
 			m_pRpcClientManager = new RpcClientManager(this , m_pNetReactor);
 		}
 
-		Json::Value rpc_server = conf.get("rpc_server" , Json::Value()); 
-		std::string strType = rpc_server.get("listen_type" , "tcp").asCString();
-		std::string strAddress = rpc_server.get("listen_address" , "127.0.0.1").asCString();
-		std::string strPort = rpc_server.get("listen_port" , "8003").asCString();
+		Json::Value server = conf.get("server" , Json::Value()); 
+		std::string strType = server.get("listen_type" , "tcp").asCString();
+		std::string strAddress = server.get("listen_address" , "127.0.0.1").asCString();
+		std::string strPort = server.get("listen_port" , "8003").asCString();
 		  
 		StartupRPCServer(strType,  strAddress , strPort);
 
-		Json::Value rpc_clients = conf.get("rpc_clients" , Json::Value()); 
-		StartupRPCClient(rpc_clients); 
+		Json::Value clients = conf.get("clients" , Json::Value()); 
+		StartupRPCClient(clients); 
 
 		RegisterRpc();
 
@@ -229,12 +229,12 @@ namespace Msg
 		}
 	}
 
-	void RpcInterface::StartupRPCClient(const Json::Value & rpc_clients)
+	void RpcInterface::StartupRPCClient(const Json::Value & clients)
 	{
-		INT32 nRpcCount = rpc_clients.size(); 
+		INT32 nRpcCount = clients.size(); 
 		for (INT32 i = 0 ;i < nRpcCount; ++ i)
 		{     
-			Json::Value rpc_client = rpc_clients[i];
+			Json::Value rpc_client = clients[i];
 
 			std::string strType = rpc_client.get("type" , "tcp").asCString();
 			std::string strAddress = rpc_client.get("address" , "127.0.0.1").asCString();

@@ -103,18 +103,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\DBMaster.cpp" />
+    <ClCompile Include="src\DBServer.cpp" />
+    <ClCompile Include="src\DBSlave.cpp" />
     <ClCompile Include="src\rpc\HandleHGet_RpcServer.cpp" />
     <ClCompile Include="src\rpc\HandleHSet_RpcServer.cpp" />
     <ClCompile Include="src\rpc\RpcRegister.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\DBMaster.h" />
     <ClInclude Include="src\DBServer.h" />
+    <ClInclude Include="src\DBSlave.h" />
+    <ClInclude Include="src\MasterHandler.h" />
     <ClInclude Include="src\rpc\GlobalRpc.h" />
     <ClInclude Include="src\rpc\MsgNameDefine.h" />
     <ClInclude Include="src\rpc\RPCCallFuncs.h" />
     <ClInclude Include="src\rpc\RpcDatas.h" />
     <ClInclude Include="src\rpc\RPCDefines.h" />
     <ClInclude Include="src\ServerHandler.h" />
+    <ClInclude Include="src\SlaveHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

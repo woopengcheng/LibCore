@@ -11,6 +11,15 @@
     <ClCompile Include="src\rpc\HandleHGet_RpcServer.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
+    <ClCompile Include="src\DBMaster.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DBServer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DBSlave.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -41,6 +50,18 @@
     </ClInclude>
     <ClInclude Include="src\rpc\RPCCallFuncs.h">
       <Filter>src\rpc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DBMaster.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DBSlave.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MasterHandler.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SlaveHandler.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -57,7 +57,9 @@
 	<DefaultParams LibCore_Chunk='LibCore::Chunk()'/>
 
 	<RpcServerName serverName="Server" include="DBServer.h" namespace="Server" rpcInterface="DBServer" outputPath="../../../Tools/src/GameDBServer/src/rpc/"/>
-	<RpcServerName serverName="Client" include="DBClient.h" namespace="Client" rpcInterface="DBClient" outputPath="../../../Tools/src/GameDBClient/src/rpc/"/> 
+	<RpcServerName serverName="Client" include="DBClient.h" namespace="Client" rpcInterface="DBClient" outputPath="../../../Tools/src/GameDBClient/src/rpc/"/>
+	<RpcServerName serverName="Master" include="DBMaster.h" namespace="Server" rpcInterface="DBMaster" outputPath="../../../Tools/src/GameDBServer/src/rpc/"/>
+	<RpcServerName serverName="Slave" include="DBSlave.h" namespace="Server" rpcInterface="DBSlave" outputPath="../../../Tools/src/GameDBServer/src/rpc/"/> 
 	
 	<Rpcs>  
 		<RpcData name="UserLogin">
@@ -87,5 +89,22 @@
 				<Param name="value" type="std_string" default=""/>
 			</Return>
 		</Rpc> 
+		 
+		<Rpc name="SlaveRequestSync" include="MasterHandler.h" class="MasterHandler" client="Slave" server="Master" syncType="1">
+			<Call > 
+			</Call>
+
+			<Return>  
+			</Return>
+		</Rpc>
+		
+		<Rpc name="MasterStartSync" include="SlaveHandler.h" class="SlaveHandler" client="Master" server="Slave" syncType="1">
+			<Call > 
+				<Param name="value" type="LibCore_Chunk"/>
+			</Call>
+
+			<Return>  
+			</Return>
+		</Rpc>
 	</Rpcs>
 </RpcMsgs>
