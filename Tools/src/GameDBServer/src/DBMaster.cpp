@@ -30,8 +30,8 @@ namespace Server
 		for (INT32 i = 0 ;i < nCount; ++ i)
 		{     
 			Json::Value objThread = conf[i]; 
-			UINT32 priority = objThread.get("priority" , "0").asUInt();
-			UINT32 count = objThread.get("count" , "1").asUInt(); 
+			UINT32 priority = objThread.get("priority" , 0).asUInt();
+			UINT32 count = objThread.get("count" , 1).asUInt(); 
 
 			mapThreads[priority] = count;    
 		}

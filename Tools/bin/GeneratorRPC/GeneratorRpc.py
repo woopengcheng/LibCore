@@ -255,11 +255,14 @@ def GenerateMsgNameDefine():
 		if rpcServerName.namespace not in sameNamespace :
 			GenerateRPCParamDefineHeader(fileRpc , rpcServerName.namespace)
 			sameNamespace[rpcServerName.namespace] = 1
-		 
-		for index , rpc in g_rpcMsgs.rpcs.rpcs.items():   
-			GenerateRPCParamDefine(rpc , fileRpc) 
 		
-		fileRpc.close()	
+			sameRecord = {}
+			for index , rpc in g_rpcMsgs.rpcs.rpcs.items():   
+				if rpc.name not in sameRecord :
+					GenerateRPCParamDefine(rpc , fileRpc) 
+					sameRecord[rpc.name] = 1
+			
+			fileRpc.close()	
 
 	sameNamespace = {} 
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
@@ -304,7 +307,8 @@ def GenerateRPCDefines():
 		rpcRecords = {}
 		for index , rpc in g_rpcMsgs.rpcs.rpcs.items():   
 			GenerateRPCDefine(rpc , fileRpc , rpcServerName.serverName , rpcRecords) 
-
+		
+		fileRpc.write("\n")
 		fileRpc.close()	 
 			
 	sameNamespace = {} 
@@ -329,7 +333,7 @@ def GenerateRPCDefine(rpc , fileRpc , serverName , rpcRecords):
 	if serverName == rpc.server:
 		strParams = GetParams(rpc.call.params)  
 		if rpc.classes not in rpcRecords:
-			fileRpc.write("#define  RPC_DEFINE_" + rpc.classes + " public:\\\n\n")
+			fileRpc.write("#define  RPC_DEFINE_" + rpc.classes + " public:\\\n")
 			rpcRecords[rpc.classes] = 1
 		fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcServer(" + strParams + "std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")
 
@@ -422,8 +426,15 @@ def GenerateRpcRegister():
  
 		fileRpc = open(outputPath , "a")    
 		if rpcServerName.namespace not in sameNamespace :
-			GenerateRpcRegisterHeader(fileRpc , rpcServerName)
+			GenerateRpcRegisterHeader(fileRpc , rpcServerName.namespace)
 			sameNamespace[rpcServerName.namespace] = 1  
+			
+		fileRpc.write(oneTab + "void " + rpcServerName.rpcInterface + "::OnRegisterRpcs( void )\n")
+		fileRpc.write(oneTab + "{\n")
+		fileRpc.write(twoTab + "Assert(m_pRpcServerManager && Msg::g_pRpcCheckParams);	\n")
+		fileRpc.write(twoTab + "Msg::GlobalRpc * g_pGlobalRpc  = new Msg::GlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcServerManager); \n\n") 
+
+		fileRpc.write(twoTab + "Msg::Parameters objDeliverParams , objReturnParams;\n")
 		
 		for index , rpc in g_rpcMsgs.rpcs.rpcs.items():  
 			fileRpc.write(twoTab + "//5 " + rpc.name + " generate default deliver and return check param here\n")
@@ -439,6 +450,7 @@ def GenerateRpcRegister():
 			GenerateRpcRegisterFuncs(rpc , fileRpc , rpcServerName.serverName)
 			fileRpc.write(twoTab +"}\n\n") 
 
+		fileRpc.write(oneTab + "}\n\n")
 		fileRpc.close() 
 		
 	sameNamespace = {}
@@ -448,12 +460,11 @@ def GenerateRpcRegister():
 		
 		if rpcServerName.namespace not in sameNamespace :
 			fileRpc = open(outputPath , "a")
-			fileRpc.write(oneTab + "}\n\n")
 			fileRpc.write("}\n\n") 
 			sameNamespace[rpcServerName.namespace] = 1 
 			fileRpc.close()	 
 
-def GenerateRpcRegisterHeader(fileRpc , rpcServerName) :
+def GenerateRpcRegisterHeader(fileRpc , rpcNamespace) :
 	fileRpc.write("#include \"MsgLib/inc/RpcBase.h\"\n")
 	fileRpc.write("#include \"MsgLib/inc/MsgCommon.h\"\n")
 	fileRpc.write("#include \"MsgLib/inc/RpcServerManager.h\"\n")
@@ -462,28 +473,36 @@ def GenerateRpcRegisterHeader(fileRpc , rpcServerName) :
 	fileRpc.write("#include \"Common/Chunk.h\"\n") 
 	fileRpc.write("#include \"GlobalRpc.h\"\n")  
 	fileRpc.write("#include \"MsgNameDefine.h\"\n")  
-	fileRpc.write("#include \"" + rpcServerName.include + "\"\n")
+#	fileRpc.write("#include \"" + rpcServerName.include + "\"\n")
+	GenerateRpcRegisterHeaderInclude(fileRpc , rpcNamespace)
 
-	GenerateRpcRegisterServerHeader(g_rpcMsgs.rpcs.rpcs , fileRpc , rpcServerName.serverName)
+	sameNamespace = {}
+	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():
+		if rpcServerName.namespace == rpcNamespace : 
+			sameNamespace[rpcServerName.serverName] = 1 
+			
+	for index , rpcNamespace in sameNamespace.items():   
+		GenerateRpcRegisterServerHeader(g_rpcMsgs.rpcs.rpcs , fileRpc , index)
+ 
 	fileRpc.write("\n") 
 
 	fileRpc.write("namespace " + rpcServerName.namespace + "\n{\n")
 	fileRpc.write(oneTab + "//5 defaultParams define here.\n")
 	WriteDefaultParams(fileRpc)
 	
-	fileRpc.write(oneTab + "void " + rpcServerName.rpcInterface + "::OnRegisterRpcs( void )\n")
-	fileRpc.write(oneTab + "{\n")
-	fileRpc.write(twoTab + "Assert(m_pRpcServerManager && Msg::g_pRpcCheckParams);	\n")
-	fileRpc.write(twoTab + "Msg::GlobalRpc * g_pGlobalRpc  = new Msg::GlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcServerManager); \n\n") 
-
-	fileRpc.write(twoTab + "Msg::Parameters objDeliverParams , objReturnParams;\n")
+def GenerateRpcRegisterHeaderInclude(fileRpc , rpcNamespace): 
+	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
+		if rpcNamespace == rpcServerName.namespace :
+			fileRpc.write("#include \"" + rpcServerName.include + "\"\n")
 	
 def GenerateRpcRegisterServerHeader(rpcs , fileRpc , serverName):
+	
+	sameRecord = {}
 	#生成所有的rpc
 	for index , rpc in rpcs.items():     
-		if rpc.server == serverName: 
+		if rpc.server == serverName and rpc.include not in sameRecord: 
 			fileRpc.write("#include \"" + rpc.include + "\"\n") 
-
+			sameRecord[rpc.include] = 1
 
 def GenerateRpcRegisterFuncs(rpc , fileRpc , serverName):
 	#生成所有的rpc  

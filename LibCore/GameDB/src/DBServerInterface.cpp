@@ -20,8 +20,8 @@ namespace GameDB
 
 	INT32 DBServerInterface::Init(Json::Value & conf)
 	{   
-		InitDB(conf);
 		InitNet(conf);
+		InitDB(conf);
 
 		return ERR_SUCCESS; 
 	}

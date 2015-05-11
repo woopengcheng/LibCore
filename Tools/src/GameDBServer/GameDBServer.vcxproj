@@ -108,7 +108,11 @@
     <ClCompile Include="src\DBSlave.cpp" />
     <ClCompile Include="src\rpc\HandleHGet_RpcServer.cpp" />
     <ClCompile Include="src\rpc\HandleHSet_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\MasterStartSync_RpcClient.cpp" />
+    <ClCompile Include="src\rpc\MasterStartSync_RpcServer.cpp" />
     <ClCompile Include="src\rpc\RpcRegister.cpp" />
+    <ClCompile Include="src\rpc\SlaveRequestSync_RpcClient.cpp" />
+    <ClCompile Include="src\rpc\SlaveRequestSync_RpcServer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\DBMaster.h" />

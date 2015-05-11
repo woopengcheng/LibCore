@@ -36,8 +36,8 @@ namespace Msg
 		}
 		else
 		{
-			Assert(0 && "Has return params");
-		}
+			gWarniStream(strFunName << "Has return params");
+		} 
 	}
 
 
@@ -50,7 +50,7 @@ namespace Msg
 		}
 		else
 		{
-			Assert(0 && "Has deliver params");
+			gWarniStream(strFunName << "Has deliver params");
 		}
 	} 
 

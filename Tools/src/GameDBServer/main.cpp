@@ -12,6 +12,7 @@
 #include "ServerHandler.h"  
 #include "DBServer.h"
 #include "DBMaster.h"
+#include "DBSlave.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {  
@@ -24,16 +25,35 @@ int _tmain(int argc, _TCHAR* argv[])
 	Json::Value root;
 	Json::JsonParase(defaultConf.c_str() , root); 
 
-	Json::Value objDBServer = root.get("db_server" , Json::Value());
-	Server::DBServer::GetInstance().Init(objDBServer); 
+	std::string strRunMode = root.get("mode" , "master").asString();
 
-	Json::Value objMaster = root.get("master_server" , Json::Value());
-	Server::DBMaster::GetInstance().Init(objMaster);
+	if (strRunMode.compare("master") == 0)
+	{
+		Json::Value objMaster = root.get("master" , Json::Value());
+		Server::DBMaster::GetInstance().Init(objMaster);
 
-	Server::ServerHandler  ObjTestObject(&Server::DBServer::GetInstance());   
+		Json::Value objDBServer = root.get("server" , Json::Value());
+		Server::DBServer::GetInstance().Init(objDBServer);  
+
+		Server::ServerHandler  ObjTestObject(&Server::DBServer::GetInstance());   
+	}
+	else if (strRunMode.compare("slave") == 0)
+	{
+		Json::Value objSlave = root.get("slave" , Json::Value());
+		Server::DBSlave::GetInstance().Init(objSlave);
+	}
+	else
+	{
+		gErrorStream("wrong mode in " << defaultConf);
+		return 0;
+	}
+
 	while (1)
 	{
-		Server::DBServer::GetInstance().Update();
+		if (strRunMode.compare("slave") != 0)
+			Server::DBServer::GetInstance().Update();
+
+		Timer::TimerHelper::sleep(1);
 	}
 
 	Server::DBServer::GetInstance().Cleanup();  

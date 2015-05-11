@@ -12,7 +12,7 @@ namespace Server
 {  
 	class SlaveHandler : public Msg::IRpcMsgCallableObject
 	{ 
-//		RPC_DEFINE_SlaveHandler;
+ 		RPC_DEFINE_SlaveHandler;
 	public:
 		SlaveHandler(DBSlave * pDBSlave)
 			: Msg::IRpcMsgCallableObject(Msg::Object(1) , pDBSlave->GetRpcServerManager())

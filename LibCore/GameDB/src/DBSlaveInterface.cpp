@@ -19,8 +19,8 @@ namespace GameDB
 
 	INT32 DBSlaveInterface::Init(Json::Value & conf)
 	{   
-		InitDB(conf);
 		InitNet(conf);
+		InitDB(conf);
 
 		return ERR_SUCCESS; 
 	}

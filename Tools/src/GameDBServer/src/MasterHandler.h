@@ -12,7 +12,7 @@ namespace Server
 {  
 	class MasterHandler : public Msg::IRpcMsgCallableObject
 	{ 
-//		RPC_DEFINE_MasterHandler;
+ 		RPC_DEFINE_MasterHandler;
 	public:
 		MasterHandler(DBMaster * pDBMaster)
 			: Msg::IRpcMsgCallableObject(Msg::Object(1) , pDBMaster->GetRpcServerManager())
