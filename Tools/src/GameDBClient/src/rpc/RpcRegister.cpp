@@ -8,21 +8,21 @@
 #include "MsgNameDefine.h"
 #include "DBClient.h"
 
-namespace Server
+namespace Client
 {
 	//5 defaultParams define here.
-	static LibCore_Chunk g_rpcDefaultParam_LibCore_Chunk = LibCore::Chunk();
-	static UINT32 g_rpcDefaultParam_UINT32 = 0;
 	static double g_rpcDefaultParam_double = 0.0f;
-	static INT32 g_rpcDefaultParam_INT32 = 0;
-	static INT16 g_rpcDefaultParam_INT16 = 0;
-	static UINT16 g_rpcDefaultParam_UINT16 = 0;
-	static std_string g_rpcDefaultParam_std_string = std::string();
-	static INT64 g_rpcDefaultParam_INT64 = 0;
 	static float g_rpcDefaultParam_float = 0.0f;
+	static INT16 g_rpcDefaultParam_INT16 = 0;
 	static UINT64 g_rpcDefaultParam_UINT64 = 0;
-	static SINT8 g_rpcDefaultParam_SINT8 = 0;
+	static std_string g_rpcDefaultParam_std_string = std::string();
+	static UINT16 g_rpcDefaultParam_UINT16 = 0;
+	static INT64 g_rpcDefaultParam_INT64 = 0;
 	static UINT8 g_rpcDefaultParam_UINT8 = 0;
+	static UINT32 g_rpcDefaultParam_UINT32 = 0;
+	static INT32 g_rpcDefaultParam_INT32 = 0;
+	static SINT8 g_rpcDefaultParam_SINT8 = 0;
+	static LibCore_Chunk g_rpcDefaultParam_LibCore_Chunk = LibCore::Chunk();
 
 	void DBClient::OnRegisterRpcs( void )
 	{
@@ -30,16 +30,14 @@ namespace Server
 		Msg::GlobalRpc * g_pGlobalRpc  = new Msg::GlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcServerManager); 
 
 		Msg::Parameters objDeliverParams , objReturnParams;
-		//5 HandleHGet generate default deliver and return check param here
+		//5 SlaveRequestSync generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_std_string);
-			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHGet", objDeliverParams);
-			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHGet", objReturnParams);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams );
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams );
+			Msg::g_pRpcCheckParams->InsertDeliverParams("SlaveRequestSync", objDeliverParams);
+			Msg::g_pRpcCheckParams->InsertReturnParams("SlaveRequestSync", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHGet_RpcTimeout , &Msg::GlobalRpc::HandleHGet_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHGet_RpcClient , &Msg::GlobalRpc::HandleHGet_RpcClient); 
 		}
 
 		//5 MasterStartSync generate default deliver and return check param here
@@ -64,14 +62,16 @@ namespace Server
 			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHSet_RpcClient , &Msg::GlobalRpc::HandleHSet_RpcClient); 
 		}
 
-		//5 SlaveRequestSync generate default deliver and return check param here
+		//5 HandleHGet generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams );
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams );
-			Msg::g_pRpcCheckParams->InsertDeliverParams("SlaveRequestSync", objDeliverParams);
-			Msg::g_pRpcCheckParams->InsertReturnParams("SlaveRequestSync", objReturnParams);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_std_string);
+			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHGet", objDeliverParams);
+			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHGet", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHGet_RpcTimeout , &Msg::GlobalRpc::HandleHGet_RpcTimeout); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHGet_RpcClient , &Msg::GlobalRpc::HandleHGet_RpcClient); 
 		}
 
 	}

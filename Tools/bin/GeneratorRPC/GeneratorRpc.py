@@ -60,6 +60,7 @@ class Rpc(ParentPoint):
 		self.classes = None
 		self.include = None
 		self.syncType = 0
+		self.timeout = 10
 
 class RpcData(ParentPoint):
 	def __init__(self , parentPoint):
@@ -187,6 +188,9 @@ def handleRpc(rpcs , xmlRpc):
 		if attr == "syncType":
 			rpc.syncType = xmlRpc.attrib[attr]
 			print(attr , rpc.syncType)
+		if attr == "timeout":
+			rpc.timeout = xmlRpc.attrib[attr]
+			print(attr , rpc.timeout)
 
 	for xmlData in xmlRpc.getchildren(): 
 		if xmlData.tag == "Call":
@@ -481,12 +485,12 @@ def GenerateRpcRegisterHeader(fileRpc , rpcNamespace) :
 		if rpcServerName.namespace == rpcNamespace : 
 			sameNamespace[rpcServerName.serverName] = 1 
 			
-	for index , rpcNamespace in sameNamespace.items():   
+	for index , foo in sameNamespace.items():   
 		GenerateRpcRegisterServerHeader(g_rpcMsgs.rpcs.rpcs , fileRpc , index)
  
 	fileRpc.write("\n") 
 
-	fileRpc.write("namespace " + rpcServerName.namespace + "\n{\n")
+	fileRpc.write("namespace " + rpcNamespace + "\n{\n")
 	fileRpc.write(oneTab + "//5 defaultParams define here.\n")
 	WriteDefaultParams(fileRpc)
 	
@@ -629,22 +633,52 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 			fileRpc.close() 
  
 def GenerateRpcDatas():
+	sameNamespace = {} 
 	#生成所有的rpc
 	for index , serverName in g_rpcMsgs.rpcServerNames.items():    
 		outputPath = GetOutputPath(serverName.serverName)   
 		outputPath += "RpcDatas.h" 
-			
+			 
 		fileRpc = open(outputPath , "a")
+		if serverName.namespace not in sameNamespace :
+			GenerateRpcDatasHeader(fileRpc , serverName)
+			sameNamespace[serverName.namespace] = 1 
 
-		for index , rpcData in g_rpcMsgs.rpcs.rpcDatas.items():  
-			pass
-#			fileRpc.write("template<typename Object>\n")
-#			fileRpc.write("ObjectMsgCall<Object> * Rpc<Object>::" + rpcData.name + "_RpcServer(")
-#			strParams = GetParamsExcludeDefault(rpcData.params)
-#			fileRpc.write(strParams + ", std::vector<Object> vecTargets , Object objSrc ) \n{\n\n\n RPCReturnNULL;\n}\n\n")
+			for index , rpcData in g_rpcMsgs.rpcs.rpcDatas.items():   
+				fileRpc.write(oneTab + "struct " + rpcData.name + "\n") 
+				fileRpc.write(oneTab + "{ \n")
+				WriteDefineParamsWithoutDefault(fileRpc , rpcData.params) 
+				
+				fileRpc.write("\n")
+				fileRpc.write(twoTab + rpcData.name + "()\n")
+				WriteDefineParamsWithDefault(fileRpc , rpcData.params)  
+				fileRpc.write(threeTab + "{}\n")
+				
+				
+				fileRpc.write(oneTab + "}; \n \n")
 			
 		fileRpc.close()
 
+	sameNamespace = {} 
+	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
+		outputPath = GetOutputPath(rpcServerName.serverName)  
+		outputPath = outputPath + "RpcDatas.h"     
+		
+		if rpcServerName.namespace not in sameNamespace : 
+			fileRpc = open(outputPath , "a")
+			fileRpc.write("}\n\n")	
+			fileRpc.write("#endif\n")				
+			fileRpc.close()
+			sameNamespace[rpcServerName.namespace] = 1
+			
+def  GenerateRpcDatasHeader(fileRpc , serverName):
+	fileRpc.write("#ifndef __" + serverName.namespace + "_rpc_datas_h__\n") 
+	fileRpc.write("#define __" + serverName.namespace + "_rpc_datas_h__\n")  
+	fileRpc.write("#include \"Common/Common.h\"\n") 
+	fileRpc.write("#include \"Common/Chunk.h\"\n\n")   
+	fileRpc.write("namespace " + serverName.namespace)   
+	fileRpc.write("\n{\n")   
+	
 def GenerateRpcCallFuncs(): 
 	sameNamespace = {} 
 	for index , serverName in g_rpcMsgs.rpcServerNames.items(): 
@@ -665,7 +699,7 @@ def GenerateRpcCallFuncs():
 				
 				strParams = GetParamsExcludeDefaultAndType(rpc.call.params) 
 				strParamsCount = len(rpc.call.params)
-				fileRpc.write(twoTab + "GEN_RPC_CALL_" + str(strParamsCount) + "((&(" + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance())) , pSessionName , " + "Msg::g_sz" + rpc.name + "_RpcCall , " + strParams + " vecTargets , objSrc , usPriority , " + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance().GetServerName() , objSyncType);\n")
+				fileRpc.write(twoTab + "GEN_RPC_CALL_" + str(strParamsCount) + "((&(" + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance())) , pSessionName , " + "Msg::g_sz" + rpc.name + "_RpcCall , " + strParams + " vecTargets , objSrc , usPriority , " + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance().GetServerName() , objSyncType , " + rpc.timeout + ");\n")
 				fileRpc.write(oneTab + "}\n\n")	
 				
 		fileRpc.close()
@@ -803,6 +837,36 @@ def WriteDefineParams(fileRpc , params):
 		strParams += ";\n" 
 		fileRpc.write(strParams) 
 
+def WriteDefineParamsWithoutDefault(fileRpc , params):
+	for index , param in params.items():  
+		strParams = twoTab 
+		strParams += param.type
+		strParams += " "
+		strParams += param.name 
+
+		strParams += ";\n" 
+		fileRpc.write(strParams) 
+
+def WriteDefineParamsWithDefault(fileRpc , params):
+	fileRpc.write(threeTab + ":")
+	nCount = 0
+	for index , param in params.items():  
+		nCount = nCount + 1
+		strParams = ""   
+		strParams += " "
+		strParams += param.name  
+		strParams += "( "
+
+		if param.default == "" or param.default == None:
+			strParams += GetAndCheckDefaultParam(param.type)
+		else:
+			strParams += param.default
+		strParams += " ) \n" 
+
+		if nCount != len(params):
+			strParams += threeTab + ","  
+		fileRpc.write(strParams)   
+		
 def GetParamsExcludeDefault(params):
 	strParams = ""
 	nCount = 0

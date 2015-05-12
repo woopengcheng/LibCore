@@ -63,11 +63,21 @@
 	
 	<Rpcs>  
 		<RpcData name="UserLogin">
-			<Param type="INT32" name="userid" default="0"/>
-			<Param type="INT32" name="localid" default="0"/> 
+			<Param type="SINT8" name="userid1" default="0"/>
+			<Param type="UINT8" name="localid2" default="0"/> 
+			<Param type="INT16" name="userid3" default="0"/>
+			<Param type="UINT16" name="localid4" default="0"/>  
+			<Param type="INT32" name="localid6" default="0"/> 
+			<Param type="UINT32" name="userid7" default="0"/>
+			<Param type="INT64" name="localid8" default="0"/> 
+			<Param type="UINT64" name="userid9" default="0"/>
+			<Param type="double" name="localid10" default="1.0f"/> 
+			<Param type="float" name="localid11" default="1.0f"/> 
+			<Param type="std_string" name="localid12" /> 
+			<Param type="LibCore_Chunk" name="localid13" /> 
 		</RpcData>
 
-		<Rpc name="HandleHSet" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0">
+		<Rpc name="HandleHSet" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
 			<Call >
 				<Param name="table" type="std_string" default=""/>
 				<Param name="key" type="std_string" default=""/>
@@ -79,7 +89,7 @@
 			</Return>
 		</Rpc> 
 		
-		<Rpc name="HandleHGet" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0">
+		<Rpc name="HandleHGet" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
 			<Call >
 				<Param name="table" type="std_string" default=""/>
 				<Param name="key" type="std_string" default=""/>
@@ -90,7 +100,7 @@
 			</Return>
 		</Rpc> 
 		 
-		<Rpc name="SlaveRequestSync" include="MasterHandler.h" class="MasterHandler" client="Slave" server="Master" syncType="1">
+		<Rpc name="SlaveRequestSync" include="MasterHandler.h" class="MasterHandler" client="Slave" server="Master" syncType="1" timeout="10">
 			<Call > 
 			</Call>
 
@@ -98,7 +108,7 @@
 			</Return>
 		</Rpc>
 		
-		<Rpc name="MasterStartSync" include="SlaveHandler.h" class="SlaveHandler" client="Master" server="Slave" syncType="1">
+		<Rpc name="MasterStartSync" include="SlaveHandler.h" class="SlaveHandler" client="Master" server="Slave" syncType="1" timeout="10">
 			<Call > 
 				<Param name="value" type="LibCore_Chunk"/>
 			</Call>
