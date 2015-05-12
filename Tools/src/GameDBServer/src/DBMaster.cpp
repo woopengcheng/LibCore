@@ -38,6 +38,7 @@ namespace Server
 
 		ThreadPool::ThreadPoolInterface::GetInstance().Init(mapThreads , TRUE);
 		ThreadPool::ThreadPoolInterface::GetInstance().Startup();  
+		ThreadPool::ThreadPoolInterface::GetInstance().AddTask(this);  
 
 		return ERR_SUCCESS;
 	}

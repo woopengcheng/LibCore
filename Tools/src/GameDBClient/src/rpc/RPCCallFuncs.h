@@ -8,17 +8,14 @@
 
 namespace Client
 {
-#ifndef MSG_INSTANCE
-#error "need define marcor MSG_INSTANCE for rpc use."
-#endif
 	static INT32  local_call_HandleHGet(const char * pSessionName , std_string table/* = std::string()*/ , std_string key/* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
-		GEN_RPC_CALL_2((&MSG_INSTANCE) , pSessionName , Msg::g_szHandleHGet_RpcCall , table , key , vecTargets , objSrc , usPriority , MSG_INSTANCE.GetServerName() , objSyncType);
+		GEN_RPC_CALL_2((&(Client::DBClient::GetInstance())) , pSessionName , Msg::g_szHandleHGet_RpcCall , table , key,  vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType);
 	}
 
-	static INT32  local_call_HandleHSet(const char * pSessionName , std_string value/* = std::string()*/ , std_string table/* = std::string()*/ , std_string key/* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  local_call_HandleHSet(const char * pSessionName , std_string table/* = std::string()*/ , std_string key/* = std::string()*/ , std_string value/* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
-		GEN_RPC_CALL_3((&MSG_INSTANCE) , pSessionName , Msg::g_szHandleHSet_RpcCall , value , table , key , vecTargets , objSrc , usPriority , MSG_INSTANCE.GetServerName() , objSyncType);
+		GEN_RPC_CALL_3((&(Client::DBClient::GetInstance())) , pSessionName , Msg::g_szHandleHSet_RpcCall , table , key , value,  vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType);
 	}
 
 }

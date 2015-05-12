@@ -13,6 +13,8 @@
 #include "DBServer.h"
 #include "DBMaster.h"
 #include "DBSlave.h"
+#include "MasterHandler.h"
+#include "SlaveHandler.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {  
@@ -35,12 +37,14 @@ int _tmain(int argc, _TCHAR* argv[])
 		Json::Value objDBServer = root.get("server" , Json::Value());
 		Server::DBServer::GetInstance().Init(objDBServer);  
 
-		Server::ServerHandler  ObjTestObject(&Server::DBServer::GetInstance());   
+		static Server::ServerHandler  ObjTestObject(&Server::DBServer::GetInstance()); 
+		static Server::MasterHandler  ObjMasterHandler(&Server::DBMaster::GetInstance()); 
 	}
 	else if (strRunMode.compare("slave") == 0)
 	{
 		Json::Value objSlave = root.get("slave" , Json::Value());
 		Server::DBSlave::GetInstance().Init(objSlave);
+		static Server::SlaveHandler  ObjMasterHandler(&Server::DBSlave::GetInstance()); 
 	}
 	else
 	{

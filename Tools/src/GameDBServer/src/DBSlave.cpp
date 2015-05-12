@@ -1,5 +1,6 @@
 #include "DBSlave.h" 
 #include "ThreadPoolLib/inc/ThreadPoolInterface.h"
+#include "RPCCallFuncs.h"
 
 namespace Server
 {
@@ -19,6 +20,9 @@ namespace Server
 
 	INT32 DBSlave::Update(void)
 	{  
+		std::vector<Msg::Object> targets;
+		targets.push_back(Msg::Object(1));   
+		Server::local_call_SlaveRequestSync("tcp://127.0.0.1:9001", targets , Msg::Object(0) , 1);
 
 		return DBSlaveInterface::Update();
 	}
@@ -38,6 +42,7 @@ namespace Server
 
 		ThreadPool::ThreadPoolInterface::GetInstance().Init(mapThreads , TRUE);
 		ThreadPool::ThreadPoolInterface::GetInstance().Startup();  
+		ThreadPool::ThreadPoolInterface::GetInstance().AddTask(this);  
 
 		return ERR_SUCCESS;
 	}

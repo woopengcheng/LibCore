@@ -24,9 +24,6 @@ namespace Client
 		virtual void OnRegisterRpcs(void); 
 	};  
 	 
-}
-  
-//5 这句话必须定义.给RPC或者消息调用.
-#define MSG_INSTANCE (Client::DBClient::GetInstance())
+} 
 
 #endif

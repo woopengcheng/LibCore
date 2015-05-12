@@ -34,8 +34,7 @@ namespace Server
 	private: 
 		INT32   InitThread(Json::Value & conf);
 	};  
-
-
+	 
 
 }
 

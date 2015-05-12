@@ -665,7 +665,7 @@ def GenerateRpcCallFuncs():
 				
 				strParams = GetParamsExcludeDefaultAndType(rpc.call.params) 
 				strParamsCount = len(rpc.call.params)
-				fileRpc.write(twoTab + "GEN_RPC_CALL_" + str(strParamsCount) + "((&MSG_INSTANCE) , pSessionName , " + "Msg::g_sz" + rpc.name + "_RpcCall , " + strParams + " , vecTargets , objSrc , usPriority , MSG_INSTANCE.GetServerName() , objSyncType);\n")
+				fileRpc.write(twoTab + "GEN_RPC_CALL_" + str(strParamsCount) + "((&(" + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance())) , pSessionName , " + "Msg::g_sz" + rpc.name + "_RpcCall , " + strParams + " vecTargets , objSrc , usPriority , " + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance().GetServerName() , objSyncType);\n")
 				fileRpc.write(oneTab + "}\n\n")	
 				
 		fileRpc.close()
@@ -690,12 +690,16 @@ def  GenerateRpcCallFuncsHeader(fileRpc , serverName):
 	fileRpc.write("#include \"MsgLib/inc/MsgHelper.h\"\n") 
 	fileRpc.write("#include \"MsgLib/inc/RPCMsgCall.h\"\n")  
 	fileRpc.write("#include \"MsgNameDefine.h\"\n") 
-	fileRpc.write("#include \"" + serverName.include + "\"\n\n") 
+	for index , serverNames in g_rpcMsgs.rpcServerNames.items(): 
+		if serverNames.namespace == serverName.namespace:
+			fileRpc.write("#include \"" + serverNames.include + "\"\n") 
+	
+	fileRpc.write("\n") 
 	fileRpc.write("namespace " + serverName.namespace + "\n") 
 	fileRpc.write("{\n") 
-	fileRpc.write("#ifndef MSG_INSTANCE\n") 
-	fileRpc.write("#error \"need define marcor MSG_INSTANCE for rpc use.\"\n") 
-	fileRpc.write("#endif\n") 
+#	fileRpc.write("#ifndef MSG_INSTANCE\n") 
+#	fileRpc.write("#error \"need define marcor MSG_INSTANCE for rpc use.\"\n") 
+#	fileRpc.write("#endif\n") 
 
 		
 ################################流程无关函数处理#####################################
@@ -835,6 +839,9 @@ def GetParamsExcludeDefaultAndType(params):
 		if nCount != len(params):
 			strParams = strParams + " , " 
 
+	if len(params) != 0:
+		strParams += ", "
+		
 	return strParams
 
 def GetAndCheckDefaultParam(paramType):
@@ -872,9 +879,9 @@ def GetDefaultParamValue(paramType):
 	assert(0 ,  "no this defaultParam value in defaultParamsList")
 
 def GetSyncTypeInString(syncType):
-	if syncType == 0:
+	if syncType == "0":
 		return "Msg::SYNC_TYPE_SYNC"
-	elif syncType == 1:
+	elif syncType == "1":
 		return "Msg::SYNC_TYPE_NONSYNC"
 	else:
 		return "Msg::SYNC_TYPE_SYNC" 
