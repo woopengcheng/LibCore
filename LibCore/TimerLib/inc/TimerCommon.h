@@ -12,6 +12,7 @@
  
 #define DEFAULT_TIMER_THREAD_ID 1             //5 默认计时器中心ID.
 #define DEFAULT_TIMER_HANDLE_THREAD_ID 2      //5 默认计时器处理ID
+#define TIMER_ROOT_SIZE_MASK    8#define TIMER_OTHER_SIZE_MASK   6
 
 typedef INT64 TimerType;
 

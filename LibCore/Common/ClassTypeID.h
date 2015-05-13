@@ -15,5 +15,6 @@ namespace
 
 	const class_type_id CTID_MsgCall	         = 0x00000008;
 	const class_type_id CTID_ObjectMsgCall       = 0x00000010;
+	const class_type_id CTID_TimingWheelTimerNode= 0x00000020;
 }
 #endif
