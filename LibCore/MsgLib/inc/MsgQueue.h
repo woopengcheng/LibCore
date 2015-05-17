@@ -1,6 +1,7 @@
 #ifndef __msg_msg_queue_h__
 #define __msg_msg_queue_h__
 #include "MsgLib/inc/MsgCommon.h"
+#include "TimerLib/inc/TimerNode.h"
 #include "TimerLib/inc/TimerInterface.h"
 
 namespace Msg
@@ -17,10 +18,10 @@ namespace Msg
 		virtual ~MsgQueue(){}
 
 	public:
-		virtual INT32    Init(void);
-		virtual INT32    Cleanup(void);
-		virtual INT32    Update(void); 
-		virtual INT32    SetTimer(ObjectMsgCall * pMsg , UINT32 unTimeInterval , UINT32 unStartTime = 0, UINT32 unTimes = 0, void * pObj = NULL , TimerCallBackFunc pFunc = NULL);
+		virtual INT32			  Init(void);
+		virtual INT32			  Cleanup(void);
+		virtual Timer::TimerNode* Update(void); 
+		virtual INT32			  SetTimer(ObjectMsgCall * pMsg , UINT32 unTimeInterval , UINT32 unStartTime = 0, UINT32 unTimes = 0, void * pObj = NULL , TimerCallBackFunc pFunc = NULL);
 
 	public:
 		virtual  INT32            AddMsg(ObjectMsgCall * pMsg);

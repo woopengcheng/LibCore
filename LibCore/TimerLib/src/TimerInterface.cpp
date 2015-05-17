@@ -1,7 +1,7 @@
-#include "TimerLib/inc/TimerInterface.h"
-#include "TimerLib/inc/InternalTimerTask.h" 
+#include "TimerLib/inc/TimerInterface.h" 
 #include "TimerLib/inc/TimerNode.h" 
 #include "TimerLib/inc/IStrategy.h"
+#include "TimerLib/inc/TimingWheel.h"
 
 namespace Timer
 { 
@@ -13,7 +13,11 @@ namespace Timer
 		default: 
 		case TIMER_STRATEGY_MIN_HEAP:
 			{
-				m_pTimerStrategy = new MinHeap<TimerType>;
+				m_pTimerStrategy = new MinHeapTimer;
+			}break; 
+		case TIMER_STRATEGY_TIMINGWHEEL:
+			{
+				m_pTimerStrategy = new TimingWheel;
 			}break; 
 		}
 
@@ -54,13 +58,17 @@ namespace Timer
 		return nResult;
 	}
 
-	INT32 TimerInterface::Update( void )
+	TimerNode * TimerInterface::Update( void )
 	{ 
+		if (m_pTimerStrategy)
+		{
+			return m_pTimerStrategy->Update();
+		}
 
-		return ERR_SUCCESS;
+		return NULL;
 	} 
 
-	Node<TimerType> * TimerInterface::GetNode( UINT32 unNodeID )
+	TimerNode * TimerInterface::GetNode( UINT32 unNodeID )
 	{
 		if (m_pTimerStrategy)
 		{

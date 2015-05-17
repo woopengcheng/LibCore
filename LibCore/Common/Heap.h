@@ -1,12 +1,14 @@
-#ifndef __timer_heap_h__
-#define __timer_heap_h__
-#include "TimerLib/inc/Node.h"  
-#include "TimerLib/inc/IStrategy.h"
+#ifndef __libcore_heap_h__
+#define __libcore_heap_h__
+#include "Common/Common.h"
+#include "Common/Node.h"   
 
-namespace Timer
+namespace LibCore
 {
+#define MAX_NODE_SIZE 10000                   //5 定义100000个计时器.
+
 	template <typename ValueType>
-	class Heap : public IStrategy<ValueType>
+	class Heap
 	{
 	public:
 		typedef tbb::concurrent_hash_map<INT32 , Node<ValueType> *> MapNodesT;      //5 保证线程安全.
@@ -18,6 +20,7 @@ namespace Timer
 	public:
 		virtual  INT32    Init(void);
 		virtual  INT32    Cleanup(void); 
+		virtual  Node<ValueType> *  Update(void);
 
 	public:
 		virtual  INT32    InsertNode(UINT32 unNodeID , Node<ValueType> * pNode){ return ERR_SUCCESS; }
@@ -41,6 +44,12 @@ namespace Timer
 		Node<ValueType>  *              m_pNodes[MAX_NODE_SIZE]; //5 采用数组的方式来实现堆. 
 		ThreadPool::ThreadSpinRWMutex   m_objLock;               //5 用来锁堆这个类的.
 	};  
+
+	template <typename ValueType>
+	Node<ValueType> *  Heap<ValueType>::Update(void)
+	{
+		return NULL;
+	}
 
 	template <typename ValueType>
 	INT32 Heap<ValueType>::Cleanup( void )

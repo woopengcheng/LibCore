@@ -1,15 +1,14 @@
 #ifndef __timer_timer_node_h__
 #define __timer_timer_node_h__
-#include "TimerLib/inc/MinHeapTimer.h"
-#include "TimerLib/inc/Node.h"
+#include "Common/Node.h" 
 #include "TimerLib/inc/TimeCount.h"
 
 namespace Timer
 {   
-	class DLL_EXPORT  TimerNode : public Node<TimerType>
+	class DLL_EXPORT  TimerNode : public LibCore::Node<TimerType>
 	{ 
 	public:
-		CLASS_TYPE_ID(TimerNode , Node<TimerType> , CTID_TimerNode)
+		CLASS_TYPE_ID(TimerNode , LibCore::Node<TimerType> , CTID_TimerNode)
 	public:
 		TimerNode()
 			: m_unTimerID(0)
@@ -18,7 +17,8 @@ namespace Timer
 			, m_unStartTime(0)
 			, m_unTimes(0)
 			, m_pCallBackFunc(NULL)
-			, Node<TimerType>(0)
+			, LibCore::Node<TimerType>(0)
+			, m_pNext(NULL)
 		{}
 		TimerNode(UINT32 unTimerID , UINT32 unTimeInterval , UINT32 unStartTime = 0, UINT32 unTimes = 0, void * pObj = NULL , TimerCallBackFunc pFunc = NULL)
 			: m_unTimerID(unTimerID)
@@ -27,7 +27,8 @@ namespace Timer
 			, m_unStartTime(unStartTime)
 			, m_unTimes(unTimes)
 			, m_pCallBackFunc(pFunc)
-			, Node<TimerType>(unStartTime + unTimeInterval)
+			, LibCore::Node<TimerType>(unStartTime + unTimeInterval)
+			, m_pNext(NULL)
 		{
 			m_objTimerCount.Start(GetValue());
 		}
@@ -46,8 +47,12 @@ namespace Timer
 		void               SetObject(void * pObj);
 		void               SetTimerID(UINT32 unTimerID);
 		UINT32             GetTimerID();
+		TimerNode     *    GetNext(){ return m_pNext; } 
 
-	private:
+	public:
+		TimerNode		*  m_pNext;  
+
+	protected:
 		UINT32             m_unTimerID;
 		void *             m_pObj; 
 		UINT32             m_unTimes;

@@ -244,11 +244,14 @@
     <ClInclude Include="..\..\LibCore\Common\ClassTypeInterface.h" />
     <ClInclude Include="..\..\LibCore\Common\CommandHandler.h" />
     <ClInclude Include="..\..\LibCore\Common\Common.h" />
+    <ClInclude Include="..\..\LibCore\Common\Heap.h" />
     <ClInclude Include="..\..\LibCore\Common\intrusive_ptr.h" />
     <ClInclude Include="..\..\LibCore\Common\LinkedPtr.h" />
+    <ClInclude Include="..\..\LibCore\Common\MinHeap.h" />
     <ClInclude Include="..\..\LibCore\Common\MsgAssert.h" />
     <ClInclude Include="..\..\LibCore\Common\ErrorCode.h" />
     <ClInclude Include="..\..\LibCore\Common\LibCore.h" />
+    <ClInclude Include="..\..\LibCore\Common\Node.h" />
     <ClInclude Include="..\..\LibCore\Common\Platform.h" />
     <ClInclude Include="..\..\LibCore\Common\Refcounted.h" />
     <ClInclude Include="..\..\LibCore\Common\Random.h" />
@@ -356,12 +359,9 @@
     <ClInclude Include="..\..\LibCore\ThreadPoolLib\inc\ThreadTask.h" />
     <ClInclude Include="..\..\LibCore\TimerLib\inc\GlobalTimer.h" />
     <ClInclude Include="..\..\LibCore\TimerLib\inc\GlobalTimerTask.h" />
-    <ClInclude Include="..\..\LibCore\TimerLib\inc\Heap.h" />
     <ClInclude Include="..\..\LibCore\TimerLib\inc\InternalTimerTask.h" />
     <ClInclude Include="..\..\LibCore\TimerLib\inc\IStrategy.h" />
-    <ClInclude Include="..\..\LibCore\TimerLib\inc\MinHeap.h" />
     <ClInclude Include="..\..\LibCore\TimerLib\inc\MinHeapTimer.h" />
-    <ClInclude Include="..\..\LibCore\TimerLib\inc\Node.h" />
     <ClInclude Include="..\..\LibCore\TimerLib\inc\TimeCount.h" />
     <ClInclude Include="..\..\LibCore\TimerLib\inc\TimerClassTypeID.h" />
     <ClInclude Include="..\..\LibCore\TimerLib\inc\TimerCommon.h" />
@@ -369,6 +369,7 @@
     <ClInclude Include="..\..\LibCore\TimerLib\inc\TimerInterface.h" />
     <ClInclude Include="..\..\LibCore\TimerLib\inc\TimerNode.h" />
     <ClInclude Include="..\..\LibCore\TimerLib\inc\TimerTask.h" />
+    <ClInclude Include="..\..\LibCore\TimerLib\inc\TimingWheel.h" />
     <ClInclude Include="..\..\LibCore\XMLLib\inc\XML.h" />
     <ClInclude Include="..\..\LibCore\XMLLib\inc\XMLValue.h" />
     <ClInclude Include="stdafx.h" />

@@ -318,22 +318,13 @@
     <ClInclude Include="..\..\LibCore\TimerLib\inc\GlobalTimerTask.h">
       <Filter>TimerLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\TimerLib\inc\Heap.h">
-      <Filter>TimerLib\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\TimerLib\inc\InternalTimerTask.h">
       <Filter>TimerLib\inc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\LibCore\TimerLib\inc\IStrategy.h">
       <Filter>TimerLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\TimerLib\inc\MinHeap.h">
-      <Filter>TimerLib\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\TimerLib\inc\MinHeapTimer.h">
-      <Filter>TimerLib\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\TimerLib\inc\Node.h">
       <Filter>TimerLib\inc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\LibCore\TimerLib\inc\TimeCount.h">
@@ -506,6 +497,18 @@
     </ClInclude>
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBSlaveManager.h">
       <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\TimerLib\inc\TimingWheel.h">
+      <Filter>TimerLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\Heap.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\MinHeap.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\Node.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

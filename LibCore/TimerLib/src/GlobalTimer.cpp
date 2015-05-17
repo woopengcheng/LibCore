@@ -26,23 +26,22 @@ namespace Timer
 		return TimerInterface::Cleanup();            //5 这里必须调用
 	} 
 
-	INT32 GlobalTimer::Update( void )
-	{ 
-		Node<TimerType> * pNodeInt64 = GetNode();
-		if (!pNodeInt64)
+	INT32  GlobalTimer::Update_Thread( void )
+	{  
+		TimerNode * pNode = TimerInterface::Update();
+		if (!pNode)
 		{
-			return ERR_FAILURE;
-		}
-		TimerNode * pNode = pNodeInt64->GetClass<TimerNode>();    //5 获取堆顶的元素.然后进行比较.
+			return NULL;
+		} 
 
 		if (pNode && pNode->GetTimeCount().IsExpired())
 		{
 			InternalTimerTask * pTask = new InternalTimerTask(pNode); 
- 			ThreadPool::ThreadPoolInterface::GetInstance().AddTask(pTask);
+			ThreadPool::ThreadPoolInterface::GetInstance().AddTask(pTask);
 
-			return RemoveTimer(pNode->GetTimerID());
-		}
-
-		return ERR_SUCCESS;
+			pNode = pNode->GetNext();
+			return ERR_SUCCESS;
+		} 
+		return ERR_FAILURE;
 	} 
 }

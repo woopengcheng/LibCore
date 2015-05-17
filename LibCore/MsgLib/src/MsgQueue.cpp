@@ -18,12 +18,12 @@ namespace Msg
 	}
 
 
-	INT32 MsgQueue::Update( void )
+	Timer::TimerNode * MsgQueue::Update( void )
 	{  
-		Timer::Node<INT64> * pNodeInt64 = GetNode(0);
+		Timer::TimerNode * pNodeInt64 = GetNode(0);
 		if (!pNodeInt64)
 		{
-			return ERR_FAILURE;
+			return NULL;
 		}
 		MsgTimerNode * pNode = pNodeInt64->GetClass<MsgTimerNode >();    //5 获取堆顶的元素.然后进行比较.
 
@@ -35,7 +35,7 @@ namespace Msg
 			RemoveTimer(pNode->GetTimerID());
 		}
 
-		return ERR_SUCCESS;
+		return NULL;
 	}
 
 

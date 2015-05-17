@@ -1,8 +1,8 @@
-#ifndef __timer_min_heap_h__
-#define __timer_min_heap_h__
-#include "TimerLib/inc/Heap.h"
+#ifndef __libcore_min_heap_h__
+#define __libcore_min_heap_h__
+#include "Common/Heap.h"  
 
-namespace Timer
+namespace LibCore
 { 
 	template <typename ValueType>
 	class MinHeap :	public Heap<ValueType>
@@ -14,6 +14,7 @@ namespace Timer
 	public:
 		virtual INT32  Init(void);
 		virtual INT32  Cleanup(void);
+		virtual Node<ValueType> *    Update(void);
 
 	public:
 		virtual INT32  InsertNode(UINT32 unNodeID , Node<ValueType> * pNode);
@@ -23,6 +24,12 @@ namespace Timer
 		virtual INT32  HeapRebuildDown(Node<ValueType> * pRebuildNode);
 		virtual INT32  HeapRebuildUp(UINT32 unCurPos , Node<ValueType>  * pRebuildNode);
 	}; 
+
+	template <typename ValueType>
+	Node<ValueType> *   MinHeap<ValueType>::Update(void)
+	{
+		return GetNode(0);
+	}
 
 	template <typename ValueType>
 	INT32 MinHeap<ValueType>::Init( void )

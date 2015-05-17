@@ -7,6 +7,7 @@ namespace Timer
 	enum ETimerStrategyType
 	{
 		TIMER_STRATEGY_MIN_HEAP = 0 , 
+		TIMER_STRATEGY_TIMINGWHEEL = 1 , 
 
 		TIMER_STRATEGY_DEFAULT  = TIMER_STRATEGY_MIN_HEAP , 
 	};
@@ -35,7 +36,7 @@ namespace Timer
 	public:
 		virtual INT32    SetTimer(UINT32 unTimeInterval , UINT32 unStartTime = 0, UINT32 unTimes = 0, void * pObj = NULL , TimerCallBackFunc pFunc = NULL);
 		virtual INT32    RemoveTimer(UINT32 unTimeID);
-		virtual INT32    Update(void);
+		virtual TimerNode * Update(void);
 
 	public:
 		//************************************
@@ -46,7 +47,7 @@ namespace Timer
 		// Qualifier: 如果这里是最小堆实现的.则输入最小堆的位置.一般输入栈顶为0
 		// Parameter: UINT32 unNodeID
 		//************************************
-		Node<TimerType>* GetNode(UINT32 unNodeID = 0);
+		TimerNode * GetNode(UINT32 unNodeID = 0);
 
 	public:
 		UINT32           GetTimerIDCount()
@@ -62,7 +63,7 @@ namespace Timer
 
 	protected:
 		UINT32                 m_unTimerIDCount;
-		IStrategy<TimerType> * m_pTimerStrategy;
+		IStrategy			 * m_pTimerStrategy;
 		ThreadPool::ThreadSpinRWMutex  m_objLock;
 	};
 } 

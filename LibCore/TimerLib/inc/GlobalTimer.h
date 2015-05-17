@@ -1,10 +1,37 @@
 #ifndef __timer_global_timer_h
 #define __timer_global_timer_h
+#include "TimerLib/inc/TimerNode.h"
 #include "TimerLib/inc/TimerInterface.h"
 #include "ThreadPoolLib/inc/ThreadTask.h"
 
 namespace Timer
 {   
+	class DLL_EXPORT FooTimeInterface :  public TimerInterface 
+	{
+	public:
+		virtual TimerNode * Update_Timer(void)
+		{
+			return Update();
+		}
+	};
+
+	class DLL_EXPORT BarThreadSustainTask : public ThreadPool::ThreadSustainTask  
+	{
+	public:
+		BarThreadSustainTask(UINT32 unPriority , char * a = "UnknownName", BOOL bInStack = TRUE)
+			: ThreadPool::ThreadSustainTask(unPriority , a , bInStack) 
+		{
+
+		}
+		virtual INT32 Update_Thread(void)
+		{
+			return ERR_SUCCESS;
+		} 
+		virtual INT32 Update(void)
+		{
+			return Update_Thread();
+		} 
+	};
 
 	/**
 	 * @class : GlobalTimer
@@ -13,11 +40,11 @@ namespace Timer
 	 * @file  : GlobalTimer.h
 	 * @brief : 这个类继承自ThreadSustainTask.也就是有一个线程单独跑这个计时器.然后将计时器的任务分配给其他的线程.
 	 */ 
-	class DLL_EXPORT GlobalTimer : public TimerInterface , public ThreadPool::ThreadSustainTask   
+	class DLL_EXPORT GlobalTimer : public FooTimeInterface , public BarThreadSustainTask   
 	{
 	public:
 		GlobalTimer(void)
-			: ThreadPool::ThreadSustainTask(DEFAULT_TIMER_THREAD_ID , "GlobalTimer" , TRUE) 
+			: BarThreadSustainTask(DEFAULT_TIMER_THREAD_ID , "GlobalTimer" , TRUE) 
 		{}
 		virtual ~GlobalTimer(void){}
 		 
@@ -28,8 +55,8 @@ namespace Timer
 		virtual INT32    Init(UINT32 unTimerThreadPriorityCount = 1 , UINT32 unTimerHandlerthreadPriorityCount = 1, UINT32 unTimerThreadPriority = DEFAULT_TIMER_THREAD_ID ,UINT32 unTimerHandlerthreadPriority = DEFAULT_TIMER_HANDLE_THREAD_ID );
 		virtual INT32    Cleanup(void);
 
-	public: 
-		virtual INT32    Update(void); 
+	public:  
+		virtual INT32    Update_Thread(void); 
 	};  
 } 
 #endif
