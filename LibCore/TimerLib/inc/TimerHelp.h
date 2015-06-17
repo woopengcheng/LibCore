@@ -46,6 +46,8 @@ namespace Timer
 		static std::string GetDate(std::string strFormat = "%Y-%m-%d");
 
 		static  void   sleep(INT64 llMillSec);
+
+		static  INT32   GetCurTimingwheelPos(INT32 nFutureTime, INT32 & nWheelSize , INT32 & nTimerSize);
 	};
 }
 #endif

@@ -151,10 +151,18 @@ namespace LibCore
 				{
 					return ERR_FAILURE; 
 				} 
+				 
+				m_mapNodes.erase(result);
 
-				SAFE_DELETE(pCurNode);                        //5 删除当前节点.
-				m_mapNodes.erase(unNodeID);
-				SwitchNode(pLastNode , unCurPos);             //5 将最后一个node交换到需要删除的节点上.
+				UINT32 unLastPos = pLastNode->GetNodePos();
+				SwitchNode(pLastNode , unCurPos);             //5 将最后一个node交换到需要删除的节点上. 
+				{
+					ThreadPool::AutoSpinRWLock objLock(m_objLock);
+					if (m_pNodes)
+					{
+						m_pNodes[unLastPos] = NULL;
+					} 
+				}
 
 				if (pLastNode->GetValue() >= pParentNode->GetValue())  //5 从末尾移上去的比当前的父节点还要大.那么向下建立.否则向上建立.
 				{

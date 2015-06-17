@@ -21,7 +21,7 @@ namespace Timer
 	 
 	INT32 GlobalTimerTask::SetTimer( UINT32 unInterval , UINT32 unTimes , UINT32 unStartTimer /*= 0*/ )
 	{
- 		return GlobalTimer::GetInstance().SetTimer(unInterval , unStartTimer , unTimes ,  this , TimerTask::RunTimer);  
+ 		return GlobalTimer::GetInstance().SetTimer(unInterval , unStartTimer , unTimes ,  this , NULL);  
 	}
 
 }

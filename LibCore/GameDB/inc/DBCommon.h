@@ -7,6 +7,7 @@
 #include "Common/LibCore.h"
 #include "Common/Chunk.h"
 #include "MsgLib/inc/Parameters.h"
+#include "Common/StringEx.h"
 
 const size_t MAX_DB_TEMP_BUFFER_LENGTH = (64*1024*1024);
 

@@ -5,18 +5,20 @@
 namespace Timer
 {
 	class TimerNode;
+	class TimerInterface;
 
 	class InternalTimerTask : public ThreadPool::ThreadNormalTask
 	{
 	public:
-		InternalTimerTask( TimerNode * pNode);
+		InternalTimerTask(TimerInterface * pTimerInterface , TimerNode * pNode);
 		virtual ~InternalTimerTask( void );
 
 	public:
 		virtual INT32  Update();
 
 	private:
-		TimerNode * m_pNode;
+		TimerNode		* m_pNode;
+		TimerInterface	* m_pTimerInterface;
 	};
 }
 #endif

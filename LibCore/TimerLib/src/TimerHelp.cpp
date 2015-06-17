@@ -1,5 +1,6 @@
 #include "TimerLib/inc/TimerHelp.h"
 #include "TimerLib/inc/GlobalTimer.h"
+#include "TimerLib/inc/TimingWheel.h"
 
 namespace Timer
 {  
@@ -126,6 +127,39 @@ namespace Timer
 #endif
 	}
 
+	INT32 TimerHelper::GetCurTimingwheelPos(INT32 nFutureTime , INT32 & nWheelSize , INT32 & nTimerSize)
+	{
+		if (nFutureTime < 0)
+		{
+			nTimerSize = 0;
+			nWheelSize = -1;
+			return nWheelSize;
+		}
 
+		INT32 nPos = 0; 
+		nFutureTime = nFutureTime << TIMER_ROOT_SIZE_MASK; 
+		if ( nFutureTime < (1 << TIMER_ROOT_SIZE_MASK)) 
+		{ 
+			nTimerSize = nFutureTime % (1 << TIMER_ROOT_SIZE_MASK) ; 
+			nWheelSize = 0;
+			return nWheelSize;
+		}
+
+		INT32 nSize = 0;
+		while(1)
+		{
+			nFutureTime = nFutureTime << TIMER_OTHER_SIZE_MASK;
+			if (nFutureTime < (1 << TIMER_OTHER_SIZE_MASK))
+			{
+				nTimerSize = nFutureTime % (1 << TIMER_OTHER_SIZE_MASK) ; 
+				break;
+			} 
+			++nSize;
+		} 
+
+		nWheelSize = nSize;
+
+		return nWheelSize;
+	} 
 
 }

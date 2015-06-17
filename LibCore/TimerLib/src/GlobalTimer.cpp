@@ -31,17 +31,19 @@ namespace Timer
 		TimerNode * pNode = TimerInterface::Update();
 		if (!pNode)
 		{
-			return NULL;
+			return ERR_FAILURE;
 		} 
 
-		if (pNode && pNode->GetTimeCount().IsExpired())
+		while(pNode)
 		{
-			InternalTimerTask * pTask = new InternalTimerTask(pNode); 
-			ThreadPool::ThreadPoolInterface::GetInstance().AddTask(pTask);
+			if (pNode && pNode->GetTimeCount().IsExpired())
+			{
+				InternalTimerTask * pTask = new InternalTimerTask(this , pNode); 
+				ThreadPool::ThreadPoolInterface::GetInstance().AddTask(pTask);
 
-			pNode = pNode->GetNext();
-			return ERR_SUCCESS;
-		} 
-		return ERR_FAILURE;
+				pNode = pNode->GetNext();
+			}  
+		}
+		return ERR_SUCCESS;
 	} 
 }

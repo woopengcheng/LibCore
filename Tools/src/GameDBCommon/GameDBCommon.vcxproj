@@ -28,9 +28,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\OrmHelper.h" />
+    <ClInclude Include="src\Role.h" />
+    <ClInclude Include="src\RoleItems.h" />
+    <ClInclude Include="src\RoleCollection.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="RoleCollection.cpp" />
     <ClCompile Include="src\OrmHelper.cpp" />
+    <ClCompile Include="src\Role.cpp" />
+    <ClCompile Include="src\RoleItems.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5D817D7B-0D7C-449A-B647-A140D1529E60}</ProjectGuid>

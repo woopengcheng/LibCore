@@ -99,7 +99,60 @@
 				<Param name="value" type="std_string" default=""/>
 			</Return>
 		</Rpc> 
-		 
+		
+		<Rpc name="HandleZSet" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/>
+				<Param name="key" type="std_string" default=""/>
+				<Param name="score" type="INT64" default=""/>
+			</Call>
+
+			<Return>
+				<Param name="resCode" type="INT32" default="0"/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleZGet" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/>
+				<Param name="key" type="std_string" default=""/>
+			</Call>
+
+			<Return> 
+				<Param name="value" type="std_string" default=""/>
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleZTop" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/>
+				<Param name="count" type="std_string" default=""/> 
+			</Call>
+
+			<Return>
+				<Param name="res" type="LibCore_Chunk" default="0"/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleZRTop" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/>
+				<Param name="count" type="std_string" default=""/>
+			</Call>
+
+			<Return>
+				<Param name="res" type="LibCore_Chunk" default="0"/> 
+			</Return>
+		</Rpc> 
+		<Rpc name="HandleDump" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+			</Call>
+
+			<Return>
+				<Param name="res" type="LibCore_Chunk" default="0"/> 
+			</Return>
+		</Rpc> 
+				 
 		<Rpc name="SlaveRequestSync" include="MasterHandler.h" class="MasterHandler" client="Slave" server="Master" syncType="1" timeout="10">
 			<Call > 
 			</Call>

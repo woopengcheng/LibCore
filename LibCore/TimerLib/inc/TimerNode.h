@@ -11,7 +11,8 @@ namespace Timer
 		CLASS_TYPE_ID(TimerNode , LibCore::Node<TimerType> , CTID_TimerNode)
 	public:
 		TimerNode()
-			: m_unTimerID(0)
+			: m_bDelete(FALSE)
+			, m_unTimerID(0)
 			, m_pObj(NULL)
 			, m_unTimeInterval(0)
 			, m_unStartTime(0)
@@ -19,9 +20,11 @@ namespace Timer
 			, m_pCallBackFunc(NULL)
 			, LibCore::Node<TimerType>(0)
 			, m_pNext(NULL)
+			, m_pPrev(NULL)
 		{}
 		TimerNode(UINT32 unTimerID , UINT32 unTimeInterval , UINT32 unStartTime = 0, UINT32 unTimes = 0, void * pObj = NULL , TimerCallBackFunc pFunc = NULL)
-			: m_unTimerID(unTimerID)
+			: m_bDelete(FALSE)
+			, m_unTimerID(unTimerID)
 			, m_pObj(pObj)
 			, m_unTimeInterval(unTimeInterval)
 			, m_unStartTime(unStartTime)
@@ -29,6 +32,7 @@ namespace Timer
 			, m_pCallBackFunc(pFunc)
 			, LibCore::Node<TimerType>(unStartTime + unTimeInterval)
 			, m_pNext(NULL)
+			, m_pPrev(NULL)
 		{
 			m_objTimerCount.Start(GetValue());
 		}
@@ -47,12 +51,18 @@ namespace Timer
 		void               SetObject(void * pObj);
 		void               SetTimerID(UINT32 unTimerID);
 		UINT32             GetTimerID();
+		void               SetDelete(BOOL bDelete);
+		BOOL               IsDelete();
 		TimerNode     *    GetNext(){ return m_pNext; } 
+		TimerNode     *    GetPrev(){ return m_pPrev; } 
+		TimerCallBackFunc  GetCallBackFunc(){ return m_pCallBackFunc; } 
 
 	public:
-		TimerNode		*  m_pNext;  
+		TimerNode		*  m_pNext; 
+		TimerNode		*  m_pPrev;  
 
 	protected:
+		BOOL			   m_bDelete;
 		UINT32             m_unTimerID;
 		void *             m_pObj; 
 		UINT32             m_unTimes;

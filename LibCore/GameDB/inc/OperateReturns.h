@@ -8,9 +8,11 @@ namespace GameDB
 	{
 	public:
 		Parameters & GetWriter(){ return m_objParamters; }
+		LibCore::CStream & GetStream(){ return m_objStream; }
 
 	private:
-		Parameters   m_objParamters;
+		Parameters			m_objParamters;
+		LibCore::CStream	m_objStream;
 	};
 
 }

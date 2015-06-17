@@ -9,9 +9,27 @@
     <ClInclude Include="src\OrmHelper.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\Role.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RoleCollection.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RoleItems.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\OrmHelper.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Role.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="RoleCollection.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RoleItems.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

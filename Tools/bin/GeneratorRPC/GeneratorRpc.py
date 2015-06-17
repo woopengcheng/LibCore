@@ -699,7 +699,10 @@ def GenerateRpcCallFuncs():
 				
 				strParams = GetParamsExcludeDefaultAndType(rpc.call.params) 
 				strParamsCount = len(rpc.call.params)
-				fileRpc.write(twoTab + "GEN_RPC_CALL_" + str(strParamsCount) + "((&(" + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance())) , pSessionName , " + "Msg::g_sz" + rpc.name + "_RpcCall , " + strParams + " vecTargets , objSrc , usPriority , " + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance().GetServerName() , objSyncType , " + rpc.timeout + ");\n")
+				if strParamsCount == 0:
+					fileRpc.write(twoTab + "GEN_RPC_CALL_" + str(strParamsCount) + "((&(" + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance())) , pSessionName , " + "Msg::g_sz" + rpc.name + "_RpcCall " + strParams + ", vecTargets , objSrc , usPriority , " + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance().GetServerName() , objSyncType , " + rpc.timeout + ");\n")
+				else:
+					fileRpc.write(twoTab + "GEN_RPC_CALL_" + str(strParamsCount) + "((&(" + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance())) , pSessionName , " + "Msg::g_sz" + rpc.name + "_RpcCall , " + strParams + ", vecTargets , objSrc , usPriority , " + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance().GetServerName() , objSyncType , " + rpc.timeout + ");\n")
 				fileRpc.write(oneTab + "}\n\n")	
 				
 		fileRpc.close()
@@ -903,8 +906,8 @@ def GetParamsExcludeDefaultAndType(params):
 		if nCount != len(params):
 			strParams = strParams + " , " 
 
-	if len(params) != 0:
-		strParams += ", "
+#	if len(params) != 0:
+#		strParams += ", "
 		
 	return strParams
 

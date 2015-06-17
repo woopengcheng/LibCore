@@ -31,6 +31,9 @@ namespace Server
 		virtual void   OnRegisterRpcs(void); 
 		virtual INT32  Update(void);
 
+	public:
+		void    RequestSyncData();
+
 	private: 
 		INT32   InitThread(Json::Value & conf);
 	};  

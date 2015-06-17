@@ -106,8 +106,13 @@
     <ClCompile Include="src\DBMaster.cpp" />
     <ClCompile Include="src\DBServer.cpp" />
     <ClCompile Include="src\DBSlave.cpp" />
+    <ClCompile Include="src\rpc\HandleDump_RpcServer.cpp" />
     <ClCompile Include="src\rpc\HandleHGet_RpcServer.cpp" />
     <ClCompile Include="src\rpc\HandleHSet_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleZGet_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleZRTop_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleZSet_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleZTop_RpcServer.cpp" />
     <ClCompile Include="src\rpc\MasterStartSync_RpcClient.cpp" />
     <ClCompile Include="src\rpc\MasterStartSync_RpcServer.cpp" />
     <ClCompile Include="src\rpc\RpcRegister.cpp" />

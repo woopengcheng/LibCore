@@ -97,6 +97,7 @@ namespace LibCore
 			if (m_pNodes)
 			{
 				m_pNodes[unNodePos] = pNode;
+				pNode->SetNodePos(unNodePos);
 			}
 		} 
 	}

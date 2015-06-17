@@ -315,9 +315,6 @@
     <ClInclude Include="..\..\LibCore\TimerLib\inc\GlobalTimer.h">
       <Filter>TimerLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\TimerLib\inc\GlobalTimerTask.h">
-      <Filter>TimerLib\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\TimerLib\inc\InternalTimerTask.h">
       <Filter>TimerLib\inc</Filter>
     </ClInclude>
@@ -510,6 +507,15 @@
     <ClInclude Include="..\..\LibCore\Common\Node.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\OrmCollection.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\OrmVector.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\SortedSet.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -635,9 +641,6 @@
     <ClCompile Include="..\..\LibCore\TimerLib\src\GlobalTimer.cpp">
       <Filter>TimerLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\LibCore\TimerLib\src\GlobalTimerTask.cpp">
-      <Filter>TimerLib\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\LibCore\TimerLib\src\InternalTimerTask.cpp">
       <Filter>TimerLib\src</Filter>
     </ClCompile>
@@ -651,9 +654,6 @@
       <Filter>TimerLib\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\TimerLib\src\TimerNode.cpp">
-      <Filter>TimerLib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\TimerLib\src\TimerTask.cpp">
       <Filter>TimerLib\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\XMLLib\src\XML.cpp">

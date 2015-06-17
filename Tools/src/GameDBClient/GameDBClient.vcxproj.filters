@@ -14,6 +14,21 @@
     <ClCompile Include="src\rpc\HandleHGet_RpcClient.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
+    <ClCompile Include="src\rpc\HandleDump_RpcClient.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\HandleZGet_RpcClient.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\HandleZRTop_RpcClient.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\HandleZSet_RpcClient.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\HandleZTop_RpcClient.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">

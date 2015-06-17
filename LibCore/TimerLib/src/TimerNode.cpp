@@ -61,7 +61,6 @@ namespace Timer
 
 	void   * TimerNode::GetObject()
 	{
-		ThreadPool::AutoSpinRWLock objLock(m_objLock , false);
 		return m_pObj;
 	}
 
@@ -75,6 +74,19 @@ namespace Timer
 	{
 		ThreadPool::AutoSpinRWLock objLock(m_objLock , false);
 		return m_unTimerID;
+	}
+
+	void TimerNode::SetDelete(BOOL bDelete)
+	{
+		ThreadPool::AutoSpinRWLock objLock(m_objLock);
+		m_bDelete = bDelete; 
+	}
+
+	BOOL TimerNode::IsDelete()
+	{
+		ThreadPool::AutoSpinRWLock objLock(m_objLock , false);
+		return m_bDelete;
+
 	}
 
 }

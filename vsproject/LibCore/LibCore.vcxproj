@@ -280,6 +280,9 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\Operate.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\OperateRecord.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\Orm.h" />
+    <ClInclude Include="..\..\LibCore\GameDB\inc\OrmCollection.h" />
+    <ClInclude Include="..\..\LibCore\GameDB\inc\OrmVector.h" />
+    <ClInclude Include="..\..\LibCore\GameDB\inc\SortedSet.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\User.h" />
     <ClInclude Include="..\..\LibCore\LogLib\inc\GLogAdaptee.h" />
     <ClInclude Include="..\..\LibCore\LogLib\inc\Log.h" />
@@ -358,7 +361,6 @@
     <ClInclude Include="..\..\LibCore\ThreadPoolLib\inc\ThreadState.h" />
     <ClInclude Include="..\..\LibCore\ThreadPoolLib\inc\ThreadTask.h" />
     <ClInclude Include="..\..\LibCore\TimerLib\inc\GlobalTimer.h" />
-    <ClInclude Include="..\..\LibCore\TimerLib\inc\GlobalTimerTask.h" />
     <ClInclude Include="..\..\LibCore\TimerLib\inc\InternalTimerTask.h" />
     <ClInclude Include="..\..\LibCore\TimerLib\inc\IStrategy.h" />
     <ClInclude Include="..\..\LibCore\TimerLib\inc\MinHeapTimer.h" />
@@ -447,13 +449,11 @@
     <ClCompile Include="..\..\LibCore\ThreadPoolLib\src\ThreadPool.cpp" />
     <ClCompile Include="..\..\LibCore\ThreadPoolLib\src\ThreadTask.cpp" />
     <ClCompile Include="..\..\LibCore\TimerLib\src\GlobalTimer.cpp" />
-    <ClCompile Include="..\..\LibCore\TimerLib\src\GlobalTimerTask.cpp" />
     <ClCompile Include="..\..\LibCore\TimerLib\src\InternalTimerTask.cpp" />
     <ClCompile Include="..\..\LibCore\TimerLib\src\TimeCount.cpp" />
     <ClCompile Include="..\..\LibCore\TimerLib\src\TimerHelp.cpp" />
     <ClCompile Include="..\..\LibCore\TimerLib\src\TimerInterface.cpp" />
     <ClCompile Include="..\..\LibCore\TimerLib\src\TimerNode.cpp" />
-    <ClCompile Include="..\..\LibCore\TimerLib\src\TimerTask.cpp" />
     <ClCompile Include="..\..\LibCore\XMLLib\src\XML.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>

@@ -46,7 +46,7 @@ namespace LibCore
 			ThreadPool::AutoSpinRWLock objLock(m_objLock , false); 
 			return m_objValue;
 		} 
-
+		ThreadPool::ThreadSpinRWMutex & GetLock(){ return m_objLock; }
 	protected:
 		INT32                m_unNodePos;
 		ValueType            m_objValue;

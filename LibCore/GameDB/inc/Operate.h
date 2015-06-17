@@ -65,6 +65,7 @@ namespace GameDB
 		}
 		OperateReturns & GetOperateReturns(){ return m_objOperateReturns; }
 		Parameters     & GetParamters(){ return m_objOperateReturns.GetWriter(); }
+		LibCore::CStream & GetStream(){ return m_objOperateReturns.GetStream(); }
 
 	private:
 		ErrCode	         m_nErrorCode;

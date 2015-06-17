@@ -23,7 +23,9 @@ namespace Client
 	public:
 		static void  pfnHandleHSet(DBClient * pClient , INT32 argc , char ** argv);
 		static void  pfnHandleHGet(DBClient * pClient , INT32 argc , char ** argv);
-
+		static void  pfnHandleOrmHSet(DBClient * pClient , INT32 argc , char ** argv);
+		static void  pfnHandleOrmCollectInsert(DBClient * pClient , INT32 argc , char ** argv);
+		static void  pfnHandleDump(DBClient * pClient , INT32 argc , char ** argv);
 	private:
 		CollectionClientCommandsT m_mapCommands;
 	};

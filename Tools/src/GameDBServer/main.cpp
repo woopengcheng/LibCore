@@ -44,7 +44,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		Json::Value objSlave = root.get("slave" , Json::Value());
 		Server::DBSlave::GetInstance().Init(objSlave);
-		static Server::SlaveHandler  ObjMasterHandler(&Server::DBSlave::GetInstance()); 
+		static Server::SlaveHandler  ObjSlaveHandler(&Server::DBSlave::GetInstance()); 
 	}
 	else
 	{
@@ -52,10 +52,22 @@ int _tmain(int argc, _TCHAR* argv[])
 		return 0;
 	}
 
+	gDebugStream("waiting slave connect master.");
+	//5 等待slave连接成功,并且请求数据
+	while(1)
+	{
+		if (strRunMode.compare("slave") != 0 && Server::DBServer::GetInstance().GetRpcClientManager()->IsAllConnected())
+		{
+			Server::DBSlave::GetInstance().RequestSyncData();
+			gDebugStream("slave connect success.");
+			break;
+		}
+	}
+
 	while (1)
 	{
 		if (strRunMode.compare("slave") != 0)
-			Server::DBServer::GetInstance().Update();
+			Server::DBSlave::GetInstance().Update();
 
 		Timer::TimerHelper::sleep(1);
 	}

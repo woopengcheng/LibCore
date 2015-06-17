@@ -10,6 +10,7 @@ namespace LibCore
 	public:
 		virtual void  Init(const char * pStr , UINT32 unLength) = 0;
 		virtual const char * c_str() const = 0 ;
+		virtual const UINT32 length() const = 0;
 	};
 
 	template<UINT32 L>
@@ -32,6 +33,11 @@ namespace LibCore
 			INT32 nSize = __min(unLength , L); 
 			strncpy(m_szString , L , pStr);
 			m_szString[nSize] = 0;
+		}
+
+		virtual const UINT32 length() const
+		{
+			return (UINT32)strlen(m_szString);
 		}
 
 		StringEx<L> & operator = (const char * pStr)
@@ -64,11 +70,6 @@ namespace LibCore
 		bool operator!=(const char* val) const
 		{
 			return LibCore::strcmp(val,m_szString) != 0;
-		}
-		
-		UINT32 length()
-		{
-			return (UINT32)strlen(m_szString);
 		}
 	protected:
 		char m_szString[L];

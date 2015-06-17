@@ -31,17 +31,6 @@ namespace Timer
 		virtual void  OnTimer(UINT32 unTimerID , UINT32 unTimers) = 0;
 		 
 		//************************************
-		// Method:    RunTimer
-		// FullName:  TimerTask::RunTimer
-		// Access:    static public 
-		// Returns:   void
-		// Qualifier: 计时器调用计时器任务的函数.
-		// Parameter: UINT32 unTimerID
-		// Parameter: UINT32 unTimers
-		//************************************
-		static void  RunTimer(void * pObj , UINT32 unTimerID , UINT32 unTimers);
-
-		//************************************
 		// Method:    SetTimer
 		// FullName:  TimerTask::SetTimer
 		// Access:    virtual public  
@@ -51,7 +40,7 @@ namespace Timer
 		// Parameter: UINT32 unTimes       0代表持续.1代表一次.
 		// Parameter: UINT32 unStartTimer  0代表即可开始
 		//************************************
-		virtual INT32  SetTimer( UINT32 unInterval , UINT32 unTimes = 0, UINT32 unStartTimer = 0);
+		virtual INT32  SetTimer( UINT32 unInterval , UINT32 unTimes = 0, UINT32 unStartTimer = 0) = 0;
 	};
 }
 

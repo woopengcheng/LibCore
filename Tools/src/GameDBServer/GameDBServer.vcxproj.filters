@@ -32,6 +32,21 @@
     <ClCompile Include="src\rpc\SlaveRequestSync_RpcServer.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
+    <ClCompile Include="src\rpc\HandleDump_RpcServer.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\HandleZGet_RpcServer.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\HandleZRTop_RpcServer.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\HandleZSet_RpcServer.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\HandleZTop_RpcServer.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">

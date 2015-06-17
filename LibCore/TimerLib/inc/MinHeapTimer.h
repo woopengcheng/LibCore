@@ -22,7 +22,8 @@ namespace Timer
 			if (pNode)
 			{
 				pTimerNode = pNode->GetClass<TimerNode>();
-			}
+				RemoveNode(pTimerNode->GetTimerID());
+			} 
 
 			return pTimerNode;
 		}

@@ -97,15 +97,20 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)..\bin\dll\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\tbb\lib\intel64\vc10;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>GameDBCommon_vs10.0.lib;lib_json.lib;LibCore_vs$(VisualStudioVersion).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>MongoBson.lib;GameDBCommon_vs10.0.lib;lib_json.lib;LibCore_vs$(VisualStudioVersion).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\ClientCommands.cpp" />
+    <ClCompile Include="src\rpc\HandleDump_RpcClient.cpp" />
     <ClCompile Include="src\rpc\HandleHGet_RpcClient.cpp" />
     <ClCompile Include="src\rpc\HandleHSet_RpcClient.cpp" />
+    <ClCompile Include="src\rpc\HandleZGet_RpcClient.cpp" />
+    <ClCompile Include="src\rpc\HandleZRTop_RpcClient.cpp" />
+    <ClCompile Include="src\rpc\HandleZSet_RpcClient.cpp" />
+    <ClCompile Include="src\rpc\HandleZTop_RpcClient.cpp" />
     <ClCompile Include="src\rpc\RpcRegister.cpp" />
   </ItemGroup>
   <ItemGroup>
