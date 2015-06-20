@@ -3,6 +3,7 @@ import sys , getopt
 import os , re , string
 import time , datetime
 import binascii 
+import collections  
 import xml.dom.minidom
   
 from xml.dom import minidom , Node 
@@ -24,10 +25,10 @@ class ParentPoint:
 class RpcMsgs(ParentPoint):
 	def __init__(self): 
 		super(RpcMsgs , self).__init__(self)
-		self.defaultParams = {}
-		self.defaultParamsList = {}
+		self.defaultParams = collections.OrderedDict()
+		self.defaultParamsList = collections.OrderedDict()
 		self.rpcs = Rpcs(self)
-		self.rpcServerNames = {}
+		self.rpcServerNames = collections.OrderedDict()
 
 class RpcServerName(ParentPoint):
 	"""docstring for RpcServerName"""
@@ -48,8 +49,8 @@ class DefaultParam(ParentPoint):
 class Rpcs(ParentPoint):
 	def __init__(self , parentPoint):
 		super(Rpcs , self).__init__(parentPoint)  
-		self.rpcs = {}
-		self.rpcDatas = {} 
+		self.rpcs = collections.OrderedDict()
+		self.rpcDatas = collections.OrderedDict() 
 
 class Rpc(ParentPoint):
 	def __init__(self , parentPoint):
@@ -68,19 +69,19 @@ class Rpc(ParentPoint):
 class RpcData(ParentPoint):
 	def __init__(self , parentPoint):
 		super(RpcData , self).__init__(parentPoint)
-		self.params = {}   #这里存放所有的params.用dic结构
+		self.params = collections.OrderedDict()   #这里存放所有的params.用dic结构
 		self.name = None
 
 class Call(ParentPoint):
 	def __init__(self , parentPoint):
 		super(Call , self).__init__(parentPoint) 
-		self.params = {}  #这里的参数同上
+		self.params = collections.OrderedDict()  #这里的参数同上
 
 class Return(ParentPoint):
 	def __init__(self , parentPoint):
 		super(Return , self).__init__(parentPoint)
 		self.name = None
-		self.params = {}  #这里的参数同上
+		self.params = collections.OrderedDict() #这里的参数同上
 
 class Param(ParentPoint):
 	def __init__(self , parentPoint):
@@ -95,27 +96,25 @@ g_rpcMsgs=RpcMsgs()
 
 def start(): 
 	ParseRpcs()
-	SortRpcs(g_rpcMsgs)
+#	SortRpcs(g_rpcMsgs)
 	GenerateRpc()  
 	
 # ElementTree解析的方式不是顺序的,需要用dom全加载的方式来实现
 
-noneDir = {}
+noneDir = collections.OrderedDict()
 def SortRpcs(sortObj):
 	for name , value in vars(sortObj).items():  
 		print("sort first" , name , type(value))
 		if isinstance(value , dict): 
-			bsort = False
+			i = 0
 			for key , val in value.items(): 
+				i = i + 1
 				if IsSortNext(val): 
 					SortRpcs(val)
 				else:
-					bsort = True
-					break
-			if bsort == True:
-				sorted(value.items() , key=lambda e:e[1] , reverse=True)
-				bsort = False
-				print("sort start" , name )
+					sorted(value.items() , key=lambda e:e[i] , reverse=True) 
+					print("sort start" , name ) 
+					break 
 
 		elif IsSortNext(value): 
 			SortRpcs(value)
@@ -443,7 +442,7 @@ def GenerateRpc():
 	GenerateRPCDefines()
 
 def GenerateMsgNameDefine(): 
-	sameNamespace = {} 
+	sameNamespace = collections.OrderedDict()
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
 		outputPath = GetOutputPath(rpcServerName.serverName)  
 		outputPath = outputPath + "MsgNameDefine.h"     
@@ -453,7 +452,7 @@ def GenerateMsgNameDefine():
 			GenerateRPCParamDefineHeader(fileRpc , rpcServerName.namespace)
 			sameNamespace[rpcServerName.namespace] = 1
 		
-			sameRecord = {}
+			sameRecord = collections.OrderedDict()
 			for index , rpc in g_rpcMsgs.rpcs.rpcs.items():   
 				if rpc.name not in sameRecord :
 					GenerateRPCParamDefine(rpc , fileRpc) 
@@ -461,7 +460,7 @@ def GenerateMsgNameDefine():
 			
 			fileRpc.close()	
 
-	sameNamespace = {} 
+	sameNamespace = collections.OrderedDict() 
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
 		outputPath = GetOutputPath(rpcServerName.serverName)  
 		outputPath = outputPath + "MsgNameDefine.h"     
@@ -491,7 +490,7 @@ def GenerateRPCParamDefine(rpc , fileRpc):
 #	fileRpc.write(oneTab + "Msg::ObjectMsgCall<Object> * " + rpc.name + "_RpcServer(" + strParams + ", std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\n\n")
 
 def GenerateRPCDefines(): 
-	sameNamespace = {}   
+	sameNamespace = collections.OrderedDict()   
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
 		outputPath = GetOutputPath(rpcServerName.serverName)  
 		outputPath = outputPath + "RPCDefines.h"    
@@ -501,7 +500,7 @@ def GenerateRPCDefines():
 			GenerateRPCDefinesHeader(fileRpc , rpcServerName.namespace)
 			sameNamespace[rpcServerName.namespace] = 1  
 		
-		rpcRecords = {}
+		rpcRecords = collections.OrderedDict()
 		for index , rpc in g_rpcMsgs.rpcs.rpcs.items():   
 			GenerateRPCDefine(rpc , fileRpc , rpcServerName.serverName , rpcRecords) 	
 			rpcRecords[rpc.classes] = 1
@@ -509,7 +508,7 @@ def GenerateRPCDefines():
 		fileRpc.write("\n\n")
 		fileRpc.close()	 
 			
-	sameNamespace = {} 
+	sameNamespace = collections.OrderedDict() 
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
 		outputPath = GetOutputPath(rpcServerName.serverName)  
 		outputPath = outputPath + "RPCDefines.h"     
@@ -537,7 +536,7 @@ def GenerateRPCDefine(rpc , fileRpc , serverName , rpcRecords):
 					fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcServer(" + strParams + "std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")
 
 def GenerateGlableRpc():
-	sameNamespace = {}
+	sameNamespace = collections.OrderedDict()
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
 		outputPath = GetOutputPath(rpcServerName.namespace)  
 		outputPath = outputPath + "GlobalRpc.h"   
@@ -550,7 +549,7 @@ def GenerateGlableRpc():
 		GenerateGlableRpcClass(g_rpcMsgs.rpcs.rpcs , fileRpc , rpcServerName.serverName) 
 		fileRpc.close()	
 
-	sameNamespace = {}
+	sameNamespace = collections.OrderedDict()
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
 		outputPath = GetOutputPath(rpcServerName.namespace)  
 		outputPath = outputPath + "GlobalRpc.h"   
@@ -617,7 +616,7 @@ def GenerateGlableRpcLastNamespace(fileRpc , namespace):
 	
 def GenerateRpcRegister():   
 	#生成注册的头 
-	sameNamespace = {}   
+	sameNamespace = collections.OrderedDict()   
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
 		outputPath = GetOutputPath(rpcServerName.serverName)  
 		outputPath = outputPath + "RpcRegister.cpp"    
@@ -651,7 +650,7 @@ def GenerateRpcRegister():
 		fileRpc.write(oneTab + "}\n\n")
 		fileRpc.close() 
 		
-	sameNamespace = {}
+	sameNamespace = collections.OrderedDict()
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
 		outputPath = GetOutputPath(rpcServerName.namespace)  
 		outputPath = outputPath + "RpcRegister.cpp"    
@@ -674,7 +673,7 @@ def GenerateRpcRegisterHeader(fileRpc , rpcNamespace) :
 #	fileRpc.write("#include \"" + rpcServerName.include + "\"\n")
 	GenerateRpcRegisterHeaderInclude(fileRpc , rpcNamespace)
 
-	sameNamespace = {}
+	sameNamespace = collections.OrderedDict()
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():
 		if rpcServerName.namespace == rpcNamespace : 
 			sameNamespace[rpcServerName.serverName] = 1 
@@ -695,7 +694,7 @@ def GenerateRpcRegisterHeaderInclude(fileRpc , rpcNamespace):
 	
 def GenerateRpcRegisterServerHeader(rpcs , fileRpc , serverName):
 	
-	sameRecord = {}
+	sameRecord = collections.OrderedDict()
 	#生成所有的rpc
 	for index , rpc in rpcs.items():     
 		if rpc.server == serverName and rpc.include not in sameRecord: 
@@ -829,7 +828,7 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 			fileRpc.close() 
  
 def GenerateRpcDatas():
-	sameNamespace = {} 
+	sameNamespace = collections.OrderedDict() 
 	#生成所有的rpc
 	for index , serverName in g_rpcMsgs.rpcServerNames.items():    
 		outputPath = GetOutputPath(serverName.serverName)   
@@ -855,7 +854,7 @@ def GenerateRpcDatas():
 			
 		fileRpc.close()
 
-	sameNamespace = {} 
+	sameNamespace = collections.OrderedDict() 
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
 		outputPath = GetOutputPath(rpcServerName.serverName)  
 		outputPath = outputPath + "RpcDatas.h"     
@@ -876,7 +875,7 @@ def  GenerateRpcDatasHeader(fileRpc , serverName):
 	fileRpc.write("\n{\n")   
 	
 def GenerateRpcCallFuncs(): 
-	sameNamespace = {} 
+	sameNamespace = collections.OrderedDict() 
 	for index , serverName in g_rpcMsgs.rpcServerNames.items(): 
 		outputPath = GetOutputPath(serverName.serverName)   
 		outputPath += "RPCCallFuncs.h" 
@@ -903,7 +902,7 @@ def GenerateRpcCallFuncs():
 				
 		fileRpc.close()
 			
-	sameNamespace = {} 
+	sameNamespace = collections.OrderedDict() 
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
 		outputPath = GetOutputPath(rpcServerName.serverName)  
 		outputPath = outputPath + "RPCCallFuncs.h"     

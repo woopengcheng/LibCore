@@ -12,18 +12,18 @@
 namespace Server
 {
 	//5 defaultParams define here.
-	static LibCore_Chunk g_rpcDefaultParam_LibCore_Chunk = LibCore::Chunk();
-	static std_string g_rpcDefaultParam_std_string = std::string();
 	static SINT8 g_rpcDefaultParam_SINT8 = 0;
-	static UINT32 g_rpcDefaultParam_UINT32 = 0;
-	static double g_rpcDefaultParam_double = 0.0f;
-	static INT16 g_rpcDefaultParam_INT16 = 0;
-	static INT64 g_rpcDefaultParam_INT64 = 0;
-	static UINT16 g_rpcDefaultParam_UINT16 = 0;
-	static UINT64 g_rpcDefaultParam_UINT64 = 0;
-	static INT32 g_rpcDefaultParam_INT32 = 0;
-	static float g_rpcDefaultParam_float = 0.0f;
 	static UINT8 g_rpcDefaultParam_UINT8 = 0;
+	static INT16 g_rpcDefaultParam_INT16 = 0;
+	static UINT16 g_rpcDefaultParam_UINT16 = 0;
+	static INT32 g_rpcDefaultParam_INT32 = 0;
+	static UINT32 g_rpcDefaultParam_UINT32 = 0;
+	static INT64 g_rpcDefaultParam_INT64 = 0;
+	static UINT64 g_rpcDefaultParam_UINT64 = 0;
+	static double g_rpcDefaultParam_double = 0.0f;
+	static float g_rpcDefaultParam_float = 0.0f;
+	static std_string g_rpcDefaultParam_std_string = std::string();
+	static LibCore_Chunk g_rpcDefaultParam_LibCore_Chunk = LibCore::Chunk();
 
 	void RpcInstance::OnRegisterRpcs( void )
 	{
@@ -33,7 +33,7 @@ namespace Server
 		Msg::Parameters objDeliverParams , objReturnParams;
 		//5 TestObject generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_UINT32 , g_rpcDefaultParam_UINT64 , g_rpcDefaultParam_UINT16 , g_rpcDefaultParam_SINT8 , g_rpcDefaultParam_INT16 , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT32);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_SINT8 , g_rpcDefaultParam_INT16 , g_rpcDefaultParam_UINT16 , g_rpcDefaultParam_INT32 , g_rpcDefaultParam_UINT32 , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_UINT64);
 			Msg::GenMsgHelper::GenMsgParams(objReturnParams );
 			Msg::g_pRpcCheckParams->InsertDeliverParams("TestObject", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("TestObject", objReturnParams);
@@ -44,7 +44,7 @@ namespace Server
 
 		//5 TestObject1 generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_UINT8 , g_rpcDefaultParam_UINT16 , g_rpcDefaultParam_double , g_rpcDefaultParam_LibCore_Chunk , g_rpcDefaultParam_SINT8 , g_rpcDefaultParam_INT16 , g_rpcDefaultParam_float);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_SINT8 , g_rpcDefaultParam_UINT8 , g_rpcDefaultParam_INT16 , g_rpcDefaultParam_UINT16 , g_rpcDefaultParam_double , g_rpcDefaultParam_float , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk);
 			Msg::GenMsgHelper::GenMsgParams(objReturnParams );
 			Msg::g_pRpcCheckParams->InsertDeliverParams("TestObject1", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("TestObject1", objReturnParams);
