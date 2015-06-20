@@ -21,8 +21,8 @@ namespace Server
 	static SINT8 g_rpcDefaultParam_SINT8 = 0;
 	static INT16 g_rpcDefaultParam_INT16 = 0;
 	static UINT16 g_rpcDefaultParam_UINT16 = 0;
-	static INT32 g_rpcDefaultParam_INT32 = 0;
 	static UINT32 g_rpcDefaultParam_UINT32 = 0;
+	static INT32 g_rpcDefaultParam_INT32 = 0;
 	static INT64 g_rpcDefaultParam_INT64 = 0;
 	static UINT64 g_rpcDefaultParam_UINT64 = 0;
 	static float g_rpcDefaultParam_float = 0.0f;

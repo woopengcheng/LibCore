@@ -96,7 +96,7 @@ g_rpcMsgs=RpcMsgs()
 
 def start(): 
 	ParseRpcs()
-#	SortRpcs(g_rpcMsgs)
+	SortRpcs(g_rpcMsgs)
 	GenerateRpc()  
 	
 # ElementTree解析的方式不是顺序的,需要用dom全加载的方式来实现
