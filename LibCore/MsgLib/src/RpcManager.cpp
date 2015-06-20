@@ -6,20 +6,20 @@
 
 namespace Msg
 {  
-	Net::NetHandlerTransitPtr RpcManager::CreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket /*= 0*/ )
+	Net::NetHandlerTransitPtr RpcManager::CreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket /*= 0*/ , void * context/* = NULL*/ )
 	{
-		return OnCreateNetHandler(pName , pAddress , usPort , socket);
+		return OnCreateNetHandler(pName , pAddress , usPort , socket , context);
 	} 
 
-	Net::NetHandlerTransitPtr  RpcManager::CreateNetHandler( const char * pName , const char * pAddress , const char * pPort , Net::NetSocket socket /*= 0*/)
+	Net::NetHandlerTransitPtr  RpcManager::CreateNetHandler( const char * pName , const char * pAddress , const char * pPort , Net::NetSocket socket /*= 0*/ , void * context/* = NULL*/)
 	{ 
-		return OnCreateNetHandler(pName , pAddress , atoi(pPort) , socket);
+		return OnCreateNetHandler(pName , pAddress , atoi(pPort) , socket , context);
 	}
 
 
-	Net::NetHandlerTransitPtr RpcManager::CreateNetHandler( SRpcInfo & objRpcInfo , Net::NetSocket socket /*= 0*/ )
+	Net::NetHandlerTransitPtr RpcManager::CreateNetHandler( SRpcInfo & objRpcInfo , Net::NetSocket socket /*= 0*/  , void * context/* = NULL*/)
 	{
-		return OnCreateNetHandler(objRpcInfo.szRemoteName , objRpcInfo.szAddress , objRpcInfo.usPort , socket);
+		return OnCreateNetHandler(objRpcInfo.szRemoteName , objRpcInfo.szAddress , objRpcInfo.usPort , socket , context);
 	}
 
 

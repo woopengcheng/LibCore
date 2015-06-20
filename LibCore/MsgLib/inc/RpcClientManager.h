@@ -43,7 +43,7 @@ namespace Msg
 		virtual INT32  SendMsg(Net::NetHandlerTransitPtr pRemoteRpc , UINT32 unMsgID, const char* pBuffer, UINT32 unLength , BOOL bForce = FALSE , BOOL bAddRpc = TRUE){ return RpcManager::SendMsg(pRemoteRpc , unMsgID , pBuffer , unLength , bForce , bAddRpc); }  
 
 	public: 
-		virtual Net::NetHandlerTransitPtr OnCreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket = 0);
+		virtual Net::NetHandlerTransitPtr OnCreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket = 0 , void * context = NULL);
  		  
 	public: 
 		INT32  UpdatePing(void);   

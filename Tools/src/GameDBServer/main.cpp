@@ -29,6 +29,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	std::string strRunMode = root.get("mode" , "master").asString();
 
+	std::string strName , strPwd;
 	if (strRunMode.compare("master") == 0)
 	{
 		Json::Value objMaster = root.get("master" , Json::Value());
@@ -45,6 +46,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		Json::Value objSlave = root.get("slave" , Json::Value());
 		Server::DBSlave::GetInstance().Init(objSlave);
 		static Server::SlaveHandler  ObjSlaveHandler(&Server::DBSlave::GetInstance()); 
+
+		strName = objSlave.get("login_user" , "test").asString();
+		strPwd = objSlave.get("login_pswd" , "test").asString();
 	}
 	else
 	{
@@ -58,7 +62,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		if (strRunMode.compare("slave") != 0 && Server::DBServer::GetInstance().GetRpcClientManager()->IsAllConnected())
 		{
-			Server::DBSlave::GetInstance().RequestSyncData();
+			Server::DBSlave::GetInstance().StartAuth(strName , strPwd);
 			gDebugStream("slave connect success.");
 			break;
 		}

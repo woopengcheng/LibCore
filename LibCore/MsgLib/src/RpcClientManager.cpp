@@ -3,7 +3,7 @@
 namespace Msg
 {
 
-	Net::NetHandlerTransitPtr RpcClientManager::OnCreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket /*= 0*/ )
+	Net::NetHandlerTransitPtr RpcClientManager::OnCreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket /*= 0*/  , void * context/* = NULL*/)
 	{
 		Assert_Re0(pName && pAddress); 
 

@@ -24,7 +24,7 @@ namespace GameDB
 		virtual ~DBServerManager(void){}   
 
 	public: 
-		virtual Net::NetHandlerTransitPtr OnCreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket = 0);
+		virtual Net::NetHandlerTransitPtr OnCreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket = 0 , void * context = NULL);
 
 	protected:
 	private:

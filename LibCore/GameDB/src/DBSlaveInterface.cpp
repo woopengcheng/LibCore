@@ -2,7 +2,7 @@
 #include "NetLib/inc/NetReactorSelect.h"
 #include "NetLib/inc/NetReactorZMQ.h"
 #include "GameDB/inc/DBServerManager.h"
-#include "GameDB/inc/DBClientManager.h"
+#include "GameDB/inc/DBSlaveManager.h"
 #include "LogLib/inc/Log.h" 
 #include "json/json.h"
 #include <algorithm>
@@ -65,13 +65,6 @@ namespace GameDB
 		{     
 			std::string strRemoteRPCName = Net::NetHelper::GenerateRemoteName(strType.c_str() , strAddress.c_str() , strPort.c_str());
 
-			Net::NetHandlerTransitPtr pNetHandler(NULL);
-			pNetHandler = m_pRpcClientManager->GetHandlerByName(strRemoteRPCName.c_str());
-			if (!pNetHandler)
-			{
-				m_pRpcClientManager->CreateNetHandler(strRemoteRPCName.c_str() , strAddress.c_str() , strPort.c_str());
-			}  
-
 			std::string strDBName = databases[(INT32)i].asString();
 			SDBSlaveInfo * pInfo = GetDBSlaveInfo(strRemoteRPCName);
 			if (pInfo)
@@ -85,7 +78,15 @@ namespace GameDB
 			{
 				objInfo.strDBName = strDBName; 
 				m_mapDatabases.insert(std::make_pair(strRemoteRPCName , objInfo)); 
+				pInfo = &objInfo;
 			}
+
+			Net::NetHandlerTransitPtr pNetHandler(NULL);
+			pNetHandler = m_pRpcClientManager->GetHandlerByName(strRemoteRPCName.c_str());
+			if (!pNetHandler)
+			{
+				m_pRpcClientManager->CreateNetHandler(strRemoteRPCName.c_str() , strAddress.c_str() , strPort.c_str() , 0 , pInfo); 
+			}   
 		} 
 		return ERR_SUCCESS;
 	}
@@ -113,7 +114,7 @@ namespace GameDB
 		} 
 		if (!m_pRpcClientManager)
 		{
-			m_pRpcClientManager = new DBClientManager(this , m_pNetReactor); 
+			m_pRpcClientManager = new DBSlaveManager(this , m_pNetReactor); 
 		} 
 
 		std::string strType = conf.get("listen_type" , "tcp").asCString();

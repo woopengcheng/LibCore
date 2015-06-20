@@ -1,6 +1,7 @@
 #include "DBSlave.h" 
 #include "ThreadPoolLib/inc/ThreadPoolInterface.h"
 #include "RPCCallFuncs.h"
+#include "TimerLib/inc/TimerHelp.h"
 
 namespace Server
 {
@@ -13,7 +14,7 @@ namespace Server
 	INT32 DBSlave::Init(Json::Value & conf)
 	{
 		Json::Value objThreads = conf.get("thread" , Json::Value());
-		InitThread(objThreads); 
+		InitThread(objThreads);  
 
 		return DBSlaveInterface::Init(conf);
 	}
@@ -48,7 +49,20 @@ namespace Server
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
 		Server::local_call_SlaveRequestSync("tcp://127.0.0.1:9001", targets , Msg::Object(1) , 1);
+	}
 
+	void DBSlave::StartAuth(std::string		strName , std::string		strPwd)
+	{ 
+		std::vector<Msg::Object> targets;
+		targets.push_back(Msg::Object(1));   
+		Server::local_call_SlaveStartAuth("tcp://127.0.0.1:9001", strName , strPwd , targets , Msg::Object(1) , 1);
+	}
+
+	void DBSlave::SelectDB(	std::string		strDBName )
+	{
+		std::vector<Msg::Object> targets;
+		targets.push_back(Msg::Object(1));   
+		Server::local_call_SlaveSelectDB("tcp://127.0.0.1:9001", strDBName , targets , Msg::Object(1) , 1);
 
 	}
 

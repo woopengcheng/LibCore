@@ -273,6 +273,7 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerNetHandler.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBSlaveInterface.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBSlaveManager.h" />
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBSlaveNetHandler.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\OperateReturns.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\Environment.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\GameDBHelper.h" />
@@ -282,6 +283,7 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\Orm.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\OrmCollection.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\OrmVector.h" />
+    <ClInclude Include="..\..\LibCore\GameDB\inc\SlaveSession.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\SortedSet.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\User.h" />
     <ClInclude Include="..\..\LibCore\LogLib\inc\GLogAdaptee.h" />
@@ -387,6 +389,7 @@
     <ClCompile Include="..\..\LibCore\Common\LibCore.cpp" />
     <ClCompile Include="..\..\LibCore\Common\Random.cpp" />
     <ClCompile Include="..\..\LibCore\Common\UnitTest.cpp" />
+    <ClCompile Include="..\..\LibCore\GameDB\inc\DBSlaveManager.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\BackupEnvironment.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\Comparator.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\CustomDefinedCacheHandler.cpp" />

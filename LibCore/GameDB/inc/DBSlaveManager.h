@@ -1,6 +1,6 @@
 #ifndef __gamedb_db_slave_manager_h__
 #define __gamedb_db_slave_manager_h__
-#include "MsgLib/inc/RpcServerManager.h"
+#include "MsgLib/inc/RpcClientManager.h"
 
 namespace Net
 {
@@ -15,16 +15,16 @@ namespace Msg
 
 namespace GameDB
 {
-	class DLL_EXPORT DBSlaveManager : public Msg::RpcServerManager
+	class DLL_EXPORT DBSlaveManager : public Msg::RpcClientManager
 	{
 	public:
 		DBSlaveManager(Msg::RpcInterface * pRpcInterface ,Net::INetReactor * pNetReactor) 
-			: RpcServerManager(pRpcInterface , pNetReactor)
+			: RpcClientManager(pRpcInterface , pNetReactor)
 		{}
 		virtual ~DBSlaveManager(void){}   
 
 	public: 
-		virtual Net::NetHandlerTransitPtr OnCreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket = 0);
+		virtual Net::NetHandlerTransitPtr OnCreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket = 0 , void * context = NULL);
 
 	protected:
 	private:

@@ -75,6 +75,7 @@ namespace Msg
 			pMsg->SetSessionName(pTemp->GetSessionName());
 
 			objRpc->SetRpcMsgCall(pMsg);
+			objRpc->SetSession(pSession);
 			if (pMsg->m_bClientRequest)
 			{   
 				if (pTemp->GetSyncType() == SYNC_TYPE_NONSYNC)
@@ -165,7 +166,7 @@ namespace Msg
 	{ 
 		Rpc::VecObjectMsgCallT vecObjectMsgCall;
 
-		Rpc objRpc(this , pMsg->m_ullTimeout , DEFAULT_RPC_CALLABLE_ID , pMsg);  
+		Rpc objRpc(this , pMsg->m_ullTimeout , DEFAULT_RPC_CALLABLE_ID , pMsg , pSession);  
 
 		if (HasSimilarRegisterFunc(pMsg->m_szMsgMethod , RPCServer))
 		{
@@ -307,7 +308,7 @@ namespace Msg
 	}  
 #endif
 
-	Net::NetHandlerTransitPtr RpcServerManager::OnCreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket /*= 0*/ )
+	Net::NetHandlerTransitPtr RpcServerManager::OnCreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket /*= 0*/  , void * context/* = NULL*/)
 	{
 		Assert_Re0(pAddress);   
 		std::string strRemoteName = Net::NetHelper::GenerateRemoteName(m_pRpcInterface->GetServerType()  , pAddress , usPort );

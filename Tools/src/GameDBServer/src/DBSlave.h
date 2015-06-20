@@ -32,10 +32,12 @@ namespace Server
 		virtual INT32  Update(void);
 
 	public:
+		void    StartAuth(std::string		strName , std::string		strPwd);
+		void    SelectDB(std::string		strDBName );
 		void    RequestSyncData();
 
 	private: 
-		INT32   InitThread(Json::Value & conf);
+		INT32   InitThread(Json::Value & conf); 
 	};  
 	 
 

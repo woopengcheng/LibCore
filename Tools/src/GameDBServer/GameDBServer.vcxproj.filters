@@ -47,6 +47,18 @@
     <ClCompile Include="src\rpc\HandleZTop_RpcServer.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
+    <ClCompile Include="src\rpc\SlaveStartAuth_RpcClient.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\SlaveStartAuth_RpcServer.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\SlaveSelectDB_RpcClient.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\SlaveSelectDB_RpcServer.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">

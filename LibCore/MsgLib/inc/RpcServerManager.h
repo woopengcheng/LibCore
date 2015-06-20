@@ -32,7 +32,7 @@ namespace Msg
 		virtual INT32  HandlePing( Net::ISession * pSession , SPing * pPing );
 
 	public:  
-		virtual Net::NetHandlerTransitPtr OnCreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket = 0);
+		virtual Net::NetHandlerTransitPtr OnCreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket = 0 , void * context = NULL);
 
 	public: 
 		INT32  UpdateCalls(void); 

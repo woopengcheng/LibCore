@@ -97,7 +97,7 @@ namespace Msg
 		virtual INT32  HandleMsg(Net::ISession * pSession , RPCMsgCall * pMsg);  
 		virtual INT32  HandlePing( Net::ISession * pSession , SPing * pPing ){ return -1; }
 
-		virtual Net::NetHandlerTransitPtr OnCreateNetHandler(const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket = 0){ return Net::NetHandlerTransitPtr(NULL); }
+		virtual Net::NetHandlerTransitPtr OnCreateNetHandler(const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket = 0 , void * context = NULL){ return Net::NetHandlerTransitPtr(NULL); }
 		  
 	public: 
 		BOOL IsAllConnected();
@@ -117,9 +117,9 @@ namespace Msg
 		RpcInterface * GetRpcInterface(){ return m_pRpcInterface; }
 		BOOL   IsRpcInfoVaild(std::string strRpcInfo);
 		SRpcInfo * GetRpcInfo(std::string strRpcInfo);
-		Net::NetHandlerTransitPtr CreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket = 0);
-		Net::NetHandlerTransitPtr CreateNetHandler( const char * pName , const char * pAddress , const char * pPort , Net::NetSocket socket = 0);
-		Net::NetHandlerTransitPtr CreateNetHandler( SRpcInfo & objRpcInfo , Net::NetSocket socket = 0 );
+		Net::NetHandlerTransitPtr CreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket = 0 , void * context = NULL);
+		Net::NetHandlerTransitPtr CreateNetHandler( const char * pName , const char * pAddress , const char * pPort , Net::NetSocket socket = 0 , void * context = NULL);
+		Net::NetHandlerTransitPtr CreateNetHandler( SRpcInfo & objRpcInfo , Net::NetSocket socket = 0 , void * context = NULL );
 
 	protected:  
 		MapRpcsT					  m_mapSendRpcs;   

@@ -27,7 +27,7 @@ namespace GameDB
 		if (!m_pNetReactor)
 		{
 #ifdef USE_ZMQ
-			m_pNetReactor = new Net::NetReacgtorZMQ; 
+			m_pNetReactor = new Net::NetReactorZMQ; 
 #else
 			m_pNetReactor = new Net::NetReactorSelect; 
 #endif

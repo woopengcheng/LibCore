@@ -6,6 +6,7 @@
 #include "MsgLib/inc/RPCMsgCall.h"
 #include "MsgLib/inc/GenMsgHelper.h"
 #include "MsgLib/inc/RpcCheckParams.h"
+#include "NetLib/inc/ISession.h"
 
 #define RPCReturnNULL return NULL;
 #define RPCReturn0() return Return();
@@ -51,10 +52,11 @@ namespace Msg
 	class DLL_EXPORT  Rpc : public ICallableObject
 	{
 	public:
-		Rpc(RpcManager * pRpcManager , UINT64 unTimeout = 0 , Object nID = DEFAULT_RPC_CALLABLE_ID , RPCMsgCall *  pMsg = NULL)
+		Rpc(RpcManager * pRpcManager , UINT64 unTimeout = 0 , Object nID = DEFAULT_RPC_CALLABLE_ID , RPCMsgCall *  pMsg = NULL , Net::ISession * pSession = NULL)
 			: ICallableObject(nID)  
 			, m_pRpcMsgCall(pMsg)
 			, m_pRpcManager(pRpcManager) 
+			, m_pSession(pSession)
 		{ 
 			m_objTimeout.Start(unTimeout * 1000); 
 		} 
@@ -292,7 +294,9 @@ namespace Msg
 
 	public: 
 		RPCMsgCall * GetRpcMsgCall() { return  m_pRpcMsgCall; } 
-		void		 SetRpcMsgCall(RPCMsgCall * pMsg){ Assert(pMsg); m_pRpcMsgCall = pMsg; }  
+		void		 SetRpcMsgCall(RPCMsgCall * pMsg){ Assert(pMsg); m_pRpcMsgCall = pMsg; }   
+		Net::ISession * GetSession() { return  m_pSession; } 
+		void		 SetSession(Net::ISession * pSession){ Assert(pSession); m_pSession = pSession; }  
 
 	private: 
 		BOOL         CallObjectFunc( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall); 
@@ -301,6 +305,7 @@ namespace Msg
 		RPCMsgCall			 *  m_pRpcMsgCall;
 		RpcManager			 *  m_pRpcManager;
 		Timer::TimeCount        m_objTimeout;
+		Net::ISession        *  m_pSession;
 	}; 
 	 
 }
