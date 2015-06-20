@@ -21,7 +21,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	WorldObject objWorldObject;
 	  
-	std::vector<Msg::Object> targets;
+	std::vector<Msg::Object> targets;  //5 即使添加对象也是无效的.
 	targets.push_back(Msg::Object(1)); 
 	Client::local_call_Test('a' , 1 , 2 , 3 , 4 , "HelloWorld." , LibCore::Chunk("Foobar" , sizeof("Foobar")) , targets , Msg::Object(1) , 1); 
 

@@ -1,9 +1,11 @@
-﻿#-*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 import sys , getopt
 import os , re , string
 import time , datetime
-import binascii
+import binascii 
 import xml.dom.minidom
+  
+from xml.dom import minidom , Node 
 
 from xml.etree.ElementTree import ElementTree
 from xml.etree.ElementTree import Element
@@ -16,7 +18,8 @@ g_rpcXmlPath = "testRpc.xml"
 ################################类定义#####################################
 class ParentPoint:
 	def __init__(self, parentPoint): 
-		self.parentPoint = parentPoint  
+		#self.parentPoint = parentPoint  
+		pass
  
 class RpcMsgs(ParentPoint):
 	def __init__(self): 
@@ -90,9 +93,48 @@ class Param(ParentPoint):
 
 g_rpcMsgs=RpcMsgs() 
 
-def start():
+def start(): 
 	ParseRpcs()
+	SortRpcs(g_rpcMsgs)
 	GenerateRpc()  
+	
+# ElementTree解析的方式不是顺序的,需要用dom全加载的方式来实现
+
+noneDir = {}
+def SortRpcs(sortObj):
+	for name , value in vars(sortObj).items():  
+		print("sort first" , name , type(value))
+		if isinstance(value , dict): 
+			bsort = False
+			for key , val in value.items(): 
+				if IsSortNext(val): 
+					SortRpcs(val)
+				else:
+					bsort = True
+					break
+			if bsort == True:
+				sorted(value.items() , key=lambda e:e[1] , reverse=True)
+				bsort = False
+				print("sort start" , name )
+
+		elif IsSortNext(value): 
+			SortRpcs(value)
+
+def IsSortNext(value): 
+	if isinstance(value , RpcServerName) or \
+		isinstance(value , RpcMsgs) or \
+		isinstance(value , DefaultParam) or \
+		isinstance(value , Rpcs) or \
+		isinstance(value , Rpc) or \
+		isinstance(value , RpcData) or \
+		isinstance(value , Call) or \
+		isinstance(value , Return) or \
+		isinstance(value , Param) or \
+		isinstance(value , Rpc)   : 
+
+		return True
+
+	return False 
 
 def ParseRpcs():  
 #使用ElementTree读取节点
@@ -102,7 +144,7 @@ def ParseRpcs():
 
 def handleRpcMsgs(xmlRpcMsgs):
 
-	for xmlData in xmlRpcMsgs.getchildren(): 
+	for xmlData in iter(xmlRpcMsgs.getchildren()): 
 		if xmlData.tag == "DefaultParams":
 			handleDefaultParams(g_rpcMsgs.defaultParams , g_rpcMsgs.defaultParamsList , xmlData)
 		if xmlData.tag == "Rpcs":
@@ -112,39 +154,39 @@ def handleRpcMsgs(xmlRpcMsgs):
 
 def handleDefaultParams(defaultParams , defaultParamsList, xmlDefaultParams):
 
-	for attr in xmlDefaultParams.attrib:
+	for attr in iter(xmlDefaultParams.attrib):
 		defaultParam = DefaultParam(defaultParams)
 		defaultParam.type = attr
 		defaultParam.value = xmlDefaultParams.attrib[attr]
 		defaultParams[attr] = defaultParam
 		defaultParamsList[attr] = "g_rpcDefaultParam_" + attr
-		print(defaultParams[attr].type + "  " + defaultParams[attr].value )
+		print("cur defaultParams value: " + "type : " + defaultParams[attr].type + " , value: " + defaultParams[attr].value )
 
 def handleRpcServerName(rpcServerNames , xmlRpcServerName):
 
 	rpcServerName = RpcServerName(g_rpcMsgs)
 
-	for attr in xmlRpcServerName.attrib:
+	for attr in iter(xmlRpcServerName.attrib):
 		if attr == "serverName":
 			rpcServerName.serverName = xmlRpcServerName.attrib[attr]
-			print(attr , " " , rpcServerName.serverName) 
+			print("handleRpcServerName:" + attr , " , " , rpcServerName.serverName) 
 		if attr == "outputPath":
 			rpcServerName.outputPath = xmlRpcServerName.attrib[attr]
-			print(attr ,  " ", rpcServerName.outputPath)
+			print("handleRpcServerName:" + attr , " , " , rpcServerName.outputPath)
 		if attr == "include":
 			rpcServerName.include = xmlRpcServerName.attrib[attr]
-			print(attr , " " , rpcServerName.include)
+			print("handleRpcServerName:" + attr , " , " , rpcServerName.include)
 		if attr == "namespace":
 			rpcServerName.namespace = xmlRpcServerName.attrib[attr]
-			print(attr ,  " ", rpcServerName.namespace)
+			print("handleRpcServerName:" + attr , " , " , rpcServerName.namespace)
 		if attr == "rpcInterface":
 			rpcServerName.rpcInterface = xmlRpcServerName.attrib[attr]
-			print(attr , " " , rpcServerName.rpcInterface)
+			print("handleRpcServerName:" + attr , " , " , rpcServerName.rpcInterface)
 
 	rpcServerNames[rpcServerName.serverName] = rpcServerName
 
 def handleRpcs(rpcs , xmlRpcs):
-	for xmlData in xmlRpcs.getchildren(): 
+	for xmlData in iter(xmlRpcs.getchildren()): 
 		if xmlData.tag == "RpcData":
 			handleRpcData(rpcs.rpcDatas , xmlData)
 		if xmlData.tag == "Rpc":
@@ -152,47 +194,47 @@ def handleRpcs(rpcs , xmlRpcs):
 
 def handleRpcData(rpcDatas , xmlrpcData):
 	rpcData = RpcData(rpcDatas)
-	for attr in xmlrpcData.attrib:
+	for attr in iter(xmlrpcData.attrib):
 		if attr == "name":
 			rpcData.name = xmlrpcData.attrib[attr]
-			print(attr , rpcData.name)  
+			print("handleRpcData:" + attr , " , " , rpcData.name)  
 
 	rpcDatas[attr] = rpcData
 	
-	for xmlData in xmlrpcData.getchildren(): 
+	for xmlData in iter(xmlrpcData.getchildren()): 
 		if xmlData.tag == "Param":
 			handleParams(rpcData.params , xmlData)
 
 def handleRpc(rpcs , xmlRpc): 
 	rpc = Rpc(rpcs)
 
-	for attr in xmlRpc.attrib:
+	for attr in iter(xmlRpc.attrib):
 		if attr == "client":
 			rpc.client = xmlRpc.attrib[attr]
-			print(attr , rpc.client)  
+			print("handleRpc:" + attr , " , " , rpc.client)  
 		if attr == "server":
 			rpc.server = xmlRpc.attrib[attr]
-			print(attr , rpc.server)  
+			print("handleRpc:" + attr , " , " , rpc.server)  
 		if attr == "proxy":
 			rpc.proxy = xmlRpc.attrib[attr]
-			print(attr , rpc.proxy)  
+			print("handleRpc:" + attr , " , " , rpc.proxy)  
 		if attr == "name":
 			rpc.name = xmlRpc.attrib[attr]
-			print(attr , rpc.name)
+			print("handleRpc:" + attr , " , " , rpc.name)
 		if attr == "include":
 			rpc.include = xmlRpc.attrib[attr]
-			print(attr , rpc.include)
+			print("handleRpc:" + attr , " , " , rpc.include)
 		if attr == "class":
 			rpc.classes = xmlRpc.attrib[attr]
-			print(attr , rpc.classes)
+			print("handleRpc:" + attr , " , " , rpc.classes)
 		if attr == "syncType":
 			rpc.syncType = xmlRpc.attrib[attr]
-			print(attr , rpc.syncType)
+			print("handleRpc:" + attr , " , " , rpc.syncType)
 		if attr == "timeout":
 			rpc.timeout = xmlRpc.attrib[attr]
-			print(attr , rpc.timeout)
+			print("handleRpc:" + attr , " , " , rpc.timeout)
 
-	for xmlData in xmlRpc.getchildren(): 
+	for xmlData in iter(xmlRpc.getchildren()): 
 		if xmlData.tag == "Call":
 			handleCall(rpc.call , xmlData)
 		if xmlData.tag == "Return":
@@ -200,34 +242,185 @@ def handleRpc(rpcs , xmlRpc):
 	rpcs[rpc.name] = rpc
 
 def handleCall(call , xmlCall): 
-	for xmlData in xmlCall.getchildren(): 
+	for xmlData in iter(xmlCall.getchildren()): 
 		if xmlData.tag == "Param":
 			handleParams(call.params , xmlData)
 
 def handleReturn(_return , xmlReturn): 
-	for attr in xmlReturn.attrib:
+	for attr in iter(xmlReturn.attrib):
 		if attr == "name":
 			_return.name = xmlReturn.attrib[attr]
-			print(attr , _return.name)
+			print("handleReturn:" + attr , " , " , _return.name)
 
-	for xmlData in xmlReturn.getchildren(): 
+	for xmlData in iter(xmlReturn.getchildren()):
 		if xmlData.tag == "Param":
 			handleParams(_return.params , xmlData)
   
 def handleParams(params , xmlParam):
 	param = Param(params)
-	for attr in xmlParam.attrib:
+	for attr in iter(xmlParam.attrib):
 		if attr == "name":
 			param.name = xmlParam.attrib[attr]
-			print(attr , param.name)  
+			print("handleParams:" + attr , " , " , param.name)  
 		if attr == "type":  
 			param.type = xmlParam.attrib[attr] 
-			print(attr , param.type)  
+			print("handleParams:" + attr , " , " , param.type)  
 		if attr == "default":  
 			param.default = xmlParam.attrib[attr] 
-			print(attr , param.default)  
+			print("handleParams:" + attr , " , " , param.default)  
 
 	params[param.name] = param
+'''
+
+#使用dom实现
+def ParseRpcs():  
+#使用ElementTree读取节点 
+	rpcDoc = minidom.parse(g_rpcXmlPath)  
+	xmlRpcMsgs = rpcDoc.childNodes[1]
+	print("获取根节点:"  , xmlRpcMsgs.tagName)
+	handleRpcMsgs(xmlRpcMsgs) 
+
+def handleRpcMsgs(xmlRpcMsgs):
+ 
+	for xmlData in xmlRpcMsgs.childNodes:   
+		if xmlData.nodeType == Node.ELEMENT_NODE: 
+			if xmlData.tagName == "DefaultParams":
+				handleDefaultParams(g_rpcMsgs.defaultParams , g_rpcMsgs.defaultParamsList , xmlData)
+			if xmlData.tagName == "Rpcs":
+				handleRpcs(g_rpcMsgs.rpcs , xmlData)
+			if xmlData.tagName == "RpcServerName":
+				handleRpcServerName(g_rpcMsgs.rpcServerNames , xmlData)
+
+def handleDefaultParams(defaultParams , defaultParamsList, xmlDefaultParams):
+
+	if type(xmlDefaultParams._attrs) != type(None):
+		for attr in xmlDefaultParams._attrs:
+			defaultParam = DefaultParam(defaultParams)
+			defaultParam.type = attr
+			defaultParam.value = xmlDefaultParams._attrs[attr].value
+			defaultParams[attr] = defaultParam
+			defaultParamsList[attr] = "g_rpcDefaultParam_" + attr
+			print("cur defaultParams value: " + "type : " + defaultParams[attr].type + " , value: " + defaultParams[attr].value )
+
+def handleRpcServerName(rpcServerNames , xmlRpcServerName):
+
+	rpcServerName = RpcServerName(g_rpcMsgs)
+
+	if type(xmlRpcServerName._attrs) != type(None):
+		for attr in xmlRpcServerName._attrs:
+			if attr == "serverName":
+				rpcServerName.serverName = xmlRpcServerName._attrs[attr].value
+				print("handleRpcServerName:" + attr , " , " , rpcServerName.serverName) 
+			if attr == "outputPath":
+				rpcServerName.outputPath = xmlRpcServerName._attrs[attr].value
+				print("handleRpcServerName:" + attr , " , " , rpcServerName.outputPath)
+			if attr == "include":
+				rpcServerName.include = xmlRpcServerName._attrs[attr].value
+				print("handleRpcServerName:" + attr , " , " , rpcServerName.include)
+			if attr == "namespace":
+				rpcServerName.namespace = xmlRpcServerName._attrs[attr].value
+				print("handleRpcServerName:" + attr , " , " , rpcServerName.namespace)
+			if attr == "rpcInterface":
+				rpcServerName.rpcInterface = xmlRpcServerName._attrs[attr].value
+				print("handleRpcServerName:" + attr , " , " , rpcServerName.rpcInterface)
+
+	rpcServerNames[rpcServerName.serverName] = rpcServerName
+
+def handleRpcs(rpcs , xmlRpcs):
+	for xmlData in xmlRpcs.childNodes: 
+		if xmlData.nodeType == Node.ELEMENT_NODE:
+			if xmlData.tagName == "RpcData":
+				handleRpcData(rpcs.rpcDatas , xmlData)
+			if xmlData.tagName == "Rpc":
+				handleRpc(rpcs.rpcs , xmlData)
+
+def handleRpcData(rpcDatas , xmlrpcData):
+	rpcData = RpcData(rpcDatas)
+	if type(xmlrpcData._attrs) != type(None):
+		for attr in xmlrpcData._attrs:
+			if attr == "name":
+				rpcData.name = xmlrpcData._attrs[attr].value
+				print("handleRpcData:" , attr , " , " , rpcData.name)  
+
+	rpcDatas[attr] = rpcData
+	
+	for xmlData in xmlrpcData.childNodes: 
+		if xmlData.nodeType == Node.ELEMENT_NODE:
+			if xmlData.tagName == "Param":
+				handleParams(rpcData.params , xmlData)
+
+def handleRpc(rpcs , xmlRpc): 
+	rpc = Rpc(rpcs)
+
+	if type(xmlRpc._attrs) != type(None):
+		for attr in xmlRpc._attrs:
+			if attr == "client":
+				rpc.client = xmlRpc._attrs[attr].value
+				print("handleRpc:" ,  attr , " , " , rpc.client)  
+			if attr == "server":
+				rpc.server = xmlRpc._attrs[attr].value
+				print("handleRpc:" ,  attr , " , " , rpc.server)  
+			if attr == "proxy":
+				rpc.proxy = xmlRpc._attrs[attr].value
+				print("handleRpc:" ,  attr , " , " , rpc.proxy)  
+			if attr == "name":
+				rpc.name = xmlRpc._attrs[attr].value
+				print("handleRpc:" ,  attr , " , " , rpc.name)
+			if attr == "include":
+				rpc.include = xmlRpc._attrs[attr].value
+				print("handleRpc:" ,  attr , " , " , rpc.include)
+			if attr == "class":
+				rpc.classes = xmlRpc._attrs[attr].value
+				print("handleRpc:" ,  attr , " , " , rpc.classes)
+			if attr == "syncType":
+				rpc.syncType = xmlRpc._attrs[attr].value
+				print("handleRpc:" ,  attr , " , " , rpc.syncType)
+			if attr == "timeout":
+				rpc.timeout = xmlRpc._attrs[attr].value
+				print("handleRpc:" ,  attr , " , " , rpc.timeout)
+
+	for xmlData in xmlRpc.childNodes: 
+		if xmlData.nodeType == Node.ELEMENT_NODE:
+			if xmlData.tagName == "Call":
+				handleCall(rpc.call , xmlData)
+			if xmlData.tagName == "Return":
+				handleReturn(rpc.returns , xmlData)
+	rpcs[rpc.name] = rpc
+
+def handleCall(call , xmlCall): 
+	for xmlData in xmlCall.childNodes: 
+		if xmlData.nodeType == Node.ELEMENT_NODE:
+			if xmlData.tagName == "Param":
+				handleParams(call.params , xmlData)
+
+def handleReturn(_return , xmlReturn): 
+	if type(xmlReturn._attrs) != type(None):
+		for attr in xmlReturn._attrs:
+			if attr == "name":
+				_return.name = xmlReturn._attrs[attr].value
+				print("handleReturn:" , attr , " , " , _return.name) 
+		 
+	for xmlData in xmlReturn.childNodes: 
+		if xmlData.nodeType == Node.ELEMENT_NODE:
+			if xmlData.tagName == "Param":
+				handleParams(_return.params , xmlData)
+  
+def handleParams(params , xmlParam):
+	param = Param(params)
+	if type(xmlParam._attrs) != type(None):
+		for attr in xmlParam._attrs:
+			if attr == "name":
+				param.name = xmlParam._attrs[attr].value
+				print("handleParams:" , attr , " , " , param.name)  
+			if attr == "type":  
+				param.type = xmlParam._attrs[attr].value 
+				print("handleParams:" , attr , " , " , param.type)  
+			if attr == "default":  
+				param.default = xmlParam._attrs[attr].value 
+				print("handleParams:" , attr , " , " , param.default)  
+
+	params[param.name] = param
+'''
 
 ################################生成对应文件#####################################
 
@@ -310,9 +503,10 @@ def GenerateRPCDefines():
 		
 		rpcRecords = {}
 		for index , rpc in g_rpcMsgs.rpcs.rpcs.items():   
-			GenerateRPCDefine(rpc , fileRpc , rpcServerName.serverName , rpcRecords) 
+			GenerateRPCDefine(rpc , fileRpc , rpcServerName.serverName , rpcRecords) 	
+			rpcRecords[rpc.classes] = 1
 		
-		fileRpc.write("\n")
+		fileRpc.write("\n\n")
 		fileRpc.close()	 
 			
 	sameNamespace = {} 
@@ -335,12 +529,12 @@ def GenerateRPCDefinesHeader(fileRpc , namespace):
 
 def GenerateRPCDefine(rpc , fileRpc , serverName , rpcRecords): 
 	if serverName == rpc.server:
-		strParams = GetParams(rpc.call.params)  
 		if rpc.classes not in rpcRecords:
 			fileRpc.write("#define  RPC_DEFINE_" + rpc.classes + " public:\\\n")
-			rpcRecords[rpc.classes] = 1
-		fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcServer(" + strParams + "std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")
-
+			for index , rpc2 in g_rpcMsgs.rpcs.rpcs.items(): 
+				if rpc2.classes == rpc.classes:
+					strParams = GetParams(rpc2.call.params)  
+					fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcServer(" + strParams + "std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")
 
 def GenerateGlableRpc():
 	sameNamespace = {}
@@ -405,7 +599,7 @@ def GenerateGlableRpcClass(rpcs , fileRpc , serverName):
 			fileRpc.write(twoTab + "//" + rpc.name + " generate RPC func here\n")
 			strDefaultParams = GetParams(rpc.call.params)
 			fileRpc.write(twoTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcServerProxy(" + strDefaultParams + "std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\n")
-			fileRpc.write(twoTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcTimeout(" + strDefaultParams + "std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\n")
+			fileRpc.write(twoTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcTimeoutProxy(" + strDefaultParams + "std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\n")
 			strDefaultParams = GetParams(rpc.returns.params)
 			fileRpc.write(twoTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcClientProxy(" + strDefaultParams + "std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\n\n")
 			
@@ -517,7 +711,7 @@ def GenerateRpcRegisterFuncs(rpc , fileRpc , serverName):
 		fileRpc.write(threeTab + "\n")
 		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_sz" + rpc.name + "_RpcServerProxy , &Msg::GlobalRpc::" + rpc.name + "_RpcServerProxy); \n") 
 		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_sz" + rpc.name + "_RpcClientProxy , &Msg::GlobalRpc::" + rpc.name + "_RpcClientProxy); \n") 
-		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_sz" + rpc.name + "_RpcTimeout , &Msg::GlobalRpc::" + rpc.name + "_RpcTimeout); \n") 
+		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_sz" + rpc.name + "_RpcTimeoutProxy , &Msg::GlobalRpc::" + rpc.name + "_RpcTimeoutProxy); \n") 
   
 	if rpc.client == serverName: 
 		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_sz" + rpc.name + "_RpcTimeout , &Msg::GlobalRpc::" + rpc.name + "_RpcTimeout); \n") 
@@ -586,7 +780,8 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 			fileRpc.write(oneTab + "RPCReturnNULL;\n}\n\n")
 
 			fileRpc.write("Msg::ObjectMsgCall * Msg::GlobalRpc::" + rpc.name + "_RpcClientProxy(") 
-			strParams = GetParamsExcludeDefault(rpc.returns.params) 
+#			strParams = GetParamsExcludeDefault(rpc.returns.params) 
+			strParams = ""
 			fileRpc.write(strParams + "std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )\n{\n ")
 			WriteDefineParams(fileRpc , rpc.returns.params)
 			fileRpc.write("\n\n")
@@ -597,10 +792,11 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 			strReturnCount = len(rpc.returns.params)
 			fileRpc.write(oneTab + "RPCReturn" + str(strReturnCount) + "(" + strParamsNoType + ");\n}\n\n")
 
-			strParams = GetParamsExcludeDefault(rpc.call.params) 
-			fileRpc.write("Msg::ObjectMsgCall * Msg::GlobalRpc::" + rpc.name + "_RpcTimeout(")
+#			strParams = GetParamsExcludeDefault(rpc.call.params) 
+			strParams = ""
+			fileRpc.write("Msg::ObjectMsgCall * Msg::GlobalRpc::" + rpc.name + "_RpcTimeoutProxy(")
 			fileRpc.write(strParams + "std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )\n{\n\n\n ")
-			fileRpc.write(oneTab + "std::cout << \"" + rpc.name + "_RpcTimeout\" << std::endl;\n")
+			fileRpc.write(oneTab + "std::cout << \"" + rpc.name + "_RpcTimeoutProxy\" << std::endl;\n")
 			fileRpc.write(oneTab + "RPCReturnNULL;\n}\n\n")
 
 			fileRpc.close()
@@ -700,9 +896,9 @@ def GenerateRpcCallFuncs():
 				strParams = GetParamsExcludeDefaultAndType(rpc.call.params) 
 				strParamsCount = len(rpc.call.params)
 				if strParamsCount == 0:
-					fileRpc.write(twoTab + "GEN_RPC_CALL_" + str(strParamsCount) + "((&(" + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance())) , pSessionName , " + "Msg::g_sz" + rpc.name + "_RpcCall " + strParams + ", vecTargets , objSrc , usPriority , " + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance().GetServerName() , objSyncType , " + rpc.timeout + ");\n")
+					fileRpc.write(twoTab + "GEN_RPC_CALL_" + str(strParamsCount) + "((&(" + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance())) , pSessionName , " + "Msg::g_sz" + rpc.name + "_RpcCall " + strParams + ", vecTargets , objSrc , usPriority , " + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance().GetServerName() , objSyncType , " + str(rpc.timeout) + ");\n")
 				else:
-					fileRpc.write(twoTab + "GEN_RPC_CALL_" + str(strParamsCount) + "((&(" + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance())) , pSessionName , " + "Msg::g_sz" + rpc.name + "_RpcCall , " + strParams + ", vecTargets , objSrc , usPriority , " + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance().GetServerName() , objSyncType , " + rpc.timeout + ");\n")
+					fileRpc.write(twoTab + "GEN_RPC_CALL_" + str(strParamsCount) + "((&(" + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance())) , pSessionName , " + "Msg::g_sz" + rpc.name + "_RpcCall , " + strParams + ", vecTargets , objSrc , usPriority , " + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance().GetServerName() , objSyncType , " + str(rpc.timeout) + ");\n")
 				fileRpc.write(oneTab + "}\n\n")	
 				
 		fileRpc.close()
@@ -983,10 +1179,11 @@ def handleArgs(argv):
 			sys.exit(3) 
 			
 def main(argv):
+	print(g_rpcXmlPath)
 	handleArgs(argv)
 	print(g_rpcXmlPath)
 	start()  
 	
-if __name__ == '__main__':
+if __name__ == '__main__': 
 	main(sys.argv)
 

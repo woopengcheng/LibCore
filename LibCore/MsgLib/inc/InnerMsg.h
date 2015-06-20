@@ -30,9 +30,12 @@ namespace Msg
 
 	public:
 		void   RegisterMsg(void);
-		INT32  SendMsg(ObjectMsgCall * pMsg); 
+		INT32  SendMsg(ObjectMsgCall * pMsg , UINT32 unTimeout = 0); 
 		ThreadPool::ThreadPoolInterface * GetThreadPool(void){ return m_pThreadPoolInterface; }
-		void SetThreadPool(ThreadPool::ThreadPoolInterface * pThreadPoolInterface){ m_pThreadPoolInterface = pThreadPoolInterface; }
+		void   SetThreadPool(ThreadPool::ThreadPoolInterface * pThreadPoolInterface){ m_pThreadPoolInterface = pThreadPoolInterface; }
+
+	protected: 
+		INT32  RunMsg( ObjectMsgCall * pMsg );
 
 	protected:
 		MsgQueue						  m_objMsgQueue;

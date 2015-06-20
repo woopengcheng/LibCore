@@ -43,9 +43,10 @@ namespace Msg
 #define RPC_DEFINE(RPC_Name ) static const char * g_sz##RPC_Name##_RpcCall = #RPC_Name; \
 	RPC_NAMEDEFINE(RPC_Name , _RpcServer , _S)\
 	RPC_NAMEDEFINE(RPC_Name , _RpcClient , _C)\
+	RPC_NAMEDEFINE(RPC_Name , _RpcTimeout , _T)\
 	RPC_NAMEDEFINE(RPC_Name , _RpcServerProxy , _X)\
 	RPC_NAMEDEFINE(RPC_Name , _RpcClientProxy , _Y)\
-	RPC_NAMEDEFINE(RPC_Name , _RpcTimeout , _T)
+	RPC_NAMEDEFINE(RPC_Name , _RpcTimeoutProxy , _T)
 
 #define MSG_DEFINE(MSG_NAME)  static const char * g_szLocal_##MSG_NAME = #MSG_NAME; 
 

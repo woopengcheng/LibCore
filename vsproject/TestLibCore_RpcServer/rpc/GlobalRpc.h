@@ -18,6 +18,7 @@ namespace Msg
 		{
 		}
 	public:
+		
 	};
 
 	extern GlobalRpc * g_pGlobalRpc;

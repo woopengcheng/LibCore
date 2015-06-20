@@ -121,6 +121,7 @@
     <ClCompile Include="src\rpc\SlaveSelectDB_RpcClient.cpp" />
     <ClCompile Include="src\rpc\SlaveSelectDB_RpcServer.cpp" />
     <ClCompile Include="src\rpc\SlaveStartAuth_RpcClient.cpp" />
+    <ClCompile Include="src\rpc\SlaveStartAuth_RpcProxy.cpp" />
     <ClCompile Include="src\rpc\SlaveStartAuth_RpcServer.cpp" />
   </ItemGroup>
   <ItemGroup>

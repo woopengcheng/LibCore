@@ -2,10 +2,7 @@
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::SlaveSelectDB_RpcClient(INT32 res/* = 0*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
 {
-	if (res == 0)
-	{
-		Server::DBSlave::GetInstance().RequestSyncData();
-	}
+
 
 	std::cout << "SlaveSelectDB_RpcClient" << std::endl;
 	RPCReturnNULL;

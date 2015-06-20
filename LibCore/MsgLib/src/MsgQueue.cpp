@@ -36,23 +36,19 @@ namespace Msg
 		}
 
 		return NULL;
-	}
+	}  
 
-
-	INT32 MsgQueue::AddMsg(ObjectMsgCall * pMsg )
+	INT32 MsgQueue::AddMsg( ObjectMsgCall * pMsg , UINT32 unTimeout/* = 0*/)
 	{
 		Assert_ReF1(pMsg);
-
-		m_queueMsgs.push(pMsg);
+		if (unTimeout == 0)
+		{
+			m_queueMsgs.push(pMsg);
+		}
+		else
+			return SetTimer(pMsg , unTimeout);
 
 		return ERR_SUCCESS; 
-	} 
-
-
-	INT32 MsgQueue::AddMsg( ObjectMsgCall * pMsg , UINT32 unTimeout )
-	{
-		Assert_ReF1(pMsg);
-		return SetTimer(pMsg , unTimeout);
 	}
 
 
