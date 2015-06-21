@@ -5,7 +5,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleDump_RpcServer(std::vector<Msg
 {
 	LibCore_Chunk res;
 
-	GameDB::Database * pDB = GetDBServer()->GetEnvironment()->GetDatabase(".sys");
+	GameDB::Database * pDB = GetDBServer()->GetEnvironment()->GetDatabase(GameDB::g_szSystemDatabase);
 	if (!pDB)
 	{
 		RPCReturn1(res);

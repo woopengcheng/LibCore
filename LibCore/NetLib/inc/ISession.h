@@ -47,6 +47,8 @@ namespace Net
 		void SetSocket(NetSocket val) { m_socket = val; }  
 		BOOL IsCanWrite() const { return m_bCanWrite; }
 		void SetCanWrite(BOOL val) { m_bCanWrite = val; }
+		ISession * GetOtherSession() const { return m_pOtherSession; }
+		void SetOtherSession(ISession * val) { m_pOtherSession = val; }
 		BOOL IsTimeout(void)
 		{ 
 			if (m_objTimeout.IsStarted())
@@ -67,6 +69,7 @@ namespace Net
 		UINT16            m_usSocktPort;
 		char		      m_szAddress[MAX_NAME_LENGTH];
 		char              m_szRemoteName[MAX_NAME_LENGTH]; 
+		ISession      *   m_pOtherSession;
 
 	private:
 		BOOL              m_bCanWrite;

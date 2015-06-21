@@ -13,6 +13,9 @@ namespace Msg
 	//5 HandleZSet declare here
 	RPC_DEFINE(HandleZSet);
 
+	//5 HandleCreateUser declare here
+	RPC_DEFINE(HandleCreateUser);
+
 	//5 HandleZGet declare here
 	RPC_DEFINE(HandleZGet);
 
@@ -25,14 +28,14 @@ namespace Msg
 	//5 HandleDump declare here
 	RPC_DEFINE(HandleDump);
 
-	//5 SlaveRequestSync declare here
-	RPC_DEFINE(SlaveRequestSync);
-
 	//5 SlaveStartAuth declare here
 	RPC_DEFINE(SlaveStartAuth);
 
 	//5 SlaveSelectDB declare here
 	RPC_DEFINE(SlaveSelectDB);
+
+	//5 SlaveRequestSync declare here
+	RPC_DEFINE(SlaveRequestSync);
 
 	//5 MasterStartSync declare here
 	RPC_DEFINE(MasterStartSync);

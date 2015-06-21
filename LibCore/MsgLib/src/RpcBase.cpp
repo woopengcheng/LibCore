@@ -74,8 +74,9 @@ namespace Msg
 					MsgAssert_Re0(pICallableObject , "向服务端请求.无此RPC的object对象." );
 					if (pICallableObject)
 					{   
+						pICallableObject->SetSession(m_pSession); 
 						pICallableObject->SetRpcMsgCall(pMsg);
-						objParaseMsgCall.m_pObj = pICallableObject;
+						objParaseMsgCall.m_pObj = pICallableObject; 
 
 						vecObjectMsgCall.push_back(pMethodImpl->m_pMethodImpl(&objParaseMsgCall));
 					} 
@@ -91,6 +92,7 @@ namespace Msg
 			MsgAssert_Re0(pICallableObject , "客户端接受到错误的对象.无此RPC的object对象." );
 			if (pICallableObject)
 			{ 
+				pICallableObject->SetSession(m_pSession); 
 				pICallableObject->SetRpcMsgCall(pMsg); 
 				objParaseMsgCall.m_pObj = pICallableObject;
 

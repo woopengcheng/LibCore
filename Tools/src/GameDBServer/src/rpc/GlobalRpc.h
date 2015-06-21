@@ -19,24 +19,23 @@ namespace Msg
 		}
 	public:
 		
-		//SlaveStartAuth generate RPC func here
-		Msg::ObjectMsgCall * SlaveStartAuth_RpcServerProxy(std_string name = std::string() , std_string pwd = std::string(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
-		Msg::ObjectMsgCall * SlaveStartAuth_RpcTimeoutProxy(std_string name = std::string() , std_string pwd = std::string(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
-		Msg::ObjectMsgCall * SlaveStartAuth_RpcClientProxy(INT32 res = 0, std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
-
-		//MasterStartSync generate RPC func here
+		
+//MasterStartSync generate RPC func here
 		Msg::ObjectMsgCall * MasterStartSync_RpcTimeout(LibCore_Chunk value = LibCore::Chunk(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
 		Msg::ObjectMsgCall * MasterStartSync_RpcClient(std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
 		
-		//SlaveRequestSync generate RPC func here
-		Msg::ObjectMsgCall * SlaveRequestSync_RpcTimeout(std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
-		Msg::ObjectMsgCall * SlaveRequestSync_RpcClient(std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
-		//SlaveStartAuth generate RPC func here
+		
+//SlaveStartAuth generate RPC func here
 		Msg::ObjectMsgCall * SlaveStartAuth_RpcTimeout(std_string name = std::string() , std_string pwd = std::string(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
-		Msg::ObjectMsgCall * SlaveStartAuth_RpcClient(INT32 res = 0, std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
-		//SlaveSelectDB generate RPC func here
+		Msg::ObjectMsgCall * SlaveStartAuth_RpcClient(std_string value = std::string(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
+		
+//SlaveSelectDB generate RPC func here
 		Msg::ObjectMsgCall * SlaveSelectDB_RpcTimeout(std_string dbname = std::string(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
 		Msg::ObjectMsgCall * SlaveSelectDB_RpcClient(INT32 res = 0, std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
+		
+//SlaveRequestSync generate RPC func here
+		Msg::ObjectMsgCall * SlaveRequestSync_RpcTimeout(std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
+		Msg::ObjectMsgCall * SlaveRequestSync_RpcClient(std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
 		
 	};
 

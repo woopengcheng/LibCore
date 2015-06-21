@@ -2,13 +2,13 @@
 #include "DBSlave.h"
 #include "GameDB/inc/SlaveSession.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::SlaveStartAuth_RpcClient(INT32 res/* = 0*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::SlaveStartAuth_RpcClient(std_string value/* std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
 { 
-	if (res == 0)
+	if (value != "")
 	{
-		GameDB::SlaveSession * pSession = (GameDB::SlaveSession *)GetSession();
-		if (pSession)
+		if (GetSession() && GetSession()->GetOtherSession())
 		{
+			GameDB::SlaveSession * pSession = (GameDB::SlaveSession *)GetSession()->GetOtherSession();
 			Server::DBSlave::GetInstance().SelectDB(pSession->GetSlaveInfo().strDBName); 
 		}
 

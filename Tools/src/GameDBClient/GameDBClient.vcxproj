@@ -104,6 +104,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\ClientCommands.cpp" />
+    <ClCompile Include="src\rpc\HandleCreateUser_RpcClient.cpp" />
     <ClCompile Include="src\rpc\HandleDump_RpcClient.cpp" />
     <ClCompile Include="src\rpc\HandleHGet_RpcClient.cpp" />
     <ClCompile Include="src\rpc\HandleHSet_RpcClient.cpp" />

@@ -1,7 +1,19 @@
 #include "GlobalRpc.h"
+#include "GameDB/inc/SlaveSession.h"
+#include "DBSlave.h"
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::SlaveSelectDB_RpcClient(INT32 res/* = 0*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
 {
+	if (res == 0)
+	{
+		GameDB::SlaveSession * pSession = (GameDB::SlaveSession *)GetSession();
+		if (pSession)
+		{
+			Server::DBSlave::GetInstance().RequestSyncData( ); 
+		}
+
+		std::cout << "SlaveStartAuth_RpcClient" << std::endl;
+	}
 
 
 	std::cout << "SlaveSelectDB_RpcClient" << std::endl;

@@ -111,7 +111,7 @@ namespace LibCore
 		template<typename T> CStream & operator << (std::basic_string<T> & t)
 		{
 			STATIC_ASSERT(sizeof(T) == 1);  //5 测试是否是单字节.utf16和utf32.单独处理
-			UINT32 unBytes = (UINT32)(t.length() + 1 )* sizeof(T);
+			UINT32 unBytes = (UINT32)(t.size() )* sizeof(T);
 			Pushback(unBytes);
 //			m_objChunk.Insert(m_objChunk.End() , (void*)t.c_str() , (UINT32)unBytes);
 			m_objChunk.Pushback((void*)t.c_str() , (UINT32)unBytes);

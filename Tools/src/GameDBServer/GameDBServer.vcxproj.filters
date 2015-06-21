@@ -56,10 +56,13 @@
     <ClCompile Include="src\rpc\SlaveStartAuth_RpcProxy.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
+    <ClCompile Include="src\rpc\SlaveSelectDB_RpcClient.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
     <ClCompile Include="src\rpc\SlaveSelectDB_RpcServer.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\SlaveSelectDB_RpcClient.cpp">
+    <ClCompile Include="src\rpc\HandleCreateUser_RpcServer.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
   </ItemGroup>

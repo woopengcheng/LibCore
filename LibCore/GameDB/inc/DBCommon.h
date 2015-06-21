@@ -14,7 +14,8 @@ const size_t MAX_DB_TEMP_BUFFER_LENGTH = (64*1024*1024);
 namespace GameDB
 {	
 
-	static const char * g_szSystemDatabase = ".sys";
+	extern DLL_IMPORT const char *  g_szSystemDatabase;
+	extern DLL_IMPORT const char *  g_szSystemUserTable;
 
 	typedef leveldb::Slice			 Slice;
 	typedef leveldb::Status			 Status;

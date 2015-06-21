@@ -218,6 +218,7 @@ namespace GameDB
 
 		std::string strValue; 
 		status = db.QuickGet(encodedKey,strValue); 
+		oper.GetStream() << strValue;
 		Msg::GenMsgHelper::GenMsgParams(oper.GetParamters() , strValue);
 
 		oper.SetErrorCode(status); 

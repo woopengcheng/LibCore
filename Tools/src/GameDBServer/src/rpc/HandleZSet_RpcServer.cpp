@@ -10,7 +10,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleZSet_RpcServer(std_string tabl
 		RPCReturn1(resCode);
 	}
 
-	GameDB::Database * pDB = GetDBServer()->GetEnvironment()->GetDatabase(".sys");
+	GameDB::Database * pDB = GetDBServer()->GetEnvironment()->GetDatabase(GameDB::g_szSystemDatabase);
 	if (!pDB)
 	{
 		RPCReturn1(resCode);

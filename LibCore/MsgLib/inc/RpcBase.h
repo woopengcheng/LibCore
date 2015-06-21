@@ -56,7 +56,7 @@ namespace Msg
 			: ICallableObject(nID)  
 			, m_pRpcMsgCall(pMsg)
 			, m_pRpcManager(pRpcManager) 
-			, m_pSession(pSession)
+			, m_pSession(pSession) 
 		{ 
 			m_objTimeout.Start(unTimeout * 1000); 
 		} 
@@ -296,7 +296,7 @@ namespace Msg
 		RPCMsgCall * GetRpcMsgCall() { return  m_pRpcMsgCall; } 
 		void		 SetRpcMsgCall(RPCMsgCall * pMsg){ Assert(pMsg); m_pRpcMsgCall = pMsg; }   
 		Net::ISession * GetSession() { return  m_pSession; } 
-		void		 SetSession(Net::ISession * pSession){ Assert(pSession); m_pSession = pSession; }  
+		void		 SetSession(Net::ISession * pSession){ Assert(pSession); m_pSession = pSession; }   
 
 	private: 
 		BOOL         CallObjectFunc( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall); 
@@ -305,7 +305,7 @@ namespace Msg
 		RPCMsgCall			 *  m_pRpcMsgCall;
 		RpcManager			 *  m_pRpcManager;
 		Timer::TimeCount        m_objTimeout;
-		Net::ISession        *  m_pSession;
+		Net::ISession        *  m_pSession; 
 	}; 
 	 
 }

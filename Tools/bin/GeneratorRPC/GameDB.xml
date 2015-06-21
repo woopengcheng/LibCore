@@ -112,6 +112,17 @@
 			</Return>
 		</Rpc> 
 		
+		<Rpc name="HandleCreateUser" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call > 
+				<Param name="name" type="std_string" default=""/>
+				<Param name="pwd" type="std_string" default=""/>
+			</Call>
+
+			<Return>
+				<Param name="res" type="INT32" default="0"/> 
+			</Return>
+		</Rpc> 
+		
 		<Rpc name="HandleZGet" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
 			<Call >
 				<Param name="table" type="std_string" default=""/>
@@ -153,32 +164,32 @@
 			</Return>
 		</Rpc> 
 				 
-		<Rpc name="SlaveRequestSync" include="MasterHandler.h" class="MasterHandler" client="Slave" server="Master" syncType="1" timeout="10">
-			<Call > 
-			</Call>
-
-			<Return>  
-			</Return>
-		</Rpc>
-		
-		<Rpc name="SlaveStartAuth" include="ServerHandler.h" class="ServerHandler" client="Slave" server="Server" proxy="Master" syncType="1" timeout="10">
+		<Rpc name="SlaveStartAuth" include="ServerHandler.h" class="ServerHandler" proxyInclude="MasterHandler.h" proxyClass="MasterHandler" client="Slave" proxy="Master" server="Server" syncType="1" timeout="10">
 			<Call > 
 				<Param name="name" type="std_string" default=""/>
 				<Param name="pwd" type="std_string" default=""/>
 			</Call>
 
 			<Return>  
-				<Param name="res" type="INT32" default="0"/> 
+				<Param name="value" type="std_string" default=""/> 
 			</Return>
 		</Rpc>
 		
-		<Rpc name="SlaveSelectDB" include="ServerHandler.h" class="ServerHandler" client="Slave" server="Master" syncType="1" timeout="10">
+		<Rpc name="SlaveSelectDB" include="MasterHandler.h" class="MasterHandler" client="Slave" server="Master" syncType="1" timeout="10">
 			<Call > 
 				<Param name="dbname" type="std_string" default=""/> 
 			</Call>
 
 			<Return>  
 				<Param name="res" type="INT32" default="0"/> 
+			</Return>
+		</Rpc>
+		
+		<Rpc name="SlaveRequestSync" include="MasterHandler.h" class="MasterHandler" client="Slave" server="Master" syncType="1" timeout="10">
+			<Call > 
+			</Call>
+
+			<Return>  
 			</Return>
 		</Rpc>
 		

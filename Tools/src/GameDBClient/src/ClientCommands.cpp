@@ -22,6 +22,7 @@ namespace Client
 		m_mapCommands["hormset"] = &ClientCommands::pfnHandleOrmHSet;
 		m_mapCommands["hormcollectinsert"] = &ClientCommands::pfnHandleOrmCollectInsert;
 		m_mapCommands["dump"] = &ClientCommands::pfnHandleDump;
+		m_mapCommands["createuser"] = &ClientCommands::pfnHandleCreateUser;
 	} 
 
 	void ClientCommands::Execute(DBClient * pClient , INT32 argc , char ** argv)
@@ -111,4 +112,16 @@ namespace Client
 
 		gDebugStream( "pfnHandleHGet"); 
 	}
+
+	void ClientCommands::pfnHandleCreateUser(DBClient * pClient , INT32 argc , char ** argv)
+	{
+		CHECK_ARGS_EQUAL_COUNT(argc , 3);
+
+		std::vector<Msg::Object> targets;
+		targets.push_back(Msg::Object(1));   
+		Client::local_call_HandleCreateUser("tcp://127.0.0.1:8001" , argv[1] , argv[2]  , targets , Msg::Object(0) , 1);
+
+		gDebugStream( "pfnHandleCreateUser"); 
+	}
+
 }

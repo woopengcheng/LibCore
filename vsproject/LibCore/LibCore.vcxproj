@@ -218,7 +218,7 @@
       <AssemblyDebug>false</AssemblyDebug>
     </Link>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)LibCore;$(SolutionDir)../LibCore/;$(SolutionDir)../deps/leveldb/;$(SolutionDir)../deps/leveldb/db;$(SolutionDir)../deps/leveldb/util;$(SolutionDir)../deps/leveldb/port;$(SolutionDir)../deps/leveldb/table;$(SolutionDir)../deps/leveldb/include;$(SolutionDir)../deps/boost;$(SolutionDir)../deps/expat/lib;$(SolutionDir)../deps/zeromq/include;$(SolutionDir)../deps/tbb/include;$(SolutionDir)../deps/UnitTest++/;$(SolutionDir)../deps/protobuf/src;$(SolutionDir)../deps/raknet/source;$(SolutionDir)../deps/pthread/include;$(SolutionDir)../deps/glog/src/windows;$(SolutionDir)../deps/log4cpp/include;$(SolutionDir)../deps/log4cplus/include;$(SolutionDir)../deps/lua/src;$(SolutionDir)../deps/jsoncpp/include;$(SolutionDir)../deps/libiconv/source/include;$(SolutionDir)../deps/Snappy;$(SolutionDir)../deps/CityHash/src;$(SolutionDir)../deps/MongoBson/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)LibCore;$(SolutionDir)../LibCore/;$(SolutionDir)../deps/leveldb/;$(SolutionDir)../deps/leveldb/db;$(SolutionDir)../deps/leveldb/util;$(SolutionDir)../deps/leveldb/port;$(SolutionDir)../deps/leveldb/table;$(SolutionDir)../deps/leveldb/include;$(SolutionDir)../deps/boost;$(SolutionDir)../deps/expat/lib;$(SolutionDir)../deps/zeromq/include;$(SolutionDir)../deps/tbb/include;$(SolutionDir)../deps/UnitTest++/;$(SolutionDir)../deps/protobuf/src;$(SolutionDir)../deps/raknet/source;$(SolutionDir)../deps/pthread/include;$(SolutionDir)../deps/glog/src/windows;$(SolutionDir)../deps/log4cpp/include;$(SolutionDir)../deps/log4cplus/include;$(SolutionDir)../deps/lua/src;$(SolutionDir)../deps/jsoncpp/include;$(SolutionDir)../deps/libiconv/source/include;$(SolutionDir)../deps/Snappy;$(SolutionDir)../deps/CityHash/src;$(SolutionDir)../deps/MongoBson/;$(SolutionDir)../deps/rapidjson/include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NOMINMAX;BSON_COMPILATION;LEVELDB_PLATFORM_WINDOWS;OS_WIN;HYCOMMONWINAPI_EXPORTS;DLL_EXPORTS;USE_RAKNET;WIN32;_DEBUG;USE_LOG4CPLUS;_CONSOLE;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level3</WarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -286,6 +286,7 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\SlaveSession.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\SortedSet.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\User.h" />
+    <ClInclude Include="..\..\LibCore\GameDB\inc\UserAuth.h" />
     <ClInclude Include="..\..\LibCore\LogLib\inc\GLogAdaptee.h" />
     <ClInclude Include="..\..\LibCore\LogLib\inc\Log.h" />
     <ClInclude Include="..\..\LibCore\LogLib\inc\Log4CPlusAdaptee.h" />
@@ -408,6 +409,7 @@
     <ClCompile Include="..\..\LibCore\GameDB\src\HashTable.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\OperateRecord.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\User.cpp" />
+    <ClCompile Include="..\..\LibCore\GameDB\src\UserAuth.cpp" />
     <ClCompile Include="..\..\LibCore\LogLib\src\GLogAdaptee.cpp" />
     <ClCompile Include="..\..\LibCore\LogLib\src\Log4CPlusAdaptee.cpp" />
     <ClCompile Include="..\..\LibCore\LogLib\src\Log4CppAdaptee.cpp" />

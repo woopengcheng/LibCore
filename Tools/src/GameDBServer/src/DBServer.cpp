@@ -4,7 +4,7 @@ namespace Server
 {   
 	INT32 DBServer::Update( void )
 	{ 
-		GameDB::Database * pDB = m_pEnvironment->GetDatabase(".sys");
+		GameDB::Database * pDB = m_pEnvironment->GetDatabase(GameDB::g_szSystemDatabase);
 		if (!pDB)
 		{
 			return 1;

@@ -15,7 +15,7 @@
 #include "DBSlave.h"
 #include "MasterHandler.h"
 #include "MsgLib/inc/RpcClientManager.h"
-#include "SlaveHandler.h"
+#include "SlaveHandler.h" 
 
 int _tmain(int argc, _TCHAR* argv[])
 {  
@@ -24,13 +24,13 @@ int _tmain(int argc, _TCHAR* argv[])
 	std::string defaultConf = "./gdbServer.conf";
 	if(argc > 1)
 		defaultConf = argv[1];
-	 
+	  
 	Json::Value root;
 	Json::JsonParase(defaultConf.c_str() , root); 
+	
+	std::string strRunMode = root.get("mode" , "master").asString(); 
 
-	std::string strRunMode = root.get("mode" , "master").asString();
-
-	std::string strName , strPwd;
+	std::string strName , strPwd; 
 	if (strRunMode.compare("master") == 0)
 	{
 		Json::Value objMaster = root.get("master" , Json::Value());

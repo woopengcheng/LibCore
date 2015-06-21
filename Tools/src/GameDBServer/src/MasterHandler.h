@@ -7,6 +7,7 @@
 #include "RpcDefines.h" 
 #include "MsgNameDefine.h"  
 #include "DBMaster.h" 
+#include "GameDB/inc/UserAuth.h"
 
 namespace Server
 {  
@@ -26,6 +27,8 @@ namespace Server
 
 	private:
 		DBMaster * m_pDBMaster;
+		GameDB::UserAuth * m_pAuthInfo;
+		std::string m_strDatabaseName;
 	}; 
 }
 

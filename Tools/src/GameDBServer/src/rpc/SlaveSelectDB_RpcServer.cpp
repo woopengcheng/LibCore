@@ -1,11 +1,19 @@
 #include "GlobalRpc.h"
-#include "ServerHandler.h"
+#include "MasterHandler.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::SlaveSelectDB_RpcServer(std_string dbname/* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc )
+Msg::ObjectMsgCall * Server::MasterHandler::SlaveSelectDB_RpcServer(std_string dbname/* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc )
 {
+	INT32 res = 0;
 
+	if(m_strDatabaseName.length() > 0)
+	{
+		RPCReturn1(-1);
+	}
+
+
+	m_strDatabaseName = dbname;
 
 	std::cout << "SlaveSelectDB_RpcServer "<< std::endl;
-	RPCReturn0();
+	RPCReturn1(res);
 }
 

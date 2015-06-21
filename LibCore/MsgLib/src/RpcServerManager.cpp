@@ -74,7 +74,7 @@ namespace Msg
 			RPCMsgCall * pTemp = objRpc->GetRpcMsgCall(); 
 			pMsg->SetSessionName(pTemp->GetSessionName());
 
-			objRpc->SetRpcMsgCall(pMsg);
+			objRpc->SetRpcMsgCall(pMsg); 
 			objRpc->SetSession(pSession);
 			if (pMsg->m_bClientRequest)
 			{   
@@ -284,7 +284,7 @@ namespace Msg
 					if(ERR_SUCCESS == pNetHandler->Init())
 					{
 						pNetHandler->GetSession()->SetNetState(Net::NET_STATE_CONNECTING); 
-						pNetHandler->GetSession()->SetClosed(FALSE); 
+						pNetHandler->GetSession()->SetClosed(FALSE);  
 					}
 				}
 
@@ -299,6 +299,12 @@ namespace Msg
 						m_pRpcInterface->GetRpcListener()->OnListenOn(m_pRpcInterface); 
 					}
 				} 
+
+				if (pNetHandler->GetSession()->GetOtherSession() != pSession)
+				{
+					pNetHandler->GetSession()->SetOtherSession(pSession); 
+					pSession->SetOtherSession(pNetHandler->GetSession()); 
+				}
 			}  
 
 //			gDebugStream("recv client ping. " << strRemoteRPCName << std::endl);

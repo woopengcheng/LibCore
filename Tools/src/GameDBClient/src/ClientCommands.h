@@ -24,6 +24,7 @@ namespace Client
 		static void  pfnHandleHSet(DBClient * pClient , INT32 argc , char ** argv);
 		static void  pfnHandleHGet(DBClient * pClient , INT32 argc , char ** argv);
 		static void  pfnHandleOrmHSet(DBClient * pClient , INT32 argc , char ** argv);
+		static void  pfnHandleCreateUser(DBClient * pClient , INT32 argc , char ** argv);
 		static void  pfnHandleOrmCollectInsert(DBClient * pClient , INT32 argc , char ** argv);
 		static void  pfnHandleDump(DBClient * pClient , INT32 argc , char ** argv);
 	private:
