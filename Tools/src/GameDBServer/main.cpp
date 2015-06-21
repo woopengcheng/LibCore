@@ -59,20 +59,26 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	gDebugStream("waiting slave connect master.");
 	//5 等待slave连接成功,并且请求数据
-	while(1)
+	if (strRunMode.compare("slave") == 0 )
 	{
-		if (strRunMode.compare("slave") != 0 && Server::DBServer::GetInstance().GetRpcClientManager()->IsAllConnected())
+		while(1)
 		{
-			Server::DBSlave::GetInstance().StartAuth(strName , strPwd);
-			gDebugStream("slave connect success.");
-			break;
+			Server::DBSlave::GetInstance().Update();
+			if (Server::DBSlave::GetInstance().GetRpcClientManager()->IsAllConnected())
+			{
+				Server::DBSlave::GetInstance().StartAuth(strName , strPwd);
+				gDebugStream("slave connect success.");
+				break;
+			}
 		}
 	}
 
 	while (1)
 	{
-		if (strRunMode.compare("slave") != 0)
+		if (strRunMode.compare("slave") == 0)
 			Server::DBSlave::GetInstance().Update();
+		else
+			Server::DBServer::GetInstance().Update();
 
 		Timer::TimerHelper::sleep(1);
 	}

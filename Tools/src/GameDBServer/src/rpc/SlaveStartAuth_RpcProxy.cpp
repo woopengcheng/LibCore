@@ -1,10 +1,10 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::SlaveStartAuth_RpcServerProxy(std_string pwd/* = std::string()*/ , std_string name/* = std::string()*/, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
+Msg::ObjectMsgCall * Msg::GlobalRpc::SlaveStartAuth_RpcServerProxy(std_string name/* = std::string()*/ , std_string pwd/* = std::string()*/, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
 {
 
 
- 	ProxySendMsg("tcp://127.0.0.1:8001" , pwd , name);
+ 	ProxySendMsg("tcp://127.0.0.1:8001" , name , pwd);
 	std::cout << "SlaveStartAuth_RpcServerProxy" << std::endl;
 	//RPCReturn1(res);
 	RPCReturnNULL;
