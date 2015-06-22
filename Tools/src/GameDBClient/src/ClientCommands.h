@@ -23,6 +23,10 @@ namespace Client
 	public:
 		static void  pfnHandleHSet(DBClient * pClient , INT32 argc , char ** argv);
 		static void  pfnHandleHGet(DBClient * pClient , INT32 argc , char ** argv);
+		static void  pfnHandleZSet(DBClient * pClient , INT32 argc , char ** argv);
+		static void  pfnHandleZGet(DBClient * pClient , INT32 argc , char ** argv);
+		static void  pfnHandleZTop(DBClient * pClient , INT32 argc , char ** argv);
+		static void  pfnHandleZRTop(DBClient * pClient , INT32 argc , char ** argv);
 		static void  pfnHandleOrmHSet(DBClient * pClient , INT32 argc , char ** argv);
 		static void  pfnHandleCreateUser(DBClient * pClient , INT32 argc , char ** argv);
 		static void  pfnHandleOrmCollectInsert(DBClient * pClient , INT32 argc , char ** argv);

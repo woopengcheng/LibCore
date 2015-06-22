@@ -1,8 +1,12 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZGet_RpcClient(std_string value/* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZGet_RpcClient(INT64 score/* = 0*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
 {
-
+	RPCMsgCall * pMsg = GetRpcMsgCall();
+	if (pMsg)
+	{
+		gDebugStream("zget table:" << pMsg->m_objParams.GetValue<std::string>(0) << "key:" << pMsg->m_objParams.GetValue<std::string>(1) << "score:" << score);
+	}
 
 	std::cout << "HandleZGet_RpcClient" << std::endl;
 	RPCReturnNULL;

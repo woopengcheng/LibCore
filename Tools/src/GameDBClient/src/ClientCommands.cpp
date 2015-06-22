@@ -19,6 +19,10 @@ namespace Client
 	{
 		m_mapCommands["hset"] = &ClientCommands::pfnHandleHSet;
 		m_mapCommands["hget"] = &ClientCommands::pfnHandleHGet;
+		m_mapCommands["zset"] = &ClientCommands::pfnHandleZSet;
+		m_mapCommands["zget"] = &ClientCommands::pfnHandleZGet;
+		m_mapCommands["ztop"] = &ClientCommands::pfnHandleZTop;
+		m_mapCommands["zrtop"] = &ClientCommands::pfnHandleZRTop;
 		m_mapCommands["hormset"] = &ClientCommands::pfnHandleOrmHSet;
 		m_mapCommands["hormcollectinsert"] = &ClientCommands::pfnHandleOrmCollectInsert;
 		m_mapCommands["dump"] = &ClientCommands::pfnHandleDump;
@@ -122,6 +126,79 @@ namespace Client
 		Client::local_call_HandleCreateUser("tcp://127.0.0.1:8001" , argv[1] , argv[2]  , targets , Msg::Object(0) , 1);
 
 		gDebugStream( "pfnHandleCreateUser"); 
+	}
+
+	void ClientCommands::pfnHandleZSet(DBClient * pClient , INT32 argc , char ** argv)
+	{
+		CHECK_ARGS_EQUAL_COUNT(argc , 4);
+
+		INT64 llScore = LibCore::atoi(argv[3]);
+		std::vector<Msg::Object> targets;
+		targets.push_back(Msg::Object(1));   
+		Client::local_call_HandleZSet("tcp://127.0.0.1:8001" , argv[1] , argv[2] , llScore , targets , Msg::Object(0) , 1);
+
+		gDebugStream( "pfnHandleZSet");
+
+	}
+
+	void ClientCommands::pfnHandleZGet(DBClient * pClient , INT32 argc , char ** argv)
+	{
+		CHECK_ARGS_EQUAL_COUNT(argc , 3);
+
+		std::vector<Msg::Object> targets;
+		targets.push_back(Msg::Object(1));   
+		Client::local_call_HandleZGet("tcp://127.0.0.1:8001" , argv[1] , argv[2]  , targets , Msg::Object(0) , 1);
+
+		gDebugStream( "pfnHandleZGet");
+
+	}
+	void ClientCommands::pfnHandleZTop(DBClient * pClient , INT32 argc , char ** argv)
+	{
+		CHECK_ARGS_GREAT_COUNT(argc , 3);
+
+		INT64 llStart = 0, llEnd = 0, llLimit = 0;
+		if (argc == 5)
+		{
+			llStart = LibCore::atoi(argv[2]);
+			llEnd = LibCore::atoi(argv[3]);
+			llLimit = LibCore::atoi(argv[4]);
+		}
+		else
+		{
+			llLimit = LibCore::atoi(argv[2]);
+		}
+		std::vector<Msg::Object> targets;
+		targets.push_back(Msg::Object(1)); 
+
+		Client::local_call_HandleZTop("tcp://127.0.0.1:8001" , argv[1] , llStart  , llEnd , llLimit , targets , Msg::Object(0) , 1);
+		
+		gDebugStream( "pfnHandleZTop");
+
+	}
+	void ClientCommands::pfnHandleZRTop(DBClient * pClient , INT32 argc , char ** argv)
+	{
+		CHECK_ARGS_GREAT_COUNT(argc , 3);
+
+		std::vector<Msg::Object> targets;
+		targets.push_back(Msg::Object(1));  
+
+		INT64 llStart = 0, llEnd = 0, llLimit = 0;
+		
+		if (argc == 5)
+		{
+			llStart = LibCore::atoi(argv[2]);
+			llEnd = LibCore::atoi(argv[3]);
+			llLimit = LibCore::atoi(argv[4]);
+		}
+		else
+		{
+			llLimit = LibCore::atoi(argv[2]);
+		} 
+		
+		Client::local_call_HandleZRTop("tcp://127.0.0.1:8001" , argv[1] , llStart , llEnd , llLimit, targets , Msg::Object(0) , 1);
+		 
+		gDebugStream( "pfnHandleZRTop");
+
 	}
 
 }

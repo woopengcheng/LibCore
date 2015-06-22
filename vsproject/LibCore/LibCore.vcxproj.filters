@@ -770,5 +770,8 @@
     <ClCompile Include="..\..\LibCore\GameDB\src\UserAuth.cpp">
       <Filter>GameDB\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\LibCore\GameDB\src\SortedSet.cpp">
+      <Filter>GameDB\src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

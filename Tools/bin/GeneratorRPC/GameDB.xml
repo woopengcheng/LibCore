@@ -112,6 +112,17 @@
 			</Return>
 		</Rpc> 
 		
+		<Rpc name="HandleZGet" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/>
+				<Param name="key" type="std_string" default=""/>
+			</Call>
+
+			<Return> 
+				<Param name="score" type="INT64" default="0"/>
+			</Return>
+		</Rpc> 
+		
 		<Rpc name="HandleCreateUser" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
 			<Call > 
 				<Param name="name" type="std_string" default=""/>
@@ -123,39 +134,32 @@
 			</Return>
 		</Rpc> 
 		
-		<Rpc name="HandleZGet" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
-			<Call >
-				<Param name="table" type="std_string" default=""/>
-				<Param name="key" type="std_string" default=""/>
-			</Call>
-
-			<Return> 
-				<Param name="value" type="std_string" default=""/>
-			</Return>
-		</Rpc> 
-		
 		<Rpc name="HandleZTop" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
 			<Call >
 				<Param name="table" type="std_string" default=""/>
-				<Param name="count" type="std_string" default=""/> 
+				<Param name="start" type="INT64" default="0"/> 
+				<Param name="end" type="INT64" default="0"/> 
+				<Param name="limit" type="INT64" default="0"/> 
 			</Call>
 
 			<Return>
-				<Param name="res" type="LibCore_Chunk" default="0"/> 
+				<Param name="res" type="LibCore_Chunk" default=""/> 
 			</Return>
 		</Rpc> 
 		
-		<Rpc name="HandleZRTop" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+		<Rpc name="HandleZRTop" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="1" timeout="10">
 			<Call >
 				<Param name="table" type="std_string" default=""/>
-				<Param name="count" type="std_string" default=""/>
+				<Param name="start" type="INT64" default="0"/> 
+				<Param name="end" type="INT64" default="0"/> 
+				<Param name="limit" type="INT64" default="0"/> 
 			</Call>
 
 			<Return>
 				<Param name="res" type="LibCore_Chunk" default="0"/> 
 			</Return>
 		</Rpc> 
-		<Rpc name="HandleDump" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+		<Rpc name="HandleDump" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="1" timeout="10">
 			<Call >
 			</Call>
 

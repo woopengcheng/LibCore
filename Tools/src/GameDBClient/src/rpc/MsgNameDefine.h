@@ -13,11 +13,11 @@ namespace Msg
 	//5 HandleZSet declare here
 	RPC_DEFINE(HandleZSet);
 
-	//5 HandleCreateUser declare here
-	RPC_DEFINE(HandleCreateUser);
-
 	//5 HandleZGet declare here
 	RPC_DEFINE(HandleZGet);
+
+	//5 HandleCreateUser declare here
+	RPC_DEFINE(HandleCreateUser);
 
 	//5 HandleZTop declare here
 	RPC_DEFINE(HandleZTop);

@@ -12,6 +12,7 @@ enum ErrCode
 	ERR_CORRUPTION,						//5 数据库被占用
 	ERR_INVALIDARGUMENT,				//5 数据库被占用
 	ERR_HAS_EXISTS,						//5 数据库已经存在这条记录,插入失败.
+	ERR_INVALID_DATA,					//5 无效字段.
 
 	ERR_NUM,
 };

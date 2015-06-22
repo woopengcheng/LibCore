@@ -11,16 +11,16 @@
 namespace Client
 {
 	//5 defaultParams define here.
-	static SINT8 g_rpcDefaultParam_SINT8 = 0;
 	static UINT8 g_rpcDefaultParam_UINT8 = 0;
-	static INT16 g_rpcDefaultParam_INT16 = 0;
+	static SINT8 g_rpcDefaultParam_SINT8 = 0;
 	static UINT16 g_rpcDefaultParam_UINT16 = 0;
-	static UINT32 g_rpcDefaultParam_UINT32 = 0;
+	static INT16 g_rpcDefaultParam_INT16 = 0;
 	static INT32 g_rpcDefaultParam_INT32 = 0;
+	static UINT32 g_rpcDefaultParam_UINT32 = 0;
 	static INT64 g_rpcDefaultParam_INT64 = 0;
 	static UINT64 g_rpcDefaultParam_UINT64 = 0;
-	static float g_rpcDefaultParam_float = 0.0f;
 	static double g_rpcDefaultParam_double = 0.0f;
+	static float g_rpcDefaultParam_float = 0.0f;
 	static std_string g_rpcDefaultParam_std_string = std::string();
 	static LibCore_Chunk g_rpcDefaultParam_LibCore_Chunk = LibCore::Chunk();
 
@@ -66,6 +66,18 @@ namespace Client
 			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZSet_RpcClient , &Msg::GlobalRpc::HandleZSet_RpcClient); 
 		}
 
+		//5 HandleZGet generate default deliver and return check param here
+		{
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT64);
+			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleZGet", objDeliverParams);
+			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZGet", objReturnParams);
+			objDeliverParams.Clear();
+			objReturnParams.Clear();
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZGet_RpcTimeout , &Msg::GlobalRpc::HandleZGet_RpcTimeout); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZGet_RpcClient , &Msg::GlobalRpc::HandleZGet_RpcClient); 
+		}
+
 		//5 HandleCreateUser generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
@@ -78,21 +90,9 @@ namespace Client
 			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleCreateUser_RpcClient , &Msg::GlobalRpc::HandleCreateUser_RpcClient); 
 		}
 
-		//5 HandleZGet generate default deliver and return check param here
-		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_std_string);
-			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleZGet", objDeliverParams);
-			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZGet", objReturnParams);
-			objDeliverParams.Clear();
-			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZGet_RpcTimeout , &Msg::GlobalRpc::HandleZGet_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZGet_RpcClient , &Msg::GlobalRpc::HandleZGet_RpcClient); 
-		}
-
 		//5 HandleZTop generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64);
 			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleZTop", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZTop", objReturnParams);
@@ -104,7 +104,7 @@ namespace Client
 
 		//5 HandleZRTop generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64);
 			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleZRTop", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZRTop", objReturnParams);

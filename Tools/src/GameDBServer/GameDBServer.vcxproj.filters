@@ -32,13 +32,7 @@
     <ClCompile Include="src\rpc\HandleZGet_RpcServer.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleZRTop_RpcServer.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
     <ClCompile Include="src\rpc\HandleZSet_RpcServer.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rpc\HandleZTop_RpcServer.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
     <ClCompile Include="src\rpc\SlaveStartAuth_RpcClient.cpp">
@@ -73,6 +67,12 @@
     </ClCompile>
     <ClCompile Include="src\SlaveHandler.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\HandleZRTop_RpcServer.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\HandleZTop_RpcServer.cpp">
+      <Filter>src\rpc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

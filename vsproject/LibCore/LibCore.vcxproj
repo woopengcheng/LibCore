@@ -408,6 +408,7 @@
     <ClCompile Include="..\..\LibCore\GameDB\src\GameDBHelper.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\HashTable.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\OperateRecord.cpp" />
+    <ClCompile Include="..\..\LibCore\GameDB\src\SortedSet.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\User.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\UserAuth.cpp" />
     <ClCompile Include="..\..\LibCore\LogLib\src\GLogAdaptee.cpp" />
