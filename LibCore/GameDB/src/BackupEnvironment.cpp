@@ -96,7 +96,8 @@ namespace GameDB
 			if (CheckCopyFile(vecFiles[i]))
 			{
 				uint64_t llLength = 0;
-				objStatus = GetFileSize(vecFiles[i] , &llLength);
+				std::string curFile = strDir + "/" + vecFiles[i];
+				objStatus = GetFileSize(curFile , &llLength);
 				if (!objStatus.ok())
 				{
 					m_objMutex.Unlock();
@@ -143,7 +144,7 @@ namespace GameDB
 		SBackupDB * pBackup = (SBackupDB * )arg;
 
 		std::string strSrc = pBackup->strSrcDir + "/" + strFile;
-		std::string strDst = pBackup->strDstDir + "/" + pBackup->strDstFileName + strFile; 
+		std::string strDst = pBackup->strDstDir + "/" + pBackup->strDstFileName + "/" + strFile; 
 		
 		Status objStatus;
 		if (llFileLength == -1)

@@ -34,7 +34,7 @@ namespace Server
 	public:
 		void    StartAuth(std::string		strName , std::string		strPwd);
 		void    SelectDB(std::string		strDBName );
-		void    RequestSyncData();
+		void    RequestSyncData(std::string		strDBName , std::string		strDBDir);
 
 	private: 
 		INT32   InitThread(Json::Value & conf); 

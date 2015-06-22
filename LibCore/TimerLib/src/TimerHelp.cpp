@@ -111,7 +111,7 @@ namespace Timer
 	{
 		time_t t = time(0); 
 		char tmp[64]; 
-		strftime( tmp, sizeof(tmp), "%Y-%m-%d",localtime(&t) );  
+		strftime( tmp, sizeof(tmp), strFormat.c_str(),localtime(&t) );  
 		return std::string(tmp); 
 	}
 

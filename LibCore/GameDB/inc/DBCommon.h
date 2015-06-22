@@ -19,8 +19,12 @@ namespace GameDB
 
 	typedef leveldb::Slice			 Slice;
 	typedef leveldb::Status			 Status;
-	typedef leveldb::WriteBatch		 WriteBatch; 
+	typedef leveldb::WriteBatch		 WriteBatch;  
 	typedef Msg::Parameters			 Parameters;
+	class DLL_EXPORT Options : public leveldb::Options
+	{
+
+	};
 
 	typedef LibCore::Chunk  Chunk; 
 

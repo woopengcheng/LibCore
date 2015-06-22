@@ -158,21 +158,22 @@ namespace GameDB
 		this->Create(); 
 	}
 
-	BOOL Database::Backup(const std::string & strBackupName , const std::string & strDir)
+	BOOL Database::Backup(const std::string & strBackupName , std::string & strDir)
 	{
 		SBackupDB objContext;
 		objContext.strSrcDir = m_strDirectory;
 		objContext.strDstFileName = strBackupName;
 		objContext.strDstDir = strDir;
-	
+
+		leveldb::Env::Default()->CreateDir(objContext.strDstDir);
 		leveldb::Env::Default()->CreateDir(objContext.strDstDir + strBackupName);
 		if (m_pBackupEnv)
 		{
 			m_pBackupEnv->Backup(m_strDirectory , &objContext);
 			m_pBackupEnv->TouchFile(strDir + strBackupName + "/LOCK");
 		}
-		
-		return TRUE;
+		strDir = strDir + strBackupName.c_str();
+  		return TRUE;
 	}
 
 }

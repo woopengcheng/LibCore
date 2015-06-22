@@ -11,6 +11,13 @@ namespace GameDB
 	class Comparator;
 	class BackupEnvironment;
 
+// 	class DLL_EXPORT GameDBEnv : public leveldb::Env
+// 	{
+// 
+// 	};
+
+	extern DLL_EXPORT leveldb::Env * GetDefaultEnv();
+
 	class DLL_EXPORT Environment 
 	{
 	public:

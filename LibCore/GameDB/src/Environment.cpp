@@ -209,4 +209,9 @@ namespace GameDB
 		objOptions.env = m_pBackupEnv;
 	}
 
+	leveldb::Env * GetDefaultEnv()
+	{ 
+		return leveldb::Env::Default();
+	}
+
 }

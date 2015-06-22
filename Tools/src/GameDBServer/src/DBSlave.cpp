@@ -44,11 +44,11 @@ namespace Server
 		return ERR_SUCCESS;
 	}
 
-	void DBSlave::RequestSyncData()
+	void DBSlave::RequestSyncData(std::string		strDBName , std::string		strDBDir)
 	{
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Server::local_call_SlaveRequestSync("tcp://127.0.0.1:9001", targets , Msg::Object(1) , 1);
+		Server::local_call_SlaveRequestSync("tcp://127.0.0.1:9001", strDBDir , strDBName , targets , Msg::Object(1) , 1);
 	}
 
 	void DBSlave::StartAuth(std::string		strName , std::string		strPwd)

@@ -185,20 +185,28 @@
 			</Return>
 		</Rpc>
 		
-		<Rpc name="SlaveRequestSync" include="MasterHandler.h" class="MasterHandler" client="Slave" server="Master" syncType="1" timeout="10">
-			<Call > 
+		<Rpc name="SlaveRequestSync" include="ServerHandler.h" class="ServerHandler" proxyInclude="MasterHandler.h" proxyClass="MasterHandler" client="Slave" proxy="Master" server="Server" syncType="1" timeout="3600">
+			<Call >
+				<Param name="dbbackdir" type="std_string" default=""/> 
+				<Param name="dbname" type="std_string" default=""/> 
 			</Call>
 
-			<Return>  
+			<Return> 
+				<Param name="newbackdir" type="std_string" default=""/>  
+				<Param name="res" type="INT32" default="0"/> 
 			</Return>
 		</Rpc>
 		
 		<Rpc name="MasterStartSync" include="SlaveHandler.h" class="SlaveHandler" client="Master" server="Slave" syncType="1" timeout="10">
 			<Call > 
+				<Param name="filename" type="std_string"/>
+				<Param name="filesize" type="INT32"/>
+				<Param name="sendtype" type="INT32"/>
 				<Param name="value" type="LibCore_Chunk"/>
 			</Call>
 
 			<Return>  
+				<Param name="res" type="INT32" default="0"/> 
 			</Return>
 		</Rpc>
 	</Rpcs>

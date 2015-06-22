@@ -7,7 +7,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveSelectDB_RpcServer(std_string d
 
 	if(m_strDatabaseName.length() > 0)
 	{
-		RPCReturn1(-1);
+		RPCReturn1(res);
 	}
 
 

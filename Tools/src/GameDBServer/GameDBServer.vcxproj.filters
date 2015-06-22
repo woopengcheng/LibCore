@@ -26,12 +26,6 @@
     <ClCompile Include="src\rpc\MasterStartSync_RpcServer.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\SlaveRequestSync_RpcClient.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rpc\SlaveRequestSync_RpcServer.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
     <ClCompile Include="src\rpc\HandleDump_RpcServer.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
@@ -64,6 +58,21 @@
     </ClCompile>
     <ClCompile Include="src\rpc\HandleCreateUser_RpcServer.cpp">
       <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\SlaveRequestSync_RpcClient.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\SlaveRequestSync_RpcProxy.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\SlaveRequestSync_RpcServer.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MasterHandler.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SlaveHandler.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

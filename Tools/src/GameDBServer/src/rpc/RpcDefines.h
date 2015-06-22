@@ -14,6 +14,7 @@ namespace Msg
 	Msg::ObjectMsgCall * HandleZRTop_RpcServer(std_string table = std::string() , std_string count = std::string(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 	Msg::ObjectMsgCall * HandleDump_RpcServer(std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 	Msg::ObjectMsgCall * SlaveStartAuth_RpcServer(std_string name = std::string() , std_string pwd = std::string(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
+	Msg::ObjectMsgCall * SlaveRequestSync_RpcServer(std_string dbbackdir = std::string() , std_string dbname = std::string(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 
 
 #define  RPC_DEFINE_MasterHandler public:\
@@ -21,11 +22,13 @@ namespace Msg
 	Msg::ObjectMsgCall * SlaveStartAuth_RpcTimeoutProxy(std_string name = std::string() , std_string pwd = std::string(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 	Msg::ObjectMsgCall * SlaveStartAuth_RpcClientProxy(std_string value = std::string(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 	Msg::ObjectMsgCall * SlaveSelectDB_RpcServer(std_string dbname = std::string(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
-	Msg::ObjectMsgCall * SlaveRequestSync_RpcServer(std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
+	Msg::ObjectMsgCall * SlaveRequestSync_RpcServerProxy(std_string dbbackdir = std::string() , std_string dbname = std::string(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
+	Msg::ObjectMsgCall * SlaveRequestSync_RpcTimeoutProxy(std_string dbbackdir = std::string() , std_string dbname = std::string(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
+	Msg::ObjectMsgCall * SlaveRequestSync_RpcClientProxy(std_string newbackdir = std::string() , INT32 res = 0, std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 
 
 #define  RPC_DEFINE_SlaveHandler public:\
-	Msg::ObjectMsgCall * MasterStartSync_RpcServer(LibCore_Chunk value = LibCore::Chunk(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
+	Msg::ObjectMsgCall * MasterStartSync_RpcServer(std_string filename = std::string() , INT32 filesize = 0 , INT32 sendtype = 0 , LibCore_Chunk value = LibCore::Chunk(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 
 
 

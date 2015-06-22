@@ -31,6 +31,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	std::string strRunMode = root.get("mode" , "master").asString(); 
 
 	std::string strName , strPwd; 
+	gDebugStream("run mode in " << strRunMode);
 	if (strRunMode.compare("master") == 0)
 	{
 		Json::Value objMaster = root.get("master" , Json::Value());
@@ -57,13 +58,12 @@ int _tmain(int argc, _TCHAR* argv[])
 		return 0;
 	}
 
-	gDebugStream("waiting slave connect master.");
 	//5 等待slave连接成功,并且请求数据
 	if (strRunMode.compare("slave") == 0 )
 	{
+		gDebugStream("waiting slave connect master.");
 		while(1)
 		{
-			Server::DBSlave::GetInstance().Update();
 			if (Server::DBSlave::GetInstance().GetRpcClientManager()->IsAllConnected())
 			{
 				Server::DBSlave::GetInstance().StartAuth(strName , strPwd);
@@ -75,9 +75,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	while (1)
 	{
-		if (strRunMode.compare("slave") == 0)
-			Server::DBSlave::GetInstance().Update();
-		else
+		if (strRunMode.compare("slave") != 0) 
 			Server::DBServer::GetInstance().Update();
 
 		Timer::TimerHelper::sleep(1);

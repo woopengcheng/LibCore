@@ -221,7 +221,9 @@ namespace Msg
 
 	INT32 RpcServerManager::Update( void )
 	{  
+#ifndef CLOSE_RPC_TIMEOUT
 		UpdateCalls();
+#endif
 		return RpcManager::Update();
 	} 
 

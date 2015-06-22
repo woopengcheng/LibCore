@@ -6,10 +6,10 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::SlaveSelectDB_RpcClient(INT32 res/* = 0*/, 
 {
 	if (res == 0)
 	{
-		GameDB::SlaveSession * pSession = (GameDB::SlaveSession *)GetSession();
-		if (pSession)
+		if (GetSession() && GetSession()->GetOtherSession())
 		{
-			Server::DBSlave::GetInstance().RequestSyncData( ); 
+			GameDB::SlaveSession * pSession = (GameDB::SlaveSession *)GetSession()->GetOtherSession();
+			Server::DBSlave::GetInstance().RequestSyncData(pSession->GetSlaveInfo().strDBName , pSession->GetSlaveInfo().strDir ); 
 		}
 
 		std::cout << "SlaveStartAuth_RpcClient" << std::endl;

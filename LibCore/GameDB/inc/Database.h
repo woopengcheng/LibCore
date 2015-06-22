@@ -11,7 +11,7 @@ namespace GameDB
 	class DLL_EXPORT Database
 	{
 	public:
-		Database(const std::string& strName,const std::string& strDirectory,const leveldb::Options& objOptions , BackupEnvironment * pBackupEnv);
+		Database(const std::string& strName,const std::string& strDirectory,const leveldb::Options& objOptions , BackupEnvironment * pBackupEnv = NULL);
 		~Database();
 
 	public:
@@ -24,7 +24,7 @@ namespace GameDB
 		BOOL	 Open();
 		void	 Close();
 		BOOL	 Create();
-		BOOL     Backup(const std::string & strBackupName , const std::string & strDir);
+		BOOL     Backup(const std::string & strBackupName , std::string & strDir);
 		BOOL	 RemoveDatabase();
 		void	 RemoveDatas();
 		void	 UpdateCache(const Slice & objKey , const Slice & objVal);  //5 也可能回被leveldb递归调用.

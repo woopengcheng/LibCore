@@ -788,7 +788,11 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 			fileRpc.write("\n\n");			
 			
 			strParamsNoType= GetParamsExcludeDefaultAndType(rpc.call.params)
-			fileRpc.write(oneTab + "if(ERR_FAILURE == ProxySendMsg(\"tcp://127.0.0.1:8002\" , " + strParamsNoType + "))\n")
+			if len(rpc.call.params) == 0:
+				fileRpc.write(oneTab + "if(ERR_FAILURE == ProxySendMsg(\"tcp://127.0.0.1:8002\" ))\n")
+			else:
+				fileRpc.write(oneTab + "if(ERR_FAILURE == ProxySendMsg(\"tcp://127.0.0.1:8002\" , " + strParamsNoType + "))\n")
+				
 			fileRpc.write(oneTab + "{\n")
 			strParamsNoType= GetParamsExcludeDefaultAndType(rpc.returns.params)
 			strReturnCount = len(rpc.returns.params)
