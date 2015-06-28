@@ -6,7 +6,7 @@
 #include "GameDB/inc/Operate.h"
 #include "GameDB/inc/User.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleCreateUser_RpcServer(std_string name/* = std::string()*/ , std_string pwd/* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleCreateUser_RpcServer(std_string name/* = std::string()*/ , std_string pwd/* = std::string()*/, SINT8 issys/* = 0*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc )
 { 
 	INT32 res = -1;
 
@@ -21,22 +21,28 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleCreateUser_RpcServer(std_strin
 		RPCReturn1(res);
 	}
 
+	//5 ºÏ≤È»®œﬁ
+	if (!m_objAuthInfo.CheckSysPermission())
+	{
+		RPCReturn1(res);
+	}
+
 	std::string strValue;
 	GameDB::User objUser;
 	objUser.set_name(name.c_str());
 	objUser.set_pswd(pwd.c_str());
-	objUser.set_sysuser(true);
+	objUser.set_sysuser(issys);
 	objUser.ToBson(strValue);
 
 	GameDB::Operate oper;
 	GameDB::HashTable::HSet(*pDB , oper , GameDB::User::TableName() , name , strValue);
 	if (oper.IsSuccess())
 	{
-		gDebugStream("create user: name:" << name  << "success.");
-		RPCReturn1(0);
+		res = 0;
+		gOtherStream("create user: name:" << name  << "success.");
 	}
 	 
-	std::cout << "HandleCreateUser_RpcServer "<< std::endl;
+	gDebugStream("HandleCreateUser_RpcServer :"<< res);
 	RPCReturn1(res);
 }
 

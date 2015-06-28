@@ -8,4 +8,5 @@ RPC增加对数据库数据的支持.(优化功能)
 RPC增加xls的支持.(优化功能)
 ZMQ在net里面,这里不太好. 
 增加RPC静态函数支持.(测试)  
-env_win.cc 貌似转换为wchar的时候释放内存会出问题
+env_win.cc 貌似转换为wchar的时候释放内存会出问题 
+hcount buhaoshi

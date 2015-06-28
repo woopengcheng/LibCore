@@ -2,7 +2,7 @@
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHGet_RpcClient(std_string value/* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
 {
-
+	gDebugStream("HGet value:" << value);
 
 	std::cout << "HandleHGet_RpcClient value:" << value << std::endl;
 	RPCReturnNULL;

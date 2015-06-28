@@ -6,12 +6,10 @@ namespace GameDB
 {  
 	class DLL_EXPORT OperateReturns
 	{
-	public:
-		Parameters & GetWriter(){ return m_objParamters; }
+	public: 
 		LibCore::CStream & GetStream(){ return m_objStream; }
 
-	private:
-		Parameters			m_objParamters;
+	private: 
 		LibCore::CStream	m_objStream;
 	};
 

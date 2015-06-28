@@ -169,7 +169,7 @@ namespace GameDB
 	void SortedSet::ZCount_SaveToDB(const Slice & countKey,INT64 countVal,WriteBatch& batch,Operate & or)
 	{
 		batch.Put(countKey , Slice((const char *)&countVal , sizeof(countVal)));
-		or.GetOperateRecord()->Insert(countKey , Slice((const char *)&countVal , sizeof(countVal)));
+		or.GetOperateRecord().Insert(countKey , Slice((const char *)&countVal , sizeof(countVal)));
 	}
 
 	void SortedSet::ZSet(Database &db,Operate& oper,const Slice& table,const Slice& key , INT64 llScore)
@@ -209,8 +209,8 @@ namespace GameDB
 				batch.Delete(scoreKey);
 				batch.Delete(scoreKeyR);
 
-				oper.GetOperateRecord()->Delete(scoreKey);
-				oper.GetOperateRecord()->Delete(scoreKeyR);
+				oper.GetOperateRecord().Delete(scoreKey);
+				oper.GetOperateRecord().Delete(scoreKeyR);
 			}
 			else if (objStatus.IsNotFound())
 			{
@@ -233,9 +233,9 @@ namespace GameDB
 		batch.Put(scoreKey , scoreval);
 		batch.Put(scoreKeyR , scoreval);
 
-		oper.GetOperateRecord()->Insert(encodedKey , scoreval);
-		oper.GetOperateRecord()->Insert(scoreKey , scoreval);
-		oper.GetOperateRecord()->Insert(scoreKeyR , scoreval);
+		oper.GetOperateRecord().Insert(encodedKey , scoreval);
+		oper.GetOperateRecord().Insert(scoreKey , scoreval);
+		oper.GetOperateRecord().Insert(scoreKeyR , scoreval);
 
 		ZCount_SaveToDB(sizeKey , sizeVal , batch , oper);
 
@@ -244,7 +244,7 @@ namespace GameDB
 		oper.SetErrorCode(objStatus);
 	} 
 
-	void SortedSet::ZGet(Database &db,Operate & oper,const Slice& table,const Slice& key , INT64 & llScore)
+	void SortedSet::ZGet(Database &db,Operate & oper,const Slice& table,const Slice& key)
 	{ 
 		DEFAULT_STACKCHUNK sc;
 		Slice encodedKey , scoreKey,scoreKeyR;
@@ -262,8 +262,8 @@ namespace GameDB
 				return ;
 			}
 
-			llScore = *reinterpret_cast<const INT64*>(strValue.c_str());
-			oper.GetStream() << llScore;
+			INT64 llScore = *reinterpret_cast<const INT64*>(strValue.c_str());
+			oper.GetOperateReturns().GetStream() << llScore;
 			oper.SetErrorCode(ERR_SUCCESS);
 		}
 		else
@@ -379,6 +379,175 @@ namespace GameDB
 
 		oper.SetErrorCode(ERR_SUCCESS);
 
+	}
+
+	void SortedSet::ZDel(Database &db,Operate & oper,const Slice& table,const Slice& key)
+	{ 
+		DEFAULT_STACKCHUNK sc;
+		Slice encodedKey;  
+
+		EncodeKey(table,key,encodedKey , sc);
+
+		INT64 sizeVal = -1;
+		Slice sizeKey;
+		{
+			ZCount_EncodeKey(table,sizeKey);
+			ZCount_Initial(db,sizeKey,sizeVal);
+		}
+
+		INT64 oldScore = 0;
+		DEFAULT_STACKCHUNK sc_core;
+		DEFAULT_STACKCHUNK sc_coreR;
+		Slice scoreKey,scoreKeyR;
+
+		leveldb::Status objStatus;
+		leveldb::WriteBatch batch;
+		{
+			std::string val;
+			objStatus = db.QuickGet(encodedKey,val);
+			if (objStatus.ok())
+			{
+				if (val.length() != sizeof(INT64))
+				{
+					oper.SetErrorCode(ERR_INVALID_DATA);
+					return ;
+				}
+
+				oldScore = *reinterpret_cast<const INT64*>(val.c_str());
+				--sizeVal;
+			} 
+			else
+			{
+				oper.SetErrorCode(ERR_NOTFOUND);
+				return ;
+			}
+		}
+
+		EncodeScoreKey(table , key , oldScore , scoreKey , sc_core);
+		EncodeRScoreKey(table , key , oldScore , scoreKeyR , sc_coreR);
+
+		batch.Delete(encodedKey);
+		batch.Delete(scoreKey);
+		batch.Delete(scoreKeyR);
+
+		oper.GetOperateRecord().Delete(encodedKey);
+		oper.GetOperateRecord().Delete(scoreKey);
+		oper.GetOperateRecord().Delete(scoreKeyR);  
+
+		ZCount_SaveToDB(sizeKey , sizeVal , batch , oper);
+
+		objStatus = db.QuickWrite(&batch);
+		oper.GetOperateReturns().GetStream() << oldScore;
+		oper.SetErrorCode(objStatus);
+	}
+
+	void SortedSet::ZDrop(Database &db,Operate & oper,const Slice& table)
+	{
+		DEFAULT_STACKCHUNK sc , sc_core , sc_coreR;
+		Slice encodedKey , scoreKey,scoreKeyR , sizeKey; 
+		std::string minkey("\0");
+
+		EncodeKey(table,minkey,encodedKey , sc); 
+		ZCount_EncodeKey(table,sizeKey);  
+
+		INT64 llCount = 0; 
+		leveldb::Status objStatus;
+		leveldb::WriteBatch batch;
+		leveldb::Iterator * iter = db.GetLevelDB()->NewIterator(leveldb::ReadOptions());
+		while(iter->Valid())
+		{   
+			Slice dbname = iter->key();
+			Slice val = iter->value();
+			Slice key;
+
+			if (!DecodeKey(dbname , table , key))
+			{
+				break;
+			}
+
+			if (val.size() != sizeof(INT64))
+			{
+				oper.SetErrorCode(ERR_INVALID_DATA);
+				return;
+			}
+			INT64 llOldScore = *reinterpret_cast<const INT64*>(val.data());
+
+			sc.Clear();
+			sc_core.Clear();
+			sc_coreR.Clear();
+
+			EncodeKey(table,key,encodedKey , sc);
+			EncodeScoreKey(table , key , llOldScore , scoreKey , sc_core);
+			EncodeRScoreKey(table , key , llOldScore , scoreKeyR , sc_coreR);
+
+			batch.Delete(encodedKey);
+			batch.Delete(scoreKey);
+			batch.Delete(scoreKeyR);
+			
+			oper.GetOperateRecord().Delete(encodedKey);
+			oper.GetOperateRecord().Delete(scoreKey);
+			oper.GetOperateRecord().Delete(scoreKeyR);
+
+			++llCount;
+
+			iter->Next();
+		}
+		delete iter;
+
+		batch.Delete(sizeKey);
+		oper.GetOperateRecord().Delete(sizeKey);
+
+		objStatus = db.QuickWrite(&batch);
+
+		oper.SetErrorCode(objStatus);
+	}
+
+	void SortedSet::ZCount(Database &db,Operate & oper,const Slice& table)
+	{
+		DEFAULT_STACKCHUNK sc;
+		Slice sizeKey; 
+
+		INT64 llCount = 0;
+		ZCount_EncodeKey(table,sizeKey);  
+		ZCount_Initial(db , sizeKey , llCount);
+
+		oper.GetOperateReturns().GetStream() << llCount;
+		oper.SetErrorCode(ERR_SUCCESS);
+	}
+
+	void SortedSet::ZList(Database &db,Operate & oper)
+	{
+		DEFAULT_STACKCHUNK sc , sc_core , sc_coreR;
+		Slice encodedKey , scoreKey,scoreKeyR , sizeKey; 
+		std::string minkey("\0");
+		 
+		ZCount_EncodeKey(minkey,sizeKey);  
+
+		INT32 nCount = 0;
+		LibCore::CStream cs;
+		leveldb::Status objStatus;
+		leveldb::Iterator * iter = db.GetLevelDB()->NewIterator(leveldb::ReadOptions());
+		iter->Seek(sizeKey);
+		while(iter->Valid())
+		{   
+			Slice dbname = iter->key(); 
+			Slice key;
+
+			if (!ZCount_DecodeKey(dbname , key))
+			{
+				break;
+			}
+
+			std::string strKey = key.ToString();
+			cs << strKey;
+
+			++nCount;
+			iter->Next();
+		}
+		delete iter;
+
+		oper.GetOperateReturns().GetStream() << nCount << cs;
+		oper.SetErrorCode(ERR_SUCCESS);
 	}
 
 

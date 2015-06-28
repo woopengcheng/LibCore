@@ -244,6 +244,7 @@
     <ClInclude Include="..\..\LibCore\Common\ClassTypeInterface.h" />
     <ClInclude Include="..\..\LibCore\Common\CommandHandler.h" />
     <ClInclude Include="..\..\LibCore\Common\Common.h" />
+    <ClInclude Include="..\..\LibCore\Common\DeelxRegexp.h" />
     <ClInclude Include="..\..\LibCore\Common\Heap.h" />
     <ClInclude Include="..\..\LibCore\Common\intrusive_ptr.h" />
     <ClInclude Include="..\..\LibCore\Common\LinkedPtr.h" />
@@ -398,7 +399,6 @@
     <ClCompile Include="..\..\LibCore\GameDB\src\DBClientInterface.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\DBClientManager.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\DBClientNetHandler.cpp" />
-    <ClCompile Include="..\..\LibCore\GameDB\src\DBCommandHandler.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\DBMasterInterface.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\DBServerInterface.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\DBServerManager.cpp" />

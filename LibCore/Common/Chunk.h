@@ -56,6 +56,11 @@ namespace LibCore
 			m_unDataLen = 0; 
 		}
 
+		virtual void Clear()
+		{ 
+			m_unDataLen = 0;
+		}
+
 	private:
 		char  m_szBuffer[unSize];
 	};

@@ -23,7 +23,7 @@ namespace LibCore
 	};
 
 	template<typename Container>
-	class DLL_EXPORT STLContainer : public LibCore::Marshal
+	class  STLContainer : public LibCore::Marshal
 	{ 
 	public:
 		explicit STLContainer( Container * pContainer ): m_pContainer(pContainer) {}  //5 默认隐式转换.不加explicit

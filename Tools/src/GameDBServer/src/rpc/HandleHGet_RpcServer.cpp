@@ -9,23 +9,19 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHGet_RpcServer(std_string tabl
 {
 	std_string value = std::string();
 
-	if (key.size() == 0 || table.size() == 0 && !GetDBServer() && !GetDBServer()->GetEnvironment())
+	if (key.size() == 0 || table.size() == 0 || !this->GetDataBase())
 	{
 		RPCReturn1(value);
 	}
 
-	GameDB::Database * pDB = GetDBServer()->GetEnvironment()->GetDatabase(GameDB::g_szSystemDatabase);
-	if (!pDB)
-	{
-		RPCReturn1(value);
-	}
-
+	GameDB::Database * pDB = this->GetDataBase(); 
+	
 	GameDB::Operate oper;
 	GameDB::HashTable::HGet(*pDB , oper , table , key);
 	if (oper.IsSuccess())
 	{
-		gDebugStream("table:" << table << "key:" << key << "success.");
-		RPCReturn1(oper.GetParamters().GetValue<std::string>(0));
+		gDebugStream("table:" << table << "key:" << key << "success."); 
+		oper.GetOperateReturns().GetStream() >> value;
 	} 
 
 	std::cout << "HandleHGet_RpcServer "<< std::endl;

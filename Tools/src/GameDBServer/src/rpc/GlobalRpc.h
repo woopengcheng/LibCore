@@ -19,6 +19,10 @@ namespace Msg
 		}
 	public:
 		
+//SyncDataToSlave generate RPC func here
+		Msg::ObjectMsgCall * SyncDataToSlave_RpcTimeout(std_string dbname = std::string() , LibCore_Chunk value = LibCore::Chunk(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
+		Msg::ObjectMsgCall * SyncDataToSlave_RpcClient(INT32 res = 0, std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
+		
 		
 //MasterStartSync generate RPC func here
 		Msg::ObjectMsgCall * MasterStartSync_RpcTimeout(std_string filename = std::string() , INT32 filesize = 0 , INT32 sendtype = 0 , LibCore_Chunk value = LibCore::Chunk(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));

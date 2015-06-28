@@ -34,7 +34,7 @@ namespace GameDB
 	}
 
 	void User::AutoIncrease(INT64 llKey)
-	{
+	{ 
 		assert(false);
 	}
 

@@ -85,15 +85,20 @@ int _tmain(int argc, _TCHAR* argv[])
 	JsonParase(defaultConf.c_str() , root); 
 	 
 	//5 连接服务器,并建立双连接..
-	Client::DBClient::GetInstance().Init(root); 
-	int n = 100;
-	while (n--)
+	Client::DBClient::GetInstance().Init(root);  
+	while (!Client::DBClient::GetInstance().GetRpcClientManager()->IsAllConnected())
 	{
 		Client::DBClient::GetInstance().Update(); 
 		Timer::TimerHelper::sleep(1);
 	}
 	
 	Client::ClientCommands clientComands; 
+	std::string strName = root.get("user" , "admin" ).asString();
+	std::string strPwd = root.get("pwd" , "admin").asString();
+
+	std::vector<Msg::Object> vecTargets;
+	vecTargets.push_back(Msg::Object(1));
+	Client::local_call_HandleUserAuth("tcp://127.0.0.1:8001" , strName , strPwd , vecTargets , Msg::Object(1) , 0 , Msg::SYNC_TYPE_NONSYNC);
 
 	int nargc = 0;
 	char pargv[10][256];
@@ -113,6 +118,10 @@ int _tmain(int argc, _TCHAR* argv[])
 			if (pLine == NULL)
 			{
 				break;
+			}
+			if (strcmp("exit" , pLine) == 0)
+			{
+				return -1;
 			}
 
 			ParseLine(pLine , nargc , parg);

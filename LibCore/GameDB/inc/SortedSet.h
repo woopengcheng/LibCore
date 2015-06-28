@@ -25,12 +25,17 @@ namespace GameDB
 		static void ZCount_SaveToDB(const Slice & countKey,INT64 countVal,WriteBatch& batch,Operate & or);
 	 
 		static void ZSet(Database &db,Operate& oper,const Slice& table,const Slice& key , INT64 llScore);		 
-		static void ZGet(Database &db,Operate & oper,const Slice& table,const Slice& key, INT64 & llScore);
+		static void ZGet(Database &db,Operate & oper,const Slice& table,const Slice& key);	 
+		static void ZDel(Database &db,Operate & oper,const Slice& table,const Slice& key);
 
 		static void ZTop(Database &db,Operate & oper,const Slice& table,INT64 llStart , INT64 llEnd , INT64 llLimit);
 		static void ZRTop(Database &db,Operate & oper,const Slice& table,INT64 llStart , INT64 llEnd , INT64 llLimit);
-	protected:
-	private:
+
+		static void ZDrop(Database &db,Operate & oper,const Slice& table);
+		static void ZCount(Database &db,Operate & oper,const Slice& table);
+		static void ZList(Database &db,Operate & oper);
+
+
 	};
 
 }

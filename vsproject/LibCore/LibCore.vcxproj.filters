@@ -525,6 +525,9 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\UserAuth.h">
       <Filter>GameDB\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\DeelxRegexp.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -729,9 +732,6 @@
       <Filter>GameDB\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\GameDB\src\OperateRecord.cpp">
-      <Filter>GameDB\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\GameDB\src\DBCommandHandler.cpp">
       <Filter>GameDB\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\GameDB\src\DBServerNetHandler.cpp">

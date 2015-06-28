@@ -118,6 +118,10 @@ namespace LibCore
 
 			return *this;
 		}
+		template<typename T> CStream & operator << (const std::basic_string<T> & t)
+		{
+			return operator << (*const_cast<std::basic_string<T>*>(&t)); 
+		}
 
 		template<typename T1 , typename T2> CStream & operator << (std::pair<T1 , T2> & t)
 		{
@@ -181,6 +185,10 @@ namespace LibCore
 			m_nCurPos += unBytes;
 			return *this;
 		}
+		template<typename T> CStream & operator >> (const std::basic_string<T> & t)
+		{ 
+			return operator >> (*const_cast<std::basic_string<T>*>(&t)); 
+		}
 
 		template<typename T1 , typename T2> CStream & operator >> (std::pair<T1 , T2> & t)
 		{
@@ -240,6 +248,7 @@ namespace LibCore
 			INT32   GetCurPos( void )const { return m_nCurPos; }
 			INT32   GetTransactionPos( void ) const { return m_nTransactionPos;	}
 			Chunk   GetData( void ) const { return m_objChunk;	}
+			Chunk & GetData( void ) { return m_objChunk;	}
 			void  * Begin(){ return m_objChunk.Begin(); }
 			void  * End(){ return m_objChunk.End(); }
 			void    Insert(void * pPos , void * pBegin , UINT32 unLen){ m_objChunk.Insert(pPos , pBegin , unLen); } 

@@ -19,7 +19,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::SlaveStartAuth_RpcServer(std_string 
 		RPCReturn1(value);
 	}  
 	 
-	oper.GetStream() >> value;
+	oper.GetOperateReturns().GetStream() >> value;
 	if (value.length() <= 0)
 	{
 		gDebugStream("DB:" << GameDB::g_szSystemUserTable << "table:" << GameDB::g_szSystemUserTable << "key:" << name << "failure.");

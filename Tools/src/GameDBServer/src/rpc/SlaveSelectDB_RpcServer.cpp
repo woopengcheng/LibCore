@@ -6,12 +6,13 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveSelectDB_RpcServer(std_string d
 	INT32 res = 0;
 
 	if(m_strDatabaseName.length() > 0)
+	{ 
+		res = -1;
+	} 
+	else
 	{
-		RPCReturn1(res);
+		m_strDatabaseName = dbname;
 	}
-
-
-	m_strDatabaseName = dbname;
 
 	std::cout << "SlaveSelectDB_RpcServer "<< std::endl;
 	RPCReturn1(res);

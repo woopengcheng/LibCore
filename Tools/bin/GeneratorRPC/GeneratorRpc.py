@@ -15,7 +15,7 @@ from xml.etree.ElementTree import SubElement as SE
 #sys.setdefaultencoding("utf-8") 
 #sys.setdefaultencoding("cp936") 
  
-g_rpcXmlPath = "testRpc.xml"
+g_rpcXmlPath = "GameDB.xml"
 ################################类定义#####################################
 class ParentPoint:
 	def __init__(self, parentPoint): 

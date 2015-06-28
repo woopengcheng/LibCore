@@ -107,11 +107,36 @@
     <ClCompile Include="src\DBServer.cpp" />
     <ClCompile Include="src\DBSlave.cpp" />
     <ClCompile Include="src\MasterHandler.cpp" />
+    <ClCompile Include="src\rpc\HandleCreateDatabase_RpcServer.cpp" />
     <ClCompile Include="src\rpc\HandleCreateUser_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleDeleteDatabase_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleDeleteUser_RpcServer.cpp" />
     <ClCompile Include="src\rpc\HandleDump_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleHCount_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleHDel_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleHDrop_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleHGetKeys_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleHGetKeyVals_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleHGetVals_RpcServer.cpp" />
     <ClCompile Include="src\rpc\HandleHGet_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleHList_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleHMultiDel_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleHMultiGet_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleHMultiSet_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleHScan_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleHSetIncrFloat_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleHSetIncr_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleHSetNX_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleHSetOW_RpcServer.cpp" />
     <ClCompile Include="src\rpc\HandleHSet_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleModifyUser_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleSelectDatabase_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleShowDatabases_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleUserAuth_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleZDel_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleZDrop_RpcServer.cpp" />
     <ClCompile Include="src\rpc\HandleZGet_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\HandleZList_RpcServer.cpp" />
     <ClCompile Include="src\rpc\HandleZRTop_RpcServer.cpp" />
     <ClCompile Include="src\rpc\HandleZSet_RpcServer.cpp" />
     <ClCompile Include="src\rpc\HandleZTop_RpcServer.cpp" />
@@ -126,6 +151,9 @@
     <ClCompile Include="src\rpc\SlaveStartAuth_RpcClient.cpp" />
     <ClCompile Include="src\rpc\SlaveStartAuth_RpcProxy.cpp" />
     <ClCompile Include="src\rpc\SlaveStartAuth_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\SyncDataToSlave_RpcClient.cpp" />
+    <ClCompile Include="src\rpc\SyncDataToSlave_RpcProxy.cpp" />
+    <ClCompile Include="src\rpc\SyncDataToSlave_RpcServer.cpp" />
     <ClCompile Include="src\SlaveHandler.cpp" />
   </ItemGroup>
   <ItemGroup>

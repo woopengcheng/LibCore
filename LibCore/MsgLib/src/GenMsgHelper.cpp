@@ -7,6 +7,7 @@ namespace Msg
 	{
 		objMsgCall.m_objSource = objSrc;
 		objMsgCall.m_usPriority = usPriority;
+		memcpy(objMsgCall.m_szMsgMethod , pMsgCallName , MAX_MSG_METHOD_NAME_LENGTH); 
 
 		if (vtTargets.size() == 0)
 		{
@@ -19,8 +20,6 @@ namespace Msg
 		{
 			objMsgCall.m_aTargets[i] = *iter; 
 		}
-
-		memcpy(objMsgCall.m_szMsgMethod , pMsgCallName , MAX_MSG_METHOD_NAME_LENGTH); 
 
 		return TRUE;
 	} 

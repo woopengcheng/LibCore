@@ -5,7 +5,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleDump_RpcServer(std::vector<Msg
 {
 	LibCore_Chunk res;
 
-	GameDB::Database * pDB = GetDBServer()->GetEnvironment()->GetDatabase(GameDB::g_szSystemDatabase);
+	GameDB::Database * pDB = GetDataBase();
 	if (!pDB)
 	{
 		RPCReturn1(res);
@@ -20,18 +20,16 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleDump_RpcServer(std::vector<Msg
 		GameDB::Slice key = iter->key();
 		GameDB::Slice val = iter->value();
 		 
-		oper.GetStream() << key.ToString() << val.ToString();
+		oper.GetOperateReturns().GetStream() << key.ToString() << val.ToString();
 
 		++nCount;
 		iter->Next();
 	} 
 	delete iter;  
 	  
-	oper.GetStream().Insert(oper.GetStream().Begin() , &nCount , sizeof(nCount));
-// 	res.Pushback(&nCount , sizeof(nCount));
-// 	res.Pushback(oper.GetStream().Begin() , oper.GetStream().GetDataLen());
+	oper.GetOperateReturns().GetStream().Insert(oper.GetOperateReturns().GetStream().Begin() , &nCount , sizeof(nCount));
 
  	std::cout << "HandleDump_RpcServer "<< std::endl;
-	RPCReturn1(oper.GetStream().GetData());
+	RPCReturn1(oper.GetOperateReturns().GetStream().GetData());
 }
 

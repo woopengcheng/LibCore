@@ -8,6 +8,7 @@
 #include "MsgNameDefine.h"  
 #include "DBServer.h" 
 #include "GameDB/inc/UserAuth.h"
+#include "GameDB/inc/SortedSet.h"
 
 namespace Server
 {  
@@ -18,7 +19,6 @@ namespace Server
 		ServerHandler(DBServer * pDBServer)
 			: Msg::IRpcMsgCallableObject(Msg::Object(1) , pDBServer->GetRpcServerManager())
 			, m_pDBServer(pDBServer)
-			, m_pAuthInfo(NULL)
 			, m_strDatabaseName("")
 		{}
 	public:
@@ -26,12 +26,21 @@ namespace Server
 		 
 	public:
 		DBServer * GetDBServer(){ return m_pDBServer; }
-		GameDB::UserAuth * GetAuthInfo() const { return m_pAuthInfo; }
-		void SetAuthInfo(GameDB::UserAuth * val) { m_pAuthInfo = val; }
+		const GameDB::UserAuth & GetAuthInfo() const { return m_objAuthInfo; }
+		void SetAuthInfo(const GameDB::UserAuth & val) { m_objAuthInfo = val; }
+		GameDB::Database * GetDataBase()
+		{
+			if (m_pDBServer)
+			{
+				return m_pDBServer->GetEnvironment()->GetDatabase(m_strDatabaseName);
+			}
+
+			return NULL;
+		}
 
 	private:
 		DBServer * m_pDBServer;
-		GameDB::UserAuth * m_pAuthInfo;
+		GameDB::UserAuth  m_objAuthInfo;
 		std::string m_strDatabaseName;
 
 	}; 

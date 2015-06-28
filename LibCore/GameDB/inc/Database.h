@@ -28,6 +28,15 @@ namespace GameDB
 		BOOL	 RemoveDatabase();
 		void	 RemoveDatas();
 		void	 UpdateCache(const Slice & objKey , const Slice & objVal);  //5 也可能回被leveldb递归调用.
+		BOOL     IsSystemDatabase()
+		{
+			if (m_strName == g_szSystemDatabase)
+			{
+				return TRUE;
+			}
+			
+			return FALSE;
+		}
 
 	public:
 		std::string		 GetName() const { return m_strName; } 

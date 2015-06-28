@@ -5,6 +5,8 @@
 #include "leveldb/cache.h"
 #include "LogLib/inc/Log.h"
 #include "Common/LibCore.h"
+#include "GameDB/inc/User.h"
+#include "GameDB/inc/HashTable.h"
 
 namespace GameDB
 {
@@ -33,7 +35,22 @@ namespace GameDB
 	
 		if (!GetDatabase(g_szSystemDatabase))
 		{
-			CreateDatabase(g_szSystemDatabase);
+			Database * pDB = CreateDatabase(g_szSystemDatabase);
+			MsgAssert(pDB , "Create database " << g_szSystemDatabase << "failed.");
+
+			std::string strValue;
+			GameDB::User objUser;
+			objUser.set_name("admin");
+			objUser.set_pswd("admin");
+			objUser.set_sysuser(true);
+			objUser.ToBson(strValue);
+
+			GameDB::Operate oper;
+			GameDB::HashTable::HSet(*pDB , oper , GameDB::User::TableName() , "admin" , strValue);
+			if (oper.IsSuccess())
+			{
+				gOtherStream("create user: name:" <<  "admin"  << "success."); 
+			}
 		}
 	}
 

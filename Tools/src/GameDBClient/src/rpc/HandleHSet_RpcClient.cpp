@@ -1,10 +1,17 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHSet_RpcClient(INT32 resCode/* = 0*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
-{
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHSet_RpcClient(INT32 res/* = 0*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
+{ 
+	if (res == 0)
+	{
+		gOtherStream("HSet data count:" << res);
+	}
+	else
+	{
+		gWarniStream("HSet wrong, res:" << res);
+	} 
 
-
-	std::cout << "HandleHSet_RpcClient resCode:" << resCode << std::endl;
+	std::cout << "HandleHSet_RpcClient resCode:" << res << std::endl;
 	RPCReturnNULL;
 }
 

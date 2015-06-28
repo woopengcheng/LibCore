@@ -77,6 +77,97 @@
 			<Param type="LibCore_Chunk" name="localid13" /> 
 		</RpcData>
 
+		<!--		
+		databse处理rpc
+		-->
+		<Rpc name="HandleUserAuth" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call > 
+				<Param name="name" type="std_string" default=""/>
+				<Param name="pwd" type="std_string" default=""/>
+			</Call>
+
+			<Return>
+				<Param name="res" type="INT32" default="0"/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleSelectDatabase" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call > 
+				<Param name="dbname" type="std_string" default=""/>
+			</Call>
+
+			<Return>
+				<Param name="res" type="INT32" default="0"/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleCreateDatabase" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call > 
+				<Param name="dbname" type="std_string" default=""/>
+			</Call>
+
+			<Return>
+				<Param name="res" type="INT32" default="0"/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleDeleteDatabase" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call > 
+				<Param name="dbname" type="std_string" default=""/>
+			</Call>
+
+			<Return>
+				<Param name="res" type="INT32" default="0"/> 
+			</Return>
+		</Rpc> 		
+		
+		<Rpc name="HandleShowDatabases" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call > 
+			</Call>
+
+			<Return>
+				<Param name="res" type="LibCore_Chunk" default=""/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleCreateUser" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call > 
+				<Param name="name" type="std_string" default=""/>
+				<Param name="pwd" type="std_string" default=""/>
+				<Param name="issys" type="SINT8" default="0"/>
+			</Call>
+
+			<Return>
+				<Param name="res" type="INT32" default="0"/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleDeleteUser" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call > 
+				<Param name="name" type="std_string" default=""/>
+			</Call>
+
+			<Return>
+				<Param name="res" type="INT32" default="0"/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleModifyUser" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call > 
+				<Param name="name" type="std_string" default=""/> 
+				<Param name="pwd" type="std_string" default=""/>
+				<Param name="issys" type="SINT8" default="0"/>
+			</Call>
+
+			<Return>
+				<Param name="res" type="INT32" default="0"/> 
+			</Return>
+		</Rpc> 
+			
+		
+		<!--
+		hashtable处理rpc
+		-->
 		<Rpc name="HandleHSet" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
 			<Call >
 				<Param name="table" type="std_string" default=""/>
@@ -85,7 +176,31 @@
 			</Call>
 
 			<Return>
-				<Param name="resCode" type="INT32" default="0"/> 
+				<Param name="res" type="INT32" default="0"/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleHSetNX" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/>
+				<Param name="key" type="std_string" default=""/>
+				<Param name="value" type="std_string" default=""/>
+			</Call>
+
+			<Return>
+				<Param name="res" type="INT32" default="0"/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleHSetOW" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/>
+				<Param name="key" type="std_string" default=""/>
+				<Param name="value" type="std_string" default=""/>
+			</Call>
+
+			<Return>
+				<Param name="res" type="INT32" default="0"/> 
 			</Return>
 		</Rpc> 
 		
@@ -100,6 +215,149 @@
 			</Return>
 		</Rpc> 
 		
+		<Rpc name="HandleHDel" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/>
+				<Param name="key" type="std_string" default=""/> 
+			</Call>
+
+			<Return>
+				<Param name="res" type="INT32" default="0"/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleHSetIncr" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/>
+				<Param name="key" type="std_string" default=""/>
+				<Param name="value" type="INT64" default=""/>
+			</Call>
+
+			<Return>
+				<Param name="res" type="INT64" default="0"/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleHSetIncrFloat" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/>
+				<Param name="key" type="std_string" default=""/>
+				<Param name="value" type="double" default=""/>
+			</Call>
+
+			<Return>
+				<Param name="res" type="double" default="0"/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleHGetKeys" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/> 
+			</Call>
+
+			<Return>
+				<Param name="res" type="LibCore_Chunk" default=""/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleHGetVals" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/> 
+			</Call>
+
+			<Return>
+				<Param name="res" type="LibCore_Chunk" default=""/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleHGetKeyVals" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/> 
+			</Call>
+
+			<Return>
+				<Param name="res" type="LibCore_Chunk" default=""/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleHScan" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/> 
+				<Param name="start" type="std_string" default=""/> 
+				<Param name="regexp" type="std_string" default=""/> 
+				<Param name="limit" type="INT64" default="10"/>  
+			</Call>
+
+			<Return>
+				<Param name="res" type="LibCore_Chunk" default=""/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleHCount" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/>  
+			</Call>
+
+			<Return>
+				<Param name="res" type="INT64" default=""/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleHDrop" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/>  
+			</Call>
+
+			<Return>
+				<Param name="res" type="INT64" default=""/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleHList" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call > 
+			</Call>
+
+			<Return>
+				<Param name="res" type="LibCore_Chunk" default=""/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleHMultiSet" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/>
+				<Param name="keyvalues" type="LibCore_Chunk" default=""/> 
+			</Call>
+
+			<Return>
+				<Param name="res" type="INT32" default="0"/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleHMultiGet" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/>
+				<Param name="keys" type="LibCore_Chunk" default=""/> 
+			</Call>
+
+			<Return>
+				<Param name="res" type="LibCore_Chunk" default="0"/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleHMultiDel" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/>
+				<Param name="keys" type="LibCore_Chunk" default=""/> 
+			</Call>
+
+			<Return>
+				<Param name="res" type="INT32" default="0"/> 
+			</Return>
+		</Rpc> 
+		
+		<!--
+		sortedset处理rpc
+		-->
 		<Rpc name="HandleZSet" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
 			<Call >
 				<Param name="table" type="std_string" default=""/>
@@ -123,14 +381,14 @@
 			</Return>
 		</Rpc> 
 		
-		<Rpc name="HandleCreateUser" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
-			<Call > 
-				<Param name="name" type="std_string" default=""/>
-				<Param name="pwd" type="std_string" default=""/>
+		<Rpc name="HandleZDel" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/>
+				<Param name="key" type="std_string" default=""/>
 			</Call>
 
-			<Return>
-				<Param name="res" type="INT32" default="0"/> 
+			<Return> 
+				<Param name="score" type="INT64" default="0"/>
 			</Return>
 		</Rpc> 
 		
@@ -147,7 +405,7 @@
 			</Return>
 		</Rpc> 
 		
-		<Rpc name="HandleZRTop" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="1" timeout="10">
+		<Rpc name="HandleZRTop" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
 			<Call >
 				<Param name="table" type="std_string" default=""/>
 				<Param name="start" type="INT64" default="0"/> 
@@ -159,7 +417,27 @@
 				<Param name="res" type="LibCore_Chunk" default="0"/> 
 			</Return>
 		</Rpc> 
-		<Rpc name="HandleDump" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="1" timeout="10">
+		
+		<Rpc name="HandleZDrop" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/> 
+			</Call>
+
+			<Return>
+				<Param name="res" type="INT32" default="0"/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleZList" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call > 
+			</Call>
+
+			<Return>
+				<Param name="res" type="LibCore_Chunk" default="0"/> 
+			</Return>
+		</Rpc> 
+		
+		<Rpc name="HandleDump" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
 			<Call >
 			</Call>
 
@@ -167,7 +445,10 @@
 				<Param name="res" type="LibCore_Chunk" default="0"/> 
 			</Return>
 		</Rpc> 
-				 
+		
+		<!--
+		slave相关rpc
+		-->
 		<Rpc name="SlaveStartAuth" include="ServerHandler.h" class="ServerHandler" proxyInclude="MasterHandler.h" proxyClass="MasterHandler" client="Slave" proxy="Master" server="Server" syncType="1" timeout="10">
 			<Call > 
 				<Param name="name" type="std_string" default=""/>
@@ -206,6 +487,17 @@
 				<Param name="filename" type="std_string"/>
 				<Param name="filesize" type="INT32"/>
 				<Param name="sendtype" type="INT32"/>
+				<Param name="value" type="LibCore_Chunk"/>
+			</Call>
+
+			<Return>  
+				<Param name="res" type="INT32" default="0"/> 
+			</Return>
+		</Rpc>
+		
+		<Rpc name="SyncDataToSlave" include="SlaveHandler.h" class="SlaveHandler" proxyInclude="MasterHandler.h" proxyClass="MasterHandler" client="Server" proxy="Master" server="Slave" syncType="1" timeout="10">
+			<Call > 
+				<Param name="dbname" type="std_string"/>
 				<Param name="value" type="LibCore_Chunk"/>
 			</Call>
 

@@ -2,6 +2,7 @@
 #include "leveldb/db.h"
 #include "leveldb/env.h"
 #include "GameDB/inc/Comparator.h"
+#include "GameDB/inc/DBCommon.h"
 #include "TimerLib/inc/TimerHelp.h"
 #include <fstream> 
 

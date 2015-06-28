@@ -1,7 +1,15 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZSet_RpcClient(INT32 resCode/* = 0*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZSet_RpcClient(INT32 res/* = 0*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
 {
+	if (res == 0)
+	{
+		gOtherStream("ZSet data res:" << res);
+	}
+	else
+	{
+		gWarniStream("ZSet wrong, res:" << res);
+	} 
 
 
 	std::cout << "HandleZSet_RpcClient" << std::endl;

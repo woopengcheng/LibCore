@@ -21,14 +21,18 @@ namespace GameDB
 	typedef leveldb::Status			 Status;
 	typedef leveldb::WriteBatch		 WriteBatch;  
 	typedef Msg::Parameters			 Parameters;
+
 	class DLL_EXPORT Options : public leveldb::Options
 	{
 
 	};
 
+	extern DLL_EXPORT LibCore::CStream & operator << (LibCore::CStream& cs,const leveldb::Slice& c); 
+
 	typedef LibCore::Chunk  Chunk; 
 
 	typedef std::vector<leveldb::Slice> CollectionSlicesT;
+	typedef std::map<std::string , leveldb::Slice> CollectionKeyValsT;
 	typedef std::vector<std::string>	CollectionBuffersT;
 
 	//5 ***************************请不要轻易改动,否则数据库无效************************************

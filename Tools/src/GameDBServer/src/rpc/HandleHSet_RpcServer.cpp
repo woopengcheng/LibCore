@@ -4,30 +4,30 @@
 #include "GameDB/inc/Environment.h"
 #include "GameDB/inc/Database.h"
 #include "GameDB/inc/Operate.h"
+#include "RPCCallFuncs.h"
 
 Msg::ObjectMsgCall * Server::ServerHandler::HandleHSet_RpcServer( std_string table/* = std::string()*/ , std_string key/* = std::string()*/  , std_string value /* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc )
 {
-	INT32 resCode = -1;
-	if (value.size() == 0 || key.size() == 0 || table.size() == 0 && !GetDBServer() && !GetDBServer()->GetEnvironment())
+	INT32 res = -1;
+	if (value.size() == 0 || key.size() == 0 || table.size() == 0 || !this->GetDataBase())
 	{
-		RPCReturn1(resCode);
+		RPCReturn1(res);
 	}
-
-	GameDB::Database * pDB = GetDBServer()->GetEnvironment()->GetDatabase(GameDB::g_szSystemDatabase);
-	if (!pDB)
-	{
-		RPCReturn1(resCode);
-	}
-
+	 
+	GameDB::Database * pDB = this->GetDataBase(); 
+	  
 	GameDB::Operate oper;
 	GameDB::HashTable::HSet(*pDB , oper , table , key , value);
 	if (oper.IsSuccess())
 	{
-		gDebugStream("table:" << table << "key:" << key << "value:" << value << "success.");
-		RPCReturn1(0);
+// 		std::vector<Msg::Object> vecTargets2;
+// 		vecTargets2.push_back(Msg::Object(1));
+// 		local_call_SyncDataToSlave("tcp://127.0.0.1:9001" , GameDB::g_szSystemDatabase , oper.GetOperateRecord().GetData() , vecTargets2 , Msg::Object(1));
+
+		res = 0;
+		gDebugStream("table:" << table << "key:" << key << "value:" << value << "success."); 
 	}
 
-	std::cout << "HandleHSet_RpcServer "<< std::endl;
-	RPCReturn1(resCode);
+	gDebugStream("HandleHSet_RpcServer "<< res);
+	RPCReturn1(res);
 }
-
