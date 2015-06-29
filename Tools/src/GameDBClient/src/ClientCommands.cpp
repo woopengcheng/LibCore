@@ -119,6 +119,8 @@ namespace Client
 
 	void ClientCommands::pfnHandleShowDatabases(DBClient * pClient , INT32 argc , char ** argv)
 	{
+		CHECK_ARGS_EQUAL_COUNT(argc , 1);
+
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));  
 		
@@ -127,6 +129,8 @@ namespace Client
 
 	void ClientCommands::pfnHandleSelectDatabase(DBClient * pClient , INT32 argc , char ** argv)
 	{
+		CHECK_ARGS_EQUAL_COUNT(argc , 2);
+
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));  
 		 
@@ -135,6 +139,8 @@ namespace Client
 
 	void ClientCommands::pfnHandleCreateDatabase(DBClient * pClient , INT32 argc , char ** argv)
 	{
+		CHECK_ARGS_EQUAL_COUNT(argc , 2);
+
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));  
 
@@ -144,6 +150,8 @@ namespace Client
 
 	void ClientCommands::pfnHandleDeleteDatabase(DBClient * pClient , INT32 argc , char ** argv)
 	{
+		CHECK_ARGS_EQUAL_COUNT(argc , 2);
+
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
 
@@ -165,6 +173,8 @@ namespace Client
 
 	void ClientCommands::pfnHandleDeleteUser(DBClient * pClient , INT32 argc , char ** argv)
 	{
+		CHECK_ARGS_EQUAL_COUNT(argc , 2);
+
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));  
 		 
@@ -173,6 +183,8 @@ namespace Client
 
 	void ClientCommands::pfnHandleModifyUser(DBClient * pClient , INT32 argc , char ** argv)
 	{ 
+		CHECK_ARGS_EQUAL_COUNT(argc , 4);
+
 		SINT8 isSys = LibCore::atoi(argv[3]);
 
 		std::vector<Msg::Object> targets;
@@ -268,7 +280,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleHSetIncr("tcp://127.0.0.1:8001" , argv[1] , argv[2] ,llCount , targets , Msg::Object(0) , 1);
+		Client::local_call_HandleHSetIncrFloat("tcp://127.0.0.1:8001" , argv[1] , argv[2] ,llCount , targets , Msg::Object(0) , 1);
 
 	}
 
@@ -342,6 +354,8 @@ namespace Client
 
 	void ClientCommands::pfnHandleDump(DBClient * pClient , INT32 argc , char ** argv)
 	{   
+		CHECK_ARGS_EQUAL_COUNT(argc , 1);
+
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
 		Client::local_call_HandleDump("tcp://127.0.0.1:8001" , targets , Msg::Object(0) , 1);
@@ -492,12 +506,14 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleZDrop("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1); 
+		Client::local_call_HandleZCount("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1); 
 
 	}
 
 	void ClientCommands::pfnHandleZList(DBClient * pClient , INT32 argc , char ** argv)
 	{
+		CHECK_ARGS_EQUAL_COUNT(argc , 1);
+
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
 		Client::local_call_HandleZList("tcp://127.0.0.1:8001" , targets , Msg::Object(0) , 1);  

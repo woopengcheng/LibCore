@@ -36,6 +36,7 @@ namespace Msg
 	Msg::ObjectMsgCall * HandleZTop_RpcServer(std_string table = std::string() , INT64 start = 0 , INT64 end = 0 , INT64 limit = 0, std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 	Msg::ObjectMsgCall * HandleZRTop_RpcServer(std_string table = std::string() , INT64 start = 0 , INT64 end = 0 , INT64 limit = 0, std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 	Msg::ObjectMsgCall * HandleZDrop_RpcServer(std_string table = std::string(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
+	Msg::ObjectMsgCall * HandleZCount_RpcServer(std_string table = std::string(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 	Msg::ObjectMsgCall * HandleZList_RpcServer(std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 	Msg::ObjectMsgCall * HandleDump_RpcServer(std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 	Msg::ObjectMsgCall * SlaveStartAuth_RpcServer(std_string name = std::string() , std_string pwd = std::string(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\

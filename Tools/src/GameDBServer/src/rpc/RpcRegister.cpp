@@ -22,8 +22,8 @@ namespace Server
 	static UINT16 g_rpcDefaultParam_UINT16 = 0;
 	static INT32 g_rpcDefaultParam_INT32 = 0;
 	static UINT32 g_rpcDefaultParam_UINT32 = 0;
-	static INT64 g_rpcDefaultParam_INT64 = 0;
 	static UINT64 g_rpcDefaultParam_UINT64 = 0;
+	static INT64 g_rpcDefaultParam_INT64 = 0;
 	static float g_rpcDefaultParam_float = 0.0f;
 	static double g_rpcDefaultParam_double = 0.0f;
 	static std_string g_rpcDefaultParam_std_string = std::string();
@@ -374,6 +374,17 @@ namespace Server
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
 			m_pRpcServerManager->RegisterFunc<ServerHandler >(Msg::g_szHandleZDrop_RpcServer , &ServerHandler::HandleZDrop_RpcServer); 
+		}
+
+		//5 HandleZCount generate default deliver and return check param here
+		{
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT64);
+			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleZCount", objDeliverParams);
+			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZCount", objReturnParams);
+			objDeliverParams.Clear();
+			objReturnParams.Clear();
+			m_pRpcServerManager->RegisterFunc<ServerHandler >(Msg::g_szHandleZCount_RpcServer , &ServerHandler::HandleZCount_RpcServer); 
 		}
 
 		//5 HandleZList generate default deliver and return check param here
@@ -766,6 +777,16 @@ namespace Server
 			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleZDrop", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZDrop", objReturnParams);
+			objDeliverParams.Clear();
+			objReturnParams.Clear();
+		}
+
+		//5 HandleZCount generate default deliver and return check param here
+		{
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT64);
+			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleZCount", objDeliverParams);
+			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZCount", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
 		}
@@ -1169,6 +1190,16 @@ namespace Server
 			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleZDrop", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZDrop", objReturnParams);
+			objDeliverParams.Clear();
+			objReturnParams.Clear();
+		}
+
+		//5 HandleZCount generate default deliver and return check param here
+		{
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT64);
+			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleZCount", objDeliverParams);
+			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZCount", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
 		}

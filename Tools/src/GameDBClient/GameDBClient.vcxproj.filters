@@ -107,6 +107,9 @@
     <ClCompile Include="src\rpc\HandleHList_RpcClient.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
+    <ClCompile Include="src\rpc\HandleZCount_RpcClient.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">

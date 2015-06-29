@@ -37,14 +37,9 @@ namespace GameDB
 		return false; 
 	}
 
-	void HashTable::HCount_EncodeKey(const Slice& key,Slice & outKey)
-	{
-		Slice	encodedKey;
-		DEFAULT_STACKCHUNK stackChunk;
-
-		EncodeKey(g_szGlobalHashtableSizeName , key , encodedKey , stackChunk);
-		
-		outKey = encodedKey;
+	void HashTable::HCount_EncodeKey(const Slice& key,Slice & outKey , DEFAULT_STACKCHUNK & stackChunk)
+	{  
+		EncodeKey(g_szGlobalHashtableSizeName , key , outKey , stackChunk); 
 	}
 
 	bool HashTable::HCount_DecodeKey(const Slice& dbFullKey,Slice& hKey)
@@ -112,7 +107,7 @@ namespace GameDB
 
 	void HashTable::HSet(Database &db,Operate & oper,const Slice& table,const Slice& key,const Slice& val)
 	{
-		DEFAULT_STACKCHUNK sc;
+		DEFAULT_STACKCHUNK sc , scSizeKey;
 		Slice encodedKey; 
 		leveldb::Status status;
 		 
@@ -121,7 +116,7 @@ namespace GameDB
 		INT64 sizeVal = -1;
 		Slice sizeKey;
 		{
-			HCount_EncodeKey(table,sizeKey);
+			HCount_EncodeKey(table,sizeKey , scSizeKey);
 			HCount_Initial(db,sizeKey,sizeVal);
 		}
 
@@ -153,7 +148,7 @@ namespace GameDB
 
 	void HashTable::HSetNX(Database &db,Operate & oper,const Slice& table,const Slice& key,const Slice& val)
 	{
-		DEFAULT_STACKCHUNK sc;
+		DEFAULT_STACKCHUNK sc , scSizeKey;
 		Slice	encodedKey; 
 		leveldb::Status status;
 
@@ -162,7 +157,7 @@ namespace GameDB
 		INT64 sizeVal = -1;
 		Slice sizeKey;
 		{
-			HCount_EncodeKey(table,sizeKey);
+			HCount_EncodeKey(table,sizeKey , scSizeKey);
 			HCount_Initial(db,sizeKey,sizeVal);
 			if(!HCount_IncrIfNonExists(db,encodedKey,sizeVal))
 			{
@@ -222,7 +217,7 @@ namespace GameDB
 
 	void HashTable::HDel(Database &db,Operate& oper,const Slice& table,const Slice& key)
 	{
-		DEFAULT_STACKCHUNK sc;
+		DEFAULT_STACKCHUNK sc , scSizeKey;
 		Slice	encodedKey; 
 		leveldb::Status status;
 
@@ -231,7 +226,7 @@ namespace GameDB
 		INT64 sizeVal = -1;
 		Slice sizeKey;
 		{
-			HCount_EncodeKey(table,sizeKey);
+			HCount_EncodeKey(table,sizeKey , scSizeKey);
 			HCount_Initial(db,sizeKey,sizeVal);
 			if(!HCount_DecrIfExists(db,encodedKey,sizeVal))
 			{
@@ -252,7 +247,7 @@ namespace GameDB
 
 	void HashTable::HDrop(Database &db,Operate& oper,const Slice& table)
 	{
-		DEFAULT_STACKCHUNK sc;
+		DEFAULT_STACKCHUNK sc , scSizeKey;
 		Slice	encodedKey; 
 		std::string minkey = "\0";
 		leveldb::Status status;
@@ -264,7 +259,7 @@ namespace GameDB
 		leveldb::Iterator* iter = db.GetLevelDB()->NewIterator(leveldb::ReadOptions());
 		iter->Seek(encodedKey);
 
-		INT32 nCount = 0;
+		INT64 llCount = 0;
 		while(iter->Valid())
 		{
 			Slice dbname = iter->key();
@@ -277,18 +272,19 @@ namespace GameDB
 			batch.Delete(dbname);
 			oper.GetOperateRecord().Delete(encodedKey);
 
-			++nCount;
+			++llCount;
 			iter->Next();
 		}
 		delete iter;
 		 
 		Slice sizeKey; 
-		HCount_EncodeKey(table,sizeKey); 
+		HCount_EncodeKey(table,sizeKey , scSizeKey); 
 		oper.GetOperateRecord().Delete(sizeKey);
+		batch.Delete(sizeKey);
 
 		status = db.QuickWrite(&batch);
 
-		oper.GetOperateReturns().GetStream() << nCount;
+		oper.GetOperateReturns().GetStream() << llCount;
 
 		oper.SetErrorCode(status); 
 
@@ -346,7 +342,8 @@ namespace GameDB
 		}
 		delete iter;
 
-		oper.GetOperateReturns().GetStream() << nCount[objType] << cs; 
+		oper.GetOperateReturns().GetStream() << nCount[objType]; 
+		oper.GetOperateReturns().GetStream().Pushback(cs.Begin() , cs.GetDataLen()); 
 		
 		oper.SetErrorCode(status); 
 	}
@@ -371,14 +368,14 @@ namespace GameDB
 
 	void HashTable::HMultiSet(Database &db,Operate & oper,const Slice& table,const CollectionKeyValsT & keyvals)
 	{
-		DEFAULT_STACKCHUNK sc;
+		DEFAULT_STACKCHUNK sc , scSizeKey;
 		Slice encodedKey; 
 		leveldb::Status status;
 		 
 		INT64 sizeVal = -1;
 		Slice sizeKey;
 		{
-			HCount_EncodeKey(table,sizeKey);
+			HCount_EncodeKey(table,sizeKey , scSizeKey);
 			HCount_Initial(db,sizeKey,sizeVal);
 		}
 
@@ -437,21 +434,22 @@ namespace GameDB
 			++llCount;
 		} 
 
-		oper.GetOperateReturns().GetStream() <<llCount << cs;
+		oper.GetOperateReturns().GetStream() <<llCount;
+		oper.GetOperateReturns().GetStream().Pushback(cs.Begin() , cs.GetDataLen());
 		oper.SetErrorCode(ERR_SUCCESS); 
 
 	}
 
 	void HashTable::HMultiDel(Database &db,Operate & oper,const Slice& table,const CollectionSlicesT& keys)
 	{ 
-		DEFAULT_STACKCHUNK sc;
+		DEFAULT_STACKCHUNK sc , scSizeKey;
 		Slice encodedKey; 
 		leveldb::Status status;
 
 		INT64 sizeVal = -1;
 		Slice sizeKey;
 		{
-			HCount_EncodeKey(table,sizeKey);
+			HCount_EncodeKey(table,sizeKey , scSizeKey);
 			HCount_Initial(db,sizeKey,sizeVal);
 		}
 
@@ -482,7 +480,7 @@ namespace GameDB
 
 	void HashTable::HSetIncr(Database &db,Operate & oper,const Slice& table,const Slice& key,INT64 val)
 	{
-		DEFAULT_STACKCHUNK sc;
+		DEFAULT_STACKCHUNK sc , scSizeKey;
 		Slice encodedKey; 
 		leveldb::Status status;
 
@@ -491,7 +489,7 @@ namespace GameDB
 		INT64 sizeVal = -1;
 		Slice sizeKey;
 		{
-			HCount_EncodeKey(table,sizeKey);
+			HCount_EncodeKey(table,sizeKey , scSizeKey);
 			HCount_Initial(db,sizeKey,sizeVal);
 		}
 		 
@@ -530,7 +528,7 @@ namespace GameDB
 
 	void HashTable::HSetIncrFloat(Database &db,Operate & oper,const Slice& table,const Slice& key,double val)
 	{
-		DEFAULT_STACKCHUNK sc;
+		DEFAULT_STACKCHUNK sc , scSizeKey;
 		Slice encodedKey; 
 		leveldb::Status status;
 
@@ -539,7 +537,7 @@ namespace GameDB
 		INT64 sizeVal = -1;
 		Slice sizeKey;
 		{
-			HCount_EncodeKey(table,sizeKey);
+			HCount_EncodeKey(table,sizeKey , scSizeKey);
 			HCount_Initial(db,sizeKey,sizeVal);
 		}
 
@@ -645,20 +643,21 @@ namespace GameDB
 		}
 		delete iter;
 
-		oper.GetOperateReturns().GetStream() << nCount[objType] << cs; 
+		oper.GetOperateReturns().GetStream() << nCount[objType];
+		oper.GetOperateReturns().GetStream().Pushback(cs.Begin() , cs.GetDataLen());
 
 		oper.SetErrorCode(ERR_SUCCESS); 
 	}
 
 	void HashTable::HCount(Database &db,Operate & oper,const Slice& table)
 	{
-		DEFAULT_STACKCHUNK sc;
+		DEFAULT_STACKCHUNK sc , scSizeKey;
 		leveldb::Status status;
 
 		INT64 sizeVal = -1;
 		Slice sizeKey;
 		{
-			HCount_EncodeKey(table,sizeKey);
+			HCount_EncodeKey(table,sizeKey , scSizeKey);
 			HCount_Initial(db,sizeKey,sizeVal);
 		}
 
@@ -668,13 +667,13 @@ namespace GameDB
 
 	void HashTable::HList(Database &db,Operate & oper)
 	{
-		DEFAULT_STACKCHUNK sc;
+		DEFAULT_STACKCHUNK sc , scSizeKey;
 		leveldb::Status status;
 
 		std::string minkey("\0");  
 		Slice sizeKey;
 		{
-			HCount_EncodeKey(minkey,sizeKey); 
+			HCount_EncodeKey(minkey,sizeKey , scSizeKey); 
 		}
 
 		INT64 llCount = 0;
@@ -696,7 +695,8 @@ namespace GameDB
 			iter->Next();
 		}
 
-		oper.GetOperateReturns().GetStream() << llCount << cs;
+		oper.GetOperateReturns().GetStream() << llCount;
+		oper.GetOperateReturns().GetStream().Pushback(cs.Begin() , cs.GetDataLen());
 		oper.SetErrorCode(ERR_SUCCESS);
 	}
 

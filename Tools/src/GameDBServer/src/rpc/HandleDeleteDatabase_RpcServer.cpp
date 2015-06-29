@@ -11,7 +11,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleDeleteDatabase_RpcServer(std_s
 		RPCReturn1(res);
 	}  
 
-	if (!pEnv->GetDatabase(dbname))
+	if (pEnv->GetDatabase(dbname) && m_objAuthInfo.CheckSysPermission())
 	{
 		res = pEnv->RemoveDatabase(dbname) - 1;
 	} 

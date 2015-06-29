@@ -4,7 +4,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHCount_RpcClient(INT64 res/* = 0*/, s
 {
 	if (res >= 0)
 	{
-		gOtherStream("HCount:" , res);
+		gOtherStream("HCount:" << res);
 	}
 	else
 	{

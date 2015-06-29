@@ -130,6 +130,7 @@
     <ClCompile Include="src\rpc\HandleSelectDatabase_RpcClient.cpp" />
     <ClCompile Include="src\rpc\HandleShowDatabases_RpcClient.cpp" />
     <ClCompile Include="src\rpc\HandleUserAuth_RpcClient.cpp" />
+    <ClCompile Include="src\rpc\HandleZCount_RpcClient.cpp" />
     <ClCompile Include="src\rpc\HandleZDel_RpcClient.cpp" />
     <ClCompile Include="src\rpc\HandleZDrop_RpcClient.cpp" />
     <ClCompile Include="src\rpc\HandleZGet_RpcClient.cpp" />

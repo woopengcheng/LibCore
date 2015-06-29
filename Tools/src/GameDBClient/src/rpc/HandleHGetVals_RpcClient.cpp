@@ -5,7 +5,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHGetVals_RpcClient(LibCore_Chunk res/
 	if (res.GetDataLen() != 0)
 	{
 		LibCore::CStream cs;
-		cs << res;
+		cs.Pushback(res.GetBuf() , res.GetDataLen());
 
 		INT32 nCount = 0;
 		cs >> nCount;

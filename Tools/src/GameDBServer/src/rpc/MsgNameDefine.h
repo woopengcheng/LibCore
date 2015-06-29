@@ -97,6 +97,9 @@ namespace Msg
 	//5 HandleZDrop declare here
 	RPC_DEFINE(HandleZDrop);
 
+	//5 HandleZCount declare here
+	RPC_DEFINE(HandleZCount);
+
 	//5 HandleZList declare here
 	RPC_DEFINE(HandleZList);
 

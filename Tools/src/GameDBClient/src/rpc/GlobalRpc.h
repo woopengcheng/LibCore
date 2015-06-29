@@ -143,6 +143,10 @@ namespace Msg
 		Msg::ObjectMsgCall * HandleZDrop_RpcTimeout(std_string table = std::string(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
 		Msg::ObjectMsgCall * HandleZDrop_RpcClient(INT32 res = 0, std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
 		
+//HandleZCount generate RPC func here
+		Msg::ObjectMsgCall * HandleZCount_RpcTimeout(std_string table = std::string(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
+		Msg::ObjectMsgCall * HandleZCount_RpcClient(INT64 res = 0, std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
+		
 //HandleZList generate RPC func here
 		Msg::ObjectMsgCall * HandleZList_RpcTimeout(std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
 		Msg::ObjectMsgCall * HandleZList_RpcClient(LibCore_Chunk res = 0, std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));

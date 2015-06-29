@@ -140,7 +140,7 @@ namespace GameDB
 
 	BOOL Database::RemoveDatabase()
 	{
-		Assert_Re0(0 == m_pLevelDB);
+		Assert_Re0(m_pLevelDB);
 
 		Status objStatus = leveldb::DestroyDB(m_strDirectory,leveldb::Options());
 		if (!objStatus.ok())

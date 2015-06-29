@@ -17,7 +17,7 @@ namespace GameDB
 		static void EncodeRScoreKey(const Slice& table,const Slice& key , INT64 score,Slice& outEncodedKey , DEFAULT_STACKCHUNK & sChunk);
 		static bool DecodeRScoreKey(const Slice& dbKeyData,const Slice& table,Slice& outkey,INT64& outscore);
 		 
-		static void ZCount_EncodeKey(const Slice& key, Slice & outKey);
+		static void ZCount_EncodeKey(const Slice& key, Slice & outKey, DEFAULT_STACKCHUNK & stackChunk);
 		static bool ZCount_DecodeKey(const Slice& dbKeyData,Slice& outKey);
 		static void ZCount_Initial(Database &db,const Slice & countKey,INT64 & llOldCount);
 		static bool ZCount_IncrIfNonExists(Database &db,const Slice& dbKey,INT64& size);

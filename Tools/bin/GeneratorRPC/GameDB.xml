@@ -428,6 +428,16 @@
 			</Return>
 		</Rpc> 
 		
+		<Rpc name="HandleZCount" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Call >
+				<Param name="table" type="std_string" default=""/>  
+			</Call>
+
+			<Return>
+				<Param name="res" type="INT64" default=""/> 
+			</Return>
+		</Rpc> 
+		
 		<Rpc name="HandleZList" include="ServerHandler.h" class="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
 			<Call > 
 			</Call>

@@ -116,14 +116,9 @@ namespace GameDB
 
 	}
 
-	void SortedSet::ZCount_EncodeKey(const Slice& key, Slice & outKey)
-	{
-		Slice	encodedKey;
-		DEFAULT_STACKCHUNK stackChunk;
-
-		EncodeKey(g_szGlobalSortedSetSizeName , key , encodedKey , stackChunk);
-
-		outKey = encodedKey; 
+	void SortedSet::ZCount_EncodeKey(const Slice& key, Slice & outKey, DEFAULT_STACKCHUNK & stackChunk)
+	{ 
+		EncodeKey(g_szGlobalSortedSetSizeName , key , outKey , stackChunk); 
 	}
 
 	bool SortedSet::ZCount_DecodeKey(const Slice& dbKeyData,Slice& outKey)
@@ -174,7 +169,7 @@ namespace GameDB
 
 	void SortedSet::ZSet(Database &db,Operate& oper,const Slice& table,const Slice& key , INT64 llScore)
 	{
-		DEFAULT_STACKCHUNK sc;
+		DEFAULT_STACKCHUNK sc , scSizeKey;
 		Slice encodedKey;  
 
 		EncodeKey(table,key,encodedKey , sc);
@@ -182,7 +177,7 @@ namespace GameDB
 		INT64 sizeVal = -1;
 		Slice sizeKey;
 		{
-			ZCount_EncodeKey(table,sizeKey);
+			ZCount_EncodeKey(table,sizeKey , scSizeKey);
 			ZCount_Initial(db,sizeKey,sizeVal);
 		}
 
@@ -383,7 +378,7 @@ namespace GameDB
 
 	void SortedSet::ZDel(Database &db,Operate & oper,const Slice& table,const Slice& key)
 	{ 
-		DEFAULT_STACKCHUNK sc;
+		DEFAULT_STACKCHUNK sc , scSizeKey;
 		Slice encodedKey;  
 
 		EncodeKey(table,key,encodedKey , sc);
@@ -391,7 +386,7 @@ namespace GameDB
 		INT64 sizeVal = -1;
 		Slice sizeKey;
 		{
-			ZCount_EncodeKey(table,sizeKey);
+			ZCount_EncodeKey(table,sizeKey , scSizeKey);
 			ZCount_Initial(db,sizeKey,sizeVal);
 		}
 
@@ -434,7 +429,15 @@ namespace GameDB
 		oper.GetOperateRecord().Delete(scoreKey);
 		oper.GetOperateRecord().Delete(scoreKeyR);  
 
-		ZCount_SaveToDB(sizeKey , sizeVal , batch , oper);
+		if (sizeVal == 0)
+		{
+			batch.Delete(sizeKey);
+			oper.GetOperateRecord().Delete(sizeKey);  
+		}
+		else
+		{
+			ZCount_SaveToDB(sizeKey , sizeVal , batch , oper);
+		}
 
 		objStatus = db.QuickWrite(&batch);
 		oper.GetOperateReturns().GetStream() << oldScore;
@@ -443,17 +446,17 @@ namespace GameDB
 
 	void SortedSet::ZDrop(Database &db,Operate & oper,const Slice& table)
 	{
-		DEFAULT_STACKCHUNK sc , sc_core , sc_coreR;
+		DEFAULT_STACKCHUNK sc , sc_core , sc_coreR , scSizeKey;
 		Slice encodedKey , scoreKey,scoreKeyR , sizeKey; 
 		std::string minkey("\0");
 
-		EncodeKey(table,minkey,encodedKey , sc); 
-		ZCount_EncodeKey(table,sizeKey);  
+		EncodeKey(table,minkey,encodedKey , sc);   
 
-		INT64 llCount = 0; 
+		INT32 nCount = 0; 
 		leveldb::Status objStatus;
 		leveldb::WriteBatch batch;
 		leveldb::Iterator * iter = db.GetLevelDB()->NewIterator(leveldb::ReadOptions());
+		iter->Seek(encodedKey);
 		while(iter->Valid())
 		{   
 			Slice dbname = iter->key();
@@ -488,14 +491,17 @@ namespace GameDB
 			oper.GetOperateRecord().Delete(scoreKey);
 			oper.GetOperateRecord().Delete(scoreKeyR);
 
-			++llCount;
+			++nCount;
 
 			iter->Next();
 		}
 		delete iter;
 
+		ZCount_EncodeKey(table,sizeKey , scSizeKey);
 		batch.Delete(sizeKey);
+
 		oper.GetOperateRecord().Delete(sizeKey);
+		oper.GetOperateReturns().GetStream() << nCount;
 
 		objStatus = db.QuickWrite(&batch);
 
@@ -504,11 +510,11 @@ namespace GameDB
 
 	void SortedSet::ZCount(Database &db,Operate & oper,const Slice& table)
 	{
-		DEFAULT_STACKCHUNK sc;
+		DEFAULT_STACKCHUNK sc , scSizeKey;
 		Slice sizeKey; 
 
 		INT64 llCount = 0;
-		ZCount_EncodeKey(table,sizeKey);  
+		ZCount_EncodeKey(table,sizeKey , scSizeKey);  
 		ZCount_Initial(db , sizeKey , llCount);
 
 		oper.GetOperateReturns().GetStream() << llCount;
@@ -517,11 +523,11 @@ namespace GameDB
 
 	void SortedSet::ZList(Database &db,Operate & oper)
 	{
-		DEFAULT_STACKCHUNK sc , sc_core , sc_coreR;
+		DEFAULT_STACKCHUNK sc , sc_core , sc_coreR , scSizeKey;
 		Slice encodedKey , scoreKey,scoreKeyR , sizeKey; 
 		std::string minkey("\0");
 		 
-		ZCount_EncodeKey(minkey,sizeKey);  
+		ZCount_EncodeKey(minkey,sizeKey , scSizeKey);  
 
 		INT32 nCount = 0;
 		LibCore::CStream cs;
@@ -546,7 +552,8 @@ namespace GameDB
 		}
 		delete iter;
 
-		oper.GetOperateReturns().GetStream() << nCount << cs;
+		oper.GetOperateReturns().GetStream() << nCount;
+		oper.GetOperateReturns().GetStream().Pushback(cs.Begin() , cs.GetDataLen());
 		oper.SetErrorCode(ERR_SUCCESS);
 	}
 

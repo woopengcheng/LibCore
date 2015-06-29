@@ -13,7 +13,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHSetIncrFloat_RpcServer(std_st
 	GameDB::Database * pDB = this->GetDataBase(); 
 
 	GameDB::Operate oper;
-	GameDB::HashTable::HSetIncr(*pDB , oper , table , key , value);
+	GameDB::HashTable::HSetIncrFloat(*pDB , oper , table , key , value);
 	if (oper.IsSuccess())
 	{
 		oper.GetOperateReturns().GetStream() >> res;

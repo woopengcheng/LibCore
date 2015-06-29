@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHDrop_RpcServer(std_string tab
 	GameDB::HashTable::HDrop(*pDB , oper , table);
 	if (oper.IsSuccess())
 	{
-		res = 0;
+		oper.GetOperateReturns().GetStream() >> res;
 		gOtherStream("delete table:" << table  << "success.");
 	}
 	 

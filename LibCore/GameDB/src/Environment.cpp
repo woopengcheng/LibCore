@@ -149,7 +149,7 @@ namespace GameDB
 	BOOL Environment::RemoveDatabase(const std::string & strName)
 	{
 		Database * pDatabase = GetDatabase(strName);
-		if (pDatabase)
+		if (!pDatabase)
 		{
 			return FALSE;
 		}

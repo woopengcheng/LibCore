@@ -13,7 +13,7 @@ namespace GameDB
 		static void EncodeKey(const Slice& table,const Slice& key,Slice& outEncodedKey , DEFAULT_STACKCHUNK & sChunk);
 		static bool DecodeKey(const Slice& encodedName,const Slice& table,Slice& key);
 		  
-		static void HCount_EncodeKey(const Slice& key, Slice & outKey);
+		static void HCount_EncodeKey(const Slice& key, Slice & outKey, DEFAULT_STACKCHUNK & stackChunk);
 		static bool HCount_DecodeKey(const Slice& dbFullKey,Slice& hKey);
 		static void HCount_Initial(Database &db,const Slice & countKey,INT64 & llOldCount);
 		static bool HCount_IncrIfNonExists(Database &db,const Slice& dbKey,INT64& size);

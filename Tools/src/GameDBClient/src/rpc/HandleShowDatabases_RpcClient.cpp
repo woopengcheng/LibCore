@@ -2,8 +2,7 @@
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::HandleShowDatabases_RpcClient(LibCore_Chunk res/* = LibCore::Chunk()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
 {
-	LibCore::CStream cs;
-	cs << res;
+	LibCore::CStream cs((const char*)res.GetBuf() , res.GetDataLen());
 
 	UINT32 unCount = 0;
 	cs >> unCount;

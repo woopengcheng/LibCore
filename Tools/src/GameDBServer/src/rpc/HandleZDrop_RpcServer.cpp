@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleZDrop_RpcServer(std_string tab
 	GameDB::SortedSet::ZDrop(*pDB , oper , table );
 	if (oper.IsSuccess())
 	{ 
-		res = 0;
+		oper.GetOperateReturns().GetStream() >> res;
 		gDebugStream("HDel: table:" << table  << "success.");
 	}
 

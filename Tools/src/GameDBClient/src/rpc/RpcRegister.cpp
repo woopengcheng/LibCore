@@ -17,8 +17,8 @@ namespace Client
 	static UINT16 g_rpcDefaultParam_UINT16 = 0;
 	static INT32 g_rpcDefaultParam_INT32 = 0;
 	static UINT32 g_rpcDefaultParam_UINT32 = 0;
-	static INT64 g_rpcDefaultParam_INT64 = 0;
 	static UINT64 g_rpcDefaultParam_UINT64 = 0;
+	static INT64 g_rpcDefaultParam_INT64 = 0;
 	static float g_rpcDefaultParam_float = 0.0f;
 	static double g_rpcDefaultParam_double = 0.0f;
 	static std_string g_rpcDefaultParam_std_string = std::string();
@@ -400,6 +400,18 @@ namespace Client
 			objReturnParams.Clear();
 			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZDrop_RpcTimeout , &Msg::GlobalRpc::HandleZDrop_RpcTimeout); 
 			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZDrop_RpcClient , &Msg::GlobalRpc::HandleZDrop_RpcClient); 
+		}
+
+		//5 HandleZCount generate default deliver and return check param here
+		{
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT64);
+			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleZCount", objDeliverParams);
+			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZCount", objReturnParams);
+			objDeliverParams.Clear();
+			objReturnParams.Clear();
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZCount_RpcTimeout , &Msg::GlobalRpc::HandleZCount_RpcTimeout); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZCount_RpcClient , &Msg::GlobalRpc::HandleZCount_RpcClient); 
 		}
 
 		//5 HandleZList generate default deliver and return check param here

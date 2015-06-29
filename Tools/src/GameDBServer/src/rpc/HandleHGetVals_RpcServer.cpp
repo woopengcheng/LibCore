@@ -13,7 +13,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHGetVals_RpcServer(std_string 
 	GameDB::Database * pDB = this->GetDataBase(); 
 
 	GameDB::Operate oper;
-	GameDB::HashTable::HGetKeyVals(*pDB , oper , table);
+	GameDB::HashTable::HGetVals(*pDB , oper , table);
 	if (oper.IsSuccess())
 	{
 		gDebugStream("HGetKeys table:" << table << "success."); 
