@@ -22,7 +22,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHSet_RpcServer( std_string tab
 	{
 // 		std::vector<Msg::Object> vecTargets2;
 // 		vecTargets2.push_back(Msg::Object(1));
-// 		local_call_SyncDataToSlave("tcp://127.0.0.1:9001" , GameDB::g_szSystemDatabase , oper.GetOperateRecord().GetData() , vecTargets2 , Msg::Object(1));
+// 		rpc_SyncDataToSlave("tcp://127.0.0.1:9001" , GameDB::g_szSystemDatabase , oper.GetOperateRecord().GetData() , vecTargets2 , Msg::Object(1));
 
 		res = 0;
 		gDebugStream("table:" << table << "key:" << key << "value:" << value << "success."); 

@@ -98,7 +98,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	std::vector<Msg::Object> vecTargets;
 	vecTargets.push_back(Msg::Object(1));
-	Client::local_call_HandleUserAuth("tcp://127.0.0.1:8001" , strName , strPwd , vecTargets , Msg::Object(1) , 0 , Msg::SYNC_TYPE_NONSYNC);
+	Client::rpc_HandleUserAuth("tcp://127.0.0.1:8001" , strName , strPwd , vecTargets , Msg::Object(1) , 0 , Msg::SYNC_TYPE_NONSYNC);
 
 	int nargc = 0;
 	char pargv[10][256];
@@ -128,7 +128,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			 
 			clientComands.Execute(&Client::DBClient::GetInstance() , nargc , parg);
 		}
-// 		if( 0 < Client::local_call_HandleHSet("tcp://127.0.0.1:8001" , 1 , 2 , targets , Msg::Object(0) , 1))
+// 		if( 0 < Client::rpc_HandleHSet("tcp://127.0.0.1:8001" , 1 , 2 , targets , Msg::Object(0) , 1))
 // 		{ 
 // 		}   
 	}

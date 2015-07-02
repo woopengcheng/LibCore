@@ -940,7 +940,7 @@ def GenerateRpcCallFuncs():
 			if serverName.serverName == rpc.client:		
 				strParams = GetParamsExcludeDefault(rpc.call.params) 
 				syncType = GetSyncTypeInString(rpc.syncType)
-				fileRpc.write(oneTab + "static INT32  local_call_" + rpc.name + "(const char * pSessionName , " + strParams + "std::vector<Msg::Object> vecTargets , Msg::Object objSrc , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
+				fileRpc.write(oneTab + "static INT32  rpc_" + rpc.name + "(const char * pSessionName , " + strParams + "std::vector<Msg::Object> vecTargets , Msg::Object objSrc , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
 				fileRpc.write(oneTab + "{\n")
 				
 				strParams = GetParamsExcludeDefaultAndType(rpc.call.params) 

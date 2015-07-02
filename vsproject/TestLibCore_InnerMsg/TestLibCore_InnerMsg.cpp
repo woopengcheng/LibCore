@@ -23,9 +23,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	  
 	std::vector<Msg::Object> targets;  //5 即使添加对象也是无效的.
 	targets.push_back(Msg::Object(1)); 
-	Client::local_call_Test('a' , 1 , 2 , 3 , 4 , "HelloWorld." , LibCore::Chunk("Foobar" , sizeof("Foobar")) , targets , Msg::Object(1) , 1); 
+	Client::rpc_Test('a' , 1 , 2 , 3 , 4 , "HelloWorld." , LibCore::Chunk("Foobar" , sizeof("Foobar")) , targets , Msg::Object(1) , 1); 
 
-	Client::local_call_WorldTest('a' , 1 , 2 , 3 , 4 , "HelloWorld." , LibCore::Chunk("Foobar" , sizeof("Foobar")) , targets , Msg::Object(1) , 1); 
+	Client::rpc_WorldTest('a' , 1 , 2 , 3 , 4 , "HelloWorld." , LibCore::Chunk("Foobar" , sizeof("Foobar")) , targets , Msg::Object(1) , 1); 
 	while (1)
 	{
 		Client::MsgInstance::GetInstance().Update();

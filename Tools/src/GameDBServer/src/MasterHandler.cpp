@@ -17,7 +17,7 @@ namespace Server
 		std::vector<Msg::Object> vecTargets;
 		vecTargets.push_back(Msg::Object(1));
 
-		local_call_MasterStartSync("tcp://127.0.0.1:9002" , "" , nType , nType , LibCore::Chunk() ,  vecTargets , GetObjectID());
+		rpc_MasterStartSync("tcp://127.0.0.1:9002" , "" , nType , nType , LibCore::Chunk() ,  vecTargets , GetObjectID());
 
 		for(size_t i = 0; i < files.size(); ++i)
 		{
@@ -29,7 +29,7 @@ namespace Server
 		}
 
 		nType = 2;
-		local_call_MasterStartSync("tcp://127.0.0.1:9002" , "" , nType , nType , LibCore::Chunk() ,  vecTargets , GetObjectID());
+		rpc_MasterStartSync("tcp://127.0.0.1:9002" , "" , nType , nType , LibCore::Chunk() ,  vecTargets , GetObjectID());
 	}
 
 	bool MasterHandler::SendFile(const std::string & strFilePath , const std::string & strFileName)
@@ -57,7 +57,7 @@ namespace Server
 			vecTargets.push_back(Msg::Object(1));
 
 			int nType = 0; 
-			local_call_MasterStartSync("tcp://127.0.0.1:9002" , strFileName , filesize , nType , LibCore::Chunk(tmpbuf , size) ,  vecTargets , GetObjectID());
+			rpc_MasterStartSync("tcp://127.0.0.1:9002" , strFileName , filesize , nType , LibCore::Chunk(tmpbuf , size) ,  vecTargets , GetObjectID());
 			
 			gDebugStream("send file:" << strFileName << "send size: " << size );
 		}

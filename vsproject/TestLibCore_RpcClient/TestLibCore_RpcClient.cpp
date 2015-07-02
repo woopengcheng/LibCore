@@ -25,7 +25,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		Client::RpcInstance::GetInstance().Update(); 
 
- 		if( 0 < Client::local_call_TestObject("tcp://127.0.0.1:8001" , 1 , 2 , 3,4,5,6,7 ,targets , Msg::Object(0) , 1))
+ 		if( 0 < Client::rpc_TestObject("tcp://127.0.0.1:8001" , 1 , 2 , 3,4,5,6,7 ,targets , Msg::Object(0) , 1))
 		{
 			n--;
 		} 

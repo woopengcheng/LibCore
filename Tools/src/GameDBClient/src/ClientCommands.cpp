@@ -124,7 +124,7 @@ namespace Client
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));  
 		
-		Client::local_call_HandleShowDatabases("tcp://127.0.0.1:8001" ,  targets , Msg::Object(0) , 1);
+		Client::rpc_HandleShowDatabases("tcp://127.0.0.1:8001" ,  targets , Msg::Object(0) , 1);
 	}
 
 	void ClientCommands::pfnHandleSelectDatabase(DBClient * pClient , INT32 argc , char ** argv)
@@ -134,7 +134,7 @@ namespace Client
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));  
 		 
-		Client::local_call_HandleSelectDatabase("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleSelectDatabase("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1);
 	}
 
 	void ClientCommands::pfnHandleCreateDatabase(DBClient * pClient , INT32 argc , char ** argv)
@@ -145,7 +145,7 @@ namespace Client
 		targets.push_back(Msg::Object(1));  
 
 
-		Client::local_call_HandleCreateDatabase("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleCreateDatabase("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1);
 	}
 
 	void ClientCommands::pfnHandleDeleteDatabase(DBClient * pClient , INT32 argc , char ** argv)
@@ -155,7 +155,7 @@ namespace Client
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
 
-		Client::local_call_HandleDeleteDatabase("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleDeleteDatabase("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1);
 	} 
 
 	void ClientCommands::pfnHandleCreateUser(DBClient * pClient , INT32 argc , char ** argv)
@@ -166,7 +166,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleCreateUser("tcp://127.0.0.1:8001" , argv[1] , argv[2] , isSys , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleCreateUser("tcp://127.0.0.1:8001" , argv[1] , argv[2] , isSys , targets , Msg::Object(0) , 1);
 
 		gDebugStream( "pfnHandleCreateUser"); 
 	}
@@ -178,7 +178,7 @@ namespace Client
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));  
 		 
-		Client::local_call_HandleDeleteUser("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleDeleteUser("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1);
 	}
 
 	void ClientCommands::pfnHandleModifyUser(DBClient * pClient , INT32 argc , char ** argv)
@@ -189,7 +189,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleCreateUser("tcp://127.0.0.1:8001" , argv[1] , argv[2] , isSys , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleCreateUser("tcp://127.0.0.1:8001" , argv[1] , argv[2] , isSys , targets , Msg::Object(0) , 1);
 	} 
 
 	void ClientCommands::pfnHandleHSet(DBClient * pClient , INT32 argc , char ** argv)
@@ -198,7 +198,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleHSet("tcp://127.0.0.1:8001" , argv[1] , argv[2] , argv[3] , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleHSet("tcp://127.0.0.1:8001" , argv[1] , argv[2] , argv[3] , targets , Msg::Object(0) , 1);
 
 		gDebugStream( "pfnHandleHSet");
 	}
@@ -209,7 +209,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleHGet("tcp://127.0.0.1:8001" , argv[1] , argv[2]  , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleHGet("tcp://127.0.0.1:8001" , argv[1] , argv[2]  , targets , Msg::Object(0) , 1);
 		
 		gDebugStream( "pfnHandleHGet");
 	}
@@ -221,7 +221,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleHSetNX("tcp://127.0.0.1:8001" , argv[1] , argv[2] , argv[3] , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleHSetNX("tcp://127.0.0.1:8001" , argv[1] , argv[2] , argv[3] , targets , Msg::Object(0) , 1);
 		
 	}
 
@@ -231,7 +231,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleHSetOW("tcp://127.0.0.1:8001" , argv[1] , argv[2] , argv[3] , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleHSetOW("tcp://127.0.0.1:8001" , argv[1] , argv[2] , argv[3] , targets , Msg::Object(0) , 1);
 
 	}
 
@@ -241,7 +241,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleHDel("tcp://127.0.0.1:8001" , argv[1] , argv[2] , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleHDel("tcp://127.0.0.1:8001" , argv[1] , argv[2] , targets , Msg::Object(0) , 1);
 
 	}
 
@@ -268,7 +268,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleHSetIncr("tcp://127.0.0.1:8001" , argv[1] , argv[2] ,llCount , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleHSetIncr("tcp://127.0.0.1:8001" , argv[1] , argv[2] ,llCount , targets , Msg::Object(0) , 1);
 
 	}
 
@@ -280,7 +280,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleHSetIncrFloat("tcp://127.0.0.1:8001" , argv[1] , argv[2] ,llCount , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleHSetIncrFloat("tcp://127.0.0.1:8001" , argv[1] , argv[2] ,llCount , targets , Msg::Object(0) , 1);
 
 	}
 
@@ -290,7 +290,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleHGetKeys("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleHGetKeys("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1);
 
 	}
 
@@ -300,7 +300,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleHGetVals("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleHGetVals("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1);
 
 	}
 
@@ -310,7 +310,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleHGetKeyVals("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1); 
+		Client::rpc_HandleHGetKeyVals("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1); 
 	}
 
 	void ClientCommands::pfnHandleHScan(DBClient * pClient , INT32 argc , char ** argv)
@@ -320,7 +320,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleHScan("tcp://127.0.0.1:8001" , argv[1] , argv[2] , argv[3] , llLimit , targets , Msg::Object(0) , 1); 
+		Client::rpc_HandleHScan("tcp://127.0.0.1:8001" , argv[1] , argv[2] , argv[3] , llLimit , targets , Msg::Object(0) , 1); 
 
 	}
 
@@ -330,7 +330,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleHCount("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1); 
+		Client::rpc_HandleHCount("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1); 
 
 	}
 
@@ -340,7 +340,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleHDrop("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1); 
+		Client::rpc_HandleHDrop("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1); 
 
 	}
 
@@ -348,7 +348,7 @@ namespace Client
 	{
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleHList("tcp://127.0.0.1:8001" , targets , Msg::Object(0) , 1); 
+		Client::rpc_HandleHList("tcp://127.0.0.1:8001" , targets , Msg::Object(0) , 1); 
 
 	}
 
@@ -358,7 +358,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleDump("tcp://127.0.0.1:8001" , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleDump("tcp://127.0.0.1:8001" , targets , Msg::Object(0) , 1);
 
 		gDebugStream( "pfnHandleDump"); 
 	}
@@ -370,7 +370,7 @@ namespace Client
 		INT64 llScore = LibCore::atoi(argv[3]);
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleZSet("tcp://127.0.0.1:8001" , argv[1] , argv[2] , llScore , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleZSet("tcp://127.0.0.1:8001" , argv[1] , argv[2] , llScore , targets , Msg::Object(0) , 1);
 
 		gDebugStream( "pfnHandleZSet");
 
@@ -382,7 +382,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleZGet("tcp://127.0.0.1:8001" , argv[1] , argv[2]  , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleZGet("tcp://127.0.0.1:8001" , argv[1] , argv[2]  , targets , Msg::Object(0) , 1);
 
 		gDebugStream( "pfnHandleZGet");
 
@@ -405,7 +405,7 @@ namespace Client
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1)); 
 
-		Client::local_call_HandleZTop("tcp://127.0.0.1:8001" , argv[1] , llStart  , llEnd , llLimit , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleZTop("tcp://127.0.0.1:8001" , argv[1] , llStart  , llEnd , llLimit , targets , Msg::Object(0) , 1);
 		
 		gDebugStream( "pfnHandleZTop");
 
@@ -430,7 +430,7 @@ namespace Client
 			llLimit = LibCore::atoi(argv[2]);
 		} 
 		
-		Client::local_call_HandleZRTop("tcp://127.0.0.1:8001" , argv[1] , llStart , llEnd , llLimit, targets , Msg::Object(0) , 1);
+		Client::rpc_HandleZRTop("tcp://127.0.0.1:8001" , argv[1] , llStart , llEnd , llLimit, targets , Msg::Object(0) , 1);
 		 
 		gDebugStream("pfnHandleZRTop"); 
 	}
@@ -487,7 +487,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleZDel("tcp://127.0.0.1:8001" , argv[1] , argv[2] , targets , Msg::Object(0) , 1); 
+		Client::rpc_HandleZDel("tcp://127.0.0.1:8001" , argv[1] , argv[2] , targets , Msg::Object(0) , 1); 
 
 	}
 
@@ -497,7 +497,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleZDrop("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1); 
+		Client::rpc_HandleZDrop("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1); 
 	}
 
 	void ClientCommands::pfnHandleZCount(DBClient * pClient , INT32 argc , char ** argv)
@@ -506,7 +506,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleZCount("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1); 
+		Client::rpc_HandleZCount("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1); 
 
 	}
 
@@ -516,7 +516,7 @@ namespace Client
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::local_call_HandleZList("tcp://127.0.0.1:8001" , targets , Msg::Object(0) , 1);  
+		Client::rpc_HandleZList("tcp://127.0.0.1:8001" , targets , Msg::Object(0) , 1);  
 	}
 
 }

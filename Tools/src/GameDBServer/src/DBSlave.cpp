@@ -48,21 +48,21 @@ namespace Server
 	{
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Server::local_call_SlaveRequestSync("tcp://127.0.0.1:9001", strDBDir , strDBName , targets , Msg::Object(1) , 1);
+		Server::rpc_SlaveRequestSync("tcp://127.0.0.1:9001", strDBDir , strDBName , targets , Msg::Object(1) , 1);
 	}
 
 	void DBSlave::StartAuth(std::string		strName , std::string		strPwd)
 	{ 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Server::local_call_SlaveStartAuth("tcp://127.0.0.1:9001", strName , strPwd , targets , Msg::Object(1) , 1);
+		Server::rpc_SlaveStartAuth("tcp://127.0.0.1:9001", strName , strPwd , targets , Msg::Object(1) , 1);
 	}
 
 	void DBSlave::SelectDB(	std::string		strDBName )
 	{
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Server::local_call_SlaveSelectDB("tcp://127.0.0.1:9001", strDBName , targets , Msg::Object(1) , 1);
+		Server::rpc_SlaveSelectDB("tcp://127.0.0.1:9001", strDBName , targets , Msg::Object(1) , 1);
 
 	}
 
