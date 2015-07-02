@@ -91,6 +91,8 @@ class Param(ParentPoint):
 		self.name = None
 		self.type = None
 		self.default = None
+		self.refer = None
+		self.unrefer = None
 
 ################################函数解析XML内容#####################################
 
@@ -273,7 +275,31 @@ def handleParams(params , xmlParam):
 		if attr == "default":  
 			param.default = xmlParam.attrib[attr] 
 			print("handleParams:" + attr , " , " , param.default)  
+		if attr == "refer":  
+			param.refer = "&"
+			print("handleParams:" + attr , " , " , param.refer)  
+		if attr == "unrefer":  
+			param.unrefer = "!&"
+			print("handleParams:" + attr , " , " , param.refer)  
 
+	if not IsInDefaultParams(param):
+		print("param type error , not in the defaultParams" , param.type , param.name)
+		assert(0)
+		
+	if IsNotInTheSameParam(param, params):
+		print("params has one same param" , param.type , param.name)
+		assert(0)
+	
+	if param.type == "SINT8" or param.type == "UINT8" or\
+		param.type == "INT16" or param.type == "UINT16" or\
+		param.type == "INT32" or param.type == "UINT32" or\
+		param.type == "INT64" or param.type == "INT64" or\
+		param.type == "double" or param.type == "float" or \
+		param.unrefer == "!&":
+		
+		param.refer = None
+		print("handleParams:" + attr , " , " , param.refer)  
+	
 	params[param.name] = param
 '''
 
@@ -1002,6 +1028,9 @@ def GetParams(params):
 		nCount += 1
 
 		strParams = strParams + param.type
+		if param.refer == "&":
+			strParams = strParams + " "
+			strParams = strParams + "&"
 		strParams = strParams + " "
 		strParams = strParams + param.name
 		strParams = strParams + " = "
@@ -1018,7 +1047,20 @@ def GetParams(params):
 		strParams += ", "
 		
 	return strParams
+	
+def IsInDefaultParams(param):
+	for index , defaultParam in g_rpcMsgs.defaultParams.items():
+		if defaultParam.type == param.type:
+			return True
+	
+	return False
 
+def IsNotInTheSameParam(param , params):
+	for index , defaultParam in params.items():
+		if defaultParam.name == param.name:
+			return True
+	
+	return False
 def WriteDefaultParams(fileRpc):
 	for index , defaultParam in g_rpcMsgs.defaultParams.items():
 		fileRpc.write(oneTab + "static " + defaultParam.type + " g_rpcDefaultParam_" + defaultParam.type + " = " + defaultParam.value + ";\n")
@@ -1097,6 +1139,9 @@ def GetParamsExcludeDefault(params):
 		nCount += 1
 
 		strParams = strParams + param.type
+		if param.refer == "&":
+			strParams = strParams + " "
+			strParams = strParams + "&"
 		strParams = strParams + " "
 		strParams = strParams + param.name
 		strParams = strParams + "/* = "

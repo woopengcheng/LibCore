@@ -1,4 +1,5 @@
 #include "MsgLib/inc/RpcClientManager.h"
+#include "MsgLib/inc/RpcInterface.h"
 
 namespace Msg
 {

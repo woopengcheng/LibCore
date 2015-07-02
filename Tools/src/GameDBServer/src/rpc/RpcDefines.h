@@ -54,11 +54,15 @@ namespace Msg
 	Msg::ObjectMsgCall * SyncDataToSlave_RpcServerProxy(std_string dbname = std::string() , LibCore_Chunk value = LibCore::Chunk(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 	Msg::ObjectMsgCall * SyncDataToSlave_RpcTimeoutProxy(std_string dbname = std::string() , LibCore_Chunk value = LibCore::Chunk(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 	Msg::ObjectMsgCall * SyncDataToSlave_RpcClientProxy(INT32 res = 0, std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
+	Msg::ObjectMsgCall * testRefers_RpcServerProxy(std_string & dbname = std::string() , LibCore_Chunk value = LibCore::Chunk(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
+	Msg::ObjectMsgCall * testRefers_RpcTimeoutProxy(std_string & dbname = std::string() , LibCore_Chunk value = LibCore::Chunk(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
+	Msg::ObjectMsgCall * testRefers_RpcClientProxy(LibCore_Chunk & res = LibCore::Chunk(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 
 
 #define  RPC_DEFINE_SlaveHandler public:\
 	Msg::ObjectMsgCall * MasterStartSync_RpcServer(std_string filename = std::string() , INT32 filesize = 0 , INT32 sendtype = 0 , LibCore_Chunk value = LibCore::Chunk(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 	Msg::ObjectMsgCall * SyncDataToSlave_RpcServer(std_string dbname = std::string() , LibCore_Chunk value = LibCore::Chunk(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
+	Msg::ObjectMsgCall * testRefers_RpcServer(std_string & dbname = std::string() , LibCore_Chunk value = LibCore::Chunk(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 
 
 

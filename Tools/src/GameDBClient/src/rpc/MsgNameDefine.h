@@ -121,6 +121,9 @@ namespace Msg
 	//5 SyncDataToSlave declare here
 	RPC_DEFINE(SyncDataToSlave);
 
+	//5 testRefers declare here
+	RPC_DEFINE(testRefers);
+
 }
 
 #endif

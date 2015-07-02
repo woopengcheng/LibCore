@@ -299,8 +299,8 @@
     <ClInclude Include="..\..\LibCore\Marshal\CStream.h" />
     <ClInclude Include="..\..\LibCore\Marshal\Marshal.h" />
     <ClInclude Include="..\..\LibCore\Marshal\MashalTest.h" />
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\GenerateMsgParams.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\GenMsgHelper.h" />
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\GenMsgParams.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\ICallableObject.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\IMsgCallableObject.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\InnerMsg.h" />
@@ -310,6 +310,7 @@
     <ClInclude Include="..\..\LibCore\MsgLib\inc\MethodImpl.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgCommon.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgDispatcher.h" />
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgProxy.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgQueue.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgTimerNode.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\NetHandlerRpcListener.h" />

@@ -144,9 +144,6 @@
     <ClInclude Include="..\..\LibCore\LogLib\inc\LogInterface.h">
       <Filter>Log\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\GenerateMsgParams.h">
-      <Filter>MsgLib\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\MsgLib\inc\GenMsgHelper.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
@@ -527,6 +524,12 @@
     </ClInclude>
     <ClInclude Include="..\..\LibCore\Common\DeelxRegexp.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\GenMsgParams.h">
+      <Filter>MsgLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgProxy.h">
+      <Filter>MsgLib\inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

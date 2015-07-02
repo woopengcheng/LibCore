@@ -22,10 +22,10 @@ namespace Server
 	static UINT16 g_rpcDefaultParam_UINT16 = 0;
 	static INT32 g_rpcDefaultParam_INT32 = 0;
 	static UINT32 g_rpcDefaultParam_UINT32 = 0;
-	static UINT64 g_rpcDefaultParam_UINT64 = 0;
 	static INT64 g_rpcDefaultParam_INT64 = 0;
-	static float g_rpcDefaultParam_float = 0.0f;
+	static UINT64 g_rpcDefaultParam_UINT64 = 0;
 	static double g_rpcDefaultParam_double = 0.0f;
+	static float g_rpcDefaultParam_float = 0.0f;
 	static std_string g_rpcDefaultParam_std_string = std::string();
 	static LibCore_Chunk g_rpcDefaultParam_LibCore_Chunk = LibCore::Chunk();
 
@@ -463,6 +463,18 @@ namespace Server
 			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szSyncDataToSlave_RpcClient , &Msg::GlobalRpc::SyncDataToSlave_RpcClient); 
 		}
 
+		//5 testRefers generate default deliver and return check param here
+		{
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::g_pRpcCheckParams->InsertDeliverParams("testRefers", objDeliverParams);
+			Msg::g_pRpcCheckParams->InsertReturnParams("testRefers", objReturnParams);
+			objDeliverParams.Clear();
+			objReturnParams.Clear();
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_sztestRefers_RpcTimeout , &Msg::GlobalRpc::testRefers_RpcTimeout); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_sztestRefers_RpcClient , &Msg::GlobalRpc::testRefers_RpcClient); 
+		}
+
 	}
 
 	void DBMaster::OnRegisterRpcs( void )
@@ -876,6 +888,20 @@ namespace Server
 			m_pRpcServerManager->RegisterFunc<MasterHandler >(Msg::g_szSyncDataToSlave_RpcTimeoutProxy ,&MasterHandler::SyncDataToSlave_RpcTimeoutProxy); 
 		}
 
+		//5 testRefers generate default deliver and return check param here
+		{
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::g_pRpcCheckParams->InsertDeliverParams("testRefers", objDeliverParams);
+			Msg::g_pRpcCheckParams->InsertReturnParams("testRefers", objReturnParams);
+			objDeliverParams.Clear();
+			objReturnParams.Clear();
+			
+			m_pRpcServerManager->RegisterFunc<MasterHandler >(Msg::g_sztestRefers_RpcServerProxy , &MasterHandler::testRefers_RpcServerProxy); 
+			m_pRpcServerManager->RegisterFunc<MasterHandler >(Msg::g_sztestRefers_RpcClientProxy , &MasterHandler::testRefers_RpcClientProxy); 
+			m_pRpcServerManager->RegisterFunc<MasterHandler >(Msg::g_sztestRefers_RpcTimeoutProxy ,&MasterHandler::testRefers_RpcTimeoutProxy); 
+		}
+
 	}
 
 	void DBSlave::OnRegisterRpcs( void )
@@ -1280,6 +1306,17 @@ namespace Server
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
 			m_pRpcServerManager->RegisterFunc<SlaveHandler >(Msg::g_szSyncDataToSlave_RpcServer , &SlaveHandler::SyncDataToSlave_RpcServer); 
+		}
+
+		//5 testRefers generate default deliver and return check param here
+		{
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::g_pRpcCheckParams->InsertDeliverParams("testRefers", objDeliverParams);
+			Msg::g_pRpcCheckParams->InsertReturnParams("testRefers", objReturnParams);
+			objDeliverParams.Clear();
+			objReturnParams.Clear();
+			m_pRpcServerManager->RegisterFunc<SlaveHandler >(Msg::g_sztestRefers_RpcServer , &SlaveHandler::testRefers_RpcServer); 
 		}
 
 	}

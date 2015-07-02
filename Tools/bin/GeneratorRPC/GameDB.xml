@@ -515,6 +515,17 @@
 				<Param name="res" type="INT32" default="0"/> 
 			</Return>
 		</Rpc>
+		
+		<Rpc name="testRefers" include="SlaveHandler.h" class="SlaveHandler" proxyInclude="MasterHandler.h" proxyClass="MasterHandler" client="Server" proxy="Master" server="Slave" syncType="1" timeout="10">
+			<Call > 
+				<Param name="dbname" type="std_string" refer=""/>
+				<Param name="value" type="LibCore_Chunk"/> 
+			</Call>
+
+			<Return>  
+				<Param name="res" type="LibCore_Chunk" refer=""/> 
+			</Return>
+		</Rpc>
 	</Rpcs>
 	 
 </RpcMsgs>

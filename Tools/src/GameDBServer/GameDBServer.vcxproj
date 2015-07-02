@@ -155,6 +155,9 @@
     <ClCompile Include="src\rpc\SyncDataToSlave_RpcClient.cpp" />
     <ClCompile Include="src\rpc\SyncDataToSlave_RpcProxy.cpp" />
     <ClCompile Include="src\rpc\SyncDataToSlave_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\testRefers_RpcClient.cpp" />
+    <ClCompile Include="src\rpc\testRefers_RpcProxy.cpp" />
+    <ClCompile Include="src\rpc\testRefers_RpcServer.cpp" />
     <ClCompile Include="src\SlaveHandler.cpp" />
   </ItemGroup>
   <ItemGroup>

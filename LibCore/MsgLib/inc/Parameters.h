@@ -5,6 +5,8 @@
 
 namespace Msg
 { 
+	class GenMsgHelper;
+
 	class DLL_EXPORT Parameters : public LibCore::Marshal
 	{
 	public: 
@@ -53,6 +55,60 @@ namespace Msg
 	public: 
 		virtual LibCore::CStream & marshal(LibCore::CStream & cs);
 		virtual LibCore::CStream & unMarshal(LibCore::CStream & cs);
+
+	public:
+// 		void GenMsgParams()
+// 		{
+// 			GenMsgHelper::GenMsgParams(*this);
+// 		} 
+// 
+		template<typename P1>
+		void GenMsgParams(P1 &p1)
+		{
+			GenMsgHelper::GenMsgParams(*this , p1);
+		}
+
+		template<typename P1 , typename P2>
+		void GenMsgParams(P1 &p1 , P2 &p2)
+		{
+			GenMsgHelper::GenMsgParams(*this , p1 , p2);
+		}
+
+		template<typename P1 , typename P2 , typename P3>
+		void GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3)
+		{
+			GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3);
+		}
+
+		template<typename P1 , typename P2 , typename P3 , typename P4>
+		void GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4)
+		{
+			GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4);
+		} 
+
+		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5>
+		void GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5)
+		{
+			GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4 , p5 );
+		} 
+
+		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6>
+		void GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6)
+		{
+			GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4 , p5 , p6 );
+		}
+
+		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7>
+		void GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7)
+		{
+			GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4 , p5 , p6 , p7);
+		}
+
+		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8>
+		void GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7 , P8 &p8)
+		{
+			GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4 , p5 , p6 , p7 , p8);
+		}
 
 	public:
 		UINT32     m_unParamCount;
