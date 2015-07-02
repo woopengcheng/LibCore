@@ -15,6 +15,13 @@ namespace Server
 		GEN_RPC_CALL_2((&(Server::DBServer::GetInstance())) , pSessionName , Msg::g_szSyncDataToSlave_RpcCall , dbname , value, vecTargets , objSrc , usPriority , Server::DBServer::GetInstance().GetServerName() , objSyncType , 10);
 	}
 
+	static INT32  rpc_SyncDataToSlave(const char * pSessionName , std_string dbname/* = std::string()*/ , LibCore_Chunk value/* = LibCore::Chunk()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		std::vector<Msg::Object> objTargets;
+		objTargets.push_back(objTarget);
+		rpc_SyncDataToSlave();
+	}
+
 	static INT32  rpc_testRefers(const char * pSessionName , std_string & dbname/* = std::string()*/ , LibCore_Chunk value/* = LibCore::Chunk()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
 	{
 		GEN_RPC_CALL_2((&(Server::DBServer::GetInstance())) , pSessionName , Msg::g_sztestRefers_RpcCall , dbname , value, vecTargets , objSrc , usPriority , Server::DBServer::GetInstance().GetServerName() , objSyncType , 10);
