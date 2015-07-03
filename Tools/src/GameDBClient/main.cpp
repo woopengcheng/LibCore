@@ -73,6 +73,22 @@ void ParseLine( char * line , INT32 & argc , char ** argv)
 	argc = result;
 } 
 
+void PackParams( std::vector<std::string> & vecParams , INT32 argc , char ** argv)
+{ 
+	if (argc <= 0)
+	{
+		return;
+	}
+	else
+	{
+		int i = 0;
+		while(i < argc)
+		{
+			vecParams.push_back(argv[i]);
+			++i;
+		}
+	}
+} 
 int _tmain(int argc, _TCHAR* argv[])
 {  
 	LibCore::Init("DBClient"); 
@@ -100,6 +116,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	vecTargets.push_back(Msg::Object(1));
 	Client::rpc_HandleUserAuth("tcp://127.0.0.1:8001" , strName , strPwd , vecTargets , Msg::Object(1) , 0 , Msg::SYNC_TYPE_NONSYNC);
 
+	std::vector<std::string> vecParams;
 	int nargc = 0;
 	char pargv[10][256];
 	char **parg = (char **)pargv;
@@ -124,9 +141,11 @@ int _tmain(int argc, _TCHAR* argv[])
 				return -1;
 			}
 
+			vecParams.clear();
 			ParseLine(pLine , nargc , parg);
+			PackParams(vecParams , nargc , parg);
 			 
-			clientComands.Execute(&Client::DBClient::GetInstance() , nargc , parg);
+			clientComands.Execute(&Client::DBClient::GetInstance() , vecParams);
 		}
 // 		if( 0 < Client::rpc_HandleHSet("tcp://127.0.0.1:8001" , 1 , 2 , targets , Msg::Object(0) , 1))
 // 		{ 

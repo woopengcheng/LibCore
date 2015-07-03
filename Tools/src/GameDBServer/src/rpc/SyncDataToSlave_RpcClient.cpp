@@ -8,7 +8,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::SyncDataToSlave_RpcClient(INT32 res/* = 0*/
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::SyncDataToSlave_RpcTimeout(std_string dbname/* = std::string()*/ , LibCore_Chunk value/* = LibCore::Chunk()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::SyncDataToSlave_RpcTimeout(std_string &dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
 {
 
 

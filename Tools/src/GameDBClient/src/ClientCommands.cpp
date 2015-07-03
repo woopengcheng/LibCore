@@ -7,8 +7,11 @@
 
 namespace Client
 { 
-#define CHECK_ARGS_GREAT_COUNT(argc , count) if( argc < count){ std::cout << "need " << count << " args." << std::endl; return ;}
-#define CHECK_ARGS_EQUAL_COUNT(argc , count) if( argc != count){ std::cout << "need least " << count << " args." << std::endl; return ;}
+// #define CHECK_ARGS_GREAT_COUNT(argc , count) if( argc < count){ std::cout << "need " << count << " args." << std::endl; return ;}
+// #define CHECK_ARGS_EQUAL_COUNT(count) if( argc != count){ std::cout << "need least " << count << " args." << std::endl; return ;}
+
+#define CHECK_ARGS_GREAT_COUNT(count) if( objParams.size() < count){ std::cout << "need " << count << " args." << std::endl; return ;}
+#define CHECK_ARGS_EQUAL_COUNT(count) if( objParams.size() != count){ std::cout << "need least " << count << " args." << std::endl; return ;}
 
 	ClientCommands::ClientCommands()
 	{
@@ -65,18 +68,18 @@ namespace Client
 
 	} 
 
-	void ClientCommands::Execute(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::Execute(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_GREAT_COUNT(argc , 1);
+		CHECK_ARGS_GREAT_COUNT(1);
 
-		CollectionClientCommandsT::iterator iter = m_mapCommands.find(argv[0]);
+		CollectionClientCommandsT::iterator iter = m_mapCommands.find(objParams[0]);
 		if (iter != m_mapCommands.end())
 		{
-			iter->second(pClient , argc , argv);
+			iter->second(pClient , objParams);
 		}
 	}
 
-	void ClientCommands::pfnHandleHelp(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleHelp(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
 		printf("command list: \n"
 			"\t""showdatabases"                      "\n" 
@@ -117,234 +120,232 @@ namespace Client
 			);
 	}
 
-	void ClientCommands::pfnHandleShowDatabases(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleShowDatabases(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 1);
+		CHECK_ARGS_EQUAL_COUNT(1);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));  
-		
-		Client::rpc_HandleShowDatabases("tcp://127.0.0.1:8001" ,  targets , Msg::Object(0) , 1);
+		Client::rpc_HandleShowDatabases("tcp://127.0.0.1:8001" , targets , Msg::Object(0) , 1);
 	}
 
-	void ClientCommands::pfnHandleSelectDatabase(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleSelectDatabase(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 2);
+		CHECK_ARGS_EQUAL_COUNT(2);  
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));  
-		 
-		Client::rpc_HandleSelectDatabase("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleSelectDatabase("tcp://127.0.0.1:8001" , objParams[1] , targets , Msg::Object(0) , 1);
 	}
 
-	void ClientCommands::pfnHandleCreateDatabase(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleCreateDatabase(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 2);
+		CHECK_ARGS_EQUAL_COUNT(2);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));  
 
 
-		Client::rpc_HandleCreateDatabase("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleCreateDatabase("tcp://127.0.0.1:8001" , objParams[1] , targets , Msg::Object(0) , 1);
 	}
 
-	void ClientCommands::pfnHandleDeleteDatabase(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleDeleteDatabase(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 2);
+		CHECK_ARGS_EQUAL_COUNT(2);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
 
-		Client::rpc_HandleDeleteDatabase("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleDeleteDatabase("tcp://127.0.0.1:8001" , objParams[1] , targets , Msg::Object(0) , 1);
 	} 
 
-	void ClientCommands::pfnHandleCreateUser(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleCreateUser(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 4);
+		CHECK_ARGS_EQUAL_COUNT(4);
 
-		SINT8 isSys = atoi(argv[3]);
+		SINT8 isSys = LibCore::atoi(objParams[3]);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleCreateUser("tcp://127.0.0.1:8001" , argv[1] , argv[2] , isSys , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleCreateUser("tcp://127.0.0.1:8001" , objParams[1] , objParams[2] , isSys , targets , Msg::Object(0) , 1);
 
 		gDebugStream( "pfnHandleCreateUser"); 
 	}
 
-	void ClientCommands::pfnHandleDeleteUser(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleDeleteUser(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 2);
+		CHECK_ARGS_EQUAL_COUNT(2);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));  
 		 
-		Client::rpc_HandleDeleteUser("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleDeleteUser("tcp://127.0.0.1:8001" , objParams[1] , targets , Msg::Object(0) , 1);
 	}
 
-	void ClientCommands::pfnHandleModifyUser(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleModifyUser(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{ 
-		CHECK_ARGS_EQUAL_COUNT(argc , 4);
+		CHECK_ARGS_EQUAL_COUNT(4);
 
-		SINT8 isSys = LibCore::atoi(argv[3]);
+		SINT8 isSys = LibCore::atoi(objParams[3]);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleCreateUser("tcp://127.0.0.1:8001" , argv[1] , argv[2] , isSys , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleCreateUser("tcp://127.0.0.1:8001" , objParams[1] , objParams[2] , isSys , targets , Msg::Object(0) , 1);
 	} 
 
-	void ClientCommands::pfnHandleHSet(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleHSet(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 4);
+		CHECK_ARGS_EQUAL_COUNT(4);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHSet("tcp://127.0.0.1:8001" , argv[1] , argv[2] , argv[3] , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleHSet("tcp://127.0.0.1:8001" , objParams[1] , objParams[2] , objParams[3] , targets , Msg::Object(0) , 1);
 
 		gDebugStream( "pfnHandleHSet");
 	}
 
-	void ClientCommands::pfnHandleHGet(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleHGet(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 3);
+		CHECK_ARGS_EQUAL_COUNT(3);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHGet("tcp://127.0.0.1:8001" , argv[1] , argv[2]  , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleHGet("tcp://127.0.0.1:8001" , objParams[1] , objParams[2]  , targets , Msg::Object(0) , 1);
 		
 		gDebugStream( "pfnHandleHGet");
 	}
 
 
-	void ClientCommands::pfnHandleHSetNX(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleHSetNX(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 4);
+		CHECK_ARGS_EQUAL_COUNT(4);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHSetNX("tcp://127.0.0.1:8001" , argv[1] , argv[2] , argv[3] , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleHSetNX("tcp://127.0.0.1:8001" , objParams[1] , objParams[2] , objParams[3] , targets , Msg::Object(0) , 1);
 		
 	}
 
-	void ClientCommands::pfnHandleHSetOW(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleHSetOW(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 4);
+		CHECK_ARGS_EQUAL_COUNT(4);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHSetOW("tcp://127.0.0.1:8001" , argv[1] , argv[2] , argv[3] , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleHSetOW("tcp://127.0.0.1:8001" , objParams[1] , objParams[2] , objParams[3] , targets , Msg::Object(0) , 1);
 
 	}
 
-	void ClientCommands::pfnHandleHDel(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleHDel(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 3);
+		CHECK_ARGS_EQUAL_COUNT(3);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHDel("tcp://127.0.0.1:8001" , argv[1] , argv[2] , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleHDel("tcp://127.0.0.1:8001" , objParams[1] , objParams[2] , targets , Msg::Object(0) , 1);
 
 	}
 
-	void ClientCommands::pfnHandleHMultiSet(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleHMultiSet(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
 
 	}
 
-	void ClientCommands::pfnHandleHMultiGet(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleHMultiGet(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
 
 	}
 
-	void ClientCommands::pfnHandleHMultiDel(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleHMultiDel(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
 
 	}
 
-	void ClientCommands::pfnHandleHSetIncr(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleHSetIncr(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 4);
+		CHECK_ARGS_EQUAL_COUNT(4);
 
-		INT64 llCount = LibCore::atoi(argv[3]);
+		INT64 llCount = LibCore::atoi(objParams[3]);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHSetIncr("tcp://127.0.0.1:8001" , argv[1] , argv[2] ,llCount , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleHSetIncr("tcp://127.0.0.1:8001" , objParams[1] , objParams[2] ,llCount , targets , Msg::Object(0) , 1);
 
 	}
 
-	void ClientCommands::pfnHandleHSetIncrFloat(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleHSetIncrFloat(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 4);
+		CHECK_ARGS_EQUAL_COUNT(4);
 
-		double llCount = LibCore::atof(argv[3]);
+		double llCount = LibCore::atof(objParams[3]);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHSetIncrFloat("tcp://127.0.0.1:8001" , argv[1] , argv[2] ,llCount , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleHSetIncrFloat("tcp://127.0.0.1:8001" , objParams[1] , objParams[2] ,llCount , targets , Msg::Object(0) , 1);
 
 	}
 
-	void ClientCommands::pfnHandleHGetKeys(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleHGetKeys(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 2); 
+		CHECK_ARGS_EQUAL_COUNT(2); 
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHGetKeys("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleHGetKeys("tcp://127.0.0.1:8001" , objParams[1] , targets , Msg::Object(0) , 1);
 
 	}
 
-	void ClientCommands::pfnHandleHGetVals(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleHGetVals(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 2); 
+		CHECK_ARGS_EQUAL_COUNT(2); 
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHGetVals("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleHGetVals("tcp://127.0.0.1:8001" , objParams[1] , targets , Msg::Object(0) , 1);
 
 	}
 
-	void ClientCommands::pfnHandleHKeyVals(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleHKeyVals(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 2); 
+		CHECK_ARGS_EQUAL_COUNT(2); 
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHGetKeyVals("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1); 
+		Client::rpc_HandleHGetKeyVals("tcp://127.0.0.1:8001" , objParams[1] , targets , Msg::Object(0) , 1); 
 	}
 
-	void ClientCommands::pfnHandleHScan(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleHScan(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 5); 
-		INT64 llLimit = LibCore::atoi(argv[4]);
+		CHECK_ARGS_EQUAL_COUNT(5); 
+		INT64 llLimit = LibCore::atoi(objParams[4]);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHScan("tcp://127.0.0.1:8001" , argv[1] , argv[2] , argv[3] , llLimit , targets , Msg::Object(0) , 1); 
+		Client::rpc_HandleHScan("tcp://127.0.0.1:8001" , objParams[1] , objParams[2] , objParams[3] , llLimit , targets , Msg::Object(0) , 1); 
 
 	}
 
-	void ClientCommands::pfnHandleHCount(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleHCount(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 2); 
+		CHECK_ARGS_EQUAL_COUNT(2); 
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHCount("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1); 
+		Client::rpc_HandleHCount("tcp://127.0.0.1:8001" , objParams[1] , targets , Msg::Object(0) , 1); 
 
 	}
 
-	void ClientCommands::pfnHandleHDrop(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleHDrop(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 2); 
+		CHECK_ARGS_EQUAL_COUNT(2); 
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHDrop("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1); 
+		Client::rpc_HandleHDrop("tcp://127.0.0.1:8001" , objParams[1] , targets , Msg::Object(0) , 1); 
 
 	}
 
-	void ClientCommands::pfnHandleHList(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleHList(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
@@ -352,9 +353,9 @@ namespace Client
 
 	}
 
-	void ClientCommands::pfnHandleDump(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleDump(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{   
-		CHECK_ARGS_EQUAL_COUNT(argc , 1);
+		CHECK_ARGS_EQUAL_COUNT(1);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
@@ -363,84 +364,84 @@ namespace Client
 		gDebugStream( "pfnHandleDump"); 
 	}
 	
-	void ClientCommands::pfnHandleZSet(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleZSet(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 4);
+		CHECK_ARGS_EQUAL_COUNT(4);
 
-		INT64 llScore = LibCore::atoi(argv[3]);
+		INT64 llScore = LibCore::atoi(objParams[3]);
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleZSet("tcp://127.0.0.1:8001" , argv[1] , argv[2] , llScore , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleZSet("tcp://127.0.0.1:8001" , objParams[1] , objParams[2] , llScore , targets , Msg::Object(0) , 1);
 
 		gDebugStream( "pfnHandleZSet");
 
 	}
 
-	void ClientCommands::pfnHandleZGet(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleZGet(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 3);
+		CHECK_ARGS_EQUAL_COUNT(3);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleZGet("tcp://127.0.0.1:8001" , argv[1] , argv[2]  , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleZGet("tcp://127.0.0.1:8001" , objParams[1] , objParams[2]  , targets , Msg::Object(0) , 1);
 
 		gDebugStream( "pfnHandleZGet");
 
 	}
-	void ClientCommands::pfnHandleZTop(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleZTop(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_GREAT_COUNT(argc , 3);
+		CHECK_ARGS_GREAT_COUNT(3);
 
 		INT64 llStart = 0, llEnd = 0, llLimit = 0;
-		if (argc == 5)
+		if (objParams.size() == 5)
 		{
-			llStart = LibCore::atoi(argv[2]);
-			llEnd = LibCore::atoi(argv[3]);
-			llLimit = LibCore::atoi(argv[4]);
+			llStart = LibCore::atoi(objParams[2]);
+			llEnd = LibCore::atoi(objParams[3]);
+			llLimit = LibCore::atoi(objParams[4]);
 		}
 		else
 		{
-			llLimit = LibCore::atoi(argv[2]);
+			llLimit = LibCore::atoi(objParams[2]);
 		}
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1)); 
 
-		Client::rpc_HandleZTop("tcp://127.0.0.1:8001" , argv[1] , llStart  , llEnd , llLimit , targets , Msg::Object(0) , 1);
+		Client::rpc_HandleZTop("tcp://127.0.0.1:8001" , objParams[1] , llStart  , llEnd , llLimit , targets , Msg::Object(0) , 1);
 		
 		gDebugStream( "pfnHandleZTop");
 
 	}
-	void ClientCommands::pfnHandleZRTop(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleZRTop(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_GREAT_COUNT(argc , 3);
+		CHECK_ARGS_GREAT_COUNT(3);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));  
 
 		INT64 llStart = 0, llEnd = 0, llLimit = 0;
 		
-		if (argc == 5)
+		if (objParams.size() == 5)
 		{
-			llStart = LibCore::atoi(argv[2]);
-			llEnd = LibCore::atoi(argv[3]);
-			llLimit = LibCore::atoi(argv[4]);
+			llStart = LibCore::atoi(objParams[2]);
+			llEnd = LibCore::atoi(objParams[3]);
+			llLimit = LibCore::atoi(objParams[4]);
 		}
 		else
 		{
-			llLimit = LibCore::atoi(argv[2]);
+			llLimit = LibCore::atoi(objParams[2]);
 		} 
 		
-		Client::rpc_HandleZRTop("tcp://127.0.0.1:8001" , argv[1] , llStart , llEnd , llLimit, targets , Msg::Object(0) , 1);
+		Client::rpc_HandleZRTop("tcp://127.0.0.1:8001" , objParams[1] , llStart , llEnd , llLimit, targets , Msg::Object(0) , 1);
 		 
 		gDebugStream("pfnHandleZRTop"); 
 	}
 
-	void ClientCommands::pfnHandleOrmHSet(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleOrmHSet(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 3);
+		CHECK_ARGS_EQUAL_COUNT(3);
 
-		std::string strName = argv[1];
-		std::string strPwd = argv[2];
+		std::string strName = objParams[1];
+		std::string strPwd = objParams[2];
 
 		GameDB::User user;
 		user.set_name(strName.c_str());
@@ -452,9 +453,9 @@ namespace Client
 		gDebugStream( "pfnHandleOrmHSet");
 	}
 
-	void ClientCommands::pfnHandleOrmCollectInsert(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleOrmCollectInsert(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		//		CHECK_ARGS_EQUAL_COUNT(argc , 3);
+		//		CHECK_ARGS_EQUAL_COUNT(3);
 
 		Orm::RoleCollection * pRoleCollection = new Orm::RoleCollection; 
 		pRoleCollection->SetMasterID(1);
@@ -481,38 +482,38 @@ namespace Client
 		gDebugStream( "pfnHandleOrmCollectInsert" );
 	}
 
-	void ClientCommands::pfnHandleZDel(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleZDel(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 3);
+		CHECK_ARGS_EQUAL_COUNT(3);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleZDel("tcp://127.0.0.1:8001" , argv[1] , argv[2] , targets , Msg::Object(0) , 1); 
+		Client::rpc_HandleZDel("tcp://127.0.0.1:8001" , objParams[1] , objParams[2] , targets , Msg::Object(0) , 1); 
 
 	}
 
-	void ClientCommands::pfnHandleZDrop(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleZDrop(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 2);
+		CHECK_ARGS_EQUAL_COUNT(2);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleZDrop("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1); 
+		Client::rpc_HandleZDrop("tcp://127.0.0.1:8001" , objParams[1] , targets , Msg::Object(0) , 1); 
 	}
 
-	void ClientCommands::pfnHandleZCount(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleZCount(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 2);
+		CHECK_ARGS_EQUAL_COUNT(2);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleZCount("tcp://127.0.0.1:8001" , argv[1] , targets , Msg::Object(0) , 1); 
+		Client::rpc_HandleZCount("tcp://127.0.0.1:8001" , objParams[1] , targets , Msg::Object(0) , 1); 
 
 	}
 
-	void ClientCommands::pfnHandleZList(DBClient * pClient , INT32 argc , char ** argv)
+	void ClientCommands::pfnHandleZList(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		CHECK_ARGS_EQUAL_COUNT(argc , 1);
+		CHECK_ARGS_EQUAL_COUNT(1);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   

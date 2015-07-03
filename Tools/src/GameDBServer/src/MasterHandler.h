@@ -25,7 +25,7 @@ namespace Server
 	public:
 		DBMaster * GetDBMaster(){ return m_pDBMaster; }
 		void  StartSyncToSlave(std::string strDBDir);
-		bool  SendFile(const std::string & strFilePath , const std::string & strFileName);
+		bool  SendFile(const std::string & strFilePath , std::string & strFileName);
 
 	private:
 		DBMaster * m_pDBMaster;

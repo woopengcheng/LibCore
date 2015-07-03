@@ -298,7 +298,11 @@ def handleParams(params , xmlParam):
 		param.unrefer == "!&":
 		
 		param.refer = None
-		print("handleParams:" + attr , " , " , param.refer)  
+		print("handleParams:" + attr , " , " , param.refer)
+	else:
+		param.refer = "&"
+		print("handleParams:" + attr , " , " , param.refer)
+		
 	
 	params[param.name] = param
 '''
@@ -950,6 +954,22 @@ def GenerateRpcCallFuncs():
 				else:
 					fileRpc.write(twoTab + "GEN_RPC_CALL_" + str(strParamsCount) + "((&(" + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance())) , pSessionName , " + "Msg::g_sz" + rpc.name + "_RpcCall , " + strParams + ", vecTargets , objSrc , usPriority , " + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance().GetServerName() , objSyncType , " + str(rpc.timeout) + ");\n")
 				fileRpc.write(oneTab + "}\n\n")	
+				
+				strParams = GetParamsExcludeDefault(rpc.call.params) 
+				syncType = GetSyncTypeInString(rpc.syncType)
+				fileRpc.write(oneTab + "static INT32  rpc_" + rpc.name + "(const char * pSessionName , " + strParams + "Msg::Object objTarget, Msg::Object objSrc , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
+				fileRpc.write(oneTab + "{\n")
+				
+				strParams = GetParamsExcludeDefaultAndType(rpc.call.params) 
+				strParamsCount = len(rpc.call.params)
+				fileRpc.write(twoTab + "std::vector<Msg::Object> vecTargets;\n" + twoTab + "vecTargets.push_back(objTarget);\n" )
+				if strParamsCount == 0:
+					fileRpc.write(twoTab + "return rpc_" + rpc.name + "( pSessionName " + strParams + ", vecTargets , objSrc , usPriority , objSyncType);\n" )
+				else:
+					fileRpc.write(twoTab + "return rpc_" + rpc.name + "( pSessionName ," + strParams + ", vecTargets , objSrc , usPriority , objSyncType);\n" )
+				
+				fileRpc.write(oneTab + "}\n\n")	
+				
 				
 		fileRpc.close()
 			

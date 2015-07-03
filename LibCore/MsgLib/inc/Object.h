@@ -12,7 +12,7 @@ namespace Msg
 		{
 		}
 
-		explicit Object(INT64 llObjectID)
+		Object(INT64 llObjectID)
 			: m_llObjID(llObjectID)
 		{
 		}

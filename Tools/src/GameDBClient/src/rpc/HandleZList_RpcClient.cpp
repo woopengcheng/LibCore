@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZList_RpcClient(LibCore_Chunk res/* = 0*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZList_RpcClient(LibCore_Chunk & res/* = 0*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
 {
 
 	if (res.GetDataLen() != 0)

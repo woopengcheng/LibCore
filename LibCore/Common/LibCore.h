@@ -26,10 +26,12 @@ namespace LibCore
 	extern INT32  DLL_EXPORT  strcmp(const char* str1,const char* str2);
 	extern INT32  DLL_EXPORT  stricmp(const char* str1,const char* str2);
 	extern INT64  DLL_EXPORT  atoi(const char* str);
+	extern INT64  DLL_EXPORT  atoi(const std::string & str);
 	extern UINT64  DLL_EXPORT atoull(const char* str);
 	extern INT64  DLL_EXPORT  strtoll(const char* str, char** endptr = NULL, INT32 base = 10);
 	extern UINT64  DLL_EXPORT strtoull(const char* str, char** endptr = NULL, INT32 base = 10);
 	extern double DLL_EXPORT  atof(const char* str);
+	extern double DLL_EXPORT  atof(const std::string & str);
 	extern void   DLL_EXPORT  itoa(char* str,INT64 val);
 	extern std::string  DLL_EXPORT  itoa(INT64 val); 
 	extern void   DLL_EXPORT  ftoa(char* str,double val);

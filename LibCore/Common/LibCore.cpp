@@ -88,6 +88,11 @@ namespace LibCore
 
 	}
 
+	INT64 atoi(const std::string & str)
+	{
+		return LibCore::atoi(str.c_str());
+	}
+
 	UINT64   atoull(const char* str)
 	{
 		if(str == NULL)
@@ -104,6 +109,11 @@ namespace LibCore
 	double  atof( const char* str )
 	{
 		return ::atof(str);
+	}
+
+	double atof(const std::string & str)
+	{
+		return LibCore::atof(str.c_str());
 	}
 
 	std::string   itoa( INT64 val )

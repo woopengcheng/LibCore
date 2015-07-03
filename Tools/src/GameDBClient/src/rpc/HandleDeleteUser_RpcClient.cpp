@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleDeleteUser_RpcClient(INT32 res/* = 0*
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleDeleteUser_RpcTimeout(std_string name/* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleDeleteUser_RpcTimeout(std_string & name/* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
 {
 
 

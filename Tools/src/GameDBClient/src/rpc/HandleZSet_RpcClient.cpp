@@ -16,7 +16,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZSet_RpcClient(INT32 res/* = 0*/, std
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZSet_RpcTimeout(std_string table/* = std::string()*/ , std_string key/* = std::string()*/, INT64 score/* = 0*/ , std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZSet_RpcTimeout(std_string & table/* = std::string()*/ , std_string & key/* = std::string()*/, INT64 score/* = 0*/ , std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
 {
 
 

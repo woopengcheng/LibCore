@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHMultiDel_RpcClient(INT32 res/* = 0*/
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHMultiDel_RpcTimeout(std_string table/* = std::string()*/ , LibCore_Chunk keys/* = LibCore::Chunk()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHMultiDel_RpcTimeout(std_string & table/* = std::string()*/ , LibCore_Chunk & keys/* = LibCore::Chunk()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
 {
 
 

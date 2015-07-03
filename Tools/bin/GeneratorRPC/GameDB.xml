@@ -340,7 +340,7 @@
 			</Call>
 
 			<Return>
-				<Param name="res" type="LibCore_Chunk" default="0"/> 
+				<Param name="res" type="LibCore_Chunk" default=""/> 
 			</Return>
 		</Rpc> 
 		
@@ -414,7 +414,7 @@
 			</Call>
 
 			<Return>
-				<Param name="res" type="LibCore_Chunk" default="0"/> 
+				<Param name="res" type="LibCore_Chunk" /> 
 			</Return>
 		</Rpc> 
 		
@@ -443,7 +443,7 @@
 			</Call>
 
 			<Return>
-				<Param name="res" type="LibCore_Chunk" default="0"/> 
+				<Param name="res" type="LibCore_Chunk" default=""/> 
 			</Return>
 		</Rpc> 
 		
@@ -452,7 +452,7 @@
 			</Call>
 
 			<Return>
-				<Param name="res" type="LibCore_Chunk" default="0"/> 
+				<Param name="res" type="LibCore_Chunk" default=""/> 
 			</Return>
 		</Rpc> 
 		

@@ -1,7 +1,7 @@
 #include "GlobalRpc.h"
 #include "MasterHandler.h"
 
-Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcServerProxy(std_string dbbackdir/* = std::string()*/ , std_string dbname/* = std::string()*/, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
+Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcServerProxy(std_string &dbbackdir/* = std::string()*/ , std_string & dbname/* = std::string()*/, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
 {
 	std_string newbackdir = std::string();
 	INT32 res = 0;
@@ -17,7 +17,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcServerProxy(std_
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcClientProxy(std_string newbackdir/* = std::string()*/ , INT32 res/* = 0*/, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
+Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcClientProxy(std_string &newbackdir/* = std::string()*/ , INT32 res/* = 0*/, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
 {
 	if (res == 0)
 	{
@@ -28,7 +28,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcClientProxy(std_
 	RPCReturn2(newbackdir , res);
 }
 
-Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcTimeoutProxy(std_string dbbackdir/* = std::string()*/ , std_string dbname/* = std::string()*/, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
+Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcTimeoutProxy(std_string &dbbackdir/* = std::string()*/ , std_string & dbname/* = std::string()*/, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
 {
 
 

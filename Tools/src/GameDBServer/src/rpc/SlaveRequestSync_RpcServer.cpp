@@ -2,7 +2,7 @@
 #include "ServerHandler.h"
 #include "TimerLib/inc/TimerHelp.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::SlaveRequestSync_RpcServer(std_string dbbackdir/* = std::string()*/ , std_string dbname/* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc )
+Msg::ObjectMsgCall * Server::ServerHandler::SlaveRequestSync_RpcServer(std_string &dbbackdir/* = std::string()*/ , std_string & dbname/* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc )
 {
 	std_string newbackdir = std::string();
 	INT32 res = 1;

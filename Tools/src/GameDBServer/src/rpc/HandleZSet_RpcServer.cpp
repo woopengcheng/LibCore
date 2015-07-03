@@ -2,7 +2,7 @@
 #include "ServerHandler.h"
 #include "GameDB/inc/SortedSet.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleZSet_RpcServer(std_string table  , std_string key , INT64 score, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc)
+Msg::ObjectMsgCall * Server::ServerHandler::HandleZSet_RpcServer(std_string &table  , std_string & key , INT64 score, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc)
 {
 	INT32 res = -1; 
 

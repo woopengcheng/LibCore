@@ -1,7 +1,7 @@
 #include "GlobalRpc.h"
 #include "MasterHandler.h"
 
-Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcServerProxy(std_string name/* = std::string()*/ , std_string pwd/* = std::string()*/, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
+Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcServerProxy(std_string &name/* = std::string()*/ , std_string & pwd/* = std::string()*/, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
 {
 	std_string value = std::string();
 
@@ -16,7 +16,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcServerProxy(std_st
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcClientProxy(std_string value/* = std::string()*/, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
+Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcClientProxy(std_string &value/* = std::string()*/, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
 {
 
 	if (value != "")
@@ -31,7 +31,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcClientProxy(std_st
 	RPCReturn1(value);
 }
 
-Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcTimeoutProxy(std_string name/* = std::string()*/ , std_string pwd/* = std::string()*/, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
+Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcTimeoutProxy(std_string &name/* = std::string()*/ , std_string & pwd/* = std::string()*/, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
 {
 
  	std::cout << "SlaveStartAuth_RpcTimeoutProxy" << std::endl;

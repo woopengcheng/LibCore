@@ -1,7 +1,7 @@
 #include "GlobalRpc.h"
 #include "MasterHandler.h"
 
-Msg::ObjectMsgCall * Server::MasterHandler::testRefers_RpcServerProxy(std_string & dbname/* = std::string()*/ , LibCore_Chunk value/* = LibCore::Chunk()*/, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
+Msg::ObjectMsgCall * Server::MasterHandler::testRefers_RpcServerProxy(std_string & dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
 {
 	LibCore_Chunk res = LibCore::Chunk();
 
@@ -24,7 +24,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::testRefers_RpcClientProxy(LibCore_Ch
 	RPCReturn1(res);
 }
 
-Msg::ObjectMsgCall * Server::MasterHandler::testRefers_RpcTimeoutProxy(std_string & dbname/* = std::string()*/ , LibCore_Chunk value/* = LibCore::Chunk()*/, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
+Msg::ObjectMsgCall * Server::MasterHandler::testRefers_RpcTimeoutProxy(std_string & dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/, std::vector<Msg::Object> vecTargets  , Msg::Object objSrc )
 {
 
 

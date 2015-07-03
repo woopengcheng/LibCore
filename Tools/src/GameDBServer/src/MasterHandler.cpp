@@ -13,15 +13,12 @@ namespace Server
 		std::vector<std::string> files;
 		GameDB::GetDefaultEnv()->GetChildren(strDBDir,&files);
 
-		int nType = 1;  
-		std::vector<Msg::Object> vecTargets;
-		vecTargets.push_back(Msg::Object(1));
-
-		rpc_MasterStartSync("tcp://127.0.0.1:9002" , "" , nType , nType , LibCore::Chunk() ,  vecTargets , GetObjectID());
+		INT32 nType = 1;  		 
+		rpc_MasterStartSync("tcp://127.0.0.1:9002" , std::string() , nType , nType , LibCore::Chunk() ,  Msg::Object(1) , GetObjectID());
 
 		for(size_t i = 0; i < files.size(); ++i)
 		{
-			const std::string& filename = files[i];
+			std::string& filename = files[i];
 			if(filename == "." || filename == "..")
 				continue;
 
@@ -29,10 +26,10 @@ namespace Server
 		}
 
 		nType = 2;
-		rpc_MasterStartSync("tcp://127.0.0.1:9002" , "" , nType , nType , LibCore::Chunk() ,  vecTargets , GetObjectID());
+		rpc_MasterStartSync("tcp://127.0.0.1:9002" , std::string() , nType , nType , LibCore::Chunk() ,  Msg::Object(1) , GetObjectID());
 	}
 
-	bool MasterHandler::SendFile(const std::string & strFilePath , const std::string & strFileName)
+	bool MasterHandler::SendFile(const std::string & strFilePath , std::string & strFileName)
 	{
 		static const size_t cst_buffer_size = 1*1024*1024;
 

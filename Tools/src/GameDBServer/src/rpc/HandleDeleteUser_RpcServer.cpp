@@ -1,7 +1,7 @@
 #include "GlobalRpc.h"
 #include "ServerHandler.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleDeleteUser_RpcServer(std_string name/* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleDeleteUser_RpcServer(std_string &name/* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc )
 {
 	INT32 res = -1; 
 

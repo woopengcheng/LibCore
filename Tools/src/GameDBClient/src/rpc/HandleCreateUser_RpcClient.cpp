@@ -16,7 +16,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleCreateUser_RpcClient(INT32 res/* = 0*
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleCreateUser_RpcTimeout(std_string name/* = std::string()*/ , std_string pwd/* = std::string()*/,SINT8 issys/* = 0*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleCreateUser_RpcTimeout(std_string & name/* = std::string()*/ , std_string & pwd/* = std::string()*/,SINT8 issys/* = 0*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
 {
 
 
