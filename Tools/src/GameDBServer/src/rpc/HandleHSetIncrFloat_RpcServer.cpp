@@ -1,7 +1,7 @@
 #include "GlobalRpc.h"
 #include "ServerHandler.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleHSetIncrFloat_RpcServer(std_string &table/* = std::string()*/ , std_string & key/* = std::string()*/ , double value/* = 0.0f*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleHSetIncrFloat_RpcServer(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , std_string &table/* = std::string()*/ , std_string & key/* = std::string()*/ , double value/* = 0.0f*/  )
 {
 	double res = 0.0f;
 

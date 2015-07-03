@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZCount_RpcClient(INT64 res/* = 0*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZCount_RpcClient(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , INT64 res/* = 0*/) 
 {
 
 	if (res >= 0)
@@ -17,7 +17,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZCount_RpcClient(INT64 res/* = 0*/, s
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZCount_RpcTimeout(std_string & table/* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZCount_RpcTimeout(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , std_string & table/* = std::string()*/) 
 {
 
 

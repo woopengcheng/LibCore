@@ -3,7 +3,7 @@
 #include "GameDB/inc/OperateRecord.h"
 #include "GameDB/inc/DBCommon.h"
 
-Msg::ObjectMsgCall * Server::SlaveHandler::SyncDataToSlave_RpcServer(std_string &dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc )
+Msg::ObjectMsgCall * Server::SlaveHandler::SyncDataToSlave_RpcServer(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , std_string &dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/  )
 {
 	INT32 res = 0;
 	LibCore::CStream cs;

@@ -2,7 +2,7 @@
 #include "ServerHandler.h"
 #include "GameDB/inc/HashTable.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiDel_RpcServer(std_string &table/* = std::string()*/ , LibCore_Chunk & keys/* = LibCore::Chunk()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiDel_RpcServer(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , std_string &table/* = std::string()*/ , LibCore_Chunk & keys/* = LibCore::Chunk()*/  )
 {
 	INT32 res = -1;
 

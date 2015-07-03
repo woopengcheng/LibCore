@@ -45,24 +45,22 @@ namespace Server
 	}
 
 	void DBSlave::RequestSyncData(std::string		strDBName , std::string		strDBDir)
-	{
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Server::rpc_SlaveRequestSync("tcp://127.0.0.1:9001", strDBDir , strDBName , targets , Msg::Object(1) , 1);
+	{ 
+		Server::rpc_SlaveRequestSync("tcp://127.0.0.1:9001" , 1 , Msg::Object(1) , strDBDir , strDBName);
 	}
 
 	void DBSlave::StartAuth(std::string		strName , std::string		strPwd)
 	{ 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Server::rpc_SlaveStartAuth("tcp://127.0.0.1:9001", strName , strPwd , targets , Msg::Object(1) , 1);
+		Server::rpc_SlaveStartAuth("tcp://127.0.0.1:9001" , targets , Msg::Object(1) , strName , strPwd , 1);
 	}
 
-	void DBSlave::SelectDB(	std::string		strDBName )
+	void DBSlave::SelectDB(	std::string	strDBName )
 	{
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
-		Server::rpc_SlaveSelectDB("tcp://127.0.0.1:9001", strDBName , targets , Msg::Object(1) , 1);
+		Server::rpc_SlaveSelectDB("tcp://127.0.0.1:9001" , targets , Msg::Object(1) , strDBName , 1);
 
 	}
 

@@ -2,7 +2,7 @@
 #include "DBSlave.h"
 #include "GameDB/inc/SlaveSession.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::SlaveStartAuth_RpcClient(std_string &value/* std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::SlaveStartAuth_RpcClient(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , std_string &value/* std::string()*/ ) 
 { 
 	if (value != "")
 	{
@@ -18,7 +18,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::SlaveStartAuth_RpcClient(std_string &value/
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::SlaveStartAuth_RpcTimeout(std_string &pwd/* = std::string()*/ , std_string & name/* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::SlaveStartAuth_RpcTimeout(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , std_string &pwd/* = std::string()*/ , std_string & name/* = std::string()*/ ) 
 {
 
 

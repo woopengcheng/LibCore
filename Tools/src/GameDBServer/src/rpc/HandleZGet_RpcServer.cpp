@@ -2,7 +2,7 @@
 #include "ServerHandler.h"
 #include "GameDB/inc/SortedSet.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleZGet_RpcServer(std_string &table/* = std::string()*/ , std_string & key/* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleZGet_RpcServer(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , std_string &table/* = std::string()*/ , std_string & key/* = std::string()*/  )
 {
 	INT64 llScore = -1; 
 

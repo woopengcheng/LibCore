@@ -1,7 +1,7 @@
 #include "GlobalRpc.h"
 #include "RPCCallFuncs.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleUserAuth_RpcClient(INT32 res/* = 0*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleUserAuth_RpcClient(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , INT32 res/* = 0*/) 
 {
 	if (res == 0)
 	{
@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleUserAuth_RpcClient(INT32 res/* = 0*/,
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleUserAuth_RpcTimeout(std_string & name/* = std::string()*/ , std_string & pwd/* = std::string()*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleUserAuth_RpcTimeout(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , std_string & name/* = std::string()*/ , std_string & pwd/* = std::string()*/) 
 {
 
 

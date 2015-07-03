@@ -14,7 +14,7 @@ namespace Server
 		GameDB::GetDefaultEnv()->GetChildren(strDBDir,&files);
 
 		INT32 nType = 1;  		 
-		rpc_MasterStartSync("tcp://127.0.0.1:9002" , std::string() , nType , nType , LibCore::Chunk() ,  Msg::Object(1) , GetObjectID());
+		rpc_MasterStartSync("tcp://127.0.0.1:9002" , Msg::Object(1) , GetObjectID() , std::string() , nType , nType , LibCore::Chunk());
 
 		for(size_t i = 0; i < files.size(); ++i)
 		{
@@ -26,7 +26,7 @@ namespace Server
 		}
 
 		nType = 2;
-		rpc_MasterStartSync("tcp://127.0.0.1:9002" , std::string() , nType , nType , LibCore::Chunk() ,  Msg::Object(1) , GetObjectID());
+		rpc_MasterStartSync("tcp://127.0.0.1:9002" ,  Msg::Object(1) , GetObjectID() , std::string() , nType , nType , LibCore::Chunk());
 	}
 
 	bool MasterHandler::SendFile(const std::string & strFilePath , std::string & strFileName)
@@ -54,7 +54,7 @@ namespace Server
 			vecTargets.push_back(Msg::Object(1));
 
 			int nType = 0; 
-			rpc_MasterStartSync("tcp://127.0.0.1:9002" , strFileName , filesize , nType , LibCore::Chunk(tmpbuf , size) ,  vecTargets , GetObjectID());
+			rpc_MasterStartSync("tcp://127.0.0.1:9002" ,  vecTargets , GetObjectID() , strFileName , filesize , nType , LibCore::Chunk(tmpbuf , size));
 			
 			gDebugStream("send file:" << strFileName << "send size: " << size );
 		}

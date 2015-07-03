@@ -1,7 +1,7 @@
 #include "GlobalRpc.h"
 #include "ServerHandler.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleHList_RpcServer(std::vector<Msg::Object> vecTargets , Msg::Object objSrc )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleHList_RpcServer(std::vector<Msg::Object> vecTargets , Msg::Object objSrc   )
 {
 	LibCore_Chunk res = LibCore::Chunk();
 

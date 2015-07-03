@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHSetIncrFloat_RpcClient(double res/* = 0*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHSetIncrFloat_RpcClient(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , double res/* = 0*/) 
 {
 	if (res >= 0.0f)
 	{
@@ -16,7 +16,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHSetIncrFloat_RpcClient(double res/* 
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHSetIncrFloat_RpcTimeout(std_string & table/* = std::string()*/ , std_string & key/* = std::string()*/ , double value/* = 0.0f*/, std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHSetIncrFloat_RpcTimeout(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , std_string & table/* = std::string()*/ , std_string & key/* = std::string()*/ , double value/* = 0.0f*/) 
 {
 
 
