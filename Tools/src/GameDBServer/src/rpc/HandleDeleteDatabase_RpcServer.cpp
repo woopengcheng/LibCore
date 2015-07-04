@@ -1,7 +1,7 @@
 #include "GlobalRpc.h"
 #include "ServerHandler.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleDeleteDatabase_RpcServer(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , std_string &dbname/* = std::string()*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleDeleteDatabase_RpcServer(Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string &dbname/* = std::string()*/  )
 {
 	INT32 res = -1;
 

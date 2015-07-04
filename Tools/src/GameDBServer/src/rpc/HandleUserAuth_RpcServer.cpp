@@ -1,7 +1,7 @@
 #include "GlobalRpc.h"
 #include "ServerHandler.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleUserAuth_RpcServer(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , std_string &name/* = std::string()*/ , std_string & pwd/* = std::string()*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleUserAuth_RpcServer(Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string &name/* = std::string()*/ , std_string & pwd/* = std::string()*/  )
 {
 	INT32 res = -1;
 

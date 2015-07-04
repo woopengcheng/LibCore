@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleCreateDatabase_RpcClient(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , INT32 res/* = 0*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleCreateDatabase_RpcClient(VecObjects & vecTargets , Msg::Object objSrc , INT32 res/* = 0*/) 
 {
 	if (res == 0)
 	{
@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleCreateDatabase_RpcClient(std::vector<
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleCreateDatabase_RpcTimeout(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , std_string & dbname/* = std::string()*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleCreateDatabase_RpcTimeout(VecObjects & vecTargets , Msg::Object objSrc , std_string & dbname/* = std::string()*/) 
 {
 
 

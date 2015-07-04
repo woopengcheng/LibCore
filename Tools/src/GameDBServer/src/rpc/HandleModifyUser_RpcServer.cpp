@@ -1,7 +1,7 @@
 #include "GlobalRpc.h"
 #include "ServerHandler.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleModifyUser_RpcServer(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , std_string &name/* = std::string()*/ , std_string & pwd/* = std::string()*/ , SINT8 issys/* = 0*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleModifyUser_RpcServer(Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string &name/* = std::string()*/ , std_string & pwd/* = std::string()*/ , SINT8 issys/* = 0*/  )
 {
 	INT32 res = -1;
 

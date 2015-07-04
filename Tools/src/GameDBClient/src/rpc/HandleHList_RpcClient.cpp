@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHList_RpcClient(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , LibCore_Chunk & res/* = LibCore::Chunk()*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHList_RpcClient(VecObjects & vecTargets , Msg::Object objSrc , LibCore_Chunk & res/* = LibCore::Chunk()*/) 
 {
 	if (res.GetDataLen() != 0)
 	{
@@ -27,7 +27,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHList_RpcClient(std::vector<Msg::Obje
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHList_RpcTimeout(std::vector<Msg::Object> vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHList_RpcTimeout(VecObjects & vecTargets , Msg::Object objSrc) 
 {
 
 

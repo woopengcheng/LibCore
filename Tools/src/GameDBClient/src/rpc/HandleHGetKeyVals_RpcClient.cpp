@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHGetKeyVals_RpcClient(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , LibCore_Chunk & res/* = LibCore::Chunk()*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHGetKeyVals_RpcClient(VecObjects & vecTargets , Msg::Object objSrc , LibCore_Chunk & res/* = LibCore::Chunk()*/) 
 { 
 	if (res.GetDataLen() != 0)
 	{
@@ -28,7 +28,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHGetKeyVals_RpcClient(std::vector<Msg
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHGetKeyVals_RpcTimeout(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , std_string & table/* = std::string()*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHGetKeyVals_RpcTimeout(VecObjects & vecTargets , Msg::Object objSrc , std_string & table/* = std::string()*/) 
 {
 
 

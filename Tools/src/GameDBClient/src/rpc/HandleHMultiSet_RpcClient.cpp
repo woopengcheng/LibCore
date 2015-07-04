@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHMultiSet_RpcClient(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , INT32 res/* = 0*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHMultiSet_RpcClient(VecObjects & vecTargets , Msg::Object objSrc , INT32 res/* = 0*/) 
 { 
 	if (res >= 0)
 	{
@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHMultiSet_RpcClient(std::vector<Msg::
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHMultiSet_RpcTimeout(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , std_string & table/* = std::string()*/ , LibCore_Chunk & keyvalues/* = LibCore::Chunk()*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHMultiSet_RpcTimeout(VecObjects & vecTargets , Msg::Object objSrc , std_string & table/* = std::string()*/ , LibCore_Chunk & keyvalues/* = LibCore::Chunk()*/) 
 {
 
 

@@ -1,7 +1,7 @@
 #include "GlobalRpc.h"
 #include "ServerHandler.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiGet_RpcServer(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , std_string &table/* = std::string()*/ , LibCore_Chunk & keys/* = LibCore::Chunk()*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiGet_RpcServer(Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string &table/* = std::string()*/ , LibCore_Chunk & keys/* = LibCore::Chunk()*/  )
 {
 	LibCore_Chunk res = 0;
 

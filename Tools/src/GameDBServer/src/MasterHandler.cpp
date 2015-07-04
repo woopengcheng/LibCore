@@ -50,7 +50,7 @@ namespace Server
 			fs.read(tmpbuf,size);
 			filesize -= size;
 
-			std::vector<Msg::Object> vecTargets;
+			Msg::VecObjects vecTargets;
 			vecTargets.push_back(Msg::Object(1));
 
 			int nType = 0; 

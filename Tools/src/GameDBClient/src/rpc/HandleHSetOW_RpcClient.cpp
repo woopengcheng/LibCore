@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHSetOW_RpcClient(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , INT32 res/* = 0*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHSetOW_RpcClient(VecObjects & vecTargets , Msg::Object objSrc , INT32 res/* = 0*/) 
 { 
 	if (res == 0)
 	{
@@ -16,7 +16,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHSetOW_RpcClient(std::vector<Msg::Obj
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHSetOW_RpcTimeout(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , std_string & table/* = std::string()*/ , std_string & key/* = std::string()*/ , std_string & value/* = std::string()*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHSetOW_RpcTimeout(VecObjects & vecTargets , Msg::Object objSrc , std_string & table/* = std::string()*/ , std_string & key/* = std::string()*/ , std_string & value/* = std::string()*/) 
 {
 
 

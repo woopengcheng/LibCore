@@ -1,7 +1,7 @@
 #include "GlobalRpc.h"
 #include "ServerHandler.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleHSetIncr_RpcServer(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , std_string &table/* = std::string()*/ , std_string & key/* = std::string()*/ , INT64 value/* = 0*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleHSetIncr_RpcServer(Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string &table/* = std::string()*/ , std_string & key/* = std::string()*/ , INT64 value/* = 0*/  )
 {
 	INT64 res = -1;
 

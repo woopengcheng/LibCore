@@ -3,7 +3,7 @@
 #include "GameDB/inc/DBCommon.h"
 #include "leveldb/slice.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiSet_RpcServer(std::vector<Msg::Object> vecTargets , Msg::Object objSrc , std_string &table/* = std::string()*/ , LibCore_Chunk & keyvalues/* = LibCore::Chunk()*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiSet_RpcServer(Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string &table/* = std::string()*/ , LibCore_Chunk & keyvalues/* = LibCore::Chunk()*/  )
 {
 	INT32 res = -1;
 

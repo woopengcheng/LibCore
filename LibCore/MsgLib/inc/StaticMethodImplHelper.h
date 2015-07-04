@@ -19,7 +19,7 @@ namespace Msg
 		}
 
 	public: 
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ObjectMsgCall * (*func)(std::vector<Object>  , Object ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ObjectMsgCall * (*func)(std::vector<Object> & , Object ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
 			std::vector<Object> vecTargets;
@@ -33,7 +33,7 @@ namespace Msg
 		}
 
 		template< typename P1>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ObjectMsgCall * (*func)(std::vector<Object>  , Object , P1  ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ObjectMsgCall * (*func)(std::vector<Object> & , Object , P1  ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
 			std::vector<Object> vecTargets;
@@ -48,7 +48,7 @@ namespace Msg
 		}
 
 		template< typename P1 , typename P2>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ObjectMsgCall * (*func)(std::vector<Object>  , Object , P1 , P2  ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ObjectMsgCall * (*func)(std::vector<Object> & , Object , P1 , P2  ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
 			std::vector<Object> vecTargets;
@@ -64,7 +64,7 @@ namespace Msg
 		}
 
 		template< typename P1 , typename P2 , typename P3>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ObjectMsgCall * (*func)(std::vector<Object>  , Object , P1 , P2 , P3   ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ObjectMsgCall * (*func)(std::vector<Object> & , Object , P1 , P2 , P3   ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
 			std::vector<Object> vecTargets;
@@ -81,7 +81,7 @@ namespace Msg
 		}
 
 		template< typename P1 , typename P2 , typename P3 , typename P4>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ObjectMsgCall * (*func)(std::vector<Object>  , Object , P1 , P2 , P3 , P4   ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ObjectMsgCall * (*func)(std::vector<Object> & , Object , P1 , P2 , P3 , P4   ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
 			std::vector<Object> vecTargets;
@@ -98,7 +98,7 @@ namespace Msg
 				ParameterHelper<P4>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[3]));
 		}
 		template< typename P1 , typename P2 , typename P3 , typename P4 , typename P5>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ObjectMsgCall * (*func)(std::vector<Object>  , Object , P1 , P2 , P3 , P4 , P5  ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ObjectMsgCall * (*func)(std::vector<Object> & , Object , P1 , P2 , P3 , P4 , P5  ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
 			std::vector<Object> vecTargets;
@@ -117,7 +117,7 @@ namespace Msg
 		}
 
 		template< typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 >
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ObjectMsgCall * (*func)(std::vector<Object>  , Object , P1 , P2 , P3 , P4 , P5 , P6  ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ObjectMsgCall * (*func)(std::vector<Object> & , Object , P1 , P2 , P3 , P4 , P5 , P6  ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
 			std::vector<Object> vecTargets;
@@ -137,7 +137,7 @@ namespace Msg
 		}
 
 		template< typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ObjectMsgCall * (*func)(std::vector<Object>  , Object , P1 , P2 , P3 , P4 , P5 , P6 , P7  ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ObjectMsgCall * (*func)(std::vector<Object> & , Object , P1 , P2 , P3 , P4 , P5 , P6 , P7  ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
 			std::vector<Object> vecTargets;
@@ -158,7 +158,7 @@ namespace Msg
 		}
 
 		template< typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ObjectMsgCall * (*func)(std::vector<Object>  , Object , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8  ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ObjectMsgCall * (*func)(std::vector<Object> & , Object , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8  ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
 			std::vector<Object> vecTargets;

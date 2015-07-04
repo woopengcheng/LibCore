@@ -83,5 +83,7 @@ namespace Msg
 			return ((size_t)_Keyval.m_llObjID);
 		}
 	};
+
+	typedef std::vector<Msg::Object> VecObjects;
 }
 #endif
