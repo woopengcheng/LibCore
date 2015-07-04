@@ -69,7 +69,7 @@ namespace LibCore
 	INT32   stricmp( const char* str1,const char* str2 )
 	{
 #ifdef WIN32
-		return ::stricmp(str1,str2);
+		return ::_stricmp(str1,str2);
 #else 
 		return ::strcasecmp(str1,str2);
 #endif 
@@ -395,7 +395,7 @@ namespace LibCore
 		return -1;
 	}
 
-	UINT64 CityHash(const void* pBuf,UINT32 len,INT64 seed)
+	UINT64 CityHash(const void* pBuf,INT64 len,INT64 seed)
 	{
 		return (INT64)CityHash64WithSeed((const char*)pBuf,len,seed); 
 	}

@@ -64,7 +64,7 @@ static char push_back_record( struct Arg_parser * const ap,
 
 static char add_error( struct Arg_parser * const ap, const char * const msg )
   {
-  const int len = strlen( msg );
+  const int len = (int)strlen( msg );
   void * tmp = ap_resize_buffer( ap->error, ap->error_size + len + 1 );
   if( !tmp ) return 0;
   ap->error = (char *)tmp;

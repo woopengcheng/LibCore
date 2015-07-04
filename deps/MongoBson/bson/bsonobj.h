@@ -460,7 +460,7 @@ namespace mongo {
         BSONObjIterator begin() const;
 
         void appendSelfToBufBuilder(BufBuilder& b) const {
-            verify( (bool)objsize() );
+            verify( objsize() != 0 );
             b.appendBuf(reinterpret_cast<const void *>( objdata() ), objsize());
         }
 

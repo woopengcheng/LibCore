@@ -3,15 +3,15 @@
 
 namespace GameDB
 {
-	const char * g_szSystemDatabase = ".sys";
-	const char * g_szSystemUserTable = "user";
+// 	const char * g_szSystemDatabase = ".sys";
+// 	const char * g_szSystemUserTable = "user";
 
 
-	LibCore::CStream & operator << (LibCore::CStream& cs,const leveldb::Slice& c)
-	{
-		cs << c.size();
-		cs.Pushback((void*)c.data() , c.size());
-		return cs;
-	}
+// 	LibCore::CStream & operator << (LibCore::CStream& cs,const leveldb::Slice& c)
+// 	{
+// 		cs << c.size();
+// 		cs.Pushback((void*)c.data() , c.size());
+// 		return cs;
+// 	}
 
 }

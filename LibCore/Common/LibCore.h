@@ -57,7 +57,7 @@ namespace LibCore
 	extern void   DLL_EXPORT  FastMemmove(void * dst , const void * src , INT64 unSize);
 	extern INT64  DLL_EXPORT  ParseHumanSizeFromString(const std::string strSize);
 	extern INT64  DLL_EXPORT  ParseHumanSizeFromJson(const Json::Value & value);
-	extern UINT64 DLL_EXPORT  CityHash(const void* pBuf,UINT32 len,INT64 seed); 
+	extern UINT64 DLL_EXPORT  CityHash(const void* pBuf,INT64 len,INT64 seed); 
 	extern INT64  DLL_EXPORT  BKDRHash(const char* pBuf);
 	extern INT64  DLL_EXPORT  BKDRHashSum(const char* pBuf);
 	extern UINT32 DLL_EXPORT  Compress(const char * pBuf , UINT32 unLength , std::string & strUncompressed);

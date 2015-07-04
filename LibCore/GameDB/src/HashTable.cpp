@@ -612,7 +612,7 @@ namespace GameDB
 			if(!DecodeKey(dbname,table,key))
 				break;
 
-			if (regexp.MatchExact(key.data(), key.size()))
+			if (regexp.MatchExact(key.data(), (int)key.size()))
 			{
 				std::string strKey = key.ToString();
 				std::string strValue = val.ToString();

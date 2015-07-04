@@ -5,7 +5,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleUserAuth_RpcServer(Msg::VecObj
 {
 	INT32 res = -1;
 
-	GameDB::Database * pDB = GetDBServer()->GetEnvironment()->GetDatabase(GameDB::g_szSystemDatabase);
+	GameDB::Database * pDB = GetDBServer()->GetEnvironment()->GetDatabase(g_szSystemDatabase);
 	if (!pDB)
 	{ 
 		RPCReturn1(res);
@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleUserAuth_RpcServer(Msg::VecObj
 	GameDB::HashTable::HGet(*pDB , oper , GameDB::User::TableName() , name);
 	if (!oper.IsSuccess())
 	{
-		gDebugStream("DB:" <<  GameDB::g_szSystemDatabase << " table:" <<  GameDB::g_szSystemUserTable << "name:" << name << "failure.");
+		gDebugStream("DB:" <<  g_szSystemDatabase << " table:" <<  g_szSystemDatabase << "name:" << name << "failure.");
 		RPCReturn1(res);
 	}  
 
@@ -23,16 +23,16 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleUserAuth_RpcServer(Msg::VecObj
 	oper.GetOperateReturns().GetStream() >> value;
 	if (value.length() <= 0)
 	{
-		gDebugStream("DB:" << GameDB::g_szSystemUserTable << "table:" << GameDB::g_szSystemUserTable << "key:" << name << "auth failure.");
+		gDebugStream("DB:" << g_szSystemDatabase << "table:" << g_szSystemDatabase << "key:" << name << "auth failure.");
 		RPCReturn1(res);
 	} 
 
 	GameDB::User objUser;
-	objUser.FromBson(value.c_str() , value.length()); 
+	objUser.FromBson(value.c_str() , (INT32)value.length()); 
 
 	if(objUser.get_pswd() != pwd)
 	{ 
-		gDebugStream("DB:" << GameDB::g_szSystemUserTable << "table:" << GameDB::g_szSystemUserTable << "key:" << name << "password wrong.");
+		gDebugStream("DB:" << g_szSystemDatabase << "table:" << g_szSystemDatabase << "key:" << name << "password wrong.");
 		RPCReturn1(res); 
 	}
 	 

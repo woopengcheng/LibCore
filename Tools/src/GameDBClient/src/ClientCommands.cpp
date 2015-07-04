@@ -163,7 +163,7 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(4);
 
-		SINT8 isSys = LibCore::atoi(objParams[3]);
+		SINT8 isSys = (SINT8)LibCore::atoi(objParams[3]);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
@@ -186,7 +186,7 @@ namespace Client
 	{ 
 		CHECK_ARGS_EQUAL_COUNT(4);
 
-		SINT8 isSys = LibCore::atoi(objParams[3]);
+		SINT8 isSys = (SINT8)LibCore::atoi(objParams[3]);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   

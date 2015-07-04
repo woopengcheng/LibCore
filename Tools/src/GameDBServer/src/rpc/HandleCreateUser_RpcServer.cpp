@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleCreateUser_RpcServer(Msg::VecO
 		RPCReturn1(res);
 	}
 
-	GameDB::Database * pDB = GetDBServer()->GetEnvironment()->GetDatabase(GameDB::g_szSystemDatabase);
+	GameDB::Database * pDB = GetDBServer()->GetEnvironment()->GetDatabase(g_szSystemDatabase);
 	if (!pDB)
 	{
 		RPCReturn1(res);
@@ -31,7 +31,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleCreateUser_RpcServer(Msg::VecO
 	GameDB::User objUser;
 	objUser.set_name(name.c_str());
 	objUser.set_pswd(pwd.c_str());
-	objUser.set_sysuser(issys);
+	objUser.set_sysuser(issys != 0);
 	objUser.ToBson(strValue);
 
 	GameDB::Operate oper;

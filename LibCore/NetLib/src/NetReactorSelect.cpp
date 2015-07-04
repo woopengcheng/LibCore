@@ -20,7 +20,7 @@ namespace Net
 
 	INT32 CleanNet()
 	{
-#ifdef _WIN32
+#ifdef WIN32
 		return WSACleanup();
 #else
 		return ERR_SUCCESS;

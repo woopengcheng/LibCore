@@ -39,7 +39,7 @@ namespace Server
 			return false;
 
 		fs.seekg(0,std::ios_base::end);
-		INT32 filesize = fs.tellg();
+		INT64 filesize = (INT64)fs.tellg();
 		fs.seekg(0,std::ios_base::beg);
 
 		char* tmpbuf = new char[cst_buffer_size]; 
@@ -48,13 +48,13 @@ namespace Server
 		{
 			size_t size = __min(filesize,cst_buffer_size);
 			fs.read(tmpbuf,size);
-			filesize -= size;
+			filesize -= (INT64)size;
 
 			Msg::VecObjects vecTargets;
 			vecTargets.push_back(Msg::Object(1));
 
-			int nType = 0; 
-			rpc_MasterStartSync("tcp://127.0.0.1:9002" ,  vecTargets , GetObjectID() , strFileName , filesize , nType , LibCore::Chunk(tmpbuf , size));
+			INT32 nType = 0; 
+			rpc_MasterStartSync("tcp://127.0.0.1:9002" ,  vecTargets , GetObjectID() , strFileName , (INT32)filesize , nType , LibCore::Chunk(tmpbuf , (UINT32)size));
 			
 			gDebugStream("send file:" << strFileName << "send size: " << size );
 		}

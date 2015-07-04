@@ -60,14 +60,15 @@ namespace mongo {
         BSONElement next( bool checkEnd ) {
             verify( _pos <= _theend );
             
-            int maxLen = -1;
+            long long  maxLen = -1;
             if ( checkEnd ) {
                 maxLen = _theend + 1 - _pos;
                 verify( maxLen > 0 );
             }
+			int nMaxLen = (int)maxLen;
 
-            BSONElement e( _pos, maxLen );
-            int esize = e.size( maxLen );
+            BSONElement e( _pos, nMaxLen );
+            int esize = e.size( nMaxLen );
             massert( 16446, "BSONElement has bad size", esize > 0 );
             _pos += esize;
 
@@ -96,7 +97,7 @@ namespace mongo {
     class BSONIteratorSorted {
     public:
         ~BSONIteratorSorted() {
-            verify( (bool)_fields );
+            verify( _fields != NULL );
             delete[] _fields;
             _fields = 0;
         }
@@ -106,7 +107,7 @@ namespace mongo {
         }
 
         BSONElement next() {
-            verify( (bool)_fields );
+            verify( _fields != 0  );
             if ( _cur < _nfields )
                 return BSONElement( _fields[_cur++] );
             return BSONElement();

@@ -22,7 +22,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcClientProxy(Msg::V
 	if (value != "")
 	{
 		GameDB::User objUser;
-		objUser.FromBson(value.c_str() , value.length()); 
+		objUser.FromBson(value.c_str() , (INT32)value.length()); 
 
 		m_pAuthInfo = new GameDB::UserAuth(objUser); 
 	} 

@@ -5,7 +5,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleModifyUser_RpcServer(Msg::VecO
 {
 	INT32 res = -1;
 
-	GameDB::Database * pDB = GetDBServer()->GetEnvironment()->GetDatabase(GameDB::g_szSystemDatabase);
+	GameDB::Database * pDB = GetDBServer()->GetEnvironment()->GetDatabase(g_szSystemDatabase);
 	if (!pDB)
 	{ 
 		RPCReturn1(res);
@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleModifyUser_RpcServer(Msg::VecO
 	GameDB::HashTable::HGet(*pDB , oper , GameDB::User::TableName() , name);
 	if (!oper.IsSuccess())
 	{
-		gDebugStream("DB:" <<  GameDB::g_szSystemDatabase << " table:" <<  GameDB::g_szSystemUserTable << "name:" << name << "failure.");
+		gDebugStream("DB:" <<  g_szSystemDatabase << " table:" <<  g_szSystemDatabase << "name:" << name << "failure.");
 		RPCReturn1(res);
 	}  
 
@@ -23,14 +23,14 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleModifyUser_RpcServer(Msg::VecO
 	oper.GetOperateReturns().GetStream() >> value;
 	if (value.length() <= 0)
 	{
-		gDebugStream("DB:" << GameDB::g_szSystemUserTable << "table:" << GameDB::g_szSystemUserTable << "key:" << name << "auth failure.");
+		gDebugStream("DB:" << g_szSystemDatabase << "table:" << g_szSystemDatabase << "key:" << name << "auth failure.");
 		RPCReturn1(res);
 	} 
 
 	GameDB::User objUser;
-	objUser.FromBson(value.c_str() , value.length()); 
+	objUser.FromBson(value.c_str() , (INT32)value.length()); 
 	objUser.set_pswd(pwd.c_str());
-	objUser.set_sysuser(issys);
+	objUser.set_sysuser(issys != 0);
 
 	std::string strValue;
 	objUser.ToBson(strValue);

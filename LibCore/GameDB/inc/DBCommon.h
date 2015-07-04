@@ -10,23 +10,22 @@
 #include "Common/StringEx.h"
 
 const size_t MAX_DB_TEMP_BUFFER_LENGTH = (64*1024*1024);
+#pragma warning(disable:4275)
+
+#define g_szSystemDatabase (".sys")
+#define g_szSystemUserTable ("user")
 
 namespace GameDB
 {	
-
-	extern DLL_IMPORT const char *  g_szSystemDatabase;
-	extern DLL_IMPORT const char *  g_szSystemUserTable;
+//	extern DLL_IMPORT const char *  g_szSystemDatabase;
+//	extern DLL_IMPORT const char *  g_szSystemUserTable;
 
 	typedef leveldb::Slice			 Slice;
 	typedef leveldb::Status			 Status;
 	typedef leveldb::WriteBatch		 WriteBatch;  
-	typedef Msg::Parameters			 Parameters;
-
-	class DLL_EXPORT Options : public leveldb::Options
-	{
-
-	};
-
+	typedef Msg::Parameters			 Parameters; 
+	class DLL_EXPORT Options : public leveldb::Options{};
+	 
 	extern DLL_EXPORT LibCore::CStream & operator << (LibCore::CStream& cs,const leveldb::Slice& c); 
 
 	typedef LibCore::Chunk  Chunk; 

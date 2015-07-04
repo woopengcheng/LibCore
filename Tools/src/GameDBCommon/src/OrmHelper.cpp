@@ -57,7 +57,7 @@ namespace GameDB
 				//5 这里调试直接往服务器写.但是真实情况这么写就会出问题.因为这里会卡住.
 				std::vector<Msg::Object> targets;
 				targets.push_back(Msg::Object(1));   
-				Client::rpc_HandleHSet("tcp://127.0.0.1:8001" , strTable , strKey , strValue , targets , Msg::Object(0) , 1);
+				Client::rpc_HandleHSet("tcp://127.0.0.1:8001" , targets , Msg::Object(0) , strTable , strKey , strValue , 1);
 			}
 			break;
 		case OPERATION_UPDATE:
@@ -69,7 +69,7 @@ namespace GameDB
 				//5 这里调试直接往服务器写.但是真实情况这么写就会出问题.因为这里会卡住.同时value为string应该不好.
 				std::vector<Msg::Object> targets;
 				targets.push_back(Msg::Object(1));   
-				Client::rpc_HandleHGet("tcp://127.0.0.1:8001" , strTable , strKey , targets , Msg::Object(0) , 1);
+				Client::rpc_HandleHGet("tcp://127.0.0.1:8001", targets , Msg::Object(0) , strTable , strKey  , 1);
 
 			}
 			break;
