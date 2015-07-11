@@ -85,6 +85,18 @@
     <Filter Include="GameDB\src">
       <UniqueIdentifier>{4bad0acd-eca5-4d87-a4ef-1dbef43d0a02}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameDB\inc\DBSlave">
+      <UniqueIdentifier>{55c607f9-cc52-4387-8806-08bd40faf765}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameDB\inc\DBMaster">
+      <UniqueIdentifier>{44848668-79b4-4a47-8bf0-af1555ebcb67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameDB\inc\DBServer">
+      <UniqueIdentifier>{fc7c1f43-162b-4b82-b793-b82d6cfa96eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameDB\inc\DBClient">
+      <UniqueIdentifier>{b9191a33-9ba0-4225-afcc-b413be20348f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -411,9 +423,6 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\Environment.h">
       <Filter>GameDB\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\GameDBHelper.h">
-      <Filter>GameDB\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\GameDB\inc\Comparator.h">
       <Filter>GameDB\inc</Filter>
     </ClInclude>
@@ -447,29 +456,8 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\OperateReturns.h">
       <Filter>GameDB\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerNetHandler.h">
-      <Filter>GameDB\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\Common\CommandHandler.h">
       <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBCommandHandler.h">
-      <Filter>GameDB\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientNetHandler.h">
-      <Filter>GameDB\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientManager.h">
-      <Filter>GameDB\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientInterface.h">
-      <Filter>GameDB\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerManager.h">
-      <Filter>GameDB\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerInterface.h">
-      <Filter>GameDB\inc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\LibCore\Common\carg_parser.h">
       <Filter>Common</Filter>
@@ -482,12 +470,6 @@
     </ClInclude>
     <ClInclude Include="..\..\LibCore\Common\intrusive_ptr.h">
       <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBMasterInterface.h">
-      <Filter>GameDB\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBSlaveInterface.h">
-      <Filter>GameDB\inc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\LibCore\TimerLib\inc\TimingWheel.h">
       <Filter>TimerLib\inc</Filter>
@@ -510,15 +492,6 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\SortedSet.h">
       <Filter>GameDB\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBSlaveNetHandler.h">
-      <Filter>GameDB\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBSlaveManager.h">
-      <Filter>GameDB\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\SlaveSession.h">
-      <Filter>GameDB\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\GameDB\inc\UserAuth.h">
       <Filter>GameDB\inc</Filter>
     </ClInclude>
@@ -530,6 +503,48 @@
     </ClInclude>
     <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgProxy.h">
       <Filter>MsgLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBSlaveManager.h">
+      <Filter>GameDB\inc\DBSlave</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBSlaveInterface.h">
+      <Filter>GameDB\inc\DBSlave</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBSlaveNetHandler.h">
+      <Filter>GameDB\inc\DBSlave</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBMasterInterface.h">
+      <Filter>GameDB\inc\DBMaster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerInterface.h">
+      <Filter>GameDB\inc\DBServer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerNetHandler.h">
+      <Filter>GameDB\inc\DBServer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerManager.h">
+      <Filter>GameDB\inc\DBServer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientInterface.h">
+      <Filter>GameDB\inc\DBClient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientNetHandler.h">
+      <Filter>GameDB\inc\DBClient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientManager.h">
+      <Filter>GameDB\inc\DBClient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\SlaveSession.h">
+      <Filter>GameDB\inc\DBSlave</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\LevelDB.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBMasterManager.h">
+      <Filter>GameDB\inc\DBMaster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\MasterSession.h">
+      <Filter>GameDB\inc\DBMaster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -716,9 +731,6 @@
     <ClCompile Include="..\..\LibCore\GameDB\src\Environment.cpp">
       <Filter>GameDB\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\LibCore\GameDB\src\GameDBHelper.cpp">
-      <Filter>GameDB\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\LibCore\GameDB\src\Comparator.cpp">
       <Filter>GameDB\src</Filter>
     </ClCompile>
@@ -774,6 +786,9 @@
       <Filter>GameDB\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\GameDB\src\SortedSet.cpp">
+      <Filter>GameDB\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\GameDB\src\DBMasterManager.cpp">
       <Filter>GameDB\src</Filter>
     </ClCompile>
   </ItemGroup>

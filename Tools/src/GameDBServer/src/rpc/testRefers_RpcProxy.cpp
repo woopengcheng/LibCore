@@ -6,7 +6,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::testRefers_RpcServerProxy(Msg::VecOb
 	LibCore_Chunk res = LibCore::Chunk();
 
 
-	if(ERR_FAILURE == ProxySendMsg("tcp://127.0.0.1:8002" , dbname , value))
+	if(ERR_FAILURE == ProxySendMsg("tcp://127.0.0.1:8002" , 0 , dbname , value))
 	{
 		RPCReturn1(res);
 	}

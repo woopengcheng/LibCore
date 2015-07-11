@@ -1,7 +1,7 @@
 #include "GameDB/inc/DBMasterInterface.h"  
 #include "NetLib/inc/NetReactorSelect.h"
 #include "NetLib/inc/NetReactorZMQ.h"
-#include "GameDB/inc/DBServerManager.h"
+#include "GameDB/inc/DBMasterManager.h"
 #include "GameDB/inc/DBClientManager.h"
 #include "LogLib/inc/Log.h" 
 
@@ -40,7 +40,7 @@ namespace GameDB
 
 		if (!m_pRpcServerManager)
 		{
-			m_pRpcServerManager = new DBServerManager(this , m_pNetReactor); 
+			m_pRpcServerManager = new DBMasterManager(this , m_pNetReactor); 
 		} 
 		if (!m_pRpcClientManager)
 		{

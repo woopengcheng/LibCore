@@ -13,7 +13,12 @@ namespace Msg
 	class DLL_EXPORT  ObjectMsgCall : public LibCore::Marshal
 	{ 
 	public:
-		ObjectMsgCall() :m_ullMsgID(0) , m_unTargetsCount(0) , m_usPriority(0) , m_aTargets(NULL)
+		ObjectMsgCall(/*const Msg::Parameters & objParams*/)
+//			: m_objParams(objParams)
+			: m_ullMsgID(0) 
+			, m_unTargetsCount(0) 
+			, m_usPriority(0) 
+			, m_aTargets(NULL)
 		{  
 			RefreshTargets();
 		}
@@ -57,6 +62,7 @@ namespace Msg
 		void    SetMethodNameBySubSuffix(const char * pName){ Assert((strlen(m_szMsgMethod) - strlen(pName)) > 0);	m_szMsgMethod[strlen(m_szMsgMethod) - strlen(pName)] = '\0'; }
 		UINT32  Copy(ObjectMsgCall *& pMsg);
 		UINT32  CopyExcludeParams(ObjectMsgCall *& pMsg);
+		UINT32  CopyExcludeParamsAndTargets(ObjectMsgCall *& pMsg ,const std::vector<Msg::Object> & vecTargets , Msg::Object objSrc);
 		UINT32  GetTargetsCount(){ return m_unTargetsCount; }
 		void    SetTargetsCount(UINT32 unTargetsCount){ m_unTargetsCount = unTargetsCount;  }
 

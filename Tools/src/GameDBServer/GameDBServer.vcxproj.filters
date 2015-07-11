@@ -53,15 +53,6 @@
     <ClCompile Include="src\rpc\HandleCreateUser_RpcServer.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\SlaveRequestSync_RpcClient.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rpc\SlaveRequestSync_RpcProxy.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rpc\SlaveRequestSync_RpcServer.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
     <ClCompile Include="src\MasterHandler.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -72,12 +63,6 @@
       <Filter>src\rpc</Filter>
     </ClCompile>
     <ClCompile Include="src\rpc\HandleZTop_RpcServer.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rpc\SyncDataToSlave_RpcClient.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rpc\SyncDataToSlave_RpcProxy.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
     <ClCompile Include="src\rpc\SyncDataToSlave_RpcServer.cpp">
@@ -168,6 +153,27 @@
       <Filter>src\rpc</Filter>
     </ClCompile>
     <ClCompile Include="src\rpc\testRefers_RpcClient.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\SyncMasterHandler_RpcClient.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\SyncMasterHandler_RpcServer.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\SyncDataToSlave_RpcClient.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\SyncDataToSlave_RpcProxy.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\SlaveRequestSync_RpcClient.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\SlaveRequestSync_RpcServer.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\SlaveRequestSync_RpcProxy.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
   </ItemGroup>

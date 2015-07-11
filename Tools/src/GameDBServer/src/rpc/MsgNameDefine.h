@@ -106,6 +106,9 @@ namespace Msg
 	//5 HandleDump declare here
 	RPC_DEFINE(HandleDump);
 
+	//5 SyncMasterHandler declare here
+	RPC_DEFINE(SyncMasterHandler);
+
 	//5 SlaveStartAuth declare here
 	RPC_DEFINE(SlaveStartAuth);
 

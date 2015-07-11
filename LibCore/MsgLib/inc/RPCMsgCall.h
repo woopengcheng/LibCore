@@ -31,7 +31,8 @@ namespace Msg
 	class DLL_EXPORT  RPCMsgCall : public ObjectMsgCall
 	{ 
 	public:
-		RPCMsgCall()   
+		RPCMsgCall(/*const Msg::Parameters & objParams*/)   
+//			: ObjectMsgCall(objParams)
 			: m_bClientRequest(FALSE)
 			, m_ullTimeout(MAX_MSG_TIME_OUT)  
 			, m_objProxySrcID(DEFAULT_RPC_CALLABLE_ID)
@@ -76,6 +77,8 @@ namespace Msg
 		//************************************
 		UINT32 Copy(RPCMsgCall *& pMsg);
 		UINT32 CopyExcludeParams(RPCMsgCall *& pMsg);
+		UINT32 CopyExcludeParamsAndTargets(RPCMsgCall *& pMsg ,const std::vector<Msg::Object> & vecTargets , Msg::Object objSrc);
+
 
 	public:
 		void   SetSessionName(const char * pName){ memcpy(m_szSessionName , pName , strlen(pName) + 1); }
@@ -92,7 +95,6 @@ namespace Msg
 	public: 
 		virtual LibCore::CStream & marshal(LibCore::CStream & cs);
 		virtual LibCore::CStream & unMarshal(LibCore::CStream & cs);
-
 	public:    
 		BOOL           m_bClientRequest;
 		UINT64         m_ullTimeout;   

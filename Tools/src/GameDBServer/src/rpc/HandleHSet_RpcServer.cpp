@@ -19,10 +19,8 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHSet_RpcServer(Msg::VecObjects
 	GameDB::Operate oper;
 	GameDB::HashTable::HSet(*pDB , oper , table , key , value);
 	if (oper.IsSuccess())
-	{
-// 		Msg::VecObjects & vecTargets2;
-// 		vecTargets2.push_back(Msg::Object(1));
-// 		rpc_SyncDataToSlave("tcp://127.0.0.1:9001" , g_szSystemDatabase , oper.GetOperateRecord().GetData() , vecTargets2 , Msg::Object(1));
+	{ 
+ 		rpc_SyncDataToSlave("tcp://127.0.0.1:9001" , 1 , 1 , m_strDatabaseName , oper.GetOperateRecord().GetData());
 
 		res = 0;
 		gDebugStream("table:" << table << "key:" << key << "value:" << value << "success."); 

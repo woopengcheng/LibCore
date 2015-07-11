@@ -561,28 +561,29 @@ def GenerateRPCDefinesHeader(fileRpc , namespace):
 def GenerateRPCDefine(rpc , fileRpc , serverName , rpcRecords): 
 	if serverName == rpc.server or serverName == rpc.proxy:
 		if rpc.classes not in rpcRecords:
-			fileRpc.write("#define  RPC_DEFINE_" + rpc.classes + " public:\\\n")
-			for index , rpc2 in g_rpcMsgs.rpcs.rpcs.items():
-				strParams = GetParams(rpc2.call.params)   
-				if rpc2.classes == rpc.classes:
-					if len(strParams) != 0:
-						fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcServer(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strParams + ");\\\n")
-					else:	
-						fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcServer(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")
+			if rpc.classes != "GlobalRpc":
+				fileRpc.write("#define  RPC_DEFINE_" + rpc.classes + " public:\\\n")
+				for index , rpc2 in g_rpcMsgs.rpcs.rpcs.items():
+					strParams = GetParams(rpc2.call.params)   
+					if rpc2.classes == rpc.classes and rpc2.classes != "GlobalRpc":
+						if len(strParams) != 0:
+							fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcServer(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strParams + ");\\\n")
+						else:	
+							fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcServer(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")
 
-				if rpc2.proxyClass == rpc.classes : 
-					if len(strParams) != 0:
-						fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcServerProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strParams + ");\\\n")
-						fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcTimeoutProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strParams + ");\\\n")
-					else:
-						fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcServerProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")
-						fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcTimeoutProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")
-						
-					strDefaultParams = GetParams(rpc2.returns.params)
-					if len(strDefaultParams) != 0:
-						fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcClientProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strDefaultParams + ");\\\n") 
-					else:
-						fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcClientProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n") 
+					if rpc2.proxyClass == rpc.classes and rpc2.proxyClass != "GlobalRpc": 
+						if len(strParams) != 0:
+							fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcServerProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strParams + ");\\\n")
+							fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcTimeoutProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strParams + ");\\\n")
+						else:
+							fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcServerProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")
+							fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcTimeoutProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")
+							
+						strDefaultParams = GetParams(rpc2.returns.params)
+						if len(strDefaultParams) != 0:
+							fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcClientProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strDefaultParams + ");\\\n") 
+						else:
+							fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcClientProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n") 
 
 
 def GenerateGlableRpc():
@@ -650,11 +651,29 @@ def GenerateGlableRpcClass(rpcs , fileRpc , serverName):
 			else:
 				fileRpc.write(twoTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcClient(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\n")
 	 
-		elif rpc.proxy == serverName:
-			pass
+		elif rpc.proxy == serverName and rpc.proxyClass == "GlobalRpc":
+			fileRpc.write(twoTab + "\n//" + rpc.name + " generate RPC func here\n")
+			strDefaultParams = GetParams(rpc.call.params) 
+			if len(strDefaultParams) != 0:
+				fileRpc.write(twoTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcServerProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strDefaultParams + ");\n")
+				fileRpc.write(twoTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcTimeoutProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strDefaultParams + ");\n")
+			else:
+				fileRpc.write(twoTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcServerProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\n")
+				fileRpc.write(twoTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcTimeoutProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\n")
 			
-		elif rpc.server == serverName: 
-			pass 
+			strDefaultParams = GetParams(rpc.returns.params)  
+			if len(strDefaultParams) != 0:
+				fileRpc.write(twoTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcClientProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strDefaultParams + ");\n")  
+			else:
+				fileRpc.write(twoTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcClientProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")  
+	  			
+		elif rpc.server == serverName and rpc.classes == "GlobalRpc": 
+			fileRpc.write(twoTab + "\n//" + rpc.name + " generate RPC func here\n")
+			strDefaultParams = GetParams(rpc.call.params) 
+			if len(strDefaultParams) != 0:
+				fileRpc.write(twoTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcServer(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strDefaultParams + ");\n")
+			else:
+				fileRpc.write(twoTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcServer(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\n")
 
 	fileRpc.write(twoTab + "\n")
 	
@@ -749,20 +768,33 @@ def GenerateRpcRegisterServerHeader(rpcs , fileRpc , serverName):
 	#生成所有的rpc
 	for index , rpc in rpcs.items():     
 		if rpc.server == serverName and rpc.include not in sameRecord: 
-			fileRpc.write("#include \"" + rpc.include + "\"\n") 
-			sameRecord[rpc.include] = 1
+			if rpc.classes != "GlobalRpc":
+				fileRpc.write("#include \"" + rpc.include + "\"\n") 
+				sameRecord[rpc.include] = 1
 
 def GenerateRpcRegisterFuncs(rpc , fileRpc , serverName):
 	#生成所有的rpc  
 	if rpc.server == serverName: 
-		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ rpc.classes + " >(Msg::g_sz" + rpc.name + "_RpcServer , &" + rpc.classes + "::" + rpc.name + "_RpcServer); \n") 
+		className = ""
+		if rpc.classes != "GlobalRpc":
+			className = rpc.classes
+		else:			
+			className = "Msg::GlobalRpc"
+			
+		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcServer , &" + className + "::" + rpc.name + "_RpcServer); \n") 
   
 	if rpc.proxy == serverName: 
+		className = ""
+		if rpc.proxyClass != "GlobalRpc":
+			className = rpc.proxyClass
+		else:			
+			className = "Msg::GlobalRpc"
+
 		fileRpc.write(threeTab + "\n")
-		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ rpc.proxyClass + " >(Msg::g_sz" + rpc.name + "_RpcServerProxy , &" + rpc.proxyClass + "::" + rpc.name + "_RpcServerProxy); \n") 
-		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ rpc.proxyClass + " >(Msg::g_sz" + rpc.name + "_RpcClientProxy , &" + rpc.proxyClass + "::" + rpc.name + "_RpcClientProxy); \n") 
-		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ rpc.proxyClass + " >(Msg::g_sz" + rpc.name + "_RpcTimeoutProxy ,&" + rpc.proxyClass + "::" + rpc.name + "_RpcTimeoutProxy); \n") 
-  
+		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcServerProxy , &" + className + "::" + rpc.name + "_RpcServerProxy); \n") 
+		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcClientProxy , &" + className + "::" + rpc.name + "_RpcClientProxy); \n") 
+		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcTimeoutProxy ,&" + className + "::" + rpc.name + "_RpcTimeoutProxy); \n") 
+			
 	if rpc.client == serverName: 
 		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_sz" + rpc.name + "_RpcTimeout , &Msg::GlobalRpc::" + rpc.name + "_RpcTimeout); \n") 
 		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_sz" + rpc.name + "_RpcClient , &Msg::GlobalRpc::" + rpc.name + "_RpcClient); \n") 
@@ -818,18 +850,26 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 #				os.remove(outputPath)
 				continue
 
+			className = ""
+			if rpc.proxyClass != "GlobalRpc":
+				className = rpc.proxyClass
+			else:
+				namespace = "Msg"
+				className = "GlobalRpc"
+			
 			fileRpc = open(outputPath , "a")   
 
 			fileRpc.write("#include \"GlobalRpc.h\"\n")
-			fileRpc.write("#include \"" + rpc.proxyInclude + "\"\n\n") 
+			if className != "GlobalRpc":
+				fileRpc.write("#include \"" + rpc.proxyInclude + "\"\n\n") 
+			fileRpc.write("\n\n") 
 
-			fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + rpc.proxyClass + "::" + rpc.name + "_RpcServerProxy(Msg::VecObjects & vecTargets  , Msg::Object objSrc  ,")
+			fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcServerProxy(Msg::VecObjects & vecTargets  , Msg::Object objSrc  ,")
 			strParams = GetParamsExcludeDefault(rpc.call.params) 
 			if len(strParams) != 0:
-				fileRpc.write(strParams + ")\n{\n\n\n")
+				fileRpc.write(strParams + ")\n{\n")
 			else:
-				fileRpc.write(")\n{\n\n\n")	  
-			fileRpc.write("{\n");			
+				fileRpc.write(")\n{\n")
 			WriteDefineParams(fileRpc , rpc.returns.params)
 			fileRpc.write("\n\n");			
 			
@@ -851,7 +891,7 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 #			fileRpc.write(oneTab + "//RPCReturn" + str(strReturnCount) + "(" + strParamsNoType + ");\n") 
 			fileRpc.write(oneTab + "RPCReturnNULL;\n}\n\n")
 
-			fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + rpc.proxyClass + "::" + rpc.name + "_RpcClientProxy(Msg::VecObjects & vecTargets  , Msg::Object objSrc  ,") 
+			fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcClientProxy(Msg::VecObjects & vecTargets  , Msg::Object objSrc  ,") 
 			strParams = GetParamsExcludeDefault(rpc.returns.params)
 			if len(strParams) != 0:
 				fileRpc.write(strParams + ")\n{\n\n\n")
@@ -867,7 +907,7 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 			fileRpc.write(oneTab + "RPCReturn" + str(strReturnCount) + "(" + strParamsNoType + ");\n}\n\n")
 
 			strParams = GetParamsExcludeDefault(rpc.call.params)
-			fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + rpc.proxyClass + "::" + rpc.name + "_RpcTimeoutProxy(Msg::VecObjects & vecTargets  , Msg::Object objSrc,")
+			fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcTimeoutProxy(Msg::VecObjects & vecTargets  , Msg::Object objSrc,")
 			fileRpc.write(strParams + " )\n{\n\n\n ")
 			fileRpc.write(oneTab + "std::cout << \"" + rpc.name + "_RpcTimeoutProxy\" << std::endl;\n")
 			fileRpc.write(oneTab + "RPCReturnNULL;\n}\n\n")
@@ -883,14 +923,23 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 #				os.remove(outputPath)
 				continue
 
+			className = ""
+			if rpc.classes != "GlobalRpc":
+				className = rpc.classes
+			else:
+				namespace = "Msg"
+				className = "GlobalRpc"
+				
 			fileRpc = open(outputPath , "a")   
 
 			fileRpc.write("#include \"GlobalRpc.h\"\n") 
-			fileRpc.write("#include \"" + rpc.include + "\"\n\n") 
+			if className != "GlobalRpc":
+				fileRpc.write("#include \"" + rpc.include + "\"") 
+			fileRpc.write("\n\n") 
 
-			fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + rpc.classes + "::" + rpc.name + "_RpcServer(Msg::VecObjects & vecTargets , Msg::Object objSrc ,")
+			fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcServer(Msg::VecObjects & vecTargets , Msg::Object objSrc ,")
 			strParams = GetParamsExcludeDefault(rpc.call.params)
-			if len(strParams) == 0:
+			if len(strParams) != 0:
 				fileRpc.write(strParams + ")\n{\n")
 			else:
 				fileRpc.write(")\n{\n")
@@ -965,6 +1014,8 @@ def GenerateRpcCallFuncs():
 		
 		for index , rpc in g_rpcMsgs.rpcs.rpcs.items(): 
 			if serverName.serverName == rpc.client:		
+			
+				#生成sessionName方式带有vec发送的RPC
 				strParams = GetParamsExcludeDefault(rpc.call.params) 
 				syncType = GetSyncTypeInString(rpc.syncType)
 				if len(strParams) != 0:
@@ -980,7 +1031,8 @@ def GenerateRpcCallFuncs():
 				else:
 					fileRpc.write(twoTab + "GEN_RPC_CALL_" + str(strParamsCount) + "((&(" + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance())) , pSessionName , " + "Msg::g_sz" + rpc.name + "_RpcCall , " + strParams + ", vecTargets , objSrc , usPriority , " + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance().GetServerName() , objSyncType , " + str(rpc.timeout) + ");\n")
 				fileRpc.write(oneTab + "}\n\n")	
-				
+																
+				#生成sessionName方式不带有vec发送的RPC
 				strParams = GetParamsExcludeDefault(rpc.call.params) 
 				syncType = GetSyncTypeInString(rpc.syncType)
 				if len(strParams) != 0:
@@ -1000,6 +1052,43 @@ def GenerateRpcCallFuncs():
 				
 				fileRpc.write(oneTab + "}\n\n")	
 				
+				
+				#生成sessionID方式带有vec发送的RPC
+				strParams = GetParamsExcludeDefault(rpc.call.params) 
+				syncType = GetSyncTypeInString(rpc.syncType)
+				if len(strParams) != 0:
+					fileRpc.write(oneTab + "static INT32  rpc_" + rpc.name + "(INT32 nSessionID , Msg::VecObjects & vecTargets , Msg::Object objSrc , " + strParams + " , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
+				else:
+					fileRpc.write(oneTab + "static INT32  rpc_" + rpc.name + "(INT32 nSessionID , Msg::VecObjects & vecTargets , Msg::Object objSrc , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
+				fileRpc.write(oneTab + "{\n")
+				
+				strParams = GetParamsExcludeDefaultAndType(rpc.call.params) 
+				strParamsCount = len(rpc.call.params)
+				if strParamsCount == 0:
+					fileRpc.write(twoTab + "GEN_RPC_CALL_" + str(strParamsCount) + "((&(" + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance())) , nSessionID , " + "Msg::g_sz" + rpc.name + "_RpcCall " + strParams + ", vecTargets , objSrc , usPriority , " + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance().GetServerName() , objSyncType , " + str(rpc.timeout) + ");\n")
+				else:
+					fileRpc.write(twoTab + "GEN_RPC_CALL_" + str(strParamsCount) + "((&(" + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance())) , nSessionID , " + "Msg::g_sz" + rpc.name + "_RpcCall , " + strParams + ", vecTargets , objSrc , usPriority , " + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance().GetServerName() , objSyncType , " + str(rpc.timeout) + ");\n")
+				fileRpc.write(oneTab + "}\n\n")	
+																
+				#生成sessionID方式不带有vec发送的RPC
+				strParams = GetParamsExcludeDefault(rpc.call.params) 
+				syncType = GetSyncTypeInString(rpc.syncType)
+				if len(strParams) != 0:
+					fileRpc.write(oneTab + "static INT32  rpc_" + rpc.name + "(INT32 nSessionID , Msg::Object objTarget, Msg::Object objSrc , " + strParams + " , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
+				else:
+					fileRpc.write(oneTab + "static INT32  rpc_" + rpc.name + "(INT32 nSessionID , Msg::Object objTarget, Msg::Object objSrc , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
+
+				fileRpc.write(oneTab + "{\n")
+				
+				strParams = GetParamsExcludeDefaultAndType(rpc.call.params) 
+				strParamsCount = len(rpc.call.params)
+				fileRpc.write(twoTab + "std::vector<Msg::Object> vecTargets;\n" + twoTab + "vecTargets.push_back(objTarget);\n" )
+				if strParamsCount != 0:
+					fileRpc.write(twoTab + "return rpc_" + rpc.name + "( nSessionID ,vecTargets , objSrc , " + strParams + ", usPriority , objSyncType);\n" )
+				else:
+					fileRpc.write(twoTab + "return rpc_" + rpc.name + "( nSessionID , vecTargets , objSrc , usPriority , objSyncType);\n" )
+				
+				fileRpc.write(oneTab + "}\n\n")	
 				
 		fileRpc.close()
 			

@@ -20,8 +20,8 @@ namespace Msg
 
 		}
 	public:
-		virtual INT32 OnListenOn(RpcInterface * pRpcInterface){ return ERR_SUCCESS;} 
-		virtual INT32 OnListenOff(RpcInterface * pRpcInterface){ return ERR_SUCCESS;}
+		virtual INT32 OnConnected(RpcInterface * pRpcInterface , Net::ISession * pServerSession , Net::ISession * pClientSession){ return ERR_SUCCESS;} 
+		virtual INT32 OnDisconnected(RpcInterface * pRpcInterface , Net::ISession * pServerSession , Net::ISession * pClientSession){ return ERR_SUCCESS;}
 	};
 
 }

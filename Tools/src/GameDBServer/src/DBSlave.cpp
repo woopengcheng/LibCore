@@ -7,6 +7,7 @@ namespace Server
 {
 	DBSlave::DBSlave(void)
 		: ThreadPool::ThreadSustainTask(0 , "DBSlave" )
+		, m_objMasterSessionID(0)
 	{
 
 	}
@@ -46,21 +47,17 @@ namespace Server
 
 	void DBSlave::RequestSyncData(std::string		strDBName , std::string		strDBDir)
 	{ 
-		Server::rpc_SlaveRequestSync("tcp://127.0.0.1:9001" , 1 , Msg::Object(1) , strDBDir , strDBName);
+		Server::rpc_SlaveRequestSync("tcp://127.0.0.1:9001" , GetMasterSessionID() , Msg::Object(1) , strDBDir , strDBName);
 	}
 
 	void DBSlave::StartAuth(std::string		strName , std::string		strPwd)
-	{ 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Server::rpc_SlaveStartAuth("tcp://127.0.0.1:9001" , targets , Msg::Object(1) , strName , strPwd , 1);
+	{  
+		Server::rpc_SlaveStartAuth("tcp://127.0.0.1:9001" , GetMasterSessionID() , Msg::Object(1) , strName , strPwd , 1);
 	}
 
 	void DBSlave::SelectDB(	std::string	strDBName )
-	{
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Server::rpc_SlaveSelectDB("tcp://127.0.0.1:9001" , targets , Msg::Object(1) , strDBName , 1);
+	{ 
+		Server::rpc_SlaveSelectDB("tcp://127.0.0.1:9001" , GetMasterSessionID() , Msg::Object(1)  , strDBName , 1);
 
 	}
 

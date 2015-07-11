@@ -245,7 +245,7 @@ namespace Msg
 
 				if(pNetHandlerClient && m_pRpcInterface->GetRpcListener())
 				{   
-					m_pRpcInterface->GetRpcListener()->OnListenOn(m_pRpcInterface);  
+					m_pRpcInterface->GetRpcListener()->OnConnected(m_pRpcInterface);  
 				} 
 			}  
 
@@ -298,7 +298,7 @@ namespace Msg
 
 					if (m_pRpcInterface->GetRpcListener())
 					{ 
-						m_pRpcInterface->GetRpcListener()->OnListenOn(m_pRpcInterface); 
+						m_pRpcInterface->GetRpcListener()->OnConnected(m_pRpcInterface , pSession , pNetHandler->GetSession()); 
 					}
 				} 
 

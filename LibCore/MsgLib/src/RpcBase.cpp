@@ -85,7 +85,7 @@ namespace Msg
 		}
 		else  //5 客户端请求
 		{
-			pICallableObject = dynamic_cast<IRpcMsgCallableObject *>(m_pRpcManager->GetCallableObject(pMsg->m_objSource)); 
+			pICallableObject = dynamic_cast<IRpcMsgCallableObject *>(m_pRpcManager->GetCallableObject(0)); 
 
 			//5 发给客户端的.
 

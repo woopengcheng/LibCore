@@ -32,12 +32,17 @@ namespace Server
 		virtual INT32  Update(void);
 
 	public:
-		void    StartAuth(std::string		strName , std::string		strPwd);
-		void    SelectDB(std::string		strDBName );
-		void    RequestSyncData(std::string		strDBName , std::string		strDBDir);
+		void		StartAuth(std::string		strName , std::string		strPwd);
+		void		SelectDB(std::string		strDBName );
+		void		RequestSyncData(std::string		strDBName , std::string		strDBDir);
+		void		SetMasterSessionID(Msg::Object nMasterSessionID){ m_objMasterSessionID = nMasterSessionID; }
+		Msg::Object GetMasterSessionID( ){ return m_objMasterSessionID; }
 
 	private: 
 		INT32   InitThread(Json::Value & conf); 
+
+	private:
+		Msg::Object	m_objMasterSessionID;
 	};  
 	 
 

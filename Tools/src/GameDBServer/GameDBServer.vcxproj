@@ -94,6 +94,7 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)..\bin\dll\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\tbb\lib\intel64\vc10;</AdditionalLibraryDirectories>
@@ -155,6 +156,8 @@
     <ClCompile Include="src\rpc\SyncDataToSlave_RpcClient.cpp" />
     <ClCompile Include="src\rpc\SyncDataToSlave_RpcProxy.cpp" />
     <ClCompile Include="src\rpc\SyncDataToSlave_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\SyncMasterHandler_RpcClient.cpp" />
+    <ClCompile Include="src\rpc\SyncMasterHandler_RpcServer.cpp" />
     <ClCompile Include="src\rpc\testRefers_RpcClient.cpp" />
     <ClCompile Include="src\rpc\testRefers_RpcProxy.cpp" />
     <ClCompile Include="src\rpc\testRefers_RpcServer.cpp" />

@@ -5,9 +5,8 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcServerProxy(Msg:
 {
 	std_string newbackdir = std::string();
 	INT32 res = 0;
-
-
-	if(ERR_FAILURE == ProxySendMsg("tcp://127.0.0.1:8001" , dbbackdir , dbname))
+	 
+	if(ERR_FAILURE == ProxySendMsg("tcp://127.0.0.1:8001" , 0 , dbbackdir , dbname))
 	{
 		RPCReturn2(newbackdir , res);
 	}
@@ -32,7 +31,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcTimeoutProxy(Msg
 {
 
 
- 	std::cout << "SlaveRequestSync_RpcTimeoutProxy" << std::endl;
+	std::cout << "SlaveRequestSync_RpcTimeoutProxy" << std::endl;
 	RPCReturnNULL;
 }
 

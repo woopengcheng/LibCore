@@ -11,16 +11,16 @@
 namespace Client
 {
 	//5 defaultParams define here.
-	static SINT8 g_rpcDefaultParam_SINT8 = 0;
 	static UINT8 g_rpcDefaultParam_UINT8 = 0;
+	static SINT8 g_rpcDefaultParam_SINT8 = 0;
 	static UINT16 g_rpcDefaultParam_UINT16 = 0;
 	static INT16 g_rpcDefaultParam_INT16 = 0;
-	static INT32 g_rpcDefaultParam_INT32 = 0;
 	static UINT32 g_rpcDefaultParam_UINT32 = 0;
+	static INT32 g_rpcDefaultParam_INT32 = 0;
 	static UINT64 g_rpcDefaultParam_UINT64 = 0;
 	static INT64 g_rpcDefaultParam_INT64 = 0;
-	static double g_rpcDefaultParam_double = 0.0f;
 	static float g_rpcDefaultParam_float = 0.0f;
+	static double g_rpcDefaultParam_double = 0.0f;
 	static std_string g_rpcDefaultParam_std_string = std::string();
 	static LibCore_Chunk g_rpcDefaultParam_LibCore_Chunk = LibCore::Chunk();
 
@@ -436,6 +436,16 @@ namespace Client
 			objReturnParams.Clear();
 			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleDump_RpcTimeout , &Msg::GlobalRpc::HandleDump_RpcTimeout); 
 			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleDump_RpcClient , &Msg::GlobalRpc::HandleDump_RpcClient); 
+		}
+
+		//5 SyncMasterHandler generate default deliver and return check param here
+		{
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_INT32);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			Msg::g_pRpcCheckParams->InsertDeliverParams("SyncMasterHandler", objDeliverParams);
+			Msg::g_pRpcCheckParams->InsertReturnParams("SyncMasterHandler", objReturnParams);
+			objDeliverParams.Clear();
+			objReturnParams.Clear();
 		}
 
 		//5 SlaveStartAuth generate default deliver and return check param here

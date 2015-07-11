@@ -15,7 +15,7 @@ namespace Server
 {  
 	class SlaveHandler : public Msg::IRpcMsgCallableObject
 	{ 
- 		RPC_DEFINE_SlaveHandler;
+		RPC_DEFINE_SlaveHandler;
 	public:
 		SlaveHandler(DBSlave * pDBSlave)
 			: Msg::IRpcMsgCallableObject(Msg::Object(1) , pDBSlave->GetRpcServerManager())
@@ -27,14 +27,15 @@ namespace Server
 		virtual INT32 Update(){ return 0; } 
 
 	public:
-		DBSlave * GetDBSlave(){ return m_pDBSlave; }
-		bool      RecvFile(std::string strDir , std::string strFileName , std::string strDBName , INT32 nFileSize , INT32 nSendType , const LibCore::Chunk & objChunk);
-		bool      RecvFileEnd(std::string strDir , std::string strDBName );
+		DBSlave *	GetDBSlave(){ return m_pDBSlave; }
+		bool		RecvFile(std::string strDir , std::string strFileName , std::string strDBName , INT32 nFileSize , INT32 nSendType , const LibCore::Chunk & objChunk);
+		bool		RecvFileEnd(std::string strDir , std::string strDBName );
 
 	private:
 		DBSlave * m_pDBSlave;
 		GameDB::SDBSlaveInfo m_objSlaveInfo;
 		GameDB::Database* m_pDatabase; 
+
 	}; 
 }
 

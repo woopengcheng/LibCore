@@ -15,22 +15,26 @@ namespace Server
 	{ 
  		RPC_DEFINE_MasterHandler;
 	public:
-		MasterHandler(DBMaster * pDBMaster)
-			: Msg::IRpcMsgCallableObject(Msg::Object(1) , pDBMaster->GetRpcServerManager())
+		MasterHandler(Msg::Object objID , DBMaster * pDBMaster)
+			: Msg::IRpcMsgCallableObject(objID , pDBMaster->GetRpcServerManager())
 			, m_pDBMaster(pDBMaster)
+			, m_nSessionID(0)
 		{}
 	public:
-		virtual INT32 Update(){ return 0; } 
+		virtual INT32	Update(){ return 0; } 
 
 	public:
-		DBMaster * GetDBMaster(){ return m_pDBMaster; }
-		void  StartSyncToSlave(std::string strDBDir);
-		bool  SendFile(const std::string & strFilePath , std::string & strFileName);
+		bool			SendFile(const std::string & strFilePath , std::string & strFileName);
+		void			SetDBName(std::string strName){ m_strDatabaseName = strName; }
+		std::string		GetDBName( ){ return m_strDatabaseName; }
+		DBMaster	*	GetDBMaster(){ return m_pDBMaster; }
+		void			StartSyncToSlave(std::string strDBDir);
 
 	private:
-		DBMaster * m_pDBMaster;
-		GameDB::UserAuth * m_pAuthInfo;
-		std::string m_strDatabaseName;
+		INT32			m_nSessionID;
+		DBMaster	 *  m_pDBMaster;
+		std::string		m_strDatabaseName;
+		GameDB::UserAuth m_objAuthInfo;
 	}; 
 }
 

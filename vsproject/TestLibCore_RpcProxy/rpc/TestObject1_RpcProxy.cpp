@@ -4,7 +4,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::TestObject1_RpcServerProxy(SINT8 userid1/* 
 {
 
 
- 	ProxySendMsg("tcp://127.0.0.1:8002" , userid1 , localid2 , userid3 , localid4 , localid10 , localid11 , localid12 , localid13);
+ 	ProxySendMsg("tcp://127.0.0.1:8002" , 0 , userid1 , localid2 , userid3 , localid4 , localid10 , localid11 , localid12 , localid13);
 	std::cout << "TestObject1_RpcServerProxy" << std::endl;
 	//RPCReturn0();
 	RPCReturnNULL;

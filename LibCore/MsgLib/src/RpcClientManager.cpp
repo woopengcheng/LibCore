@@ -21,7 +21,7 @@ namespace Msg
 			{  
 				m_pNetReactor->AddNetHandler(pNetHandlerClient);  
 				pClientSession->SetClosed(FALSE);
-				pClientSession->SetNetState(Net::NET_STATE_CONNECTED);
+				pClientSession->SetNetState(Net::NET_STATE_CONNECTING);
 				return pNetHandlerClient; 
 			}
 			else

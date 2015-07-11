@@ -459,6 +459,16 @@
 		<!--
 		slave相关rpc
 		-->
+		<Rpc name="SyncMasterHandler" include="SlaveHandler.h" class="SlaveHandler" client="Master" server="Slave" syncType="1" timeout="10">
+			<Call > 
+				<Param name="id" type="INT32"/>
+			</Call>
+
+			<Return>  
+				<Param name="res" type="INT32" /> 
+			</Return>
+		</Rpc>
+		
 		<Rpc name="SlaveStartAuth" include="ServerHandler.h" class="ServerHandler" proxyInclude="MasterHandler.h" proxyClass="MasterHandler" client="Slave" proxy="Master" server="Server" syncType="1" timeout="10">
 			<Call > 
 				<Param name="name" type="std_string" default=""/>
@@ -480,7 +490,7 @@
 			</Return>
 		</Rpc>
 		
-		<Rpc name="SlaveRequestSync" include="ServerHandler.h" class="ServerHandler" proxyInclude="MasterHandler.h" proxyClass="MasterHandler" client="Slave" proxy="Master" server="Server" syncType="1" timeout="3600">
+		<Rpc name="SlaveRequestSync" class="GlobalRpc" proxyInclude="MasterHandler.h" proxyClass="MasterHandler" client="Slave" proxy="Master" server="Server" syncType="1" timeout="3600">
 			<Call >
 				<Param name="dbbackdir" type="std_string" default=""/> 
 				<Param name="dbname" type="std_string" default=""/> 
@@ -505,7 +515,7 @@
 			</Return>
 		</Rpc>
 		
-		<Rpc name="SyncDataToSlave" include="SlaveHandler.h" class="SlaveHandler" proxyInclude="MasterHandler.h" proxyClass="MasterHandler" client="Server" proxy="Master" server="Slave" syncType="1" timeout="10">
+		<Rpc name="SyncDataToSlave" include="SlaveHandler.h" class="SlaveHandler" proxyInclude="GlobalRpc.h" proxyClass="GlobalRpc" client="Server" proxy="Master" server="Slave" syncType="1" timeout="10">
 			<Call > 
 				<Param name="dbname" type="std_string"/>
 				<Param name="value" type="LibCore_Chunk"/>

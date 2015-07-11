@@ -100,6 +100,24 @@ namespace Msg
 		return ERR_SUCCESS; 
 	}
 
+	UINT32 ObjectMsgCall::CopyExcludeParamsAndTargets(ObjectMsgCall *& pMsg ,const std::vector<Msg::Object> & vecTargets , Msg::Object objSrc)
+	{
+		pMsg = new(sizeof(Object)*vecTargets.size())ObjectMsgCall;
+
+		pMsg->m_ullMsgID       = m_ullMsgID;
+		pMsg->m_objSource      = objSrc;
+		pMsg->m_usPriority     = m_usPriority; 
+		memcpy(pMsg->m_szMsgMethod , m_szMsgMethod , MAX_MSG_METHOD_NAME_LENGTH); 
+
+		pMsg->SetTargetsCount(vecTargets.size()); 
+		for (UINT32 i = 0;i < vecTargets.size();++i)
+		{
+			pMsg->m_aTargets[i] = vecTargets[i];
+		} 
+
+		return ERR_SUCCESS; 
+	}
+
 	LibCore::CStream & ObjectMsgCall::marshal( LibCore::CStream & cs )
 	{ 
 		cs << m_unTargetsCount;

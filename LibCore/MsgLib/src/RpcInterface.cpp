@@ -308,10 +308,11 @@ namespace Msg
 		{ 
 			while (pMsg->GetSyncResult() == SYNC_RESULT_START_RETURN)
 			{
-				if(m_pNetReactor)
-				{
-					m_pNetReactor->Update();  //5 这里其实是接管网络的消息部分用于同步处理.也相当于这个线程阻塞了.
-				}
+				Update();
+// 				if(m_pNetReactor)
+// 				{
+// 					m_pNetReactor->Update();  //5 这里其实是接管网络的消息部分用于同步处理.也相当于这个线程阻塞了.
+// 				}
 			}
 			SAFE_DELETE(pMsg);
 		}

@@ -1,24 +1,26 @@
 #ifndef __server_db_master_h__
 #define __server_db_master_h__  
 #include "MsgLib/inc/RpcInterface.h"
+#include "MsgLib/inc/IRpcListener.h"
 #include "GameDB/inc/DBMasterInterface.h"
 #include "ThreadPoolLib/inc/ThreadTask.h"
-#include "json/json.h"
-
-
 #include "GameDB/inc/HashTable.h"
 #include "GameDB/inc/Environment.h"
 #include "GameDB/inc/Database.h"
 #include "GameDB/inc/Operate.h"
-
+#include "json/json.h"
 
 namespace Server
 {  
+	class MasterHandler;
+
 	class  DBMaster : public GameDB::DBMasterInterface  , ThreadPool::ThreadSustainTask
 	{ 
 	public:
+		typedef std::vector<MasterHandler *> CollectionMasterHandlersT;
+	public:
 		DBMaster(void) ;
-		virtual ~DBMaster(void){} 
+		virtual ~DBMaster(void);
 
 	public:
 		static DBMaster & GetInstance()
@@ -32,10 +34,36 @@ namespace Server
 		virtual void   OnRegisterRpcs(void); 
 		virtual INT32  Update(void);
 
+	public:
+		INT32			CreateMasterHandler();
+		MasterHandler * GetMasterHandler(const std::string & strDBName);
+
 	private: 
 		INT32   InitThread(Json::Value & conf);
+
+	private:
+		INT32 m_nHandlerCount;
+		CollectionMasterHandlersT m_vecMasterHandlers; 
+
 	};  
 	 
+
+	class MasterListener : public Msg::IRpcListener
+	{
+	public:
+		MasterListener(DBMaster * pMaster)
+			: m_pDBMaster(pMaster)
+		{
+
+		}
+
+	public:
+		virtual INT32 OnConnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pServerSession , Net::ISession * pClientSession);
+		virtual INT32 OnDisconnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pServerSession , Net::ISession * pClientSession);
+
+	private:
+		DBMaster * m_pDBMaster;
+	};
 
 
 }
