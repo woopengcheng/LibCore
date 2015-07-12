@@ -157,7 +157,6 @@ namespace Msg
 		
 	};
 
-	extern GlobalRpc * g_pGlobalRpc;
 }
 
 #endif

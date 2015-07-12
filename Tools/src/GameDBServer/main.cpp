@@ -1,6 +1,8 @@
 // GenRpcs.cpp : Defines the entry point for the console application.
 //
-
+#ifdef _DEBUG
+#include "vld.h"
+#endif
 #include "stdafx.h"
 #include "stdlib.h"
 #include <fstream>
@@ -78,10 +80,25 @@ int _tmain(int argc, _TCHAR* argv[])
 		if (strRunMode.compare("slave") != 0) 
 			Server::DBServer::GetInstance().Update();
 
+		if(remove("./quit") == 0)
+		{
+			break;
+		}
 		Timer::TimerHelper::sleep(1);
 	}
 
-	Server::DBServer::GetInstance().Cleanup();  
+
+	//5 等待slave连接成功,并且请求数据
+	if (strRunMode.compare("slave") == 0 )
+	{
+		Server::DBSlave::GetInstance().Cleanup();  
+	}
+	else
+	{
+		Server::DBServer::GetInstance().Cleanup();  
+		Server::DBMaster::GetInstance().Cleanup();  
+	}
+
 	LibCore::Cleanup();
 	 
 	return 0;

@@ -87,26 +87,14 @@ namespace GameDB
 	}
 
 	INT32 DBServerInterface::Cleanup(void)
-	{ 
-		if (m_pNetReactor)
-		{
-			m_pNetReactor->Cleanup();
-		}
-		SAFE_DELETE(m_pNetReactor);   
-
-		if (m_pRpcServerManager)
-		{
-			m_pRpcServerManager->Cleanup();
-		}
-		SAFE_DELETE(m_pRpcServerManager); 
-
+	{  
 		if (m_pEnvironment)
 		{
 //			m_pEnvironment->Cleanup();
 		}
 		SAFE_DELETE(m_pEnvironment); 
 
-		return ERR_SUCCESS;
+		return RpcInterface::Cleanup();
 	}
 
 	INT32 DBServerInterface::Update(void)

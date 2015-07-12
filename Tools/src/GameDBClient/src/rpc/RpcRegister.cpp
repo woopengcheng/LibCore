@@ -11,23 +11,23 @@
 namespace Client
 {
 	//5 defaultParams define here.
-	static UINT8 g_rpcDefaultParam_UINT8 = 0;
 	static SINT8 g_rpcDefaultParam_SINT8 = 0;
+	static UINT8 g_rpcDefaultParam_UINT8 = 0;
 	static UINT16 g_rpcDefaultParam_UINT16 = 0;
 	static INT16 g_rpcDefaultParam_INT16 = 0;
-	static UINT32 g_rpcDefaultParam_UINT32 = 0;
 	static INT32 g_rpcDefaultParam_INT32 = 0;
+	static UINT32 g_rpcDefaultParam_UINT32 = 0;
 	static UINT64 g_rpcDefaultParam_UINT64 = 0;
 	static INT64 g_rpcDefaultParam_INT64 = 0;
-	static float g_rpcDefaultParam_float = 0.0f;
 	static double g_rpcDefaultParam_double = 0.0f;
+	static float g_rpcDefaultParam_float = 0.0f;
 	static std_string g_rpcDefaultParam_std_string = std::string();
 	static LibCore_Chunk g_rpcDefaultParam_LibCore_Chunk = LibCore::Chunk();
 
 	void DBClient::OnRegisterRpcs( void )
 	{
 		Assert(m_pRpcServerManager && Msg::g_pRpcCheckParams);	
-		Msg::GlobalRpc * g_pGlobalRpc  = new Msg::GlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcServerManager); 
+		static Msg::GlobalRpc g_pGlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcServerManager); 
 
 		Msg::Parameters objDeliverParams , objReturnParams;
 		//5 HandleUserAuth generate default deliver and return check param here
@@ -38,8 +38,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleUserAuth", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleUserAuth_RpcTimeout , &Msg::GlobalRpc::HandleUserAuth_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleUserAuth_RpcClient , &Msg::GlobalRpc::HandleUserAuth_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleUserAuth_RpcClient , &Msg::GlobalRpc::HandleUserAuth_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleUserAuth_RpcTimeout ,&Msg::GlobalRpc::HandleUserAuth_RpcTimeout); 
 		}
 
 		//5 HandleSelectDatabase generate default deliver and return check param here
@@ -50,8 +51,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleSelectDatabase", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleSelectDatabase_RpcTimeout , &Msg::GlobalRpc::HandleSelectDatabase_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleSelectDatabase_RpcClient , &Msg::GlobalRpc::HandleSelectDatabase_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleSelectDatabase_RpcClient , &Msg::GlobalRpc::HandleSelectDatabase_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleSelectDatabase_RpcTimeout ,&Msg::GlobalRpc::HandleSelectDatabase_RpcTimeout); 
 		}
 
 		//5 HandleCreateDatabase generate default deliver and return check param here
@@ -62,8 +64,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleCreateDatabase", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleCreateDatabase_RpcTimeout , &Msg::GlobalRpc::HandleCreateDatabase_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleCreateDatabase_RpcClient , &Msg::GlobalRpc::HandleCreateDatabase_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleCreateDatabase_RpcClient , &Msg::GlobalRpc::HandleCreateDatabase_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleCreateDatabase_RpcTimeout ,&Msg::GlobalRpc::HandleCreateDatabase_RpcTimeout); 
 		}
 
 		//5 HandleDeleteDatabase generate default deliver and return check param here
@@ -74,8 +77,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleDeleteDatabase", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleDeleteDatabase_RpcTimeout , &Msg::GlobalRpc::HandleDeleteDatabase_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleDeleteDatabase_RpcClient , &Msg::GlobalRpc::HandleDeleteDatabase_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleDeleteDatabase_RpcClient , &Msg::GlobalRpc::HandleDeleteDatabase_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleDeleteDatabase_RpcTimeout ,&Msg::GlobalRpc::HandleDeleteDatabase_RpcTimeout); 
 		}
 
 		//5 HandleShowDatabases generate default deliver and return check param here
@@ -86,8 +90,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleShowDatabases", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleShowDatabases_RpcTimeout , &Msg::GlobalRpc::HandleShowDatabases_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleShowDatabases_RpcClient , &Msg::GlobalRpc::HandleShowDatabases_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleShowDatabases_RpcClient , &Msg::GlobalRpc::HandleShowDatabases_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleShowDatabases_RpcTimeout ,&Msg::GlobalRpc::HandleShowDatabases_RpcTimeout); 
 		}
 
 		//5 HandleCreateUser generate default deliver and return check param here
@@ -98,8 +103,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleCreateUser", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleCreateUser_RpcTimeout , &Msg::GlobalRpc::HandleCreateUser_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleCreateUser_RpcClient , &Msg::GlobalRpc::HandleCreateUser_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleCreateUser_RpcClient , &Msg::GlobalRpc::HandleCreateUser_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleCreateUser_RpcTimeout ,&Msg::GlobalRpc::HandleCreateUser_RpcTimeout); 
 		}
 
 		//5 HandleDeleteUser generate default deliver and return check param here
@@ -110,8 +116,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleDeleteUser", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleDeleteUser_RpcTimeout , &Msg::GlobalRpc::HandleDeleteUser_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleDeleteUser_RpcClient , &Msg::GlobalRpc::HandleDeleteUser_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleDeleteUser_RpcClient , &Msg::GlobalRpc::HandleDeleteUser_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleDeleteUser_RpcTimeout ,&Msg::GlobalRpc::HandleDeleteUser_RpcTimeout); 
 		}
 
 		//5 HandleModifyUser generate default deliver and return check param here
@@ -122,8 +129,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleModifyUser", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleModifyUser_RpcTimeout , &Msg::GlobalRpc::HandleModifyUser_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleModifyUser_RpcClient , &Msg::GlobalRpc::HandleModifyUser_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleModifyUser_RpcClient , &Msg::GlobalRpc::HandleModifyUser_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleModifyUser_RpcTimeout ,&Msg::GlobalRpc::HandleModifyUser_RpcTimeout); 
 		}
 
 		//5 HandleHSet generate default deliver and return check param here
@@ -134,8 +142,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHSet", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHSet_RpcTimeout , &Msg::GlobalRpc::HandleHSet_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHSet_RpcClient , &Msg::GlobalRpc::HandleHSet_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHSet_RpcClient , &Msg::GlobalRpc::HandleHSet_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHSet_RpcTimeout ,&Msg::GlobalRpc::HandleHSet_RpcTimeout); 
 		}
 
 		//5 HandleHSetNX generate default deliver and return check param here
@@ -146,8 +155,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHSetNX", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHSetNX_RpcTimeout , &Msg::GlobalRpc::HandleHSetNX_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHSetNX_RpcClient , &Msg::GlobalRpc::HandleHSetNX_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHSetNX_RpcClient , &Msg::GlobalRpc::HandleHSetNX_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHSetNX_RpcTimeout ,&Msg::GlobalRpc::HandleHSetNX_RpcTimeout); 
 		}
 
 		//5 HandleHSetOW generate default deliver and return check param here
@@ -158,8 +168,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHSetOW", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHSetOW_RpcTimeout , &Msg::GlobalRpc::HandleHSetOW_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHSetOW_RpcClient , &Msg::GlobalRpc::HandleHSetOW_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHSetOW_RpcClient , &Msg::GlobalRpc::HandleHSetOW_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHSetOW_RpcTimeout ,&Msg::GlobalRpc::HandleHSetOW_RpcTimeout); 
 		}
 
 		//5 HandleHGet generate default deliver and return check param here
@@ -170,8 +181,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHGet", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHGet_RpcTimeout , &Msg::GlobalRpc::HandleHGet_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHGet_RpcClient , &Msg::GlobalRpc::HandleHGet_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHGet_RpcClient , &Msg::GlobalRpc::HandleHGet_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHGet_RpcTimeout ,&Msg::GlobalRpc::HandleHGet_RpcTimeout); 
 		}
 
 		//5 HandleHDel generate default deliver and return check param here
@@ -182,8 +194,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHDel", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHDel_RpcTimeout , &Msg::GlobalRpc::HandleHDel_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHDel_RpcClient , &Msg::GlobalRpc::HandleHDel_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHDel_RpcClient , &Msg::GlobalRpc::HandleHDel_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHDel_RpcTimeout ,&Msg::GlobalRpc::HandleHDel_RpcTimeout); 
 		}
 
 		//5 HandleHSetIncr generate default deliver and return check param here
@@ -194,8 +207,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHSetIncr", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHSetIncr_RpcTimeout , &Msg::GlobalRpc::HandleHSetIncr_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHSetIncr_RpcClient , &Msg::GlobalRpc::HandleHSetIncr_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHSetIncr_RpcClient , &Msg::GlobalRpc::HandleHSetIncr_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHSetIncr_RpcTimeout ,&Msg::GlobalRpc::HandleHSetIncr_RpcTimeout); 
 		}
 
 		//5 HandleHSetIncrFloat generate default deliver and return check param here
@@ -206,8 +220,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHSetIncrFloat", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHSetIncrFloat_RpcTimeout , &Msg::GlobalRpc::HandleHSetIncrFloat_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHSetIncrFloat_RpcClient , &Msg::GlobalRpc::HandleHSetIncrFloat_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHSetIncrFloat_RpcClient , &Msg::GlobalRpc::HandleHSetIncrFloat_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHSetIncrFloat_RpcTimeout ,&Msg::GlobalRpc::HandleHSetIncrFloat_RpcTimeout); 
 		}
 
 		//5 HandleHGetKeys generate default deliver and return check param here
@@ -218,8 +233,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHGetKeys", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHGetKeys_RpcTimeout , &Msg::GlobalRpc::HandleHGetKeys_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHGetKeys_RpcClient , &Msg::GlobalRpc::HandleHGetKeys_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHGetKeys_RpcClient , &Msg::GlobalRpc::HandleHGetKeys_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHGetKeys_RpcTimeout ,&Msg::GlobalRpc::HandleHGetKeys_RpcTimeout); 
 		}
 
 		//5 HandleHGetVals generate default deliver and return check param here
@@ -230,8 +246,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHGetVals", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHGetVals_RpcTimeout , &Msg::GlobalRpc::HandleHGetVals_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHGetVals_RpcClient , &Msg::GlobalRpc::HandleHGetVals_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHGetVals_RpcClient , &Msg::GlobalRpc::HandleHGetVals_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHGetVals_RpcTimeout ,&Msg::GlobalRpc::HandleHGetVals_RpcTimeout); 
 		}
 
 		//5 HandleHGetKeyVals generate default deliver and return check param here
@@ -242,8 +259,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHGetKeyVals", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHGetKeyVals_RpcTimeout , &Msg::GlobalRpc::HandleHGetKeyVals_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHGetKeyVals_RpcClient , &Msg::GlobalRpc::HandleHGetKeyVals_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHGetKeyVals_RpcClient , &Msg::GlobalRpc::HandleHGetKeyVals_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHGetKeyVals_RpcTimeout ,&Msg::GlobalRpc::HandleHGetKeyVals_RpcTimeout); 
 		}
 
 		//5 HandleHScan generate default deliver and return check param here
@@ -254,8 +272,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHScan", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHScan_RpcTimeout , &Msg::GlobalRpc::HandleHScan_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHScan_RpcClient , &Msg::GlobalRpc::HandleHScan_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHScan_RpcClient , &Msg::GlobalRpc::HandleHScan_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHScan_RpcTimeout ,&Msg::GlobalRpc::HandleHScan_RpcTimeout); 
 		}
 
 		//5 HandleHCount generate default deliver and return check param here
@@ -266,8 +285,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHCount", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHCount_RpcTimeout , &Msg::GlobalRpc::HandleHCount_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHCount_RpcClient , &Msg::GlobalRpc::HandleHCount_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHCount_RpcClient , &Msg::GlobalRpc::HandleHCount_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHCount_RpcTimeout ,&Msg::GlobalRpc::HandleHCount_RpcTimeout); 
 		}
 
 		//5 HandleHDrop generate default deliver and return check param here
@@ -278,8 +298,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHDrop", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHDrop_RpcTimeout , &Msg::GlobalRpc::HandleHDrop_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHDrop_RpcClient , &Msg::GlobalRpc::HandleHDrop_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHDrop_RpcClient , &Msg::GlobalRpc::HandleHDrop_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHDrop_RpcTimeout ,&Msg::GlobalRpc::HandleHDrop_RpcTimeout); 
 		}
 
 		//5 HandleHList generate default deliver and return check param here
@@ -290,8 +311,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHList", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHList_RpcTimeout , &Msg::GlobalRpc::HandleHList_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHList_RpcClient , &Msg::GlobalRpc::HandleHList_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHList_RpcClient , &Msg::GlobalRpc::HandleHList_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHList_RpcTimeout ,&Msg::GlobalRpc::HandleHList_RpcTimeout); 
 		}
 
 		//5 HandleHMultiSet generate default deliver and return check param here
@@ -302,8 +324,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHMultiSet", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHMultiSet_RpcTimeout , &Msg::GlobalRpc::HandleHMultiSet_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHMultiSet_RpcClient , &Msg::GlobalRpc::HandleHMultiSet_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHMultiSet_RpcClient , &Msg::GlobalRpc::HandleHMultiSet_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHMultiSet_RpcTimeout ,&Msg::GlobalRpc::HandleHMultiSet_RpcTimeout); 
 		}
 
 		//5 HandleHMultiGet generate default deliver and return check param here
@@ -314,8 +337,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHMultiGet", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHMultiGet_RpcTimeout , &Msg::GlobalRpc::HandleHMultiGet_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHMultiGet_RpcClient , &Msg::GlobalRpc::HandleHMultiGet_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHMultiGet_RpcClient , &Msg::GlobalRpc::HandleHMultiGet_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHMultiGet_RpcTimeout ,&Msg::GlobalRpc::HandleHMultiGet_RpcTimeout); 
 		}
 
 		//5 HandleHMultiDel generate default deliver and return check param here
@@ -326,8 +350,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHMultiDel", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHMultiDel_RpcTimeout , &Msg::GlobalRpc::HandleHMultiDel_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleHMultiDel_RpcClient , &Msg::GlobalRpc::HandleHMultiDel_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHMultiDel_RpcClient , &Msg::GlobalRpc::HandleHMultiDel_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleHMultiDel_RpcTimeout ,&Msg::GlobalRpc::HandleHMultiDel_RpcTimeout); 
 		}
 
 		//5 HandleZSet generate default deliver and return check param here
@@ -338,8 +363,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZSet", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZSet_RpcTimeout , &Msg::GlobalRpc::HandleZSet_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZSet_RpcClient , &Msg::GlobalRpc::HandleZSet_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleZSet_RpcClient , &Msg::GlobalRpc::HandleZSet_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleZSet_RpcTimeout ,&Msg::GlobalRpc::HandleZSet_RpcTimeout); 
 		}
 
 		//5 HandleZGet generate default deliver and return check param here
@@ -350,8 +376,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZGet", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZGet_RpcTimeout , &Msg::GlobalRpc::HandleZGet_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZGet_RpcClient , &Msg::GlobalRpc::HandleZGet_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleZGet_RpcClient , &Msg::GlobalRpc::HandleZGet_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleZGet_RpcTimeout ,&Msg::GlobalRpc::HandleZGet_RpcTimeout); 
 		}
 
 		//5 HandleZDel generate default deliver and return check param here
@@ -362,8 +389,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZDel", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZDel_RpcTimeout , &Msg::GlobalRpc::HandleZDel_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZDel_RpcClient , &Msg::GlobalRpc::HandleZDel_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleZDel_RpcClient , &Msg::GlobalRpc::HandleZDel_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleZDel_RpcTimeout ,&Msg::GlobalRpc::HandleZDel_RpcTimeout); 
 		}
 
 		//5 HandleZTop generate default deliver and return check param here
@@ -374,8 +402,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZTop", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZTop_RpcTimeout , &Msg::GlobalRpc::HandleZTop_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZTop_RpcClient , &Msg::GlobalRpc::HandleZTop_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleZTop_RpcClient , &Msg::GlobalRpc::HandleZTop_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleZTop_RpcTimeout ,&Msg::GlobalRpc::HandleZTop_RpcTimeout); 
 		}
 
 		//5 HandleZRTop generate default deliver and return check param here
@@ -386,8 +415,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZRTop", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZRTop_RpcTimeout , &Msg::GlobalRpc::HandleZRTop_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZRTop_RpcClient , &Msg::GlobalRpc::HandleZRTop_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleZRTop_RpcClient , &Msg::GlobalRpc::HandleZRTop_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleZRTop_RpcTimeout ,&Msg::GlobalRpc::HandleZRTop_RpcTimeout); 
 		}
 
 		//5 HandleZDrop generate default deliver and return check param here
@@ -398,8 +428,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZDrop", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZDrop_RpcTimeout , &Msg::GlobalRpc::HandleZDrop_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZDrop_RpcClient , &Msg::GlobalRpc::HandleZDrop_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleZDrop_RpcClient , &Msg::GlobalRpc::HandleZDrop_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleZDrop_RpcTimeout ,&Msg::GlobalRpc::HandleZDrop_RpcTimeout); 
 		}
 
 		//5 HandleZCount generate default deliver and return check param here
@@ -410,8 +441,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZCount", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZCount_RpcTimeout , &Msg::GlobalRpc::HandleZCount_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZCount_RpcClient , &Msg::GlobalRpc::HandleZCount_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleZCount_RpcClient , &Msg::GlobalRpc::HandleZCount_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleZCount_RpcTimeout ,&Msg::GlobalRpc::HandleZCount_RpcTimeout); 
 		}
 
 		//5 HandleZList generate default deliver and return check param here
@@ -422,8 +454,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZList", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZList_RpcTimeout , &Msg::GlobalRpc::HandleZList_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleZList_RpcClient , &Msg::GlobalRpc::HandleZList_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleZList_RpcClient , &Msg::GlobalRpc::HandleZList_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleZList_RpcTimeout ,&Msg::GlobalRpc::HandleZList_RpcTimeout); 
 		}
 
 		//5 HandleDump generate default deliver and return check param here
@@ -434,8 +467,9 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleDump", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleDump_RpcTimeout , &Msg::GlobalRpc::HandleDump_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szHandleDump_RpcClient , &Msg::GlobalRpc::HandleDump_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleDump_RpcClient , &Msg::GlobalRpc::HandleDump_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szHandleDump_RpcTimeout ,&Msg::GlobalRpc::HandleDump_RpcTimeout); 
 		}
 
 		//5 SyncMasterHandler generate default deliver and return check param here

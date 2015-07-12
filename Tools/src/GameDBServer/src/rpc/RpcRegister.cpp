@@ -10,29 +10,30 @@
 #include "DBMaster.h"
 #include "DBSlave.h"
 #include "ServerHandler.h"
+#include "SlaveHandler.h"
 #include "MasterHandler.h"
 #include "SlaveHandler.h"
 
 namespace Server
 {
 	//5 defaultParams define here.
-	static UINT8 g_rpcDefaultParam_UINT8 = 0;
 	static SINT8 g_rpcDefaultParam_SINT8 = 0;
+	static UINT8 g_rpcDefaultParam_UINT8 = 0;
 	static UINT16 g_rpcDefaultParam_UINT16 = 0;
 	static INT16 g_rpcDefaultParam_INT16 = 0;
-	static UINT32 g_rpcDefaultParam_UINT32 = 0;
 	static INT32 g_rpcDefaultParam_INT32 = 0;
+	static UINT32 g_rpcDefaultParam_UINT32 = 0;
 	static UINT64 g_rpcDefaultParam_UINT64 = 0;
 	static INT64 g_rpcDefaultParam_INT64 = 0;
-	static float g_rpcDefaultParam_float = 0.0f;
 	static double g_rpcDefaultParam_double = 0.0f;
+	static float g_rpcDefaultParam_float = 0.0f;
 	static std_string g_rpcDefaultParam_std_string = std::string();
 	static LibCore_Chunk g_rpcDefaultParam_LibCore_Chunk = LibCore::Chunk();
 
 	void DBServer::OnRegisterRpcs( void )
 	{
 		Assert(m_pRpcServerManager && Msg::g_pRpcCheckParams);	
-		Msg::GlobalRpc * g_pGlobalRpc  = new Msg::GlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcServerManager); 
+		static Msg::GlobalRpc g_pGlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcServerManager); 
 
 		Msg::Parameters objDeliverParams , objReturnParams;
 		//5 HandleUserAuth generate default deliver and return check param here
@@ -469,8 +470,9 @@ namespace Server
 			Msg::g_pRpcCheckParams->InsertReturnParams("SyncDataToSlave", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szSyncDataToSlave_RpcTimeout , &Msg::GlobalRpc::SyncDataToSlave_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szSyncDataToSlave_RpcClient , &Msg::GlobalRpc::SyncDataToSlave_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szSyncDataToSlave_RpcClient , &Msg::GlobalRpc::SyncDataToSlave_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szSyncDataToSlave_RpcTimeout ,&Msg::GlobalRpc::SyncDataToSlave_RpcTimeout); 
 		}
 
 		//5 testRefers generate default deliver and return check param here
@@ -481,8 +483,9 @@ namespace Server
 			Msg::g_pRpcCheckParams->InsertReturnParams("testRefers", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_sztestRefers_RpcTimeout , &Msg::GlobalRpc::testRefers_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_sztestRefers_RpcClient , &Msg::GlobalRpc::testRefers_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<SlaveHandler >(Msg::g_sztestRefers_RpcClient , &SlaveHandler::testRefers_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<SlaveHandler >(Msg::g_sztestRefers_RpcTimeout ,&SlaveHandler::testRefers_RpcTimeout); 
 		}
 
 	}
@@ -490,7 +493,7 @@ namespace Server
 	void DBMaster::OnRegisterRpcs( void )
 	{
 		Assert(m_pRpcServerManager && Msg::g_pRpcCheckParams);	
-		Msg::GlobalRpc * g_pGlobalRpc  = new Msg::GlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcServerManager); 
+		static Msg::GlobalRpc g_pGlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcServerManager); 
 
 		Msg::Parameters objDeliverParams , objReturnParams;
 		//5 HandleUserAuth generate default deliver and return check param here
@@ -841,8 +844,9 @@ namespace Server
 			Msg::g_pRpcCheckParams->InsertReturnParams("SyncMasterHandler", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szSyncMasterHandler_RpcTimeout , &Msg::GlobalRpc::SyncMasterHandler_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szSyncMasterHandler_RpcClient , &Msg::GlobalRpc::SyncMasterHandler_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szSyncMasterHandler_RpcClient , &Msg::GlobalRpc::SyncMasterHandler_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szSyncMasterHandler_RpcTimeout ,&Msg::GlobalRpc::SyncMasterHandler_RpcTimeout); 
 		}
 
 		//5 SlaveStartAuth generate default deliver and return check param here
@@ -892,8 +896,9 @@ namespace Server
 			Msg::g_pRpcCheckParams->InsertReturnParams("MasterStartSync", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szMasterStartSync_RpcTimeout , &Msg::GlobalRpc::MasterStartSync_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szMasterStartSync_RpcClient , &Msg::GlobalRpc::MasterStartSync_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szMasterStartSync_RpcClient , &Msg::GlobalRpc::MasterStartSync_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szMasterStartSync_RpcTimeout ,&Msg::GlobalRpc::MasterStartSync_RpcTimeout); 
 		}
 
 		//5 SyncDataToSlave generate default deliver and return check param here
@@ -929,7 +934,7 @@ namespace Server
 	void DBSlave::OnRegisterRpcs( void )
 	{
 		Assert(m_pRpcServerManager && Msg::g_pRpcCheckParams);	
-		Msg::GlobalRpc * g_pGlobalRpc  = new Msg::GlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcServerManager); 
+		static Msg::GlobalRpc g_pGlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcServerManager); 
 
 		Msg::Parameters objDeliverParams , objReturnParams;
 		//5 HandleUserAuth generate default deliver and return check param here
@@ -1291,8 +1296,9 @@ namespace Server
 			Msg::g_pRpcCheckParams->InsertReturnParams("SlaveStartAuth", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szSlaveStartAuth_RpcTimeout , &Msg::GlobalRpc::SlaveStartAuth_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szSlaveStartAuth_RpcClient , &Msg::GlobalRpc::SlaveStartAuth_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szSlaveStartAuth_RpcClient , &Msg::GlobalRpc::SlaveStartAuth_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szSlaveStartAuth_RpcTimeout ,&Msg::GlobalRpc::SlaveStartAuth_RpcTimeout); 
 		}
 
 		//5 SlaveSelectDB generate default deliver and return check param here
@@ -1303,8 +1309,9 @@ namespace Server
 			Msg::g_pRpcCheckParams->InsertReturnParams("SlaveSelectDB", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szSlaveSelectDB_RpcTimeout , &Msg::GlobalRpc::SlaveSelectDB_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szSlaveSelectDB_RpcClient , &Msg::GlobalRpc::SlaveSelectDB_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szSlaveSelectDB_RpcClient , &Msg::GlobalRpc::SlaveSelectDB_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szSlaveSelectDB_RpcTimeout ,&Msg::GlobalRpc::SlaveSelectDB_RpcTimeout); 
 		}
 
 		//5 SlaveRequestSync generate default deliver and return check param here
@@ -1315,8 +1322,9 @@ namespace Server
 			Msg::g_pRpcCheckParams->InsertReturnParams("SlaveRequestSync", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szSlaveRequestSync_RpcTimeout , &Msg::GlobalRpc::SlaveRequestSync_RpcTimeout); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_szSlaveRequestSync_RpcClient , &Msg::GlobalRpc::SlaveRequestSync_RpcClient); 
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szSlaveRequestSync_RpcClient , &Msg::GlobalRpc::SlaveRequestSync_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szSlaveRequestSync_RpcTimeout ,&Msg::GlobalRpc::SlaveRequestSync_RpcTimeout); 
 		}
 
 		//5 MasterStartSync generate default deliver and return check param here

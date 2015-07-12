@@ -61,12 +61,14 @@ class Rpc(ParentPoint):
 		self.server = None
 		self.proxy = None
 		self.name = None
-		self.classes = None
-		self.include = None
+		self.serverClass = None
+		self.serverInclude = None
 		self.syncType = 0
 		self.timeout = 10
 		self.proxyInclude = None
 		self.proxyClass = None
+		self.clientInclude = None
+		self.clientClass = None
 
 class RpcData(ParentPoint):
 	def __init__(self , parentPoint):
@@ -222,12 +224,12 @@ def handleRpc(rpcs , xmlRpc):
 		if attr == "name":
 			rpc.name = xmlRpc.attrib[attr]
 			print("handleRpc:" + attr , " , " , rpc.name)
-		if attr == "include":
-			rpc.include = xmlRpc.attrib[attr]
-			print("handleRpc:" + attr , " , " , rpc.include)
-		if attr == "class":
-			rpc.classes = xmlRpc.attrib[attr]
-			print("handleRpc:" + attr , " , " , rpc.classes)
+		if attr == "serverInclude":
+			rpc.serverInclude = xmlRpc.attrib[attr]
+			print("handleRpc:" + attr , " , " , rpc.serverInclude)
+		if attr == "serverClass":
+			rpc.serverClass = xmlRpc.attrib[attr]
+			print("handleRpc:" + attr , " , " , rpc.serverClass)
 		if attr == "syncType":
 			rpc.syncType = xmlRpc.attrib[attr]
 			print("handleRpc:" + attr , " , " , rpc.syncType)
@@ -240,7 +242,22 @@ def handleRpc(rpcs , xmlRpc):
 		if attr == "proxyClass":
 			rpc.proxyClass = xmlRpc.attrib[attr]
 			print("handleRpc:" + attr , " , " , rpc.proxyClass)
+		if attr == "clientInclude":
+			rpc.clientInclude = xmlRpc.attrib[attr]
+			print("handleRpc:" + attr , " , " , rpc.clientInclude)
+		if attr == "clientClass":
+			rpc.clientClass = xmlRpc.attrib[attr]
+			print("handleRpc:" + attr , " , " , rpc.clientClass)
 
+	if rpc.clientClass == "" or rpc.clientClass == None:
+		rpc.clientClass = "GlobalRpc"
+		
+	if rpc.proxyClass == "" or rpc.proxyClass == None:
+		rpc.proxyClass = "GlobalRpc"	
+			
+	if rpc.serverClass == "" or rpc.serverClass == None:
+		rpc.serverClass = "GlobalRpc"	
+			
 	for xmlData in iter(xmlRpc.getchildren()): 
 		if xmlData.tag == "Call":
 			handleCall(rpc.call , xmlData)
@@ -401,12 +418,12 @@ def handleRpc(rpcs , xmlRpc):
 			if attr == "name":
 				rpc.name = xmlRpc._attrs[attr].value
 				print("handleRpc:" ,  attr , " , " , rpc.name)
-			if attr == "include":
-				rpc.include = xmlRpc._attrs[attr].value
-				print("handleRpc:" ,  attr , " , " , rpc.include)
-			if attr == "class":
-				rpc.classes = xmlRpc._attrs[attr].value
-				print("handleRpc:" ,  attr , " , " , rpc.classes)
+			if attr == "serverInclude":
+				rpc.serverInclude = xmlRpc._attrs[attr].value
+				print("handleRpc:" ,  attr , " , " , rpc.serverInclude)
+			if attr == "serverClass":
+				rpc.serverClass = xmlRpc._attrs[attr].value
+				print("handleRpc:" ,  attr , " , " , rpc.serverClass)
 			if attr == "syncType":
 				rpc.syncType = xmlRpc._attrs[attr].value
 				print("handleRpc:" ,  attr , " , " , rpc.syncType)
@@ -522,6 +539,8 @@ def GenerateRPCParamDefine(rpc , fileRpc):
 	fileRpc.write(oneTab + "RPC_DEFINE(" + rpc.name + ");\n\n")
 	
 def GenerateRPCDefines(): 
+
+	rpcRecords = collections.OrderedDict()		
 	sameNamespace = collections.OrderedDict()   
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
 		outputPath = GetOutputPath(rpcServerName.serverName)  
@@ -532,11 +551,26 @@ def GenerateRPCDefines():
 			GenerateRPCDefinesHeader(fileRpc , rpcServerName.namespace)
 			sameNamespace[rpcServerName.namespace] = 1  
 		
-		rpcRecords = collections.OrderedDict()
-		for index , rpc in g_rpcMsgs.rpcs.rpcs.items():   
-			GenerateRPCDefine(rpc , fileRpc , rpcServerName.serverName , rpcRecords) 	
-			rpcRecords[rpc.classes] = 1
-		
+		for index , rpc in g_rpcMsgs.rpcs.rpcs.items():  
+			if rpc.serverClass not in rpcRecords and rpc.serverClass != "GlobalRpc" and (rpcServerName.serverName == rpc.server or rpcServerName.serverName == rpc.client or rpcServerName.serverName == rpc.proxy ):
+				GenerateRPCDefine(rpc , fileRpc , rpc.serverClass , rpcRecords , rpcServerName.serverName)
+				noe = rpc.serverClass not in rpcRecords
+				rpcRecords[rpc.serverClass] = 1			
+				print("神奇的生成方式:" , rpcServerName.namespace, "::", rpcServerName.serverName , "::" , rpc.serverClass , " class不在me? " , noe , " rpcrecords: " , rpcRecords) 				
+
+#		for index , rpc in g_rpcMsgs.rpcs.rpcs.items():  
+#			if rpc.clientClass not in rpcRecords and rpc.clientClass != "GlobalRpc" and (rpcServerName.namespace == rpc.server or rpcServerName.namespace == rpc.client or rpcServerName.namespace == rpc.proxy ):
+#				GenerateRPCDefine(rpc , fileRpc , rpc.clientClass , rpcRecords , rpcServerName.namespace)
+#				noe = rpc.clientClass not in rpcRecords
+#				rpcRecords[rpc.clientClass] = 1			
+#				print("神奇的生成方式2:" , rpcServerName.namespace, "::" , rpc.clientClass , " class不在me? " , noe , " rpcrecords: " , rpcRecords)	
+#	
+#				
+#		for index , rpc in g_rpcMsgs.rpcs.rpcs.items():  
+#			if rpc.clientClass not in rpcRecords and rpc.clientClass != "GlobalRpc":
+#				GenerateRPCDefine(rpc , fileRpc , rpc.clientClass , rpcRecords)
+#				rpcRecords[rpc.clientClass] = 1
+
 		fileRpc.write("\n\n")
 		fileRpc.close()	 
 			
@@ -558,34 +592,43 @@ def GenerateRPCDefinesHeader(fileRpc , namespace):
 	fileRpc.write("namespace Msg\n") 
 	fileRpc.write("{\n") 
 
-def GenerateRPCDefine(rpc , fileRpc , serverName , rpcRecords): 
-	if serverName == rpc.server or serverName == rpc.proxy:
-		if rpc.classes not in rpcRecords:
-			if rpc.classes != "GlobalRpc":
-				fileRpc.write("#define  RPC_DEFINE_" + rpc.classes + " public:\\\n")
-				for index , rpc2 in g_rpcMsgs.rpcs.rpcs.items():
-					strParams = GetParams(rpc2.call.params)   
-					if rpc2.classes == rpc.classes and rpc2.classes != "GlobalRpc":
-						if len(strParams) != 0:
-							fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcServer(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strParams + ");\\\n")
-						else:	
-							fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcServer(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")
+def GenerateRPCDefine(rpc , fileRpc , className , rpcRecords , serverNamespace): 
+	fileRpc.write("\n")
+	fileRpc.write("#define  RPC_DEFINE_" + className + " public:\\\n")
+	for index , rpc2 in g_rpcMsgs.rpcs.rpcs.items():
+		strParams = GetParams(rpc2.call.params)   
+		if rpc2.serverClass == className and rpc2.serverClass != "GlobalRpc":
+			if len(strParams) != 0:
+				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcServer(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strParams + ");\\\n")
+			else:	
+				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcServer(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")
 
-					if rpc2.proxyClass == rpc.classes and rpc2.proxyClass != "GlobalRpc": 
-						if len(strParams) != 0:
-							fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcServerProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strParams + ");\\\n")
-							fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcTimeoutProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strParams + ");\\\n")
-						else:
-							fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcServerProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")
-							fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcTimeoutProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")
-							
-						strDefaultParams = GetParams(rpc2.returns.params)
-						if len(strDefaultParams) != 0:
-							fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcClientProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strDefaultParams + ");\\\n") 
-						else:
-							fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcClientProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n") 
+		if rpc2.proxyClass == className and rpc2.proxyClass != "GlobalRpc": 
+			if len(strParams) != 0:
+				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcServerProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strParams + ");\\\n")
+				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcTimeoutProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strParams + ");\\\n")
+			else:
+				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcServerProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")
+				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcTimeoutProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")
+				
+			strDefaultParams = GetParams(rpc2.returns.params)
+			if len(strDefaultParams) != 0:
+				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcClientProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strDefaultParams + ");\\\n") 
+			else:
+				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcClientProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n") 
 
+		if rpc2.clientClass == className and rpc2.clientClass != "GlobalRpc": 
+			strDefaultParams = GetParams(rpc2.returns.params)
+			if len(strDefaultParams) != 0:
+				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcClient(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strDefaultParams + ");\\\n") 
+			else:
+				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcClient(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n") 
 
+			if len(strParams) != 0:
+				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcTimeout(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strParams + ");\\\n")
+			else:
+				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcTimeout(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")
+				
 def GenerateGlableRpc():
 	sameNamespace = collections.OrderedDict()
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
@@ -637,7 +680,7 @@ def GenerateGlableRpcHeaderNamespace(fileRpc , namespace):
 def GenerateGlableRpcClass(rpcs , fileRpc , serverName): 
 	#生成函数声明.部分文件有.
 	for index , rpc in rpcs.items():  
-		if rpc.client == serverName:
+		if rpc.client == serverName and rpc.clientClass == "GlobalRpc":
 			fileRpc.write(twoTab + "\n//" + rpc.name + " generate RPC func here\n")
 			strDefaultParams = GetParams(rpc.call.params) 
 			if len(strDefaultParams) != 0:
@@ -667,7 +710,7 @@ def GenerateGlableRpcClass(rpcs , fileRpc , serverName):
 			else:
 				fileRpc.write(twoTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcClientProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")  
 	  			
-		elif rpc.server == serverName and rpc.classes == "GlobalRpc": 
+		elif rpc.server == serverName and rpc.serverClass == "GlobalRpc": 
 			fileRpc.write(twoTab + "\n//" + rpc.name + " generate RPC func here\n")
 			strDefaultParams = GetParams(rpc.call.params) 
 			if len(strDefaultParams) != 0:
@@ -680,7 +723,7 @@ def GenerateGlableRpcClass(rpcs , fileRpc , serverName):
 #生成GlableRpc尾部部分.
 def GenerateGlableRpcLastNamespace(fileRpc , namespace):  
 	fileRpc.write(oneTab + "};\n\n")
-	fileRpc.write(oneTab + "extern GlobalRpc * g_pGlobalRpc;\n")
+#	fileRpc.write(oneTab + "extern GlobalRpc * g_pGlobalRpc;\n")
 	fileRpc.write("}\n\n")
 	fileRpc.write("#endif\n\n")
 	
@@ -699,7 +742,7 @@ def GenerateRpcRegister():
 		fileRpc.write(oneTab + "void " + rpcServerName.rpcInterface + "::OnRegisterRpcs( void )\n")
 		fileRpc.write(oneTab + "{\n")
 		fileRpc.write(twoTab + "Assert(m_pRpcServerManager && Msg::g_pRpcCheckParams);	\n")
-		fileRpc.write(twoTab + "Msg::GlobalRpc * g_pGlobalRpc  = new Msg::GlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcServerManager); \n\n") 
+		fileRpc.write(twoTab + "static Msg::GlobalRpc g_pGlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcServerManager); \n\n") 
 
 		fileRpc.write(twoTab + "Msg::Parameters objDeliverParams , objReturnParams;\n")
 		
@@ -767,17 +810,27 @@ def GenerateRpcRegisterServerHeader(rpcs , fileRpc , serverName):
 	sameRecord = collections.OrderedDict()
 	#生成所有的rpc
 	for index , rpc in rpcs.items():     
-		if rpc.server == serverName and rpc.include not in sameRecord: 
-			if rpc.classes != "GlobalRpc":
-				fileRpc.write("#include \"" + rpc.include + "\"\n") 
-				sameRecord[rpc.include] = 1
+		if rpc.server == serverName and rpc.serverInclude not in sameRecord: 
+			if rpc.serverClass != "GlobalRpc":
+				fileRpc.write("#include \"" + rpc.serverInclude + "\"\n") 
+				sameRecord[rpc.serverInclude] = 1
+				
+		if rpc.proxy == serverName and rpc.proxyInclude not in sameRecord: 
+			if rpc.proxyClass != "GlobalRpc":
+				fileRpc.write("#include \"" + rpc.proxyInclude + "\"\n") 
+				sameRecord[rpc.proxyInclude] = 1
+				
+		if rpc.client == serverName and rpc.clientInclude not in sameRecord: 
+			if rpc.clientClass != "GlobalRpc":
+				fileRpc.write("#include \"" + rpc.clientInclude + "\"\n") 
+				sameRecord[rpc.clientInclude] = 1
 
 def GenerateRpcRegisterFuncs(rpc , fileRpc , serverName):
 	#生成所有的rpc  
 	if rpc.server == serverName: 
 		className = ""
-		if rpc.classes != "GlobalRpc":
-			className = rpc.classes
+		if rpc.serverClass != "GlobalRpc":
+			className = rpc.serverClass
 		else:			
 			className = "Msg::GlobalRpc"
 			
@@ -796,8 +849,18 @@ def GenerateRpcRegisterFuncs(rpc , fileRpc , serverName):
 		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcTimeoutProxy ,&" + className + "::" + rpc.name + "_RpcTimeoutProxy); \n") 
 			
 	if rpc.client == serverName: 
-		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_sz" + rpc.name + "_RpcTimeout , &Msg::GlobalRpc::" + rpc.name + "_RpcTimeout); \n") 
-		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_sz" + rpc.name + "_RpcClient , &Msg::GlobalRpc::" + rpc.name + "_RpcClient); \n") 
+		className = ""
+		if rpc.clientClass != "GlobalRpc":
+			className = rpc.clientClass
+		else:			
+			className = "Msg::GlobalRpc"
+
+		fileRpc.write(threeTab + "\n") 
+		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcClient , &" + className + "::" + rpc.name + "_RpcClient); \n") 
+		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcTimeout ,&" + className + "::" + rpc.name + "_RpcTimeout); \n") 
+			
+#		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_sz" + rpc.name + "_RpcTimeout , &Msg::GlobalRpc::" + rpc.name + "_RpcTimeout); \n") 
+#		fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc>(Msg::g_sz" + rpc.name + "_RpcClient , &Msg::GlobalRpc::" + rpc.name + "_RpcClient); \n") 
 	  
 def GenerateRpcHandlers():
 	#生成注册的头 
@@ -817,10 +880,20 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 #				os.remove(outputPath)
 				continue
 
+			className = ""
+			if rpc.clientClass != "GlobalRpc":
+				className = rpc.clientClass
+			else:
+				namespace = "Msg"
+				className = "GlobalRpc"
+			
 			fileRpc = open(outputPath , "a")   
-
-			fileRpc.write("#include \"GlobalRpc.h\"\n\n")
-			fileRpc.write("Msg::ObjectMsgCall * Msg::GlobalRpc::" + rpc.name + "_RpcClient(Msg::VecObjects & vecTargets , Msg::Object objSrc , ")
+			fileRpc.write("#include \"GlobalRpc.h\"\n")
+			if className != "GlobalRpc":
+				fileRpc.write("#include \"" + rpc.clientInclude + "\"\n\n") 
+			fileRpc.write("\n\n") 
+ 
+			fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" +  rpc.name + "_RpcClient(Msg::VecObjects & vecTargets , Msg::Object objSrc , ")
 			strParams = GetParamsExcludeDefault(rpc.returns.params) 
 			if len(strParams) != 0:
 				fileRpc.write(strParams + ")\n{\n\n\n")
@@ -830,7 +903,7 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 			fileRpc.write(oneTab + "std::cout << \"" + rpc.name + "_RpcClient\" << std::endl;\n")
 			fileRpc.write(oneTab + "RPCReturnNULL;\n}\n\n")
 
-			fileRpc.write("Msg::ObjectMsgCall * Msg::GlobalRpc::" + rpc.name + "_RpcTimeout(Msg::VecObjects & vecTargets , Msg::Object objSrc ,") 
+			fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcTimeout(Msg::VecObjects & vecTargets , Msg::Object objSrc ,") 
 			strParams = GetParamsExcludeDefault(rpc.call.params) 
 			if len(strParams) != 0:
 				fileRpc.write(strParams + ")\n{\n\n\n")
@@ -924,8 +997,8 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 				continue
 
 			className = ""
-			if rpc.classes != "GlobalRpc":
-				className = rpc.classes
+			if rpc.serverClass != "GlobalRpc":
+				className = rpc.serverClass
 			else:
 				namespace = "Msg"
 				className = "GlobalRpc"
@@ -934,7 +1007,7 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 
 			fileRpc.write("#include \"GlobalRpc.h\"\n") 
 			if className != "GlobalRpc":
-				fileRpc.write("#include \"" + rpc.include + "\"") 
+				fileRpc.write("#include \"" + rpc.serverInclude + "\"") 
 			fileRpc.write("\n\n") 
 
 			fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcServer(Msg::VecObjects & vecTargets , Msg::Object objSrc ,")
@@ -1394,4 +1467,5 @@ def main(argv):
 	
 if __name__ == '__main__': 
 	main(sys.argv)
+
 

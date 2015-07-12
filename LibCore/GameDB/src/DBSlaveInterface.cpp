@@ -130,19 +130,8 @@ namespace GameDB
 
 	INT32 DBSlaveInterface::Cleanup(void)
 	{ 
-		if (m_pNetReactor)
-		{
-			m_pNetReactor->Cleanup();
-		}
-		SAFE_DELETE(m_pNetReactor);   
-
-		if (m_pRpcServerManager)
-		{
-			m_pRpcServerManager->Cleanup();
-		}
-		SAFE_DELETE(m_pRpcServerManager); 
  
-		return ERR_SUCCESS;
+		return RpcInterface::Cleanup();
 	}
 
 	INT32 DBSlaveInterface::Update(void)

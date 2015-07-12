@@ -36,7 +36,7 @@ namespace Net
 		, m_pFdSetExcepts(NULL)
 	{  
 
-		size_t  size = /*unMaxConnectionCount * sizeof(void*) +*/ sizeof(fd_set);
+		size_t  size = unMaxConnectionCount * sizeof(INT32) + sizeof(fd_set);
 		m_pFdSetReads = malloc(size);
 		m_pFdSetWrites = malloc(size);
 		m_pFdSetExcepts = malloc(size);

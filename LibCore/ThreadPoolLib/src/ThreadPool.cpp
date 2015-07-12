@@ -258,6 +258,8 @@ namespace ThreadPool
 			}
 		}
 
+		SAFE_DELETE(pThreadContext);
+
 		return NULL;
 	}
 

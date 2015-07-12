@@ -146,15 +146,6 @@
     <ClCompile Include="src\rpc\HandleZCount_RpcServer.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\testRefers_RpcProxy.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rpc\testRefers_RpcServer.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rpc\testRefers_RpcClient.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
     <ClCompile Include="src\rpc\SyncMasterHandler_RpcClient.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
@@ -174,6 +165,15 @@
       <Filter>src\rpc</Filter>
     </ClCompile>
     <ClCompile Include="src\rpc\SlaveRequestSync_RpcProxy.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\testRefers_RpcClient.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\testRefers_RpcProxy.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\testRefers_RpcServer.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
   </ItemGroup>

@@ -145,9 +145,6 @@ int _tmain(int argc, _TCHAR* argv[])
 			 
 			clientComands.Execute(&Client::DBClient::GetInstance() , vecParams);
 		}
-// 		if( 0 < Client::rpc_HandleHSet("tcp://127.0.0.1:8001" , 1 , 2 , targets , Msg::Object(0) , 1))
-// 		{ 
-// 		}   
 	}
 
 	Client::DBClient::GetInstance().Cleanup(); 

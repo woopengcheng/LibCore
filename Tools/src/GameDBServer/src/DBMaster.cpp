@@ -21,6 +21,7 @@ namespace Server
 		{
 			SAFE_DELETE(*iter);
 		}
+		m_vecMasterHandlers.clear();
 	}
 
 	INT32 DBMaster::Init(Json::Value & conf)
@@ -59,8 +60,8 @@ namespace Server
 
 	INT32 DBMaster::CreateMasterHandler()
 	{
-		new MasterHandler(++m_nHandlerCount , this);
-
+		MasterHandler * pMasterHandler = new MasterHandler(++m_nHandlerCount , this);
+		m_vecMasterHandlers.push_back(pMasterHandler);
 		return m_nHandlerCount;
 	}
 

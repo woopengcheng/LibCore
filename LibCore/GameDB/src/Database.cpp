@@ -28,6 +28,8 @@ namespace GameDB
 	void Database::Close()
 	{
 		SAFE_DELETE(m_objOptions.block_cache);
+
+		SAFE_DELETE(m_pLevelDB);
 	}
 
 	Status Database::QuickGet(const Slice & objKey , std::string & strVal)

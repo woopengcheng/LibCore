@@ -13,6 +13,7 @@ namespace Msg
 		{
 			SAFE_DELETE(iterMethodImpl->second);
 		} 
+		m_mapMethodImpls.clear();
 	} 
 
 	BOOL MsgDispatcher::HasSimilarRegisterFunc( std::string strFuncName  ,  std::string strFuncType)
