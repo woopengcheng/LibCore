@@ -23,6 +23,12 @@ namespace Server
 			, m_pDatabase(NULL)
 		{
 		}
+
+		~SlaveHandler()
+		{
+
+			SAFE_DELETE(m_pDatabase);
+		}
 	public:
 		virtual INT32 Update(){ return 0; } 
 

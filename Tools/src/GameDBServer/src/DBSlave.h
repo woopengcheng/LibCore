@@ -28,6 +28,7 @@ namespace Server
 
 	public: 
 		virtual INT32  Init(Json::Value & conf); 
+		virtual	INT32  Cleanup(void);
 		virtual void   OnRegisterRpcs(void); 
 		virtual INT32  Update(void);
 
@@ -40,7 +41,6 @@ namespace Server
 
 	private: 
 		INT32   InitThread(Json::Value & conf); 
-
 	private:
 		Msg::Object	m_objMasterSessionID;
 	};  

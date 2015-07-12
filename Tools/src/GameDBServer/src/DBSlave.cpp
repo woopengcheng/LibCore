@@ -45,6 +45,13 @@ namespace Server
 		return ERR_SUCCESS;
 	}
 
+	INT32 DBSlave::Cleanup(void)
+	{
+
+		ThreadPool::ThreadPoolInterface::GetInstance().Cleanup();
+		return DBSlaveInterface::Cleanup();
+	}
+
 	void DBSlave::RequestSyncData(std::string		strDBName , std::string		strDBDir)
 	{ 
 		Server::rpc_SlaveRequestSync("tcp://127.0.0.1:9001" , GetMasterSessionID() , Msg::Object(1) , strDBDir , strDBName);

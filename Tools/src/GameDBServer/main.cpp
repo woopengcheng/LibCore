@@ -18,6 +18,7 @@
 #include "MasterHandler.h"
 #include "MsgLib/inc/RpcClientManager.h"
 #include "SlaveHandler.h" 
+#include "ThreadPoolLib/inc/ThreadPoolInterface.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {  

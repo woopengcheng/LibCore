@@ -326,7 +326,7 @@ namespace ThreadPool
 		pthread_t th;
 		while(m_queueThreads.try_pop(th))
 		{  
-			MsgAssert_Re0(pthread_cancel(th) , "pthread_cancel fail");
+			MsgAssert_Re0(!pthread_cancel(th) , "pthread_cancel fail");
 
 			void * pValue = 0;
 			if(pthread_join(th , (void**)(&pValue)))

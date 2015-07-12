@@ -80,6 +80,13 @@ namespace Server
 		return NULL;
 	}
 
+	INT32 DBMaster::Cleanup(void)
+	{
+
+		ThreadPool::ThreadPoolInterface::GetInstance().Cleanup();
+		return DBMasterInterface::Cleanup();
+	}
+
 	INT32 MasterListener::OnConnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pServerSession , Net::ISession * pClientSession)
 	{
 		if (m_pDBMaster)
