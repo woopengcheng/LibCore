@@ -2,6 +2,7 @@
 #include "ServerHandler.h"
 #include "GameDB/inc/DBCommon.h"
 #include "leveldb/slice.h"
+#include "RPCCallFuncs.h"
 
 Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiSet_RpcServer(Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string &table/* = std::string()*/ , LibCore_Chunk & keyvalues/* = LibCore::Chunk()*/  )
 {
@@ -31,6 +32,8 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiSet_RpcServer(Msg::VecOb
 	GameDB::HashTable::HMultiSet(*pDB , oper , table ,mapKeys);
 	if (oper.IsSuccess())
 	{
+		rpc_SyncDataToSlave("tcp://127.0.0.1:9001" , 0 , GetObjectID() , m_strDatabaseName , oper.GetOperateRecord().GetData());
+
 		res = 0;
 		gDebugStream("HMultiDel table:" << table << "success."); 
 	} 

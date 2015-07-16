@@ -6,8 +6,8 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcServerProxy(Msg::V
 {
 	std_string value = std::string();
 
-	vecTargets.clear();
-	vecTargets.push_back(1);
+	CreateSlaveRecord(m_pSession->GetOtherSession()->GetSessionID() , objSrc);
+
 	if(ERR_FAILURE == ProxySendMsg("tcp://127.0.0.1:8001" , 1 , name , pwd))
 	{
 		RPCReturn1(value);
@@ -20,14 +20,17 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcServerProxy(Msg::V
 
 Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcClientProxy(Msg::VecObjects & vecTargets  , Msg::Object objSrc  , std_string &value/* = std::string()*/)
 {
-
 	if (value != "")
 	{
 		GameDB::User objUser;
 		objUser.FromBson(value.c_str() , (INT32)value.length()); 
-
-		CreateSlaveRecord(m_pRpcMsgCall->GetProxySrcID() , objUser);
+		
+		SetSlaveRecordInfo(m_pRpcMsgCall->GetProxySrcID() , objUser);
 	} 
+	else
+	{
+		DelSlaveRecord(m_pRpcMsgCall->GetProxySrcID());
+	}
 
 	std::cout << "SlaveStartAuth_RpcClientProxy" << std::endl;
 	RPCReturn1(value);

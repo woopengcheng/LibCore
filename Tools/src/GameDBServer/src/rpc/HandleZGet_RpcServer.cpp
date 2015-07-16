@@ -1,6 +1,7 @@
 #include "GlobalRpc.h"
 #include "ServerHandler.h"
 #include "GameDB/inc/SortedSet.h"
+#include "RPCCallFuncs.h"
 
 Msg::ObjectMsgCall * Server::ServerHandler::HandleZGet_RpcServer(Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string &table/* = std::string()*/ , std_string & key/* = std::string()*/  )
 {

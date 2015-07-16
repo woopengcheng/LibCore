@@ -60,18 +60,62 @@ namespace Server
 
 	}
 
-	void MasterHandler::CreateSlaveRecord(Msg::Object id , GameDB::User & objUser)
+	BOOL MasterHandler::SetSlaveRecordInfo(Msg::Object id , GameDB::User & objUser)
 	{
-		SlaveRecord * pRecord = new SlaveRecord(this);
-		if (pRecord)
-		{
-			GameDB::UserAuth objAuth(objUser);
-			pRecord->SetUserAuth(objAuth);
+		GameDB::UserAuth objAuth(objUser);
 
-			m_mapSlaveRecords.insert(std::make_pair(id , pRecord));
+		CollectionSlaveRecordsT::iterator iter = m_mapSlaveRecords.find(id);
+		if (iter != m_mapSlaveRecords.end())
+		{
+			SlaveRecord * pRecord = iter->second;
+			if (pRecord)
+			{   
+				pRecord->SetUserAuth(objAuth);
+			}
+
+			return TRUE;
+		} 
+
+		return FALSE;
+	}
+
+	BOOL MasterHandler::DelSlaveRecord(Msg::Object id)
+	{
+		CollectionSlaveRecordsT::iterator iter = m_mapSlaveRecords.find(id);
+		if (iter != m_mapSlaveRecords.end())
+		{
+			SAFE_DELETE(iter->second);
+
+			m_mapSlaveRecords.erase(iter);
+			return TRUE;
 		}
 
+		return FALSE;
+	}
 
+	void MasterHandler::CreateSlaveRecord(INT32 nSessionID , Msg::Object id)
+	{
+		CollectionSlaveRecordsT::iterator iter = m_mapSlaveRecords.find(id);
+		if (iter != m_mapSlaveRecords.end())
+		{
+			SlaveRecord * pRecord = iter->second;
+			if (pRecord)
+			{ 
+				pRecord->SetSlaveSessionID(nSessionID);
+				pRecord->SetObjRemoteSlaveID(id); 
+			}
+		}
+		else
+		{
+			SlaveRecord * pRecord = new SlaveRecord(this);
+			if (pRecord)
+			{ 
+				pRecord->SetSlaveSessionID(nSessionID);
+				pRecord->SetObjRemoteSlaveID(id); 
+
+				m_mapSlaveRecords.insert(std::make_pair(id , pRecord));
+			}
+		}
 	}
 
 	MasterHandler::~MasterHandler()
@@ -92,6 +136,20 @@ namespace Server
 			return iter->second;
 		}
 
+		return NULL;
+	}
+
+	SlaveRecord * MasterHandler::GetSlaveRecord(std::string strName)
+	{
+		CollectionSlaveRecordsT::iterator iter = m_mapSlaveRecords.begin();
+		for(;iter != m_mapSlaveRecords.end();++iter)
+		{
+			if (iter->second->GetDBName() == strName)
+			{
+				return iter->second;
+			}
+		}
+		
 		return NULL;
 	}
 

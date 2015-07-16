@@ -1,5 +1,6 @@
 #include "GlobalRpc.h"
 #include "ServerHandler.h"
+#include "RPCCallFuncs.h"
 
 Msg::ObjectMsgCall * Server::ServerHandler::HandleHSetIncr_RpcServer(Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string &table/* = std::string()*/ , std_string & key/* = std::string()*/ , INT64 value/* = 0*/  )
 {
@@ -16,6 +17,8 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHSetIncr_RpcServer(Msg::VecObj
 	GameDB::HashTable::HSetIncr(*pDB , oper , table , key , value);
 	if (oper.IsSuccess())
 	{
+		rpc_SyncDataToSlave("tcp://127.0.0.1:9001" , 0 , GetObjectID() , m_strDatabaseName , oper.GetOperateRecord().GetData());
+
 		oper.GetOperateReturns().GetStream() >> res;
 		gDebugStream("table:" << table << "key:" << key << "value:" << value << "success."); 
 	}

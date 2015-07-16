@@ -13,6 +13,7 @@
 namespace Server
 {  
 	class MasterHandler;
+	class SlaveRecord;
 
 	class  DBMaster : public GameDB::DBMasterInterface  , ThreadPool::ThreadSustainTask
 	{ 
@@ -36,12 +37,11 @@ namespace Server
 		virtual INT32  Update(void);
 
 	public:
-		INT32			CreateMasterHandler();
-		MasterHandler * GetMasterHandler(const std::string & strDBName);
+		INT32			CreateMasterHandler(); 
+		SlaveRecord *	GetSlaveRecord(const std::string & strDBName);
 
 	private: 
 		INT32   InitThread(Json::Value & conf);
-
 	private:
 		INT32 m_nHandlerCount;
 		CollectionMasterHandlersT m_vecMasterHandlers; 

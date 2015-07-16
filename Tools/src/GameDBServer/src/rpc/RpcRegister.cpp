@@ -21,12 +21,12 @@ namespace Server
 	static SINT8 g_rpcDefaultParam_SINT8 = 0;
 	static UINT16 g_rpcDefaultParam_UINT16 = 0;
 	static INT16 g_rpcDefaultParam_INT16 = 0;
-	static UINT32 g_rpcDefaultParam_UINT32 = 0;
 	static INT32 g_rpcDefaultParam_INT32 = 0;
+	static UINT32 g_rpcDefaultParam_UINT32 = 0;
 	static UINT64 g_rpcDefaultParam_UINT64 = 0;
 	static INT64 g_rpcDefaultParam_INT64 = 0;
-	static float g_rpcDefaultParam_float = 0.0f;
 	static double g_rpcDefaultParam_double = 0.0f;
+	static float g_rpcDefaultParam_float = 0.0f;
 	static std_string g_rpcDefaultParam_std_string = std::string();
 	static LibCore_Chunk g_rpcDefaultParam_LibCore_Chunk = LibCore::Chunk();
 
@@ -910,9 +910,9 @@ namespace Server
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
 			
-			m_pRpcServerManager->RegisterFunc<MasterHandler >(Msg::g_szSyncDataToSlave_RpcServerProxy , &MasterHandler::SyncDataToSlave_RpcServerProxy); 
-			m_pRpcServerManager->RegisterFunc<MasterHandler >(Msg::g_szSyncDataToSlave_RpcClientProxy , &MasterHandler::SyncDataToSlave_RpcClientProxy); 
-			m_pRpcServerManager->RegisterFunc<MasterHandler >(Msg::g_szSyncDataToSlave_RpcTimeoutProxy ,&MasterHandler::SyncDataToSlave_RpcTimeoutProxy); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szSyncDataToSlave_RpcServerProxy , &Msg::GlobalRpc::SyncDataToSlave_RpcServerProxy); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szSyncDataToSlave_RpcClientProxy , &Msg::GlobalRpc::SyncDataToSlave_RpcClientProxy); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szSyncDataToSlave_RpcTimeoutProxy ,&Msg::GlobalRpc::SyncDataToSlave_RpcTimeoutProxy); 
 		}
 
 		//5 testRefers generate default deliver and return check param here

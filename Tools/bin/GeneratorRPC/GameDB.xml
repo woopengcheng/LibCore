@@ -514,7 +514,7 @@
 			</Return>
 		</Rpc>
 		
-		<Rpc name="SyncDataToSlave" serverInclude="SlaveHandler.h" serverClass="SlaveHandler" proxyInclude="MasterHandler.h" proxyClass="MasterHandler"  clientInclude="ServerHandler.h" clientClass="ServerHandler" client="Server" proxy="Master" server="Slave" syncType="1" timeout="10">
+		<Rpc name="SyncDataToSlave" serverInclude="SlaveHandler.h" serverClass="SlaveHandler" clientInclude="ServerHandler.h" clientClass="ServerHandler" client="Server" proxy="Master" server="Slave" syncType="1" timeout="10">
 			<Call > 
 				<Param name="dbname" type="std_string"/>
 				<Param name="value" type="LibCore_Chunk"/>

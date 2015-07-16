@@ -1,6 +1,7 @@
 #include "GlobalRpc.h"
 #include "ServerHandler.h"
 #include "GameDB/inc/SortedSet.h"
+#include "RPCCallFuncs.h"
 
 Msg::ObjectMsgCall * Server::ServerHandler::HandleZSet_RpcServer(Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string &table  , std_string & key , INT64 score)
 {
@@ -16,6 +17,8 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleZSet_RpcServer(Msg::VecObjects
 	GameDB::SortedSet::ZSet(*pDB , oper , table , key , score);
 	if (oper.IsSuccess())
 	{
+		rpc_SyncDataToSlave("tcp://127.0.0.1:9001" , 0 , GetObjectID() , m_strDatabaseName , oper.GetOperateRecord().GetData());
+
 		gDebugStream("table:" << table << "key:" << key << "score:" << score << "success.");
 		RPCReturn1(0);
 	} 

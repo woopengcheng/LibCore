@@ -2,6 +2,7 @@
 #include "DBMaster.h"
 #include "MasterHandler.h"
 #include "RPCCallFuncs.h"
+#include "SlaveRecord.h"
 
 namespace Server
 {
@@ -65,17 +66,21 @@ namespace Server
 		return m_nHandlerCount;
 	}
 
-	Server::MasterHandler * DBMaster::GetMasterHandler(const std::string & strDBName)
+	SlaveRecord * DBMaster::GetSlaveRecord(const std::string & strDBName)
 	{
-// 		CollectionMasterHandlersT::iterator iter = m_vecMasterHandlers.begin();
-// 		for (;iter != m_vecMasterHandlers.end();++iter)
-// 		{
-// 			MasterHandler * pMasterHandler = *iter;
-// 			if (pMasterHandler && pMasterHandler->GetDBName() == strDBName)
-// 			{
-// 				return pMasterHandler;
-// 			}
-// 		}
+		CollectionMasterHandlersT::iterator iter = m_vecMasterHandlers.begin();
+		for (;iter != m_vecMasterHandlers.end();++iter)
+		{
+			MasterHandler * pMasterHandler = *iter;
+			if (pMasterHandler)
+			{
+				SlaveRecord * pRecord = pMasterHandler->GetSlaveRecord(strDBName); 
+				if (pRecord)
+				{
+					return pRecord;
+				}
+			}
+		}
 
 		return NULL;
 	}

@@ -32,8 +32,11 @@ namespace Server
 		bool			SendFile(const std::string & strFilePath , std::string & strFileName);
 		DBMaster 	 *  GetDBMaster(){ return m_pDBMaster; }
 		void			StartSyncToSlave(std::string strDBDir);
-		void			CreateSlaveRecord(Msg::Object id , GameDB::User & objUser);
+		void			CreateSlaveRecord(INT32 nSessionID , Msg::Object id);
+		BOOL			SetSlaveRecordInfo(Msg::Object id , GameDB::User & objUser);
+		BOOL			DelSlaveRecord(Msg::Object id);
 		SlaveRecord  *  GetSlaveRecord(Msg::Object id);
+		SlaveRecord  *  GetSlaveRecord(std::string strName);
 	private:
 		INT32			m_nSessionID;
 		DBMaster	 *  m_pDBMaster;

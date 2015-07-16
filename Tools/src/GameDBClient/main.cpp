@@ -112,7 +112,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	std::string strName = root.get("user" , "admin" ).asString();
 	std::string strPwd = root.get("pwd" , "admin").asString();
 	 
-	Client::rpc_HandleUserAuth("tcp://127.0.0.1:8001" , 1 , Msg::Object(1) , strName , strPwd, 0 , Msg::SYNC_TYPE_NONSYNC);
+	Client::rpc_HandleUserAuth("tcp://127.0.0.1:8001" , 1 , 0 , strName , strPwd, 0 , Msg::SYNC_TYPE_NONSYNC);
 
 	std::vector<std::string> vecParams;
 	int nargc = 0;
