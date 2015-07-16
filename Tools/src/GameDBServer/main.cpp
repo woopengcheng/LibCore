@@ -50,10 +50,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		Json::Value objSlave = root.get("slave" , Json::Value());
 		Server::DBSlave::GetInstance().Init(objSlave);
-		static Server::SlaveHandler  ObjSlaveHandler(&Server::DBSlave::GetInstance()); 
-
-		strName = objSlave.get("login_user" , "test").asString();
-		strPwd = objSlave.get("login_pswd" , "test").asString();
 	}
 	else
 	{
@@ -67,9 +63,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		gDebugStream("waiting slave connect master.");
 		while(1)
 		{
-			if (Server::DBSlave::GetInstance().GetRpcClientManager()->IsAllConnected())
+			if (Server::DBSlave::GetInstance().GetRpcClientManager()->IsAllConnected() && Server::DBSlave::GetInstance().GetMasterSessionID() > 0)
 			{
-				Server::DBSlave::GetInstance().StartAuth(strName , strPwd);
+				Server::DBSlave::GetInstance().StartAuth();
 				gDebugStream("slave connect success.");
 				break;
 			}

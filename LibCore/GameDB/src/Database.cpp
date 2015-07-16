@@ -166,13 +166,15 @@ namespace GameDB
 		objContext.strSrcDir = m_strDirectory;
 		objContext.strDstFileName = strBackupName;
 		objContext.strDstDir = strDir;
+		objContext.strDBName = m_strName;
 
 		leveldb::Env::Default()->CreateDir(objContext.strDstDir);
 		leveldb::Env::Default()->CreateDir(objContext.strDstDir + strBackupName);
+		leveldb::Env::Default()->CreateDir(objContext.strDstDir + strBackupName + "/" + m_strName);
 		if (m_pBackupEnv)
 		{
 			m_pBackupEnv->Backup(m_strDirectory , &objContext);
-			m_pBackupEnv->TouchFile(strDir + strBackupName + "/LOCK");
+			m_pBackupEnv->TouchFile(strDir + strBackupName + "/" + m_strName + "/LOCK");
 		}
 		strDir = strDir + strBackupName.c_str();
   		return TRUE;

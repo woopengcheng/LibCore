@@ -1,5 +1,6 @@
 #include "GlobalRpc.h"
 #include "MasterHandler.h"
+#include "GameDB/inc/User.h"
 
 Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcServerProxy(Msg::VecObjects & vecTargets  , Msg::Object objSrc , std_string &name/* = std::string()*/ , std_string & pwd/* = std::string()*/)
 {
@@ -25,7 +26,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcClientProxy(Msg::V
 		GameDB::User objUser;
 		objUser.FromBson(value.c_str() , (INT32)value.length()); 
 
-		m_objAuthInfo = GameDB::UserAuth(objUser); 
+		CreateSlaveRecord(m_pRpcMsgCall->GetProxySrcID() , objUser);
 	} 
 
 	std::cout << "SlaveStartAuth_RpcClientProxy" << std::endl;

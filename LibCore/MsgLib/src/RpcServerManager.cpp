@@ -71,8 +71,8 @@ namespace Msg
 			Rpc::VecObjectMsgCallT vecObjectMsgCall;
 
 			Rpc * objRpc = result->second;
-			RPCMsgCall * pTemp = objRpc->GetRpcMsgCall(); 
-			pMsg->SetSessionName(pTemp->GetSessionName());
+			RPCMsgCall * pTemp = objRpc->GetRpcMsgCall();  
+			pTemp->CopyExcludeNetDatas(pMsg);
 
 			objRpc->SetRpcMsgCall(pMsg); 
 			objRpc->SetSession(pSession);
@@ -88,7 +88,6 @@ namespace Msg
 					else if (HasSimilarRegisterFunc(pMsg->m_szMsgMethod , RPCClientProxy))
 					{   
 						pMsg->SetRpcMsgCallType(RPCTYPE_CLIENT_PROXY); 
-						pMsg->m_objSource = pTemp->GetProxySrcID();  
 
 						objRpc->OnProxy(pMsg , vecObjectMsgCall);   
 

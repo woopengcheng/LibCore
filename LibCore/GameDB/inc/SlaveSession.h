@@ -12,14 +12,12 @@ namespace GameDB
 		std::string  strDir;
 		std::string  strUser;
 		std::string  strPswd;
-		Database   * pDB;
 
 		SDBSlaveInfo()
 			: strDBName("")
 			, strDir("")
 			, strUser("")
 			, strPswd("")
-			, pDB(NULL)
 		{
 
 		}

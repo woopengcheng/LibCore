@@ -1,6 +1,9 @@
 #include "GlobalRpc.h"
+#include "SlaveHandler.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::SlaveRequestSync_RpcClient(Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & newbackdir/* = std::string()*/ , INT32 res/* = 0*/)
+
+
+Msg::ObjectMsgCall * Server::SlaveHandler::SlaveRequestSync_RpcClient(Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & newbackdir/* = std::string()*/ , INT32 res/* = 0*/)
 {
 
 
@@ -8,7 +11,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::SlaveRequestSync_RpcClient(Msg::VecObjects 
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::SlaveRequestSync_RpcTimeout(Msg::VecObjects & vecTargets , Msg::Object objSrc ,std_string & dbbackdir/* = std::string()*/ , std_string & dbname/* = std::string()*/)
+Msg::ObjectMsgCall * Server::SlaveHandler::SlaveRequestSync_RpcTimeout(Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & dbname/* = std::string()*/)
 {
 
 

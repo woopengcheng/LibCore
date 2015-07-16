@@ -117,6 +117,18 @@ namespace Msg
 		return ERR_SUCCESS; 
 	}
 
+	UINT32 RPCMsgCall::CopyExcludeNetDatas(RPCMsgCall *& pMsg)
+	{
+		pMsg->m_objProxySrcID  = m_objProxySrcID;
+		pMsg->m_objSyncType    = m_objSyncType;
+		pMsg->m_objSyncResult  = m_objSyncResult;
+		pMsg->m_nRpcMsgCallType  = m_nRpcMsgCallType;
+		memcpy(pMsg->m_szSessionName , m_szSessionName , sizeof(m_szSessionName));    
+
+		return ERR_SUCCESS; 
+
+	}
+
 	LibCore::CStream & RPCMsgCall::marshal( LibCore::CStream & cs )
 	{  
 		ObjectMsgCall::marshal(cs);
@@ -142,6 +154,6 @@ namespace Msg
 	{
 		return ObjectMsgCall::RefreshSize() + RefreshSize();
 	}
-
+	
 
 }

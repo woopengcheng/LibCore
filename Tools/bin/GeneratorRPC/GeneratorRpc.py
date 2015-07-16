@@ -867,7 +867,8 @@ def GenerateRpcHandlers():
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():   
 		GenerateRpcHandler(g_rpcMsgs.rpcs.rpcs , rpcServerName.serverName, rpcServerName.namespace) 
 
-def GenerateRpcHandler(rpcs , serverName , namespace):
+def GenerateRpcHandler(rpcs , serverName , old_namespace):
+	namespace = old_namespace
 	#生成所有的rpc
 	for index , rpc in rpcs.items():    
 		
@@ -883,6 +884,7 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 			className = ""
 			if rpc.clientClass != "GlobalRpc":
 				className = rpc.clientClass
+				namespace = old_namespace
 			else:
 				namespace = "Msg"
 				className = "GlobalRpc"
@@ -925,6 +927,7 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 
 			className = ""
 			if rpc.proxyClass != "GlobalRpc":
+				namespace = old_namespace
 				className = rpc.proxyClass
 			else:
 				namespace = "Msg"
@@ -998,6 +1001,7 @@ def GenerateRpcHandler(rpcs , serverName , namespace):
 
 			className = ""
 			if rpc.serverClass != "GlobalRpc":
+				namespace = old_namespace
 				className = rpc.serverClass
 			else:
 				namespace = "Msg"

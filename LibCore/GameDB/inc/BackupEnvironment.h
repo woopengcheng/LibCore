@@ -8,6 +8,7 @@ namespace GameDB
 {
 	struct SBackupDB
 	{
+		std::string strDBName;
 		std::string strSrcDir;
 		std::string strDstFileName;
 		std::string strDstDir;

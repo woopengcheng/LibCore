@@ -36,13 +36,17 @@
 
 #define RPC_GEN_RETURN_MSG \
 	std::vector<Msg::Object> vecTargets;\
-	vecTargets.push_back(m_pRpcMsgCall->m_objSource);\
+	if(m_pRpcMsgCall->GetRpcMsgCallType() == RPCTYPE_CLIENT_PROXY)\
+		vecTargets.push_back(m_pRpcMsgCall->GetProxySrcID());\
+	else\
+		vecTargets.push_back(m_pRpcMsgCall->m_objSource);\
 	Msg::Object objSrc = this->GetObjectID();\
 	RPC_GEN_MSG(vecTargets , objSrc) pMsg->m_bClientRequest = TRUE;
 
 #define RPC_GEN_PROXY_MSG(vecTargets) \
 	Msg::Object objSrc = this->GetObjectID();\
-	RPC_GEN_MSG(vecTargets , objSrc) pMsg->m_bClientRequest = FALSE;
+	RPC_GEN_MSG(vecTargets , objSrc) pMsg->m_bClientRequest = FALSE; \
+	pMsg->SetProxySrcID(m_pRpcMsgCall->m_objSource); 
 
 
 namespace Timer
@@ -80,9 +84,9 @@ namespace Msg
 		virtual BOOL  OnClient( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall );  
 
 	public:
-		BOOL  IsTimeout();
-		void  SetTimeout(UINT64 unTimeout); 
-		INT32 ProxySendBack();   
+		BOOL		  IsTimeout();
+		void		  SetTimeout(UINT64 unTimeout); 
+		INT32		  ProxySendBack();   
 		 
 	public:   
 		template<typename NameOrID>
@@ -383,15 +387,15 @@ namespace Msg
 		} 
 
 	public: 
-		RPCMsgCall * GetRpcMsgCall() { return  m_pRpcMsgCall; } 
-		void		 SetRpcMsgCall(RPCMsgCall * pMsg){ Assert(pMsg); m_pRpcMsgCall = pMsg; }   
+		RPCMsgCall *	GetRpcMsgCall() { return  m_pRpcMsgCall; } 
+		void			SetRpcMsgCall(RPCMsgCall * pMsg){ Assert(pMsg); m_pRpcMsgCall = pMsg; }   
 		Net::ISession * GetSession() { return  m_pSession; } 
-		void		 SetSession(Net::ISession * pSession){ Assert(pSession); m_pSession = pSession; }   
+		void			SetSession(Net::ISession * pSession){ Assert(pSession); m_pSession = pSession; }   
 
 	private: 
-		BOOL         CallObjectFunc( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall); 
+		BOOL			CallObjectFunc( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall); 
 
-	private: 
+	protected: 
 		RPCMsgCall			 *  m_pRpcMsgCall;
 		RpcManager			 *  m_pRpcManager;
 		Timer::TimeCount        m_objTimeout;

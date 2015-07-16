@@ -1,15 +1,14 @@
-#ifndef __test_slave_object_h__
-#define __test_slave_object_h__
-
+#ifndef __server_slave_handler_h__
+#define __server_slave_handler_h__
 #include "MsgLib/inc/IRpcMsgCallableObject.h"
 #include "MsgLib/inc/RpcServerManager.h"
 #include "MsgLib/inc/Object.h"
-#include "RpcDefines.h" 
-#include "MsgNameDefine.h"  
-#include "DBSlave.h" 
-#include "Common/Chunk.h"
-#include "GameDB/inc/Database.h"
 #include "GameDB/inc/SlaveSession.h"
+#include "GameDB/inc/Database.h"
+#include "Common/Chunk.h"
+#include "MsgNameDefine.h"  
+#include "RpcDefines.h" 
+#include "DBSlave.h" 
 
 namespace Server
 {  
@@ -17,8 +16,8 @@ namespace Server
 	{ 
 		RPC_DEFINE_SlaveHandler;
 	public:
-		SlaveHandler(DBSlave * pDBSlave)
-			: Msg::IRpcMsgCallableObject(Msg::Object(1) , pDBSlave->GetRpcServerManager())
+		SlaveHandler(Msg::Object objID , DBSlave * pDBSlave)
+			: Msg::IRpcMsgCallableObject(objID , pDBSlave->GetRpcServerManager())
 			, m_pDBSlave(pDBSlave)
 			, m_pDatabase(NULL)
 		{
@@ -33,14 +32,18 @@ namespace Server
 		virtual INT32 Update(){ return 0; } 
 
 	public:
+		void		StartAuth();
+		void		SelectDB();
+		void		RequestSyncData();
 		DBSlave *	GetDBSlave(){ return m_pDBSlave; }
 		bool		RecvFile(std::string strDir , std::string strFileName , std::string strDBName , INT32 nFileSize , INT32 nSendType , const LibCore::Chunk & objChunk);
 		bool		RecvFileEnd(std::string strDir , std::string strDBName );
-
+		void		SetSlaveInfo(const GameDB::SDBSlaveInfo & info);
+		GameDB::SDBSlaveInfo  GetSlaveInfo(){ return m_objSlaveInfo;}
 	private:
-		DBSlave * m_pDBSlave;
-		GameDB::SDBSlaveInfo m_objSlaveInfo;
-		GameDB::Database* m_pDatabase; 
+		DBSlave				*	m_pDBSlave;
+		GameDB::Database	*	m_pDatabase; 
+		GameDB::SDBSlaveInfo	m_objSlaveInfo;
 
 	}; 
 }

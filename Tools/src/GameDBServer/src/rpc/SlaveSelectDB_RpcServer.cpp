@@ -1,21 +1,23 @@
 #include "GlobalRpc.h"
 #include "MasterHandler.h"
 #include "GameDB/inc/MasterSession.h"
+#include "SlaveRecord.h"
 
 Msg::ObjectMsgCall * Server::MasterHandler::SlaveSelectDB_RpcServer(Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string &dbname/* = std::string()*/  )
 {
 	INT32 res = 0; 
 
-	if(m_strDatabaseName.length() > 0)
-	{ 
-		res = -1;
-	} 
+	SlaveRecord * pRecord = GetSlaveRecord(objSrc);
+	if (pRecord && pRecord->GetDBName() == "")
+	{
+		pRecord->SetDBName(dbname);
+	}
 	else
 	{
-		m_strDatabaseName = dbname; 
-	}
+		res = -1;
+	} 
 
-	std::cout << "SlaveSelectDB_RpcServer "<< std::endl;
+	std::cout << "SlaveSelectDB_RpcServer " << res << std::endl;
 	RPCReturn1(res);
 }
 

@@ -65,27 +65,15 @@ namespace GameDB
 		{     
 			std::string strRemoteRPCName = Net::NetHelper::GenerateRemoteName(strType.c_str() , strAddress.c_str() , strPort.c_str());
 
-			std::string strDBName = databases[(INT32)i].asString();
-			SDBSlaveInfo * pInfo = GetDBSlaveInfo(strRemoteRPCName);
-			if (pInfo)
-			{
-				pInfo->strDBName = strDBName; 
-				pInfo->strDir = strDirectory;
-				pInfo->strUser = conf.get("login_user" , "test").asString();
-				pInfo->strPswd = conf.get("login_pswd" , "test").asString();
-			}
-			else
-			{
-				objInfo.strDBName = strDBName; 
-				m_mapDatabases.insert(std::make_pair(strRemoteRPCName , objInfo)); 
-				pInfo = &objInfo;
-			}
+			std::string strDBName = databases[(INT32)i].asString(); 
+			objInfo.strDBName = strDBName;  
+			OnCreateDatabase(objInfo);
 
 			Net::NetHandlerTransitPtr pNetHandler(NULL);
 			pNetHandler = m_pRpcClientManager->GetHandlerByName(strRemoteRPCName.c_str());
 			if (!pNetHandler)
 			{
-				m_pRpcClientManager->CreateNetHandler(strRemoteRPCName.c_str() , strAddress.c_str() , strPort.c_str() , 0 , pInfo); 
+				m_pRpcClientManager->CreateNetHandler(strRemoteRPCName.c_str() , strAddress.c_str() , strPort.c_str() , 0 , &objInfo); 
 			}   
 		} 
 		return ERR_SUCCESS;
@@ -138,16 +126,5 @@ namespace GameDB
 	{ 
 		return RpcInterface::Update();
 	}  
-
-	SDBSlaveInfo * DBSlaveInterface::GetDBSlaveInfo(std::string strRemoteName)
-	{
-		CollectionDatabasesT::iterator iter = m_mapDatabases.find(strRemoteName);
-		if (iter != m_mapDatabases.end())
-		{
-			return & iter->second;
-		}
-
-		return NULL;
-	}
 
 }

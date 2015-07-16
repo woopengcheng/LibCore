@@ -67,15 +67,15 @@ namespace Server
 
 	Server::MasterHandler * DBMaster::GetMasterHandler(const std::string & strDBName)
 	{
-		CollectionMasterHandlersT::iterator iter = m_vecMasterHandlers.begin();
-		for (;iter != m_vecMasterHandlers.end();++iter)
-		{
-			MasterHandler * pMasterHandler = *iter;
-			if (pMasterHandler && pMasterHandler->GetDBName() == strDBName)
-			{
-				return pMasterHandler;
-			}
-		}
+// 		CollectionMasterHandlersT::iterator iter = m_vecMasterHandlers.begin();
+// 		for (;iter != m_vecMasterHandlers.end();++iter)
+// 		{
+// 			MasterHandler * pMasterHandler = *iter;
+// 			if (pMasterHandler && pMasterHandler->GetDBName() == strDBName)
+// 			{
+// 				return pMasterHandler;
+// 			}
+// 		}
 
 		return NULL;
 	}

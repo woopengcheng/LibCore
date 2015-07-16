@@ -1,9 +1,10 @@
-#include "SlaveHandler.h"
-#include "leveldb/db.h"
-#include "leveldb/env.h"
 #include "GameDB/inc/Comparator.h"
 #include "GameDB/inc/DBCommon.h"
 #include "TimerLib/inc/TimerHelp.h"
+#include "SlaveHandler.h"
+#include "leveldb/db.h"
+#include "leveldb/env.h"
+#include "RPCCallFuncs.h"
 #include <fstream> 
 
 namespace Server
@@ -69,4 +70,33 @@ namespace Server
 		return true;
 	}
 
+	void SlaveHandler::SetSlaveInfo(const GameDB::SDBSlaveInfo & info)
+	{
+		m_objSlaveInfo = info;
+	}
+
+	void SlaveHandler::StartAuth()
+	{
+		if (m_pDBSlave)
+		{
+			Server::rpc_SlaveStartAuth("tcp://127.0.0.1:9001" , m_pDBSlave->GetMasterSessionID() , m_objID  , m_objSlaveInfo.strUser , m_objSlaveInfo.strPswd);
+		}
+	}
+
+	void SlaveHandler::RequestSyncData()
+	{ 
+		if (m_pDBSlave)
+		{
+			Server::rpc_SlaveRequestSync("tcp://127.0.0.1:9001" , m_pDBSlave->GetMasterSessionID() , m_objID , m_objSlaveInfo.strDBName); 
+		}
+	}
+
+	void SlaveHandler::SelectDB()
+	{ 
+		if (m_pDBSlave)
+		{
+			Server::rpc_SlaveSelectDB("tcp://127.0.0.1:9001" , m_pDBSlave->GetMasterSessionID() , m_objID , m_objSlaveInfo.strDBName , 1);
+		}
+
+	}
 }

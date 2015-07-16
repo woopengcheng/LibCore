@@ -144,7 +144,7 @@ namespace GameDB
 		SBackupDB * pBackup = (SBackupDB * )arg;
 
 		std::string strSrc = pBackup->strSrcDir + "/" + strFile;
-		std::string strDst = pBackup->strDstDir + "/" + pBackup->strDstFileName + "/" + strFile; 
+		std::string strDst = pBackup->strDstDir + "/" + pBackup->strDstFileName + "/" + pBackup->strDBName + "/" + strFile; 
 		
 		Status objStatus;
 		if (llFileLength == -1)

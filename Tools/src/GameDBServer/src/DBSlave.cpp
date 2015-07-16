@@ -1,13 +1,14 @@
-#include "DBSlave.h" 
 #include "ThreadPoolLib/inc/ThreadPoolInterface.h"
-#include "RPCCallFuncs.h"
 #include "TimerLib/inc/TimerHelp.h"
+#include "DBSlave.h" 
+#include "SlaveHandler.h"
 
 namespace Server
 {
 	DBSlave::DBSlave(void)
 		: ThreadPool::ThreadSustainTask(0 , "DBSlave" )
 		, m_objMasterSessionID(0)
+		, m_nSlaveCount(0)
 	{
 
 	}
@@ -47,25 +48,53 @@ namespace Server
 
 	INT32 DBSlave::Cleanup(void)
 	{
-
 		ThreadPool::ThreadPoolInterface::GetInstance().Cleanup();
 		return DBSlaveInterface::Cleanup();
 	}
 
-	void DBSlave::RequestSyncData(std::string		strDBName , std::string		strDBDir)
-	{ 
-		Server::rpc_SlaveRequestSync("tcp://127.0.0.1:9001" , GetMasterSessionID() , Msg::Object(1) , strDBDir , strDBName);
+	void DBSlave::OnCreateDatabase(const GameDB::SDBSlaveInfo & objInfo)
+	{
+		SlaveHandler * pHandler = new SlaveHandler(++m_nSlaveCount , this);
+		if (pHandler)
+		{
+			pHandler->SetSlaveInfo(objInfo);
+			m_mapSalves.insert(std::make_pair(m_nSlaveCount , pHandler));
+		}
 	}
 
-	void DBSlave::StartAuth(std::string		strName , std::string		strPwd)
-	{  
-		Server::rpc_SlaveStartAuth("tcp://127.0.0.1:9001" , GetMasterSessionID() , Msg::Object(1) , strName , strPwd , 1);
+	GameDB::SDBSlaveInfo * DBSlave::GetDBSlaveInfo(INT32 nID)
+	{
+		CollectionSlavesT::iterator iter = m_mapSalves.find(nID);
+		if (iter != m_mapSalves.end())
+		{
+			return &iter->second->GetSlaveInfo();
+		}
+
+		return NULL;
 	}
 
-	void DBSlave::SelectDB(	std::string	strDBName )
-	{ 
-		Server::rpc_SlaveSelectDB("tcp://127.0.0.1:9001" , GetMasterSessionID() , Msg::Object(1)  , strDBName , 1);
+	void DBSlave::StartAuth()
+	{
+		CollectionSlavesT::iterator iter = m_mapSalves.begin();
+		for (;iter != m_mapSalves.end();++iter)
+		{
+			SlaveHandler * pHandler = iter->second;
+			if (pHandler)
+			{
+				pHandler->StartAuth();
+			}
+		}
+	}
 
+	DBSlave::~DBSlave(void)
+	{
+		CollectionSlavesT::iterator iter = m_mapSalves.begin();
+		for (;iter != m_mapSalves.end();++iter)
+		{
+			SAFE_DELETE(iter->second);
+		}
+
+		m_mapSalves.clear();
 	}
 
 

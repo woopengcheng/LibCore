@@ -76,6 +76,7 @@ namespace Msg
 		// Parameter: RpcMsgCall * pMsg
 		//************************************
 		UINT32 Copy(RPCMsgCall *& pMsg);
+		UINT32 CopyExcludeNetDatas(RPCMsgCall *& pMsg);
 		UINT32 CopyExcludeParams(RPCMsgCall *& pMsg);
 		UINT32 CopyExcludeParamsAndTargets(RPCMsgCall *& pMsg ,const std::vector<Msg::Object> & vecTargets , Msg::Object objSrc);
 

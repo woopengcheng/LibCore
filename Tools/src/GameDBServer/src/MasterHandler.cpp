@@ -2,19 +2,17 @@
 #include "leveldb/env.h"
 #include <fstream>
 #include "RPCCallFuncs.h"
+#include "SlaveRecord.h"
 
 namespace Server
 {  
-
-
-
 	void MasterHandler::StartSyncToSlave(std::string strDBDir)
 	{
 		std::vector<std::string> files;
 		GameDB::GetDefaultEnv()->GetChildren(strDBDir,&files);
 
 		INT32 nType = 1;  		 
-		rpc_MasterStartSync("tcp://127.0.0.1:9002" , Msg::Object(1) , GetObjectID() , std::string() , nType , nType , LibCore::Chunk());
+		rpc_MasterStartSync("tcp://127.0.0.1:9002" , m_pRpcMsgCall->GetProxySrcID() , GetObjectID() , std::string() , nType , nType , LibCore::Chunk());
 
 		for(size_t i = 0; i < files.size(); ++i)
 		{
@@ -26,7 +24,7 @@ namespace Server
 		}
 
 		nType = 2;
-		rpc_MasterStartSync("tcp://127.0.0.1:9002" ,  Msg::Object(1) , GetObjectID() , std::string() , nType , nType , LibCore::Chunk());
+		rpc_MasterStartSync("tcp://127.0.0.1:9002" , m_pRpcMsgCall->GetProxySrcID() , GetObjectID() , std::string() , nType , nType , LibCore::Chunk());
 	}
 
 	bool MasterHandler::SendFile(const std::string & strFilePath , std::string & strFileName)
@@ -48,13 +46,10 @@ namespace Server
 		{
 			size_t size = __min(filesize,cst_buffer_size);
 			fs.read(tmpbuf,size);
-			filesize -= (INT64)size;
-
-			Msg::VecObjects vecTargets;
-			vecTargets.push_back(Msg::Object(1));
+			filesize -= (INT64)size; 
 
 			INT32 nType = 0; 
-			rpc_MasterStartSync("tcp://127.0.0.1:9002" ,  vecTargets , GetObjectID() , strFileName , (INT32)filesize , nType , LibCore::Chunk(tmpbuf , (UINT32)size));
+			rpc_MasterStartSync("tcp://127.0.0.1:9002" , m_pRpcMsgCall->GetProxySrcID() , GetObjectID() , strFileName , (INT32)filesize , nType , LibCore::Chunk(tmpbuf , (UINT32)size));
 			
 			gDebugStream("send file:" << strFileName << "send size: " << size );
 		}
@@ -63,6 +58,41 @@ namespace Server
 
 		return filesize == 0;
 
+	}
+
+	void MasterHandler::CreateSlaveRecord(Msg::Object id , GameDB::User & objUser)
+	{
+		SlaveRecord * pRecord = new SlaveRecord(this);
+		if (pRecord)
+		{
+			GameDB::UserAuth objAuth(objUser);
+			pRecord->SetUserAuth(objAuth);
+
+			m_mapSlaveRecords.insert(std::make_pair(id , pRecord));
+		}
+
+
+	}
+
+	MasterHandler::~MasterHandler()
+	{
+		CollectionSlaveRecordsT::iterator iter = m_mapSlaveRecords.begin();
+		for (;iter != m_mapSlaveRecords.end();++iter)
+		{
+			SAFE_DELETE(iter->second);
+		}
+		m_mapSlaveRecords.clear();
+	}
+
+	SlaveRecord * MasterHandler::GetSlaveRecord(Msg::Object id)
+	{
+		CollectionSlaveRecordsT::iterator iter = m_mapSlaveRecords.find(id);
+		if (iter != m_mapSlaveRecords.end())
+		{
+			return iter->second;
+		}
+
+		return NULL;
 	}
 
 }
