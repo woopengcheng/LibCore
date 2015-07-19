@@ -161,6 +161,8 @@
     <ClCompile Include="src\rpc\testRefers_RpcClient.cpp" />
     <ClCompile Include="src\rpc\testRefers_RpcProxy.cpp" />
     <ClCompile Include="src\rpc\testRefers_RpcServer.cpp" />
+    <ClCompile Include="src\rpc\testTheSameNode_RpcClient.cpp" />
+    <ClCompile Include="src\rpc\testTheSameNode_RpcServer.cpp" />
     <ClCompile Include="src\SlaveHandler.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -51,6 +51,7 @@ namespace Msg
 			} 
 			objPing.usRemoteRPCPort = m_pRpcInterface->GetServerPort();  
 			memcpy(objPing.szRemoteName , m_pRpcInterface->GetServerName() , strlen(m_pRpcInterface->GetServerName()) + 1);
+			memcpy(objPing.szNetNodeName , m_pRpcInterface->GetNetNodeName() , strlen(m_pRpcInterface->GetNetNodeName()) + 1);
 
 			SendMsg(pNet , DEFAULT_RPC_PING_ID , (const char *)(&objPing) , sizeof(objPing) , TRUE); 
 
@@ -128,5 +129,5 @@ namespace Msg
 			CleanupRemoteRpc(pHandler->GetSession()->GetSessionID()); 
 		} 
 	}
-
+	
 }

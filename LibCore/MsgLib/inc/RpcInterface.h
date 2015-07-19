@@ -32,11 +32,12 @@ namespace Msg
 		virtual INT32  Cleanup(void);
 		virtual INT32  Update(void); 
 		virtual void   OnRegisterRpcs(void){}
-		virtual void   StartupRPCServer(const std::string & strType , const std::string & strAddress , const std::string & strPort);
+		virtual void   StartupRPCServer(const std::string & strNetNodeName , const std::string & strType , const std::string & strAddress , const std::string & strPort);
 		virtual void   StartupRPCClient(XML::XML * pXML);
 		virtual void   StartupRPCClient(const Json::Value & clients);
 
 	public:
+		virtual INT32  SendMsg(const std::string & strNetNodeName , RPCMsgCall * pMsg , BOOL bForce = FALSE , BOOL bAddRpc = TRUE);
 		virtual INT32  SendMsg(const char * pRpcServerName , RPCMsgCall * pMsg , BOOL bForce = FALSE , BOOL bAddRpc = TRUE);
 		virtual INT32  SendMsg(Net::NetHandlerTransitPtr pRemoteRpc , RPCMsgCall * pRpcMsg  , BOOL bForce = FALSE , BOOL bAddRpc = TRUE);
 		virtual INT32  SendMsg(INT32 nSessionID , RPCMsgCall * pMsg , BOOL bForce = FALSE , BOOL bAddRpc = TRUE); 
@@ -50,6 +51,7 @@ namespace Msg
 		RpcClientManager  *  GetRpcClientManager(){ return m_pRpcClientManager; }
 		UINT16  GetServerPort(){ return m_usServerPort; }
 		char *  GetServerName(){ return m_szServerName; }
+		char *  GetNetNodeName(){ return m_szNetNodeName; }
 		char *  GetServerType(){ return m_szRpcType; }
 		void    SetRpcListener(IRpcListener * pRpcListener ){ m_pRpcListener = pRpcListener; }
 		IRpcListener * GetRpcListener( ){ return m_pRpcListener; } 
@@ -60,6 +62,7 @@ namespace Msg
 	protected: 
 		UINT16               m_usServerPort;
 		char                 m_szServerName[MAX_NAME_LENGTH];
+		char                 m_szNetNodeName[MAX_NAME_LENGTH];
 		char                 m_szRpcType[MAX_NAME_LENGTH]; 
 		IRpcListener      *  m_pRpcListener;
 		Net::INetReactor  *  m_pNetReactor;         //5 没有访问机会.不会加锁

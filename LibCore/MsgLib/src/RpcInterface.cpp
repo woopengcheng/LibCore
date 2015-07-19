@@ -1,6 +1,7 @@
 #include "MsgLib/inc/RpcInterface.h"
 #include "MsgLib/inc/RpcServerManager.h"
 #include "MsgLib/inc/RpcClientManager.h"
+#include "MsgLib/inc/NetNode.h"
 #include "XMLLib/inc/xml.h"
 #include "NetLib/inc/ClientSession.h"
 #include "NetLib/inc/ServerSession.h" 
@@ -19,6 +20,7 @@ namespace Msg
 		, m_pRpcListener(NULL) 
 	{
 		memset(m_szServerName , 0 , sizeof(m_szServerName));
+		memset(m_szNetNodeName , 0 , sizeof(m_szNetNodeName));
 		memset(m_szRpcType , 0 , sizeof(m_szRpcType));
 
 	} 
@@ -57,7 +59,8 @@ namespace Msg
 		std::string strType = xml.GetXMLValue("/RemoteRPC/RPCServer/ListenType"); 
 		std::string strAddress = xml.GetXMLValue("/RemoteRPC/RPCServer/ListenAddress");
 		std::string strPort = xml.GetXMLValue("/RemoteRPC/RPCServer/ListenPort");
-		StartupRPCServer(strType , strAddress , strPort); 
+		std::string strNodeName = xml.GetXMLValue("/RemoteRPC/RPCServer/NetNodeName");
+		StartupRPCServer(strNodeName , strType , strAddress , strPort); 
 		 
 		StartupRPCClient(&xml); 
 
@@ -95,8 +98,9 @@ namespace Msg
 		std::string strType = server.get("listen_type" , "tcp").asCString();
 		std::string strAddress = server.get("listen_address" , "127.0.0.1").asCString();
 		std::string strPort = server.get("listen_port" , "8003").asCString();
+		std::string strNodeName = server.get("net_node_name" , "").asCString();
 		  
-		StartupRPCServer(strType,  strAddress , strPort);
+		StartupRPCServer(strNodeName , strType,  strAddress , strPort);
 
 		Json::Value clients = conf.get("clients" , Json::Value()); 
 		StartupRPCClient(clients); 
@@ -175,12 +179,13 @@ namespace Msg
 // 		}
 // 	}
 
-	void RpcInterface::StartupRPCServer(const std::string & strType , const std::string & strAddress , const std::string & strPort)
+	void RpcInterface::StartupRPCServer(const std::string & strNetNodeName , const std::string & strType , const std::string & strAddress , const std::string & strPort)
 	{
 		std::string str = Net::NetHelper::GenerateRemoteName(strType.c_str() , strAddress.c_str() , strPort.c_str());
 
 		m_usServerPort = atoi(strPort.c_str());
 		memcpy(m_szServerName , str.c_str() , str.length());
+		memcpy(m_szNetNodeName , strNetNodeName.c_str() , strNetNodeName.length());
 		memcpy(m_szRpcType , strType.c_str() , strType.length()); 
 
 #ifdef USE_ZMQ
@@ -195,6 +200,8 @@ namespace Msg
 		pSeesion->SetNetState(Net::NET_STATE_CONNECTED);
 		m_pNetReactor->AddNetHandler(pNetHandlerListener);
 #endif 
+
+		NetNode::GetInstance().InsertMyselfNodes(m_szNetNodeName , this);
 		gDebugStream("StartupRPCServer success:" << str);
 	}
 	
@@ -301,6 +308,31 @@ namespace Msg
 		} 
 		return ERR_FAILURE;
 	}  
+
+	INT32 RpcInterface::SendMsg(const std::string & strNetNodeName , RPCMsgCall * pMsg , BOOL bForce /*= FALSE */, BOOL bAddRpc /*= TRUE*/)
+	{
+		if (NetNode::GetInstance().IsInMyselfNodes(strNetNodeName))
+		{
+			RpcInterface * pInterface = NetNode::GetInstance().GetMyselfNode(strNetNodeName);
+			if (pInterface != NULL)
+			{
+				m_pRpcServerManager->InsertSendRpc(pMsg);
+				pInterface->GetRpcServerManager()->PostMsg(GetServerName() , pMsg);
+			}
+			return ERR_SUCCESS;
+		}
+		else
+		{
+			//5 有问题,多个相同的就不行了.
+			Net::ISession * pSession = NetNode::GetInstance().GetRemoteNode(strNetNodeName);
+			if (pSession)
+			{
+				m_pRpcClientManager->SendMsg(pSession->GetSessionID() , pMsg , bForce , bAddRpc);
+			}
+			return ERR_SUCCESS;
+		}
+		return ERR_FAILURE;
+	}
 
 	void RpcInterface::TakeOverSync(RPCMsgCall * pMsg)
 	{

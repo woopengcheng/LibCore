@@ -50,8 +50,9 @@ namespace GameDB
 		std::string strType = conf.get("listen_type" , "tcp").asCString();
 		std::string strAddress = conf.get("listen_address" , "127.0.0.1").asCString();
 		std::string strPort = conf.get("listen_port" , "8003").asCString();
+		std::string strNodeName = conf.get("net_node_name" , "").asCString();
 
-		StartupRPCServer(strType,  strAddress , strPort); 
+		StartupRPCServer(strNodeName , strType,  strAddress , strPort); 
 
 		Json::Value clients = conf.get("clients" , Json::Value());
 		StartupRPCClient(clients);

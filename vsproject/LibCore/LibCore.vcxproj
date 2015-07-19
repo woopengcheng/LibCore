@@ -247,17 +247,18 @@
     <ClInclude Include="..\..\LibCore\Common\CommandHandler.h" />
     <ClInclude Include="..\..\LibCore\Common\Common.h" />
     <ClInclude Include="..\..\LibCore\Common\DeelxRegexp.h" />
+    <ClInclude Include="..\..\LibCore\Common\ErrorCode.h" />
     <ClInclude Include="..\..\LibCore\Common\Heap.h" />
     <ClInclude Include="..\..\LibCore\Common\intrusive_ptr.h" />
+    <ClInclude Include="..\..\LibCore\Common\LibCore.h" />
     <ClInclude Include="..\..\LibCore\Common\LinkedPtr.h" />
     <ClInclude Include="..\..\LibCore\Common\MinHeap.h" />
     <ClInclude Include="..\..\LibCore\Common\MsgAssert.h" />
-    <ClInclude Include="..\..\LibCore\Common\ErrorCode.h" />
-    <ClInclude Include="..\..\LibCore\Common\LibCore.h" />
     <ClInclude Include="..\..\LibCore\Common\Node.h" />
     <ClInclude Include="..\..\LibCore\Common\Platform.h" />
-    <ClInclude Include="..\..\LibCore\Common\Refcounted.h" />
     <ClInclude Include="..\..\LibCore\Common\Random.h" />
+    <ClInclude Include="..\..\LibCore\Common\Refcounted.h" />
+    <ClInclude Include="..\..\LibCore\Common\RemoteNodeDefine.h" />
     <ClInclude Include="..\..\LibCore\Common\SafeVariable.h" />
     <ClInclude Include="..\..\LibCore\Common\StringEx.h" />
     <ClInclude Include="..\..\LibCore\Common\UnitTest.h" />
@@ -317,6 +318,7 @@
     <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgQueue.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgTimerNode.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\NetHandlerRpcListener.h" />
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\NetNode.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\Object.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\ObjectMethodImplHelper.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\ObjectMsgCall.h" />
@@ -427,6 +429,7 @@
     <ClCompile Include="..\..\LibCore\MsgLib\src\MsgDispatcher.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\MsgQueue.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\NetHandlerRpcListener.cpp" />
+    <ClCompile Include="..\..\LibCore\MsgLib\src\NetNode.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\Object.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\ObjectMsgCall.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\Parameter.cpp" />

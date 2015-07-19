@@ -535,6 +535,17 @@
 				<Param name="res" type="LibCore_Chunk" refer=""/> 
 			</Return>
 		</Rpc>
+		
+		<Rpc name="testTheSameNode" serverInclude="MasterHandler.h" serverClass="MasterHandler" clientInclude="ServerHandler.h" clientClass="ServerHandler" client="Server" server="Master" syncType="1" timeout="10">
+			<Call > 
+				<Param name="dbname" type="std_string" refer=""/>
+				<Param name="value" type="LibCore_Chunk"/> 
+			</Call>
+
+			<Return>  
+				<Param name="res" type="LibCore_Chunk" refer=""/> 
+			</Return>
+		</Rpc>
 	</Rpcs>
 	 
 </RpcMsgs>

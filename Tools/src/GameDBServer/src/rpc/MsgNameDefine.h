@@ -127,6 +127,9 @@ namespace Msg
 	//5 testRefers declare here
 	RPC_DEFINE(testRefers);
 
+	//5 testTheSameNode declare here
+	RPC_DEFINE(testTheSameNode);
+
 }
 
 #endif

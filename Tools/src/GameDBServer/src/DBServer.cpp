@@ -1,39 +1,22 @@
 #include "DBServer.h"
+#include "RPCCallFuncs.h"
+#include "Common/RemoteNodeDefine.h"
 
 namespace Server
 {   
+	const int maxCount = 100;
+	static UINT32 unCount = maxCount;
 	INT32 DBServer::Update( void )
 	{ 
-		GameDB::Database * pDB = m_pEnvironment->GetDatabase(g_szSystemDatabase);
-		if (!pDB)
+		std::string strDB = "ll";
+		while(unCount == 0)
 		{
-			return 1;
+			Msg::VecObjects objTargets;
+			objTargets.push_back(1);
+			unCount = maxCount;
+			rpc_testTheSameNode(g_netnodes[NETNODE_DBMASTER] , objTargets , 1 , strDB , LibCore::Chunk());
 		}
-					 
-// 			GameDB::Status s = pDB->QuickWrite("woo" , "peng"); 
-// 			if (s.ok())
-// 			{
-// 				gDebugStream("HSet: "  << "success."); 
-// 			}
-// 
-// 			std::string val;
-// 			GameDB::Status s2 = pDB->QuickGet("woo" , val);
-// 			if (s2.ok())
-// 			{
-// 				gDebugStream("HGet: " << val << " success."); 
-// 			}
-// 		
-// 			leveldb::Iterator* iter = pDB->GetLevelDB()->NewIterator(leveldb::ReadOptions());
-// 			iter->SeekToFirst();
-// 			while(iter->Valid())
-// 			{
-// 				GameDB::Slice key = iter->key();
-// 				GameDB::Slice val = iter->value();
-// 
-// 				gDebugStream("HGet: "<< (char *)key.data()  << "  "  << (char *)val.data() << " success."); 
-// 				iter->Next();
-// 			}
-// 			delete iter;
+		unCount--;
 
 		return DBServerInterface::Update();
 	}

@@ -1,11 +1,22 @@
 #include "MsgLib/inc/RpcServerManager.h"
-#include "MsgLib/inc/RpcBase.h"
 #include "MsgLib/inc/RpcClientManager.h"
+#include "MsgLib/inc/RpcBase.h"
+#include "MsgLib/inc/NetNode.h"
 #include "MsgLib/inc/IRpcListener.h"
 #include "NetLib/inc/ServerSession.h"
 
 namespace Msg
 {
+
+	RpcServerManager::~RpcServerManager(void)
+	{
+		CollectionPostMsgsT::iterator iter = m_mapPostMsgs.begin();
+		for (;iter != m_mapPostMsgs.end(); ++iter)
+		{
+			iter->second.clear();
+		}
+		m_mapPostMsgs.clear();
+	}
 
 	INT32 RpcServerManager::UpdateCalls( void )
 	{
@@ -223,6 +234,7 @@ namespace Msg
 #ifndef CLOSE_RPC_TIMEOUT
 		UpdateCalls();
 #endif
+		UpdatePostMsgs();
 		return RpcManager::Update();
 	} 
 
@@ -289,26 +301,25 @@ namespace Msg
 					}
 				}
 
+				if (pNetHandler->GetSession()->GetOtherSession() != pSession)
+				{
+					pNetHandler->GetSession()->SetOtherSession(pSession); 
+					pSession->SetOtherSession(pNetHandler->GetSession()); 
+				}
+
 				if(pNetHandler && pNetHandler->GetSession()->GetNetState() == Net::NET_STATE_CONNECTING &&
 					pSession->GetNetState() == Net::NET_STATE_CONNECTING)
 				{   
 					pSession->SetNetState(Net::NET_STATE_CONNECTED);
 					pNetHandler->GetSession()->SetNetState(Net::NET_STATE_CONNECTED); 
 
+					Msg::NetNode::GetInstance().InsertRemoteNodes(pPing->szNetNodeName , pNetHandler->GetSession());
 					if (m_pRpcInterface->GetRpcListener())
 					{ 
 						m_pRpcInterface->GetRpcListener()->OnConnected(m_pRpcInterface , pSession , pNetHandler->GetSession()); 
 					}
 				} 
-
-				if (pNetHandler->GetSession()->GetOtherSession() != pSession)
-				{
-					pNetHandler->GetSession()->SetOtherSession(pSession); 
-					pSession->SetOtherSession(pNetHandler->GetSession()); 
-				}
 			}  
-
-//			gDebugStream("recv client ping. " << strRemoteRPCName << std::endl);
 		}  
 
 		return TRUE;
@@ -360,5 +371,57 @@ namespace Msg
 	{ 
 		DelRemoteRpc(nSessionID); 
 	}
+	
+	INT32 RpcServerManager::PostMsg(const char * pRpcServerName , RPCMsgCall * pMsg)
+	{
+		Net::NetHandlerTransitPtr pHandler = GetHandlerByName(pRpcServerName);
+		if (pHandler)
+		{
+			pMsg->SetSessionName(pMsg->m_szRemoteName);
+			memcpy(pMsg->m_szRemoteName , GetRpcInterface()->GetServerName() , strlen( GetRpcInterface()->GetServerName()) + 1);
+
+			RPCMsgCall * pCopyMsg = NULL;
+			pMsg->Copy(pCopyMsg);
+			InsertPostMsg(pRpcServerName , pCopyMsg); 
+		}
+		return ERR_SUCCESS;
+	}
+
+	void RpcServerManager::InsertPostMsg(const std::string strRpcServerName , RPCMsgCall * pMsg)
+	{
+		CollectionPostMsgsT::iterator iter = m_mapPostMsgs.find(strRpcServerName);
+		if (iter != m_mapPostMsgs.end())
+		{
+			CollectionPostMsgsQueT & que = iter->second;
+			que.push(pMsg);
+		}
+		else
+		{
+			CollectionPostMsgsQueT que;
+			que.push(pMsg);
+
+			m_mapPostMsgs.insert(std::make_pair(strRpcServerName , que));
+		}
+	}
+
+	INT32 RpcServerManager::UpdatePostMsgs(void)
+	{
+		RPCMsgCall * pMsg = NULL;
+		CollectionPostMsgsT::iterator iter = m_mapPostMsgs.begin();
+		for (;iter != m_mapPostMsgs.end();++iter)
+		{
+			std::string strRpcServerName = iter->first;
+			CollectionPostMsgsQueT & que = iter->second;
+
+			Net::NetHandlerTransitPtr pHandler = GetHandlerByName(strRpcServerName.c_str()); 
+			MsgAssert_ReF1(pHandler , "no this handler" << strRpcServerName); 
+
+			while(que.try_pop(pMsg))
+			{
+				HandleMsg(pHandler->GetSession() , pMsg);
+			}
+		}
+	}
+
 
 }

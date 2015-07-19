@@ -8,6 +8,12 @@ namespace Msg
 	{ 
 		UINT16  usRemoteRPCPort;
 		char    szRemoteName[MAX_NAME_LENGTH];
+		char	szNetNodeName[MAX_NAME_LENGTH];
+
+		SPing()
+		{
+			memset(this , 0 , sizeof(SPing));
+		}
 	};
 }
 
