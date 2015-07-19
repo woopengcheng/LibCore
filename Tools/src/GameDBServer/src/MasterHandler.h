@@ -19,10 +19,10 @@ namespace Server
 		typedef std::map<Msg::Object , SlaveRecord *> CollectionSlaveRecordsT;
 
 	public:
-		MasterHandler(Msg::Object objID , DBMaster * pDBMaster)
+		MasterHandler(Msg::Object objID , INT32 nSessionID , DBMaster * pDBMaster)
 			: Msg::IRpcMsgCallableObject(objID , pDBMaster->GetRpcServerManager())
 			, m_pDBMaster(pDBMaster)
-			, m_nSessionID(0)
+			, m_nSessionID(nSessionID)
 		{}
 		~MasterHandler();
 	public:
@@ -32,11 +32,13 @@ namespace Server
 		bool			SendFile(const std::string & strFilePath , std::string & strFileName);
 		DBMaster 	 *  GetDBMaster(){ return m_pDBMaster; }
 		void			StartSyncToSlave(std::string strDBDir);
-		void			CreateSlaveRecord(INT32 nSessionID , Msg::Object id);
+		void			CreateSlaveRecord(Msg::Object id);
 		BOOL			SetSlaveRecordInfo(Msg::Object id , GameDB::User & objUser);
 		BOOL			DelSlaveRecord(Msg::Object id);
 		SlaveRecord  *  GetSlaveRecord(Msg::Object id);
 		SlaveRecord  *  GetSlaveRecord(std::string strName);
+		INT32			GetSessionID(){ return m_nSessionID; }
+
 	private:
 		INT32			m_nSessionID;
 		DBMaster	 *  m_pDBMaster;

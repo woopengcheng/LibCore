@@ -44,7 +44,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		Server::DBServer::GetInstance().Init(objDBServer);  
 
 		static Server::ServerHandler  ObjTestObject(&Server::DBServer::GetInstance()); 
-		static Server::MasterHandler  ObjMasterHandler(1,&Server::DBMaster::GetInstance()); 
+//		static Server::MasterHandler  ObjMasterHandler(1,&Server::DBMaster::GetInstance()); 
 	}
 	else if (strRunMode.compare("slave") == 0)
 	{

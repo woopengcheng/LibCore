@@ -20,7 +20,7 @@ namespace Msg
 
 		}
 	public:
-		virtual INT32 OnConnected(RpcInterface * pRpcInterface , Net::ISession * pServerSession , Net::ISession * pClientSession){ return ERR_SUCCESS;} 
+		virtual INT32 OnConnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pClientSession , const std::string & strNetNodeName){ return ERR_SUCCESS;} 
 		virtual INT32 OnDisconnected(RpcInterface * pRpcInterface , Net::ISession * pServerSession , Net::ISession * pClientSession){ return ERR_SUCCESS;}
 	};
 

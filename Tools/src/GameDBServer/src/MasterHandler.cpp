@@ -12,7 +12,7 @@ namespace Server
 		GameDB::GetDefaultEnv()->GetChildren(strDBDir,&files);
 
 		INT32 nType = 1;  		 
-		rpc_MasterStartSync("tcp://127.0.0.1:9002" , m_pRpcMsgCall->GetProxySrcID() , GetObjectID() , std::string() , nType , nType , LibCore::Chunk());
+		rpc_MasterStartSync(m_nSessionID, m_pRpcMsgCall->GetProxySrcID() , GetObjectID() , std::string() , nType , nType , LibCore::Chunk());
 
 		for(size_t i = 0; i < files.size(); ++i)
 		{
@@ -24,7 +24,7 @@ namespace Server
 		}
 
 		nType = 2;
-		rpc_MasterStartSync("tcp://127.0.0.1:9002" , m_pRpcMsgCall->GetProxySrcID() , GetObjectID() , std::string() , nType , nType , LibCore::Chunk());
+		rpc_MasterStartSync(m_nSessionID , m_pRpcMsgCall->GetProxySrcID() , GetObjectID() , std::string() , nType , nType , LibCore::Chunk());
 	}
 
 	bool MasterHandler::SendFile(const std::string & strFilePath , std::string & strFileName)
@@ -49,7 +49,7 @@ namespace Server
 			filesize -= (INT64)size; 
 
 			INT32 nType = 0; 
-			rpc_MasterStartSync("tcp://127.0.0.1:9002" , m_pRpcMsgCall->GetProxySrcID() , GetObjectID() , strFileName , (INT32)filesize , nType , LibCore::Chunk(tmpbuf , (UINT32)size));
+			rpc_MasterStartSync(m_nSessionID , m_pRpcMsgCall->GetProxySrcID() , GetObjectID() , strFileName , (INT32)filesize , nType , LibCore::Chunk(tmpbuf , (UINT32)size));
 			
 			gDebugStream("send file:" << strFileName << "send size: " << size );
 		}
@@ -93,7 +93,7 @@ namespace Server
 		return FALSE;
 	}
 
-	void MasterHandler::CreateSlaveRecord(INT32 nSessionID , Msg::Object id)
+	void MasterHandler::CreateSlaveRecord(Msg::Object id)
 	{
 		CollectionSlaveRecordsT::iterator iter = m_mapSlaveRecords.find(id);
 		if (iter != m_mapSlaveRecords.end())
@@ -101,7 +101,7 @@ namespace Server
 			SlaveRecord * pRecord = iter->second;
 			if (pRecord)
 			{ 
-				pRecord->SetSlaveSessionID(nSessionID);
+				pRecord->SetSlaveSessionID(m_nSessionID);
 				pRecord->SetObjRemoteSlaveID(id); 
 			}
 		}
@@ -110,7 +110,7 @@ namespace Server
 			SlaveRecord * pRecord = new SlaveRecord(this);
 			if (pRecord)
 			{ 
-				pRecord->SetSlaveSessionID(nSessionID);
+				pRecord->SetSlaveSessionID(m_nSessionID);
 				pRecord->SetObjRemoteSlaveID(id); 
 
 				m_mapSlaveRecords.insert(std::make_pair(id , pRecord));

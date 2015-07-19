@@ -6,7 +6,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcServerProxy(Msg::V
 {
 	std_string value = std::string();
 
-	CreateSlaveRecord(m_pSession->GetOtherSession()->GetSessionID() , objSrc);
+	CreateSlaveRecord(objSrc);
 
 	if(ERR_FAILURE == ProxySendMsg("tcp://127.0.0.1:8001" , 1 , name , pwd))
 	{

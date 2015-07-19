@@ -6,6 +6,7 @@
 #include "GameDB/inc/DBServerNetHandler.h"
 #include "MsgLib/inc/IRpcListener.h"
 #include "MsgLib/inc/ping.h"
+#include "MsgLib/inc/NetNode.h"
 
 namespace GameDB
 {
@@ -78,9 +79,10 @@ namespace GameDB
 					pSession->SetNetState(Net::NET_STATE_CONNECTED);
 					pNetHandler->GetSession()->SetNetState(Net::NET_STATE_CONNECTED); 
 
+					Msg::NetNode::GetInstance().InsertRemoteNodes(pPing->szNetNodeName , pNetHandler->GetSession());
 					if (m_pRpcInterface->GetRpcListener())
 					{ 
-						m_pRpcInterface->GetRpcListener()->OnConnected(m_pRpcInterface , pSession , pNetHandler->GetSession()); 
+						m_pRpcInterface->GetRpcListener()->OnConnected(m_pRpcInterface , pNetHandler->GetSession() , pPing->szNetNodeName); 
 					}
 				} 
 

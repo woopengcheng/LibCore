@@ -316,7 +316,7 @@ namespace Msg
 					Msg::NetNode::GetInstance().InsertRemoteNodes(pPing->szNetNodeName , pNetHandler->GetSession());
 					if (m_pRpcInterface->GetRpcListener())
 					{ 
-						m_pRpcInterface->GetRpcListener()->OnConnected(m_pRpcInterface , pSession , pNetHandler->GetSession()); 
+						m_pRpcInterface->GetRpcListener()->OnConnected(m_pRpcInterface , pNetHandler->GetSession() , pPing->szNetNodeName); 
 					}
 				} 
 			}  

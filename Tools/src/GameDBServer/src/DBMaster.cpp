@@ -1,4 +1,5 @@
 #include "ThreadPoolLib/inc/ThreadPoolInterface.h"
+#include "Common/RemoteNodeDefine.h"
 #include "DBMaster.h"
 #include "MasterHandler.h"
 #include "RPCCallFuncs.h"
@@ -59,9 +60,9 @@ namespace Server
 		return ERR_SUCCESS;
 	}
 
-	INT32 DBMaster::CreateMasterHandler()
+	INT32 DBMaster::CreateMasterHandler(INT32 nSessionID)
 	{
-		MasterHandler * pMasterHandler = new MasterHandler(++m_nHandlerCount , this);
+		MasterHandler * pMasterHandler = new MasterHandler(++m_nHandlerCount , nSessionID , this);
 		m_vecMasterHandlers.push_back(pMasterHandler);
 		return m_nHandlerCount;
 	}
@@ -92,12 +93,15 @@ namespace Server
 		return DBMasterInterface::Cleanup();
 	}
 
-	INT32 MasterListener::OnConnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pServerSession , Net::ISession * pClientSession)
+	INT32 MasterListener::OnConnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pClientSession ,const std::string & strNetNodeName)
 	{
 		if (m_pDBMaster)
 		{
-			INT32 nMasterHandlerID = m_pDBMaster->CreateMasterHandler();
-			return rpc_SyncMasterHandler("tcp://127.0.0.1:9002" , 1 , nMasterHandlerID , nMasterHandlerID);
+			if (strNetNodeName == g_netnodes[NETNODE_DBSLAVE])
+			{
+				INT32 nMasterHandlerID = m_pDBMaster->CreateMasterHandler(pClientSession->GetSessionID());
+				return rpc_SyncMasterHandler(pClientSession->GetSessionID() , 1 , nMasterHandlerID , nMasterHandlerID);
+			}
 		}
 
 		return 0;

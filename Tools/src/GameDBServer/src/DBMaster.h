@@ -37,7 +37,7 @@ namespace Server
 		virtual INT32  Update(void);
 
 	public:
-		INT32			CreateMasterHandler(); 
+		INT32			CreateMasterHandler(INT32 nSessionID); 
 		SlaveRecord *	GetSlaveRecord(const std::string & strDBName);
 
 	private: 
@@ -59,7 +59,7 @@ namespace Server
 		}
 
 	public:
-		virtual INT32 OnConnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pServerSession , Net::ISession * pClientSession);
+		virtual INT32 OnConnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pClientSession , const std::string & strNetNodeName);
 		virtual INT32 OnDisconnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pServerSession , Net::ISession * pClientSession);
 
 	private:
