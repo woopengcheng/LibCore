@@ -662,17 +662,25 @@ def GenerateCheckObjectFunc(fileRpc , className , setFuncs):
 	fileRpc.write(oneTab + "}\\\n")		
 			
 def GenerateGlableRpc():
+	setoutputPathAllFuncs = collections.OrderedDict()
 	sameNamespace = collections.OrderedDict()
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
 		outputPath = GetOutputPath(rpcServerName.namespace)  
 		outputPath = outputPath + "GlobalRpc.h"   
 		
+		if outputPath not in setoutputPathAllFuncs:
+			setoutputPathAllFuncs[outputPath] = collections.OrderedDict()
+			
 		fileRpc = open(outputPath , "a")
 		if rpcServerName.namespace not in sameNamespace :
 			GenerateGlableRpcHeaderNamespace(fileRpc , rpcServerName.namespace)
 			sameNamespace[rpcServerName.namespace] = 1
-		
-		GenerateGlableRpcClass(g_rpcMsgs.rpcs.rpcs , fileRpc , rpcServerName.serverName) 
+			
+		setFuncs = collections.OrderedDict()
+		GenerateGlableRpcClass(g_rpcMsgs.rpcs.rpcs , fileRpc , rpcServerName.serverName , setFuncs) 
+		for index , setFunc in setFuncs.items(): 
+			setoutputPathAllFuncs[outputPath][index] = setFunc 
+			
 		fileRpc.close()	
 
 	sameNamespace = collections.OrderedDict()
@@ -682,6 +690,12 @@ def GenerateGlableRpc():
 		
 		if rpcServerName.namespace not in sameNamespace :
 			fileRpc = open(outputPath , "a")
+			
+			if outputPath in setoutputPathAllFuncs:
+				GenerateGlobalRpcCheckObjectFunc(fileRpc , "GlobalRpc" , setoutputPathAllFuncs[outputPath])
+			else:
+				GenerateGlobalRpcCheckObjectFunc(fileRpc , "GlobalRpc" , collections.OrderedDict())
+				
 			GenerateGlableRpcLastNamespace(fileRpc , rpcServerName.namespace)
 			sameNamespace[rpcServerName.namespace] = 1  
 			fileRpc.close()	
@@ -709,10 +723,12 @@ def GenerateGlableRpcHeaderNamespace(fileRpc , namespace):
 	fileRpc.write(twoTab +"}\n")   
 	fileRpc.write(oneTab +"public:\n")  
 	
-def GenerateGlableRpcClass(rpcs , fileRpc , serverName): 
+def GenerateGlableRpcClass(rpcs , fileRpc , serverName , setFuncs): 
 	#生成函数声明.部分文件有.
-	for index , rpc in rpcs.items():  
+	for index , rpc in rpcs.items(): 
+		needWriteFunc = False 
 		if rpc.client == serverName and rpc.clientClass == "GlobalRpc":
+			needWriteFunc = True
 			fileRpc.write(twoTab + "\n//" + rpc.name + " generate RPC func here\n")
 			strDefaultParams = GetParams(rpc.call.params) 
 			if len(strDefaultParams) != 0:
@@ -725,8 +741,10 @@ def GenerateGlableRpcClass(rpcs , fileRpc , serverName):
 				fileRpc.write(twoTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcClient(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strDefaultParams + ");\n")
 			else:
 				fileRpc.write(twoTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcClient(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\n")
-	 
+			
+			
 		elif rpc.proxy == serverName and rpc.proxyClass == "GlobalRpc":
+			needWriteFunc = True
 			fileRpc.write(twoTab + "\n//" + rpc.name + " generate RPC func here\n")
 			strDefaultParams = GetParams(rpc.call.params) 
 			if len(strDefaultParams) != 0:
@@ -741,16 +759,40 @@ def GenerateGlableRpcClass(rpcs , fileRpc , serverName):
 				fileRpc.write(twoTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcClientProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strDefaultParams + ");\n")  
 			else:
 				fileRpc.write(twoTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcClientProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")  
-	  			
+			
+			
 		elif rpc.server == serverName and rpc.serverClass == "GlobalRpc": 
+			needWriteFunc = True
 			fileRpc.write(twoTab + "\n//" + rpc.name + " generate RPC func here\n")
 			strDefaultParams = GetParams(rpc.call.params) 
 			if len(strDefaultParams) != 0:
 				fileRpc.write(twoTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcServer(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strDefaultParams + ");\n")
 			else:
 				fileRpc.write(twoTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcServer(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\n")
-
-	fileRpc.write(twoTab + "\n")
+						
+		if needWriteFunc == True:
+			needWriteFunc = False
+			setFuncs[rpc.name] = 1   
+		
+	fileRpc.write(twoTab + "\n")	
+		
+def GenerateGlobalRpcCheckObjectFunc(fileRpc , className , setFuncs):	
+	fileRpc.write("public:\n")
+	fileRpc.write(oneTab + "static CollectionObjectFuncsT s_setFuncs;\n")
+	fileRpc.write(oneTab + "static void InitObjectFuncs()\n")
+	fileRpc.write(oneTab + "{\n")
+	for index , setFunc in setFuncs.items(): 
+		fileRpc.write(twoTab + className + "::" + "s_setFuncs.insert(\"" + index + "\");\n")
+	fileRpc.write(oneTab + "}\n")
+	fileRpc.write(oneTab + "virtual BOOL IsHasFunc(const std::string & strFunc)\n")
+	fileRpc.write(oneTab + "{\n") 
+	fileRpc.write(twoTab + "CollectionObjectFuncsT::iterator iter = " + className + "::s_setFuncs.find(strFunc);\n")
+	fileRpc.write(twoTab + "if (iter != " + className + "::s_setFuncs.end())\n")
+	fileRpc.write(twoTab + "{\n") 
+	fileRpc.write(threeTab + "return TRUE;\n")
+	fileRpc.write(twoTab + "}\n")
+	fileRpc.write(oneTab + "return FALSE;\n") 
+	fileRpc.write(oneTab + "}\n")		
 	
 #生成GlableRpc尾部部分.
 def GenerateGlableRpcLastNamespace(fileRpc , namespace):  
@@ -1181,6 +1223,25 @@ def GenerateRpcCallFuncs():
 				else:
 					fileRpc.write(twoTab + "return rpc_" + rpc.name + "( pSessionName , vecTargets , objSrc , usPriority , objSyncType);\n" )
 				
+				fileRpc.write(oneTab + "}\n\n")		
+				
+				#生成sessionName方式不带有vec且全局发送的RPC
+				strParams = GetParamsExcludeDefault(rpc.call.params) 
+				syncType = GetSyncTypeInString(rpc.syncType)
+				if len(strParams) != 0:
+					fileRpc.write(oneTab + "static INT32  rpc_" + rpc.name + "(const char * pSessionName , Msg::Object objSrc , " + strParams + " , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
+				else:
+					fileRpc.write(oneTab + "static INT32  rpc_" + rpc.name + "(const char * pSessionName , Msg::Object objSrc , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
+
+				fileRpc.write(oneTab + "{\n")
+				
+				strParams = GetParamsExcludeDefaultAndType(rpc.call.params) 
+				strParamsCount = len(rpc.call.params)
+				if strParamsCount != 0:
+					fileRpc.write(twoTab + "return rpc_" + rpc.name + "( pSessionName , 0 , objSrc , " + strParams + ", usPriority , objSyncType);\n" )
+				else:
+					fileRpc.write(twoTab + "return rpc_" + rpc.name + "( pSessionName , 0 , objSrc , usPriority , objSyncType);\n" )
+				
 				fileRpc.write(oneTab + "}\n\n")	
 				
 				#生成strNodeName方式带有vec发送的RPC
@@ -1219,6 +1280,25 @@ def GenerateRpcCallFuncs():
 					fileRpc.write(twoTab + "return rpc_" + rpc.name + "( pSessionName , vecTargets , objSrc , usPriority , objSyncType);\n" )
 				
 				fileRpc.write(oneTab + "}\n\n")	
+						
+				#生成strNodeName方式不带有vec且全局发送的RPC
+				strParams = GetParamsExcludeDefault(rpc.call.params) 
+				syncType = GetSyncTypeInString(rpc.syncType)
+				if len(strParams) != 0:
+					fileRpc.write(oneTab + "static INT32  rpc_" + rpc.name + "(const std::string & pSessionName , Msg::Object objSrc , " + strParams + " , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
+				else:
+					fileRpc.write(oneTab + "static INT32  rpc_" + rpc.name + "(const std::string & pSessionName , Msg::Object objSrc , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
+
+				fileRpc.write(oneTab + "{\n")
+				
+				strParams = GetParamsExcludeDefaultAndType(rpc.call.params) 
+				strParamsCount = len(rpc.call.params)
+				if strParamsCount != 0:
+					fileRpc.write(twoTab + "return rpc_" + rpc.name + "( pSessionName , 0 , objSrc , " + strParams + ", usPriority , objSyncType);\n" )
+				else:
+					fileRpc.write(twoTab + "return rpc_" + rpc.name + "( pSessionName , 0 , objSrc , usPriority , objSyncType);\n" )
+				
+				fileRpc.write(oneTab + "}\n\n")	
 				
 				#生成sessionID方式带有vec发送的RPC
 				strParams = GetParamsExcludeDefault(rpc.call.params) 
@@ -1254,6 +1334,25 @@ def GenerateRpcCallFuncs():
 					fileRpc.write(twoTab + "return rpc_" + rpc.name + "( nSessionID ,vecTargets , objSrc , " + strParams + ", usPriority , objSyncType);\n" )
 				else:
 					fileRpc.write(twoTab + "return rpc_" + rpc.name + "( nSessionID , vecTargets , objSrc , usPriority , objSyncType);\n" )
+				
+				fileRpc.write(oneTab + "}\n\n")	
+									
+				#生成sessionID方式不带有vec且全局发送的RPC
+				strParams = GetParamsExcludeDefault(rpc.call.params) 
+				syncType = GetSyncTypeInString(rpc.syncType)
+				if len(strParams) != 0:
+					fileRpc.write(oneTab + "static INT32  rpc_" + rpc.name + "(INT32 nSessionID , Msg::Object objSrc , " + strParams + " , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
+				else:
+					fileRpc.write(oneTab + "static INT32  rpc_" + rpc.name + "(INT32 nSessionID , Msg::Object objSrc , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
+
+				fileRpc.write(oneTab + "{\n")
+				
+				strParams = GetParamsExcludeDefaultAndType(rpc.call.params) 
+				strParamsCount = len(rpc.call.params)
+				if strParamsCount != 0:
+					fileRpc.write(twoTab + "return rpc_" + rpc.name + "( nSessionID , 0 , objSrc , " + strParams + ", usPriority , objSyncType);\n" )
+				else:
+					fileRpc.write(twoTab + "return rpc_" + rpc.name + "( nSessionID , 0 , objSrc , usPriority , objSyncType);\n" )
 				
 				fileRpc.write(oneTab + "}\n\n")	
 				

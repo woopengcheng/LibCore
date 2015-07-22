@@ -34,6 +34,23 @@ namespace Msg
 		Msg::ObjectMsgCall * SyncDataToSlave_RpcClientProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);
 		
 		
+public:
+	static CollectionObjectFuncsT s_setFuncs;
+	static void InitObjectFuncs()
+	{
+		GlobalRpc::s_setFuncs.insert("SyncMasterHandler");
+		GlobalRpc::s_setFuncs.insert("MasterStartSync");
+		GlobalRpc::s_setFuncs.insert("SyncDataToSlave");
+	}
+	virtual BOOL IsHasFunc(const std::string & strFunc)
+	{
+		CollectionObjectFuncsT::iterator iter = GlobalRpc::s_setFuncs.find(strFunc);
+		if (iter != GlobalRpc::s_setFuncs.end())
+		{
+			return TRUE;
+		}
+	return FALSE;
+	}
 	};
 
 }

@@ -155,6 +155,54 @@ namespace Msg
 		Msg::ObjectMsgCall * HandleDump_RpcTimeout(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
 		Msg::ObjectMsgCall * HandleDump_RpcClient(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());
 		
+public:
+	static CollectionObjectFuncsT s_setFuncs;
+	static void InitObjectFuncs()
+	{
+		GlobalRpc::s_setFuncs.insert("HandleUserAuth");
+		GlobalRpc::s_setFuncs.insert("HandleSelectDatabase");
+		GlobalRpc::s_setFuncs.insert("HandleCreateDatabase");
+		GlobalRpc::s_setFuncs.insert("HandleDeleteDatabase");
+		GlobalRpc::s_setFuncs.insert("HandleShowDatabases");
+		GlobalRpc::s_setFuncs.insert("HandleCreateUser");
+		GlobalRpc::s_setFuncs.insert("HandleDeleteUser");
+		GlobalRpc::s_setFuncs.insert("HandleModifyUser");
+		GlobalRpc::s_setFuncs.insert("HandleHSet");
+		GlobalRpc::s_setFuncs.insert("HandleHSetNX");
+		GlobalRpc::s_setFuncs.insert("HandleHSetOW");
+		GlobalRpc::s_setFuncs.insert("HandleHGet");
+		GlobalRpc::s_setFuncs.insert("HandleHDel");
+		GlobalRpc::s_setFuncs.insert("HandleHSetIncr");
+		GlobalRpc::s_setFuncs.insert("HandleHSetIncrFloat");
+		GlobalRpc::s_setFuncs.insert("HandleHGetKeys");
+		GlobalRpc::s_setFuncs.insert("HandleHGetVals");
+		GlobalRpc::s_setFuncs.insert("HandleHGetKeyVals");
+		GlobalRpc::s_setFuncs.insert("HandleHScan");
+		GlobalRpc::s_setFuncs.insert("HandleHCount");
+		GlobalRpc::s_setFuncs.insert("HandleHDrop");
+		GlobalRpc::s_setFuncs.insert("HandleHList");
+		GlobalRpc::s_setFuncs.insert("HandleHMultiSet");
+		GlobalRpc::s_setFuncs.insert("HandleHMultiGet");
+		GlobalRpc::s_setFuncs.insert("HandleHMultiDel");
+		GlobalRpc::s_setFuncs.insert("HandleZSet");
+		GlobalRpc::s_setFuncs.insert("HandleZGet");
+		GlobalRpc::s_setFuncs.insert("HandleZDel");
+		GlobalRpc::s_setFuncs.insert("HandleZTop");
+		GlobalRpc::s_setFuncs.insert("HandleZRTop");
+		GlobalRpc::s_setFuncs.insert("HandleZDrop");
+		GlobalRpc::s_setFuncs.insert("HandleZCount");
+		GlobalRpc::s_setFuncs.insert("HandleZList");
+		GlobalRpc::s_setFuncs.insert("HandleDump");
+	}
+	virtual BOOL IsHasFunc(const std::string & strFunc)
+	{
+		CollectionObjectFuncsT::iterator iter = GlobalRpc::s_setFuncs.find(strFunc);
+		if (iter != GlobalRpc::s_setFuncs.end())
+		{
+			return TRUE;
+		}
+	return FALSE;
+	}
 	};
 
 }

@@ -60,7 +60,7 @@ namespace Msg
 				pICallableObject = dynamic_cast<IRpcMsgCallableObject *>(m_pRpcManager->GetCallableObject(pMsg->m_aTargets[i]));
 
 				MsgAssert_Re0(pICallableObject , "method:" << strMethod << "has no this objectID:" << pMsg->m_aTargets[i].m_llObjID);
-				MsgAssert_Re0(pICallableObject->IsHasFunc(strMethod) , "this object has no this func.");
+				MsgAssert_Re0(pICallableObject->IsHasFunc(pMsg->m_szMsgMethod) , "this object has no this func.");
 				if (pICallableObject)
 				{ 
 					pICallableObject->SetSession(m_pSession); 

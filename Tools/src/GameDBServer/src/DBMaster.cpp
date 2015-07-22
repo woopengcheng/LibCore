@@ -100,7 +100,7 @@ namespace Server
 			if (strNetNodeName == g_netnodes[NETNODE_DBSLAVE])
 			{
 				INT32 nMasterHandlerID = m_pDBMaster->CreateMasterHandler(pClientSession->GetSessionID());
-				return rpc_SyncMasterHandler(pClientSession->GetSessionID() , 1 , nMasterHandlerID , nMasterHandlerID);
+				return rpc_SyncMasterHandler(pClientSession->GetSessionID() , Msg::Object(1) , Msg::Object(nMasterHandlerID) , nMasterHandlerID);
 			}
 		}
 
