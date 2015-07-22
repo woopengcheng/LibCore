@@ -8,7 +8,7 @@
 #include "vector"
 #include "MsgLib/inc/Object.h"
 
-#define MSG_ID  UINT64
+typedef std::set<std::string> CollectionObjectFuncsT;
 
 namespace Msg
 { 
@@ -50,19 +50,7 @@ namespace Msg
 
 #define MSG_DEFINE(MSG_NAME)  static const char * g_szLocal_##MSG_NAME = #MSG_NAME; 
 
-#define VECTOR_TARGETS_NULL (std::vector<Msg::Object>())
-	enum ERPCServerNames
-	{
-		RPC_ConnSrv = 0 ,
-
-		MAX_RPC_SERVERS ,
-	};
-
-	const char g_szRpcTest1Name[MAX_RPC_SERVERS][25] =
-		{ 
-			"connsrv"  // RPC_ConnSrv
-		};
-	const char g_szRpcTest2Name[] = "server2";
+#define VECTOR_TARGETS_NULL (std::vector<Msg::Object>()) 
 	 
 }
 #endif

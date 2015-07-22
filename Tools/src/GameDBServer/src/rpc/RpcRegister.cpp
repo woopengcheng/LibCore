@@ -17,14 +17,14 @@
 namespace Server
 {
 	//5 defaultParams define here.
-	static UINT8 g_rpcDefaultParam_UINT8 = 0;
 	static SINT8 g_rpcDefaultParam_SINT8 = 0;
-	static INT16 g_rpcDefaultParam_INT16 = 0;
+	static UINT8 g_rpcDefaultParam_UINT8 = 0;
 	static UINT16 g_rpcDefaultParam_UINT16 = 0;
+	static INT16 g_rpcDefaultParam_INT16 = 0;
 	static INT32 g_rpcDefaultParam_INT32 = 0;
 	static UINT32 g_rpcDefaultParam_UINT32 = 0;
-	static INT64 g_rpcDefaultParam_INT64 = 0;
 	static UINT64 g_rpcDefaultParam_UINT64 = 0;
+	static INT64 g_rpcDefaultParam_INT64 = 0;
 	static float g_rpcDefaultParam_float = 0.0f;
 	static double g_rpcDefaultParam_double = 0.0f;
 	static std_string g_rpcDefaultParam_std_string = std::string();
@@ -501,6 +501,9 @@ namespace Server
 			m_pRpcServerManager->RegisterFunc<ServerHandler >(Msg::g_sztestTheSameNode_RpcTimeout ,&ServerHandler::testTheSameNode_RpcTimeout); 
 		}
 
+		Server::ServerHandler::InitObjectFuncs();
+		Server::SlaveHandler::InitObjectFuncs();
+		Server::MasterHandler::InitObjectFuncs();
 	}
 
 	void DBMaster::OnRegisterRpcs( void )
@@ -953,6 +956,9 @@ namespace Server
 			m_pRpcServerManager->RegisterFunc<MasterHandler >(Msg::g_sztestTheSameNode_RpcServer , &MasterHandler::testTheSameNode_RpcServer); 
 		}
 
+		Server::SlaveHandler::InitObjectFuncs();
+		Server::ServerHandler::InitObjectFuncs();
+		Server::MasterHandler::InitObjectFuncs();
 	}
 
 	void DBSlave::OnRegisterRpcs( void )
@@ -1394,7 +1400,13 @@ namespace Server
 			objReturnParams.Clear();
 		}
 
+		Server::SlaveHandler::InitObjectFuncs();
+		Server::ServerHandler::InitObjectFuncs();
+		Server::MasterHandler::InitObjectFuncs();
 	}
 
+	CollectionObjectFuncsT Server::SlaveHandler::s_setFuncs;
+	CollectionObjectFuncsT Server::ServerHandler::s_setFuncs;
+	CollectionObjectFuncsT Server::MasterHandler::s_setFuncs;
 }
 

@@ -18,6 +18,8 @@ namespace Msg
 
 			pRpcManager->AddCallableObject(this);  
 		}   
+
+		virtual BOOL IsHasFunc(const std::string & strFun){ return FALSE; }
 	};
 
 }

@@ -11,10 +11,13 @@
 #include "DBSlave.h" 
 
 namespace Server
-{  
+{   
 	class SlaveHandler : public Msg::IRpcMsgCallableObject
 	{ 
 		RPC_DEFINE_SlaveHandler;
+
+	public:
+		CollectionObjectFuncsT m_stest;
 	public:
 		SlaveHandler(Msg::Object objID , DBSlave * pDBSlave)
 			: Msg::IRpcMsgCallableObject(objID , pDBSlave->GetRpcServerManager())

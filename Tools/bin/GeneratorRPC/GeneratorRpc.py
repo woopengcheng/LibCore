@@ -595,6 +595,8 @@ def GenerateRPCDefinesHeader(fileRpc , namespace):
 def GenerateRPCDefine(rpc , fileRpc , className , rpcRecords , serverNamespace): 
 	fileRpc.write("\n")
 	fileRpc.write("#define  RPC_DEFINE_" + className + " public:\\\n")
+	needWriteFunc = False
+	setFuncs = collections.OrderedDict() 
 	for index , rpc2 in g_rpcMsgs.rpcs.rpcs.items():
 		strParams = GetParams(rpc2.call.params)   
 		if rpc2.serverClass == className and rpc2.serverClass != "GlobalRpc":
@@ -602,6 +604,8 @@ def GenerateRPCDefine(rpc , fileRpc , className , rpcRecords , serverNamespace):
 				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcServer(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strParams + ");\\\n")
 			else:	
 				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcServer(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")
+			
+			needWriteFunc = True			
 
 		if rpc2.proxyClass == className and rpc2.proxyClass != "GlobalRpc": 
 			if len(strParams) != 0:
@@ -617,6 +621,8 @@ def GenerateRPCDefine(rpc , fileRpc , className , rpcRecords , serverNamespace):
 			else:
 				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcClientProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n") 
 
+			needWriteFunc = True			
+			
 		if rpc2.clientClass == className and rpc2.clientClass != "GlobalRpc": 
 			strDefaultParams = GetParams(rpc2.returns.params)
 			if len(strDefaultParams) != 0:
@@ -628,7 +634,33 @@ def GenerateRPCDefine(rpc , fileRpc , className , rpcRecords , serverNamespace):
 				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcTimeout(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , " + strParams + ");\\\n")
 			else:
 				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc2.name + "_RpcTimeout(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\\\n")
-				
+		
+			needWriteFunc = True			
+			
+		if needWriteFunc == True :
+			needWriteFunc = False
+			setFuncs[rpc2.name] = 1
+			
+	GenerateCheckObjectFunc(fileRpc , className , setFuncs)
+		
+def GenerateCheckObjectFunc(fileRpc , className , setFuncs):	
+	fileRpc.write("public:\\\n")
+	fileRpc.write(oneTab + "static CollectionObjectFuncsT s_setFuncs;\\\n")
+	fileRpc.write(oneTab + "static void InitObjectFuncs()\\\n")
+	fileRpc.write(oneTab + "{\\\n")
+	for index , setFunc in setFuncs.items(): 
+		fileRpc.write(twoTab + className + "::" + "s_setFuncs.insert(\"" + index + "\");\\\n")
+	fileRpc.write(oneTab + "}\\\n")
+	fileRpc.write(oneTab + "virtual BOOL IsHasFunc(const std::string & strFunc)\\\n")
+	fileRpc.write(oneTab + "{\\\n") 
+	fileRpc.write(twoTab + "CollectionObjectFuncsT::iterator iter = " + className + "::s_setFuncs.find(strFunc);\\\n")
+	fileRpc.write(twoTab + "if (iter != " + className + "::s_setFuncs.end())\\\n")
+	fileRpc.write(twoTab + "{\\\n") 
+	fileRpc.write(threeTab + "return TRUE;\\\n")
+	fileRpc.write(twoTab + "}\\\n")
+	fileRpc.write(oneTab + "return FALSE;\\\n") 
+	fileRpc.write(oneTab + "}\\\n")		
+			
 def GenerateGlableRpc():
 	sameNamespace = collections.OrderedDict()
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
@@ -729,6 +761,7 @@ def GenerateGlableRpcLastNamespace(fileRpc , namespace):
 	
 def GenerateRpcRegister():   
 	#生成注册的头 
+	rpcoutputPathRecords = collections.OrderedDict()
 	sameNamespace = collections.OrderedDict()   
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
 		outputPath = GetOutputPath(rpcServerName.serverName)  
@@ -746,6 +779,7 @@ def GenerateRpcRegister():
 
 		fileRpc.write(twoTab + "Msg::Parameters objDeliverParams , objReturnParams;\n")
 		
+		rpcRecords = collections.OrderedDict()
 		for index , rpc in g_rpcMsgs.rpcs.rpcs.items():  
 			fileRpc.write(twoTab + "//5 " + rpc.name + " generate default deliver and return check param here\n")
 			fileRpc.write(twoTab + "{\n")
@@ -759,8 +793,15 @@ def GenerateRpcRegister():
 			fileRpc.write(threeTab + "objReturnParams.Clear();\n") 
 			GenerateRpcRegisterFuncs(rpc , fileRpc , rpcServerName.serverName)
 			fileRpc.write(twoTab +"}\n\n") 
+			
+			if rpc.serverClass not in rpcRecords and rpc.serverClass != "GlobalRpc" and (rpcServerName.serverName == rpc.server or rpcServerName.serverName == rpc.client or rpcServerName.serverName == rpc.proxy ):
+				rpcRecords[rpc.serverClass] = 1		
 
+		rpcoutputPathRecords[outputPath] = rpcRecords
+		GenerateInitStaticFunc(fileRpc , rpcServerName.namespace , rpcRecords)
+				
 		fileRpc.write(oneTab + "}\n\n")
+		
 		fileRpc.close() 
 		
 	sameNamespace = collections.OrderedDict()
@@ -770,10 +811,23 @@ def GenerateRpcRegister():
 		
 		if rpcServerName.namespace not in sameNamespace :
 			fileRpc = open(outputPath , "a")
+			
+			if outputPath in rpcoutputPathRecords:
+				GenerateDefineStaticFunc(fileRpc , rpcServerName.namespace , rpcoutputPathRecords[outputPath])
+				
 			fileRpc.write("}\n\n") 
+			
 			sameNamespace[rpcServerName.namespace] = 1 
 			fileRpc.close()	 
 
+def GenerateInitStaticFunc(fileRpc , namespace , rpcRecords):	  
+	for index , rpcRecords in rpcRecords.items(): 
+		fileRpc.write(twoTab + namespace + "::"+ index + "::" +"InitObjectFuncs();\n")
+		
+def GenerateDefineStaticFunc(fileRpc , namespace , rpcRecords):	  
+	for index , rpcRecords in rpcRecords.items(): 
+		fileRpc.write(oneTab + "CollectionObjectFuncsT " + namespace + "::"+ index + "::" +"s_setFuncs;\n")
+	
 def GenerateRpcRegisterHeader(fileRpc , rpcNamespace) :
 	fileRpc.write("#include \"MsgLib/inc/RpcBase.h\"\n")
 	fileRpc.write("#include \"MsgLib/inc/MsgCommon.h\"\n")
