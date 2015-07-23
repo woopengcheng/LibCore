@@ -83,6 +83,7 @@
     <TargetName>$(ProjectName)_vs$(VisualStudioVersion)</TargetName>
     <LinkIncremental>
     </LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
     <ClCompile>

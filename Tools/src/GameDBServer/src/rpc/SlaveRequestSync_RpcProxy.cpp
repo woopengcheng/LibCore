@@ -6,7 +6,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcServerProxy(Msg:
 	std_string newbackdir = std::string();
 	INT32 res = 0;
 	 
-	if(ERR_FAILURE == ProxySendMsg("tcp://127.0.0.1:8001" , 0 , dbname))
+	if(ERR_FAILURE == ProxySendMsg("tcp://127.0.0.1:8001" , 1 , dbname))
 	{
 		RPCReturn2(newbackdir , res);
 	}

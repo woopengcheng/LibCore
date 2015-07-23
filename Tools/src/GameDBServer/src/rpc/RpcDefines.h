@@ -142,6 +142,8 @@ public:\
 	Msg::ObjectMsgCall * SlaveRequestSync_RpcServerProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string());\
 	Msg::ObjectMsgCall * SlaveRequestSync_RpcTimeoutProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string());\
 	Msg::ObjectMsgCall * SlaveRequestSync_RpcClientProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & newbackdir = std::string() , INT32 res = 0);\
+	Msg::ObjectMsgCall * MasterStartSync_RpcClient(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);\
+	Msg::ObjectMsgCall * MasterStartSync_RpcTimeout(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & filename = std::string() , INT32 filesize = 0 , INT32 sendtype = 0 , LibCore_Chunk & value = LibCore::Chunk());\
 	Msg::ObjectMsgCall * testRefers_RpcServerProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());\
 	Msg::ObjectMsgCall * testRefers_RpcTimeoutProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());\
 	Msg::ObjectMsgCall * testRefers_RpcClientProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
@@ -153,6 +155,7 @@ public:\
 		MasterHandler::s_setFuncs.insert("SlaveStartAuth");\
 		MasterHandler::s_setFuncs.insert("SlaveSelectDB");\
 		MasterHandler::s_setFuncs.insert("SlaveRequestSync");\
+		MasterHandler::s_setFuncs.insert("MasterStartSync");\
 		MasterHandler::s_setFuncs.insert("testRefers");\
 		MasterHandler::s_setFuncs.insert("testTheSameNode");\
 	}\

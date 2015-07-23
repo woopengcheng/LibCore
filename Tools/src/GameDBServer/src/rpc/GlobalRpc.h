@@ -24,10 +24,6 @@ namespace Msg
 		Msg::ObjectMsgCall * SyncMasterHandler_RpcTimeout(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 id = 0);
 		Msg::ObjectMsgCall * SyncMasterHandler_RpcClient(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);
 		
-//MasterStartSync generate RPC func here
-		Msg::ObjectMsgCall * MasterStartSync_RpcTimeout(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & filename = std::string() , INT32 filesize = 0 , INT32 sendtype = 0 , LibCore_Chunk & value = LibCore::Chunk());
-		Msg::ObjectMsgCall * MasterStartSync_RpcClient(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);
-		
 //SyncDataToSlave generate RPC func here
 		Msg::ObjectMsgCall * SyncDataToSlave_RpcServerProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());
 		Msg::ObjectMsgCall * SyncDataToSlave_RpcTimeoutProxy(Msg::VecObjects & vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());
@@ -35,22 +31,21 @@ namespace Msg
 		
 		
 public:
-	static CollectionObjectFuncsT s_setFuncs;
-	static void InitObjectFuncs()
-	{
-		GlobalRpc::s_setFuncs.insert("SyncMasterHandler");
-		GlobalRpc::s_setFuncs.insert("MasterStartSync");
-		GlobalRpc::s_setFuncs.insert("SyncDataToSlave");
-	}
-	virtual BOOL IsHasFunc(const std::string & strFunc)
-	{
-		CollectionObjectFuncsT::iterator iter = GlobalRpc::s_setFuncs.find(strFunc);
-		if (iter != GlobalRpc::s_setFuncs.end())
+		static CollectionObjectFuncsT s_setFuncs;
+		static void InitObjectFuncs()
 		{
-			return TRUE;
+			GlobalRpc::s_setFuncs.insert("SyncMasterHandler");
+			GlobalRpc::s_setFuncs.insert("SyncDataToSlave");
 		}
-	return FALSE;
-	}
+		virtual BOOL IsHasFunc(const std::string & strFunc)
+		{
+			CollectionObjectFuncsT::iterator iter = GlobalRpc::s_setFuncs.find(strFunc);
+			if (iter != GlobalRpc::s_setFuncs.end())
+			{
+				return TRUE;
+			}
+		return FALSE;
+		}
 	};
 
 }

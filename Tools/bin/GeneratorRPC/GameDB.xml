@@ -501,7 +501,7 @@
 			</Return>
 		</Rpc>
 		
-		<Rpc name="MasterStartSync" serverInclude="SlaveHandler.h" serverClass="SlaveHandler" client="Master" server="Slave" syncType="1" timeout="10">
+		<Rpc name="MasterStartSync" serverInclude="SlaveHandler.h" serverClass="SlaveHandler" clientInclude="MasterHandler.h" clientClass="MasterHandler" client="Master" server="Slave" syncType="1" timeout="10">
 			<Call > 
 				<Param name="filename" type="std_string"/>
 				<Param name="filesize" type="INT32"/>

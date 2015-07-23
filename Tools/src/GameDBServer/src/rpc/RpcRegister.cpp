@@ -17,16 +17,16 @@
 namespace Server
 {
 	//5 defaultParams define here.
-	static SINT8 g_rpcDefaultParam_SINT8 = 0;
 	static UINT8 g_rpcDefaultParam_UINT8 = 0;
+	static SINT8 g_rpcDefaultParam_SINT8 = 0;
 	static UINT16 g_rpcDefaultParam_UINT16 = 0;
 	static INT16 g_rpcDefaultParam_INT16 = 0;
-	static UINT32 g_rpcDefaultParam_UINT32 = 0;
 	static INT32 g_rpcDefaultParam_INT32 = 0;
-	static UINT64 g_rpcDefaultParam_UINT64 = 0;
+	static UINT32 g_rpcDefaultParam_UINT32 = 0;
 	static INT64 g_rpcDefaultParam_INT64 = 0;
-	static double g_rpcDefaultParam_double = 0.0f;
+	static UINT64 g_rpcDefaultParam_UINT64 = 0;
 	static float g_rpcDefaultParam_float = 0.0f;
+	static double g_rpcDefaultParam_double = 0.0f;
 	static std_string g_rpcDefaultParam_std_string = std::string();
 	static LibCore_Chunk g_rpcDefaultParam_LibCore_Chunk = LibCore::Chunk();
 
@@ -913,8 +913,8 @@ namespace Server
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
 			
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szMasterStartSync_RpcClient , &Msg::GlobalRpc::MasterStartSync_RpcClient); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_szMasterStartSync_RpcTimeout ,&Msg::GlobalRpc::MasterStartSync_RpcTimeout); 
+			m_pRpcServerManager->RegisterFunc<MasterHandler >(Msg::g_szMasterStartSync_RpcClient , &MasterHandler::MasterStartSync_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<MasterHandler >(Msg::g_szMasterStartSync_RpcTimeout ,&MasterHandler::MasterStartSync_RpcTimeout); 
 		}
 
 		//5 SyncDataToSlave generate default deliver and return check param here
@@ -1410,3 +1410,4 @@ namespace Server
 	CollectionObjectFuncsT Server::MasterHandler::s_setFuncs;
 }
 
+	CollectionObjectFuncsT Msg::GlobalRpc::s_setFuncs;

@@ -778,21 +778,21 @@ def GenerateGlableRpcClass(rpcs , fileRpc , serverName , setFuncs):
 		
 def GenerateGlobalRpcCheckObjectFunc(fileRpc , className , setFuncs):	
 	fileRpc.write("public:\n")
-	fileRpc.write(oneTab + "static CollectionObjectFuncsT s_setFuncs;\n")
-	fileRpc.write(oneTab + "static void InitObjectFuncs()\n")
-	fileRpc.write(oneTab + "{\n")
+	fileRpc.write(twoTab + "static CollectionObjectFuncsT s_setFuncs;\n")
+	fileRpc.write(twoTab + "static void InitObjectFuncs()\n")
+	fileRpc.write(twoTab + "{\n")
 	for index , setFunc in setFuncs.items(): 
-		fileRpc.write(twoTab + className + "::" + "s_setFuncs.insert(\"" + index + "\");\n")
-	fileRpc.write(oneTab + "}\n")
-	fileRpc.write(oneTab + "virtual BOOL IsHasFunc(const std::string & strFunc)\n")
-	fileRpc.write(oneTab + "{\n") 
-	fileRpc.write(twoTab + "CollectionObjectFuncsT::iterator iter = " + className + "::s_setFuncs.find(strFunc);\n")
-	fileRpc.write(twoTab + "if (iter != " + className + "::s_setFuncs.end())\n")
-	fileRpc.write(twoTab + "{\n") 
-	fileRpc.write(threeTab + "return TRUE;\n")
+		fileRpc.write(threeTab + className + "::" + "s_setFuncs.insert(\"" + index + "\");\n")
 	fileRpc.write(twoTab + "}\n")
-	fileRpc.write(oneTab + "return FALSE;\n") 
-	fileRpc.write(oneTab + "}\n")		
+	fileRpc.write(twoTab + "virtual BOOL IsHasFunc(const std::string & strFunc)\n")
+	fileRpc.write(twoTab + "{\n") 
+	fileRpc.write(threeTab + "CollectionObjectFuncsT::iterator iter = " + className + "::s_setFuncs.find(strFunc);\n")
+	fileRpc.write(threeTab + "if (iter != " + className + "::s_setFuncs.end())\n")
+	fileRpc.write(threeTab + "{\n") 
+	fileRpc.write(fourTab + "return TRUE;\n")
+	fileRpc.write(threeTab + "}\n")
+	fileRpc.write(twoTab + "return FALSE;\n") 
+	fileRpc.write(twoTab + "}\n")		
 	
 #生成GlableRpc尾部部分.
 def GenerateGlableRpcLastNamespace(fileRpc , namespace):  
@@ -858,6 +858,7 @@ def GenerateRpcRegister():
 				GenerateDefineStaticFunc(fileRpc , rpcServerName.namespace , rpcoutputPathRecords[outputPath])
 				
 			fileRpc.write("}\n\n") 
+			fileRpc.write(oneTab + "CollectionObjectFuncsT Msg::GlobalRpc::s_setFuncs;\n")
 			
 			sameNamespace[rpcServerName.namespace] = 1 
 			fileRpc.close()	 

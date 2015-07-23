@@ -20,9 +20,6 @@
     <ClCompile Include="src\DBSlave.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\MasterStartSync_RpcClient.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
     <ClCompile Include="src\rpc\MasterStartSync_RpcServer.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
@@ -180,6 +177,9 @@
       <Filter>src\rpc</Filter>
     </ClCompile>
     <ClCompile Include="src\rpc\testTheSameNode_RpcServer.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\MasterStartSync_RpcClient.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
   </ItemGroup>
