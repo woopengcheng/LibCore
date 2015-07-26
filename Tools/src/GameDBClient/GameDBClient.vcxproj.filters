@@ -2,112 +2,115 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\rpc\RpcRegister.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
     <ClCompile Include="src\ClientCommands.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleHSet_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleCreateDatabase_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleHGet_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleCreateUser_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleDump_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleDeleteDatabase_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleZSet_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleDeleteUser_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleCreateUser_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleDump_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleZGet_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleHCount_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleZRTop_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleHDel_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleZTop_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleHDrop_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleCreateDatabase_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleHGet_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleDeleteDatabase_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleHGetKeys_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleDeleteUser_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleHGetKeyVals_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleHDel_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleHGetVals_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleHDrop_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleHList_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleHGetKeys_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleHMultiDel_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleHGetKeyVals_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleHMultiGet_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleHGetVals_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleHMultiSet_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleHMultiDel_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleHScan_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleHMultiGet_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleHSet_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleHMultiSet_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleHSetIncr_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleHSetIncr_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleHSetIncrFloat_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleHSetIncrFloat_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleHSetNX_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleHSetNX_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleHSetOW_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleHSetOW_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleModifyUser_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleModifyUser_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleSelectDatabase_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleSelectDatabase_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleShowDatabases_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleShowDatabases_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleUserAuth_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleUserAuth_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleZCount_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleZDrop_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleZDel_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleHScan_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleZDrop_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleHCount_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleZGet_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleZDel_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleZList_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleZList_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleZRTop_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleHList_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleZSet_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\HandleZCount_RpcClient.cpp">
+    <ClCompile Include="src\rpc\GlobalRpc_HandleZTop_Client.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\GlobalRpc_testMulitServerNode_Client.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\RpcRegister.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
   </ItemGroup>
@@ -123,6 +126,9 @@
     <ClInclude Include="src\rpc\DBClient.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\ClientCommands.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="src\rpc\GlobalRpc.h">
       <Filter>src\rpc</Filter>
     </ClInclude>
@@ -134,9 +140,6 @@
     </ClInclude>
     <ClInclude Include="src\rpc\RpcDatas.h">
       <Filter>src\rpc</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ClientCommands.h">
-      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\rpc\RPCDefines.h">
       <Filter>src\rpc</Filter>

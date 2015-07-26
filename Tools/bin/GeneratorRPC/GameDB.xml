@@ -81,6 +81,11 @@
 		databse处理rpc
 		-->
 		<Rpc name="HandleUserAuth" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call > 
 				<Param name="name" type="std_string" default=""/>
 				<Param name="pwd" type="std_string" default=""/>
@@ -92,6 +97,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleSelectDatabase" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call > 
 				<Param name="dbname" type="std_string" default=""/>
 			</Call>
@@ -102,6 +112,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleCreateDatabase" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call > 
 				<Param name="dbname" type="std_string" default=""/>
 			</Call>
@@ -112,6 +127,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleDeleteDatabase" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call > 
 				<Param name="dbname" type="std_string" default=""/>
 			</Call>
@@ -122,6 +142,11 @@
 		</Rpc> 		
 		
 		<Rpc name="HandleShowDatabases" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call > 
 			</Call>
 
@@ -131,6 +156,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleCreateUser" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call > 
 				<Param name="name" type="std_string" default=""/>
 				<Param name="pwd" type="std_string" default=""/>
@@ -143,6 +173,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleDeleteUser" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call > 
 				<Param name="name" type="std_string" default=""/>
 			</Call>
@@ -153,6 +188,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleModifyUser" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call > 
 				<Param name="name" type="std_string" default=""/> 
 				<Param name="pwd" type="std_string" default=""/>
@@ -169,6 +209,11 @@
 		hashtable处理rpc
 		-->
 		<Rpc name="HandleHSet" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/>
 				<Param name="key" type="std_string" default=""/>
@@ -181,6 +226,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleHSetNX" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/>
 				<Param name="key" type="std_string" default=""/>
@@ -193,6 +243,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleHSetOW" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/>
 				<Param name="key" type="std_string" default=""/>
@@ -205,6 +260,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleHGet" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/>
 				<Param name="key" type="std_string" default=""/>
@@ -216,6 +276,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleHDel" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/>
 				<Param name="key" type="std_string" default=""/> 
@@ -227,6 +292,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleHSetIncr" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/>
 				<Param name="key" type="std_string" default=""/>
@@ -239,6 +309,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleHSetIncrFloat" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/>
 				<Param name="key" type="std_string" default=""/>
@@ -251,6 +326,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleHGetKeys" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/> 
 			</Call>
@@ -261,6 +341,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleHGetVals" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/> 
 			</Call>
@@ -271,6 +356,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleHGetKeyVals" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/> 
 			</Call>
@@ -281,6 +371,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleHScan" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/> 
 				<Param name="start" type="std_string" default=""/> 
@@ -294,6 +389,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleHCount" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/>  
 			</Call>
@@ -304,6 +404,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleHDrop" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/>  
 			</Call>
@@ -314,6 +419,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleHList" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call > 
 			</Call>
 
@@ -323,6 +433,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleHMultiSet" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/>
 				<Param name="keyvalues" type="LibCore_Chunk" default=""/> 
@@ -334,6 +449,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleHMultiGet" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/>
 				<Param name="keys" type="LibCore_Chunk" default=""/> 
@@ -345,6 +465,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleHMultiDel" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/>
 				<Param name="keys" type="LibCore_Chunk" default=""/> 
@@ -359,6 +484,11 @@
 		sortedset处理rpc
 		-->
 		<Rpc name="HandleZSet" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/>
 				<Param name="key" type="std_string" default=""/>
@@ -371,6 +501,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleZGet" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/>
 				<Param name="key" type="std_string" default=""/>
@@ -382,6 +517,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleZDel" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/>
 				<Param name="key" type="std_string" default=""/>
@@ -393,6 +533,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleZTop" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/>
 				<Param name="start" type="INT64" default="0"/> 
@@ -406,6 +551,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleZRTop" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/>
 				<Param name="start" type="INT64" default="0"/> 
@@ -419,6 +569,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleZDrop" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/> 
 			</Call>
@@ -429,6 +584,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleZCount" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 				<Param name="table" type="std_string" default=""/>  
 			</Call>
@@ -439,6 +599,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleZList" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call > 
 			</Call>
 
@@ -448,6 +613,11 @@
 		</Rpc> 
 		
 		<Rpc name="HandleDump" serverInclude="ServerHandler.h" serverClass="ServerHandler" client="Client" server="Server" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call >
 			</Call>
 
@@ -460,6 +630,11 @@
 		slave相关rpc
 		-->
 		<Rpc name="SyncMasterHandler" serverInclude="SlaveHandler.h" serverClass="SlaveHandler" client="Master" server="Slave" syncType="1" timeout="10">
+			<Targets> 
+				<Client name="Master" /> 
+				<Server name="Slave" include="SlaveHandler.h" class="SlaveHandler" /> 
+			</Targets>
+			
 			<Call > 
 				<Param name="id" type="INT32"/>
 			</Call>
@@ -470,6 +645,12 @@
 		</Rpc>
 		
 		<Rpc name="SlaveStartAuth" serverInclude="ServerHandler.h" serverClass="ServerHandler" proxyInclude="MasterHandler.h" proxyClass="MasterHandler" clientInclude="SlaveHandler.h" clientClass="SlaveHandler" client="Slave" proxy="Master" server="Server" syncType="1" timeout="10">
+			<Targets> 
+				<Client name="Slave" include="SlaveHandler.h" class="SlaveHandler" /> 
+				<Proxy name="Master" include="MasterHandler.h" class="MasterHandler" /> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" />  
+			</Targets>
+			
 			<Call > 
 				<Param name="name" type="std_string" default=""/>
 				<Param name="pwd" type="std_string" default=""/>
@@ -481,6 +662,11 @@
 		</Rpc>
 		
 		<Rpc name="SlaveSelectDB" serverInclude="MasterHandler.h" serverClass="MasterHandler" clientInclude="SlaveHandler.h" clientClass="SlaveHandler" client="Slave" server="Master" syncType="1" timeout="10">
+			<Targets> 
+				<Client name="Slave" include="SlaveHandler.h" class="SlaveHandler" /> 
+				<Server name="Master" include="MasterHandler.h" class="MasterHandler" /> 
+			</Targets>
+			
 			<Call > 
 				<Param name="dbname" type="std_string" default=""/> 
 			</Call>
@@ -491,6 +677,12 @@
 		</Rpc>
 		
 		<Rpc name="SlaveRequestSync" serverInclude="ServerHandler.h" serverClass="ServerHandler" proxyInclude="MasterHandler.h" proxyClass="MasterHandler" clientInclude="SlaveHandler.h" clientClass="SlaveHandler" client="Slave" proxy="Master" server="Server" syncType="1" timeout="3600">
+			<Targets> 
+				<Client name="Slave" include="SlaveHandler.h" class="SlaveHandler" /> 
+				<Proxy name="Master" include="MasterHandler.h" class="MasterHandler" /> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" />  
+			</Targets>
+			
 			<Call >
 				<Param name="dbname" type="std_string" default=""/> 
 			</Call>
@@ -502,6 +694,11 @@
 		</Rpc>
 		
 		<Rpc name="MasterStartSync" serverInclude="SlaveHandler.h" serverClass="SlaveHandler" clientInclude="MasterHandler.h" clientClass="MasterHandler" client="Master" server="Slave" syncType="1" timeout="10">
+			<Targets> 
+				<Client name="Master" include="MasterHandler.h" class="MasterHandler" /> 
+				<Server name="Slave" include="SlaveHandler.h" class="SlaveHandler" /> 
+			</Targets>
+			
 			<Call > 
 				<Param name="filename" type="std_string"/>
 				<Param name="filesize" type="INT32"/>
@@ -515,6 +712,12 @@
 		</Rpc>
 		
 		<Rpc name="SyncDataToSlave" serverInclude="SlaveHandler.h" serverClass="SlaveHandler" clientInclude="ServerHandler.h" clientClass="ServerHandler" client="Server" proxy="Master" server="Slave" syncType="1" timeout="10">
+			<Targets> 
+				<Client name="Server" include="ServerHandler.h" class="ServerHandler" />  
+				<Proxy name="Master" /> 
+				<Server name="Slave" include="SlaveHandler.h" class="SlaveHandler" /> 
+			</Targets>
+			
 			<Call > 
 				<Param name="dbname" type="std_string"/>
 				<Param name="value" type="LibCore_Chunk"/>
@@ -526,6 +729,12 @@
 		</Rpc>
 		
 		<Rpc name="testRefers" serverInclude="SlaveHandler.h" serverClass="SlaveHandler" proxyInclude="MasterHandler.h" proxyClass="MasterHandler" clientInclude="SlaveHandler.h" clientClass="SlaveHandler" client="Server" proxy="Master" server="Slave" syncType="1" timeout="10">
+			<Targets> 
+				<Client name="Server" include="ServerHandler.h" class="ServerHandler" />  
+				<Proxy name="Master" include="MasterHandler.h" class="MasterHandler" /> 
+				<Server name="Slave" include="SlaveHandler.h" class="SlaveHandler" /> 
+			</Targets>
+			
 			<Call > 
 				<Param name="dbname" type="std_string" refer=""/>
 				<Param name="value" type="LibCore_Chunk"/> 
@@ -536,7 +745,31 @@
 			</Return>
 		</Rpc>
 		
-		<Rpc name="testTheSameNode" serverInclude="MasterHandler.h" serverClass="MasterHandler" clientInclude="ServerHandler.h" clientClass="ServerHandler" client="Server" server="Master" syncType="1" timeout="10">
+		<Rpc name="testTheSameNode" serverInclude="MasterHandler.h" serverClass="MasterHandler" clientInclude="ServerHandler.h" clientClass="ServerHandler" client="" server="" syncType="1" timeout="10">
+			<Targets> 
+				<Client name="Server" include="ServerHandler.h" class="ServerHandler" />  
+				<Server name="Master" include="MasterHandler.h" class="MasterHandler" /> 
+			</Targets>
+			
+			<Call > 
+				<Param name="dbname" type="std_string" refer=""/>
+				<Param name="value" type="LibCore_Chunk"/> 
+			</Call>
+
+			<Return>  
+				<Param name="res" type="LibCore_Chunk" refer=""/> 
+			</Return>
+		</Rpc>
+		
+		<Rpc name="testMulitServerNode" serverInclude="MasterHandler.h" serverClass="MasterHandler" clientInclude="ServerHandler.h" clientClass="ServerHandler" client="Server" server="Master" syncType="1" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Proxy name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+				<Proxy name="Master" include="MasterHandler.h" class="MasterHandler" /> 
+				<Server name="Slave" include="SlaveHandler.h" class="SlaveHandler" /> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
 			<Call > 
 				<Param name="dbname" type="std_string" refer=""/>
 				<Param name="value" type="LibCore_Chunk"/> 

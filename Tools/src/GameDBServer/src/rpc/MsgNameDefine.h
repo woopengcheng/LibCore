@@ -130,6 +130,9 @@ namespace Msg
 	//5 testTheSameNode declare here
 	RPC_DEFINE(testTheSameNode);
 
+	//5 testMulitServerNode declare here
+	RPC_DEFINE(testMulitServerNode);
+
 }
 
 #endif
