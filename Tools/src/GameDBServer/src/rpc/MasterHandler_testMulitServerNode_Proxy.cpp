@@ -3,7 +3,7 @@
 
 
 
-Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcServerProxy(Msg::VecObjects & vecTargets  , Msg::Object objSrc , std_string & dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/)
+Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcServerProxy(Net::ISession * pSession , Msg::Object objSrc , std_string & dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/)
 {
 	LibCore_Chunk res = LibCore::Chunk();
 
@@ -18,7 +18,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcServerProxy(M
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcClientProxy(Msg::VecObjects & vecTargets  , Msg::Object objSrc  ,LibCore_Chunk & res/* = LibCore::Chunk()*/)
+Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc  ,LibCore_Chunk & res/* = LibCore::Chunk()*/)
 {
 
 
@@ -28,7 +28,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcClientProxy(M
 	RPCReturn1(res);
 }
 
-Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcTimeoutProxy(Msg::VecObjects & vecTargets  , Msg::Object objSrc,std_string & dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/ )
+Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcTimeoutProxy(Net::ISession * pSession , Msg::Object objSrc,std_string & dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/ )
 {
 
 

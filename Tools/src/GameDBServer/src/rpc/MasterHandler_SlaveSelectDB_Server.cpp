@@ -3,7 +3,7 @@
 #include "GameDB/inc/MasterSession.h"
 #include "SlaveRecord.h"
 
-Msg::ObjectMsgCall * Server::MasterHandler::SlaveSelectDB_RpcServer(Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string &dbname/* = std::string()*/  )
+Msg::ObjectMsgCall * Server::MasterHandler::SlaveSelectDB_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &dbname/* = std::string()*/  )
 {
 	INT32 res = 0; 
 

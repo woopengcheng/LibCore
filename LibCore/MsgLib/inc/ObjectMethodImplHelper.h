@@ -23,78 +23,43 @@ namespace Msg
 
 	public:
 		template< typename ClassObject>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(std::vector<Object>&  , Object ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(Net::ISession *  , Object ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
-			std::vector<Object> vecTargets;
-			for (UINT32 i = 0;i < pPMC->m_pMsgCall->GetTargetsCount();++i)
-			{
-				vecTargets.push_back(pPMC->m_pMsgCall->m_aTargets[i]);
-			}
-			Object objSrc = pPMC->m_pMsgCall->m_objSource;
-
-			return (obj.*func)(vecTargets , objSrc);
+			return (obj.*func)(pPMC->m_pSession , pPMC->m_pMsgCall->m_objSource);
 		}
 
 		template< typename ClassObject , typename P1>
-		static ObjectMsgCall *  CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(std::vector<Object>&  , Object , P1 ))
+		static ObjectMsgCall *  CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(Net::ISession *  , Object , P1 ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
-			std::vector<Object> vecTargets;
-			for (UINT32 i = 0;i < pPMC->m_pMsgCall->GetTargetsCount();++i)
-			{
-				vecTargets.push_back(pPMC->m_pMsgCall->m_aTargets[i]);
-			}
-			Object objSrc = pPMC->m_pMsgCall->m_objSource;
-
-			return (obj.*func)(vecTargets , objSrc , ParameterHelper<P1>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[0]));
+			return (obj.*func)(pPMC->m_pSession , pPMC->m_pMsgCall->m_objSource , ParameterHelper<P1>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[0]));
 		}
 
 		template< typename ClassObject , typename P1 , typename P2>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(std::vector<Object>&  , Object , P1 , P2 ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(Net::ISession *  , Object , P1 , P2 ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
-			std::vector<Object> vecTargets;
-			for (UINT32 i = 0;i < pPMC->m_pMsgCall->GetTargetsCount();++i)
-			{
-				vecTargets.push_back(pPMC->m_pMsgCall->m_aTargets[i]);
-			}
-			Object objSrc = pPMC->m_pMsgCall->m_objSource;
-
-			return (obj.*func)(vecTargets , objSrc , 
+			return (obj.*func)(pPMC->m_pSession , pPMC->m_pMsgCall->m_objSource , 
 				ParameterHelper<P1>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[0]) , 
 				ParameterHelper<P2>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[1]));
 		}
 
 		template< typename ClassObject , typename P1 , typename P2 , typename P3>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(std::vector<Object>&  , Object , P1 , P2 , P3 ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(Net::ISession *  , Object , P1 , P2 , P3 ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
-			std::vector<Object> vecTargets;
-			for (UINT32 i = 0;i < pPMC->m_pMsgCall->GetTargetsCount();++i)
-			{
-				vecTargets.push_back(pPMC->m_pMsgCall->m_aTargets[i]);
-			}
-			Object objSrc = pPMC->m_pMsgCall->m_objSource;
-
-			return (obj.*func)(vecTargets , objSrc , 
+			return (obj.*func)(pPMC->m_pSession , pPMC->m_pMsgCall->m_objSource , 
 				ParameterHelper<P1>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[0]) , 
 				ParameterHelper<P2>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[1]) ,
 				ParameterHelper<P3>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[2]));
 		}
 
 		template< typename ClassObject , typename P1 , typename P2 , typename P3 , typename P4>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(std::vector<Object>&  , Object , P1 , P2 , P3 , P4 ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(Net::ISession *  , Object , P1 , P2 , P3 , P4 ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
-			std::vector<Object> vecTargets;
-			for (UINT32 i = 0;i < pPMC->m_pMsgCall->GetTargetsCount();++i)
-			{
-				vecTargets.push_back(pPMC->m_pMsgCall->m_aTargets[i]);
-			}
-			Object objSrc = pPMC->m_pMsgCall->m_objSource;
-
-			return (obj.*func)(vecTargets , objSrc , 
+			return (obj.*func)(pPMC->m_pSession , pPMC->m_pMsgCall->m_objSource , 
 				ParameterHelper<P1>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[0]) , 
 				ParameterHelper<P2>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[1]) ,
 				ParameterHelper<P3>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[2]) ,
@@ -102,17 +67,10 @@ namespace Msg
 		}
 
 		template< typename ClassObject , typename P1 , typename P2 , typename P3 , typename P4 , typename P5>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(std::vector<Object>&  , Object , P1 , P2 , P3 , P4 , P5 ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(Net::ISession *  , Object , P1 , P2 , P3 , P4 , P5 ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
-			std::vector<Object> vecTargets;
-			for (UINT32 i = 0;i < pPMC->m_pMsgCall->GetTargetsCount();++i)
-			{
-				vecTargets.push_back(pPMC->m_pMsgCall->m_aTargets[i]);
-			}
-			Object objSrc = pPMC->m_pMsgCall->m_objSource;
-
-			return (obj.*func)(vecTargets , objSrc , 
+			return (obj.*func)(pPMC->m_pSession , pPMC->m_pMsgCall->m_objSource , 
 				ParameterHelper<P1>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[0]) , 
 				ParameterHelper<P2>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[1]) ,
 				ParameterHelper<P3>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[2]) ,
@@ -121,17 +79,10 @@ namespace Msg
 		}
 
 		template< typename ClassObject , typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 >
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(std::vector<Object>&  , Object , P1 , P2 , P3 , P4 , P5 , P6 ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(Net::ISession *  , Object , P1 , P2 , P3 , P4 , P5 , P6 ))
 		{ 
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
-			std::vector<Object> vecTargets;
-			for (UINT32 i = 0;i < pPMC->m_pMsgCall->GetTargetsCount();++i)
-			{
-				vecTargets.push_back(pPMC->m_pMsgCall->m_aTargets[i]);
-			}
-			Object objSrc = pPMC->m_pMsgCall->m_objSource;
-
-			return (obj.*func)(vecTargets , objSrc , 
+			return (obj.*func)(pPMC->m_pSession , pPMC->m_pMsgCall->m_objSource , 
 				ParameterHelper<P1>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[0]) , 
 				ParameterHelper<P2>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[1]) ,
 				ParameterHelper<P3>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[2]) ,
@@ -141,17 +92,10 @@ namespace Msg
 		}
 
 		template< typename ClassObject , typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(std::vector<Object>&  , Object , P1 , P2 , P3 , P4 , P5 , P6 , P7 ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(Net::ISession *  , Object , P1 , P2 , P3 , P4 , P5 , P6 , P7 ))
 		{ 
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
-			std::vector<Object> vecTargets;
-			for (UINT32 i = 0;i < pPMC->m_pMsgCall->GetTargetsCount();++i)
-			{
-				vecTargets.push_back(pPMC->m_pMsgCall->m_aTargets[i]);
-			}
-			Object objSrc = pPMC->m_pMsgCall->m_objSource;
-
-			return (obj.*func)(vecTargets , objSrc , 
+			return (obj.*func)(pPMC->m_pSession , pPMC->m_pMsgCall->m_objSource , 
 				ParameterHelper<P1>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[0]) , 
 				ParameterHelper<P2>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[1]) ,
 				ParameterHelper<P3>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[2]) ,
@@ -162,17 +106,10 @@ namespace Msg
 		}
 
 		template< typename ClassObject , typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(std::vector<Object>&  , Object , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 ))	
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(Net::ISession *  , Object , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 ))	
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
-			std::vector<Object> vecTargets;
-			for (UINT32 i = 0;i < pPMC->m_pMsgCall->GetTargetsCount();++i)
-			{
-				vecTargets.push_back(pPMC->m_pMsgCall->m_aTargets[i]);
-			}
-			Object objSrc = pPMC->m_pMsgCall->m_objSource;
-
-			return (obj.*func)(vecTargets , objSrc , 
+			return (obj.*func)(pPMC->m_pSession , pPMC->m_pMsgCall->m_objSource , 
 				ParameterHelper<P1>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[0]) , 
 				ParameterHelper<P2>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[1]) ,
 				ParameterHelper<P3>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[2]) ,

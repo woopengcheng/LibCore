@@ -695,9 +695,6 @@
     <ClCompile Include="..\..\LibCore\MsgLib\Src\RpcCheckParams.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\LibCore\MsgLib\src\RpcMsgHelper.cpp">
-      <Filter>MsgLib\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\LibCore\Marshal\CStream.cpp">
       <Filter>Marshal</Filter>
     </ClCompile>

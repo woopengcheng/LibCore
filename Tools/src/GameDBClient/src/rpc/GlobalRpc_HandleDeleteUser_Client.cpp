@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleDeleteUser_RpcClient(VecObjects & vecTargets , Msg::Object objSrc , INT32 res/* = 0*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleDeleteUser_RpcClient(Net::ISession * pSession, Msg::Object objSrc , INT32 res/* = 0*/) 
 {
 	if (res == 0)
 	{
@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleDeleteUser_RpcClient(VecObjects & vec
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleDeleteUser_RpcTimeout(VecObjects & vecTargets , Msg::Object objSrc , std_string & name/* = std::string()*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleDeleteUser_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & name/* = std::string()*/) 
 {
 
 

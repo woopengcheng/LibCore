@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHMultiGet_RpcClient(VecObjects & vecTargets , Msg::Object objSrc , LibCore_Chunk & res/* = 0*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHMultiGet_RpcClient(Net::ISession * pSession, Msg::Object objSrc , LibCore_Chunk & res/* = 0*/) 
 {
 
 
@@ -8,7 +8,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHMultiGet_RpcClient(VecObjects & vecT
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHMultiGet_RpcTimeout(VecObjects & vecTargets , Msg::Object objSrc , std_string & table/* = std::string()*/ , LibCore_Chunk & keys/* = LibCore::Chunk()*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHMultiGet_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/ , LibCore_Chunk & keys/* = LibCore::Chunk()*/) 
 {
 
 

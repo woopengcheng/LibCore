@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleDump_RpcClient(VecObjects & vecTargets , Msg::Object objSrc , LibCore_Chunk & res/* = 0*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleDump_RpcClient(Net::ISession * pSession, Msg::Object objSrc , LibCore_Chunk & res/* = 0*/) 
 {
 	std::string strKey, strVal;
 	 
@@ -26,7 +26,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleDump_RpcClient(VecObjects & vecTarget
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleDump_RpcTimeout(VecObjects & vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleDump_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc) 
 {
 
 

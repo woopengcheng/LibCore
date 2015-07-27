@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleModifyUser_RpcClient(VecObjects & vecTargets , Msg::Object objSrc , INT32 res/* = 0*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleModifyUser_RpcClient(Net::ISession * pSession, Msg::Object objSrc , INT32 res/* = 0*/) 
 { 
 	if (res == 0)
 	{
@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleModifyUser_RpcClient(VecObjects & vec
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleModifyUser_RpcTimeout(VecObjects & vecTargets , Msg::Object objSrc , std_string & name/* = std::string()*/ , std_string & pwd/* = std::string()*/ , SINT8 issys/* = 0*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleModifyUser_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & name/* = std::string()*/ , std_string & pwd/* = std::string()*/ , SINT8 issys/* = 0*/) 
 {
 
 

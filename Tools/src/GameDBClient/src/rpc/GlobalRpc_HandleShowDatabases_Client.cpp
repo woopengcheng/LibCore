@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleShowDatabases_RpcClient(VecObjects & vecTargets , Msg::Object objSrc , LibCore_Chunk & res/* = LibCore::Chunk()*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleShowDatabases_RpcClient(Net::ISession * pSession, Msg::Object objSrc , LibCore_Chunk & res/* = LibCore::Chunk()*/) 
 {
 	LibCore::CStream cs((const char*)res.GetBuf() , res.GetDataLen());
 
@@ -22,7 +22,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleShowDatabases_RpcClient(VecObjects & 
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleShowDatabases_RpcTimeout(VecObjects & vecTargets , Msg::Object objSrc) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleShowDatabases_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc) 
 {
 
 

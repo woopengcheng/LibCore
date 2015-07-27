@@ -2,7 +2,7 @@
 #include "ServerHandler.h"
 #include "GameDB/inc/SortedSet.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleZRTop_RpcServer(Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string &table/* = std::string()*/ , INT64 start/* = 0*/ , INT64 end/* = 0*/ , INT64 limit/* = 0*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleZRTop_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/ , INT64 start/* = 0*/ , INT64 end/* = 0*/ , INT64 limit/* = 0*/  )
 {
 	LibCore_Chunk res;
 	 

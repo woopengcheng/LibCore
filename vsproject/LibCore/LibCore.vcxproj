@@ -434,7 +434,6 @@
     <ClCompile Include="..\..\LibCore\MsgLib\src\ObjectMsgCall.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\Parameter.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\Parameters.cpp" />
-    <ClCompile Include="..\..\LibCore\MsgLib\src\RpcMsgHelper.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\RemoteRpcClient.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\RemoteRpcServer.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\RpcBase.cpp" />

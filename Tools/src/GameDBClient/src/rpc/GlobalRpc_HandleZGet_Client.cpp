@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZGet_RpcClient(VecObjects & vecTargets , Msg::Object objSrc , INT64 score/* = 0*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZGet_RpcClient(Net::ISession * pSession, Msg::Object objSrc , INT64 score/* = 0*/) 
 {
 	RPCMsgCall * pMsg = GetRpcMsgCall();
 	if (pMsg)
@@ -12,7 +12,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZGet_RpcClient(VecObjects & vecTarget
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZGet_RpcTimeout(VecObjects & vecTargets , Msg::Object objSrc , std_string & table/* = std::string()*/ , std_string & key/* = std::string()*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZGet_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/ , std_string & key/* = std::string()*/) 
 {
 
 

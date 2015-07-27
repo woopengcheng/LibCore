@@ -1,7 +1,7 @@
 #include "GlobalRpc.h"
 #include "ServerHandler.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleHGetVals_RpcServer(Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string &table/* = std::string()*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleHGetVals_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/  )
 {
 	LibCore_Chunk res = LibCore::Chunk();
 

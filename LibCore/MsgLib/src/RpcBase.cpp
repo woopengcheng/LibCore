@@ -50,6 +50,7 @@ namespace Msg
 		objParaseMsgCall.m_pMehtodImpl = pMethodImpl;
 		objParaseMsgCall.m_pMsgCall = pMsg;  
 		objParaseMsgCall.m_pObj = this;
+		objParaseMsgCall.m_pSession = m_pSession;
 
 		IRpcMsgCallableObject * pICallableObject = NULL;
 

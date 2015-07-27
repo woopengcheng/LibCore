@@ -2,7 +2,7 @@
 #include "ServerHandler.h"
 #include "RPCCallFuncs.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleHDrop_RpcServer(Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string &table/* = std::string()*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleHDrop_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/  )
 {
 	INT64 res = -1;
 	 

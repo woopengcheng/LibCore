@@ -2,7 +2,7 @@
 #include "ServerHandler.h"
 #include "RPCCallFuncs.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleDeleteUser_RpcServer(Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string &name/* = std::string()*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleDeleteUser_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &name/* = std::string()*/  )
 {
 	INT32 res = -1; 
 

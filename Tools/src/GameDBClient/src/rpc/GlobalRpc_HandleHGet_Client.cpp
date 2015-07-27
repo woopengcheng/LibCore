@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHGet_RpcClient(VecObjects & vecTargets , Msg::Object objSrc , std_string & value/* = std::string()*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHGet_RpcClient(Net::ISession * pSession, Msg::Object objSrc , std_string & value/* = std::string()*/) 
 {
 	gDebugStream("HGet value:" << value);
 
@@ -8,7 +8,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHGet_RpcClient(VecObjects & vecTarget
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHGet_RpcTimeout(VecObjects & vecTargets , Msg::Object objSrc , std_string & table/* = std::string()*/ , std_string & key/* = std::string()*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHGet_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/ , std_string & key/* = std::string()*/) 
 {
 
 

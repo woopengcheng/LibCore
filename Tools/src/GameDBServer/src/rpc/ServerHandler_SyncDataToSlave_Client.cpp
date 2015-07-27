@@ -3,7 +3,7 @@
 
 
 
-Msg::ObjectMsgCall * Server::ServerHandler::SyncDataToSlave_RpcClient(Msg::VecObjects & vecTargets , Msg::Object objSrc , INT32 res/* = 0*/)
+Msg::ObjectMsgCall * Server::ServerHandler::SyncDataToSlave_RpcClient(Net::ISession * pSession, Msg::Object objSrc , INT32 res/* = 0*/)
 {
 
 
@@ -11,7 +11,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::SyncDataToSlave_RpcClient(Msg::VecOb
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Server::ServerHandler::SyncDataToSlave_RpcTimeout(Msg::VecObjects & vecTargets , Msg::Object objSrc ,std_string & dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/)
+Msg::ObjectMsgCall * Server::ServerHandler::SyncDataToSlave_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc ,std_string & dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/)
 {
 
 

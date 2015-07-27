@@ -110,12 +110,13 @@
     <ClCompile Include="src\DBSlave.cpp" />
     <ClCompile Include="src\MasterHandler.cpp" />
     <ClCompile Include="src\rpc\GlobalRpc_SyncDataToSlave_Proxy.cpp" />
-    <ClCompile Include="src\rpc\GlobalRpc_SyncMasterHandler_Client.cpp" />
     <ClCompile Include="src\rpc\MasterHandler_MasterStartSync_Client.cpp" />
     <ClCompile Include="src\rpc\MasterHandler_SlaveRequestSync_Proxy.cpp" />
     <ClCompile Include="src\rpc\MasterHandler_SlaveSelectDB_Server.cpp" />
     <ClCompile Include="src\rpc\MasterHandler_SlaveStartAuth_Proxy.cpp" />
+    <ClCompile Include="src\rpc\MasterHandler_SyncMasterHandler_Client.cpp" />
     <ClCompile Include="src\rpc\MasterHandler_testMulitServerNode_Proxy.cpp" />
+    <ClCompile Include="src\rpc\MasterHandler_testMulitServerNode_Server.cpp" />
     <ClCompile Include="src\rpc\MasterHandler_testRefers_Proxy.cpp" />
     <ClCompile Include="src\rpc\MasterHandler_testTheSameNode_Server.cpp" />
     <ClCompile Include="src\rpc\RpcRegister.cpp" />

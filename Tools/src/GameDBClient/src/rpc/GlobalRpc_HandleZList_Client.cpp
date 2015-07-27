@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZList_RpcClient(VecObjects & vecTargets , Msg::Object objSrc , LibCore_Chunk & res/* = 0*/) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZList_RpcClient(Net::ISession * pSession, Msg::Object objSrc , LibCore_Chunk & res/* = 0*/) 
 {
 
 	if (res.GetDataLen() != 0)
@@ -27,7 +27,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZList_RpcClient(VecObjects & vecTarge
 	RPCReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZList_RpcTimeout(VecObjects & vecTargets , Msg::Object objSrc ) 
+Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZList_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc ) 
 {
 
 
