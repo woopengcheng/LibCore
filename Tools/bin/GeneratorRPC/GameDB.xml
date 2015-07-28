@@ -48,6 +48,10 @@
 	<!--
 		以下为基本类型,在Parameter中含有的.也可以在代码中定义,不过需要的是只能为一个单词.当然也可以自定义rpcdata
 	-->		
+	<DefaultParams int='0'/>
+	<DefaultParams short='0'/>
+	<DefaultParams long='0'/>
+	<DefaultParams char='0'/>
 	<DefaultParams SINT8='0'  UINT8='0'/>
 	<DefaultParams INT16='0' UINT16='0'/>
 	<DefaultParams INT32='0' UINT32='0'/>
@@ -773,6 +777,7 @@
 			<Call > 
 				<Param name="dbname" type="std_string" refer=""/>
 				<Param name="value" type="LibCore_Chunk"/> 
+				<Param name="value2" type="inT"/> 
 			</Call>
 
 			<Return>  

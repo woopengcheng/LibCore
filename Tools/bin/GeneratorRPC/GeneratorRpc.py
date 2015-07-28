@@ -5,7 +5,9 @@ import time , datetime
 import binascii 
 import collections  
 import xml.dom.minidom
-  
+import time,datetime
+import socket  
+
 from xml.dom import minidom , Node 
 
 from xml.etree.ElementTree import ElementTree
@@ -339,7 +341,7 @@ def handleParams(params , xmlParam):
 		if attr.lower() == "name".lower():
 			param.name = xmlParam.attrib[attr] 
 		if attr.lower() == "type".lower():  
-			param.type = xmlParam.attrib[attr] 
+			param.type = GetDefaultParamsType(xmlParam.attrib[attr]) #这里获取最相近的类型. 
 		if attr.lower() == "default".lower():  
 			param.default = xmlParam.attrib[attr] 
 		if attr.lower() == "refer".lower():  
@@ -435,6 +437,7 @@ def GenerateMsgNameDefine():
 			sameNamespace[rpcServerName.namespace] = 1
 
 def GenerateRPCParamDefineHeader(fileRpc , namespace):  
+	WriteFileDescription(fileRpc , "MsgNameDefine.h" , "用于定义消息的全局唯一名字")
 	fileRpc.write("#ifndef __msg_" + namespace + "_msg_name_define_h__\n")
 	fileRpc.write("#define __msg_" + namespace + "_msg_name_define_h__\n") 
 	fileRpc.write("#include \"MsgLib/inc/MsgCommon.h\" \n\n") 
@@ -549,7 +552,8 @@ def GenerateGlableRpc():
 			fileRpc.close()	
 		 
 #生成GlableRpc头部部分.
-def GenerateGlableRpcHeaderNamespace(fileRpc , namespace): 
+def GenerateGlableRpcHeaderNamespace(fileRpc , namespace):
+	WriteFileDescription(fileRpc , "GlableRpc.h" , "静态函数,无对象时通过这个类处理.") 
 	fileRpc.write("#ifndef __" + namespace + "_global_rpc_h__\n") 
 	fileRpc.write("#define __" + namespace + "_global_rpc_h__\n") 
 	fileRpc.write("#include \"Common/Chunk.h\" \n") 
@@ -649,6 +653,7 @@ def GenerateDefineStaticFunc(fileRpc , namespace):
 			fileRpc.write(oneTab + "CollectionObjectFuncsT " + namespace + "::"+ index + "::" +"s_setFuncs;\n")
 	
 def GenerateRpcRegisterHeader(fileRpc , rpcNamespace) :
+	WriteFileDescription(fileRpc , "RpcRegister.cpp" , "注册每个函数.以及检测网络传递的消息是否是正确的参数.") 
 	fileRpc.write("#include \"MsgLib/inc/RpcServerManager.h\"\n")
 	fileRpc.write("#include \"MsgLib/inc/RpcCheckParams.h\"\n") 
 	fileRpc.write("#include \"Common/Chunk.h\"\n") 
@@ -879,6 +884,7 @@ def GenerateRpcDatas():
 			sameNamespace[rpcServerName.namespace] = 1
 			
 def  GenerateRpcDatasHeader(fileRpc , serverName):
+	WriteFileDescription(fileRpc , "RpcDatas.h" , "网络消息的数据域.") 
 	fileRpc.write("#ifndef __" + serverName.namespace + "_rpc_datas_h__\n") 
 	fileRpc.write("#define __" + serverName.namespace + "_rpc_datas_h__\n")  
 	fileRpc.write("#include \"Common/Common.h\"\n") 
@@ -985,6 +991,7 @@ def GenerateRpcCallFuncs():
 			
 
 def  GenerateRpcCallFuncsHeader(fileRpc , serverName):
+	WriteFileDescription(fileRpc , "RpcCallFuncs.h" , "客户端调用的rpc.") 
 	fileRpc.write("#ifndef __msg_rpc_call_funcs_h__\n")
 	fileRpc.write("#define __msg_rpc_call_funcs_h__\n")
 	fileRpc.write("\n")
@@ -1026,6 +1033,18 @@ def LogOutInfo(*string):
 	
 	print(longStr)
 	
+def WriteFileDescription(fileRpc , file , desc):
+	fileRpc.write("/************************************" + "\n")
+	fileRpc.write("FileName	:	" + file + "\n")
+	fileRpc.write("Author		:	generate by tools" + "\n")
+	fileRpc.write("HostName	:	" + socket.gethostname() + "\n")
+	fileRpc.write("IP			:	" + socket.gethostbyname(socket.gethostname()) + "\n")
+	fileRpc.write("Version		:	0.0.1" + "\n")
+	fileRpc.write("Date		:	" + time.strftime('%Y-%m-%d %H:%M:%S') + "\n")
+	fileRpc.write("Description	:	" + desc + "\n")
+	fileRpc.write("************************************/" + "\n")
+
+
 #检查在RPCServerName中是否存在这样的服务器
 def CheckInRpcServerName(name):
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():
@@ -1133,6 +1152,14 @@ def IsNotInTheSameParam(param , params):
 			return True
 	
 	return False
+	
+def GetDefaultParamsType(theSameType):
+	for index , defaultParam in g_rpcMsgs.defaultParams.items():
+		if index.lower() == theSameType.lower():
+			return index
+			
+	return theSameType
+	
 def WriteDefaultParams(fileRpc):
 	for index , defaultParam in g_rpcMsgs.defaultParams.items():
 		fileRpc.write(oneTab + "static " + defaultParam.type + " g_rpcDefaultParam_" + defaultParam.type + " = " + defaultParam.value + ";\n")
