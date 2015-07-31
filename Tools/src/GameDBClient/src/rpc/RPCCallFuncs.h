@@ -1,13 +1,74 @@
+/************************************
+FileName	:	RpcCallFuncs.h
+Author		:	generate by tools
+HostName	:	woopengcheng
+IP			:	192.168.1.107
+Version		:	0.0.1
+Date		:	2015-08-01 00:59:19
+Description	:	客户端调用的rpc.
+************************************/
 #ifndef __msg_rpc_call_funcs_h__
 #define __msg_rpc_call_funcs_h__
 
 #include "MsgLib/inc/MsgHelper.h"
 #include "MsgLib/inc/RPCMsgCall.h"
 #include "MsgNameDefine.h"
+#include "RpcDatas.h"
 #include "DBClient.h"
 
 namespace Client
 {
+	static INT32  rpc_testMulitServerNode(const char * pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		GEN_RPC_CALL_5((&(Client::DBClient::GetInstance())) , pSessionName , Msg::g_sztestMulitServerNode_RpcCall , dbname , value , value2 , value22 , valChar, vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
+	}
+
+	static INT32  rpc_testMulitServerNode(const char * pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		std::vector<Msg::Object> vecTargets;
+		vecTargets.push_back(objTarget);
+		return rpc_testMulitServerNode( pSessionName ,vecTargets , objSrc , dbname , value , value2 , value22 , valChar, usPriority , objSyncType);
+	}
+
+	static INT32  rpc_testMulitServerNode(const char * pSessionName , Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		return rpc_testMulitServerNode( pSessionName , 0 , objSrc , dbname , value , value2 , value22 , valChar, usPriority , objSyncType);
+	}
+
+	static INT32  rpc_testMulitServerNode(const std::string & pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		GEN_RPC_CALL_5((&(Client::DBClient::GetInstance())) , pSessionName , Msg::g_sztestMulitServerNode_RpcCall , dbname , value , value2 , value22 , valChar, vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
+	}
+
+	static INT32  rpc_testMulitServerNode(const std::string & pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		std::vector<Msg::Object> vecTargets;
+		vecTargets.push_back(objTarget);
+		return rpc_testMulitServerNode( pSessionName ,vecTargets , objSrc , dbname , value , value2 , value22 , valChar, usPriority , objSyncType);
+	}
+
+	static INT32  rpc_testMulitServerNode(const std::string & pSessionName , Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		return rpc_testMulitServerNode( pSessionName , 0 , objSrc , dbname , value , value2 , value22 , valChar, usPriority , objSyncType);
+	}
+
+	static INT32  rpc_testMulitServerNode(INT32 nSessionID , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		GEN_RPC_CALL_5((&(Client::DBClient::GetInstance())) , nSessionID , Msg::g_sztestMulitServerNode_RpcCall , dbname , value , value2 , value22 , valChar, vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
+	}
+
+	static INT32  rpc_testMulitServerNode(INT32 nSessionID , Msg::Object objTarget, Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		std::vector<Msg::Object> vecTargets;
+		vecTargets.push_back(objTarget);
+		return rpc_testMulitServerNode( nSessionID ,vecTargets , objSrc , dbname , value , value2 , value22 , valChar, usPriority , objSyncType);
+	}
+
+	static INT32  rpc_testMulitServerNode(INT32 nSessionID , Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		return rpc_testMulitServerNode( nSessionID , 0 , objSrc , dbname , value , value2 , value22 , valChar, usPriority , objSyncType);
+	}
+
 	static INT32  rpc_HandleUserAuth(const char * pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & name = std::string() , std_string & pwd = std::string() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		GEN_RPC_CALL_2((&(Client::DBClient::GetInstance())) , pSessionName , Msg::g_szHandleUserAuth_RpcCall , name , pwd, vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
@@ -1740,57 +1801,6 @@ namespace Client
 	static INT32  rpc_HandleDump(INT32 nSessionID , Msg::Object objSrc  , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		return rpc_HandleDump( nSessionID , 0 , objSrc , usPriority , objSyncType);
-	}
-
-	static INT32  rpc_testMulitServerNode(const char * pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
-	{
-		GEN_RPC_CALL_2((&(Client::DBClient::GetInstance())) , pSessionName , Msg::g_sztestMulitServerNode_RpcCall , dbname , value, vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
-	}
-
-	static INT32  rpc_testMulitServerNode(const char * pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
-	{
-		std::vector<Msg::Object> vecTargets;
-		vecTargets.push_back(objTarget);
-		return rpc_testMulitServerNode( pSessionName ,vecTargets , objSrc , dbname , value, usPriority , objSyncType);
-	}
-
-	static INT32  rpc_testMulitServerNode(const char * pSessionName , Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
-	{
-		return rpc_testMulitServerNode( pSessionName , 0 , objSrc , dbname , value, usPriority , objSyncType);
-	}
-
-	static INT32  rpc_testMulitServerNode(const std::string & pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
-	{
-		GEN_RPC_CALL_2((&(Client::DBClient::GetInstance())) , pSessionName , Msg::g_sztestMulitServerNode_RpcCall , dbname , value, vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
-	}
-
-	static INT32  rpc_testMulitServerNode(const std::string & pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
-	{
-		std::vector<Msg::Object> vecTargets;
-		vecTargets.push_back(objTarget);
-		return rpc_testMulitServerNode( pSessionName ,vecTargets , objSrc , dbname , value, usPriority , objSyncType);
-	}
-
-	static INT32  rpc_testMulitServerNode(const std::string & pSessionName , Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
-	{
-		return rpc_testMulitServerNode( pSessionName , 0 , objSrc , dbname , value, usPriority , objSyncType);
-	}
-
-	static INT32  rpc_testMulitServerNode(INT32 nSessionID , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
-	{
-		GEN_RPC_CALL_2((&(Client::DBClient::GetInstance())) , nSessionID , Msg::g_sztestMulitServerNode_RpcCall , dbname , value, vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
-	}
-
-	static INT32  rpc_testMulitServerNode(INT32 nSessionID , Msg::Object objTarget, Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
-	{
-		std::vector<Msg::Object> vecTargets;
-		vecTargets.push_back(objTarget);
-		return rpc_testMulitServerNode( nSessionID ,vecTargets , objSrc , dbname , value, usPriority , objSyncType);
-	}
-
-	static INT32  rpc_testMulitServerNode(INT32 nSessionID , Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
-	{
-		return rpc_testMulitServerNode( nSessionID , 0 , objSrc , dbname , value, usPriority , objSyncType);
 	}
 
 }

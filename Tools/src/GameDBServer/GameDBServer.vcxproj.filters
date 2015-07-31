@@ -32,15 +32,6 @@
     <ClCompile Include="src\rpc\MasterHandler_SlaveStartAuth_Proxy.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\MasterHandler_testMulitServerNode_Proxy.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rpc\MasterHandler_testRefers_Proxy.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rpc\MasterHandler_testTheSameNode_Server.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
     <ClCompile Include="src\rpc\RpcRegister.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
@@ -158,15 +149,6 @@
     <ClCompile Include="src\rpc\ServerHandler_testMulitServerNode_Proxy.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_testMulitServerNode_Server.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_testRefers_Client.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_testTheSameNode_Client.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
     <ClCompile Include="src\rpc\SlaveHandler_MasterStartSync_Server.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
@@ -185,16 +167,22 @@
     <ClCompile Include="src\rpc\SlaveHandler_SyncMasterHandler_Server.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
+    <ClCompile Include="src\rpc\MasterHandler_SyncMasterHandler_Client.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\MasterHandler_testMulitServerNode_Proxy.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
     <ClCompile Include="src\rpc\SlaveHandler_testMulitServerNode_Server.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\SlaveHandler_testRefers_Server.cpp">
+    <ClCompile Include="src\rpc\ServerHandler_testMulitServerNode_Server.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\MasterHandler_testMulitServerNode_Server.cpp">
+    <ClCompile Include="src\rpc\MasterHandler_testParamsAndRpcDatas_Server.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\MasterHandler_SyncMasterHandler_Client.cpp">
+    <ClCompile Include="src\rpc\ServerHandler_testParamsAndRpcDatas_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,6 +1,7 @@
 #ifndef __msg_Server_rpc_defines_h__
 #define __msg_Server_rpc_defines_h__
 #include "MsgLib/inc/MsgCommon.h" 
+#include "RpcDatas.h" 
 
 namespace Msg
 {
@@ -13,7 +14,6 @@ public:\
 	static CollectionObjectFuncsT s_setFuncs;\
 	static void InitObjectFuncs()\
 	{\
-		GlobalRpc::s_setFuncs.insert("SyncMasterHandler");\
 		GlobalRpc::s_setFuncs.insert("SyncDataToSlave");\
 	}\
 	virtual BOOL IsHasFunc(const std::string & strFunc)\
@@ -27,6 +27,12 @@ public:\
 	}\
 
 #define  RPC_DEFINE_ServerHandler public:\
+	Msg::ObjectMsgCall * testMulitServerNode_RpcServerProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0));\
+	Msg::ObjectMsgCall * testMulitServerNode_RpcTimeoutProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0));\
+	Msg::ObjectMsgCall * testMulitServerNode_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
+	Msg::ObjectMsgCall * testMulitServerNode_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0));\
+	Msg::ObjectMsgCall * testParamsAndRpcDatas_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
+	Msg::ObjectMsgCall * testParamsAndRpcDatas_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , TestRpcData & rpcData = TestRpcData() , TestRpcData2 & rpcData2 = TestRpcData2() , LibCore_Chunk & value = LibCore::Chunk());\
 	Msg::ObjectMsgCall * HandleUserAuth_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & name = std::string() , std_string & pwd = std::string());\
 	Msg::ObjectMsgCall * HandleSelectDatabase_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & dbname = std::string());\
 	Msg::ObjectMsgCall * HandleCreateDatabase_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & dbname = std::string());\
@@ -65,18 +71,12 @@ public:\
 	Msg::ObjectMsgCall * SlaveRequestSync_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & dbname = std::string());\
 	Msg::ObjectMsgCall * SyncDataToSlave_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);\
 	Msg::ObjectMsgCall * SyncDataToSlave_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());\
-	Msg::ObjectMsgCall * testRefers_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
-	Msg::ObjectMsgCall * testRefers_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());\
-	Msg::ObjectMsgCall * testTheSameNode_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
-	Msg::ObjectMsgCall * testTheSameNode_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());\
-	Msg::ObjectMsgCall * testMulitServerNode_RpcServerProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());\
-	Msg::ObjectMsgCall * testMulitServerNode_RpcTimeoutProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());\
-	Msg::ObjectMsgCall * testMulitServerNode_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
-	Msg::ObjectMsgCall * testMulitServerNode_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());\
 public:\
 	static CollectionObjectFuncsT s_setFuncs;\
 	static void InitObjectFuncs()\
 	{\
+		ServerHandler::s_setFuncs.insert("testMulitServerNode");\
+		ServerHandler::s_setFuncs.insert("testParamsAndRpcDatas");\
 		ServerHandler::s_setFuncs.insert("HandleUserAuth");\
 		ServerHandler::s_setFuncs.insert("HandleSelectDatabase");\
 		ServerHandler::s_setFuncs.insert("HandleCreateDatabase");\
@@ -114,9 +114,6 @@ public:\
 		ServerHandler::s_setFuncs.insert("SlaveStartAuth");\
 		ServerHandler::s_setFuncs.insert("SlaveRequestSync");\
 		ServerHandler::s_setFuncs.insert("SyncDataToSlave");\
-		ServerHandler::s_setFuncs.insert("testRefers");\
-		ServerHandler::s_setFuncs.insert("testTheSameNode");\
-		ServerHandler::s_setFuncs.insert("testMulitServerNode");\
 	}\
 	virtual BOOL IsHasFunc(const std::string & strFunc)\
 	{\
@@ -128,42 +125,11 @@ public:\
 	return FALSE;\
 	}\
 
-#define  RPC_DEFINE_SlaveHandler public:\
-	Msg::ObjectMsgCall * SyncMasterHandler_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), INT32 id = 0);\
-	Msg::ObjectMsgCall * SlaveStartAuth_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & value = std::string());\
-	Msg::ObjectMsgCall * SlaveStartAuth_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & name = std::string() , std_string & pwd = std::string());\
-	Msg::ObjectMsgCall * SlaveSelectDB_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);\
-	Msg::ObjectMsgCall * SlaveSelectDB_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string());\
-	Msg::ObjectMsgCall * SlaveRequestSync_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & newbackdir = std::string() , INT32 res = 0);\
-	Msg::ObjectMsgCall * SlaveRequestSync_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string());\
-	Msg::ObjectMsgCall * MasterStartSync_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & filename = std::string() , INT32 filesize = 0 , INT32 sendtype = 0 , LibCore_Chunk & value = LibCore::Chunk());\
-	Msg::ObjectMsgCall * SyncDataToSlave_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());\
-	Msg::ObjectMsgCall * testRefers_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());\
-	Msg::ObjectMsgCall * testMulitServerNode_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());\
-public:\
-	static CollectionObjectFuncsT s_setFuncs;\
-	static void InitObjectFuncs()\
-	{\
-		SlaveHandler::s_setFuncs.insert("SyncMasterHandler");\
-		SlaveHandler::s_setFuncs.insert("SlaveStartAuth");\
-		SlaveHandler::s_setFuncs.insert("SlaveSelectDB");\
-		SlaveHandler::s_setFuncs.insert("SlaveRequestSync");\
-		SlaveHandler::s_setFuncs.insert("MasterStartSync");\
-		SlaveHandler::s_setFuncs.insert("SyncDataToSlave");\
-		SlaveHandler::s_setFuncs.insert("testRefers");\
-		SlaveHandler::s_setFuncs.insert("testMulitServerNode");\
-	}\
-	virtual BOOL IsHasFunc(const std::string & strFunc)\
-	{\
-		CollectionObjectFuncsT::iterator iter = SlaveHandler::s_setFuncs.find(strFunc);\
-		if (iter != SlaveHandler::s_setFuncs.end())\
-		{\
-			return TRUE;\
-		}\
-	return FALSE;\
-	}\
-
 #define  RPC_DEFINE_MasterHandler public:\
+	Msg::ObjectMsgCall * testMulitServerNode_RpcServerProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0));\
+	Msg::ObjectMsgCall * testMulitServerNode_RpcTimeoutProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0));\
+	Msg::ObjectMsgCall * testMulitServerNode_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
+	Msg::ObjectMsgCall * testParamsAndRpcDatas_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), TestRpcData & rpcData = TestRpcData() , TestRpcData2 & rpcData2 = TestRpcData2() , LibCore_Chunk & value = LibCore::Chunk());\
 	Msg::ObjectMsgCall * SyncMasterHandler_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);\
 	Msg::ObjectMsgCall * SyncMasterHandler_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 id = 0);\
 	Msg::ObjectMsgCall * SlaveStartAuth_RpcServerProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & name = std::string() , std_string & pwd = std::string());\
@@ -175,31 +141,55 @@ public:\
 	Msg::ObjectMsgCall * SlaveRequestSync_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & newbackdir = std::string() , INT32 res = 0);\
 	Msg::ObjectMsgCall * MasterStartSync_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);\
 	Msg::ObjectMsgCall * MasterStartSync_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & filename = std::string() , INT32 filesize = 0 , INT32 sendtype = 0 , LibCore_Chunk & value = LibCore::Chunk());\
-	Msg::ObjectMsgCall * testRefers_RpcServerProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());\
-	Msg::ObjectMsgCall * testRefers_RpcTimeoutProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());\
-	Msg::ObjectMsgCall * testRefers_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
-	Msg::ObjectMsgCall * testTheSameNode_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());\
-	Msg::ObjectMsgCall * testMulitServerNode_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());\
-	Msg::ObjectMsgCall * testMulitServerNode_RpcServerProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());\
-	Msg::ObjectMsgCall * testMulitServerNode_RpcTimeoutProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());\
-	Msg::ObjectMsgCall * testMulitServerNode_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
 public:\
 	static CollectionObjectFuncsT s_setFuncs;\
 	static void InitObjectFuncs()\
 	{\
+		MasterHandler::s_setFuncs.insert("testMulitServerNode");\
+		MasterHandler::s_setFuncs.insert("testParamsAndRpcDatas");\
 		MasterHandler::s_setFuncs.insert("SyncMasterHandler");\
 		MasterHandler::s_setFuncs.insert("SlaveStartAuth");\
 		MasterHandler::s_setFuncs.insert("SlaveSelectDB");\
 		MasterHandler::s_setFuncs.insert("SlaveRequestSync");\
 		MasterHandler::s_setFuncs.insert("MasterStartSync");\
-		MasterHandler::s_setFuncs.insert("testRefers");\
-		MasterHandler::s_setFuncs.insert("testTheSameNode");\
-		MasterHandler::s_setFuncs.insert("testMulitServerNode");\
 	}\
 	virtual BOOL IsHasFunc(const std::string & strFunc)\
 	{\
 		CollectionObjectFuncsT::iterator iter = MasterHandler::s_setFuncs.find(strFunc);\
 		if (iter != MasterHandler::s_setFuncs.end())\
+		{\
+			return TRUE;\
+		}\
+	return FALSE;\
+	}\
+
+#define  RPC_DEFINE_SlaveHandler public:\
+	Msg::ObjectMsgCall * testMulitServerNode_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0));\
+	Msg::ObjectMsgCall * SyncMasterHandler_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), INT32 id = 0);\
+	Msg::ObjectMsgCall * SlaveStartAuth_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & value = std::string());\
+	Msg::ObjectMsgCall * SlaveStartAuth_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & name = std::string() , std_string & pwd = std::string());\
+	Msg::ObjectMsgCall * SlaveSelectDB_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);\
+	Msg::ObjectMsgCall * SlaveSelectDB_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string());\
+	Msg::ObjectMsgCall * SlaveRequestSync_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & newbackdir = std::string() , INT32 res = 0);\
+	Msg::ObjectMsgCall * SlaveRequestSync_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string());\
+	Msg::ObjectMsgCall * MasterStartSync_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & filename = std::string() , INT32 filesize = 0 , INT32 sendtype = 0 , LibCore_Chunk & value = LibCore::Chunk());\
+	Msg::ObjectMsgCall * SyncDataToSlave_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());\
+public:\
+	static CollectionObjectFuncsT s_setFuncs;\
+	static void InitObjectFuncs()\
+	{\
+		SlaveHandler::s_setFuncs.insert("testMulitServerNode");\
+		SlaveHandler::s_setFuncs.insert("SyncMasterHandler");\
+		SlaveHandler::s_setFuncs.insert("SlaveStartAuth");\
+		SlaveHandler::s_setFuncs.insert("SlaveSelectDB");\
+		SlaveHandler::s_setFuncs.insert("SlaveRequestSync");\
+		SlaveHandler::s_setFuncs.insert("MasterStartSync");\
+		SlaveHandler::s_setFuncs.insert("SyncDataToSlave");\
+	}\
+	virtual BOOL IsHasFunc(const std::string & strFunc)\
+	{\
+		CollectionObjectFuncsT::iterator iter = SlaveHandler::s_setFuncs.find(strFunc);\
+		if (iter != SlaveHandler::s_setFuncs.end())\
 		{\
 			return TRUE;\
 		}\

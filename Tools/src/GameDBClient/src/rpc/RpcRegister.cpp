@@ -1,3 +1,12 @@
+/************************************
+FileName	:	RpcRegister.cpp
+Author		:	generate by tools
+HostName	:	woopengcheng
+IP			:	192.168.1.107
+Version		:	0.0.1
+Date		:	2015-08-01 00:59:19
+Description	:	注册每个函数.以及检测网络传递的消息是否是正确的参数.
+************************************/
 #include "MsgLib/inc/RpcServerManager.h"
 #include "MsgLib/inc/RpcCheckParams.h"
 #include "Common/Chunk.h"
@@ -8,18 +17,28 @@
 namespace Client
 {
 	//5 defaultParams define here.
-	static UINT8 g_rpcDefaultParam_UINT8 = 0;
+	static int g_rpcDefaultParam_int = 0;
+	static short g_rpcDefaultParam_short = 0;
+	static long g_rpcDefaultParam_long = 0;
+	static char g_rpcDefaultParam_char = char(0);
+	static unsigned int g_rpcDefaultParam_unsigned_int = 0;
+	static unsigned short g_rpcDefaultParam_unsigned_short = 0;
+	static unsigned char g_rpcDefaultParam_unsigned_char = 0;
+	static time_t g_rpcDefaultParam_time_t = 0;
 	static SINT8 g_rpcDefaultParam_SINT8 = 0;
+	static UINT8 g_rpcDefaultParam_UINT8 = 0;
 	static INT16 g_rpcDefaultParam_INT16 = 0;
 	static UINT16 g_rpcDefaultParam_UINT16 = 0;
 	static UINT32 g_rpcDefaultParam_UINT32 = 0;
 	static INT32 g_rpcDefaultParam_INT32 = 0;
 	static UINT64 g_rpcDefaultParam_UINT64 = 0;
 	static INT64 g_rpcDefaultParam_INT64 = 0;
-	static double g_rpcDefaultParam_double = 0.0f;
 	static float g_rpcDefaultParam_float = 0.0f;
+	static double g_rpcDefaultParam_double = 0.0f;
 	static std_string g_rpcDefaultParam_std_string = std::string();
 	static LibCore_Chunk g_rpcDefaultParam_LibCore_Chunk = LibCore::Chunk();
+	static TestRpcData g_rpcDefaultParam_TestRpcData = TestRpcData();
+	static TestRpcData2 g_rpcDefaultParam_TestRpcData2 = TestRpcData2();
 
 	void DBClient::OnRegisterRpcs( void )
 	{
@@ -27,6 +46,29 @@ namespace Client
 		static Msg::GlobalRpc g_pGlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcServerManager); 
 
 		Msg::Parameters objDeliverParams , objReturnParams;
+		//5 testMulitServerNode generate default deliver and return check param here
+		{
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk , g_rpcDefaultParam_int , g_rpcDefaultParam_unsigned_int , g_rpcDefaultParam_char);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::g_pRpcCheckParams->InsertDeliverParams("testMulitServerNode", objDeliverParams);
+			Msg::g_pRpcCheckParams->InsertReturnParams("testMulitServerNode", objReturnParams);
+			objDeliverParams.Clear();
+			objReturnParams.Clear();
+			
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_sztestMulitServerNode_RpcClient , &Msg::GlobalRpc::testMulitServerNode_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_sztestMulitServerNode_RpcTimeout ,&Msg::GlobalRpc::testMulitServerNode_RpcTimeout); 
+		}
+
+		//5 testParamsAndRpcDatas generate default deliver and return check param here
+		{
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_TestRpcData , g_rpcDefaultParam_TestRpcData2 , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::g_pRpcCheckParams->InsertDeliverParams("testParamsAndRpcDatas", objDeliverParams);
+			Msg::g_pRpcCheckParams->InsertReturnParams("testParamsAndRpcDatas", objReturnParams);
+			objDeliverParams.Clear();
+			objReturnParams.Clear();
+		}
+
 		//5 HandleUserAuth generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
@@ -527,39 +569,6 @@ namespace Client
 			Msg::g_pRpcCheckParams->InsertReturnParams("SyncDataToSlave", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-		}
-
-		//5 testRefers generate default deliver and return check param here
-		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
-			Msg::g_pRpcCheckParams->InsertDeliverParams("testRefers", objDeliverParams);
-			Msg::g_pRpcCheckParams->InsertReturnParams("testRefers", objReturnParams);
-			objDeliverParams.Clear();
-			objReturnParams.Clear();
-		}
-
-		//5 testTheSameNode generate default deliver and return check param here
-		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
-			Msg::g_pRpcCheckParams->InsertDeliverParams("testTheSameNode", objDeliverParams);
-			Msg::g_pRpcCheckParams->InsertReturnParams("testTheSameNode", objReturnParams);
-			objDeliverParams.Clear();
-			objReturnParams.Clear();
-		}
-
-		//5 testMulitServerNode generate default deliver and return check param here
-		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
-			Msg::g_pRpcCheckParams->InsertDeliverParams("testMulitServerNode", objDeliverParams);
-			Msg::g_pRpcCheckParams->InsertReturnParams("testMulitServerNode", objReturnParams);
-			objDeliverParams.Clear();
-			objReturnParams.Clear();
-			
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_sztestMulitServerNode_RpcClient , &Msg::GlobalRpc::testMulitServerNode_RpcClient); 
-			m_pRpcServerManager->RegisterFunc<Msg::GlobalRpc >(Msg::g_sztestMulitServerNode_RpcTimeout ,&Msg::GlobalRpc::testMulitServerNode_RpcTimeout); 
 		}
 
 	}

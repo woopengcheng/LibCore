@@ -36,6 +36,7 @@ class RpcMsgs(ParentPoint):
 		self.defaultParamsList = collections.OrderedDict()
 		self.rpcs = Rpcs(self)
 		self.rpcServerNames = collections.OrderedDict()
+		self.Refers = collections.OrderedDict()
 
 class RpcServerName(ParentPoint):
 	"""docstring for RpcServerName"""
@@ -119,12 +120,13 @@ g_rpcRecords = collections.OrderedDict()   #记录所以得RPC
 
 def start(): 
 	ParseRpcs() 
+	CheckAllParams() 
 	LogOutInfo("ParseRpcs finished.\n") 
 	
 	SortRpcs(g_rpcMsgs)
 	
 	GenerateRpc()  
-	LogOutInfo("Generate Rpc finished.\n") 
+	LogOutInfo("generate Rpc finished.\n") 
 	
 noneDir = collections.OrderedDict()
 def SortRpcs(sortObj):
@@ -169,18 +171,50 @@ def handleRpcMsgs(xmlRpcMsgs):
 	for xmlData in iter(xmlRpcMsgs.getchildren()): 
 		if xmlData.tag.lower() == "DefaultParams".lower():
 			handleDefaultParams(g_rpcMsgs.defaultParams , g_rpcMsgs.defaultParamsList , xmlData)
+		if xmlData.tag.lower() == "LongDefaultParams".lower():
+			handleLongDefaultParams(g_rpcMsgs.defaultParams , g_rpcMsgs.defaultParamsList , xmlData)
+		if xmlData.tag.lower() == "Refers".lower():
+			handleRefers(g_rpcMsgs.Refers , xmlData)
 		if xmlData.tag.lower() == "Rpcs".lower():
 			handleRpcs(g_rpcMsgs.rpcs , xmlData)
 		if xmlData.tag.lower() == "RpcServerName".lower():
 			handleRpcServerName(g_rpcMsgs.rpcServerNames , xmlData)
+			
+def handleRefers(Refers , xmlRefers):
+	for xmlData in iter(xmlRefers.getchildren()): 
+		if xmlData.tag.lower() == "Refer".lower():
+			handleRefer(Refers , xmlData) 
+
+def handleRefer(Refers , xmlData): 
+	for attr in iter(xmlData.attrib):
+		if attr.lower() == "name".lower():
+			Refers[xmlData.attrib[attr]] = "&"  
 
 def handleDefaultParams(defaultParams , defaultParamsList, xmlDefaultParams):
 	for attr in iter(xmlDefaultParams.attrib):
 		defaultParam = DefaultParam(defaultParams)
 		defaultParam.type = attr
 		defaultParam.value = xmlDefaultParams.attrib[attr]
+			
+		if IsHasSameData(defaultParams , defaultParam.type):
+			LogOutError("Parase defaultParams :" , defaultParam.type , "has same defaultParam.") 
+			
 		defaultParams[attr] = defaultParam
 		defaultParamsList[attr] = "g_rpcDefaultParam_" + attr
+
+def handleLongDefaultParams(defaultParams , defaultParamsList, xmlDefaultParams):
+	defaultParam = DefaultParam(defaultParams)
+	for attr in iter(xmlDefaultParams.attrib):
+		if attr.lower() == "type".lower():
+			defaultParam.type = xmlDefaultParams.attrib[attr]
+		if attr.lower() == "default".lower():
+			defaultParam.value = xmlDefaultParams.attrib[attr] 
+	
+	if IsHasSameData(defaultParams , defaultParam.type):
+		LogOutError("Parase defaultParam :" , defaultParam.type , "has same defaultParam.") 
+			
+	defaultParams[defaultParam.type] = defaultParam
+	defaultParamsList[defaultParam.type] = "g_rpcDefaultParam_" + ReplaceSpaceToUnderlineFromType(defaultParam.type)
 
 def handleRpcServerName(rpcServerNames , xmlRpcServerName):
 	rpcServerName = RpcServerName(g_rpcMsgs)
@@ -197,6 +231,9 @@ def handleRpcServerName(rpcServerNames , xmlRpcServerName):
 		if attr.lower() == "rpcInterface".lower():
 			rpcServerName.rpcInterface = xmlRpcServerName.attrib[attr]
 
+	if IsHasSameData(rpcServerNames , rpcServerName.serverName):
+		LogOutError("Parase rpcServerNames :" , rpcServerName.serverName , "has same rpcServerName.") 
+		
 	g_rpcRecords[rpcServerName.namespace] = collections.OrderedDict()
 	g_rpcRecords[rpcServerName.namespace]["GlobalRpc"] = collections.OrderedDict()
 	rpcServerNames[rpcServerName.serverName] = rpcServerName
@@ -207,19 +244,7 @@ def handleRpcs(rpcs , xmlRpcs):
 			handleRpcData(rpcs.rpcDatas , xmlData)
 		if xmlData.tag.lower() == "Rpc".lower():
 			handleRpc(rpcs.rpcs , xmlData)
-
-def handleRpcData(rpcDatas , xmlrpcData):
-	rpcData = RpcData(rpcDatas)
-	for attr in iter(xmlrpcData.attrib):
-		if attr.lower() == "name".lower():
-			rpcData.name = xmlrpcData.attrib[attr]
-
-	rpcDatas[attr] = rpcData
 	
-	for xmlData in iter(xmlrpcData.getchildren()): 
-		if xmlData.tag.lower() == "Param".lower():
-			handleParams(rpcData.params , xmlData)
-
 def handleRpc(rpcs , xmlRpc): 
 	rpc = Rpc(rpcs)
 
@@ -251,7 +276,10 @@ def handleRpc(rpcs , xmlRpc):
 			targetAttrClient.classes = xmlRpc.attrib[attr]
 		if attr.lower() == "client".lower():
 			targetAttrClient.name = xmlRpc.attrib[attr] 
- 
+
+	if IsHasSameData(rpcs , rpc.name):
+		LogOutError("Parase Rpc :" , rpc.name , "has same rpcName.") 
+					
 	if targetAttrClient.name != "" and targetAttrClient.name != None:
 		if targetAttrClient.classes == None:
 			targetAttrClient.classes = "GlobalRpc"
@@ -308,6 +336,9 @@ def handleTarget(targets , xmData , rpc , targetType):
 	if targetAttr.classes == "" or targetAttr.classes == None:
 		targetAttr.classes = "GlobalRpc" 
 	
+	if IsHasSameData(targets , targetAttr.name + targetAttr.classes + str(targetType)):
+		LogOutError("Parase targets :" , targetAttr.name + targetAttr.classes + str(targetType) , "has same targetAttr.") 
+		
 	#标示一个唯一的target.因为导致一个target不一样的有可能是类型,class,以及
 	targets[targetAttr.name + targetAttr.classes + str(targetType) ] = targetAttr
 	AddToGlobalTargets(targetAttr , rpc)
@@ -335,6 +366,32 @@ def handleReturn(_return , xmlReturn):
 		if xmlData.tag.lower() == "Param".lower():
 			handleParams(_return.params , xmlData)
 
+def handleRpcData(rpcDatas , xmlrpcData):
+	rpcData = RpcData(rpcDatas)
+	for attr in iter(xmlrpcData.attrib):
+		if attr.lower() == "name".lower():
+			rpcData.name = xmlrpcData.attrib[attr]
+
+	if IsHasSameData(rpcDatas , rpcData.name):
+		LogOutError("Parase rpcDatas :" , rpcData.name , "has same rpcData.") 
+	
+	for xmlData in iter(xmlrpcData.getchildren()): 
+		if xmlData.tag.lower() == "Param".lower():
+			handleParams(rpcData.params , xmlData)
+					
+	rpcDatas[rpcData.name] = rpcData
+	
+	#给RPCData加上默认参数
+	defaultParam = DefaultParam(g_rpcMsgs.defaultParams)
+	defaultParam.type = rpcData.name
+	defaultParam.value = rpcData.name + "()" 
+			
+	g_rpcMsgs.defaultParams[defaultParam.type] = defaultParam
+	g_rpcMsgs.defaultParamsList[defaultParam.type] = "g_rpcDefaultParam_" + ReplaceSpaceToUnderlineFromType(defaultParam.type)
+	
+	#给RPCData加上引用		
+	g_rpcMsgs.Refers[rpcData.name] = "&"
+	
 def handleParams(params , xmlParam):
 	param = Param(params)
 	for attr in iter(xmlParam.attrib):
@@ -348,28 +405,60 @@ def handleParams(params , xmlParam):
 			param.refer = "&"
 		if attr.lower() == "unrefer".lower():  
 			param.unrefer = "!&"
-
-	if not IsInDefaultParams(param):
-		LogOutDebug("param type error , not in the defaultParams" , param.type , param.name)
-		exit()
+ 
+	if IsInRefers(param.type) or IsInDefaultParams(param.type) != True:
+		param.refer = "&"
+	else:
+		param.refer = None
 		
-	if IsNotInTheSameParam(param, params):
-		LogOutDebug("params has one same param" , param.type , param.name)
-		exit()
-	
 	if param.type.lower()  == "SINT8".lower() or param.type.lower()  == "UINT8".lower() or\
 		param.type.lower()  == "INT16".lower() or param.type.lower()  == "UINT16".lower() or\
 		param.type.lower()  == "INT32".lower() or param.type.lower()  == "UINT32".lower() or\
 		param.type.lower()  == "INT64".lower() or param.type.lower()  == "INT64".lower() or\
 		param.type.lower()  == "double".lower() or param.type.lower()  == "float".lower() or \
+		param.type.lower()  == "char".lower() or param.type.lower()  == "unsigned int".lower() or \
+		param.type.lower()  == "short".lower() or param.type.lower()  == "unsigned short".lower() or \
+		param.type.lower()  == "long".lower() or param.type.lower()  == "time_t".lower() or \
+		param.type.lower()  == "int".lower() or \
 		param.unrefer == "!&".lower(): 
 		
 		param.refer = None
-	else:
-		param.refer = "&"
+	
+	if IsHasSameData(params , param.name):
+		LogOutError("Parase params :" , param.name , "has same param.") 
 		
 	params[param.name] = param
 	
+def CheckAllParams():
+	for indexRpc , rpc in g_rpcMsgs.rpcs.rpcs.items():  
+		for indexCall , paramCall in rpc.call.params.items():  
+			if not IsInDefaultParams(paramCall.type):
+				LogOutError("rpc call's param not in default params." , rpc.name , "  param.type:" , paramCall.type) 
+			if IsInRefers(paramCall.type):
+				paramCall.refer = "&"
+			else:
+				paramCall.refer = None
+				
+		for indexReturn , paramReturn in rpc.returns.params.items():  
+			if not IsInDefaultParams(paramReturn.type):
+				LogOutError("rpc return's  param not in default params." , rpc.name , "  param.type:" , paramReturn.type) 
+				
+			if IsInRefers(paramReturn.type):
+				paramReturn.refer = "&"
+			else:
+				paramReturn.refer = None
+				
+	for indexRpcData , rpcData in g_rpcMsgs.rpcs.rpcDatas.items():  
+		for index , param in rpcData.params.items():  
+			if not IsInDefaultParams(param.type):
+				LogOutError("rpcData's param not in default params." , index, "  param.type:" , param.type)  
+				
+			if IsInRefers(param.type):
+				param.refer = "&"
+			else:
+				param.refer = None
+				
+				
 ################################生成对应文件#####################################
 
 oneTab = "\t"
@@ -482,7 +571,8 @@ def GenerateRPCDefines():
 def GenerateRPCDefinesHeader(fileRpc , namespace):
 	fileRpc.write("#ifndef __msg_" + namespace + "_rpc_defines_h__\n")
 	fileRpc.write("#define __msg_" + namespace + "_rpc_defines_h__\n") 
-	fileRpc.write("#include \"MsgLib/inc/MsgCommon.h\" \n\n") 
+	fileRpc.write("#include \"MsgLib/inc/MsgCommon.h\" \n") 
+	fileRpc.write("#include \"RpcDatas.h\" \n\n") 
 	fileRpc.write("namespace Msg\n") 
 	fileRpc.write("{\n") 
 
@@ -752,6 +842,9 @@ def GenerateRpcHandler(rpcs , serverName , old_namespace):
 			else:
 				continue
 			
+			if rpc.name == "testMulitServerNode" or rpc.name == "testParamsAndRpcDatas" :
+				os.remove(outputPath)
+				
 			if IsPathExist(outputPath):
 #				os.remove(outputPath)
 				continue
@@ -857,18 +950,32 @@ def GenerateRpcDatas():
 			sameNamespace[serverName.namespace] = 1 
 
 			for index , rpcData in g_rpcMsgs.rpcs.rpcDatas.items():   
-				fileRpc.write(oneTab + "struct " + rpcData.name + "\n") 
+				fileRpc.write(oneTab + "class " + rpcData.name + "\n") 
 				fileRpc.write(oneTab + "{ \n")
+				fileRpc.write(twoTab + "public:\n")
 				WriteDefineParamsWithoutDefault(fileRpc , rpcData.params) 
 				
 				fileRpc.write("\n")
 				fileRpc.write(twoTab + rpcData.name + "()\n")
 				WriteDefineParamsWithDefault(fileRpc , rpcData.params)  
-				fileRpc.write(threeTab + "{}\n")
-				
+				fileRpc.write(threeTab + "{}\n")				
 				
 				fileRpc.write(oneTab + "}; \n \n")
 			
+			fileRpc.write("}//" + serverName.namespace + "\n\n")
+			
+			fileRpc.write("namespace Msg\n")
+			fileRpc.write("{ \n")
+			fileRpc.write(oneTab + "enum PARAMETER_TYPE_USER_DEFINES \n")
+			fileRpc.write(oneTab + "{ \n")
+			fileRpc.write(twoTab + "PARAMETER_TYPE_USER_DEFINE_FIRST = Msg::PARAMETER_TYPE_USER_DEFINE  ,\n")			
+			for index , rpcData in g_rpcMsgs.rpcs.rpcDatas.items():   
+				fileRpc.write(twoTab + "PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ",\n")  
+			fileRpc.write(oneTab + "}; \n \n") 
+			
+			for index , rpcData in g_rpcMsgs.rpcs.rpcDatas.items():   			
+				WriteParamHelper(serverName.namespace , fileRpc , rpcData) 
+			fileRpc.write("}\n\n")	
 		fileRpc.close()
 
 	sameNamespace = collections.OrderedDict() 
@@ -878,17 +985,87 @@ def GenerateRpcDatas():
 		
 		if rpcServerName.namespace not in sameNamespace : 
 			fileRpc = open(outputPath , "a")
-			fileRpc.write("}\n\n")	
 			fileRpc.write("#endif\n")				
 			fileRpc.close()
 			sameNamespace[rpcServerName.namespace] = 1
 			
+def WriteParamHelper(namespace , fileRpc , rpcData):
+	fileRpc.write(oneTab + "template<> class Msg::ParameterHelper<" + namespace + "::" + rpcData.name + ">\n") 
+	fileRpc.write(oneTab + "{ \n")
+	fileRpc.write(oneTab + "public:\n")
+	fileRpc.write(twoTab + "static UINT32 GetParameterType()\n")
+	fileRpc.write(twoTab + "{ \n")
+	fileRpc.write(threeTab + "return PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ";\n") 
+	fileRpc.write(twoTab + "} \n\n")
+	
+	fileRpc.write(twoTab + "static " + namespace + "::" + rpcData.name + " GetParameterValue(Parameter & objParam)\n") 
+	fileRpc.write(twoTab + "{ \n")
+	fileRpc.write(threeTab + "INT32 unType = 0;\n")
+	fileRpc.write(threeTab + namespace + "::" + rpcData.name + " val;\n\n")
+	strParam = threeTab + "objParam.GetParamStream() >> unType "
+	for index , param in rpcData.params.items():  
+		strParam = strParam + " >> val." + param.name
+	fileRpc.write(strParam + ";\n")
+	fileRpc.write(threeTab + "MsgAssert_Re(unType == PARAMETER_TYPE_USER_DEFINE_" + rpcData.name +" , val , \"get param error.\");\n\n")
+	fileRpc.write(threeTab + "return val;\n")
+	fileRpc.write(twoTab + "}\n\n")
+	
+	fileRpc.write(twoTab + "static void MakeParameter(Parameter & objParam , " + namespace + "::" + rpcData.name + " val)\n") 
+	fileRpc.write(twoTab + "{ \n") 
+	strParam = threeTab + "objParam.GetParamStream() << (INT32)PARAMETER_TYPE_USER_DEFINE_" + rpcData.name 
+	for index , param in rpcData.params.items():  
+		strParam = strParam + " << val." + param.name
+	fileRpc.write(strParam + ";\n")
+	fileRpc.write(twoTab + "} \n\n")
+	
+	fileRpc.write(twoTab + "static BOOL CheckParamType(Parameter & objParam)\n") 
+	fileRpc.write(twoTab + "{ \n") 
+	fileRpc.write(threeTab + "if (objParam.GetType() == PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ")\n")
+	fileRpc.write(threeTab + "{ \n") 
+	fileRpc.write(fourTab + "return TRUE; \n") 	 
+	fileRpc.write(threeTab + "} \n\n")
+	fileRpc.write(threeTab + "return FALSE; \n") 	 
+	fileRpc.write(twoTab + "} \n\n")	
+	fileRpc.write(oneTab + "}; \n \n")
+	
+			
+	
+	fileRpc.write(oneTab + "template<> class Msg::ParameterHelper<" + namespace + "::" + rpcData.name + "&>\n") 
+	fileRpc.write(oneTab + "{ \n")
+	fileRpc.write(oneTab + "public:\n")
+	fileRpc.write(twoTab + "static UINT32 GetParameterType()\n")
+	fileRpc.write(twoTab + "{ \n")
+	fileRpc.write(threeTab + "return PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ";\n") 
+	fileRpc.write(twoTab + "} \n\n")
+	
+	fileRpc.write(twoTab + "static " + namespace + "::" + rpcData.name + " GetParameterValue(Parameter & objParam)\n") 
+	fileRpc.write(twoTab + "{ \n") 
+	fileRpc.write(threeTab + "return ParameterHelper<" + namespace + "::" + rpcData.name + ">::GetParameterValue(objParam);\n\n")
+	fileRpc.write(twoTab + "} \n")
+		
+	fileRpc.write(twoTab + "static void MakeParameter(Parameter & objParam , " + namespace + "::" + rpcData.name + " val)\n") 
+	fileRpc.write(twoTab + "{ \n") 
+	fileRpc.write(threeTab + "return ParameterHelper<" + namespace + "::" + rpcData.name + ">::MakeParameter(objParam , val);\n")
+	fileRpc.write(twoTab + "} \n\n")
+	
+	fileRpc.write(twoTab + "static BOOL CheckParamType(Parameter & objParam)\n") 
+	fileRpc.write(twoTab + "{ \n") 
+	fileRpc.write(threeTab + "if (objParam.GetType() == PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ")\n")
+	fileRpc.write(threeTab + "{ \n") 
+	fileRpc.write(fourTab + "return TRUE; \n") 	 
+	fileRpc.write(threeTab + "} \n\n")
+	fileRpc.write(threeTab + "return FALSE; \n") 	 
+	fileRpc.write(twoTab + "} \n\n")	
+	fileRpc.write(oneTab + "}; \n \n")
+	
 def  GenerateRpcDatasHeader(fileRpc , serverName):
 	WriteFileDescription(fileRpc , "RpcDatas.h" , "网络消息的数据域.") 
 	fileRpc.write("#ifndef __" + serverName.namespace + "_rpc_datas_h__\n") 
 	fileRpc.write("#define __" + serverName.namespace + "_rpc_datas_h__\n")  
 	fileRpc.write("#include \"Common/Common.h\"\n") 
-	fileRpc.write("#include \"Common/Chunk.h\"\n\n")   
+	fileRpc.write("#include \"Common/Chunk.h\"\n")
+	fileRpc.write("#include \"MsgLib/inc/Parameter.h\"\n")   
+	fileRpc.write("#include \"MsgLib/inc/ParameterHelper.h\"\n\n")   
 	fileRpc.write("namespace " + serverName.namespace)   
 	fileRpc.write("\n{\n")   
 	
@@ -998,6 +1175,7 @@ def  GenerateRpcCallFuncsHeader(fileRpc , serverName):
 	fileRpc.write("#include \"MsgLib/inc/MsgHelper.h\"\n") 
 	fileRpc.write("#include \"MsgLib/inc/RPCMsgCall.h\"\n")  
 	fileRpc.write("#include \"MsgNameDefine.h\"\n") 
+	fileRpc.write("#include \"RpcDatas.h\"\n") 
 	for index , serverNames in g_rpcMsgs.rpcServerNames.items(): 
 		if serverNames.namespace == serverName.namespace:
 			fileRpc.write("#include \"" + serverNames.include + "\"\n") 
@@ -1019,19 +1197,27 @@ def Version():
 	print('GenerateRpc.py 1.0.0.0.1')
 
 def LogOutDebug(*string):
-	longStr = ""
+	longStr = "debug: "
 	for item in range(len(string)):  
 		longStr += str(string[item])
 
-#	print(longStr)
+	print(longStr)
 	pass
 
 def LogOutInfo(*string):
-	longStr = ""
+	longStr = "info: "
 	for item in range(len(string)):  
 		longStr += str(string[item])
 	
 	print(longStr)
+	
+def LogOutError(*string):
+	longStr = "error: "
+	for item in range(len(string)):  
+		longStr += str(string[item])
+	
+	print(longStr)
+	sys.exit()
 	
 def WriteFileDescription(fileRpc , file , desc):
 	fileRpc.write("/************************************" + "\n")
@@ -1051,8 +1237,7 @@ def CheckInRpcServerName(name):
 		if rpcServerName.serverName == name: 
 			return True
 
-	LogOutInfo("no this serverName in serverNamelist")
-	exit()
+	LogOutError("no this serverName in serverNamelist") 
 
 #通过服务器名字获取命名空间
 def GetServerNamespaceByName(strName):
@@ -1060,8 +1245,7 @@ def GetServerNamespaceByName(strName):
 		if rpcServerName.serverName == strName: 
 			return rpcServerName.namespace
 			
-	LogOutInfo("GetServerNamespaceByName error. serverName:" + strName)
-	exit()
+	LogOutError("GetServerNamespaceByName error. serverName:" + strName) 
 	
 def GetOutputPath(name):
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items(): 
@@ -1072,8 +1256,7 @@ def GetOutputPath(name):
 #				os.makedirs(rpcServerName.outputPath)
 				return rpcServerName.outputPath
 
-	LogOutInfo("no path is serverNamelist")
-	exit()
+	LogOutError("no path is serverNamelist") 
 
 def IsPathExist(path):
 	if os.path.exists(path):
@@ -1081,6 +1264,16 @@ def IsPathExist(path):
 	else:
 		return False
 
+def ReplaceSpaceToUnderlineFromType(type):
+	return type.replace(' ','_')
+	
+def IsInRefers(refer):
+	for index , referData in g_rpcMsgs.Refers.items(): 
+		if refer.lower() == index.lower():
+			return True
+	
+	return False
+	
 def GetParamsIncludeDefaultParam(params , type = 0):
 	strParams = ""
 	
@@ -1139,20 +1332,13 @@ def GetParams(params):
 		
 	return strParams
 	
-def IsInDefaultParams(param):
+def IsInDefaultParams(type):
 	for index , defaultParam in g_rpcMsgs.defaultParams.items():
-		if defaultParam.type == param.type:
+		if defaultParam.type == type:
 			return True
 	
 	return False
 
-def IsNotInTheSameParam(param , params):
-	for index , defaultParam in params.items():
-		if defaultParam.name == param.name:
-			return True
-	
-	return False
-	
 def GetDefaultParamsType(theSameType):
 	for index , defaultParam in g_rpcMsgs.defaultParams.items():
 		if index.lower() == theSameType.lower():
@@ -1162,7 +1348,7 @@ def GetDefaultParamsType(theSameType):
 	
 def WriteDefaultParams(fileRpc):
 	for index , defaultParam in g_rpcMsgs.defaultParams.items():
-		fileRpc.write(oneTab + "static " + defaultParam.type + " g_rpcDefaultParam_" + defaultParam.type + " = " + defaultParam.value + ";\n")
+		fileRpc.write(oneTab + "static " + defaultParam.type + " g_rpcDefaultParam_" + ReplaceSpaceToUnderlineFromType(defaultParam.type) + " = " + defaultParam.value + ";\n")
 	fileRpc.write("\n")
 
 def GetRpcParamsIncludeDefault(call):
@@ -1231,7 +1417,7 @@ def GetParamsExcludeDefaultParamAndType(params , type = 0):
 	
 def WriteDefaultParams(fileRpc):
 	for index , defaultParam in g_rpcMsgs.defaultParams.items():
-		fileRpc.write(oneTab + "static " + defaultParam.type + " g_rpcDefaultParam_" + defaultParam.type + " = " + defaultParam.value + ";\n")
+		fileRpc.write(oneTab + "static " + defaultParam.type + " g_rpcDefaultParam_" + ReplaceSpaceToUnderlineFromType(defaultParam.type) + " = " + defaultParam.value + ";\n")
 	fileRpc.write("\n")
 	
 def WriteDefineParams(fileRpc , params):
@@ -1329,8 +1515,7 @@ def GetAndCheckDefaultParam(paramType):
 		if defaultParam.type == paramType: 
 			return defaultParam.value
 
-	LogOutInfo("no this value in defaultParamsList")
-	exit()
+	LogOutError("no this value in defaultParamsList") 
 
 def DeleteServerNameFiles():
 	for index , serverName in g_rpcMsgs.rpcServerNames.items():
@@ -1358,8 +1543,7 @@ def GetDefaultParamValue(paramType):
 		if paramType == index:
 			return param 
 			
-	LogOutInfo("no this defaultParam value in defaultParamsList")
-	exit( )
+	LogOutError("no this defaultParam value in defaultParamsList") 
 
 def GetSyncTypeInString(syncType):
 	if syncType == "0":
@@ -1368,6 +1552,12 @@ def GetSyncTypeInString(syncType):
 		return "Msg::SYNC_TYPE_NONSYNC"
 	else:
 		return "Msg::SYNC_TYPE_SYNC" 
+		
+def IsHasSameData(dic , name):
+	for index , param in dic.items():
+		if name == index:
+			return True 
+	return False
 	
 ################################main函数处理#####################################
 def handleArgs(argv): 

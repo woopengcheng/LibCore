@@ -78,7 +78,7 @@ namespace Msg
 	template<> class ParameterHelper<const char *>
 	{
 	public:
-		static PARAMETER_TYPE GetParameterType(){ return PARAMETER_TYPE_STRING; } 
+		static UINT32 GetParameterType(){ return PARAMETER_TYPE_STRING; } 
 		static const char * GetParameterValue(Parameter & objParam)
 		{
 			INT32 nType = 0 , nSize = 0;
@@ -122,7 +122,7 @@ namespace Msg
 	template<> class ParameterHelper<std::string>
 	{
 	public:
-		static PARAMETER_TYPE GetParameterType(){ return PARAMETER_TYPE_STD_STRING; } 
+		static UINT32 GetParameterType(){ return PARAMETER_TYPE_STD_STRING; } 
 		static std::string GetParameterValue(Parameter & objParam)
 		{
 			INT32 nType = 0 , nSize = 0;
@@ -158,7 +158,7 @@ namespace Msg
 	template<> class ParameterHelper<std::string &>
 	{
 	public:
-		static PARAMETER_TYPE GetParameterType(){ return PARAMETER_TYPE_STD_STRING; } 
+		static UINT32 GetParameterType(){ return PARAMETER_TYPE_STD_STRING; } 
 		static std::string GetParameterValue(Parameter & objParam)
 		{
 			return ParameterHelper<std::string>::GetParameterValue(objParam);
@@ -182,7 +182,7 @@ namespace Msg
 	template<> class ParameterHelper<LibCore::Chunk>
 	{
 	public:
-		static PARAMETER_TYPE GetParameterType()
+		static UINT32 GetParameterType()
 		{
 			return PARAMETER_TYPE_CHUNK;
 		}
@@ -216,7 +216,7 @@ namespace Msg
 	template<> class ParameterHelper<LibCore::Chunk &>
 	{
 	public:
-		static PARAMETER_TYPE GetParameterType()
+		static UINT32 GetParameterType()
 		{
 			return PARAMETER_TYPE_CHUNK;
 		}

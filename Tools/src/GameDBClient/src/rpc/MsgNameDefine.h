@@ -1,9 +1,24 @@
+/************************************
+FileName	:	MsgNameDefine.h
+Author		:	generate by tools
+HostName	:	woopengcheng
+IP			:	192.168.1.107
+Version		:	0.0.1
+Date		:	2015-08-01 00:59:19
+Description	:	用于定义消息的全局唯一名字
+************************************/
 #ifndef __msg_Client_msg_name_define_h__
 #define __msg_Client_msg_name_define_h__
 #include "MsgLib/inc/MsgCommon.h" 
 
 namespace Msg
 {
+	//5 testMulitServerNode declare here
+	RPC_DEFINE(testMulitServerNode);
+
+	//5 testParamsAndRpcDatas declare here
+	RPC_DEFINE(testParamsAndRpcDatas);
+
 	//5 HandleUserAuth declare here
 	RPC_DEFINE(HandleUserAuth);
 
@@ -123,15 +138,6 @@ namespace Msg
 
 	//5 SyncDataToSlave declare here
 	RPC_DEFINE(SyncDataToSlave);
-
-	//5 testRefers declare here
-	RPC_DEFINE(testRefers);
-
-	//5 testTheSameNode declare here
-	RPC_DEFINE(testTheSameNode);
-
-	//5 testMulitServerNode declare here
-	RPC_DEFINE(testMulitServerNode);
 
 }
 

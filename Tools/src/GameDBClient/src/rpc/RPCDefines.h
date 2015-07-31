@@ -1,11 +1,14 @@
 #ifndef __msg_Client_rpc_defines_h__
 #define __msg_Client_rpc_defines_h__
 #include "MsgLib/inc/MsgCommon.h" 
+#include "RpcDatas.h" 
 
 namespace Msg
 {
 
 #define  RPC_DEFINE_GlobalRpc public:\
+	Msg::ObjectMsgCall * testMulitServerNode_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
+	Msg::ObjectMsgCall * testMulitServerNode_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0));\
 	Msg::ObjectMsgCall * HandleUserAuth_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);\
 	Msg::ObjectMsgCall * HandleUserAuth_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & name = std::string() , std_string & pwd = std::string());\
 	Msg::ObjectMsgCall * HandleSelectDatabase_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);\
@@ -74,12 +77,11 @@ namespace Msg
 	Msg::ObjectMsgCall * HandleZList_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) );\
 	Msg::ObjectMsgCall * HandleDump_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
 	Msg::ObjectMsgCall * HandleDump_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) );\
-	Msg::ObjectMsgCall * testMulitServerNode_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
-	Msg::ObjectMsgCall * testMulitServerNode_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk());\
 public:\
 	static CollectionObjectFuncsT s_setFuncs;\
 	static void InitObjectFuncs()\
 	{\
+		GlobalRpc::s_setFuncs.insert("testMulitServerNode");\
 		GlobalRpc::s_setFuncs.insert("HandleUserAuth");\
 		GlobalRpc::s_setFuncs.insert("HandleSelectDatabase");\
 		GlobalRpc::s_setFuncs.insert("HandleCreateDatabase");\
@@ -114,7 +116,6 @@ public:\
 		GlobalRpc::s_setFuncs.insert("HandleZCount");\
 		GlobalRpc::s_setFuncs.insert("HandleZList");\
 		GlobalRpc::s_setFuncs.insert("HandleDump");\
-		GlobalRpc::s_setFuncs.insert("testMulitServerNode");\
 	}\
 	virtual BOOL IsHasFunc(const std::string & strFunc)\
 	{\

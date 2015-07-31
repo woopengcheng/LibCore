@@ -26,7 +26,9 @@ namespace Msg
 		PARAMETER_TYPE_STD_STRING ,
 		PARAMETER_TYPE_CHUNK  ,
 
-		PARAMETER_TYPE_COUNT , 
+		PARAMETER_TYPE_COUNT ,
+
+		PARAMETER_TYPE_USER_DEFINE = 1000 ,   //5 用户自定义类型.从1000后面开始吧.
 	};
 
 	struct DLL_EXPORT Parameter : public LibCore::Marshal
@@ -66,6 +68,7 @@ namespace Msg
 		bool	   IsString(){ return GetType() == PARAMETER_TYPE_STRING; }
 		bool	   IsStdString(){ return GetType() == PARAMETER_TYPE_STD_STRING; }
 		bool	   IsChunk(){ return GetType() == PARAMETER_TYPE_CHUNK; }  
+		bool	   IsUserDefine(){ return GetType() >= PARAMETER_TYPE_USER_DEFINE; }  
 
 	public: 
 		virtual LibCore::CStream & marshal(LibCore::CStream & cs);
