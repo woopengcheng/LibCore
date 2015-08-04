@@ -28,8 +28,17 @@ namespace Msg
 		SYNC_RESULT_FALSE = 1,
 	};
 
+	enum ERPCRETURN_TYPE
+	{
+		RETURN_TYPE_DONE = 0, 
+		RETURN_TYPE_DELAY	, //5 延迟返回,等待某些事件发生的时候再调用.
+		RETURN_TYPE_IGNORE	, //5 忽略这个包,同完成.
+	};
+
 	class DLL_EXPORT  RPCMsgCall : public ObjectMsgCall
 	{ 
+		typedef std::set<Msg::Object> CollectionTargetsT;
+
 	public:
 		RPCMsgCall(/*const Msg::Parameters & objParams*/)   
 //			: ObjectMsgCall(objParams)
@@ -39,6 +48,7 @@ namespace Msg
 			, m_nRpcMsgCallType(RPCTYPE_ERROR)
 			, m_objSyncType(SYNC_TYPE_NONSYNC)
 			, m_objSyncResult(SYNC_RESULT_START_RETURN)
+			, m_objReturnType(RETURN_TYPE_DONE)  //5 默认完成.
 		{  
 			memset(m_szSessionName , 0 , sizeof(m_szSessionName));
 			memset(m_szRemoteName , 0 , sizeof(m_szRemoteName));
@@ -46,6 +56,7 @@ namespace Msg
 		}
 		~RPCMsgCall()
 		{ 
+			m_setDelayTargets.clear();
 		}
 
 	public: 
@@ -92,6 +103,10 @@ namespace Msg
 		EMSG_SYNC_TYPE GetSyncType( void ){ return m_objSyncType; }
 		void   SetSyncResult(EMSG_SYNC_RESULT val) { m_objSyncResult = val; }
 		EMSG_SYNC_RESULT GetSyncResult( void ){ return m_objSyncResult; }
+		Msg::ERPCRETURN_TYPE GetReturnType() const { return m_objReturnType; }
+		void SetReturnType(Msg::ERPCRETURN_TYPE val) { m_objReturnType = val; }
+		void AddDelayTarget(Msg::Object obj);
+		void ReplaceDelayTarget();
 
 	public: 
 		virtual LibCore::CStream & marshal(LibCore::CStream & cs);
@@ -103,11 +118,13 @@ namespace Msg
 
 		//5 下面的参数是不参与网络传输的.
 	protected:
-		char			 m_szSessionName[MAX_NAME_LENGTH];
-		Object			 m_objProxySrcID;
-		INT32			 m_nRpcMsgCallType;
-		EMSG_SYNC_TYPE	 m_objSyncType;
-		EMSG_SYNC_RESULT m_objSyncResult;
+		char				m_szSessionName[MAX_NAME_LENGTH];
+		Object				m_objProxySrcID;
+		INT32				m_nRpcMsgCallType;
+		EMSG_SYNC_TYPE		m_objSyncType;
+		EMSG_SYNC_RESULT	m_objSyncResult;
+		ERPCRETURN_TYPE		m_objReturnType;
+		CollectionTargetsT	m_setDelayTargets;
 	};  
 
 }

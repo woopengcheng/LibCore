@@ -13,7 +13,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleCreateUser_RpcClient(Net::ISession * 
 	}
 
 	std::cout << "HandleCreateUser_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::HandleCreateUser_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & name/* = std::string()*/ , std_string & pwd/* = std::string()*/,SINT8 issys/* = 0*/) 
@@ -21,6 +21,6 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleCreateUser_RpcTimeout(Net::ISession *
 
 
 	std::cout << "HandleCreateUser_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

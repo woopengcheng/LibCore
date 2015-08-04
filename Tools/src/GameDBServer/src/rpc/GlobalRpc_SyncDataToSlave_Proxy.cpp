@@ -11,13 +11,13 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::SyncDataToSlave_RpcServerProxy(Net::ISessio
 	{
 		if(ERR_FAILURE == ProxySendMsg(pSlaveRecord->GetSlaveSessionID() , pSlaveRecord->GetObjRemoteSlaveID() , dbname , value))
 		{
-			RPCReturn1(res);
+			Return(res);
 		}
 
 	}
 
 	std::cout << "SyncDataToSlave_RpcServerProxy" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::SyncDataToSlave_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc  ,INT32 res/* = 0*/)
@@ -27,7 +27,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::SyncDataToSlave_RpcClientProxy(Net::ISessio
 
 
 	std::cout << "SyncDataToSlave_RpcClientProxy" << std::endl;
-	RPCReturn1(res);
+	Return(res);
 }
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::SyncDataToSlave_RpcTimeoutProxy(Net::ISession * pSession , Msg::Object objSrc,std_string & dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/ )
@@ -35,6 +35,6 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::SyncDataToSlave_RpcTimeoutProxy(Net::ISessi
 
 
  	std::cout << "SyncDataToSlave_RpcTimeoutProxy" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

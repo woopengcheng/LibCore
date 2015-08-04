@@ -8,7 +8,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleCreateDatabase_RpcServer(Net::
 	GameDB::Environment * pEnv = GetDBServer()->GetEnvironment();
 	if (!pEnv)
 	{ 
-		RPCReturn1(res);
+		Return(res);
 	}  
 	
 	if (!pEnv->GetDatabase(dbname))
@@ -21,6 +21,6 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleCreateDatabase_RpcServer(Net::
 	}
 
 	gDebugStream("HandleCreateDatabase_RpcServer "<< res);
-	RPCReturn1(res);
+	Return(res);
 }
 

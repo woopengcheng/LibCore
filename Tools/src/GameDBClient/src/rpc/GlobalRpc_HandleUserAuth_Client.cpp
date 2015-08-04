@@ -12,7 +12,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleUserAuth_RpcClient(Net::ISession * pS
 		gDebugStream("HandleUserAuth_RpcClient failure" );
 	}
 
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::HandleUserAuth_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & name/* = std::string()*/ , std_string & pwd/* = std::string()*/) 
@@ -20,6 +20,6 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleUserAuth_RpcTimeout(Net::ISession * p
 
 
 	std::cout << "HandleUserAuth_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

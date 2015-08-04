@@ -1,35 +1,36 @@
+/************************************
+FileName	:	GlableRpc.h
+Author		:	generate by tools
+HostName	:	woopengcheng
+IP			:	192.168.1.107
+Version		:	0.0.1
+Date		:	2015-08-03 00:23:57
+Description	:	静态函数,无对象时通过这个类处理.
+************************************/
 #ifndef __Client_global_rpc_h__
 #define __Client_global_rpc_h__
 #include "Common/Chunk.h" 
 #include "MsgLib/inc/Object.h" 
-#include "MsgLib/inc/MsgCommon.h" 
 #include "MsgLib/inc/RPCMsgCall.h" 
 #include "MsgLib/inc/RpcServerManager.h" 
 #include "MsgLib/inc/IRpcMsgCallableObject.h" 
 #include "RpcDatas.h" 
+#include "RpcDefines.h" 
 
 namespace Msg
 {
 	class GlobalRpc : public Msg::IRpcMsgCallableObject
 	{
+		RPC_DEFINE_GlobalRpc;
 	public:
 		GlobalRpc(Msg::Object nID , Msg::RpcManager * pRpcManager)
 			: Msg::IRpcMsgCallableObject(nID , pRpcManager)
 		{
+			GlobalRpc::InitObjectFuncs();
 		}
 	public:
-		
-//TestObject generate RPC func here
-		Msg::ObjectMsgCall * TestObject_RpcTimeout(SINT8 userid1 = 0 , INT16 userid3 = 0 , UINT16 localid4 = 0 , INT32 localid6 = 0 , UINT32 userid7 = 0 , INT64 localid8 = 0 , UINT64 userid9 = 0, std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
-		Msg::ObjectMsgCall * TestObject_RpcClient(std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
-		
-//TestObject1 generate RPC func here
-		Msg::ObjectMsgCall * TestObject1_RpcTimeout(SINT8 userid1 = 0 , UINT8 localid2 = 0 , INT16 userid3 = 0 , UINT16 localid4 = 0 , double localid10 = 1.0f , float localid11 = 1.0f , std_string localid12 = std::string() , LibCore_Chunk localid13 = LibCore::Chunk(), std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
-		Msg::ObjectMsgCall * TestObject1_RpcClient(std::vector<Msg::Object> vecTargets = VECTOR_TARGETS_NULL , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));
-		
 	};
 
-	extern GlobalRpc * g_pGlobalRpc;
 }
 
 #endif

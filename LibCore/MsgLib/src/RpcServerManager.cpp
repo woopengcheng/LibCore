@@ -16,6 +16,7 @@ namespace Msg
 			iter->second.clear();
 		}
 		m_mapPostMsgs.clear();
+		m_mapDelayMsgs.clear();
 	}
 
 	INT32 RpcServerManager::UpdateCalls( void )
@@ -66,7 +67,19 @@ namespace Msg
 			HandleClientMsg(pSession , pMsg);
 		}
 
-		SAFE_DELETE(pMsg); 
+		switch(pMsg->GetReturnType())
+		{
+		case RETURN_TYPE_DONE:
+		case RETURN_TYPE_IGNORE:
+			{
+				SAFE_DELETE(pMsg); 
+			}break;
+		case RETURN_TYPE_DELAY:
+			{
+				pMsg->ReplaceDelayTarget();
+				PostDelayMsg(pSession->GetRemoteName() ,pMsg);
+			}break;
+		}
 
 		return ERR_SUCCESS;
 	}  
@@ -235,6 +248,7 @@ namespace Msg
 		UpdateCalls();
 #endif
 		UpdatePostMsgs();
+		UpdateDelayMsgs();
 		return RpcManager::Update();
 	} 
 
@@ -387,17 +401,41 @@ namespace Msg
 		return ERR_SUCCESS;
 	}
 
-	void RpcServerManager::InsertPostMsg(const std::string strRpcServerName , RPCMsgCall * pMsg)
+	INT32 RpcServerManager::PostDelayMsg(const char * pRpcServerName , RPCMsgCall * pMsg)
 	{
-		CollectionPostMsgsT::iterator iter = m_mapPostMsgs.find(strRpcServerName);
-		if (iter != m_mapPostMsgs.end())
+		InsertDelayMsg(pRpcServerName , pMsg); 
+
+		return ERR_SUCCESS;
+	}
+
+	void RpcServerManager::InsertDelayMsg(const std::string strRpcServerName , RPCMsgCall * pMsg)
+	{
+		CollectionDelayMsgsT::iterator iter = m_mapDelayMsgs.find(strRpcServerName);
+		if (iter != m_mapDelayMsgs.end())
 		{
-			CollectionPostMsgsQueT & que = iter->second;
+			CollectionMsgsQueT & que = iter->second;
 			que.push(pMsg);
 		}
 		else
 		{
-			CollectionPostMsgsQueT que;
+			CollectionMsgsQueT que;
+			que.push(pMsg);
+
+			m_mapDelayMsgs.insert(std::make_pair(strRpcServerName , que));
+		}
+	}
+
+	void RpcServerManager::InsertPostMsg(const std::string & strRpcServerName , RPCMsgCall * pMsg)
+	{
+		CollectionPostMsgsT::iterator iter = m_mapPostMsgs.find(strRpcServerName);
+		if (iter != m_mapPostMsgs.end())
+		{
+			CollectionMsgsQueT & que = iter->second;
+			que.push(pMsg);
+		}
+		else
+		{
+			CollectionMsgsQueT que;
 			que.push(pMsg);
 
 			m_mapPostMsgs.insert(std::make_pair(strRpcServerName , que));
@@ -411,7 +449,28 @@ namespace Msg
 		for (;iter != m_mapPostMsgs.end();++iter)
 		{
 			std::string strRpcServerName = iter->first;
-			CollectionPostMsgsQueT & que = iter->second;
+			CollectionMsgsQueT & que = iter->second;
+
+			Net::NetHandlerTransitPtr pHandler = GetHandlerByName(strRpcServerName.c_str()); 
+			MsgAssert_ReF1(pHandler , "no this handler" << strRpcServerName);
+			
+			while(que.try_pop(pMsg))
+			{
+				HandleMsg(pHandler->GetSession() , pMsg);
+			}
+		}
+
+		return ERR_SUCCESS;
+	}
+
+	INT32 RpcServerManager::UpdateDelayMsgs(void)
+	{
+		RPCMsgCall * pMsg = NULL;
+		CollectionDelayMsgsT::iterator iter = m_mapDelayMsgs.begin();
+		for (;iter != m_mapDelayMsgs.end();++iter)
+		{
+			std::string strRpcServerName = iter->first;
+			CollectionMsgsQueT & que = iter->second;
 
 			Net::NetHandlerTransitPtr pHandler = GetHandlerByName(strRpcServerName.c_str()); 
 			MsgAssert_ReF1(pHandler , "no this handler" << strRpcServerName); 
@@ -421,6 +480,8 @@ namespace Msg
 				HandleMsg(pHandler->GetSession() , pMsg);
 			}
 		}
+
+		return ERR_SUCCESS;
 	}
 
 

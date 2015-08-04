@@ -9,6 +9,20 @@
 				默认参数需要在<DefaultParams />中声明类型和值.类型只能为1个单字.不能出现const char * 或者Msg::Chunk这种.一行可以填写多个
 				多个字节的默认参数通过LongDefaultParams方式填写.
 		
+		SpecialDefaultParams:
+			功能:
+				系统默认参数值.针对一些模板类的非常特殊的参数.
+			填写方法:
+				type:
+					参数的类型.
+				suffix:
+					生成默认参数时,在type的后面加上后缀
+				prefix:
+					生成默认参数时,在type的最前面加上后缀				
+				specialType:
+					根据不同的规则生成不同的默认参数.
+					0代表的是标准库中的容器,默认是根据模板,加上后缀即可.
+					
 		Refers:
 			功能:
 				函数参数是否是通过引用来使用.默认非基本类型的都是引用,除非有unfer
@@ -82,7 +96,15 @@
 					Client:为发起端调用.这里需要和ServerName对应.
 					Proxy:为代理转发.这里需要和ServerName对应.
 					Server:为服务器使用,这里需要和ServerName对应.
-			
+					
+	备注:
+		XML常用转义字符:
+			< 	&lt;	小于号 
+			> 	&gt;	大于号 
+			&	&amp;	逻辑与 
+			'	&apos;	单引号 
+			"	&quot;	双引号 
+
 		
 -->
 
@@ -98,8 +120,12 @@
 	<DefaultParams char='char(0)'/>
 	<LongDefaultParams type="unsigned int"  default="0"/>
 	<LongDefaultParams type="unsigned short"  default="0"/>
-	<LongDefaultParams type="unsigned char" default="0"/>
+	<LongDefaultParams type="unsigned char" default="0"/> 
 	<LongDefaultParams type="time_t" default="0"/>
+	<SpecialDefaultParam type="std::vector" defaultSuffix="(1)" specialType="0"/>
+	<SpecialDefaultParam type="std::set" defaultSuffix="()" specialType="0"/>
+	<SpecialDefaultParam type="std::map" defaultSuffix="()" specialType="0"/>
+	<SpecialDefaultParam type="std::list" defaultSuffix="()" specialType="0"/>
 	<DefaultParams SINT8='0'  UINT8='0'/>
 	<DefaultParams INT16='0' UINT16='0'/>
 	<DefaultParams INT32='0' UINT32='0'/>
@@ -132,6 +158,7 @@
 			<Param type="Float" name="localid11" default="1.0f"/> 
 			<Param type="Std_string" name="localid12" /> 
 			<Param type="libCore_Chunk" name="localid13" /> 
+			<Param type="std::vector[INT32]" name="testVecctor" unrefer="!" default="std::vector[INT32](1)"/> 
 		</RpcData>
 		
 		<RpcData name="TestRpcData2">
@@ -184,6 +211,7 @@
 				<Param name="rpcData" type="TestRpcData"/>
 				<Param name="rpcData2" type="TestRpcData2"/>
 				<Param name="value" type="LibCore_Chunk"/> 
+				<Param name="Vec" type="std::vector[INT32]"/>
 			</Call>
 
 			<Return>  

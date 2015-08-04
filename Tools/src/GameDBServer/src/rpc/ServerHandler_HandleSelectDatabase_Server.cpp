@@ -16,6 +16,6 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleSelectDatabase_RpcServer(Net::
 	}
 
 	gDebugStream("HandleSelectDatabase_RpcServer "<< res);
-	RPCReturn1(res);
+	Return(res);
 }
 

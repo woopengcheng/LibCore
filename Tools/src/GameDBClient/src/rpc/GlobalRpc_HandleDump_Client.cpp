@@ -8,7 +8,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleDump_RpcClient(Net::ISession * pSessi
 	objStream.Pushback(res.Begin() , res.GetDataLen());
 	if (res.GetDataLen() == 0)
 	{
-		RPCReturnNULL;
+		ReturnNULL;
 	}
 
 	INT32 nCount = 0; 
@@ -23,7 +23,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleDump_RpcClient(Net::ISession * pSessi
 	}
 
 	std::cout << "HandleDump_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::HandleDump_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc) 
@@ -31,6 +31,6 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleDump_RpcTimeout(Net::ISession * pSess
 
 
 	std::cout << "HandleDump_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

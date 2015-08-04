@@ -5,7 +5,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHMultiGet_RpcClient(Net::ISession * p
 
 
 	std::cout << "HandleHMultiGet_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHMultiGet_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/ , LibCore_Chunk & keys/* = LibCore::Chunk()*/) 
@@ -13,6 +13,6 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHMultiGet_RpcTimeout(Net::ISession * 
 
 
 	std::cout << "HandleHMultiGet_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

@@ -7,6 +7,6 @@ Msg::ObjectMsgCall * Server::SlaveHandler::SyncMasterHandler_RpcServer(Net::ISes
 	
 	Server::DBSlave::GetInstance().SetMasterSessionID(objSrc);
 	std::cout << "SyncMasterHandler_RpcServer "<< std::endl;
-	RPCReturn1(res);
+	Return(res);
 }
 

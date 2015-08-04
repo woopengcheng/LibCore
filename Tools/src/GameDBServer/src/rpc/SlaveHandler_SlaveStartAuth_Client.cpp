@@ -11,7 +11,7 @@ Msg::ObjectMsgCall * Server::SlaveHandler::SlaveStartAuth_RpcClient(Net::ISessio
 	}
 
 	std::cout << "SlaveStartAuth_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Server::SlaveHandler::SlaveStartAuth_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc ,std_string & name/* = std::string()*/ , std_string & pwd/* = std::string()*/)
@@ -19,6 +19,6 @@ Msg::ObjectMsgCall * Server::SlaveHandler::SlaveStartAuth_RpcTimeout(Net::ISessi
 
 
 	std::cout << "SlaveStartAuth_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

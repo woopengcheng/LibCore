@@ -7,7 +7,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHCount_RpcServer(Net::ISession
 
 	if (table.size() == 0 || !this->GetDataBase())
 	{
-		RPCReturn1(res);
+		Return(res);
 	}
 
 	GameDB::Database * pDB = this->GetDataBase(); 
@@ -21,6 +21,6 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHCount_RpcServer(Net::ISession
 	}
 
 	gDebugStream("HandleHCount_RpcServer "<< res );
-	RPCReturn1(res);
+	Return(res);
 }
 

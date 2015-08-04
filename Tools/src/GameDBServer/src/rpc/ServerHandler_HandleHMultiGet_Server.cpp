@@ -7,7 +7,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiGet_RpcServer(Net::ISess
 
 	if (table.size() == 0 || !this->GetDataBase())
 	{
-		RPCReturn1(res);
+		Return(res);
 	}
 
 	GameDB::Database * pDB = this->GetDataBase(); 
@@ -28,10 +28,10 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiGet_RpcServer(Net::ISess
 	if (oper.IsSuccess())
 	{
 		gDebugStream("HMultiDel table:" << table << "success."); 
-		RPCReturn1(oper.GetOperateReturns().GetStream().GetData());  
+		Return(oper.GetOperateReturns().GetStream().GetData());  
 	} 
 	 
 	std::cout << "HandleHMultiGet_RpcServer "<< std::endl;
-	RPCReturn1(res);
+	Return(res);
 }
 

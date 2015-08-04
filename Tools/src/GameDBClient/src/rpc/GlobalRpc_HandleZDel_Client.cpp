@@ -12,7 +12,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZDel_RpcClient(Net::ISession * pSessi
 	} 
 
 	std::cout << "HandleZDel_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZDel_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/ , std_string & key/* = std::string()*/) 
@@ -20,6 +20,6 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZDel_RpcTimeout(Net::ISession * pSess
 
 
 	std::cout << "HandleZDel_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

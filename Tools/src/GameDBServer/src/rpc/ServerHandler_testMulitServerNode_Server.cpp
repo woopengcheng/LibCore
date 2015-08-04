@@ -9,6 +9,6 @@ Msg::ObjectMsgCall * Server::ServerHandler::testMulitServerNode_RpcServer(Net::I
 
 
 	std::cout << "testMulitServerNode_RpcServer "<< std::endl;
-	RPCReturn1(res);
+	Return(res);
 }
 

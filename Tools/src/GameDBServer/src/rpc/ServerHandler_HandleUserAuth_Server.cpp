@@ -8,7 +8,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleUserAuth_RpcServer(Net::ISessi
 	GameDB::Database * pDB = GetDBServer()->GetEnvironment()->GetDatabase(g_szSystemDatabase);
 	if (!pDB)
 	{ 
-		RPCReturn1(res);
+		Return(res);
 	} 
 
 	GameDB::Operate oper;
@@ -16,7 +16,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleUserAuth_RpcServer(Net::ISessi
 	if (!oper.IsSuccess())
 	{
 		gDebugStream("DB:" <<  g_szSystemDatabase << " table:" <<  g_szSystemDatabase << "name:" << name << "failure.");
-		RPCReturn1(res);
+		Return(res);
 	}  
 
 	std::string value;
@@ -24,7 +24,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleUserAuth_RpcServer(Net::ISessi
 	if (value.length() <= 0)
 	{
 		gDebugStream("DB:" << g_szSystemDatabase << "table:" << g_szSystemDatabase << "key:" << name << "auth failure.");
-		RPCReturn1(res);
+		Return(res);
 	} 
 
 	GameDB::User objUser;
@@ -33,12 +33,12 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleUserAuth_RpcServer(Net::ISessi
 	if(objUser.get_pswd() != pwd)
 	{ 
 		gDebugStream("DB:" << g_szSystemDatabase << "table:" << g_szSystemDatabase << "key:" << name << "password wrong.");
-		RPCReturn1(res); 
+		Return(res); 
 	}
 	 
 	m_objAuthInfo.SetUserInfo(objUser);
 	res = 0;
 	gDebugStream("HandleUserAuth_RpcServer "<< res);
-	RPCReturn1(res);
+	Return(res);
 }
 

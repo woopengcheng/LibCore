@@ -4,7 +4,7 @@ Author		:	generate by tools
 HostName	:	woopengcheng
 IP			:	192.168.1.107
 Version		:	0.0.1
-Date		:	2015-08-01 00:59:19
+Date		:	2015-08-03 22:17:39
 Description	:	客户端调用的rpc.
 ************************************/
 #ifndef __msg_rpc_call_funcs_h__

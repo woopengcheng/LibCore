@@ -24,7 +24,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHList_RpcClient(Net::ISession * pSess
 
 
 	std::cout << "HandleHList_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHList_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc) 
@@ -32,6 +32,6 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHList_RpcTimeout(Net::ISession * pSes
 
 
 	std::cout << "HandleHList_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

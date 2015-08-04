@@ -5,7 +5,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHGet_RpcClient(Net::ISession * pSessi
 	gDebugStream("HGet value:" << value);
 
 	std::cout << "HandleHGet_RpcClient value:" << value << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHGet_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/ , std_string & key/* = std::string()*/) 
@@ -13,6 +13,6 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHGet_RpcTimeout(Net::ISession * pSess
 
 
 	std::cout << "HandleHGet_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

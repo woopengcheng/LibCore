@@ -18,7 +18,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZTop_RpcClient(Net::ISession * pSessi
 	}
 
 	std::cout << "HandleZTop_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZTop_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/ , INT64 start/* = 0*/ , INT64 end/* = 0*/ , INT64 limit/* = 0*/) 
@@ -26,6 +26,6 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZTop_RpcTimeout(Net::ISession * pSess
 
 
 	std::cout << "HandleZTop_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

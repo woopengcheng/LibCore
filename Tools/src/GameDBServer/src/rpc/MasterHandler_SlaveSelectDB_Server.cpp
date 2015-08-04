@@ -18,6 +18,6 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveSelectDB_RpcServer(Net::ISessio
 	} 
 
 	std::cout << "SlaveSelectDB_RpcServer " << res << std::endl;
-	RPCReturn1(res);
+	Return(res);
 }
 

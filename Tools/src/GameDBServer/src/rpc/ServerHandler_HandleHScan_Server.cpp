@@ -7,7 +7,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHScan_RpcServer(Net::ISession 
 
 	if (table.size() == 0 || !this->GetDataBase())
 	{
-		RPCReturn1(res);
+		Return(res);
 	}
 
 	GameDB::Database * pDB = this->GetDataBase(); 
@@ -17,10 +17,10 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHScan_RpcServer(Net::ISession 
 	if (oper.IsSuccess())
 	{
 		gDebugStream("HGetKeys table:" << table << "success."); 
-		RPCReturn1(oper.GetOperateReturns().GetStream().GetData());
+		Return(oper.GetOperateReturns().GetStream().GetData());
 	} 
 	 
 	std::cout << "HandleHScan_RpcServer "<< std::endl;
-	RPCReturn1(res);
+	Return(res);
 }
 

@@ -9,6 +9,6 @@ Msg::ObjectMsgCall * Server::SlaveHandler::testMulitServerNode_RpcServer(Net::IS
 
 
 	std::cout << "testMulitServerNode_RpcServer "<< std::endl;
-	RPCReturn1(res);
+	Return(res);
 }
 

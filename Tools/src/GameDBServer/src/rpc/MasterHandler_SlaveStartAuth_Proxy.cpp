@@ -10,12 +10,12 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcServerProxy(Net::I
 
 	if(ERR_FAILURE == ProxySendMsg("tcp://127.0.0.1:8001" , 1 , name , pwd))
 	{
-		RPCReturn1(value);
+		Return(value);
 	}
 
 
 	std::cout << "SlaveStartAuth_RpcServerProxy" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc  , std_string &value/* = std::string()*/)
@@ -33,13 +33,13 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcClientProxy(Net::I
 	}
 
 	std::cout << "SlaveStartAuth_RpcClientProxy" << std::endl;
-	RPCReturn1(value);
+	Return(value);
 }
 
 Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcTimeoutProxy(Net::ISession * pSession , Msg::Object objSrc , std_string &name/* = std::string()*/ , std_string & pwd/* = std::string()*/)
 {
 
  	std::cout << "SlaveStartAuth_RpcTimeoutProxy" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

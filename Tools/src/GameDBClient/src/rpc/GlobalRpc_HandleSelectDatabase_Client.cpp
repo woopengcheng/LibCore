@@ -12,7 +12,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleSelectDatabase_RpcClient(Net::ISessio
 	}
 
 	std::cout << "HandleSelectDatabase_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::HandleSelectDatabase_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & dbname/* = std::string()*/) 
@@ -20,6 +20,6 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleSelectDatabase_RpcTimeout(Net::ISessi
 
 
 	std::cout << "HandleSelectDatabase_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

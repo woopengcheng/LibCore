@@ -8,7 +8,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleDump_RpcServer(Net::ISession *
 	GameDB::Database * pDB = GetDataBase();
 	if (!pDB)
 	{
-		RPCReturn1(res);
+		Return(res);
 	}
 
 	int nCount = 0;
@@ -30,6 +30,6 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleDump_RpcServer(Net::ISession *
 	oper.GetOperateReturns().GetStream().Insert(oper.GetOperateReturns().GetStream().Begin() , &nCount , sizeof(nCount));
 
  	std::cout << "HandleDump_RpcServer "<< std::endl;
-	RPCReturn1(oper.GetOperateReturns().GetStream().GetData());
+	Return(oper.GetOperateReturns().GetStream().GetData());
 }
 

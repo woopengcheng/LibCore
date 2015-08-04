@@ -13,7 +13,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHSetNX_RpcClient(Net::ISession * pSes
 
 
 	std::cout << "HandleHSetNX_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHSetNX_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/ , std_string & key/* = std::string()*/ , std_string & value/* = std::string()*/) 
@@ -21,6 +21,6 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHSetNX_RpcTimeout(Net::ISession * pSe
 
 
 	std::cout << "HandleHSetNX_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

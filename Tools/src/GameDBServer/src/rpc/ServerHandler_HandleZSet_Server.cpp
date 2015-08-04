@@ -10,7 +10,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleZSet_RpcServer(Net::ISession *
 	GameDB::Database * pDB = this->GetDataBase();
 	if (key.size() == 0 || table.size() == 0 || !pDB)
 	{
-		RPCReturn1(res);
+		Return(res);
 	}  
 
 	GameDB::Operate oper;
@@ -20,10 +20,10 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleZSet_RpcServer(Net::ISession *
 		rpc_SyncDataToSlave("tcp://127.0.0.1:9001" , 0 , GetObjectID() , m_strDatabaseName , oper.GetOperateRecord().GetData());
 
 		gDebugStream("table:" << table << "key:" << key << "score:" << score << "success.");
-		RPCReturn1(0);
+		Return(0);
 	} 
 
 	gDebugStream("HandleZSet_RpcServer "<< res);
-	RPCReturn1(res);
+	Return(res);
 }
 

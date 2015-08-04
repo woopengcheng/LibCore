@@ -10,7 +10,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiSet_RpcServer(Net::ISess
 
 	if (table.size() == 0 || !this->GetDataBase())
 	{
-		RPCReturn1(res);
+		Return(res);
 	}
 
 	GameDB::Database * pDB = this->GetDataBase(); 
@@ -39,6 +39,6 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiSet_RpcServer(Net::ISess
 	} 
 
 	gDebugStream("HandleHMultiSet_RpcServer "<< res);
-	RPCReturn1(res);
+	Return(res);
 }
 

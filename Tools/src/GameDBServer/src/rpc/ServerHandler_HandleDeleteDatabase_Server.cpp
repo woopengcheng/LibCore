@@ -8,7 +8,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleDeleteDatabase_RpcServer(Net::
 	GameDB::Environment * pEnv = GetDBServer()->GetEnvironment();
 	if (!pEnv)
 	{ 
-		RPCReturn1(res);
+		Return(res);
 	}  
 
 	if (pEnv->GetDatabase(dbname) && m_objAuthInfo.CheckSysPermission())
@@ -17,6 +17,6 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleDeleteDatabase_RpcServer(Net::
 	} 
 
 	gDebugStream( "HandleDeleteDatabase_RpcServer " << res);;
-	RPCReturn1(res);
+	Return(res);
 }
 

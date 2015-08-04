@@ -13,7 +13,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::SlaveRequestSync_RpcServer(Net::ISes
 	GameDB::Database * pDB = Server::DBServer::GetInstance().GetEnvironment()->GetDatabase(dbname);
 	if (!pDB)
 	{
-		RPCReturn2(newbackdir , res);
+		Return(newbackdir , res);
 	}
 
 	std::string strTimeStamp = Timer::TimerHelper::GetDate("%Y%m%d%H%M%S");
@@ -22,6 +22,6 @@ Msg::ObjectMsgCall * Server::ServerHandler::SlaveRequestSync_RpcServer(Net::ISes
 
 	res = 0;
 	std::cout << "SlaveRequestSync_RpcServer "<< std::endl;
-	RPCReturn2(newbackdir , res);
+	Return(newbackdir , res);
 }
 

@@ -8,7 +8,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHSetIncrFloat_RpcServer(Net::I
 
 	if (key.size() == 0 || table.size() == 0 || !this->GetDataBase())
 	{
-		RPCReturn1(res);
+		Return(res);
 	}
 
 	GameDB::Database * pDB = this->GetDataBase(); 
@@ -24,6 +24,6 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHSetIncrFloat_RpcServer(Net::I
 	}
 
 	gDebugStream("HandleHSetIncrFloat_RpcServer "<< res);
-	RPCReturn1(res);
+	Return(res);
 }
 

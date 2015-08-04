@@ -4,7 +4,7 @@ Author		:	generate by tools
 HostName	:	woopengcheng
 IP			:	192.168.1.107
 Version		:	0.0.1
-Date		:	2015-08-01 00:59:19
+Date		:	2015-08-03 22:17:39
 Description	:	网络消息的数据域.
 ************************************/
 #ifndef __Server_rpc_datas_h__
@@ -31,6 +31,7 @@ namespace Server
 		float localid11;
 		std_string localid12;
 		LibCore_Chunk localid13;
+		std::vector<INT32> testVecctor;
 
 		TestRpcData()
 			: userid1( 111 ) 
@@ -45,6 +46,7 @@ namespace Server
 			, localid11( 1.0f ) 
 			, localid12( std::string() ) 
 			, localid13( LibCore::Chunk() ) 
+			, testVecctor( std::vector<INT32>(1) ) 
 			{}
 	}; 
  
@@ -104,7 +106,7 @@ namespace Msg
 			INT32 unType = 0;
 			Server::TestRpcData val;
 
-			objParam.GetParamStream() >> unType  >> val.userid1 >> val.localid2 >> val.userid3 >> val.localid4 >> val.localid6 >> val.userid7 >> val.localid8 >> val.userid9 >> val.localid10 >> val.localid11 >> val.localid12 >> val.localid13;
+			objParam.GetParamStream() >> unType  >> val.userid1 >> val.localid2 >> val.userid3 >> val.localid4 >> val.localid6 >> val.userid7 >> val.localid8 >> val.userid9 >> val.localid10 >> val.localid11 >> val.localid12 >> val.localid13 >> val.testVecctor;
 			MsgAssert_Re(unType == PARAMETER_TYPE_USER_DEFINE_TestRpcData , val , "get param error.");
 
 			return val;
@@ -112,7 +114,7 @@ namespace Msg
 
 		static void MakeParameter(Parameter & objParam , Server::TestRpcData val)
 		{ 
-			objParam.GetParamStream() << (INT32)PARAMETER_TYPE_USER_DEFINE_TestRpcData << val.userid1 << val.localid2 << val.userid3 << val.localid4 << val.localid6 << val.userid7 << val.localid8 << val.userid9 << val.localid10 << val.localid11 << val.localid12 << val.localid13;
+			objParam.GetParamStream() << (INT32)PARAMETER_TYPE_USER_DEFINE_TestRpcData << val.userid1 << val.localid2 << val.userid3 << val.localid4 << val.localid6 << val.userid7 << val.localid8 << val.userid9 << val.localid10 << val.localid11 << val.localid12 << val.localid13 << val.testVecctor;
 		} 
 
 		static BOOL CheckParamType(Parameter & objParam)

@@ -13,7 +13,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZSet_RpcClient(Net::ISession * pSessi
 
 
 	std::cout << "HandleZSet_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZSet_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/ , std_string & key/* = std::string()*/, INT64 score/* = 0*/ ) 
@@ -21,6 +21,6 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZSet_RpcTimeout(Net::ISession * pSess
 
 
 	std::cout << "HandleZSet_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

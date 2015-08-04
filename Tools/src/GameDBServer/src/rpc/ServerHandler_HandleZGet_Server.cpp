@@ -10,7 +10,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleZGet_RpcServer(Net::ISession *
 	GameDB::Database * pDB = this->GetDataBase();
 	if (key.size() == 0 || table.size() == 0 || !pDB)
 	{
-		RPCReturn1(llScore);
+		Return(llScore);
 	} 
 	 
 	GameDB::Operate oper;
@@ -22,6 +22,6 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleZGet_RpcServer(Net::ISession *
 	} 
 
 	gDebugStream("HandleZGet_RpcServer score:"<< llScore);
-	RPCReturn1(llScore);
+	Return(llScore);
 }
 

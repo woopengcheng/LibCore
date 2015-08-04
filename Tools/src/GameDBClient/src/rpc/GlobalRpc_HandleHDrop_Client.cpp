@@ -12,7 +12,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHDrop_RpcClient(Net::ISession * pSess
 	}   
 
 	std::cout << "HandleHDrop_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHDrop_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/) 
@@ -20,6 +20,6 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHDrop_RpcTimeout(Net::ISession * pSes
 
 
 	std::cout << "HandleHDrop_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

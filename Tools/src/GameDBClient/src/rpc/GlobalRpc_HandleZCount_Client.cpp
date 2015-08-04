@@ -14,7 +14,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZCount_RpcClient(Net::ISession * pSes
 
 
 	std::cout << "HandleZCount_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZCount_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/) 
@@ -22,6 +22,6 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleZCount_RpcTimeout(Net::ISession * pSe
 
 
 	std::cout << "HandleZCount_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

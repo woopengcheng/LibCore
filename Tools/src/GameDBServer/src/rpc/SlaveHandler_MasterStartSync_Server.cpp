@@ -8,6 +8,6 @@ Msg::ObjectMsgCall * Server::SlaveHandler::MasterStartSync_RpcServer(Net::ISessi
 	RecvFile(m_objSlaveInfo.strDir , filename , m_objSlaveInfo.strDBName , filesize , sendtype , value ); 
 
 	std::cout << "MasterStartSync_RpcServer "<< std::endl;
-	RPCReturn1(res);
+	Return(res);
 }
 

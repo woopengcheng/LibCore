@@ -8,7 +8,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::SyncMasterHandler_RpcClient(Net::ISe
 
 
 	std::cout << "SyncMasterHandler_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Server::MasterHandler::SyncMasterHandler_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , INT32 id/* = 0*/)
@@ -16,6 +16,6 @@ Msg::ObjectMsgCall * Server::MasterHandler::SyncMasterHandler_RpcTimeout(Net::IS
 
 
 	std::cout << "SyncMasterHandler_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

@@ -8,7 +8,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::SyncDataToSlave_RpcClient(Net::ISess
 
 
 	std::cout << "SyncDataToSlave_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Server::ServerHandler::SyncDataToSlave_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc ,std_string & dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/)
@@ -16,6 +16,6 @@ Msg::ObjectMsgCall * Server::ServerHandler::SyncDataToSlave_RpcTimeout(Net::ISes
 
 
 	std::cout << "SyncDataToSlave_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

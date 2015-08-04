@@ -9,7 +9,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleDeleteUser_RpcServer(Net::ISes
 	GameDB::Database * pDB = this->GetDataBase();
 	if (name.size() == 0 || !pDB || !pDB->IsSystemDatabase())
 	{
-		RPCReturn1(res);
+		Return(res);
 	} 
 
 	GameDB::Operate oper;
@@ -23,6 +23,6 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleDeleteUser_RpcServer(Net::ISes
 	}
 
 	gDebugStream("HandleDeleteUser_RpcServer "<< res);
-	RPCReturn1(res);
+	Return(res);
 }
 

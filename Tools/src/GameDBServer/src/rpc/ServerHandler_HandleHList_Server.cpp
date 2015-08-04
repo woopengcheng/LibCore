@@ -7,7 +7,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHList_RpcServer(Net::ISession 
 
 	if (!this->GetDataBase())
 	{
-		RPCReturn1(res);
+		Return(res);
 	}
 
 	GameDB::Database * pDB = this->GetDataBase(); 
@@ -16,10 +16,10 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHList_RpcServer(Net::ISession 
 	GameDB::HashTable::HList(*pDB , oper);
 	if (oper.IsSuccess())
 	{ 
-		RPCReturn1(oper.GetOperateReturns().GetStream().GetData());
+		Return(oper.GetOperateReturns().GetStream().GetData());
 	} 
 
 	std::cout << "HandleHList_RpcServer "<< std::endl;
-	RPCReturn1(res);
+	Return(res);
 }
 

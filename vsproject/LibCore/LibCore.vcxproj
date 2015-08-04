@@ -124,10 +124,10 @@
     <TargetName>$(ProjectName)_vs$(VisualStudioVersion)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-    <OutDir>$(SolutionDir)..\bin\dll\$(Platform)\$(Configuration)</OutDir>
+    <OutDir>$(SolutionDir)..\bin\dll\$(Platform)\$(Configuration)\</OutDir>
     <TargetName>$(ProjectName)_vs$(VisualStudioVersion)</TargetName>
     <IgnoreImportLibrary>false</IgnoreImportLibrary>
-    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

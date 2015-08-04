@@ -13,7 +13,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHSetIncrFloat_RpcClient(Net::ISession
 
 
 	std::cout << "HandleHSetIncrFloat_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHSetIncrFloat_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/ , std_string & key/* = std::string()*/ , double value/* = 0.0f*/) 
@@ -21,6 +21,6 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHSetIncrFloat_RpcTimeout(Net::ISessio
 
 
 	std::cout << "HandleHSetIncrFloat_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

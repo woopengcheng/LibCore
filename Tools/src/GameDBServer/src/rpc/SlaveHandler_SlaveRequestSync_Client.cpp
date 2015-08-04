@@ -8,7 +8,7 @@ Msg::ObjectMsgCall * Server::SlaveHandler::SlaveRequestSync_RpcClient(Net::ISess
 
 
 	std::cout << "SlaveRequestSync_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Server::SlaveHandler::SlaveRequestSync_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & dbname/* = std::string()*/)
@@ -16,6 +16,6 @@ Msg::ObjectMsgCall * Server::SlaveHandler::SlaveRequestSync_RpcTimeout(Net::ISes
 
 
 	std::cout << "SlaveRequestSync_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

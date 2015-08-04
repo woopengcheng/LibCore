@@ -25,7 +25,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHScan_RpcClient(Net::ISession * pSess
 
 
 	std::cout << "HandleHScan_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHScan_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/ , std_string & start/* = std::string()*/ , std_string & regexp/* = std::string()*/ , INT64 limit/* = 10*/) 
@@ -33,6 +33,6 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHScan_RpcTimeout(Net::ISession * pSes
 
 
 	std::cout << "HandleHScan_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

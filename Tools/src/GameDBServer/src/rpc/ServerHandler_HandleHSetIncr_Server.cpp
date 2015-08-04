@@ -8,7 +8,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHSetIncr_RpcServer(Net::ISessi
 
 	if (key.size() == 0 || table.size() == 0 || !this->GetDataBase())
 	{
-		RPCReturn1(res);
+		Return(res);
 	}
 
 	GameDB::Database * pDB = this->GetDataBase(); 
@@ -23,6 +23,6 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHSetIncr_RpcServer(Net::ISessi
 		gDebugStream("table:" << table << "key:" << key << "value:" << value << "success."); 
 	}
 	gDebugStream("HandleHSetIncr_RpcServer "<< res);
-	RPCReturn1(res);
+	Return(res);
 }
 

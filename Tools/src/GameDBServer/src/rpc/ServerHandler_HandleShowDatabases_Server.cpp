@@ -8,7 +8,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleShowDatabases_RpcServer(Net::I
 	GameDB::Environment * pEnv = GetDBServer()->GetEnvironment();
 	if (!pEnv)
 	{ 
-		RPCReturn1(res);
+		Return(res);
 	} 
 
 	std::vector<std::string> strAllDBS;
@@ -23,6 +23,6 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleShowDatabases_RpcServer(Net::I
 	}
 
 	std::cout << "HandleShowDatabases_RpcServer "<< std::endl;
-	RPCReturn1(cs.GetData());
+	Return(cs.GetData());
 }
 

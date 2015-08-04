@@ -6,7 +6,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::testMulitServerNode_RpcClient(Net::ISession
 
 
 	std::cout << "testMulitServerNode_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::testMulitServerNode_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/ , int value2/* = 0*/ , unsigned int value22/* = 0*/ , char valChar/* = char(0)*/)
@@ -14,6 +14,6 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::testMulitServerNode_RpcTimeout(Net::ISessio
 
 
 	std::cout << "testMulitServerNode_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

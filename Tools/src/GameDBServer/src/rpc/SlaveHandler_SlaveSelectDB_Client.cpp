@@ -11,7 +11,7 @@ Msg::ObjectMsgCall * Server::SlaveHandler::SlaveSelectDB_RpcClient(Net::ISession
 	}
 
 	std::cout << "SlaveSelectDB_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Server::SlaveHandler::SlaveSelectDB_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc ,std_string & dbname/* = std::string()*/)
@@ -19,6 +19,6 @@ Msg::ObjectMsgCall * Server::SlaveHandler::SlaveSelectDB_RpcTimeout(Net::ISessio
 
 
 	std::cout << "SlaveSelectDB_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

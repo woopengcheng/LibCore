@@ -6,6 +6,6 @@ Msg::ObjectMsgCall * Server::TestObject::TestObject1_RpcServer(SINT8 userid1/* =
 
 
 	std::cout << "TestObject1_RpcServer "<< std::endl;
-	RPCReturn0();
+	Return();
 }
 

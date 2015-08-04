@@ -11,7 +11,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHSet_RpcServer(Net::ISession *
 	INT32 res = -1;
 	if (value.size() == 0 || key.size() == 0 || table.size() == 0 || !this->GetDataBase())
 	{
-		RPCReturn1(res);
+		Return(res);
 	}
 	 
 	GameDB::Database * pDB = this->GetDataBase(); 
@@ -27,5 +27,5 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHSet_RpcServer(Net::ISession *
 	}
 
 	gDebugStream("HandleHSet_RpcServer "<< res);
-	RPCReturn1(res);
+	Return(res);
 }

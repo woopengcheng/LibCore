@@ -9,7 +9,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleModifyUser_RpcServer(Net::ISes
 	GameDB::Database * pDB = GetDBServer()->GetEnvironment()->GetDatabase(g_szSystemDatabase);
 	if (!pDB)
 	{ 
-		RPCReturn1(res);
+		Return(res);
 	} 
 
 	GameDB::Operate oper;
@@ -17,7 +17,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleModifyUser_RpcServer(Net::ISes
 	if (!oper.IsSuccess())
 	{
 		gDebugStream("DB:" <<  g_szSystemDatabase << " table:" <<  g_szSystemDatabase << "name:" << name << "failure.");
-		RPCReturn1(res);
+		Return(res);
 	}  
 
 	std::string value;
@@ -25,7 +25,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleModifyUser_RpcServer(Net::ISes
 	if (value.length() <= 0)
 	{
 		gDebugStream("DB:" << g_szSystemDatabase << "table:" << g_szSystemDatabase << "key:" << name << "auth failure.");
-		RPCReturn1(res);
+		Return(res);
 	} 
 
 	GameDB::User objUser;
@@ -45,6 +45,6 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleModifyUser_RpcServer(Net::ISes
 	}
 
 	gDebugStream("HandleModifyUser_RpcServer "<< res);
-	RPCReturn1(res);
+	Return(res);
 }
 

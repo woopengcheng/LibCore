@@ -47,6 +47,6 @@ Msg::ObjectMsgCall * Server::SlaveHandler::SyncDataToSlave_RpcServer(Net::ISessi
 	}
 
 	std::cout << "SyncDataToSlave_RpcServer "<< std::endl;
-	RPCReturn1(res);
+	Return(res);
 }
 

@@ -8,7 +8,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHSetNX_RpcServer(Net::ISession
 
 	if (key.size() == 0 || table.size() == 0 || !this->GetDataBase())
 	{
-		RPCReturn1(res);
+		Return(res);
 	}
 
 	GameDB::Database * pDB = this->GetDataBase(); 
@@ -24,6 +24,6 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHSetNX_RpcServer(Net::ISession
 	}
 
 	gDebugStream("HandleHSetNX_RpcServer "<< res);
-	RPCReturn1(res);
+	Return(res);
 }
 

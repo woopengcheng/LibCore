@@ -13,19 +13,19 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleCreateUser_RpcServer(Net::ISes
 
 	if (name.size() == 0 || pwd.size() == 0  && !GetDBServer() && !GetDBServer()->GetEnvironment())
 	{
-		RPCReturn1(res);
+		Return(res);
 	}
 
 	GameDB::Database * pDB = GetDBServer()->GetEnvironment()->GetDatabase(g_szSystemDatabase);
 	if (!pDB)
 	{
-		RPCReturn1(res);
+		Return(res);
 	}
 
 	//5 ºÏ≤È»®œﬁ
 	if (!m_objAuthInfo.CheckSysPermission())
 	{
-		RPCReturn1(res);
+		Return(res);
 	}
 
 	std::string strValue;
@@ -46,6 +46,6 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleCreateUser_RpcServer(Net::ISes
 	}
 	 
 	gDebugStream("HandleCreateUser_RpcServer :"<< res);
-	RPCReturn1(res);
+	Return(res);
 }
 

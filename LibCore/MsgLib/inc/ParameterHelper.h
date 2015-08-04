@@ -47,18 +47,18 @@ namespace Msg
 		\
 		static type_name GetParameterValue(Parameter & objParam)\
 		{ \
-			UINT32 unType = 0 , unSize = 0;\
+			UINT32 unType = 0;\
 			type_name  val = 0;\
 			\
-			objParam.GetParamStream() >> unType >> unSize >> val;   \
-			MsgAssert_Re0(unType == type_macro && unSize == sizeof(val) , "获取参数值错误.");\
+			objParam.GetParamStream() >> unType >> val;   \
+			MsgAssert_Re0(unType == type_macro , "获取参数值错误.");\
 			\
 			return val;\
 		}\
 		\
 		static void MakeParameter(Parameter & objParam , type_name val)\
 		{ \
-			objParam.GetParamStream() << (INT32)type_macro << (INT32)sizeof(val) << val;      \
+			objParam.GetParamStream() << (INT32)type_macro << val;      \
 		}\
 		\
 		static BOOL CheckParamType(Parameter & objParam)\
@@ -72,8 +72,87 @@ namespace Msg
 	};\
 	GEN_PARAMTER_HELPER_REFER(type_name , type_macro)
 	
-	template<typename T> class  ParameterHelper { };
+//	template<typename T > class  ParameterHelper { };
+	 
+	template<typename T> class ParameterHelper
+	{
+	public:
+		static UINT32 GetParameterType(){ return PARAMETER_TYPE_STD_VECTOR; } 
+		static T GetParameterValue(Parameter & objParam)
+		{
+			INT32 nType = 0 ;
 
+			objParam.GetParamStream() >> nType ;
+//			MsgAssert_Re(nType == PARAMETER_TYPE_STD_VECTOR , , "paramter type is error. :" << nType << " cur: " << PARAMETER_TYPE_STD_VECTOR);
+
+			T Value = T();
+			LibCore::STLContainer<T> value = LibCore::STLContainer<T>(Value);
+			objParam.GetParamStream() >> value;;
+
+			return Value; 
+		}
+
+		static void MakeParameter(Parameter & objParam , LibCore::STLContainer<T> value)
+		{   
+			objParam.GetParamStream() << (INT32)PARAMETER_TYPE_STD_VECTOR;  
+			objParam.GetParamStream() << value;
+		}
+
+		static void MakeParameter(Parameter & objParam , LibCore::STLContainer<T> & value)
+		{   
+			objParam.GetParamStream() << (INT32)PARAMETER_TYPE_STD_VECTOR;  
+			objParam.GetParamStream() << value;
+		}
+
+		static BOOL CheckParamType(Parameter & objParam)
+		{
+			if (objParam.GetType() == typeName)
+			{
+				return TRUE;
+			}
+			return FALSE;
+		}
+	};  
+
+	template<typename T> class ParameterHelper<T &>
+	{
+	public:
+		static UINT32 GetParameterType(){ return PARAMETER_TYPE_STD_VECTOR; } 
+		static T GetParameterValue(Parameter & objParam)
+		{
+			INT32 nType = 0 ;
+
+			objParam.GetParamStream() >> nType ;
+			//			MsgAssert_Re(nType == PARAMETER_TYPE_STD_VECTOR , , "paramter type is error. :" << nType << " cur: " << PARAMETER_TYPE_STD_VECTOR);
+
+			T Value = T();
+			LibCore::STLContainer<T> value = LibCore::STLContainer<T>(Value);
+			objParam.GetParamStream() >> value;;
+
+			return Value; 
+		}
+
+		static void MakeParameter(Parameter & objParam , LibCore::STLContainer<T> value)
+		{   
+			objParam.GetParamStream() << (INT32)PARAMETER_TYPE_STD_VECTOR;  
+			objParam.GetParamStream() << value;
+		}
+
+		static void MakeParameter(Parameter & objParam , LibCore::STLContainer<T> & value)
+		{   
+			objParam.GetParamStream() << (INT32)PARAMETER_TYPE_STD_VECTOR;  
+			objParam.GetParamStream() << value;
+		}
+
+		static BOOL CheckParamType(Parameter & objParam)
+		{
+			if (objParam.GetType() == typeName)
+			{
+				return TRUE;
+			}
+			return FALSE;
+		}
+	};  
 
 	template<> class ParameterHelper<const char *>
 	{
@@ -178,68 +257,68 @@ namespace Msg
 			return FALSE;
 		}
 	};
-
-	template<> class ParameterHelper<LibCore::Chunk>
-	{
-	public:
-		static UINT32 GetParameterType()
-		{
-			return PARAMETER_TYPE_CHUNK;
-		}
-
-		static LibCore::Chunk GetParameterValue(Parameter & objParam)
-		{
-			INT32 unType = 0 , unSize = 0;
-			LibCore::Chunk val; 
-
-			objParam.GetParamStream() >> unType >> unSize >> val;   
-			MsgAssert_Re(unType == PARAMETER_TYPE_CHUNK && unSize == val.GetDataLen() , val , "获取参数值错误."); 
-
-			return val;
-		}
-
-		static void MakeParameter(Parameter & objParam , LibCore::Chunk val)
-		{ 
-			objParam.GetParamStream() << (INT32)PARAMETER_TYPE_CHUNK << val.GetDataLen() << val;    
-		}
-
-		static BOOL CheckParamType(Parameter & objParam)
-		{
-			if (objParam.GetType() == PARAMETER_TYPE_CHUNK)
-			{
-				return TRUE;
-			}
-			return FALSE;
-		}
-	}; 
-
-	template<> class ParameterHelper<LibCore::Chunk &>
-	{
-	public:
-		static UINT32 GetParameterType()
-		{
-			return PARAMETER_TYPE_CHUNK;
-		}
-
-		static LibCore::Chunk GetParameterValue(Parameter & objParam)
-		{
-			return ParameterHelper<LibCore::Chunk>::GetParameterValue(objParam);
-		}
-
-		static void MakeParameter(Parameter & objParam , LibCore::Chunk val)
-		{ 
-			return ParameterHelper<LibCore::Chunk>::MakeParameter(objParam , val);  
-		}
-
-		static BOOL CheckParamType(Parameter & objParam)
-		{
-			if (objParam.GetType() == PARAMETER_TYPE_CHUNK)
-			{
-				return TRUE;
-			}
-			return FALSE;
-		}
-	}; 
+// 
+// 	template<> class ParameterHelper<LibCore::Chunk>
+// 	{
+// 	public:
+// 		static UINT32 GetParameterType()
+// 		{
+// 			return PARAMETER_TYPE_CHUNK;
+// 		}
+// 
+// 		static LibCore::Chunk GetParameterValue(Parameter & objParam)
+// 		{
+// 			INT32 unType = 0 , unSize = 0;
+// 			LibCore::Chunk val; 
+// 
+// 			objParam.GetParamStream() >> unType >> unSize >> val;   
+// 			MsgAssert_Re(unType == PARAMETER_TYPE_CHUNK && unSize == val.GetDataLen() , val , "获取参数值错误."); 
+// 
+// 			return val;
+// 		}
+// 
+// 		static void MakeParameter(Parameter & objParam , LibCore::Chunk val)
+// 		{ 
+// 			objParam.GetParamStream() << (INT32)PARAMETER_TYPE_CHUNK << val.GetDataLen() << val;    
+// 		}
+// 
+// 		static BOOL CheckParamType(Parameter & objParam)
+// 		{
+// 			if (objParam.GetType() == PARAMETER_TYPE_CHUNK)
+// 			{
+// 				return TRUE;
+// 			}
+// 			return FALSE;
+// 		}
+// 	}; 
+// 
+// 	template<> class ParameterHelper<LibCore::Chunk &>
+// 	{
+// 	public:
+// 		static UINT32 GetParameterType()
+// 		{
+// 			return PARAMETER_TYPE_CHUNK;
+// 		}
+// 
+// 		static LibCore::Chunk GetParameterValue(Parameter & objParam)
+// 		{
+// 			return ParameterHelper<LibCore::Chunk>::GetParameterValue(objParam);
+// 		}
+// 
+// 		static void MakeParameter(Parameter & objParam , LibCore::Chunk val)
+// 		{ 
+// 			return ParameterHelper<LibCore::Chunk>::MakeParameter(objParam , val);  
+// 		}
+// 
+// 		static BOOL CheckParamType(Parameter & objParam)
+// 		{
+// 			if (objParam.GetType() == PARAMETER_TYPE_CHUNK)
+// 			{
+// 				return TRUE;
+// 			}
+// 			return FALSE;
+// 		}
+// 	}; 
 
 	GEN_PARAMTER_HELPER(bool , PARAMETER_TYPE_BOOL); 
 	GEN_PARAMTER_HELPER(char , PARAMETER_TYPE_SINT8); 
@@ -254,7 +333,7 @@ namespace Msg
 	GEN_PARAMTER_HELPER(float , PARAMETER_TYPE_FLOAT);
 	GEN_PARAMTER_HELPER(double , PARAMETER_TYPE_DOUBLE); 
 //	GEN_PARAMTER_HELPER(std::string  , PARAMETER_TYPE_STD_STRING); 
-//	GEN_PARAMTER_HELPER(LibCore::Chunk , PARAMETER_TYPE_CHUNK);  
+	GEN_PARAMTER_HELPER(LibCore::Chunk , PARAMETER_TYPE_CHUNK);  
 }
 
 #endif

@@ -9,7 +9,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHDrop_RpcServer(Net::ISession 
 	GameDB::Database * pDB = this->GetDataBase();
 	if (table.size() == 0 || !pDB)
 	{
-		RPCReturn1(res);
+		Return(res);
 	} 
 
 	GameDB::Operate oper;
@@ -23,6 +23,6 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHDrop_RpcServer(Net::ISession 
 	}
 	 
 	gDebugStream("HandleHDrop_RpcServer "<< res);
-	RPCReturn1(res);
+	Return(res);
 }
 

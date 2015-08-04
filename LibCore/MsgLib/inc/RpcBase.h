@@ -9,16 +9,9 @@
 #include "NetLib/inc/ISession.h"
 #include "TimerLib/inc/TimeCount.h" 
 
-#define RPCReturnNULL return NULL;
-#define RPCReturn0() return Return();
-#define RPCReturn1(p1) return Return(p1);
-#define RPCReturn2(p1 , p2) return Return(p1 , p2);
-#define RPCReturn3(p1 , p2 , p3) return Return(p1 , p2 , p3);
-#define RPCReturn4(p1 , p2 , p3 , p4) return Return(p1 , p2 , p3 , p4 );
-#define RPCReturn5(p1 , p2 , p3 , p4 , p5) return Return(p1 , p2 , p3 , p4 , p5);
-#define RPCReturn6(p1 , p2 , p3 , p4 , p5 , p6) return Return(p1 , p2 , p3 , p4 , p5 , p6 );
-#define RPCReturn7(p1 , p2 , p3 , p4 , p5 , p6 , p7) return Return(p1 , p2 , p3 , p4 , p5 , p6 , p7);
-#define RPCReturn8(p1 , p2 , p3 , p4 , p5 , p6 , p7 , p8) return Return(p1 , p2 , p3 , p4 , p5 , p6 , p7 , p8);
+#define ReturnNULL return NULL;
+#define ReturnDelay return RPCReturn(RETURN_TYPE_DELAY); 
+#define Return return RPCReturn
 
 
 #define RPC_MSG_SEND_TYPE_DELIVER "Deliver"
@@ -48,6 +41,12 @@
 	RPC_GEN_MSG(vecTargets , objSrc) pMsg->m_bClientRequest = FALSE; \
 	pMsg->SetProxySrcID(m_pRpcMsgCall->m_objSource); 
 
+#define CHECK_RPC_RETURN_TYPE 	if (type == RETURN_TYPE_DELAY)\
+	{\
+		m_pRpcMsgCall->SetReturnType(type);\
+		m_pRpcMsgCall->AddDelayTarget(m_objID);\
+		return NULL;\
+	}
 
 namespace Timer
 {
@@ -60,7 +59,6 @@ namespace Msg
 	class RpcManager;  
 	class RPCMsgCall;
 
-	
 	class DLL_EXPORT  Rpc : public ICallableObject
 	{
 	public:
@@ -279,8 +277,9 @@ namespace Msg
 		}
 
 	public:   
-		RPCMsgCall * Return()
-		{ 
+		RPCMsgCall * RPCReturn(ERPCRETURN_TYPE type = RETURN_TYPE_DONE)
+		{
+			CHECK_RPC_RETURN_TYPE;
 			Assert_Re0("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(FALSE , m_pRpcMsgCall->m_szMsgMethod) && "RPC返回参数类型或者数量不对.");
 
 			RPC_GEN_RETURN_MSG;
@@ -291,8 +290,9 @@ namespace Msg
 		}
 
 		template<class P1>
-		RPCMsgCall * Return(P1 p1)
+		RPCMsgCall * RPCReturn(P1 p1 , ERPCRETURN_TYPE type = RETURN_TYPE_DONE)
 		{ 
+			CHECK_RPC_RETURN_TYPE;
  			Assert_Re0("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(FALSE , m_pRpcMsgCall->m_szMsgMethod , p1) && "RPC返回参数类型或者数量不对.");
 
 			RPC_GEN_RETURN_MSG;
@@ -303,8 +303,9 @@ namespace Msg
 		} 
 
 		template<typename P1 , typename P2 >
-		RPCMsgCall * Return(P1 &p1 , P2 &p2) 
+		RPCMsgCall * RPCReturn(P1 &p1 , P2 &p2 , ERPCRETURN_TYPE type = RETURN_TYPE_DONE) 
 		{
+			CHECK_RPC_RETURN_TYPE;
 			Assert_Re0("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(FALSE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2) && "RPC返回参数类型或者数量不对.");
 
 			RPC_GEN_RETURN_MSG;
@@ -315,8 +316,9 @@ namespace Msg
 		}
 
 		template<typename P1 , typename P2 , typename P3>
-		RPCMsgCall * Return(P1 &p1 , P2 &p2 , P3 &p3) 
+		RPCMsgCall * RPCReturn(P1 &p1 , P2 &p2 , P3 &p3 , ERPCRETURN_TYPE type = RETURN_TYPE_DONE) 
 		{
+			CHECK_RPC_RETURN_TYPE;
 			Assert_Re0("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2 , p3 ) && "RPC发送参数类型或者数量不对.");
 
 			RPC_GEN_RETURN_MSG;
@@ -327,8 +329,9 @@ namespace Msg
 		}
 
 		template<typename P1 , typename P2 , typename P3 , typename P4>
-		RPCMsgCall * Return(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4) 
+		RPCMsgCall * RPCReturn(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , ERPCRETURN_TYPE type = RETURN_TYPE_DONE) 
 		{
+			CHECK_RPC_RETURN_TYPE;
 			Assert_Re0("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2 , p3 , p4) && "RPC发送参数类型或者数量不对.");
 
 			RPC_GEN_RETURN_MSG;
@@ -339,8 +342,9 @@ namespace Msg
 		}
 
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5>
-		RPCMsgCall * Return(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5) 
+		RPCMsgCall * RPCReturn(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , ERPCRETURN_TYPE type = RETURN_TYPE_DONE) 
 		{
+			CHECK_RPC_RETURN_TYPE;
 			Assert_Re0("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2 , p3 , p4 , p5) && "RPC发送参数类型或者数量不对.");
 
 			RPC_GEN_RETURN_MSG;
@@ -351,8 +355,9 @@ namespace Msg
 		}
 
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6>
-		RPCMsgCall * Return(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6) 
+		RPCMsgCall * RPCReturn(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , ERPCRETURN_TYPE type = RETURN_TYPE_DONE) 
 		{
+			CHECK_RPC_RETURN_TYPE;
 			Assert_Re0("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2 , p3 , p4 , p5 , p6) && "RPC发送参数类型或者数量不对.");
 
 			RPC_GEN_RETURN_MSG;
@@ -363,8 +368,9 @@ namespace Msg
 		}
 
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7>
-		RPCMsgCall * Return(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7) 
+		RPCMsgCall * RPCReturn(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7 , ERPCRETURN_TYPE type = RETURN_TYPE_DONE) 
 		{
+			CHECK_RPC_RETURN_TYPE;
 			Assert_Re0("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2 , p3 , p4 , p5 , p6, p7) && "RPC发送参数类型或者数量不对.");
 
 			RPC_GEN_RETURN_MSG;
@@ -375,8 +381,9 @@ namespace Msg
 		}
 
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8>
-		RPCMsgCall * Return(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7 , P8 &p8) 
+		RPCMsgCall * RPCReturn(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7 , P8 &p8 , ERPCRETURN_TYPE type = RETURN_TYPE_DONE) 
 		{ 
+			CHECK_RPC_RETURN_TYPE;
 			Assert_Re0("msgPacket maybe NULL or Params is not match" && m_pRpcMsgCall && m_pRpcManager && g_pRpcCheckParams && g_pRpcCheckParams->CheckRpcParams(TRUE , m_pRpcMsgCall->m_szMsgMethod , p1 , p2 , p3 , p4 , p5 , p6, p7 , p8) && "RPC发送参数类型或者数量不对.");
 
 			RPC_GEN_RETURN_MSG;

@@ -10,12 +10,12 @@ Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcServerProxy(N
 
 	if(ERR_FAILURE == ProxySendMsg("tcp://127.0.0.1:8002" , 0 , dbname , value , value2 , value22 , valChar))
 	{
-		RPCReturn1(res);
+		Return(res);
 	}
 
 
 	std::cout << "testMulitServerNode_RpcServerProxy" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc  ,LibCore_Chunk & res/* = LibCore::Chunk()*/)
@@ -25,7 +25,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcClientProxy(N
 
 
 	std::cout << "testMulitServerNode_RpcClientProxy" << std::endl;
-	RPCReturn1(res);
+	Return(res);
 }
 
 Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcTimeoutProxy(Net::ISession * pSession , Msg::Object objSrc,std_string & dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/ , int value2/* = 0*/ , unsigned int value22/* = 0*/ , char valChar/* = char(0)*/ )
@@ -33,6 +33,6 @@ Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcTimeoutProxy(
 
 
  	std::cout << "testMulitServerNode_RpcTimeoutProxy" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

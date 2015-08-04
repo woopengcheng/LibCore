@@ -9,8 +9,9 @@ namespace Msg
 	class DLL_EXPORT  RpcServerManager : public RpcManager
 	{ 
 	public:
-		typedef tbb_queue<RPCMsgCall *> CollectionPostMsgsQueT;
-		typedef tbb_unordered_map<std::string  , CollectionPostMsgsQueT> CollectionPostMsgsT;
+		typedef tbb_queue<RPCMsgCall *> CollectionMsgsQueT;
+		typedef tbb_unordered_map<std::string , CollectionMsgsQueT> CollectionPostMsgsT;
+		typedef std_unordered_map<std::string  , CollectionMsgsQueT> CollectionDelayMsgsT;
 
 	public:
 		RpcServerManager(RpcInterface * pRpcInterface , Net::INetReactor * pNetReactor) 
@@ -27,6 +28,7 @@ namespace Msg
 
 	public:
 		virtual INT32	PostMsg(const char * pRpcServerName , RPCMsgCall * pMsg);
+		virtual INT32	PostDelayMsg(const char * pRpcServerName , RPCMsgCall * pMsg);
 
 		virtual INT32	SendMsg(const std::string & strNetNodeName , RPCMsgCall * pMsg , BOOL bForce = FALSE , BOOL bAddRpc = TRUE){ return m_pRpcInterface->SendMsg(strNetNodeName , pMsg , bForce , bAddRpc); }
 		virtual INT32	SendMsg(const char * pRpcServerName , RPCMsgCall * pMsg , BOOL bForce = FALSE , BOOL bAddRpc = TRUE){ return m_pRpcInterface->SendMsg(pRpcServerName , pMsg , bForce , bAddRpc); } 
@@ -41,6 +43,7 @@ namespace Msg
 	public: 
 		INT32			UpdateCalls(void); 
 		INT32			UpdatePostMsgs(void); 
+		INT32			UpdateDelayMsgs(void); 
 		INT32			HandleServerMsg(Net::ISession * pSession , RPCMsgCall * pMsg);
 		INT32			HandleClientMsg(Net::ISession * pSession , RPCMsgCall * pMsg);
 
@@ -48,10 +51,12 @@ namespace Msg
 		virtual Net::NetHandlerTransitPtr OnCreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket = 0 , void * context = NULL);
 
 	protected:
-		void			InsertPostMsg(const std::string strRpcServerName , RPCMsgCall * pMsg);
+		void			InsertPostMsg(const std::string & strRpcServerName , RPCMsgCall * pMsg);
+		void			InsertDelayMsg(const std::string strRpcServerName , RPCMsgCall * pMsg);
 
 	protected:
-		CollectionPostMsgsT m_mapPostMsgs;
+		CollectionPostMsgsT		m_mapPostMsgs;  //5 处理同一个进程下的不通线程的的消息转发
+		CollectionDelayMsgsT	m_mapDelayMsgs;	//5	处理逻辑条件中的可能需要延迟处理的消息包.实现同PostMsg.为了性能,这里单独写一份.
 	};  
 	 
 }

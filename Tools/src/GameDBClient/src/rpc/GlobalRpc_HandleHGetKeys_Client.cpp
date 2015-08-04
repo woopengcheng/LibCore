@@ -23,7 +23,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHGetKeys_RpcClient(Net::ISession * pS
 	}
 
 	std::cout << "HandleHGetKeys_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHGetKeys_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/) 
@@ -31,6 +31,6 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHGetKeys_RpcTimeout(Net::ISession * p
 
 
 	std::cout << "HandleHGetKeys_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 

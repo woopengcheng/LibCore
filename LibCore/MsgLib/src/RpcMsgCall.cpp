@@ -121,6 +121,7 @@ namespace Msg
 	{
 		pMsg->m_objProxySrcID  = m_objProxySrcID;
 		pMsg->m_objSyncType    = m_objSyncType;
+		pMsg->m_objReturnType  = m_objReturnType;
 		pMsg->m_objSyncResult  = m_objSyncResult;
 		pMsg->m_nRpcMsgCallType  = m_nRpcMsgCallType;
 		memcpy(pMsg->m_szSessionName , m_szSessionName , sizeof(m_szSessionName));    
@@ -154,6 +155,27 @@ namespace Msg
 	{
 		return ObjectMsgCall::RefreshSize() + RefreshSize();
 	}
-	
+
+	void RPCMsgCall::AddDelayTarget(Msg::Object obj)
+	{
+		CollectionTargetsT::iterator iter = m_setDelayTargets.find(obj);
+		if (iter == m_setDelayTargets.end())
+		{
+			m_setDelayTargets.insert(obj);
+		}
+	}
+
+	void RPCMsgCall::ReplaceDelayTarget()
+	{
+		CollectionTargetsT::iterator iter = m_setDelayTargets.begin();
+		for (INT32 i = 0;iter == m_setDelayTargets.end() && i < m_unTargetsCount;++iter , ++i)
+		{
+			m_aTargets[i] = *iter;
+		}
+		m_unTargetsCount = m_setDelayTargets.size();
+		m_setDelayTargets.clear();
+	}
+
+
 
 }

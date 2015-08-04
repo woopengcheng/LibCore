@@ -19,7 +19,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleShowDatabases_RpcClient(Net::ISession
 	}
 
 	std::cout << "HandleShowDatabases_RpcClient" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * Msg::GlobalRpc::HandleShowDatabases_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc) 
@@ -27,6 +27,6 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleShowDatabases_RpcTimeout(Net::ISessio
 
 
 	std::cout << "HandleShowDatabases_RpcTimeout" << std::endl;
-	RPCReturnNULL;
+	ReturnNULL;
 }
 
