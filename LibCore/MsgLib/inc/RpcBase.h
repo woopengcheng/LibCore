@@ -41,9 +41,10 @@
 	RPC_GEN_MSG(vecTargets , objSrc) pMsg->m_bClientRequest = FALSE; \
 	pMsg->SetProxySrcID(m_pRpcMsgCall->m_objSource); 
 
-#define CHECK_RPC_RETURN_TYPE 	if (type == RETURN_TYPE_DELAY)\
+#define CHECK_RPC_RETURN_TYPE 	m_pRpcMsgCall->ResetReturnType();\
+	m_pRpcMsgCall->AddReturnType(type);\
+	if (type == RETURN_TYPE_DELAY)\
 	{\
-		m_pRpcMsgCall->SetReturnType(type);\
 		m_pRpcMsgCall->AddDelayTarget(m_objID);\
 		return NULL;\
 	}
@@ -76,15 +77,16 @@ namespace Msg
 		typedef std::vector<ObjectMsgCall*> VecObjectMsgCallT;
 
 	public:
-		virtual BOOL  OnTimeout( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall );
-		virtual BOOL  OnServer( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall ); 
-		virtual BOOL  OnProxy( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall ); 
-		virtual BOOL  OnClient( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall );  
+		virtual BOOL	OnTimeout( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall );
+		virtual BOOL	OnServer( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall ); 
+		virtual BOOL	OnProxy( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall ); 
+		virtual BOOL	OnClient( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall );  
 
 	public:
-		BOOL		  IsTimeout();
-		void		  SetTimeout(UINT64 unTimeout); 
-		INT32		  ProxySendBack();   
+		BOOL			IsTimeout();
+		void			SetTimeout(UINT64 unTimeout); 
+		INT32			ProxySendBack();   
+		Parameters	*	GetInParams();
 		 
 	public:   
 		template<typename NameOrID>

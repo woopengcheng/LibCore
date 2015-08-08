@@ -4,6 +4,7 @@
 #include "MsgLib/inc/GenMsgHelper.h"
 #include "MsgLib/inc/Parameters.h"
 #include "MsgLib/inc/RPCMsgCall.h"
+#include "MsgLib/inc/RpcServerManager.h"
 #include "MsgLib/inc/IRpcMsgCallableObject.h"
 #include "Common/Chunk.h"
 
@@ -110,6 +111,21 @@ namespace Msg
 	BOOL Rpc::IsTimeout()
 	{
 		return  m_objTimeout.IsExpired();
+	}
+
+	Msg::Parameters * Rpc::GetInParams()
+	{
+		if (m_pRpcMsgCall && m_pRpcManager && m_pRpcManager->GetRpcInterface() && m_pRpcManager->GetRpcInterface()->GetRpcServerManager())
+		{
+			UINT64 ullMsgID = m_pRpcMsgCall->m_ullMsgID;
+			Rpc * pRpc = m_pRpcManager->GetRpcInterface()->GetRpcServerManager()->GetSendRpc(ullMsgID);
+			if (pRpc)
+			{
+				return &(pRpc->GetRpcMsgCall()->m_objParams);
+			}
+		}
+
+		return NULL;
 	}
 
 //#include "rpc.crpc"  //5 

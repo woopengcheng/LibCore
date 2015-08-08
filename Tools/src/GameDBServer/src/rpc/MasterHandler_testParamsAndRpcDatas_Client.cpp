@@ -5,6 +5,13 @@
 
 Msg::ObjectMsgCall * Server::MasterHandler::testParamsAndRpcDatas_RpcClient(Net::ISession * pSession, Msg::Object objSrc , INT32 res/* = 0*/)
 {
+	Msg::Parameters * pParams = GetInParams();
+	if (pParams)
+	{
+//		TestRpcData  & p1 = pParams->GetValue<TestRpcData>(0);
+//		TestRpcData2 & p2 = pParams->GetValue<TestRpcData2>(1);
+		std::vector<INT32> &  Vec = pParams->GetValue<std::vector<INT32>>(2);
+	}
 
 
 	std::cout << "testParamsAndRpcDatas_RpcClient" << std::endl;

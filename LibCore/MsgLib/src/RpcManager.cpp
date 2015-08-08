@@ -111,14 +111,14 @@ namespace Msg
 		return ERR_SUCCESS;
 	} 
 
-	void RpcManager::InsertSendRpc( UINT64 ullRpcMsgID, Rpc * objRpc )
+	void RpcManager::InsertSendRpc( UINT64 ullRpcMsgID, Rpc * pRpc )
 	{ 
-		Assert(objRpc);
+		Assert(pRpc);
 
 		MapRpcsT::iterator result = m_mapSendRpcs.find(ullRpcMsgID);
 		if (result == m_mapSendRpcs.end())
 		{
-			m_mapSendRpcs.insert(std::make_pair(ullRpcMsgID , objRpc));
+			m_mapSendRpcs.insert(std::make_pair(ullRpcMsgID , pRpc));
 		} 
 	}
 
@@ -404,6 +404,17 @@ namespace Msg
 		}
 
 		return bSuccess; 
+	}
+
+	Rpc * RpcManager::GetSendRpc(UINT64 ullMsgID)
+	{
+		MapRpcsT::iterator iter = m_mapSendRpcs.find(ullMsgID);
+		if (iter != m_mapSendRpcs.end())
+		{
+			return iter->second;
+		}
+
+		return NULL;
 	}
 
 }

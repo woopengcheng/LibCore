@@ -106,6 +106,7 @@ namespace Msg
 		Net::NetHandlerTransitPtr   GetNetHandlerBySessionID(INT32 nSessionID);
 		Net::NetHandlerTransitPtr   GetNetHandlerByName(std::string strNetHandlerName);
 		MapRpcsT & GetSendRpcs( void ){ return m_mapSendRpcs; }   
+		Rpc * GetSendRpc( UINT64 ullMsgID );
 		Net::NetHandlerTransitPtr   GetHandlerByName(const char * pRpcServerName); 
 		Net::NetHandlerTransitPtr   GetHandlerBySimilarName(const char * pRpcServerName); 
 		MapRpcInfosT & GetMapRpcInfos() { return m_mapRpcInfos; }
@@ -113,7 +114,7 @@ namespace Msg
 		BOOL  IsHasSessionByName(const char * pRpcServerName);  
 		BOOL  ChangeNameBySesson(const INT32 nSessionID , const char * pName);   
 		void  InsertSendRpc(RPCMsgCall * pMsg);
-		void  InsertSendRpc(UINT64 ullRpcMsgID, Rpc * objRpc);
+		void  InsertSendRpc(UINT64 ullRpcMsgID, Rpc * pRpc);
 		RpcInterface * GetRpcInterface(){ return m_pRpcInterface; }
 		BOOL   IsRpcInfoVaild(std::string strRpcInfo);
 		SRpcInfo * GetRpcInfo(std::string strRpcInfo);

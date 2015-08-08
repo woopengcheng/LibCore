@@ -121,7 +121,7 @@ namespace Msg
 	{
 		pMsg->m_objProxySrcID  = m_objProxySrcID;
 		pMsg->m_objSyncType    = m_objSyncType;
-		pMsg->m_objReturnType  = m_objReturnType;
+		pMsg->m_nReturnType  = m_nReturnType;
 		pMsg->m_objSyncResult  = m_objSyncResult;
 		pMsg->m_nRpcMsgCallType  = m_nRpcMsgCallType;
 		memcpy(pMsg->m_szSessionName , m_szSessionName , sizeof(m_szSessionName));    

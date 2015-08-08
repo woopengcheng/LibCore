@@ -67,19 +67,15 @@ namespace Msg
 			HandleClientMsg(pSession , pMsg);
 		}
 
-		switch(pMsg->GetReturnType())
+		if (pMsg->GetReturnType() & RETURN_TYPE_DELAY)
 		{
-		case RETURN_TYPE_DONE:
-		case RETURN_TYPE_IGNORE:
-			{
-				SAFE_DELETE(pMsg); 
-			}break;
-		case RETURN_TYPE_DELAY:
-			{
-				pMsg->ReplaceDelayTarget();
-				PostDelayMsg(pSession->GetRemoteName() ,pMsg);
-			}break;
+			pMsg->ReplaceDelayTarget();
+			PostDelayMsg(pSession->GetRemoteName() ,pMsg);
 		}
+		else if ((pMsg->GetReturnType() & RETURN_TYPE_IGNORE) || (pMsg->GetReturnType() & RETURN_TYPE_DONE))
+		{
+			SAFE_DELETE(pMsg); 
+		} 
 
 		return ERR_SUCCESS;
 	}  
@@ -98,7 +94,7 @@ namespace Msg
 			RPCMsgCall * pTemp = objRpc->GetRpcMsgCall();  
 			pTemp->CopyExcludeNetDatas(pMsg);
 
-			objRpc->SetRpcMsgCall(pMsg); 
+//			objRpc->SetRpcMsgCall(pMsg); 
 			objRpc->SetSession(pSession);
 			if (pMsg->m_bClientRequest)
 			{   

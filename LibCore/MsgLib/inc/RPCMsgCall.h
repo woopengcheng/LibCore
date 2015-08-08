@@ -30,9 +30,9 @@ namespace Msg
 
 	enum ERPCRETURN_TYPE
 	{
-		RETURN_TYPE_DONE = 0, 
-		RETURN_TYPE_DELAY	, //5 延迟返回,等待某些事件发生的时候再调用.
-		RETURN_TYPE_IGNORE	, //5 忽略这个包,同完成.
+		RETURN_TYPE_DONE = 1, 
+		RETURN_TYPE_DELAY = 2, //5 延迟返回,等待某些事件发生的时候再调用.
+		RETURN_TYPE_IGNORE = 4	, //5 忽略这个包,同完成.
 	};
 
 	class DLL_EXPORT  RPCMsgCall : public ObjectMsgCall
@@ -48,7 +48,7 @@ namespace Msg
 			, m_nRpcMsgCallType(RPCTYPE_ERROR)
 			, m_objSyncType(SYNC_TYPE_NONSYNC)
 			, m_objSyncResult(SYNC_RESULT_START_RETURN)
-			, m_objReturnType(RETURN_TYPE_DONE)  //5 默认完成.
+			, m_nReturnType(RETURN_TYPE_DONE)  //5 默认完成.
 		{  
 			memset(m_szSessionName , 0 , sizeof(m_szSessionName));
 			memset(m_szRemoteName , 0 , sizeof(m_szRemoteName));
@@ -103,8 +103,9 @@ namespace Msg
 		EMSG_SYNC_TYPE GetSyncType( void ){ return m_objSyncType; }
 		void   SetSyncResult(EMSG_SYNC_RESULT val) { m_objSyncResult = val; }
 		EMSG_SYNC_RESULT GetSyncResult( void ){ return m_objSyncResult; }
-		Msg::ERPCRETURN_TYPE GetReturnType() const { return m_objReturnType; }
-		void SetReturnType(Msg::ERPCRETURN_TYPE val) { m_objReturnType = val; }
+		INT32 GetReturnType() const { return m_nReturnType; }
+		void AddReturnType(Msg::ERPCRETURN_TYPE val) { m_nReturnType = m_nReturnType | val; }
+		void ResetReturnType() { m_nReturnType = RETURN_TYPE_DONE; }
 		void AddDelayTarget(Msg::Object obj);
 		void ReplaceDelayTarget();
 
@@ -121,9 +122,9 @@ namespace Msg
 		char				m_szSessionName[MAX_NAME_LENGTH];
 		Object				m_objProxySrcID;
 		INT32				m_nRpcMsgCallType;
+		INT32				m_nReturnType;
 		EMSG_SYNC_TYPE		m_objSyncType;
 		EMSG_SYNC_RESULT	m_objSyncResult;
-		ERPCRETURN_TYPE		m_objReturnType;
 		CollectionTargetsT	m_setDelayTargets;
 	};  
 

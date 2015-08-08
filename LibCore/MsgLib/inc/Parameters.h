@@ -43,11 +43,12 @@ namespace Msg
 		T GetValue(INT32 nPos = 0)
 		{
 			T t;
-			MsgAssert_Re( nPos >= 0 && nPos <= MSG_MAX_PARAMETER_NUMBER, t , "pos error."); 
+			UINT32 unType = 0;
+			MsgAssert_Re( nPos >= 0 && nPos <= MSG_MAX_PARAMETER_NUMBER , t , "pos error."); 
 
-			LibCore::CStream cs;
-			m_aParameter[nPos].marshal(cs);
-			cs >> t;
+			m_aParameter[nPos].GetParamStream() >> unType;
+			
+			m_aParameter[nPos].GetParamStream() >> t;
 			
 			return t;
 		}
