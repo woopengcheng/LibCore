@@ -58,14 +58,14 @@ void testRe(std::vector<INT32> & vec)
 int _tmain(int argc, _TCHAR* argv[])
 { 
 	Msg::Parameters         m_objParams;  
-	std::vector<INT32>		vec;
+	std::vector<INT32> vec;
 	vec.push_back(1);
-	static std::vector<INT32> g_rpcDefaultParam_std__vector_INT32_;
-	std::vector<INT32> & vt = Msg::ParameterHelper<std::vector<INT32>>::GetParameterValue(m_objParams.m_aParameter[0]);
-	printf("%d" , vt[0]);
-	STContainer<std::vector<INT32>> t = STContainer<std::vector<INT32>>(vec);
+	vec.push_back(2);
+	Msg::ParameterHelper<std::vector<INT32>& >::MakeParameter(m_objParams.m_aParameter[0] , vec);
+	std::vector<INT32> & vt = Msg::ParameterHelper<std::vector<INT32>&>::GetParameterValue(m_objParams.m_aParameter[0]);
+	
 //	testFunc(vec);
-	testRe(vec);
+//	testRe(vec);
 	return 0;
 }
 

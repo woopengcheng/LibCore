@@ -73,6 +73,12 @@ namespace GameDB
 					}
 				}
 
+				if (pNetHandler->GetSession()->GetOtherSession() != pSession)
+				{
+					pNetHandler->GetSession()->SetOtherSession(pSession); 
+					pSession->SetOtherSession(pNetHandler->GetSession()); 
+				}
+
 				if(pNetHandler && pNetHandler->GetSession()->GetNetState() == Net::NET_STATE_CONNECTING &&
 					pSession->GetNetState() == Net::NET_STATE_CONNECTING)
 				{   
@@ -82,15 +88,11 @@ namespace GameDB
 					Msg::NetNode::GetInstance().InsertRemoteNodes(pPing->szNetNodeName , pNetHandler->GetSession());
 					if (m_pRpcInterface->GetRpcListener())
 					{ 
+						m_pRpcInterface->GetRpcClientManager()->Ping();
 						m_pRpcInterface->GetRpcListener()->OnConnected(m_pRpcInterface , pNetHandler->GetSession() , pPing->szNetNodeName); 
 					}
 				} 
 
-				if (pNetHandler->GetSession()->GetOtherSession() != pSession)
-				{
-					pNetHandler->GetSession()->SetOtherSession(pSession); 
-					pSession->SetOtherSession(pNetHandler->GetSession()); 
-				}
 			}  
 
 			//			gDebugStream("recv client ping. " << strRemoteRPCName << std::endl);

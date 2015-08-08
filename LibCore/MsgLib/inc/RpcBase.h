@@ -10,7 +10,7 @@
 #include "TimerLib/inc/TimeCount.h" 
 
 #define ReturnNULL return NULL;
-#define ReturnDelay return RPCReturn(RETURN_TYPE_DELAY); 
+#define ReturnDelay return RPCReturn(Msg::RETURN_TYPE_DELAY); 
 #define Return return RPCReturn
 
 

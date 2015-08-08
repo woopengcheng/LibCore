@@ -179,10 +179,10 @@
     <ClCompile Include="src\rpc\ServerHandler_testMulitServerNode_Server.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\MasterHandler_testParamsAndRpcDatas_Server.cpp">
+    <ClCompile Include="src\rpc\MasterHandler_testParamsAndRpcDatas_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_testParamsAndRpcDatas_Client.cpp">
+    <ClCompile Include="src\rpc\ServerHandler_testParamsAndRpcDatas_Server.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
   </ItemGroup>

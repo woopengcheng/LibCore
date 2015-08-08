@@ -47,7 +47,7 @@ namespace LibCore
 		virtual CStream & unMarshal (CStream & cs)
 		{
 			m_pContainer->clear();
-			UINT32 unCount = 0;
+			size_t unCount = 0;
 			cs >> unCount;
 			for (;unCount > 0; --unCount)
 			{

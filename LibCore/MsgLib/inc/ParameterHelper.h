@@ -50,7 +50,7 @@ namespace Msg
 			UINT32 unType = 0;\
 			type_name  val = 0;\
 			\
-			objParam.GetParamStream() >> unType >> val;   \
+			objParam.GetParamStream() >> LibCore::Marshal::Begin >> unType >> val >> LibCore::Marshal::Rollback;   \
 			MsgAssert_Re0(unType == type_macro , "获取参数值错误.");\
 			\
 			return val;\
@@ -82,12 +82,12 @@ namespace Msg
 		{
 			INT32 nType = 0 ;
 
-			objParam.GetParamStream() >> nType ;
+			objParam.GetParamStream() >> LibCore::Marshal::Begin >> nType ;
 //			MsgAssert_Re(nType == PARAMETER_TYPE_STD_VECTOR , , "paramter type is error. :" << nType << " cur: " << PARAMETER_TYPE_STD_VECTOR);
 
 			T Value = T();
 			LibCore::STLContainer<T> value = LibCore::STLContainer<T>(Value);
-			objParam.GetParamStream() >> value;;
+			objParam.GetParamStream() >> value >> LibCore::Marshal::Rollback;
 
 			return Value; 
 		}
@@ -98,11 +98,11 @@ namespace Msg
 			objParam.GetParamStream() << value;
 		}
 
-		static void MakeParameter(Parameter & objParam , LibCore::STLContainer<T> & value)
-		{   
-			objParam.GetParamStream() << (INT32)PARAMETER_TYPE_STD_VECTOR;  
-			objParam.GetParamStream() << value;
-		}
+		//static void MakeParameter(Parameter & objParam ,const  LibCore::STLContainer<T> & value)
+		//{   
+		//	objParam.GetParamStream() << (INT32)PARAMETER_TYPE_STD_VECTOR;  
+		//	objParam.GetParamStream() << value;
+		//}
 
 		static BOOL CheckParamType(Parameter & objParam)
 		{
@@ -122,12 +122,12 @@ namespace Msg
 		{
 			INT32 nType = 0 ;
 
-			objParam.GetParamStream() >> nType ;
+			objParam.GetParamStream() >> LibCore::Marshal::Begin >> nType ;
 			//			MsgAssert_Re(nType == PARAMETER_TYPE_STD_VECTOR , , "paramter type is error. :" << nType << " cur: " << PARAMETER_TYPE_STD_VECTOR);
 
 			T Value = T();
 			LibCore::STLContainer<T> value = LibCore::STLContainer<T>(Value);
-			objParam.GetParamStream() >> value;;
+			objParam.GetParamStream() >> value >> LibCore::Marshal::Rollback;
 
 			return Value; 
 		}
@@ -162,13 +162,14 @@ namespace Msg
 		{
 			INT32 nType = 0 , nSize = 0;
 
-			objParam.GetParamStream() >> nType >> nSize;
+			objParam.GetParamStream() >> LibCore::Marshal::Begin >> nType >> nSize;
 			MsgAssert_Re0(nType == PARAMETER_TYPE_STRING , "paramter type is error. :" << nType << " cur: " << PARAMETER_TYPE_STRING);
 			MsgAssert_Re0(!((UINT32)nSize > objParam.GetParamStream().GetDataLen() - objParam.GetParamStream().GetCurPos()) , "unMarshal invalid length."); 
 			 
 			void * pBuf = NULL;
 			objParam.GetParamStream().Pop(pBuf , nSize);
 
+			objParam.GetParamStream() >> LibCore::Marshal::Rollback;
 			return (const char * )pBuf; 
 		}
 
@@ -206,12 +207,12 @@ namespace Msg
 		{
 			INT32 nType = 0 , nSize = 0;
 
-			objParam.GetParamStream() >> nType >> nSize;
+			objParam.GetParamStream() >> LibCore::Marshal::Begin >> nType >> nSize;
 			MsgAssert_Re0(nType == PARAMETER_TYPE_STD_STRING , "paramter type is error. :" << nType << " cur: " << PARAMETER_TYPE_STD_STRING);
 			MsgAssert_Re0(!((UINT32)nSize > objParam.GetParamStream().GetDataLen() - objParam.GetParamStream().GetCurPos()) , "unMarshal invalid length."); 
 
 			std::string strValue;
-			objParam.GetParamStream() >> strValue;;
+			objParam.GetParamStream() >> strValue >> LibCore::Marshal::Rollback;
 
 			return strValue; 
 		}

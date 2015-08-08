@@ -874,7 +874,7 @@ def GenerateRpcHandler(rpcs , serverName , old_namespace):
 			else:
 				continue
 			
-			if rpc.name == "testMulitServerNode" or rpc.name == "testParamsAndRpcDatas" :
+			if rpc.name == "testMulitServerNode" or rpc.name == "testParamsAndRpcDatas" and IsPathExist(outputPath):
 				os.remove(outputPath)
 				
 			if IsPathExist(outputPath):

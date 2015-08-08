@@ -102,6 +102,37 @@ namespace Server
 				INT32 nMasterHandlerID = m_pDBMaster->CreateMasterHandler(pClientSession->GetSessionID());
 				return rpc_SyncMasterHandler(pClientSession->GetSessionID() , Msg::Object(1) , Msg::Object(nMasterHandlerID) , nMasterHandlerID);
 			}
+
+			if (strNetNodeName == g_netnodes[NETNODE_DBSERVER])
+			{
+				INT32 nMasterHandlerID = m_pDBMaster->CreateMasterHandler(pClientSession->GetSessionID());
+
+				TestRpcData test1;        
+				test1.p1 = 11;
+				test1.p2 = 12;
+				test1.p3 = 4;
+				test1.p4 = 5; 
+				test1.p6 = 7;
+				test1.p7 = 8;
+				test1.p8 = 9;
+				test1.p9 = 10;
+				test1.p10 = 2;
+				test1.p11 = 5;
+				test1.p12 = 12;
+				test1.p13 = LibCore_Chunk("14" , sizeof("14"));
+				test1.p5.push_back(1);
+				test1.p5.push_back(2);
+				TestRpcData2 test2;
+				test2.p1 = 11;
+				test2.p2 = 12;
+				test2.p3 = 4;
+				test2.p4 = 5; 
+				test2.p6 = 7;
+				test2.p7 = 8;
+				test2.p8 = 9;
+				test2.p9 = 10; 
+				return rpc_testParamsAndRpcDatas(pClientSession->GetSessionID() ,1 ,nMasterHandlerID , test1 , test2);
+			}
 		}
 
 		return 0;

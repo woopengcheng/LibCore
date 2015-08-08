@@ -4,7 +4,7 @@ Author		:	generate by tools
 HostName	:	woopengcheng
 IP			:	192.168.1.107
 Version		:	0.0.1
-Date		:	2015-08-03 22:17:39
+Date		:	2015-08-04 23:18:38
 Description	:	注册每个函数.以及检测网络传递的消息是否是正确的参数.
 ************************************/
 #include "MsgLib/inc/RpcServerManager.h"
@@ -32,12 +32,12 @@ namespace Server
 	static time_t g_rpcDefaultParam_time_t = 0;
 	static SINT8 g_rpcDefaultParam_SINT8 = 0;
 	static UINT8 g_rpcDefaultParam_UINT8 = 0;
-	static INT16 g_rpcDefaultParam_INT16 = 0;
 	static UINT16 g_rpcDefaultParam_UINT16 = 0;
+	static INT16 g_rpcDefaultParam_INT16 = 0;
 	static INT32 g_rpcDefaultParam_INT32 = 0;
 	static UINT32 g_rpcDefaultParam_UINT32 = 0;
-	static INT64 g_rpcDefaultParam_INT64 = 0;
 	static UINT64 g_rpcDefaultParam_UINT64 = 0;
+	static INT64 g_rpcDefaultParam_INT64 = 0;
 	static float g_rpcDefaultParam_float = 0.0f;
 	static double g_rpcDefaultParam_double = 0.0f;
 	static std_string g_rpcDefaultParam_std_string = std::string();
@@ -69,15 +69,13 @@ namespace Server
 
 		//5 testParamsAndRpcDatas generate default deliver and return check param here
 		{
-// 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_TestRpcData , g_rpcDefaultParam_TestRpcData2 , g_rpcDefaultParam_LibCore_Chunk , g_rpcDefaultParam_std__vector_INT32_);
-// 			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
-// 			Msg::g_pRpcCheckParams->InsertDeliverParams("testParamsAndRpcDatas", objDeliverParams);
-// 			Msg::g_pRpcCheckParams->InsertReturnParams("testParamsAndRpcDatas", objReturnParams);
-// 			objDeliverParams.Clear();
-// 			objReturnParams.Clear();
-			
-//			m_pRpcServerManager->RegisterFunc<ServerHandler >(Msg::g_sztestParamsAndRpcDatas_RpcClient , &ServerHandler::testParamsAndRpcDatas_RpcClient); 
-//			m_pRpcServerManager->RegisterFunc<ServerHandler >(Msg::g_sztestParamsAndRpcDatas_RpcTimeout ,&ServerHandler::testParamsAndRpcDatas_RpcTimeout); 
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_TestRpcData , g_rpcDefaultParam_TestRpcData2 , g_rpcDefaultParam_std__vector_INT32_);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			Msg::g_pRpcCheckParams->InsertDeliverParams("testParamsAndRpcDatas", objDeliverParams);
+			Msg::g_pRpcCheckParams->InsertReturnParams("testParamsAndRpcDatas", objReturnParams);
+			objDeliverParams.Clear();
+			objReturnParams.Clear();
+			m_pRpcServerManager->RegisterFunc<ServerHandler >(Msg::g_sztestParamsAndRpcDatas_RpcServer , &ServerHandler::testParamsAndRpcDatas_RpcServer); 
 		}
 
 		//5 HandleUserAuth generate default deliver and return check param here
@@ -544,13 +542,15 @@ namespace Server
 
 		//5 testParamsAndRpcDatas generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_TestRpcData , g_rpcDefaultParam_TestRpcData2 , g_rpcDefaultParam_LibCore_Chunk , g_rpcDefaultParam_std__vector_INT32_);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_TestRpcData , g_rpcDefaultParam_TestRpcData2 , g_rpcDefaultParam_std__vector_INT32_);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("testParamsAndRpcDatas", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("testParamsAndRpcDatas", objReturnParams);
 			objDeliverParams.Clear();
 			objReturnParams.Clear();
-			m_pRpcServerManager->RegisterFunc<MasterHandler >(Msg::g_sztestParamsAndRpcDatas_RpcServer , &MasterHandler::testParamsAndRpcDatas_RpcServer); 
+			
+			m_pRpcServerManager->RegisterFunc<MasterHandler >(Msg::g_sztestParamsAndRpcDatas_RpcClient , &MasterHandler::testParamsAndRpcDatas_RpcClient); 
+			m_pRpcServerManager->RegisterFunc<MasterHandler >(Msg::g_sztestParamsAndRpcDatas_RpcTimeout ,&MasterHandler::testParamsAndRpcDatas_RpcTimeout); 
 		}
 
 		//5 HandleUserAuth generate default deliver and return check param here
@@ -994,8 +994,8 @@ namespace Server
 
 		//5 testParamsAndRpcDatas generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_TestRpcData , g_rpcDefaultParam_TestRpcData2 , g_rpcDefaultParam_LibCore_Chunk , g_rpcDefaultParam_std__vector_INT32_);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_TestRpcData , g_rpcDefaultParam_TestRpcData2 , g_rpcDefaultParam_std__vector_INT32_);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("testParamsAndRpcDatas", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("testParamsAndRpcDatas", objReturnParams);
 			objDeliverParams.Clear();

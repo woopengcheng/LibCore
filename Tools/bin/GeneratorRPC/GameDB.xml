@@ -146,34 +146,30 @@
 	
 	<Rpcs>  
 		<RpcData name="TestRpcData">
-			<Param type="inT" name="userid1" default="111"/>
-			<Param type="unsigned iNt" name="localid2" default="21"/> 
-			<Param type="chAr" name="userid3" default="0"/>
-			<Param type="unsiGned char" name="localid4" default="0"/>  
-			<Param type="lOng" name="localid6" default="0"/> 
-			<Param type="tiMe_t" name="userid7" default="0"/>
-			<Param type="shoRt" name="localid8" default="0"/> 
-			<Param type="unsIgned short" name="userid9" default="0"/>
-			<Param type="Double" name="localid10" default="1.0f"/> 
-			<Param type="Float" name="localid11" default="1.0f"/> 
-			<Param type="Std_string" name="localid12" /> 
-			<Param type="libCore_Chunk" name="localid13" /> 
-			<Param type="std::vector[INT32]" name="testVecctor" unrefer="!" default="std::vector[INT32](1)"/> 
+			<Param type="inT" name="p1" default="111"/>
+			<Param type="unsigned iNt" name="p2" default="21"/> 
+			<Param type="chAr" name="p3" default="0"/>
+			<Param type="unsiGned char" name="p4" default="0"/>  
+			<Param type="std::vector[INT32]" name="p5" unrefer="!" default="std::vector[INT32](1)"/> 
+			<Param type="lOng" name="p6" default="0"/> 
+			<Param type="tiMe_t" name="p7" default="0"/>
+			<Param type="shoRt" name="p8" default="0"/> 
+			<Param type="unsIgned short" name="p9" default="0"/>
+			<Param type="Double" name="p10" default="1.0f"/> 
+			<Param type="Float" name="p11" default="1.0f"/> 
+			<Param type="Std_string" name="p12" /> 
+			<Param type="libCore_Chunk" name="p13" /> 
 		</RpcData>
 		
 		<RpcData name="TestRpcData2">
-			<Param type="sINT8" name="userid1" default="0"/>
-			<Param type="uINT8" name="localid2" default="0"/> 
-			<Param type="iNT16" name="userid3" default="0"/>
-			<Param type="uINT16" name="localid4" default="0"/>  
-			<Param type="iNT32" name="localid6" default="0"/> 
-			<Param type="uINT32" name="userid7" default="0"/>
-			<Param type="iNT64" name="localid8" default="0"/> 
-			<Param type="uINT64" name="userid9" default="0"/>
-			<Param type="Double" name="localid10" default="1.0f"/> 
-			<Param type="Float" name="localid11" default="1.0f"/> 
-			<Param type="Std_string" name="localid12" /> 
-			<Param type="libCore_Chunk" name="localid13"/> 
+			<Param type="sINT8" name="p1" default="0"/>
+			<Param type="uINT8" name="p2" default="0"/> 
+			<Param type="iNT16" name="p3" default="0"/>
+			<Param type="uINT16" name="p4" default="0"/>  
+			<Param type="iNT32" name="p6" default="0"/> 
+			<Param type="uINT32" name="p7" default="0"/>
+			<Param type="iNT64" name="p8" default="0"/> 
+			<Param type="uINT64" name="p9" default="0"/> 
 		</RpcData>
 
 		<!--		
@@ -203,19 +199,18 @@
 		
 		<Rpc name="testParamsAndRpcDatas" syncType="1" timeout="10">
 			<Targets> 
-				<Client name="Server" include="ServerHandler.h" class="ServerHandler" />  
-				<Server name="Master" include="MasterHandler.h" class="MasterHandler" /> 
+				<Client name="Master" include="MasterHandler.h" class="MasterHandler" /> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" />  
 			</Targets>
 			
 			<Call > 
 				<Param name="rpcData" type="TestRpcData"/>
 				<Param name="rpcData2" type="TestRpcData2"/>
-				<Param name="value" type="LibCore_Chunk"/> 
 				<Param name="Vec" type="std::vector[INT32]"/>
 			</Call>
 
 			<Return>  
-				<Param name="res" type="LibCore_Chunk" refer=""/> 
+				<Param name="res" type="INT32" refer=""/> 
 			</Return>
 		</Rpc> 
 		

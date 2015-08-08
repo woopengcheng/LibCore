@@ -116,7 +116,7 @@
     <ClCompile Include="src\rpc\MasterHandler_SlaveStartAuth_Proxy.cpp" />
     <ClCompile Include="src\rpc\MasterHandler_SyncMasterHandler_Client.cpp" />
     <ClCompile Include="src\rpc\MasterHandler_testMulitServerNode_Proxy.cpp" />
-    <ClCompile Include="src\rpc\MasterHandler_testParamsAndRpcDatas_Server.cpp" />
+    <ClCompile Include="src\rpc\MasterHandler_testParamsAndRpcDatas_Client.cpp" />
     <ClCompile Include="src\rpc\RpcRegister.cpp" />
     <ClCompile Include="src\rpc\ServerHandler_HandleCreateDatabase_Server.cpp" />
     <ClCompile Include="src\rpc\ServerHandler_HandleCreateUser_Server.cpp" />
@@ -157,7 +157,7 @@
     <ClCompile Include="src\rpc\ServerHandler_SyncDataToSlave_Client.cpp" />
     <ClCompile Include="src\rpc\ServerHandler_testMulitServerNode_Proxy.cpp" />
     <ClCompile Include="src\rpc\ServerHandler_testMulitServerNode_Server.cpp" />
-    <ClCompile Include="src\rpc\ServerHandler_testParamsAndRpcDatas_Client.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_testParamsAndRpcDatas_Server.cpp" />
     <ClCompile Include="src\rpc\SlaveHandler_MasterStartSync_Server.cpp" />
     <ClCompile Include="src\rpc\SlaveHandler_SlaveRequestSync_Client.cpp" />
     <ClCompile Include="src\rpc\SlaveHandler_SlaveSelectDB_Client.cpp" />

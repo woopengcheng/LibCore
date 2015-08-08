@@ -4,7 +4,7 @@ Author		:	generate by tools
 HostName	:	woopengcheng
 IP			:	192.168.1.107
 Version		:	0.0.1
-Date		:	2015-08-03 22:17:39
+Date		:	2015-08-04 23:18:38
 Description	:	网络消息的数据域.
 ************************************/
 #ifndef __Client_rpc_datas_h__
@@ -19,66 +19,58 @@ namespace Client
 	class TestRpcData
 	{ 
 		public:
-		int userid1;
-		unsigned int localid2;
-		char userid3;
-		unsigned char localid4;
-		long localid6;
-		time_t userid7;
-		short localid8;
-		unsigned short userid9;
-		double localid10;
-		float localid11;
-		std_string localid12;
-		LibCore_Chunk localid13;
-		std::vector<INT32> testVecctor;
+		int p1;
+		unsigned int p2;
+		char p3;
+		unsigned char p4;
+		std::vector<INT32> p5;
+		long p6;
+		time_t p7;
+		short p8;
+		unsigned short p9;
+		double p10;
+		float p11;
+		std_string p12;
+		LibCore_Chunk p13;
 
 		TestRpcData()
-			: userid1( 111 ) 
-			, localid2( 21 ) 
-			, userid3( 0 ) 
-			, localid4( 0 ) 
-			, localid6( 0 ) 
-			, userid7( 0 ) 
-			, localid8( 0 ) 
-			, userid9( 0 ) 
-			, localid10( 1.0f ) 
-			, localid11( 1.0f ) 
-			, localid12( std::string() ) 
-			, localid13( LibCore::Chunk() ) 
-			, testVecctor( std::vector<INT32>(1) ) 
+			: p1( 111 ) 
+			, p2( 21 ) 
+			, p3( 0 ) 
+			, p4( 0 ) 
+			, p5( std::vector<INT32>(1) ) 
+			, p6( 0 ) 
+			, p7( 0 ) 
+			, p8( 0 ) 
+			, p9( 0 ) 
+			, p10( 1.0f ) 
+			, p11( 1.0f ) 
+			, p12( std::string() ) 
+			, p13( LibCore::Chunk() ) 
 			{}
 	}; 
  
 	class TestRpcData2
 	{ 
 		public:
-		SINT8 userid1;
-		UINT8 localid2;
-		INT16 userid3;
-		UINT16 localid4;
-		INT32 localid6;
-		UINT32 userid7;
-		INT64 localid8;
-		UINT64 userid9;
-		double localid10;
-		float localid11;
-		std_string localid12;
-		LibCore_Chunk localid13;
+		SINT8 p1;
+		UINT8 p2;
+		INT16 p3;
+		UINT16 p4;
+		INT32 p6;
+		UINT32 p7;
+		INT64 p8;
+		UINT64 p9;
 
 		TestRpcData2()
-			: userid1( 0 ) 
-			, localid2( 0 ) 
-			, userid3( 0 ) 
-			, localid4( 0 ) 
-			, localid6( 0 ) 
-			, userid7( 0 ) 
-			, localid8( 0 ) 
-			, userid9( 0 ) 
-			, localid10( 1.0f ) 
-			, localid11( 1.0f ) 
-			, localid12( std::string() ) 
-			, localid13( LibCore::Chunk() ) 
+			: p1( 0 ) 
+			, p2( 0 ) 
+			, p3( 0 ) 
+			, p4( 0 ) 
+			, p6( 0 ) 
+			, p7( 0 ) 
+			, p8( 0 ) 
+			, p9( 0 ) 
 			{}
 	}; 
  
@@ -106,7 +98,7 @@ namespace Msg
 			INT32 unType = 0;
 			Client::TestRpcData val;
 
-			objParam.GetParamStream() >> unType  >> val.userid1 >> val.localid2 >> val.userid3 >> val.localid4 >> val.localid6 >> val.userid7 >> val.localid8 >> val.userid9 >> val.localid10 >> val.localid11 >> val.localid12 >> val.localid13 >> val.testVecctor;
+			objParam.GetParamStream() >> unType  >> val.p1 >> val.p2 >> val.p3 >> val.p4 >> val.p5 >> val.p6 >> val.p7 >> val.p8 >> val.p9 >> val.p10 >> val.p11 >> val.p12 >> val.p13;
 			MsgAssert_Re(unType == PARAMETER_TYPE_USER_DEFINE_TestRpcData , val , "get param error.");
 
 			return val;
@@ -114,7 +106,7 @@ namespace Msg
 
 		static void MakeParameter(Parameter & objParam , Client::TestRpcData val)
 		{ 
-			objParam.GetParamStream() << (INT32)PARAMETER_TYPE_USER_DEFINE_TestRpcData << val.userid1 << val.localid2 << val.userid3 << val.localid4 << val.localid6 << val.userid7 << val.localid8 << val.userid9 << val.localid10 << val.localid11 << val.localid12 << val.localid13 << val.testVecctor;
+			objParam.GetParamStream() << (INT32)PARAMETER_TYPE_USER_DEFINE_TestRpcData << val.p1 << val.p2 << val.p3 << val.p4 << val.p5 << val.p6 << val.p7 << val.p8 << val.p9 << val.p10 << val.p11 << val.p12 << val.p13;
 		} 
 
 		static BOOL CheckParamType(Parameter & objParam)
@@ -172,7 +164,7 @@ namespace Msg
 			INT32 unType = 0;
 			Client::TestRpcData2 val;
 
-			objParam.GetParamStream() >> unType  >> val.userid1 >> val.localid2 >> val.userid3 >> val.localid4 >> val.localid6 >> val.userid7 >> val.localid8 >> val.userid9 >> val.localid10 >> val.localid11 >> val.localid12 >> val.localid13;
+			objParam.GetParamStream() >> unType  >> val.p1 >> val.p2 >> val.p3 >> val.p4 >> val.p6 >> val.p7 >> val.p8 >> val.p9;
 			MsgAssert_Re(unType == PARAMETER_TYPE_USER_DEFINE_TestRpcData2 , val , "get param error.");
 
 			return val;
@@ -180,7 +172,7 @@ namespace Msg
 
 		static void MakeParameter(Parameter & objParam , Client::TestRpcData2 val)
 		{ 
-			objParam.GetParamStream() << (INT32)PARAMETER_TYPE_USER_DEFINE_TestRpcData2 << val.userid1 << val.localid2 << val.userid3 << val.localid4 << val.localid6 << val.userid7 << val.localid8 << val.userid9 << val.localid10 << val.localid11 << val.localid12 << val.localid13;
+			objParam.GetParamStream() << (INT32)PARAMETER_TYPE_USER_DEFINE_TestRpcData2 << val.p1 << val.p2 << val.p3 << val.p4 << val.p6 << val.p7 << val.p8 << val.p9;
 		} 
 
 		static BOOL CheckParamType(Parameter & objParam)
