@@ -4,7 +4,7 @@ Author		:	generate by tools
 HostName	:	woopengcheng
 IP			:	192.168.1.107
 Version		:	0.0.1
-Date		:	2015-08-04 23:18:38
+Date		:	2015-08-09 13:52:17
 Description	:	网络消息的数据域.
 ************************************/
 #ifndef __Server_rpc_datas_h__
@@ -16,7 +16,7 @@ Description	:	网络消息的数据域.
 
 namespace Server
 {
-	class TestRpcData
+	class TestRpcData: public LibCore::Marshal
 	{ 
 		public:
 		int p1;
@@ -48,9 +48,38 @@ namespace Server
 			, p12( std::string() ) 
 			, p13( LibCore::Chunk() ) 
 			{}
+		TestRpcData(const TestRpcData & val)
+		{ 
+			p1 = val.p1;
+			p2 = val.p2;
+			p3 = val.p3;
+			p4 = val.p4;
+			p5 = val.p5;
+			p6 = val.p6;
+			p7 = val.p7;
+			p8 = val.p8;
+			p9 = val.p9;
+			p10 = val.p10;
+			p11 = val.p11;
+			p12 = val.p12;
+			p13 = val.p13;
+		} 
+
+		virtual LibCore::CStream & marshal(LibCore::CStream & cs)
+		{ 
+			cs << p1 << p2 << p3 << p4 << p5 << p6 << p7 << p8 << p9 << p10 << p11 << p12 << p13;
+			return cs; 
+		} 
+
+		virtual LibCore::CStream & unMarshal(LibCore::CStream & cs)
+		{ 
+			cs >> p1 >> p2 >> p3 >> p4 >> p5 >> p6 >> p7 >> p8 >> p9 >> p10 >> p11 >> p12 >> p13;
+			return cs; 
+		} 
+
 	}; 
  
-	class TestRpcData2
+	class TestRpcData2: public LibCore::Marshal
 	{ 
 		public:
 		SINT8 p1;
@@ -72,6 +101,30 @@ namespace Server
 			, p8( 0 ) 
 			, p9( 0 ) 
 			{}
+		TestRpcData2(const TestRpcData2 & val)
+		{ 
+			p1 = val.p1;
+			p2 = val.p2;
+			p3 = val.p3;
+			p4 = val.p4;
+			p6 = val.p6;
+			p7 = val.p7;
+			p8 = val.p8;
+			p9 = val.p9;
+		} 
+
+		virtual LibCore::CStream & marshal(LibCore::CStream & cs)
+		{ 
+			cs << p1 << p2 << p3 << p4 << p6 << p7 << p8 << p9;
+			return cs; 
+		} 
+
+		virtual LibCore::CStream & unMarshal(LibCore::CStream & cs)
+		{ 
+			cs >> p1 >> p2 >> p3 >> p4 >> p6 >> p7 >> p8 >> p9;
+			return cs; 
+		} 
+
 	}; 
  
 }//Server
@@ -83,138 +136,6 @@ namespace Msg
 		PARAMETER_TYPE_USER_DEFINE_FIRST = Msg::PARAMETER_TYPE_USER_DEFINE  ,
 		PARAMETER_TYPE_USER_DEFINE_TestRpcData,
 		PARAMETER_TYPE_USER_DEFINE_TestRpcData2,
-	}; 
- 
-	template<> class Msg::ParameterHelper<Server::TestRpcData>
-	{ 
-	public:
-		static UINT32 GetParameterType()
-		{ 
-			return PARAMETER_TYPE_USER_DEFINE_TestRpcData;
-		} 
-
-		static Server::TestRpcData GetParameterValue(Parameter & objParam)
-		{ 
-			INT32 unType = 0;
-			Server::TestRpcData val;
-
-			objParam.GetParamStream() >> LibCore::Marshal::Begin >> unType  >> val.p1 >> val.p2 >> val.p3 >> val.p4 >> val.p5 >> val.p6 >> val.p7 >> val.p8 >> val.p9 >> val.p10 >> val.p11 >> val.p12 >> val.p13 >> LibCore::Marshal::Rollback;
-			MsgAssert_Re(unType == PARAMETER_TYPE_USER_DEFINE_TestRpcData , val , "get param error.");
-
-			return val;
-		}
-
-		static void MakeParameter(Parameter & objParam , Server::TestRpcData val)
-		{ 
-			objParam.GetParamStream() << (INT32)PARAMETER_TYPE_USER_DEFINE_TestRpcData << val.p1 << val.p2 << val.p3 << val.p4 << val.p5 << val.p6 << val.p7 << val.p8 << val.p9 << val.p10 << val.p11 << val.p12 << val.p13;
-		} 
-
-		static BOOL CheckParamType(Parameter & objParam)
-		{ 
-			if (objParam.GetType() == PARAMETER_TYPE_USER_DEFINE_TestRpcData)
-			{ 
-				return TRUE; 
-			} 
-
-			return FALSE; 
-		} 
-
-	}; 
- 
-	template<> class Msg::ParameterHelper<Server::TestRpcData&>
-	{ 
-	public:
-		static UINT32 GetParameterType()
-		{ 
-			return PARAMETER_TYPE_USER_DEFINE_TestRpcData;
-		} 
-
-		static Server::TestRpcData GetParameterValue(Parameter & objParam)
-		{ 
-			return ParameterHelper<Server::TestRpcData>::GetParameterValue(objParam);
-
-		} 
-		static void MakeParameter(Parameter & objParam , Server::TestRpcData val)
-		{ 
-			return ParameterHelper<Server::TestRpcData>::MakeParameter(objParam , val);
-		} 
-
-		static BOOL CheckParamType(Parameter & objParam)
-		{ 
-			if (objParam.GetType() == PARAMETER_TYPE_USER_DEFINE_TestRpcData)
-			{ 
-				return TRUE; 
-			} 
-
-			return FALSE; 
-		} 
-
-	}; 
- 
-	template<> class Msg::ParameterHelper<Server::TestRpcData2>
-	{ 
-	public:
-		static UINT32 GetParameterType()
-		{ 
-			return PARAMETER_TYPE_USER_DEFINE_TestRpcData2;
-		} 
-
-		static Server::TestRpcData2 GetParameterValue(Parameter & objParam)
-		{ 
-			INT32 unType = 0;
-			Server::TestRpcData2 val;
-
-			objParam.GetParamStream() >> LibCore::Marshal::Begin >> unType  >> val.p1 >> val.p2 >> val.p3 >> val.p4 >> val.p6 >> val.p7 >> val.p8 >> val.p9 >> LibCore::Marshal::Rollback;
-			MsgAssert_Re(unType == PARAMETER_TYPE_USER_DEFINE_TestRpcData2 , val , "get param error.");
-
-			return val;
-		}
-
-		static void MakeParameter(Parameter & objParam , Server::TestRpcData2 val)
-		{ 
-			objParam.GetParamStream() << (INT32)PARAMETER_TYPE_USER_DEFINE_TestRpcData2 << val.p1 << val.p2 << val.p3 << val.p4 << val.p6 << val.p7 << val.p8 << val.p9;
-		} 
-
-		static BOOL CheckParamType(Parameter & objParam)
-		{ 
-			if (objParam.GetType() == PARAMETER_TYPE_USER_DEFINE_TestRpcData2)
-			{ 
-				return TRUE; 
-			} 
-
-			return FALSE; 
-		} 
-
-	}; 
- 
-	template<> class Msg::ParameterHelper<Server::TestRpcData2&>
-	{ 
-	public:
-		static UINT32 GetParameterType()
-		{ 
-			return PARAMETER_TYPE_USER_DEFINE_TestRpcData2;
-		} 
-
-		static Server::TestRpcData2 GetParameterValue(Parameter & objParam)
-		{ 
-			return ParameterHelper<Server::TestRpcData2>::GetParameterValue(objParam);
-
-		} 
-		static void MakeParameter(Parameter & objParam , Server::TestRpcData2 val)
-		{ 
-			return ParameterHelper<Server::TestRpcData2>::MakeParameter(objParam , val);
-		} 
-
-		static BOOL CheckParamType(Parameter & objParam)
-		{ 
-			if (objParam.GetType() == PARAMETER_TYPE_USER_DEFINE_TestRpcData2)
-			{ 
-				return TRUE; 
-			} 
-
-			return FALSE; 
-		} 
-
 	}; 
  
 }

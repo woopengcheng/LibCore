@@ -8,9 +8,13 @@ Msg::ObjectMsgCall * Server::MasterHandler::testParamsAndRpcDatas_RpcClient(Net:
 	Msg::Parameters * pParams = GetInParams();
 	if (pParams)
 	{
-//		TestRpcData  & p1 = pParams->GetValue<TestRpcData>(0);
-//		TestRpcData2 & p2 = pParams->GetValue<TestRpcData2>(1);
+		TestRpcData   p1 = pParams->GetValue<TestRpcData>(0);
+		TestRpcData2  p2 = pParams->GetValue<TestRpcData2>(1);
 		std::vector<INT32> &  Vec = pParams->GetValue<std::vector<INT32>>(2);
+		std::vector<INT32> Vec2;
+		std::vector<INT32> Vec3;
+		pParams->GetValue(2 , Vec2);
+		pParams->GetValueEx(p1 , p2 , Vec3);
 	}
 
 

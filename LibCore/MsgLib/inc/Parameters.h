@@ -38,19 +38,549 @@ namespace Msg
 		UINT32     Copy(Parameters & pParam); 
 		void       Clear(void);
 
-		//5 性能不够高,这里需要改进.
+		//5 这个接口性能不够高 
 		template<typename T>
 		T GetValue(INT32 nPos = 0)
 		{
 			T t;
 			UINT32 unType = 0;
-			MsgAssert_Re( nPos >= 0 && nPos <= MSG_MAX_PARAMETER_NUMBER , t , "pos error."); 
+			MsgAssert_Re( nPos >= 0 && nPos <= MSG_MAX_PARAMETER_NUMBER , t , "GetValue pos error."); 
 
-			m_aParameter[nPos].GetParamStream() >> unType;
+			Parameter param;
+			param.MakeParameter<T>(t);
+
+			m_aParameter[nPos].GetParamStream()>> Marshal::Begin >> unType;
+			MsgAssert_Re( unType == param.GetType() , t , "GetValue type error:param_type=" << param.GetType() << ":get_value_type=" << unType); 
 			
-			m_aParameter[nPos].GetParamStream() >> t;
+			m_aParameter[nPos].GetParamStream() >> t >> Marshal::Rollback;
 			
 			return t;
+		}
+
+		template<typename P1>
+		BOOL GetValue(UINT32 nStartPos , P1 & p1)
+		{
+			UINT32 unType = 0;
+			MsgAssert_Re0( nStartPos + 1 <= m_unParamCount , "GetValue pos error."); 
+
+			Parameters params;
+			params.GenMsgParams(p1);
+
+			for (UINT32 i = nStartPos;i < m_unParamCount;++i)
+			{	
+				m_aParameter[i].GetParamStream() >> Marshal::Begin >> unType;
+				MsgAssert_Re0( unType == params.m_aParameter[i - nStartPos].GetType() , "GetValueEx type error:param_type=" << params.m_aParameter[i - nStartPos].GetType() << ":get_value_type=" << unType); 
+
+				if (i == nStartPos)
+				{
+					m_aParameter[i].GetParamStream() >> p1 >> Marshal::Rollback;
+				} 
+			} 
+			return TRUE;
+		}
+		template<typename P1 , typename P2>
+		BOOL GetValue(UINT32 nStartPos , P1 &p1 , P2 &p2) 
+		{
+			UINT32 unType = 0;
+			MsgAssert_Re0( nStartPos + 2 <= m_unParamCount , "GetValue pos error."); 
+
+			Parameters params;
+			params.GenMsgParams(p1 , p2);
+
+			for (UINT32 i = nStartPos;i < m_unParamCount;++i)
+			{	
+				m_aParameter[i].GetParamStream() >> Marshal::Begin >> unType;
+				MsgAssert_Re0( unType == params.m_aParameter[i - nStartPos].GetType() , "GetValueEx type error:param_type=" << params.m_aParameter[i - nStartPos].GetType() << ":get_value_type=" << unType); 
+
+				if (i == nStartPos)
+				{
+					m_aParameter[i].GetParamStream() >> p1 >> Marshal::Rollback;
+				}  
+				else if(i == nStartPos + 1)
+				{
+					m_aParameter[i].GetParamStream() >> p2 >> Marshal::Rollback;
+				} 
+			} 
+
+			return TRUE;
+		}
+		template<typename P1 , typename P2 , typename P3 >
+		BOOL GetValue(UINT32 nStartPos , P1 &p1 , P2 &p2 , P3 &p3) 
+		{
+			UINT32 unType = 0;
+			MsgAssert_Re0( nStartPos + 3 <= m_unParamCount , "GetValue pos error."); 
+
+			Parameters params;
+			params.GenMsgParams(p1 , p2 , p3);
+
+			for (UINT32 i = nStartPos;i < m_unParamCount;++i)
+			{	
+				m_aParameter[i].GetParamStream() >> Marshal::Begin >> unType;
+				MsgAssert_Re0( unType == params.m_aParameter[i - nStartPos].GetType() , "GetValueEx type error:param_type=" << params.m_aParameter[i - nStartPos].GetType() << ":get_value_type=" << unType); 
+
+				if (i == nStartPos)
+				{
+					m_aParameter[i].GetParamStream() >> p1 >> Marshal::Rollback;
+				}  
+				else if(i == nStartPos + 1)
+				{
+					m_aParameter[i].GetParamStream() >> p2 >> Marshal::Rollback;
+				}
+				else if(i == nStartPos + 2)
+				{
+					m_aParameter[i].GetParamStream() >> p3 >> Marshal::Rollback;
+				} 
+			} 
+
+			return TRUE;
+		}
+		template<typename P1 , typename P2 , typename P3 , typename P4 >
+		BOOL GetValue(UINT32 nStartPos , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 ) 
+		{
+			UINT32 unType = 0;
+			MsgAssert_Re0( nStartPos + 4 <= m_unParamCount , "GetValue pos error."); 
+
+			Parameters params;
+			params.GenMsgParams(p1 , p2 , p3 , p4);
+
+			for (UINT32 i = nStartPos;i < m_unParamCount;++i)
+			{	
+				m_aParameter[i].GetParamStream() >> Marshal::Begin >> unType;
+				MsgAssert_Re0( unType == params.m_aParameter[i - nStartPos].GetType() , "GetValueEx type error:param_type=" << params.m_aParameter[i - nStartPos].GetType() << ":get_value_type=" << unType); 
+
+				if (i == nStartPos)
+				{
+					m_aParameter[i].GetParamStream() >> p1 >> Marshal::Rollback;
+				}  
+				else if(i == nStartPos + 1)
+				{
+					m_aParameter[i].GetParamStream() >> p2 >> Marshal::Rollback;
+				}
+				else if(i == nStartPos + 2)
+				{
+					m_aParameter[i].GetParamStream() >> p3 >> Marshal::Rollback;
+				}
+				else if(i == nStartPos + 3)
+				{
+					m_aParameter[i].GetParamStream() >> p4 >> Marshal::Rollback;
+				} 
+			} 
+
+			return TRUE;
+		}
+
+		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5>
+		BOOL GetValue(UINT32 nStartPos , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 ) 
+		{
+			UINT32 unType = 0;
+			MsgAssert_Re0( nStartPos + 5 <= m_unParamCount , "GetValue pos error."); 
+
+			Parameters params;
+			params.GenMsgParams(p1 , p2 , p3 , p4 , p5);
+
+			for (UINT32 i = nStartPos;i < m_unParamCount;++i)
+			{	
+				m_aParameter[i].GetParamStream() >> Marshal::Begin >> unType;
+				MsgAssert_Re0( unType == params.m_aParameter[i - nStartPos].GetType() , "GetValueEx type error:param_type=" << params.m_aParameter[i - nStartPos].GetType() << ":get_value_type=" << unType); 
+
+				if (i == nStartPos)
+				{
+					m_aParameter[i].GetParamStream() >> p1 >> Marshal::Rollback;
+				}  
+				else if(i == nStartPos + 1)
+				{
+					m_aParameter[i].GetParamStream() >> p2 >> Marshal::Rollback;
+				}
+				else if(i == nStartPos + 2)
+				{
+					m_aParameter[i].GetParamStream() >> p3 >> Marshal::Rollback;
+				}
+				else if(i == nStartPos + 3)
+				{
+					m_aParameter[i].GetParamStream() >> p4 >> Marshal::Rollback;
+				}
+				else if(i == nStartPos + 4)
+				{
+					m_aParameter[i].GetParamStream() >> p5 >> Marshal::Rollback;
+				} 
+			} 
+
+			return TRUE;
+		}
+
+		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6>
+		BOOL GetValue(UINT32 nStartPos , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6) 
+		{
+			UINT32 unType = 0;
+			MsgAssert_Re0( nStartPos + 6 <= m_unParamCount , "GetValue pos error."); 
+
+			Parameters params;
+			params.GenMsgParams(p1 , p2 , p3 , p4 , p5 , p6);
+
+			for (UINT32 i = nStartPos;i < m_unParamCount;++i)
+			{	
+				m_aParameter[i].GetParamStream() >> Marshal::Begin >> unType;
+				MsgAssert_Re0( unType == params.m_aParameter[i - nStartPos].GetType() , "GetValueEx type error:param_type=" << params.m_aParameter[i - nStartPos].GetType() << ":get_value_type=" << unType); 
+
+				if (i == nStartPos)
+				{
+					m_aParameter[i].GetParamStream() >> p1 >> Marshal::Rollback;
+				}  
+				else if(i == nStartPos + 1)
+				{
+					m_aParameter[i].GetParamStream() >> p2 >> Marshal::Rollback;
+				}
+				else if(i == nStartPos + 2)
+				{
+					m_aParameter[i].GetParamStream() >> p3 >> Marshal::Rollback;
+				}
+				else if(i == nStartPos + 3)
+				{
+					m_aParameter[i].GetParamStream() >> p4 >> Marshal::Rollback;
+				}
+				else if(i == nStartPos + 4)
+				{
+					m_aParameter[i].GetParamStream() >> p5 >> Marshal::Rollback;
+				}
+				else if(i == nStartPos + 5)
+				{
+					m_aParameter[i].GetParamStream() >> p6 >> Marshal::Rollback;
+				} 
+			} 
+
+			return TRUE;
+		}
+
+		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7>
+		BOOL GetValue(UINT32 nStartPos , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7) 
+		{
+			UINT32 unType = 0;
+			MsgAssert_Re0( nStartPos + 7 <= m_unParamCount , "GetValue pos error."); 
+
+			Parameters params;
+			params.GenMsgParams(p1 , p2 , p3 , p4 , p5 , p6 , p7);
+
+			for (UINT32 i = nStartPos;i < m_unParamCount;++i)
+			{	
+				m_aParameter[i].GetParamStream() >> Marshal::Begin >> unType;
+				MsgAssert_Re0( unType == params.m_aParameter[i - nStartPos].GetType() , "GetValueEx type error:param_type=" << params.m_aParameter[i - nStartPos].GetType() << ":get_value_type=" << unType); 
+
+				if (i == nStartPos)
+				{
+					m_aParameter[i].GetParamStream() >> p1 >> Marshal::Rollback;
+				}  
+				else if(i == nStartPos + 1)
+				{
+					m_aParameter[i].GetParamStream() >> p2 >> Marshal::Rollback;
+				}
+				else if(i == nStartPos + 2)
+				{
+					m_aParameter[i].GetParamStream() >> p3 >> Marshal::Rollback;
+				}
+				else if(i == nStartPos + 3)
+				{
+					m_aParameter[i].GetParamStream() >> p4 >> Marshal::Rollback;
+				}
+				else if(i == nStartPos + 4)
+				{
+					m_aParameter[i].GetParamStream() >> p5 >> Marshal::Rollback;
+				}
+				else if(i == nStartPos + 5)
+				{
+					m_aParameter[i].GetParamStream() >> p6 >> Marshal::Rollback;
+				}
+				else if(i == nStartPos + 6)
+				{
+					m_aParameter[i].GetParamStream() >> p7 >> Marshal::Rollback;
+				}
+			} 
+
+			return TRUE;
+		}
+
+		//5 这个是从头开始获取.参数依次传递,c++11支持默认模板参数.这里还是多写一遍.跨版本用.
+		template<typename P1>
+		BOOL GetValueEx(P1 &p1)
+		{
+			UINT32 unType = 0;
+			MsgAssert_Re0(m_unParamCount >= 1 , "GetValueEx size error:size=" << m_unParamCount ); 
+
+			Parameters params;
+			params.GenMsgParams(p1);
+
+			for (UINT32 i = 0;i < 1;++i)
+			{	
+				m_aParameter[i].GetParamStream() >> Marshal::Begin >> unType;
+				MsgAssert_Re0( unType == params.m_aParameter[i].GetType() , "GetValueEx type error:param_type=" << params.m_aParameter[i].GetType() << ":get_value_type=" << unType); 
+
+				if (i == 0)
+				{
+					m_aParameter[i].GetParamStream() >> p1 >> Marshal::Rollback;
+				} 
+			} 
+			return TRUE;
+		}
+		template<typename P1 , typename P2 >
+		BOOL GetValueEx(P1 &p1 , P2 &p2 )
+		{
+			UINT32 unType = 0;
+			MsgAssert_Re0(m_unParamCount >= 2 , "GetValueEx size error:size=" << m_unParamCount ); 
+
+			Parameters params;
+			params.GenMsgParams(p1 , p2);
+
+			for (UINT32 i = 0;i < 2;++i)
+			{	
+				m_aParameter[i].GetParamStream() >> Marshal::Begin >> unType;
+				MsgAssert_Re0( unType == params.m_aParameter[i].GetType() , "GetValueEx type error:param_type=" << params.m_aParameter[i].GetType() << ":get_value_type=" << unType); 
+
+				if (i == 0)
+				{
+					m_aParameter[i].GetParamStream() >> p1 >> Marshal::Rollback;
+				}
+				else if(i == 1)
+				{
+					m_aParameter[i].GetParamStream() >> p2 >> Marshal::Rollback;
+				} 
+			} 
+			return TRUE;
+		}
+		template<typename P1 , typename P2 , typename P3  >
+		BOOL GetValueEx(P1 &p1 , P2 &p2 , P3 &p3   )
+		{
+			UINT32 unType = 0;
+			MsgAssert_Re0(m_unParamCount >= 3 , "GetValueEx size error:size=" << m_unParamCount ); 
+
+			Parameters params;
+			params.GenMsgParams(p1 , p2 , p3 );
+
+			for (UINT32 i = 0;i < 3;++i)
+			{	
+				m_aParameter[i].GetParamStream() >> Marshal::Begin >> unType;
+				MsgAssert_Re0( unType == params.m_aParameter[i].GetType() , "GetValueEx type error:param_type=" << params.m_aParameter[i].GetType() << ":get_value_type=" << unType); 
+
+				if (i == 0)
+				{
+					m_aParameter[i].GetParamStream() >> p1 >> Marshal::Rollback;
+				}
+				else if(i == 1)
+				{
+					m_aParameter[i].GetParamStream() >> p2 >> Marshal::Rollback;
+				}
+				else if(i == 2)
+				{
+					m_aParameter[i].GetParamStream() >> p3 >> Marshal::Rollback;
+				} 
+			} 
+			return TRUE;
+		}
+		template<typename P1 , typename P2 , typename P3 , typename P4 >
+		BOOL GetValueEx(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 )
+		{
+			UINT32 unType = 0;
+			MsgAssert_Re0(m_unParamCount >= 4 , "GetValueEx size error:size=" << m_unParamCount ); 
+
+			Parameters params;
+			params.GenMsgParams(p1 , p2 , p3 , p4 );
+
+			for (UINT32 i = 0;i < 4 ;++i)
+			{				
+				m_aParameter[i].GetParamStream() >> Marshal::Begin >> unType;
+				MsgAssert_Re0( unType == params.m_aParameter[i].GetType() , "GetValueEx type error:param_type=" << params.m_aParameter[i].GetType() << ":get_value_type=" << unType); 
+
+				if (i == 0)
+				{
+					m_aParameter[i].GetParamStream() >> p1 >> Marshal::Rollback;
+				}
+				else if(i == 1)
+				{
+					m_aParameter[i].GetParamStream() >> p2 >> Marshal::Rollback;
+				}
+				else if(i == 2)
+				{
+					m_aParameter[i].GetParamStream() >> p3 >> Marshal::Rollback;
+				}
+				else if(i == 3)
+				{
+					m_aParameter[i].GetParamStream() >> p4 >> Marshal::Rollback;
+				} 
+			}
+			 
+			return TRUE;
+		}
+		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5  >
+		BOOL GetValueEx(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 )
+		{
+			UINT32 unType = 0;
+			MsgAssert_Re0(m_unParamCount >= 5 , "GetValueEx size error:size=" << m_unParamCount ); 
+
+			Parameters params;
+			params.GenMsgParams(p1 , p2 , p3 , p4 , p5 );
+
+			for (UINT32 i = 0;i < 5;++i)
+			{	
+				m_aParameter[i].GetParamStream() >> Marshal::Begin >> unType;
+				MsgAssert_Re0( unType == params.m_aParameter[i].GetType() , "GetValueEx type error:param_type=" << params.m_aParameter[i].GetType() << ":get_value_type=" << unType); 
+
+				if (i == 0)
+				{
+					m_aParameter[i].GetParamStream() >> p1 >> Marshal::Rollback;
+				}
+				else if(i == 1)
+				{
+					m_aParameter[i].GetParamStream() >> p2 >> Marshal::Rollback;
+				}
+				else if(i == 2)
+				{
+					m_aParameter[i].GetParamStream() >> p3 >> Marshal::Rollback;
+				}
+				else if(i == 3)
+				{
+					m_aParameter[i].GetParamStream() >> p4 >> Marshal::Rollback;
+				}
+				else if(i == 4)
+				{
+					m_aParameter[i].GetParamStream() >> p5 >> Marshal::Rollback;
+				} 
+			}
+			 
+			return TRUE;
+		}
+		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 >
+		BOOL GetValueEx(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6   )
+		{
+			UINT32 unType = 0;
+			MsgAssert_Re0(m_unParamCount >= 6 , "GetValueEx size error:size=" << m_unParamCount ); 
+
+			Parameters params;
+			params.GenMsgParams(p1 , p2 , p3 , p4 , p5 , p6 );
+
+			for (UINT32 i = 0;i < 6;++i)
+			{	
+				m_aParameter[i].GetParamStream() >> Marshal::Begin >> unType;
+				MsgAssert_Re0( unType == params.m_aParameter[i].GetType() , "GetValueEx type error:param_type=" << params.m_aParameter[i].GetType() << ":get_value_type=" << unType); 
+
+				if (i == 0)
+				{
+					m_aParameter[i].GetParamStream() >> p1 >> Marshal::Rollback;
+				}
+				else if(i == 1)
+				{
+					m_aParameter[i].GetParamStream() >> p2 >> Marshal::Rollback;
+				}
+				else if(i == 2)
+				{
+					m_aParameter[i].GetParamStream() >> p3 >> Marshal::Rollback;
+				}
+				else if(i == 3)
+				{
+					m_aParameter[i].GetParamStream() >> p4 >> Marshal::Rollback;
+				}
+				else if(i == 4)
+				{
+					m_aParameter[i].GetParamStream() >> p5 >> Marshal::Rollback;
+				}
+				else if(i == 5)
+				{
+					m_aParameter[i].GetParamStream() >> p6 >> Marshal::Rollback;
+				} 
+			}
+			 
+			return TRUE;
+		}
+		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7>
+		BOOL GetValueEx(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7)
+		{
+			UINT32 unType = 0;
+			MsgAssert_Re0(m_unParamCount >= 7 , "GetValueEx size error:size=" << m_unParamCount ); 
+
+			Parameters params;
+			params.GenMsgParams(p1 , p2 , p3 , p4 , p5 , p6 , p7);
+
+			for (UINT32 i = 0;i < 7;++i)
+			{		
+				m_aParameter[i].GetParamStream() >> Marshal::Begin >> unType;
+				MsgAssert_Re0( unType == params.m_aParameter[i].GetType() , "GetValueEx type error:param_type=" << params.m_aParameter[i].GetType() << ":get_value_type=" << unType); 
+
+				if (i == 0)
+				{
+					m_aParameter[i].GetParamStream() >> p1 >> Marshal::Rollback;
+				}
+				else if(i == 1)
+				{
+					m_aParameter[i].GetParamStream() >> p2 >> Marshal::Rollback;
+				}
+				else if(i == 2)
+				{
+					m_aParameter[i].GetParamStream() >> p3 >> Marshal::Rollback;
+				}
+				else if(i == 3)
+				{
+					m_aParameter[i].GetParamStream() >> p4 >> Marshal::Rollback;
+				}
+				else if(i == 4)
+				{
+					m_aParameter[i].GetParamStream() >> p5 >> Marshal::Rollback;
+				}
+				else if(i == 5)
+				{
+					m_aParameter[i].GetParamStream() >> p6 >> Marshal::Rollback;
+				}
+				else if(i == 6)
+				{
+					m_aParameter[i].GetParamStream() >> p7 >> Marshal::Rollback;
+				}
+			} 
+			return TRUE;
+		}
+		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8>
+		BOOL GetValueEx(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7 , P8 &p8 )
+		{
+			UINT32 unType = 0;
+			MsgAssert_Re0(m_unParamCount >= 8 , "GetValueEx size error:size=" << m_unParamCount ); 
+
+			Parameters params;
+			params.GenMsgParams(p1 , p2 , p3 , p4 , p5 , p6 , p7 , p8);
+
+			for (UINT32 i = 0;i < 8;++i)
+			{				
+				m_aParameter[i].GetParamStream() >> Marshal::Begin >> unType;
+				MsgAssert_Re0( unType == params.m_aParameter[i].GetType() , "GetValueEx type error:param_type=" << params.m_aParameter[i].GetType() << ":get_value_type=" << unType); 
+			
+				if (i == 0)
+				{
+					m_aParameter[i].GetParamStream() >> p1 >> Marshal::Rollback;
+				}
+				else if(i == 1)
+				{
+					m_aParameter[i].GetParamStream() >> p2 >> Marshal::Rollback;
+				}
+				else if(i == 2)
+				{
+					m_aParameter[i].GetParamStream() >> p3 >> Marshal::Rollback;
+				}
+				else if(i == 3)
+				{
+					m_aParameter[i].GetParamStream() >> p4 >> Marshal::Rollback;
+				}
+				else if(i == 4)
+				{
+					m_aParameter[i].GetParamStream() >> p5 >> Marshal::Rollback;
+				}
+				else if(i == 5)
+				{
+					m_aParameter[i].GetParamStream() >> p6 >> Marshal::Rollback;
+				}
+				else if(i == 6)
+				{
+					m_aParameter[i].GetParamStream() >> p7 >> Marshal::Rollback;
+				}
+				else if(i == 7)
+				{
+					m_aParameter[i].GetParamStream() >> p8 >> Marshal::Rollback;
+				}
+			}
+			return TRUE;
 		}
 
 	public: 

@@ -25,9 +25,9 @@ namespace Msg
 		PARAMETER_TYPE_STRING ,
 		PARAMETER_TYPE_STD_STRING ,
 		PARAMETER_TYPE_CHUNK  ,
-		PARAMETER_TYPE_STD_VECTOR  ,
+		PARAMETER_TYPE_STD_CONTAINER_OR_OTHERS  ,  //5 可能是容器,或者重写过CString的都支持.
 
-		PARAMETER_TYPE_COUNT ,
+		PARAMETER_TYPE_SYSTEM_COUNT ,
 
 		PARAMETER_TYPE_USER_DEFINE = 1000 ,   //5 用户自定义类型.从1000后面开始吧.
 	};
@@ -69,12 +69,25 @@ namespace Msg
 		bool	   IsString(){ return GetType() == PARAMETER_TYPE_STRING; }
 		bool	   IsStdString(){ return GetType() == PARAMETER_TYPE_STD_STRING; }
 		bool	   IsChunk(){ return GetType() == PARAMETER_TYPE_CHUNK; }  
+		bool	   IsContainerOrOthers(){ return GetType() == PARAMETER_TYPE_STD_CONTAINER_OR_OTHERS; }  
 		bool	   IsUserDefine(){ return GetType() >= PARAMETER_TYPE_USER_DEFINE; }  
 
 	public: 
 		virtual LibCore::CStream & marshal(LibCore::CStream & cs);
 		virtual LibCore::CStream & unMarshal(LibCore::CStream & cs);
 
+	public:
+		template<typename P1>
+		void MakeParameter(P1 & p1)
+		{
+			ParameterHelper<P1>::MakeParameter(*this , p1);
+		} 
+
+		template<typename P1>
+		void GetParameterValue(P1 & p1)
+		{
+			ParameterHelper<P1>::GetParameterValue(*this , p1);
+		} 
 	private:
 		LibCore::CStream   m_objParamStream;
 	};

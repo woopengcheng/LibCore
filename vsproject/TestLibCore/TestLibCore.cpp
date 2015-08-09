@@ -55,6 +55,37 @@ void testRe(std::vector<INT32> & vec)
 
 }
 
+// template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8>
+// BOOL GetValue(P1 &p1 = INT32(0) , P2 &p2 = INT32(0) , P3 &p3 = INT32(0) , P4 &p4 = INT32(0) , P5 &p5 = INT32(0) , P6 &p6 = INT32(0) , P7 &p7 = INT32(0) , P8 &p8 = INT32(0))
+// {
+// 	std::cout << p1 << p2 << p3 << p4 << p5 << p6 << p7 << p8 << std::endl;
+// }
+
+
+static INT32 testA;
+
+template<typename P1 = INT32 , typename P2 = INT32, typename P3 = INT32 , typename P4  = INT32, typename P5  = INT32, typename P6 = INT32 , typename P7 = INT32 , typename P8 = INT32>
+class GetValueA
+{
+public:
+public:
+	BOOL GetValue(P1 &p1 = testA , P2 &p2 = testA , P3 &p3 = testA , P4 &p4 = testA , P5 &p5 = testA , P6 &p6 = testA , P7 &p7 = testA , P8 &p8 = testA)
+	{
+		std::cout << p1 << p2 << p3 << p4 << p5 << p6 << p7 << p8 << std::endl;
+	}
+};
+
+class GetValueB
+{
+public:
+public:
+	BOOL GetValue(P1 &p1 = testA , P2 &p2 = testA , P3 &p3 = testA , P4 &p4 = testA , P5 &p5 = testA , P6 &p6 = testA , P7 &p7 = testA , P8 &p8 = testA)
+	{
+		std::cout << p1 << p2 << p3 << p4 << p5 << p6 << p7 << p8 << std::endl;
+		return 1;
+	}
+};
+
 int _tmain(int argc, _TCHAR* argv[])
 { 
 	Msg::Parameters         m_objParams;  
@@ -64,6 +95,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	Msg::ParameterHelper<std::vector<INT32>& >::MakeParameter(m_objParams.m_aParameter[0] , vec);
 	std::vector<INT32> & vt = Msg::ParameterHelper<std::vector<INT32>&>::GetParameterValue(m_objParams.m_aParameter[0]);
 	
+	INT32 n;
+	GetValueA<>  t;
+	t.GetValue(n);
+
 //	testFunc(vec);
 //	testRe(vec);
 	return 0;

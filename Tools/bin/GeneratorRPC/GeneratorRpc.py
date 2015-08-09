@@ -874,11 +874,11 @@ def GenerateRpcHandler(rpcs , serverName , old_namespace):
 			else:
 				continue
 			
-			if rpc.name == "testMulitServerNode" or rpc.name == "testParamsAndRpcDatas" and IsPathExist(outputPath):
+			if rpc.name == "testMulitServerNode" and IsPathExist(outputPath):
 				os.remove(outputPath)
 				
 			if IsPathExist(outputPath):
-#				os.remove(outputPath)
+#				os.remove(outputPath) or rpc.name == "testParamsAndRpcDatas" 
 				continue
 				
 			fileRpc = open(outputPath , "a")   
@@ -985,7 +985,7 @@ def GenerateRpcDatas():
 			sameNamespace[serverName.namespace] = 1 
 
 			for index , rpcData in g_rpcMsgs.rpcs.rpcDatas.items():   
-				fileRpc.write(oneTab + "class " + rpcData.name + "\n") 
+				fileRpc.write(oneTab + "class " + rpcData.name + ": public LibCore::Marshal\n") 
 				fileRpc.write(oneTab + "{ \n")
 				fileRpc.write(twoTab + "public:\n")
 				WriteDefineParamsWithoutDefault(fileRpc , rpcData.params) 
@@ -994,6 +994,10 @@ def GenerateRpcDatas():
 				fileRpc.write(twoTab + rpcData.name + "()\n")
 				WriteDefineParamsWithDefault(fileRpc , rpcData.params)  
 				fileRpc.write(threeTab + "{}\n")				
+				
+				WriteRpcDataCopyFunc(fileRpc , rpcData)
+				WriteRpcDataMarshal(fileRpc , rpcData)
+				WriteRpcDataunMarshal(fileRpc , rpcData) 
 				
 				fileRpc.write(oneTab + "}; \n \n")
 			
@@ -1008,8 +1012,8 @@ def GenerateRpcDatas():
 				fileRpc.write(twoTab + "PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ",\n")  
 			fileRpc.write(oneTab + "}; \n \n") 
 			
-			for index , rpcData in g_rpcMsgs.rpcs.rpcDatas.items():   			
-				WriteParamHelper(serverName.namespace , fileRpc , rpcData) 
+#			for index , rpcData in g_rpcMsgs.rpcs.rpcDatas.items():   			
+#				WriteParamHelper(serverName.namespace , fileRpc , rpcData) 
 			fileRpc.write("}\n\n")	
 		fileRpc.close()
 
@@ -1024,6 +1028,37 @@ def GenerateRpcDatas():
 			fileRpc.close()
 			sameNamespace[rpcServerName.namespace] = 1
 			
+def WriteRpcDataCopyFunc(fileRpc , rpcData):
+	fileRpc.write(twoTab + rpcData.name + "(const " + rpcData.name + " & val)\n" )
+	fileRpc.write(twoTab + "{ \n")
+	strParam = ""
+	for index , param in rpcData.params.items():  
+		strParam = strParam + threeTab + param.name + " = val." + param.name + ";\n"
+	fileRpc.write(strParam)
+	fileRpc.write(twoTab + "} \n\n")
+
+def WriteRpcDataMarshal(fileRpc , rpcData):
+	fileRpc.write(twoTab + "virtual LibCore::CStream & marshal(LibCore::CStream & cs)\n" )
+	fileRpc.write(twoTab + "{ \n")
+	strParam = threeTab + "cs"
+	for index , param in rpcData.params.items():  
+		strParam = strParam + " << " + param.name
+	strParam += ";\n"
+	fileRpc.write(strParam)
+	fileRpc.write(threeTab + "return cs; \n")
+	fileRpc.write(twoTab + "} \n\n")
+	
+def WriteRpcDataunMarshal(fileRpc , rpcData):
+	fileRpc.write(twoTab + "virtual LibCore::CStream & unMarshal(LibCore::CStream & cs)\n" )
+	fileRpc.write(twoTab + "{ \n")
+	strParam = threeTab + "cs"
+	for index , param in rpcData.params.items():  
+		strParam = strParam + " >> " + param.name
+	strParam += ";\n"
+	fileRpc.write(strParam)
+	fileRpc.write(threeTab + "return cs; \n")
+	fileRpc.write(twoTab + "} \n\n")
+	
 def WriteParamHelper(namespace , fileRpc , rpcData):
 	fileRpc.write(oneTab + "template<> class Msg::ParameterHelper<" + namespace + "::" + rpcData.name + ">\n") 
 	fileRpc.write(oneTab + "{ \n")
