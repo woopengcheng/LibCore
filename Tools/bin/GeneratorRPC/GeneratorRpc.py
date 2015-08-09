@@ -1012,8 +1012,8 @@ def GenerateRpcDatas():
 				fileRpc.write(twoTab + "PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ",\n")  
 			fileRpc.write(oneTab + "}; \n \n") 
 			
-#			for index , rpcData in g_rpcMsgs.rpcs.rpcDatas.items():   			
-#				WriteParamHelper(serverName.namespace , fileRpc , rpcData) 
+			for index , rpcData in g_rpcMsgs.rpcs.rpcDatas.items():   			
+				WriteParamHelper(serverName.namespace , fileRpc , rpcData) 
 			fileRpc.write("}\n\n")	
 		fileRpc.close()
 
@@ -1058,75 +1058,78 @@ def WriteRpcDataunMarshal(fileRpc , rpcData):
 	fileRpc.write(strParam)
 	fileRpc.write(threeTab + "return cs; \n")
 	fileRpc.write(twoTab + "} \n\n")
-	
+
 def WriteParamHelper(namespace , fileRpc , rpcData):
-	fileRpc.write(oneTab + "template<> class Msg::ParameterHelper<" + namespace + "::" + rpcData.name + ">\n") 
-	fileRpc.write(oneTab + "{ \n")
-	fileRpc.write(oneTab + "public:\n")
-	fileRpc.write(twoTab + "static UINT32 GetParameterType()\n")
-	fileRpc.write(twoTab + "{ \n")
-	fileRpc.write(threeTab + "return PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ";\n") 
-	fileRpc.write(twoTab + "} \n\n")
+	fileRpc.write(oneTab + "GEN_PARAMTER_HELPER(" + namespace + "::" + rpcData.name + " , PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ");\n") 
 	
-	fileRpc.write(twoTab + "static " + namespace + "::" + rpcData.name + " GetParameterValue(Parameter & objParam)\n") 
-	fileRpc.write(twoTab + "{ \n")
-	fileRpc.write(threeTab + "INT32 unType = 0;\n")
-	fileRpc.write(threeTab + namespace + "::" + rpcData.name + " val;\n\n")
-	strParam = threeTab + "objParam.GetParamStream() >> unType "
-	for index , param in rpcData.params.items():  
-		strParam = strParam + " >> val." + param.name
-	fileRpc.write(strParam + ";\n")
-	fileRpc.write(threeTab + "MsgAssert_Re(unType == PARAMETER_TYPE_USER_DEFINE_" + rpcData.name +" , val , \"get param error.\");\n\n")
-	fileRpc.write(threeTab + "return val;\n")
-	fileRpc.write(twoTab + "}\n\n")
+# def WriteParamHelper(namespace , fileRpc , rpcData):
+	# fileRpc.write(oneTab + "template<> class Msg::ParameterHelper<" + namespace + "::" + rpcData.name + ">\n") 
+	# fileRpc.write(oneTab + "{ \n")
+	# fileRpc.write(oneTab + "public:\n")
+	# fileRpc.write(twoTab + "static UINT32 GetParameterType()\n")
+	# fileRpc.write(twoTab + "{ \n")
+	# fileRpc.write(threeTab + "return PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ";\n") 
+	# fileRpc.write(twoTab + "} \n\n")
 	
-	fileRpc.write(twoTab + "static void MakeParameter(Parameter & objParam , " + namespace + "::" + rpcData.name + " val)\n") 
-	fileRpc.write(twoTab + "{ \n") 
-	strParam = threeTab + "objParam.GetParamStream() << (INT32)PARAMETER_TYPE_USER_DEFINE_" + rpcData.name 
-	for index , param in rpcData.params.items():  
-		strParam = strParam + " << val." + param.name
-	fileRpc.write(strParam + ";\n")
-	fileRpc.write(twoTab + "} \n\n")
+	# fileRpc.write(twoTab + "static " + namespace + "::" + rpcData.name + " GetParameterValue(Parameter & objParam)\n") 
+	# fileRpc.write(twoTab + "{ \n")
+	# fileRpc.write(threeTab + "INT32 unType = 0;\n")
+	# fileRpc.write(threeTab + namespace + "::" + rpcData.name + " val;\n\n")
+	# strParam = threeTab + "objParam.GetParamStream() >> unType "
+	# for index , param in rpcData.params.items():  
+		# strParam = strParam + " >> val." + param.name
+	# fileRpc.write(strParam + ";\n")
+	# fileRpc.write(threeTab + "MsgAssert_Re(unType == PARAMETER_TYPE_USER_DEFINE_" + rpcData.name +" , val , \"get param error.\");\n\n")
+	# fileRpc.write(threeTab + "return val;\n")
+	# fileRpc.write(twoTab + "}\n\n")
 	
-	fileRpc.write(twoTab + "static BOOL CheckParamType(Parameter & objParam)\n") 
-	fileRpc.write(twoTab + "{ \n") 
-	fileRpc.write(threeTab + "if (objParam.GetType() == PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ")\n")
-	fileRpc.write(threeTab + "{ \n") 
-	fileRpc.write(fourTab + "return TRUE; \n") 	 
-	fileRpc.write(threeTab + "} \n\n")
-	fileRpc.write(threeTab + "return FALSE; \n") 	 
-	fileRpc.write(twoTab + "} \n\n")	
-	fileRpc.write(oneTab + "}; \n \n")
+	# fileRpc.write(twoTab + "static void MakeParameter(Parameter & objParam , " + namespace + "::" + rpcData.name + " val)\n") 
+	# fileRpc.write(twoTab + "{ \n") 
+	# strParam = threeTab + "objParam.GetParamStream() << (INT32)PARAMETER_TYPE_USER_DEFINE_" + rpcData.name 
+	# for index , param in rpcData.params.items():  
+		# strParam = strParam + " << val." + param.name
+	# fileRpc.write(strParam + ";\n")
+	# fileRpc.write(twoTab + "} \n\n")
+	
+	# fileRpc.write(twoTab + "static BOOL CheckParamType(Parameter & objParam)\n") 
+	# fileRpc.write(twoTab + "{ \n") 
+	# fileRpc.write(threeTab + "if (objParam.GetType() == PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ")\n")
+	# fileRpc.write(threeTab + "{ \n") 
+	# fileRpc.write(fourTab + "return TRUE; \n") 	 
+	# fileRpc.write(threeTab + "} \n\n")
+	# fileRpc.write(threeTab + "return FALSE; \n") 	 
+	# fileRpc.write(twoTab + "} \n\n")	
+	# fileRpc.write(oneTab + "}; \n \n")
 	
 			
 	
-	fileRpc.write(oneTab + "template<> class Msg::ParameterHelper<" + namespace + "::" + rpcData.name + "&>\n") 
-	fileRpc.write(oneTab + "{ \n")
-	fileRpc.write(oneTab + "public:\n")
-	fileRpc.write(twoTab + "static UINT32 GetParameterType()\n")
-	fileRpc.write(twoTab + "{ \n")
-	fileRpc.write(threeTab + "return PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ";\n") 
-	fileRpc.write(twoTab + "} \n\n")
+	# fileRpc.write(oneTab + "template<> class Msg::ParameterHelper<" + namespace + "::" + rpcData.name + "&>\n") 
+	# fileRpc.write(oneTab + "{ \n")
+	# fileRpc.write(oneTab + "public:\n")
+	# fileRpc.write(twoTab + "static UINT32 GetParameterType()\n")
+	# fileRpc.write(twoTab + "{ \n")
+	# fileRpc.write(threeTab + "return PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ";\n") 
+	# fileRpc.write(twoTab + "} \n\n")
 	
-	fileRpc.write(twoTab + "static " + namespace + "::" + rpcData.name + " GetParameterValue(Parameter & objParam)\n") 
-	fileRpc.write(twoTab + "{ \n") 
-	fileRpc.write(threeTab + "return ParameterHelper<" + namespace + "::" + rpcData.name + ">::GetParameterValue(objParam);\n\n")
-	fileRpc.write(twoTab + "} \n")
+	# fileRpc.write(twoTab + "static " + namespace + "::" + rpcData.name + " GetParameterValue(Parameter & objParam)\n") 
+	# fileRpc.write(twoTab + "{ \n") 
+	# fileRpc.write(threeTab + "return ParameterHelper<" + namespace + "::" + rpcData.name + ">::GetParameterValue(objParam);\n\n")
+	# fileRpc.write(twoTab + "} \n")
 		
-	fileRpc.write(twoTab + "static void MakeParameter(Parameter & objParam , " + namespace + "::" + rpcData.name + " val)\n") 
-	fileRpc.write(twoTab + "{ \n") 
-	fileRpc.write(threeTab + "return ParameterHelper<" + namespace + "::" + rpcData.name + ">::MakeParameter(objParam , val);\n")
-	fileRpc.write(twoTab + "} \n\n")
+	# fileRpc.write(twoTab + "static void MakeParameter(Parameter & objParam , " + namespace + "::" + rpcData.name + " val)\n") 
+	# fileRpc.write(twoTab + "{ \n") 
+	# fileRpc.write(threeTab + "return ParameterHelper<" + namespace + "::" + rpcData.name + ">::MakeParameter(objParam , val);\n")
+	# fileRpc.write(twoTab + "} \n\n")
 	
-	fileRpc.write(twoTab + "static BOOL CheckParamType(Parameter & objParam)\n") 
-	fileRpc.write(twoTab + "{ \n") 
-	fileRpc.write(threeTab + "if (objParam.GetType() == PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ")\n")
-	fileRpc.write(threeTab + "{ \n") 
-	fileRpc.write(fourTab + "return TRUE; \n") 	 
-	fileRpc.write(threeTab + "} \n\n")
-	fileRpc.write(threeTab + "return FALSE; \n") 	 
-	fileRpc.write(twoTab + "} \n\n")	
-	fileRpc.write(oneTab + "}; \n \n")
+	# fileRpc.write(twoTab + "static BOOL CheckParamType(Parameter & objParam)\n") 
+	# fileRpc.write(twoTab + "{ \n") 
+	# fileRpc.write(threeTab + "if (objParam.GetType() == PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ")\n")
+	# fileRpc.write(threeTab + "{ \n") 
+	# fileRpc.write(fourTab + "return TRUE; \n") 	 
+	# fileRpc.write(threeTab + "} \n\n")
+	# fileRpc.write(threeTab + "return FALSE; \n") 	 
+	# fileRpc.write(twoTab + "} \n\n")	
+	# fileRpc.write(oneTab + "}; \n \n")
 	
 def  GenerateRpcDatasHeader(fileRpc , serverName):
 	WriteFileDescription(fileRpc , "RpcDatas.h" , "网络消息的数据域.") 

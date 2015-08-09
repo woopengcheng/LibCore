@@ -55,7 +55,7 @@ namespace Msg
 			type_name  val;\
 			\
 			objParam.GetParamStream() >> LibCore::Marshal::Begin >> unType >> val >> LibCore::Marshal::Rollback;   \
-			MsgAssert_Re0(unType == type_macro , "获取参数值错误.");\
+			MsgAssert_Re(unType == type_macro , val , "获取参数值错误.");\
 			\
 			return val;\
 		}\
