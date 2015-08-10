@@ -1,4 +1,3 @@
-#include "GlobalRpc.h"
 #include "MasterHandler.h"
 
 Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcServerProxy(Net::ISession * pSession , Msg::Object objSrc , std_string & dbname/* = std::string()*/)

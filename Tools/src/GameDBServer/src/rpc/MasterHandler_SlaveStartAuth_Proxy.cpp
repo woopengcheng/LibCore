@@ -1,4 +1,3 @@
-#include "GlobalRpc.h"
 #include "MasterHandler.h"
 #include "GameDB/inc/User.h"
 

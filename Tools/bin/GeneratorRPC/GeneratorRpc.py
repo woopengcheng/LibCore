@@ -312,6 +312,7 @@ def handleRpc(rpcs , xmlRpc):
 	if targetAttrClient.name != "" and targetAttrClient.name != None:
 		if targetAttrClient.classes == None:
 			targetAttrClient.classes = "GlobalRpc"
+			targetAttrClient.include = "GlobalRpc.h"
 		targetAttrServer.targetType = g_targetTypeClient
 		rpc.targets[targetAttrClient.name + targetAttrClient.classes + str(targetAttrClient.targetType) ] = targetAttrClient
 		AddToGlobalTargets(targetAttrClient , rpc)		
@@ -319,6 +320,7 @@ def handleRpc(rpcs , xmlRpc):
 	if targetAttrProxy.name != "" and targetAttrProxy.name != None:
 		if targetAttrProxy.classes == None:
 			targetAttrProxy.classes = "GlobalRpc"
+			targetAttrProxy.include = "GlobalRpc.h"
 		targetAttrServer.targetType = g_targetTypeProxy
 		rpc.targets[targetAttrProxy.name + targetAttrProxy.classes + str(targetAttrProxy.targetType) ] = targetAttrProxy
 		AddToGlobalTargets(targetAttrProxy , rpc)	
@@ -326,6 +328,7 @@ def handleRpc(rpcs , xmlRpc):
 	if targetAttrServer.name != "" and targetAttrServer.name != None:
 		if targetAttrServer.classes == None:
 			targetAttrServer.classes = "GlobalRpc"
+			targetAttrServer.include = "GlobalRpc.h"
 		targetAttrServer.targetType = g_targetTypeServer
 		rpc.targets[targetAttrServer.name + targetAttrServer.classes + str(targetAttrServer.targetType) ] = targetAttrServer
 		AddToGlobalTargets(targetAttrServer , rpc)	
@@ -364,6 +367,7 @@ def handleTarget(targets , xmData , rpc , targetType):
 			
 	if targetAttr.classes == "" or targetAttr.classes == None:
 		targetAttr.classes = "GlobalRpc" 
+		targetAttr.include = "GlobalRpc.h" 
 	
 	if IsHasSameData(targets , targetAttr.name + targetAttr.classes + str(targetType)):
 		LogOutError("Parase targets :" , targetAttr.name + targetAttr.classes + str(targetType) , "has same targetAttr.") 
@@ -544,7 +548,7 @@ def GenerateMsgNameDefine():
 					GenerateRPCParamDefine(rpc , fileRpc) 
 					sameRecord[rpc.name] = 1
 			
-			fileRpc.close()	
+		fileRpc.close()	
 
 	sameNamespace = collections.OrderedDict() 
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
@@ -881,11 +885,8 @@ def GenerateRpcHandler(rpcs , serverName , old_namespace):
 #				os.remove(outputPath) or rpc.name == "testParamsAndRpcDatas" 
 				continue
 				
-			fileRpc = open(outputPath , "a")   
-			fileRpc.write("#include \"GlobalRpc.h\"\n")
-			if className != "GlobalRpc":
-				fileRpc.write("#include \"" + target.include + "\"\n\n") 
-			fileRpc.write("\n\n") 
+			fileRpc = open(outputPath , "a")
+			fileRpc.write("#include \"" + target.include + "\"\n\n") 
  				
 			if target.targetType == g_targetTypeClient and serverName == target.name:			
 			

@@ -1,4 +1,3 @@
-#include "GlobalRpc.h"
 #include "ServerHandler.h"
 #include "GameDB/inc/SortedSet.h"
 #include "RPCCallFuncs.h"

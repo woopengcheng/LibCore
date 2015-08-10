@@ -1,4 +1,3 @@
-#include "GlobalRpc.h"
 #include "SlaveHandler.h"
 #include "GameDB/inc/OperateRecord.h"
 #include "GameDB/inc/DBCommon.h"

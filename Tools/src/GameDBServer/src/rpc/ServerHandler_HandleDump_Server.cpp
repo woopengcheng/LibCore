@@ -1,4 +1,3 @@
-#include "GlobalRpc.h"
 #include "ServerHandler.h"
 
 Msg::ObjectMsgCall * Server::ServerHandler::HandleDump_RpcServer(Net::ISession * pSession, Msg::Object objSrc   )

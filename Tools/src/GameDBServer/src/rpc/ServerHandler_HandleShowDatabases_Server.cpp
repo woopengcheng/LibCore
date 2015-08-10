@@ -1,4 +1,3 @@
-#include "GlobalRpc.h"
 #include "ServerHandler.h"
 
 Msg::ObjectMsgCall * Server::ServerHandler::HandleShowDatabases_RpcServer(Net::ISession * pSession, Msg::Object objSrc   )

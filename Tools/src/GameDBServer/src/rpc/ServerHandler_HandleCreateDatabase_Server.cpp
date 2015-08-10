@@ -1,4 +1,3 @@
-#include "GlobalRpc.h"
 #include "ServerHandler.h"
 
 Msg::ObjectMsgCall * Server::ServerHandler::HandleCreateDatabase_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &dbname/* = std::string()*/  )

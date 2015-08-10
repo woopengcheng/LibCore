@@ -1,4 +1,3 @@
-#include "GlobalRpc.h"
 #include "ServerHandler.h"
 #include "GameDB/inc/HashTable.h"
 #include "GameDB/inc/Environment.h"

@@ -1,4 +1,3 @@
-#include "GlobalRpc.h"
 #include "ServerHandler.h"
 
 Msg::ObjectMsgCall * Server::ServerHandler::SlaveStartAuth_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &name/* = std::string()*/ , std_string & pwd/* = std::string()*/  )
