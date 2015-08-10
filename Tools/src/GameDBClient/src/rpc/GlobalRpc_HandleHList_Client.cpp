@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHList_RpcClient(Net::ISession * pSession, Msg::Object objSrc , LibCore_Chunk & res/* = LibCore::Chunk()*/) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleHList_RpcClient(Net::ISession * pSession, Msg::Object objSrc , LibCore_Chunk & res/* = LibCore::Chunk()*/) 
 {
 	if (res.GetDataLen() != 0)
 	{
@@ -27,7 +27,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHList_RpcClient(Net::ISession * pSess
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::HandleHList_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleHList_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc) 
 {
 
 

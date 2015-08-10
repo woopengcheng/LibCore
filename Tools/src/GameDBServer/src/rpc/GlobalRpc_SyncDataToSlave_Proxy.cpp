@@ -2,7 +2,7 @@
 #include "MasterHandler.h"
 
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::SyncDataToSlave_RpcServerProxy(Net::ISession * pSession , Msg::Object objSrc  ,std_string & dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/)
+Msg::ObjectMsgCall * Server::GlobalRpc::SyncDataToSlave_RpcServerProxy(Net::ISession * pSession , Msg::Object objSrc  ,std_string & dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/)
 {
 	INT32 res = 0;
 
@@ -20,7 +20,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::SyncDataToSlave_RpcServerProxy(Net::ISessio
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::SyncDataToSlave_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc  ,INT32 res/* = 0*/)
+Msg::ObjectMsgCall * Server::GlobalRpc::SyncDataToSlave_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc  ,INT32 res/* = 0*/)
 {
 
 
@@ -30,7 +30,7 @@ Msg::ObjectMsgCall * Msg::GlobalRpc::SyncDataToSlave_RpcClientProxy(Net::ISessio
 	Return(res);
 }
 
-Msg::ObjectMsgCall * Msg::GlobalRpc::SyncDataToSlave_RpcTimeoutProxy(Net::ISession * pSession , Msg::Object objSrc,std_string & dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/ )
+Msg::ObjectMsgCall * Server::GlobalRpc::SyncDataToSlave_RpcTimeoutProxy(Net::ISession * pSession , Msg::Object objSrc,std_string & dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/ )
 {
 
 

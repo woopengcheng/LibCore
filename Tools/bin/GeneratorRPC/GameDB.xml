@@ -8,6 +8,7 @@
 				如果需要增加新的类型.这个新类型必须包含默认参数.
 				默认参数需要在<DefaultParams />中声明类型和值.类型只能为1个单字.不能出现const char * 或者Msg::Chunk这种.一行可以填写多个
 				多个字节的默认参数通过LongDefaultParams方式填写.
+				Param中涉及到 [] 中括号的是用来表示 <> 尖括号,是因为xml支持不好<>
 		
 		SpecialDefaultParams:
 			功能:

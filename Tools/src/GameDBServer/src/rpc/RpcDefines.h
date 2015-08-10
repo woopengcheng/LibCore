@@ -1,9 +1,17 @@
+/************************************
+FileName	:	RPCDefines.h
+Author		:	generate by tools
+HostName	:	woopengcheng
+IP			:	192.168.1.107
+Version		:	0.0.1
+Date		:	2015-08-11 00:40:44
+Description	:	RPCº¯Êý¶¨Òå
+************************************/
 #ifndef __msg_Server_rpc_defines_h__
 #define __msg_Server_rpc_defines_h__
-#include "MsgLib/inc/MsgCommon.h" 
 #include "RpcDatas.h" 
 
-namespace Msg
+namespace Server
 {
 
 #define  RPC_DEFINE_GlobalRpc public:\
