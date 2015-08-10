@@ -4,7 +4,7 @@ Author		:	generate by tools
 HostName	:	woopengcheng
 IP			:	192.168.1.107
 Version		:	0.0.1
-Date		:	2015-08-11 00:40:44
+Date		:	2015-08-11 00:44:22
 Description	:	注册每个函数.以及检测网络传递的消息是否是正确的参数.
 ************************************/
 #include "MsgLib/inc/RpcServerManager.h"
@@ -30,24 +30,20 @@ namespace Server
 	static unsigned short g_rpcDefaultParam_unsigned_short = 0;
 	static unsigned char g_rpcDefaultParam_unsigned_char = 0;
 	static time_t g_rpcDefaultParam_time_t = 0;
-	static SINT8 g_rpcDefaultParam_SINT8 = 0;
 	static UINT8 g_rpcDefaultParam_UINT8 = 0;
+	static SINT8 g_rpcDefaultParam_SINT8 = 0;
 	static UINT16 g_rpcDefaultParam_UINT16 = 0;
 	static INT16 g_rpcDefaultParam_INT16 = 0;
 	static UINT32 g_rpcDefaultParam_UINT32 = 0;
 	static INT32 g_rpcDefaultParam_INT32 = 0;
 	static INT64 g_rpcDefaultParam_INT64 = 0;
 	static UINT64 g_rpcDefaultParam_UINT64 = 0;
-	static float g_rpcDefaultParam_float = 0.0f;
 	static double g_rpcDefaultParam_double = 0.0f;
+	static float g_rpcDefaultParam_float = 0.0f;
 	static std_string g_rpcDefaultParam_std_string = std::string();
 	static LibCore_Chunk g_rpcDefaultParam_LibCore_Chunk = LibCore::Chunk();
 	static TestRpcData g_rpcDefaultParam_TestRpcData = TestRpcData();
 	static TestRpcData2 g_rpcDefaultParam_TestRpcData2 = TestRpcData2();
-	static std::vector g_rpcDefaultParam_std__vector;
-	static std::set g_rpcDefaultParam_std__set;
-	static std::map g_rpcDefaultParam_std__map;
-	static std::list g_rpcDefaultParam_std__list;
 	static std::vector<INT32> g_rpcDefaultParam_std__vector_INT32_;
 
 	void DBServer::OnRegisterRpcs( void )

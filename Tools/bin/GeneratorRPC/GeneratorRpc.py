@@ -243,7 +243,7 @@ def handleSpecialDefaultParams(defaultParams , xmlDefaultParams):
 		LogOutError("handleSpecialDefaultParams: " , defaultParam.type , " has same defaultParam.") 
 			
 	defaultParams[defaultParam.type] = defaultParam
-	g_rpcMsgs.defaultParamsList[defaultParam.type] = "g_rpcDefaultParam_" + ReplaceSpecialCharToUnderlineFromType(defaultParam.type)
+#	g_rpcMsgs.defaultParamsList[defaultParam.type] = "g_rpcDefaultParam_" + ReplaceSpecialCharToUnderlineFromType(defaultParam.type)
 
 def handleRpcServerName(rpcServerNames , xmlRpcServerName):
 	rpcServerName = RpcServerName(g_rpcMsgs)
