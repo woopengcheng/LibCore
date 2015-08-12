@@ -64,40 +64,34 @@ void testRe(std::vector<INT32> & vec)
 
 static INT32 testA;
 
-template<typename P1 = INT32 , typename P2 = INT32, typename P3 = INT32 , typename P4  = INT32, typename P5  = INT32, typename P6 = INT32 , typename P7 = INT32 , typename P8 = INT32>
-class GetValueA
+class testb
 {
 public:
-public:
-	BOOL GetValue(P1 &p1 = testA , P2 &p2 = testA , P3 &p3 = testA , P4 &p4 = testA , P5 &p5 = testA , P6 &p6 = testA , P7 &p7 = testA , P8 &p8 = testA)
-	{
-		std::cout << p1 << p2 << p3 << p4 << p5 << p6 << p7 << p8 << std::endl;
-	}
+	int a ;
+protected:
+private:
 };
 
-class GetValueB
+class Paramter
 {
 public:
-public:
-	BOOL GetValue(P1 &p1 = testA , P2 &p2 = testA , P3 &p3 = testA , P4 &p4 = testA , P5 &p5 = testA , P6 &p6 = testA , P7 &p7 = testA , P8 &p8 = testA)
+	int a ;
+
+	operator bool()
 	{
-		std::cout << p1 << p2 << p3 << p4 << p5 << p6 << p7 << p8 << std::endl;
-		return 1;
+		return a;
+	}
+	template <typename T>
+	operator T()
+	{
+		return a;
 	}
 };
 
 int _tmain(int argc, _TCHAR* argv[])
 { 
-	Msg::Parameters         m_objParams;  
-	std::vector<INT32> vec;
-	vec.push_back(1);
-	vec.push_back(2);
-	Msg::ParameterHelper<std::vector<INT32>& >::MakeParameter(m_objParams.m_aParameter[0] , vec);
-	std::vector<INT32> & vt = Msg::ParameterHelper<std::vector<INT32>&>::GetParameterValue(m_objParams.m_aParameter[0]);
-	
-	INT32 n;
-	GetValueA<>  t;
-	t.GetValue(n);
+	Paramter p;
+	int a = p;
 
 //	testFunc(vec);
 //	testRe(vec);

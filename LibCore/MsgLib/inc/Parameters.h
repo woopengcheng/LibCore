@@ -33,6 +33,11 @@ namespace Msg
 			return *this;
 		} 
 
+		Parameter & operator [] (INT32 i)
+		{
+			MsgAssert_Re(i >= 0 && i <= MSG_MAX_PARAMETER_NUMBER , m_aParameter[0] , "error index of params.");
+			return m_aParameter[i];
+		} 
 	public:  
 		UINT32     GetSize();
 		UINT32     Copy(Parameters & pParam); 

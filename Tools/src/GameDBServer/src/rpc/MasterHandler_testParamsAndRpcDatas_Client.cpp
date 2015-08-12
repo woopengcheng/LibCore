@@ -14,6 +14,8 @@ Msg::ObjectMsgCall * Server::MasterHandler::testParamsAndRpcDatas_RpcClient(Net:
 		std::vector<INT32> Vec3;
 		pParams->GetValue(2 , Vec2);
 		pParams->GetValueEx(p1 , p2 , Vec3);
+		Vec3 = (*pParams)[2];
+		p2 = (*pParams)[1];
 	}
 
 

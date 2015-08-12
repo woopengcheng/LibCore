@@ -72,6 +72,18 @@ namespace Msg
 		bool	   IsContainerOrOthers(){ return GetType() == PARAMETER_TYPE_STD_CONTAINER_OR_OTHERS; }  
 		bool	   IsUserDefine(){ return GetType() >= PARAMETER_TYPE_USER_DEFINE; }  
 
+	public:
+		template<typename T>
+		operator T ()
+		{
+			Parameter p;
+			T t;
+			p.MakeParameter(t);
+
+			MsgAssert_Re(p.GetType() == GetType() , t , "not convert , type error.");
+			return GetParameterValue<T>();
+		}
+
 	public: 
 		virtual LibCore::CStream & marshal(LibCore::CStream & cs);
 		virtual LibCore::CStream & unMarshal(LibCore::CStream & cs);
@@ -87,6 +99,12 @@ namespace Msg
 		void GetParameterValue(P1 & p1)
 		{
 			ParameterHelper<P1>::GetParameterValue(*this , p1);
+		} 
+
+		template<typename P1>
+		P1 GetParameterValue()
+		{
+			return ParameterHelper<P1>::GetParameterValue(*this);
 		} 
 	private:
 		LibCore::CStream   m_objParamStream;
