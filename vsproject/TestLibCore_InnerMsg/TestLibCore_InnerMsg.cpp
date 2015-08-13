@@ -10,22 +10,22 @@
 #include "MsgFuncCalls.h"
 #include "MsgNameDefine.h" 
 #include "Common/Chunk.h"
-#include "Common/LibCore.h"
+#include "Common/CUtil.h"
 #include "MsgDefines.h"
 #include "WorldObject.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	LibCore::Init("InnerMsg");  
+	CUtil::Init("InnerMsg");  
 	Client::MsgInstance::GetInstance().Init(); 
 
 	WorldObject objWorldObject;
 	  
 	std::vector<Msg::Object> targets;  //5 即使添加对象也是无效的.
 	targets.push_back(Msg::Object(1)); 
-	Client::rpc_Test('a' , 1 , 2 , 3 , 4 , "HelloWorld." , LibCore::Chunk("Foobar" , sizeof("Foobar")) , targets , Msg::Object(1) , 1); 
+	Client::rpc_Test('a' , 1 , 2 , 3 , 4 , "HelloWorld." , CUtil::Chunk("Foobar" , sizeof("Foobar")) , targets , Msg::Object(1) , 1); 
 
-	Client::rpc_WorldTest('a' , 1 , 2 , 3 , 4 , "HelloWorld." , LibCore::Chunk("Foobar" , sizeof("Foobar")) , targets , Msg::Object(1) , 1); 
+	Client::rpc_WorldTest('a' , 1 , 2 , 3 , 4 , "HelloWorld." , CUtil::Chunk("Foobar" , sizeof("Foobar")) , targets , Msg::Object(1) , 1); 
 	while (1)
 	{
 		Client::MsgInstance::GetInstance().Update();

@@ -1,8 +1,8 @@
-#ifndef __libcore_refcounted_h__
-#define __libcore_refcounted_h__
+#ifndef __cutil_refcounted_h__
+#define __cutil_refcounted_h__
 #include "Common/Common.h"
 
-namespace LibCore
+namespace CUtil
 {
 
 	template<bool MultiThread> class Refcounted

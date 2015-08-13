@@ -14,7 +14,7 @@ namespace Server
 			Msg::VecObjects objTargets;
 			objTargets.push_back(0);
 			unCount = maxCount;
-//			rpc_testTheSameNode(g_netnodes[NETNODE_DBMASTER] , objTargets , 1 , strDB , LibCore::Chunk());
+//			rpc_testTheSameNode(g_netnodes[NETNODE_DBMASTER] , objTargets , 1 , strDB , CUtil::Chunk());
 		}
 		unCount--;
 

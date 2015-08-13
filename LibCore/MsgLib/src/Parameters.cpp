@@ -68,7 +68,7 @@ namespace Msg
 // 		 
 // 	}
 
-	LibCore::CStream & Parameters::marshal( LibCore::CStream & cs )
+	CUtil::CStream & Parameters::marshal( CUtil::CStream & cs )
 	{  
 		MsgAssert_Re(m_unParamCount <= MSG_MAX_PARAMETER_NUMBER , cs , "超出参数表最大个数.");
 		cs << m_unParamCount; 
@@ -82,7 +82,7 @@ namespace Msg
 
 	}
 
-	LibCore::CStream & Parameters::unMarshal( LibCore::CStream & cs )
+	CUtil::CStream & Parameters::unMarshal( CUtil::CStream & cs )
 	{  
 		cs >> m_unParamCount; 
 

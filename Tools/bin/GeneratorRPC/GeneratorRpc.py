@@ -993,7 +993,7 @@ def GenerateRpcDatas():
 			sameNamespace[serverName.namespace] = 1 
 
 			for index , rpcData in g_rpcMsgs.rpcs.rpcDatas.items():   
-				fileRpc.write(oneTab + "class " + rpcData.name + ": public LibCore::Marshal\n") 
+				fileRpc.write(oneTab + "class " + rpcData.name + ": public CUtil::Marshal\n") 
 				fileRpc.write(oneTab + "{ \n")
 				fileRpc.write(twoTab + "public:\n")
 				WriteDefineParamsWithoutDefault(fileRpc , rpcData.params) 
@@ -1074,7 +1074,7 @@ def WriteRpcDataCopyFunc(fileRpc , rpcData):
 	fileRpc.write(twoTab + "} \n\n")
 
 def WriteRpcDataMarshal(fileRpc , rpcData):
-	fileRpc.write(twoTab + "virtual LibCore::CStream & marshal(LibCore::CStream & cs)\n" )
+	fileRpc.write(twoTab + "virtual CUtil::CStream & marshal(CUtil::CStream & cs)\n" )
 	fileRpc.write(twoTab + "{ \n")
 	strParam = threeTab + "cs"
 	for index , param in rpcData.params.items():  
@@ -1085,7 +1085,7 @@ def WriteRpcDataMarshal(fileRpc , rpcData):
 	fileRpc.write(twoTab + "} \n\n")
 	
 def WriteRpcDataunMarshal(fileRpc , rpcData):
-	fileRpc.write(twoTab + "virtual LibCore::CStream & unMarshal(LibCore::CStream & cs)\n" )
+	fileRpc.write(twoTab + "virtual CUtil::CStream & unMarshal(CUtil::CStream & cs)\n" )
 	fileRpc.write(twoTab + "{ \n")
 	strParam = threeTab + "cs"
 	for index , param in rpcData.params.items():  

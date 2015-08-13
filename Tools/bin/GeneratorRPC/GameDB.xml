@@ -133,11 +133,11 @@
 	<DefaultParams INT64='0' UINT64='0'/> 
 	<DefaultParams double='0.0f' float='0.0f'/> 
 	<DefaultParams std_string='std::string()'/> 
-	<DefaultParams LibCore_Chunk='LibCore::Chunk()'/>
+	<DefaultParams CUtilChunk='CUtil::Chunk()'/>
 	
 	<Refers>
 		<Refer name="std_string"/> 
-		<Refer name="LibCore_Chunk"/>
+		<Refer name="CUtilChunk"/>
 	</Refers>
 
 	<RpcServerName serverName="Server" include="DBServer.h" namespace="Server" rpcInterface="DBServer" outputPath="../../../Tools/src/GameDBServer/src/rpc/"/>
@@ -159,7 +159,7 @@
 			<Param type="Double" name="p10" default="1.0f"/> 
 			<Param type="Float" name="p11" default="1.0f"/> 
 			<Param type="Std_string" name="p12" /> 
-			<Param type="libCore_Chunk" name="p13" /> 
+			<Param type="CUtilChunk" name="p13" /> 
 		</RpcData>
 		
 		<RpcData name="TestRpcData2">
@@ -187,14 +187,14 @@
 			
 			<Call > 
 				<Param name="dbname" type="std_string" refer=""/>
-				<Param name="value" type="LibCore_Chunk"/> 
+				<Param name="value" type="CUtilChunk"/> 
 				<Param name="value2" type="inT"/>
 				<Param name="value22" type="unsigned Int"/>
 				<Param name="valChar" type="Char" unrefer=""/>
 			</Call>
 
 			<Return>  
-				<Param name="res" type="LibCore_Chunk" refer=""/> 
+				<Param name="res" type="CUtilChunk" refer=""/> 
 			</Return>
 		</Rpc>
 		
@@ -289,7 +289,7 @@
 			</Call>
 
 			<Return>
-				<Param name="res" type="LibCore_Chunk" default=""/> 
+				<Param name="res" type="CUtilChunk" default=""/> 
 			</Return>
 		</Rpc> 
 		
@@ -474,7 +474,7 @@
 			</Call>
 
 			<Return>
-				<Param name="res" type="LibCore_Chunk" default=""/> 
+				<Param name="res" type="CUtilChunk" default=""/> 
 			</Return>
 		</Rpc> 
 		
@@ -489,7 +489,7 @@
 			</Call>
 
 			<Return>
-				<Param name="res" type="LibCore_Chunk" default=""/> 
+				<Param name="res" type="CUtilChunk" default=""/> 
 			</Return>
 		</Rpc> 
 		
@@ -504,7 +504,7 @@
 			</Call>
 
 			<Return>
-				<Param name="res" type="LibCore_Chunk" default=""/> 
+				<Param name="res" type="CUtilChunk" default=""/> 
 			</Return>
 		</Rpc> 
 		
@@ -522,7 +522,7 @@
 			</Call>
 
 			<Return>
-				<Param name="res" type="LibCore_Chunk" default=""/> 
+				<Param name="res" type="CUtilChunk" default=""/> 
 			</Return>
 		</Rpc> 
 		
@@ -566,7 +566,7 @@
 			</Call>
 
 			<Return>
-				<Param name="res" type="LibCore_Chunk" default=""/> 
+				<Param name="res" type="CUtilChunk" default=""/> 
 			</Return>
 		</Rpc> 
 		
@@ -578,7 +578,7 @@
 			
 			<Call >
 				<Param name="table" type="std_string" default=""/>
-				<Param name="keyvalues" type="LibCore_Chunk" default=""/> 
+				<Param name="keyvalues" type="CUtilChunk" default=""/> 
 			</Call>
 
 			<Return>
@@ -594,11 +594,11 @@
 			
 			<Call >
 				<Param name="table" type="std_string" default=""/>
-				<Param name="keys" type="LibCore_Chunk" default=""/> 
+				<Param name="keys" type="CUtilChunk" default=""/> 
 			</Call>
 
 			<Return>
-				<Param name="res" type="LibCore_Chunk" default=""/> 
+				<Param name="res" type="CUtilChunk" default=""/> 
 			</Return>
 		</Rpc> 
 		
@@ -610,7 +610,7 @@
 			
 			<Call >
 				<Param name="table" type="std_string" default=""/>
-				<Param name="keys" type="LibCore_Chunk" default=""/> 
+				<Param name="keys" type="CUtilChunk" default=""/> 
 			</Call>
 
 			<Return>
@@ -684,7 +684,7 @@
 			</Call>
 
 			<Return>
-				<Param name="res" type="LibCore_Chunk" default=""/> 
+				<Param name="res" type="CUtilChunk" default=""/> 
 			</Return>
 		</Rpc> 
 		
@@ -702,7 +702,7 @@
 			</Call>
 
 			<Return>
-				<Param name="res" type="LibCore_Chunk" /> 
+				<Param name="res" type="CUtilChunk" /> 
 			</Return>
 		</Rpc> 
 		
@@ -746,7 +746,7 @@
 			</Call>
 
 			<Return>
-				<Param name="res" type="LibCore_Chunk" default=""/> 
+				<Param name="res" type="CUtilChunk" default=""/> 
 			</Return>
 		</Rpc> 
 		
@@ -760,7 +760,7 @@
 			</Call>
 
 			<Return>
-				<Param name="res" type="LibCore_Chunk" default=""/> 
+				<Param name="res" type="CUtilChunk" default=""/> 
 			</Return>
 		</Rpc> 
 		
@@ -841,7 +841,7 @@
 				<Param name="filename" type="std_string"/>
 				<Param name="filesize" type="INT32"/>
 				<Param name="sendtype" type="INT32"/>
-				<Param name="value" type="LibCore_Chunk"/>
+				<Param name="value" type="CUtilChunk"/>
 			</Call>
 
 			<Return>  
@@ -858,7 +858,7 @@
 			
 			<Call > 
 				<Param name="dbname" type="std_string"/>
-				<Param name="value" type="LibCore_Chunk"/>
+				<Param name="value" type="CUtilChunk"/>
 			</Call>
 
 			<Return>  

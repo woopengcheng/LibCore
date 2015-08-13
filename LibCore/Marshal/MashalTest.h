@@ -1,9 +1,9 @@
-#ifndef __libcore_marshal_test_h__
-#define __libcore_marshal_test_h__
+#ifndef __cutil_marshal_test_h__
+#define __cutil_marshal_test_h__
 #include "Marshal/Marshal.h"
 #include "LogLib/inc/Log.h"
 
-namespace LibCore
+namespace CUtil
 {
 	class CStream;
 

@@ -6,11 +6,11 @@
 #include "MsgNameDefine.h"  
 #include "TestObject.h" 
 #include "RpcInstance.h"
-#include "Common/LibCore.h"   
+#include "Common/CUtil.h"   
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	LibCore::Init("RPCProxy"); 
+	CUtil::Init("RPCProxy"); 
 	Proxy::RpcInstance::GetInstance().Init("RPCProxyConfigs.xml"); 
 
 // 	TestObject<MSG_ID>  ObjTestObject;  
@@ -22,7 +22,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
 	Proxy::RpcInstance::GetInstance().Cleanup();  
-	LibCore::Cleanup();
+	CUtil::Cleanup();
 	return 0;
 }
 

@@ -3,7 +3,7 @@
 #include "MsgLib/inc/MsgCommon.h"
 #include "MsgLib/inc/ParameterHelper.h"
 #include "MsgLib/inc/RPCMsgCall.h" 
-#include "Common/LibCore.h"
+#include "Common/CUtil.h"
 
 namespace Msg
 {

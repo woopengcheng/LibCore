@@ -21,16 +21,16 @@ namespace GameDB
 	public:
 		void    Insert(const Slice& dbKey,const Slice& dbValue);
 		void	Delete(const Slice& dbKey);
-		LibCore::Chunk & GetData();
+		CUtil::Chunk & GetData();
 
-		LibCore::CStream & GetStream()
+		CUtil::CStream & GetStream()
 		{
 			return m_objStream;
 		}
 	private:
 		BOOL             m_bAddCount;
 		INT32            m_nCount;
-		LibCore::CStream m_objStream;
+		CUtil::CStream m_objStream;
 	};
 }
 

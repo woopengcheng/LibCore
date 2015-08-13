@@ -1,5 +1,5 @@
-﻿#ifndef __libcore_class_type_interface_h__
-#define __libcore_class_type_interface_h__
+﻿#ifndef __cutil_class_type_interface_h__
+#define __cutil_class_type_interface_h__
 #include "Common/Common.h"
 
 #define CLASS_TYPE_ID(CurClass , ParentClass , CurClassTypeID) CLASS_TYPE_ID_DECLARE(ParentClass::_CLASS_ALL_TYPE_ID , CurClassTypeID)
@@ -9,7 +9,7 @@
 	virtual BOOL IsKindOf(class_type_id llClassID){ return (llClassID & _CLASS_ALL_TYPE_ID) > 0; }\
 	virtual class_type_id GetClassTypeID(){ return _CUR_CLASS_TYPE_ID;}\
 
-namespace LibCore
+namespace CUtil
 {
 	const class_type_id  CID_ClassTypeInterface = 0x00000000;
 

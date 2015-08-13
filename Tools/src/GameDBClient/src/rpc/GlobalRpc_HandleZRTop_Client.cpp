@@ -1,9 +1,9 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleZRTop_RpcClient(Net::ISession * pSession, Msg::Object objSrc , LibCore_Chunk & res/* = 0*/) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleZRTop_RpcClient(Net::ISession * pSession, Msg::Object objSrc , CUtilChunk & res/* = 0*/) 
 {
 
-	LibCore::CStream objCS;
+	CUtil::CStream objCS;
 	objCS.Pushback(res.Begin() , res.GetDataLen());
 
 	INT64 llCount = 0;

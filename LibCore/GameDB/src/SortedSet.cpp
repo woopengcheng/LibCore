@@ -287,7 +287,7 @@ namespace GameDB
 			llLimit = llEnd - llStart; 
 		}
 
-		LibCore::CStream cs;
+		CUtil::CStream cs;
 		INT64 llCount = 0 , llCSCount = 0;
 		leveldb::Iterator* iter = db.GetLevelDB()->NewIterator(leveldb::ReadOptions());
 		iter->Seek(scoreKey);
@@ -341,7 +341,7 @@ namespace GameDB
 			llLimit = llEnd - llStart; 
 		}
 
-		LibCore::CStream cs;
+		CUtil::CStream cs;
 		INT64 llCount = 0 , llCSCount = 0;
 		leveldb::Iterator* iter = db.GetLevelDB()->NewIterator(leveldb::ReadOptions());
 		iter->Seek(scoreKey);
@@ -530,7 +530,7 @@ namespace GameDB
 		ZCount_EncodeKey(minkey,sizeKey , scSizeKey);  
 
 		INT32 nCount = 0;
-		LibCore::CStream cs;
+		CUtil::CStream cs;
 		leveldb::Status objStatus;
 		leveldb::Iterator * iter = db.GetLevelDB()->NewIterator(leveldb::ReadOptions());
 		iter->Seek(sizeKey);

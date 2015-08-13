@@ -5,7 +5,7 @@ extern "C"
 #include "NetLib/inc/NetHandlerZMQServer.h"
 #include "NetLib/inc/NetHelper.h"
 #include "NetLib/inc/INetReactor.h" 
-#include "Common/LibCore.h"
+#include "Common/CUtil.h"
 
 namespace Net
 {   
@@ -43,7 +43,7 @@ namespace Net
 		std::string str = "tcp://";
 		str += ip; 
 		str += ":";
-		str += LibCore::itoa(port); 
+		str += CUtil::itoa(port); 
 			 
 		MsgAssert_ReF1(!zmq_bind (m_pZmqSocket , str.c_str()) , zmq_strerror (errno)); 
 			 

@@ -2,7 +2,7 @@
 
 Msg::ObjectMsgCall * Server::ServerHandler::HandleHGetVals_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/  )
 {
-	LibCore_Chunk res = LibCore::Chunk();
+	CUtilChunk res = CUtil::Chunk();
 
 	if (table.size() == 0 || !this->GetDataBase())
 	{

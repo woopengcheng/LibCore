@@ -2,7 +2,7 @@
 #include "Marshal\MashalTest.h"
 #include "MsgLib\inc\Object.h"
 
-namespace LibCore
+namespace CUtil
 {  
 
 	CStream & MarshalTest::marshal(CStream & cs)

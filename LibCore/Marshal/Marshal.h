@@ -1,10 +1,10 @@
-#ifndef __libcore_marshal_h__
-#define __libcore_marshal_h__
+#ifndef __cutil_marshal_h__
+#define __cutil_marshal_h__
 #include "Common/Common.h"
 #include "LogLib/inc/Log.h" 
 
 
-namespace LibCore
+namespace CUtil
 {
 	class CStream;
 

@@ -119,7 +119,7 @@ namespace Server
 				test1.p10 = 2;
 				test1.p11 = 5;
 				test1.p12 = 12;
-				test1.p13 = LibCore_Chunk("14" , sizeof("14"));
+				test1.p13 = CUtilChunk("14" , sizeof("14"));
 				test1.p5.push_back(1);
 				test1.p5.push_back(2);
 				TestRpcData2 test2;

@@ -7,10 +7,10 @@ namespace GameDB
 	class DLL_EXPORT OperateReturns
 	{
 	public: 
-		LibCore::CStream & GetStream(){ return m_objStream; }
+		CUtil::CStream & GetStream(){ return m_objStream; }
 
 	private: 
-		LibCore::CStream	m_objStream;
+		CUtil::CStream	m_objStream;
 	};
 
 }

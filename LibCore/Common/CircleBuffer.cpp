@@ -1,6 +1,6 @@
 #include "Common/CircleBuffer.h"
 
-namespace LibCore
+namespace CUtil
 {
 	CircleBuffer::CircleBuffer( void )
 		: m_pDataHead(NULL)

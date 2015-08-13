@@ -6,14 +6,14 @@ namespace Msg
 {
 
 // 
-// 	LibCore::CStream & Object::marshal( LibCore::CStream & cs )
+// 	CUtil::CStream & Object::marshal( CUtil::CStream & cs )
 // 	{
 // 		cs << m_llObjID;
 // 
 // 		return cs;
 // 	}
 // 
-// 	LibCore::CStream & Object::unMarshal( LibCore::CStream & cs )
+// 	CUtil::CStream & Object::unMarshal( CUtil::CStream & cs )
 // 	{
 // 		cs >> m_llObjID;
 // 

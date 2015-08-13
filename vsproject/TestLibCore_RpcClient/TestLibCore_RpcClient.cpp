@@ -1,4 +1,4 @@
-#include "Common/LibCore.h" 
+#include "Common/CUtil.h" 
 #include "RPCCallFuncs.h"
 #include "Common/Chunk.h" 
 #include "TimerLib/inc/TimerHelp.h"
@@ -11,7 +11,7 @@ INT64 g_time = 0;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	LibCore::Init("ClientClient"); 
+	CUtil::Init("ClientClient"); 
 	Client::RpcInstance::GetInstance().Init("RPCClientConfigs.xml"); 
 
 	g_time = Timer::TimerHelper::GetTickSecond();
@@ -42,7 +42,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	std::cout << "timer" << g_time << std::endl;
 
 	Client::RpcInstance::GetInstance().Cleanup(); 
-	LibCore::Cleanup();
+	CUtil::Cleanup();
 
 	system("pause");
 	return 0;

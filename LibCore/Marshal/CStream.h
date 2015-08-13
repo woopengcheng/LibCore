@@ -1,5 +1,5 @@
-#ifndef __libcore_c_stream_h__
-#define __libcore_c_stream_h__
+#ifndef __cutil_c_stream_h__
+#define __cutil_c_stream_h__
 #include "Common/Common.h"
 #include "Common/Chunk.h"
 #include "Marshal/Marshal.h"
@@ -11,7 +11,7 @@ namespace Msg
 	class Object;
 }
 
-namespace LibCore
+namespace CUtil
 {
 	class DLL_EXPORT CStream
 	{

@@ -2,7 +2,7 @@
 
 Msg::ObjectMsgCall * Server::ServerHandler::HandleHList_RpcServer(Net::ISession * pSession, Msg::Object objSrc   )
 {
-	LibCore_Chunk res = LibCore::Chunk();
+	CUtilChunk res = CUtil::Chunk();
 
 	if (!this->GetDataBase())
 	{

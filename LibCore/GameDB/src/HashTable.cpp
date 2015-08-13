@@ -305,7 +305,7 @@ namespace GameDB
 		iter->Seek(encodedKey);
 
 		INT32 nCount[GET_ALL_TYPE_NUM] = {0};
-		LibCore::CStream cs;
+		CUtil::CStream cs;
 		while(iter->Valid())
 		{
 			Slice dbname = iter->key();
@@ -418,7 +418,7 @@ namespace GameDB
 		leveldb::Status status;
 		  
 		INT64 llCount = 0;
-		LibCore::CStream cs;
+		CUtil::CStream cs;
 		CollectionSlicesT::const_iterator iter = keys.begin();
 		for (;iter != keys.end();++iter)
 		{
@@ -602,7 +602,7 @@ namespace GameDB
 		CRegexpT<char> regexp(pattern.data());
 
 		INT32 nCount[GET_ALL_TYPE_NUM] = {0};
-		LibCore::CStream cs;
+		CUtil::CStream cs;
 		while(iter->Valid())
 		{
 			Slice dbname = iter->key();
@@ -677,7 +677,7 @@ namespace GameDB
 		}
 
 		INT64 llCount = 0;
-		LibCore::CStream cs;
+		CUtil::CStream cs;
 		leveldb::Iterator* iter = db.GetLevelDB()->NewIterator(leveldb::ReadOptions());
 		iter->Seek(sizeKey);
 		while (iter->Valid())

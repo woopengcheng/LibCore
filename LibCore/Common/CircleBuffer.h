@@ -2,7 +2,7 @@
 #define __circle_buffer_h__
 #include "Common/Common.h"
 
-namespace LibCore
+namespace CUtil
 {  
 	class DLL_EXPORT CircleBuffer
 	{

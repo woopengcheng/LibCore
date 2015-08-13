@@ -4,7 +4,7 @@ Author		:	generate by tools
 HostName	:	woopengcheng
 IP			:	192.168.1.107
 Version		:	0.0.1
-Date		:	2015-08-11 00:44:22
+Date		:	2015-08-13 22:54:35
 Description	:	网络消息的数据域.
 ************************************/
 #ifndef __Client_rpc_datas_h__
@@ -16,7 +16,7 @@ Description	:	网络消息的数据域.
 
 namespace Client
 {
-	class TestRpcData: public LibCore::Marshal
+	class TestRpcData: public CUtil::Marshal
 	{ 
 		public:
 		int p1;
@@ -31,7 +31,7 @@ namespace Client
 		double p10;
 		float p11;
 		std_string p12;
-		LibCore_Chunk p13;
+		CUtilChunk p13;
 
 		TestRpcData()
 			: p1( 111 ) 
@@ -46,7 +46,7 @@ namespace Client
 			, p10( 1.0f ) 
 			, p11( 1.0f ) 
 			, p12( std::string() ) 
-			, p13( LibCore::Chunk() ) 
+			, p13( CUtil::Chunk() ) 
 			{}
 		TestRpcData(const TestRpcData & val)
 		{ 
@@ -65,13 +65,13 @@ namespace Client
 			p13 = val.p13;
 		} 
 
-		virtual LibCore::CStream & marshal(LibCore::CStream & cs)
+		virtual CUtil::CStream & marshal(CUtil::CStream & cs)
 		{ 
 			cs << p1 << p2 << p3 << p4 << p5 << p6 << p7 << p8 << p9 << p10 << p11 << p12 << p13;
 			return cs; 
 		} 
 
-		virtual LibCore::CStream & unMarshal(LibCore::CStream & cs)
+		virtual CUtil::CStream & unMarshal(CUtil::CStream & cs)
 		{ 
 			cs >> p1 >> p2 >> p3 >> p4 >> p5 >> p6 >> p7 >> p8 >> p9 >> p10 >> p11 >> p12 >> p13;
 			return cs; 
@@ -79,7 +79,7 @@ namespace Client
 
 	}; 
  
-	class TestRpcData2: public LibCore::Marshal
+	class TestRpcData2: public CUtil::Marshal
 	{ 
 		public:
 		SINT8 p1;
@@ -113,13 +113,13 @@ namespace Client
 			p9 = val.p9;
 		} 
 
-		virtual LibCore::CStream & marshal(LibCore::CStream & cs)
+		virtual CUtil::CStream & marshal(CUtil::CStream & cs)
 		{ 
 			cs << p1 << p2 << p3 << p4 << p6 << p7 << p8 << p9;
 			return cs; 
 		} 
 
-		virtual LibCore::CStream & unMarshal(LibCore::CStream & cs)
+		virtual CUtil::CStream & unMarshal(CUtil::CStream & cs)
 		{ 
 			cs >> p1 >> p2 >> p3 >> p4 >> p6 >> p7 >> p8 >> p9;
 			return cs; 

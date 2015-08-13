@@ -4,7 +4,7 @@
 #include "GameDB/inc/BackupEnvironment.h" 
 #include "leveldb/cache.h"
 #include "LogLib/inc/Log.h"
-#include "Common/LibCore.h"
+#include "Common/CUtil.h"
 #include "GameDB/inc/User.h"
 #include "GameDB/inc/HashTable.h"
 
@@ -207,10 +207,10 @@ namespace GameDB
 		Json::Value  objDefaultIntValue(Json::Int(-1));
 
 		strCompress = m_objDefaultOptions.get("compress" , "none").asString();
-		llCacheSize = LibCore::ParseHumanSizeFromJson(m_objDefaultOptions.get("cache_size",objDefaultIntValue));
-		llMaxOpenFiles = LibCore::ParseHumanSizeFromJson(m_objDefaultOptions.get("max_open_files",objDefaultIntValue));
-		llBlockSize = LibCore::ParseHumanSizeFromJson(m_objDefaultOptions.get("block_size",objDefaultIntValue));
-		llWriteBufferSize = LibCore::ParseHumanSizeFromJson(m_objDefaultOptions.get("write_buffer_size",objDefaultIntValue));
+		llCacheSize = CUtil::ParseHumanSizeFromJson(m_objDefaultOptions.get("cache_size",objDefaultIntValue));
+		llMaxOpenFiles = CUtil::ParseHumanSizeFromJson(m_objDefaultOptions.get("max_open_files",objDefaultIntValue));
+		llBlockSize = CUtil::ParseHumanSizeFromJson(m_objDefaultOptions.get("block_size",objDefaultIntValue));
+		llWriteBufferSize = CUtil::ParseHumanSizeFromJson(m_objDefaultOptions.get("write_buffer_size",objDefaultIntValue));
 
 		if (llMaxOpenFiles > 0) 
 			objOptions.max_open_files = (INT32)llMaxOpenFiles;

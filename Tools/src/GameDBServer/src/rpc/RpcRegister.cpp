@@ -4,7 +4,7 @@ Author		:	generate by tools
 HostName	:	woopengcheng
 IP			:	192.168.1.107
 Version		:	0.0.1
-Date		:	2015-08-11 00:44:22
+Date		:	2015-08-13 22:54:34
 Description	:	注册每个函数.以及检测网络传递的消息是否是正确的参数.
 ************************************/
 #include "MsgLib/inc/RpcServerManager.h"
@@ -32,16 +32,16 @@ namespace Server
 	static time_t g_rpcDefaultParam_time_t = 0;
 	static UINT8 g_rpcDefaultParam_UINT8 = 0;
 	static SINT8 g_rpcDefaultParam_SINT8 = 0;
-	static UINT16 g_rpcDefaultParam_UINT16 = 0;
 	static INT16 g_rpcDefaultParam_INT16 = 0;
+	static UINT16 g_rpcDefaultParam_UINT16 = 0;
 	static UINT32 g_rpcDefaultParam_UINT32 = 0;
 	static INT32 g_rpcDefaultParam_INT32 = 0;
 	static INT64 g_rpcDefaultParam_INT64 = 0;
 	static UINT64 g_rpcDefaultParam_UINT64 = 0;
-	static double g_rpcDefaultParam_double = 0.0f;
 	static float g_rpcDefaultParam_float = 0.0f;
+	static double g_rpcDefaultParam_double = 0.0f;
 	static std_string g_rpcDefaultParam_std_string = std::string();
-	static LibCore_Chunk g_rpcDefaultParam_LibCore_Chunk = LibCore::Chunk();
+	static CUtilChunk g_rpcDefaultParam_CUtilChunk = CUtil::Chunk();
 	static TestRpcData g_rpcDefaultParam_TestRpcData = TestRpcData();
 	static TestRpcData2 g_rpcDefaultParam_TestRpcData2 = TestRpcData2();
 	static std::vector<INT32> g_rpcDefaultParam_std__vector_INT32_;
@@ -54,8 +54,8 @@ namespace Server
 		Msg::Parameters objDeliverParams , objReturnParams;
 		//5 testMulitServerNode generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk , g_rpcDefaultParam_int , g_rpcDefaultParam_unsigned_int , g_rpcDefaultParam_char);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk , g_rpcDefaultParam_int , g_rpcDefaultParam_unsigned_int , g_rpcDefaultParam_char);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("testMulitServerNode", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("testMulitServerNode", objReturnParams);
 			objDeliverParams.Clear();
@@ -125,7 +125,7 @@ namespace Server
 		//5 HandleShowDatabases generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams );
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleShowDatabases", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleShowDatabases", objReturnParams);
 			objDeliverParams.Clear();
@@ -246,7 +246,7 @@ namespace Server
 		//5 HandleHGetKeys generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHGetKeys", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHGetKeys", objReturnParams);
 			objDeliverParams.Clear();
@@ -257,7 +257,7 @@ namespace Server
 		//5 HandleHGetVals generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHGetVals", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHGetVals", objReturnParams);
 			objDeliverParams.Clear();
@@ -268,7 +268,7 @@ namespace Server
 		//5 HandleHGetKeyVals generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHGetKeyVals", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHGetKeyVals", objReturnParams);
 			objDeliverParams.Clear();
@@ -279,7 +279,7 @@ namespace Server
 		//5 HandleHScan generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHScan", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHScan", objReturnParams);
 			objDeliverParams.Clear();
@@ -312,7 +312,7 @@ namespace Server
 		//5 HandleHList generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams );
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHList", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHList", objReturnParams);
 			objDeliverParams.Clear();
@@ -322,7 +322,7 @@ namespace Server
 
 		//5 HandleHMultiSet generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk);
 			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHMultiSet", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHMultiSet", objReturnParams);
@@ -333,8 +333,8 @@ namespace Server
 
 		//5 HandleHMultiGet generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHMultiGet", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHMultiGet", objReturnParams);
 			objDeliverParams.Clear();
@@ -344,7 +344,7 @@ namespace Server
 
 		//5 HandleHMultiDel generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk);
 			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHMultiDel", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHMultiDel", objReturnParams);
@@ -389,7 +389,7 @@ namespace Server
 		//5 HandleZTop generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleZTop", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZTop", objReturnParams);
 			objDeliverParams.Clear();
@@ -400,7 +400,7 @@ namespace Server
 		//5 HandleZRTop generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleZRTop", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZRTop", objReturnParams);
 			objDeliverParams.Clear();
@@ -433,7 +433,7 @@ namespace Server
 		//5 HandleZList generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams );
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleZList", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZList", objReturnParams);
 			objDeliverParams.Clear();
@@ -444,7 +444,7 @@ namespace Server
 		//5 HandleDump generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams );
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleDump", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleDump", objReturnParams);
 			objDeliverParams.Clear();
@@ -496,7 +496,7 @@ namespace Server
 
 		//5 MasterStartSync generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT32 , g_rpcDefaultParam_INT32 , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT32 , g_rpcDefaultParam_INT32 , g_rpcDefaultParam_CUtilChunk);
 			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("MasterStartSync", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("MasterStartSync", objReturnParams);
@@ -506,7 +506,7 @@ namespace Server
 
 		//5 SyncDataToSlave generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk);
 			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("SyncDataToSlave", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("SyncDataToSlave", objReturnParams);
@@ -528,8 +528,8 @@ namespace Server
 		Msg::Parameters objDeliverParams , objReturnParams;
 		//5 testMulitServerNode generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk , g_rpcDefaultParam_int , g_rpcDefaultParam_unsigned_int , g_rpcDefaultParam_char);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk , g_rpcDefaultParam_int , g_rpcDefaultParam_unsigned_int , g_rpcDefaultParam_char);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("testMulitServerNode", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("testMulitServerNode", objReturnParams);
 			objDeliverParams.Clear();
@@ -596,7 +596,7 @@ namespace Server
 		//5 HandleShowDatabases generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams );
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleShowDatabases", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleShowDatabases", objReturnParams);
 			objDeliverParams.Clear();
@@ -706,7 +706,7 @@ namespace Server
 		//5 HandleHGetKeys generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHGetKeys", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHGetKeys", objReturnParams);
 			objDeliverParams.Clear();
@@ -716,7 +716,7 @@ namespace Server
 		//5 HandleHGetVals generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHGetVals", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHGetVals", objReturnParams);
 			objDeliverParams.Clear();
@@ -726,7 +726,7 @@ namespace Server
 		//5 HandleHGetKeyVals generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHGetKeyVals", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHGetKeyVals", objReturnParams);
 			objDeliverParams.Clear();
@@ -736,7 +736,7 @@ namespace Server
 		//5 HandleHScan generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHScan", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHScan", objReturnParams);
 			objDeliverParams.Clear();
@@ -766,7 +766,7 @@ namespace Server
 		//5 HandleHList generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams );
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHList", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHList", objReturnParams);
 			objDeliverParams.Clear();
@@ -775,7 +775,7 @@ namespace Server
 
 		//5 HandleHMultiSet generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk);
 			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHMultiSet", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHMultiSet", objReturnParams);
@@ -785,8 +785,8 @@ namespace Server
 
 		//5 HandleHMultiGet generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHMultiGet", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHMultiGet", objReturnParams);
 			objDeliverParams.Clear();
@@ -795,7 +795,7 @@ namespace Server
 
 		//5 HandleHMultiDel generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk);
 			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHMultiDel", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHMultiDel", objReturnParams);
@@ -836,7 +836,7 @@ namespace Server
 		//5 HandleZTop generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleZTop", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZTop", objReturnParams);
 			objDeliverParams.Clear();
@@ -846,7 +846,7 @@ namespace Server
 		//5 HandleZRTop generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleZRTop", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZRTop", objReturnParams);
 			objDeliverParams.Clear();
@@ -876,7 +876,7 @@ namespace Server
 		//5 HandleZList generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams );
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleZList", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZList", objReturnParams);
 			objDeliverParams.Clear();
@@ -886,7 +886,7 @@ namespace Server
 		//5 HandleDump generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams );
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleDump", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleDump", objReturnParams);
 			objDeliverParams.Clear();
@@ -947,7 +947,7 @@ namespace Server
 
 		//5 MasterStartSync generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT32 , g_rpcDefaultParam_INT32 , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT32 , g_rpcDefaultParam_INT32 , g_rpcDefaultParam_CUtilChunk);
 			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("MasterStartSync", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("MasterStartSync", objReturnParams);
@@ -960,7 +960,7 @@ namespace Server
 
 		//5 SyncDataToSlave generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk);
 			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("SyncDataToSlave", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("SyncDataToSlave", objReturnParams);
@@ -984,8 +984,8 @@ namespace Server
 		Msg::Parameters objDeliverParams , objReturnParams;
 		//5 testMulitServerNode generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk , g_rpcDefaultParam_int , g_rpcDefaultParam_unsigned_int , g_rpcDefaultParam_char);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk , g_rpcDefaultParam_int , g_rpcDefaultParam_unsigned_int , g_rpcDefaultParam_char);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("testMulitServerNode", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("testMulitServerNode", objReturnParams);
 			objDeliverParams.Clear();
@@ -1046,7 +1046,7 @@ namespace Server
 		//5 HandleShowDatabases generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams );
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleShowDatabases", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleShowDatabases", objReturnParams);
 			objDeliverParams.Clear();
@@ -1156,7 +1156,7 @@ namespace Server
 		//5 HandleHGetKeys generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHGetKeys", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHGetKeys", objReturnParams);
 			objDeliverParams.Clear();
@@ -1166,7 +1166,7 @@ namespace Server
 		//5 HandleHGetVals generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHGetVals", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHGetVals", objReturnParams);
 			objDeliverParams.Clear();
@@ -1176,7 +1176,7 @@ namespace Server
 		//5 HandleHGetKeyVals generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHGetKeyVals", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHGetKeyVals", objReturnParams);
 			objDeliverParams.Clear();
@@ -1186,7 +1186,7 @@ namespace Server
 		//5 HandleHScan generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHScan", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHScan", objReturnParams);
 			objDeliverParams.Clear();
@@ -1216,7 +1216,7 @@ namespace Server
 		//5 HandleHList generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams );
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHList", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHList", objReturnParams);
 			objDeliverParams.Clear();
@@ -1225,7 +1225,7 @@ namespace Server
 
 		//5 HandleHMultiSet generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk);
 			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHMultiSet", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHMultiSet", objReturnParams);
@@ -1235,8 +1235,8 @@ namespace Server
 
 		//5 HandleHMultiGet generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHMultiGet", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHMultiGet", objReturnParams);
 			objDeliverParams.Clear();
@@ -1245,7 +1245,7 @@ namespace Server
 
 		//5 HandleHMultiDel generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk);
 			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleHMultiDel", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleHMultiDel", objReturnParams);
@@ -1286,7 +1286,7 @@ namespace Server
 		//5 HandleZTop generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleZTop", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZTop", objReturnParams);
 			objDeliverParams.Clear();
@@ -1296,7 +1296,7 @@ namespace Server
 		//5 HandleZRTop generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64);
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleZRTop", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZRTop", objReturnParams);
 			objDeliverParams.Clear();
@@ -1326,7 +1326,7 @@ namespace Server
 		//5 HandleZList generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams );
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleZList", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleZList", objReturnParams);
 			objDeliverParams.Clear();
@@ -1336,7 +1336,7 @@ namespace Server
 		//5 HandleDump generate default deliver and return check param here
 		{
 			Msg::GenMsgHelper::GenMsgParams(objDeliverParams );
-			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("HandleDump", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("HandleDump", objReturnParams);
 			objDeliverParams.Clear();
@@ -1395,7 +1395,7 @@ namespace Server
 
 		//5 MasterStartSync generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT32 , g_rpcDefaultParam_INT32 , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT32 , g_rpcDefaultParam_INT32 , g_rpcDefaultParam_CUtilChunk);
 			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("MasterStartSync", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("MasterStartSync", objReturnParams);
@@ -1406,7 +1406,7 @@ namespace Server
 
 		//5 SyncDataToSlave generate default deliver and return check param here
 		{
-			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_LibCore_Chunk);
+			Msg::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk);
 			Msg::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::g_pRpcCheckParams->InsertDeliverParams("SyncDataToSlave", objDeliverParams);
 			Msg::g_pRpcCheckParams->InsertReturnParams("SyncDataToSlave", objReturnParams);

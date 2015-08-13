@@ -1,9 +1,9 @@
-#ifndef __libcore_string_ex_h__
-#define __libcore_string_ex_h__
+#ifndef __cutil_string_ex_h__
+#define __cutil_string_ex_h__
 #include "Common/Common.h"
-#include "Common/LibCore.h"
+#include "Common/CUtil.h"
  
-namespace LibCore
+namespace  CUtil
 {
 	class StringExBase 
 	{
@@ -64,12 +64,12 @@ namespace LibCore
 
 		bool operator==(const char* val) const
 		{
-			return LibCore::strcmp(val,m_szString) == 0;
+			return CUtil::strcmp(val,m_szString) == 0;
 		}
 
 		bool operator!=(const char* val) const
 		{
-			return LibCore::strcmp(val,m_szString) != 0;
+			return CUtil::strcmp(val,m_szString) != 0;
 		}
 	protected:
 		char m_szString[L];

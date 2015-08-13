@@ -2,7 +2,7 @@
 #include "GameDB/inc/HashTable.h"
 #include "RPCCallFuncs.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiDel_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/ , LibCore_Chunk & keys/* = LibCore::Chunk()*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiDel_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/ , CUtilChunk & keys/* = CUtil::Chunk()*/  )
 {
 	INT32 res = -1;
 
@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiDel_RpcServer(Net::ISess
 
 	GameDB::CollectionSlicesT vecKeys;
 	std::vector<std::string> vecStrKeys;
-	LibCore::CStream cs;
+	CUtil::CStream cs;
 	cs << keys;
 	cs >> vecStrKeys;
 	std::vector<std::string>::iterator iter = vecStrKeys.begin();

@@ -1,6 +1,6 @@
 #include "BsonToCpp.h"
 
-namespace LibCore
+namespace CUtil
 {
 
 	void BsonToCpp(bool& var,mongo::BSONElement& be)

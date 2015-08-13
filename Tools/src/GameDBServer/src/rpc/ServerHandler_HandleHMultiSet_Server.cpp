@@ -3,7 +3,7 @@
 #include "leveldb/slice.h"
 #include "RPCCallFuncs.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiSet_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/ , LibCore_Chunk & keyvalues/* = LibCore::Chunk()*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiSet_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/ , CUtilChunk & keyvalues/* = CUtil::Chunk()*/  )
 {
 	INT32 res = -1;
 
@@ -16,7 +16,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiSet_RpcServer(Net::ISess
 
 	GameDB::CollectionKeyValsT mapKeys;
 	std::map<std::string , std::string> mapStrKeyValues;
-	LibCore::CStream cs;
+	CUtil::CStream cs;
 	cs << keyvalues;
 	cs >> mapStrKeyValues;
 	std::map<std::string , std::string>::iterator iter = mapStrKeyValues.begin();

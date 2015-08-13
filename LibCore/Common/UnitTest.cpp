@@ -1,7 +1,7 @@
 #include "UnitTest.h"
 #include "UnitTest++/UnitTestPP.h" 
 
-namespace LibCore
+namespace CUtil
 { 
 	TEST(UnitTestTestCHECK)
 	{

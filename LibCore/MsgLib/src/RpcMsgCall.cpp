@@ -130,7 +130,7 @@ namespace Msg
 
 	}
 
-	LibCore::CStream & RPCMsgCall::marshal( LibCore::CStream & cs )
+	CUtil::CStream & RPCMsgCall::marshal( CUtil::CStream & cs )
 	{  
 		ObjectMsgCall::marshal(cs);
 		cs << m_ullTimeout << m_bClientRequest;
@@ -139,7 +139,7 @@ namespace Msg
 		return cs;
 	}
 
-	LibCore::CStream & RPCMsgCall::unMarshal( LibCore::CStream & cs )
+	CUtil::CStream & RPCMsgCall::unMarshal( CUtil::CStream & cs )
 	{ 
 		ObjectMsgCall::unMarshal(cs);
 

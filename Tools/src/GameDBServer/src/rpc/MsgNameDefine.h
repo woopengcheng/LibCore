@@ -4,7 +4,7 @@ Author		:	generate by tools
 HostName	:	woopengcheng
 IP			:	192.168.1.107
 Version		:	0.0.1
-Date		:	2015-08-11 00:44:22
+Date		:	2015-08-13 22:54:34
 Description	:	用于定义消息的全局唯一名字
 ************************************/
 #ifndef __msg_Server_msg_name_define_h__

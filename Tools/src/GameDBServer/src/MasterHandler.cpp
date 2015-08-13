@@ -12,7 +12,7 @@ namespace Server
 		GameDB::GetDefaultEnv()->GetChildren(strDBDir,&files);
 
 		INT32 nType = 1;  		 
-		rpc_MasterStartSync(m_nSessionID, m_pRpcMsgCall->GetProxySrcID() , GetObjectID() , std::string() , nType , nType , LibCore::Chunk());
+		rpc_MasterStartSync(m_nSessionID, m_pRpcMsgCall->GetProxySrcID() , GetObjectID() , std::string() , nType , nType , CUtil::Chunk());
 
 		for(size_t i = 0; i < files.size(); ++i)
 		{
@@ -24,7 +24,7 @@ namespace Server
 		}
 
 		nType = 2;
-		rpc_MasterStartSync(m_nSessionID , m_pRpcMsgCall->GetProxySrcID() , GetObjectID() , std::string() , nType , nType , LibCore::Chunk());
+		rpc_MasterStartSync(m_nSessionID , m_pRpcMsgCall->GetProxySrcID() , GetObjectID() , std::string() , nType , nType , CUtil::Chunk());
 	}
 
 	bool MasterHandler::SendFile(const std::string & strFilePath , std::string & strFileName)
@@ -49,7 +49,7 @@ namespace Server
 			filesize -= (INT64)size; 
 
 			INT32 nType = 0; 
-			rpc_MasterStartSync(m_nSessionID , m_pRpcMsgCall->GetProxySrcID() , GetObjectID() , strFileName , (INT32)filesize , nType , LibCore::Chunk(tmpbuf , (UINT32)size));
+			rpc_MasterStartSync(m_nSessionID , m_pRpcMsgCall->GetProxySrcID() , GetObjectID() , strFileName , (INT32)filesize , nType , CUtil::Chunk(tmpbuf , (UINT32)size));
 			
 			gDebugStream("send file:" << strFileName << "send size: " << size );
 		}

@@ -10,7 +10,7 @@
 
 namespace Msg
 { 
-	class DLL_EXPORT  ObjectMsgCall : public LibCore::Marshal
+	class DLL_EXPORT  ObjectMsgCall : public CUtil::Marshal
 	{ 
 	public:
 		ObjectMsgCall(/*const Msg::Parameters & objParams*/)
@@ -67,8 +67,8 @@ namespace Msg
 		void    SetTargetsCount(UINT32 unTargetsCount){ m_unTargetsCount = unTargetsCount;  }
 
 	public: 
-		virtual LibCore::CStream & marshal(LibCore::CStream & cs);
-		virtual LibCore::CStream & unMarshal(LibCore::CStream & cs);
+		virtual CUtil::CStream & marshal(CUtil::CStream & cs);
+		virtual CUtil::CStream & unMarshal(CUtil::CStream & cs);
 
 	public:      
 		UINT64             m_ullMsgID;                                 //5 消息的ID,在进程内部.这个变量基本上无用了.

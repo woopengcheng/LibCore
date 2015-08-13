@@ -163,7 +163,7 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(4);
 
-		SINT8 isSys = (SINT8)LibCore::atoi(objParams[3]);
+		SINT8 isSys = (SINT8)CUtil::atoi(objParams[3]);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
@@ -186,7 +186,7 @@ namespace Client
 	{ 
 		CHECK_ARGS_EQUAL_COUNT(4);
 
-		SINT8 isSys = (SINT8)LibCore::atoi(objParams[3]);
+		SINT8 isSys = (SINT8)CUtil::atoi(objParams[3]);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
@@ -265,7 +265,7 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(4);
 
-		INT64 llCount = LibCore::atoi(objParams[3]);
+		INT64 llCount = CUtil::atoi(objParams[3]);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
@@ -277,7 +277,7 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(4);
 
-		double llCount = LibCore::atof(objParams[3]);
+		double llCount = CUtil::atof(objParams[3]);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
@@ -317,7 +317,7 @@ namespace Client
 	void ClientCommands::pfnHandleHScan(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
 		CHECK_ARGS_EQUAL_COUNT(5); 
-		INT64 llLimit = LibCore::atoi(objParams[4]);
+		INT64 llLimit = CUtil::atoi(objParams[4]);
 
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
@@ -368,7 +368,7 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(4);
 
-		INT64 llScore = LibCore::atoi(objParams[3]);
+		INT64 llScore = CUtil::atoi(objParams[3]);
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1));   
 		Client::rpc_HandleZSet("tcp://127.0.0.1:8001" , targets , Msg::Object(0) , objParams[1] , objParams[2] , llScore , 1);
@@ -395,13 +395,13 @@ namespace Client
 		INT64 llStart = 0, llEnd = 0, llLimit = 0;
 		if (objParams.size() == 5)
 		{
-			llStart = LibCore::atoi(objParams[2]);
-			llEnd = LibCore::atoi(objParams[3]);
-			llLimit = LibCore::atoi(objParams[4]);
+			llStart = CUtil::atoi(objParams[2]);
+			llEnd = CUtil::atoi(objParams[3]);
+			llLimit = CUtil::atoi(objParams[4]);
 		}
 		else
 		{
-			llLimit = LibCore::atoi(objParams[2]);
+			llLimit = CUtil::atoi(objParams[2]);
 		}
 		std::vector<Msg::Object> targets;
 		targets.push_back(Msg::Object(1)); 
@@ -422,13 +422,13 @@ namespace Client
 		
 		if (objParams.size() == 5)
 		{
-			llStart = LibCore::atoi(objParams[2]);
-			llEnd = LibCore::atoi(objParams[3]);
-			llLimit = LibCore::atoi(objParams[4]);
+			llStart = CUtil::atoi(objParams[2]);
+			llEnd = CUtil::atoi(objParams[3]);
+			llLimit = CUtil::atoi(objParams[4]);
 		}
 		else
 		{
-			llLimit = LibCore::atoi(objParams[2]);
+			llLimit = CUtil::atoi(objParams[2]);
 		} 
 		
 		Client::rpc_HandleZRTop("tcp://127.0.0.1:8001" , targets , Msg::Object(0) , objParams[1] , llStart , llEnd , llLimit , 1);

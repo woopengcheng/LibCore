@@ -1,9 +1,9 @@
-#ifndef __libcore_heap_h__
-#define __libcore_heap_h__
+#ifndef __cutil_heap_h__
+#define __cutil_heap_h__
 #include "Common/Common.h"
 #include "Common/Node.h"   
 
-namespace LibCore
+namespace CUtil
 {
 #define MAX_NODE_SIZE 10000                   //5 定义100000个计时器.
 

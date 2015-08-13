@@ -1,7 +1,7 @@
 #include "Common/Chunk.h"
-#include "Common/LibCore.h"
+#include "Common/CUtil.h"
 
-namespace LibCore
+namespace CUtil
 { 
 
 	Chunk::Chunk(void * pBuf , UINT32 unChunkSize, BOOL bMustRelease /*= TRUE*/)

@@ -1,7 +1,7 @@
 #include "Common/Random.h"
 
 
-namespace LibCore
+namespace CUtil
 {
 	Random g_objRandomGenerator;
 

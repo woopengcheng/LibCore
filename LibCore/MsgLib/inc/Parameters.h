@@ -7,7 +7,7 @@ namespace Msg
 { 
 	class GenMsgHelper;
 
-	class DLL_EXPORT Parameters : public LibCore::Marshal
+	class DLL_EXPORT Parameters : public CUtil::Marshal
 	{
 	public: 
 		Parameters() : m_unParamCount(0){}
@@ -589,8 +589,8 @@ namespace Msg
 		}
 
 	public: 
-		virtual LibCore::CStream & marshal(LibCore::CStream & cs);
-		virtual LibCore::CStream & unMarshal(LibCore::CStream & cs);
+		virtual CUtil::CStream & marshal(CUtil::CStream & cs);
+		virtual CUtil::CStream & unMarshal(CUtil::CStream & cs);
 
 	public:
 // 		void GenMsgParams()

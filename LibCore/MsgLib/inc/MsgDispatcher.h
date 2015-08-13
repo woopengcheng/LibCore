@@ -5,7 +5,7 @@
 #include "MsgLib/inc/ParaseMsgCall.h" 
 #include "MsgLib/inc/StaticMethodImplHelper.h"
 #include "MsgLib/inc/ObjectMethodImplHelper.h"
-#include "Common/LibCore.h"
+#include "Common/CUtil.h"
 
 namespace Msg 
 { 
@@ -37,7 +37,7 @@ namespace Msg
 		{ 
 			StaticMethodImpl< Func> * pSMI = new StaticMethodImpl< Func>;   //5 这里将函数封装在静态函数包里.
 			pSMI->m_cMethodType = METHOD_TYPE_STATIC;  
-			LibCore::strncpy(pSMI->m_pMehtodName , MAX_MSG_METHOD_NAME_LENGTH , pFuncName ); 
+			CUtil::strncpy(pSMI->m_pMehtodName , MAX_MSG_METHOD_NAME_LENGTH , pFuncName ); 
 			pSMI->m_objFunc = pFunc;
 			pSMI->m_pMethodImpl = StaticMethodImplHelper::CallFuncEntry< Func>;
 			 

@@ -9,7 +9,7 @@
 
 namespace Server
 { 
-	bool SlaveHandler::RecvFile(std::string strDir , std::string strFileName , std::string strDBName , INT32 nFileSize , INT32 nSendType , const LibCore::Chunk & objChunk)
+	bool SlaveHandler::RecvFile(std::string strDir , std::string strFileName , std::string strDBName , INT32 nFileSize , INT32 nSendType , const CUtil::Chunk & objChunk)
 	{ 
 		std::string localfilename = strDir + strDBName + "/" + strFileName;
 		GameDB::GetDefaultEnv()->CreateDir(strDir);

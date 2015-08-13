@@ -2,7 +2,7 @@
 #include "CStream.h"
 
 
-namespace LibCore
+namespace CUtil
 {
 	CStream & CharPtr::marshal( CStream & cs )
 	{    

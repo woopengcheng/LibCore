@@ -69,7 +69,7 @@ namespace Msg
 		case DEFAULT_RPC_MSG_ID:
 			{
 				Assert_ReF1(pBuffer && m_pRpcManager);  
-				LibCore::CStream cs(pBuffer , unLength);
+				CUtil::CStream cs(pBuffer , unLength);
 				UINT32 unTargetsCount = (UINT32)*pBuffer;
 				cs >> unTargetsCount;
 

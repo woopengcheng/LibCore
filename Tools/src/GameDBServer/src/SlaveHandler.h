@@ -39,7 +39,7 @@ namespace Server
 		void		SelectDB();
 		void		RequestSyncData();
 		DBSlave *	GetDBSlave(){ return m_pDBSlave; }
-		bool		RecvFile(std::string strDir , std::string strFileName , std::string strDBName , INT32 nFileSize , INT32 nSendType , const LibCore::Chunk & objChunk);
+		bool		RecvFile(std::string strDir , std::string strFileName , std::string strDBName , INT32 nFileSize , INT32 nSendType , const CUtil::Chunk & objChunk);
 		bool		RecvFileEnd(std::string strDir , std::string strDBName );
 		void		SetSlaveInfo(const GameDB::SDBSlaveInfo & info);
 		GameDB::SDBSlaveInfo  GetSlaveInfo(){ return m_objSlaveInfo;}

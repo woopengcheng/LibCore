@@ -1,8 +1,8 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleShowDatabases_RpcClient(Net::ISession * pSession, Msg::Object objSrc , LibCore_Chunk & res/* = LibCore::Chunk()*/) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleShowDatabases_RpcClient(Net::ISession * pSession, Msg::Object objSrc , CUtilChunk & res/* = CUtil::Chunk()*/) 
 {
-	LibCore::CStream cs((const char*)res.GetBuf() , res.GetDataLen());
+	CUtil::CStream cs((const char*)res.GetBuf() , res.GetDataLen());
 
 	UINT32 unCount = 0;
 	cs >> unCount;

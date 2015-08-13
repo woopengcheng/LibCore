@@ -6,18 +6,18 @@
 #include "ThreadPoolLib/inc/ThreadTask.h"  
 #include "ThreadPoolLib/inc/ThreadPoolInterface.h"  
 #include "Server.h"
-#include "Common/LibCore.h"
+#include "Common/CUtil.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {   
-	LibCore::Init("server"); 
+	CUtil::Init("server"); 
 	int nCount = ThreadPool::ThreadPoolInterface::GetInstance().GetThreadsCount(); 
 	Server server;
 	server.Init();
 
 	server.Update();
 
-	LibCore::Cleanup(); 
+	CUtil::Cleanup(); 
 	return 0;
 }
 

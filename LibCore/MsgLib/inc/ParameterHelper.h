@@ -54,7 +54,7 @@ namespace Msg
 			UINT32 unType = 0;\
 			type_name  val;\
 			\
-			objParam.GetParamStream() >> LibCore::Marshal::Begin >> unType >> val >> LibCore::Marshal::Rollback;   \
+			objParam.GetParamStream() >> CUtil::Marshal::Begin >> unType >> val >> CUtil::Marshal::Rollback;   \
 			MsgAssert_Re(unType == type_macro , val , "获取参数值错误.");\
 			\
 			return val;\
@@ -64,7 +64,7 @@ namespace Msg
 		{ \
 			UINT32 unType = 0;\
 			\
-			objParam.GetParamStream() >> LibCore::Marshal::Begin >> unType >> val >> LibCore::Marshal::Rollback;   \
+			objParam.GetParamStream() >> CUtil::Marshal::Begin >> unType >> val >> CUtil::Marshal::Rollback;   \
 			MsgAssert_Re0(unType == type_macro , "获取参数值错误.");\
 			\
 			return TRUE;\
@@ -97,16 +97,16 @@ namespace Msg
 // 			INT32 nType = 0 ;
 // 			T Value = T();
 // 
-// 			objParam.GetParamStream() >> LibCore::Marshal::Begin >> nType ;
+// 			objParam.GetParamStream() >> CUtil::Marshal::Begin >> nType ;
 // 			MsgAssert_Re(nType == PARAMETER_TYPE_STD_CONTAINER , Value , "paramter type is error:" << nType << ":cur=" << PARAMETER_TYPE_STD_CONTAINER);
 // 
-// 			LibCore::STLContainer<T> value = LibCore::STLContainer<T>(Value);
-// 			objParam.GetParamStream() >> value >> LibCore::Marshal::Rollback;
+// 			CUtil::STLContainer<T> value = CUtil::STLContainer<T>(Value);
+// 			objParam.GetParamStream() >> value >> CUtil::Marshal::Rollback;
 // 
 // 			return Value; 
 // 		}
 // 
-// 		static void MakeParameter(Parameter & objParam , LibCore::STLContainer<T> value)
+// 		static void MakeParameter(Parameter & objParam , CUtil::STLContainer<T> value)
 // 		{   
 // 			objParam.GetParamStream() << (INT32)PARAMETER_TYPE_STD_CONTAINER;  
 // 			objParam.GetParamStream() << value;
@@ -117,10 +117,10 @@ namespace Msg
 			INT32 nType = 0 ;
 			T Value = T();
 
-			objParam.GetParamStream() >> LibCore::Marshal::Begin >> nType ;
+			objParam.GetParamStream() >> CUtil::Marshal::Begin >> nType ;
 			MsgAssert_Re(nType == PARAMETER_TYPE_STD_CONTAINER_OR_OTHERS , Value , "paramter type is error:" << nType << ":cur=" << PARAMETER_TYPE_STD_CONTAINER_OR_OTHERS);
 
-			objParam.GetParamStream() >> Value >> LibCore::Marshal::Rollback;
+			objParam.GetParamStream() >> Value >> CUtil::Marshal::Rollback;
 
 			return Value; 
 		}
@@ -129,10 +129,10 @@ namespace Msg
 		{
 			INT32 nType = 0 ; 
 
-			objParam.GetParamStream() >> LibCore::Marshal::Begin >> nType ;
+			objParam.GetParamStream() >> CUtil::Marshal::Begin >> nType ;
 			MsgAssert_Re0(nType == PARAMETER_TYPE_STD_CONTAINER_OR_OTHERS , "paramter type is error:" << nType << ":cur=" << PARAMETER_TYPE_STD_CONTAINER_OR_OTHERS);
 
-			objParam.GetParamStream() >> Value >> LibCore::Marshal::Rollback;
+			objParam.GetParamStream() >> Value >> CUtil::Marshal::Rollback;
 
 			return TRUE; 
 		}
@@ -171,11 +171,11 @@ namespace Msg
 			INT32 nType = 0 ;
 			T Value = T();
 
-			objParam.GetParamStream() >> LibCore::Marshal::Begin >> nType ;
+			objParam.GetParamStream() >> CUtil::Marshal::Begin >> nType ;
 			MsgAssert_Re(nType == PARAMETER_TYPE_STD_CONTAINER_OR_OTHERS , Value , "paramter type is error. :" << nType << " cur: " << PARAMETER_TYPE_STD_CONTAINER_OR_OTHERS);
 
-//			LibCore::STLContainer<T> value = LibCore::STLContainer<T>(Value);
-			objParam.GetParamStream() >> Value >> LibCore::Marshal::Rollback;
+//			CUtil::STLContainer<T> value = CUtil::STLContainer<T>(Value);
+			objParam.GetParamStream() >> Value >> CUtil::Marshal::Rollback;
 
 			return Value; 
 		}
@@ -184,11 +184,11 @@ namespace Msg
 		{
 			INT32 nType = 0 ;
 
-			objParam.GetParamStream() >> LibCore::Marshal::Begin >> nType ;
+			objParam.GetParamStream() >> CUtil::Marshal::Begin >> nType ;
 			MsgAssert_Re0(nType == PARAMETER_TYPE_STD_CONTAINER_OR_OTHERS , "paramter type is error. :" << nType << " cur: " << PARAMETER_TYPE_STD_VECTOR);
 
-//			LibCore::STLContainer<T> value = LibCore::STLContainer<T>(Value);
-			objParam.GetParamStream() >> Value >> LibCore::Marshal::Rollback;
+//			CUtil::STLContainer<T> value = CUtil::STLContainer<T>(Value);
+			objParam.GetParamStream() >> Value >> CUtil::Marshal::Rollback;
 
 			return TRUE; 
 		}
@@ -217,14 +217,14 @@ namespace Msg
 		{
 			INT32 nType = 0 , nSize = 0;
 
-			objParam.GetParamStream() >> LibCore::Marshal::Begin >> nType >> nSize;
+			objParam.GetParamStream() >> CUtil::Marshal::Begin >> nType >> nSize;
 			MsgAssert_Re0(nType == PARAMETER_TYPE_STRING , "paramter type is error. :" << nType << " cur: " << PARAMETER_TYPE_STRING);
 			MsgAssert_Re0(!((UINT32)nSize > objParam.GetParamStream().GetDataLen() - objParam.GetParamStream().GetCurPos()) , "unMarshal invalid length."); 
 			 
 			void * pBuf = NULL;
 			objParam.GetParamStream().Pop(pBuf , nSize);
 
-			objParam.GetParamStream() >> LibCore::Marshal::Rollback;
+			objParam.GetParamStream() >> CUtil::Marshal::Rollback;
 			return (const char * )pBuf; 
 		}
 
@@ -232,14 +232,14 @@ namespace Msg
 		{
 			INT32 nType = 0 , nSize = 0;
 
-			objParam.GetParamStream() >> LibCore::Marshal::Begin >> nType >> nSize;
+			objParam.GetParamStream() >> CUtil::Marshal::Begin >> nType >> nSize;
 			MsgAssert_Re0(nType == PARAMETER_TYPE_STRING , "paramter type is error. :" << nType << " cur: " << PARAMETER_TYPE_STRING);
 			MsgAssert_Re0(!((UINT32)nSize > objParam.GetParamStream().GetDataLen() - objParam.GetParamStream().GetCurPos()) , "unMarshal invalid length."); 
 
 			void * pBuf = NULL;
 			objParam.GetParamStream().Pop(pBuf , nSize);
 
-			objParam.GetParamStream() >> LibCore::Marshal::Rollback;
+			objParam.GetParamStream() >> CUtil::Marshal::Rollback;
 			p1 = (char *)pBuf;
 			return TRUE; 
 		}
@@ -278,12 +278,12 @@ namespace Msg
 		{
 			INT32 nType = 0 , nSize = 0;
 
-			objParam.GetParamStream() >> LibCore::Marshal::Begin >> nType >> nSize;
+			objParam.GetParamStream() >> CUtil::Marshal::Begin >> nType >> nSize;
 			MsgAssert_Re0(nType == PARAMETER_TYPE_STD_STRING , "paramter type is error. :" << nType << " cur: " << PARAMETER_TYPE_STD_STRING);
 			MsgAssert_Re0(!((UINT32)nSize > objParam.GetParamStream().GetDataLen() - objParam.GetParamStream().GetCurPos()) , "unMarshal invalid length."); 
 
 			std::string strValue;
-			objParam.GetParamStream() >> strValue >> LibCore::Marshal::Rollback;
+			objParam.GetParamStream() >> strValue >> CUtil::Marshal::Rollback;
 
 			return strValue; 
 		}
@@ -292,11 +292,11 @@ namespace Msg
 		{
 			INT32 nType = 0 , nSize = 0;
 
-			objParam.GetParamStream() >> LibCore::Marshal::Begin >> nType >> nSize;
+			objParam.GetParamStream() >> CUtil::Marshal::Begin >> nType >> nSize;
 			MsgAssert_Re0(nType == PARAMETER_TYPE_STD_STRING , "paramter type is error. :" << nType << " cur: " << PARAMETER_TYPE_STD_STRING);
 			MsgAssert_Re0(!((UINT32)nSize > objParam.GetParamStream().GetDataLen() - objParam.GetParamStream().GetCurPos()) , "unMarshal invalid length."); 
 			 
-			objParam.GetParamStream() >> strValue >> LibCore::Marshal::Rollback;
+			objParam.GetParamStream() >> strValue >> CUtil::Marshal::Rollback;
 
 			return TRUE; 
 		}
@@ -348,7 +348,7 @@ namespace Msg
 		}
 	};
 // 
-// 	template<> class ParameterHelper<LibCore::Chunk>
+// 	template<> class ParameterHelper<CUtil::Chunk>
 // 	{
 // 	public:
 // 		static UINT32 GetParameterType()
@@ -356,10 +356,10 @@ namespace Msg
 // 			return PARAMETER_TYPE_CHUNK;
 // 		}
 // 
-// 		static LibCore::Chunk GetParameterValue(Parameter & objParam)
+// 		static CUtil::Chunk GetParameterValue(Parameter & objParam)
 // 		{
 // 			INT32 unType = 0 , unSize = 0;
-// 			LibCore::Chunk val; 
+// 			CUtil::Chunk val; 
 // 
 // 			objParam.GetParamStream() >> unType >> unSize >> val;   
 // 			MsgAssert_Re(unType == PARAMETER_TYPE_CHUNK && unSize == val.GetDataLen() , val , "获取参数值错误."); 
@@ -367,7 +367,7 @@ namespace Msg
 // 			return val;
 // 		}
 // 
-// 		static void MakeParameter(Parameter & objParam , LibCore::Chunk val)
+// 		static void MakeParameter(Parameter & objParam , CUtil::Chunk val)
 // 		{ 
 // 			objParam.GetParamStream() << (INT32)PARAMETER_TYPE_CHUNK << val.GetDataLen() << val;    
 // 		}
@@ -382,7 +382,7 @@ namespace Msg
 // 		}
 // 	}; 
 // 
-// 	template<> class ParameterHelper<LibCore::Chunk &>
+// 	template<> class ParameterHelper<CUtil::Chunk &>
 // 	{
 // 	public:
 // 		static UINT32 GetParameterType()
@@ -390,14 +390,14 @@ namespace Msg
 // 			return PARAMETER_TYPE_CHUNK;
 // 		}
 // 
-// 		static LibCore::Chunk GetParameterValue(Parameter & objParam)
+// 		static CUtil::Chunk GetParameterValue(Parameter & objParam)
 // 		{
-// 			return ParameterHelper<LibCore::Chunk>::GetParameterValue(objParam);
+// 			return ParameterHelper<CUtil::Chunk>::GetParameterValue(objParam);
 // 		}
 // 
-// 		static void MakeParameter(Parameter & objParam , LibCore::Chunk val)
+// 		static void MakeParameter(Parameter & objParam , CUtil::Chunk val)
 // 		{ 
-// 			return ParameterHelper<LibCore::Chunk>::MakeParameter(objParam , val);  
+// 			return ParameterHelper<CUtil::Chunk>::MakeParameter(objParam , val);  
 // 		}
 // 
 // 		static BOOL CheckParamType(Parameter & objParam)
@@ -423,7 +423,7 @@ namespace Msg
 	GEN_PARAMTER_HELPER(float , PARAMETER_TYPE_FLOAT);
 	GEN_PARAMTER_HELPER(double , PARAMETER_TYPE_DOUBLE); 
 //	GEN_PARAMTER_HELPER(std::string  , PARAMETER_TYPE_STD_STRING); 
-	GEN_PARAMTER_HELPER(LibCore::Chunk , PARAMETER_TYPE_CHUNK);  
+	GEN_PARAMTER_HELPER(CUtil::Chunk , PARAMETER_TYPE_CHUNK);  
 }
 
 #endif

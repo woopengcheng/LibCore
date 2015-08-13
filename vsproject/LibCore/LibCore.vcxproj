@@ -250,7 +250,7 @@
     <ClInclude Include="..\..\LibCore\Common\ErrorCode.h" />
     <ClInclude Include="..\..\LibCore\Common\Heap.h" />
     <ClInclude Include="..\..\LibCore\Common\intrusive_ptr.h" />
-    <ClInclude Include="..\..\LibCore\Common\LibCore.h" />
+    <ClInclude Include="..\..\LibCore\Common\CUtil.h" />
     <ClInclude Include="..\..\LibCore\Common\LinkedPtr.h" />
     <ClInclude Include="..\..\LibCore\Common\MinHeap.h" />
     <ClInclude Include="..\..\LibCore\Common\MsgAssert.h" />
@@ -394,7 +394,7 @@
     <ClCompile Include="..\..\LibCore\Common\Chunk.cpp" />
     <ClCompile Include="..\..\LibCore\Common\CircleBuffer.cpp" />
     <ClCompile Include="..\..\LibCore\Common\Common.cpp" />
-    <ClCompile Include="..\..\LibCore\Common\LibCore.cpp" />
+    <ClCompile Include="..\..\LibCore\Common\CUtil.cpp" />
     <ClCompile Include="..\..\LibCore\Common\Random.cpp" />
     <ClCompile Include="..\..\LibCore\Common\UnitTest.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\inc\DBSlaveManager.cpp" />

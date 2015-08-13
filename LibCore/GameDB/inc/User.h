@@ -56,8 +56,8 @@ namespace GameDB
 
 	public:
 		bool sysuser;
-		LibCore::StringEx<64> name;
-		LibCore::StringEx<64> pswd;
+		CUtil::StringEx<64> name;
+		CUtil::StringEx<64> pswd;
 
 	public:
 		INT64 __hash;

@@ -4,7 +4,7 @@
 #include "leveldb/db.h"
 #include "leveldb/iterator.h"
 #include "leveldb/comparator.h"
-#include "Common/LibCore.h"
+#include "Common/CUtil.h"
 #include "Common/Chunk.h"
 #include "MsgLib/inc/Parameters.h"
 #include "Common/StringEx.h"
@@ -26,9 +26,9 @@ namespace GameDB
 	typedef Msg::Parameters			 Parameters; 
 	class DLL_EXPORT Options : public leveldb::Options{};
 	 
-	extern DLL_EXPORT LibCore::CStream & operator << (LibCore::CStream& cs,const leveldb::Slice& c); 
+	extern DLL_EXPORT CUtil::CStream & operator << (CUtil::CStream& cs,const leveldb::Slice& c); 
 
-	typedef LibCore::Chunk  Chunk; 
+	typedef CUtil::Chunk  Chunk; 
 
 	typedef std::vector<leveldb::Slice> CollectionSlicesT;
 	typedef std::map<std::string , leveldb::Slice> CollectionKeyValsT;
@@ -51,7 +51,7 @@ namespace GameDB
 	//5 ***************************************************************
 
 	//5 ***************************宏定义数值************************************
-#define  DEFAULT_STACKCHUNK LibCore::StackChunk<MAX_KEY_LENGTH>
+#define  DEFAULT_STACKCHUNK CUtil::StackChunk<MAX_KEY_LENGTH>
 
 
 	//5 ***************************************************************

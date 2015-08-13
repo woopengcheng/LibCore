@@ -52,7 +52,7 @@ namespace GameDB
 	//			_bson::bsonobj objValue;
 	//			obj->ToBson(objValue);
 	//			
-	//			LibCore::Chunk objChunk(objValue.objdata(),objValue.objsize()).;
+	//			CUtil::Chunk objChunk(objValue.objdata(),objValue.objsize()).;
 
 				//5 这里调试直接往服务器写.但是真实情况这么写就会出问题.因为这里会卡住.
 				std::vector<Msg::Object> targets;

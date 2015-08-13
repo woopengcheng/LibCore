@@ -4,11 +4,11 @@
 #include "stdafx.h"  
 #include "TestObject.h" 
 #include "RpcInstance.h" 
-#include "Common/LibCore.h" 
+#include "Common/CUtil.h" 
   
 int _tmain(int argc, _TCHAR* argv[])
 {
-	LibCore::Init("RpcServer"); 
+	CUtil::Init("RpcServer"); 
 	Server::RpcInstance::GetInstance().Init("RPCServerConfigs.xml"); 
 	 
 	Server::TestObject  ObjTestObject;   
@@ -18,7 +18,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
  	Server::RpcInstance::GetInstance().Cleanup();  
-	LibCore::Cleanup();
+	CUtil::Cleanup();
 	return 0;
 }
 

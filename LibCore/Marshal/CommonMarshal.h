@@ -1,13 +1,13 @@
-#ifndef __libcore_common_marshal_h__
-#define __libcore_common_marshal_h__
+#ifndef __cutil_common_marshal_h__
+#define __cutil_common_marshal_h__
 #include "Marshal/Marshal.h"
 
 
-namespace LibCore
+namespace CUtil
 {
 	class CStream;
 
-	class DLL_EXPORT CharPtr : public LibCore::Marshal
+	class DLL_EXPORT CharPtr : public CUtil::Marshal
 	{ 
 	public:
 		CharPtr( void ): m_pBuf(NULL) , m_unLen(0) {}
@@ -23,7 +23,7 @@ namespace LibCore
 	};
 
 	template<typename Container>
-	class  STLContainer : public LibCore::Marshal
+	class  STLContainer : public CUtil::Marshal
 	{ 
 	public: 
 		STLContainer( Container & pContainer ): m_pContainer(&pContainer){}  //5 默认隐式转换.不加explicit
@@ -67,7 +67,7 @@ namespace LibCore
 	};
 
 	template<typename Container>
-	class  STLContainer<typename Container &> : public LibCore::Marshal
+	class  STLContainer<typename Container &> : public CUtil::Marshal
 	{ 
 	public: 
 		STLContainer( Container & pContainer ): m_pContainer(&pContainer){}  //5 默认隐式转换.不加explicit

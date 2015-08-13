@@ -2,7 +2,7 @@
 #include "TimerLib/inc/TimerHelp.h"
 #include "ThreadPoolLib/inc/ThreadContext.h"
 #include "ThreadPoolLib/inc/ThreadState.h"
-#include "Common/LibCore.h"
+#include "Common/CUtil.h"
 
 namespace ThreadPool
 { 
@@ -45,7 +45,7 @@ namespace ThreadPool
 
 	void ThreadTask::SetTaskName( char * pName )
 	{
-		LibCore::strncpy(m_aTaskName , MAX_NAME_LENGTH ,pName);
+		CUtil::strncpy(m_aTaskName , MAX_NAME_LENGTH ,pName);
 	}
 
 

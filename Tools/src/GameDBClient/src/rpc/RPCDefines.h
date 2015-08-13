@@ -4,7 +4,7 @@ Author		:	generate by tools
 HostName	:	woopengcheng
 IP			:	192.168.1.107
 Version		:	0.0.1
-Date		:	2015-08-11 00:44:22
+Date		:	2015-08-13 22:54:35
 Description	:	RPCº¯Êý¶¨Òå
 ************************************/
 #ifndef __msg_Client_rpc_defines_h__
@@ -15,8 +15,8 @@ namespace Client
 {
 
 #define  RPC_DEFINE_GlobalRpc public:\
-	Msg::ObjectMsgCall * testMulitServerNode_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
-	Msg::ObjectMsgCall * testMulitServerNode_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0));\
+	Msg::ObjectMsgCall * testMulitServerNode_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , CUtilChunk & res = CUtil::Chunk());\
+	Msg::ObjectMsgCall * testMulitServerNode_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0));\
 	Msg::ObjectMsgCall * HandleUserAuth_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);\
 	Msg::ObjectMsgCall * HandleUserAuth_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & name = std::string() , std_string & pwd = std::string());\
 	Msg::ObjectMsgCall * HandleSelectDatabase_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);\
@@ -25,7 +25,7 @@ namespace Client
 	Msg::ObjectMsgCall * HandleCreateDatabase_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string());\
 	Msg::ObjectMsgCall * HandleDeleteDatabase_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);\
 	Msg::ObjectMsgCall * HandleDeleteDatabase_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string());\
-	Msg::ObjectMsgCall * HandleShowDatabases_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
+	Msg::ObjectMsgCall * HandleShowDatabases_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , CUtilChunk & res = CUtil::Chunk());\
 	Msg::ObjectMsgCall * HandleShowDatabases_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) );\
 	Msg::ObjectMsgCall * HandleCreateUser_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);\
 	Msg::ObjectMsgCall * HandleCreateUser_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & name = std::string() , std_string & pwd = std::string() , SINT8 issys = 0);\
@@ -47,43 +47,43 @@ namespace Client
 	Msg::ObjectMsgCall * HandleHSetIncr_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string() , std_string & key = std::string() , INT64 value = 0);\
 	Msg::ObjectMsgCall * HandleHSetIncrFloat_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , double res = 0);\
 	Msg::ObjectMsgCall * HandleHSetIncrFloat_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string() , std_string & key = std::string() , double value = 0.0f);\
-	Msg::ObjectMsgCall * HandleHGetKeys_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
+	Msg::ObjectMsgCall * HandleHGetKeys_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , CUtilChunk & res = CUtil::Chunk());\
 	Msg::ObjectMsgCall * HandleHGetKeys_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string());\
-	Msg::ObjectMsgCall * HandleHGetVals_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
+	Msg::ObjectMsgCall * HandleHGetVals_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , CUtilChunk & res = CUtil::Chunk());\
 	Msg::ObjectMsgCall * HandleHGetVals_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string());\
-	Msg::ObjectMsgCall * HandleHGetKeyVals_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
+	Msg::ObjectMsgCall * HandleHGetKeyVals_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , CUtilChunk & res = CUtil::Chunk());\
 	Msg::ObjectMsgCall * HandleHGetKeyVals_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string());\
-	Msg::ObjectMsgCall * HandleHScan_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
+	Msg::ObjectMsgCall * HandleHScan_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , CUtilChunk & res = CUtil::Chunk());\
 	Msg::ObjectMsgCall * HandleHScan_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string() , std_string & start = std::string() , std_string & regexp = std::string() , INT64 limit = 10);\
 	Msg::ObjectMsgCall * HandleHCount_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT64 res = 0);\
 	Msg::ObjectMsgCall * HandleHCount_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string());\
 	Msg::ObjectMsgCall * HandleHDrop_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT64 res = 0);\
 	Msg::ObjectMsgCall * HandleHDrop_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string());\
-	Msg::ObjectMsgCall * HandleHList_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
+	Msg::ObjectMsgCall * HandleHList_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , CUtilChunk & res = CUtil::Chunk());\
 	Msg::ObjectMsgCall * HandleHList_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) );\
 	Msg::ObjectMsgCall * HandleHMultiSet_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);\
-	Msg::ObjectMsgCall * HandleHMultiSet_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string() , LibCore_Chunk & keyvalues = LibCore::Chunk());\
-	Msg::ObjectMsgCall * HandleHMultiGet_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
-	Msg::ObjectMsgCall * HandleHMultiGet_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string() , LibCore_Chunk & keys = LibCore::Chunk());\
+	Msg::ObjectMsgCall * HandleHMultiSet_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string() , CUtilChunk & keyvalues = CUtil::Chunk());\
+	Msg::ObjectMsgCall * HandleHMultiGet_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , CUtilChunk & res = CUtil::Chunk());\
+	Msg::ObjectMsgCall * HandleHMultiGet_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string() , CUtilChunk & keys = CUtil::Chunk());\
 	Msg::ObjectMsgCall * HandleHMultiDel_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);\
-	Msg::ObjectMsgCall * HandleHMultiDel_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string() , LibCore_Chunk & keys = LibCore::Chunk());\
+	Msg::ObjectMsgCall * HandleHMultiDel_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string() , CUtilChunk & keys = CUtil::Chunk());\
 	Msg::ObjectMsgCall * HandleZSet_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 resCode = 0);\
 	Msg::ObjectMsgCall * HandleZSet_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string() , std_string & key = std::string() , INT64 score = 0);\
 	Msg::ObjectMsgCall * HandleZGet_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT64 score = 0);\
 	Msg::ObjectMsgCall * HandleZGet_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string() , std_string & key = std::string());\
 	Msg::ObjectMsgCall * HandleZDel_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT64 score = 0);\
 	Msg::ObjectMsgCall * HandleZDel_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string() , std_string & key = std::string());\
-	Msg::ObjectMsgCall * HandleZTop_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
+	Msg::ObjectMsgCall * HandleZTop_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , CUtilChunk & res = CUtil::Chunk());\
 	Msg::ObjectMsgCall * HandleZTop_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string() , INT64 start = 0 , INT64 end = 0 , INT64 limit = 0);\
-	Msg::ObjectMsgCall * HandleZRTop_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
+	Msg::ObjectMsgCall * HandleZRTop_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , CUtilChunk & res = CUtil::Chunk());\
 	Msg::ObjectMsgCall * HandleZRTop_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string() , INT64 start = 0 , INT64 end = 0 , INT64 limit = 0);\
 	Msg::ObjectMsgCall * HandleZDrop_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);\
 	Msg::ObjectMsgCall * HandleZDrop_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string());\
 	Msg::ObjectMsgCall * HandleZCount_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT64 res = 0);\
 	Msg::ObjectMsgCall * HandleZCount_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & table = std::string());\
-	Msg::ObjectMsgCall * HandleZList_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
+	Msg::ObjectMsgCall * HandleZList_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , CUtilChunk & res = CUtil::Chunk());\
 	Msg::ObjectMsgCall * HandleZList_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) );\
-	Msg::ObjectMsgCall * HandleDump_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , LibCore_Chunk & res = LibCore::Chunk());\
+	Msg::ObjectMsgCall * HandleDump_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , CUtilChunk & res = CUtil::Chunk());\
 	Msg::ObjectMsgCall * HandleDump_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) );\
 public:\
 	static CollectionObjectFuncsT s_setFuncs;\

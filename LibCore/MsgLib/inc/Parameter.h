@@ -32,7 +32,7 @@ namespace Msg
 		PARAMETER_TYPE_USER_DEFINE = 1000 ,   //5 用户自定义类型.从1000后面开始吧.
 	};
 
-	struct DLL_EXPORT Parameter : public LibCore::Marshal
+	struct DLL_EXPORT Parameter : public CUtil::Marshal
 	{
 	public:
 		Parameter(); 
@@ -49,8 +49,8 @@ namespace Msg
 		UINT32     GetType( void );
 		void    *  GetData( void );
 		UINT32     Copy(Parameter & objParam);
-		LibCore::CStream  GetParamStream() const { return m_objParamStream; } 
-		LibCore::CStream & GetParamStream() { return m_objParamStream; } 
+		CUtil::CStream  GetParamStream() const { return m_objParamStream; } 
+		CUtil::CStream & GetParamStream() { return m_objParamStream; } 
 
 	public:
 		bool	   IsNil(){ return GetType() == PARAMETER_TYPE_NIL; }
@@ -85,8 +85,8 @@ namespace Msg
 		}
 
 	public: 
-		virtual LibCore::CStream & marshal(LibCore::CStream & cs);
-		virtual LibCore::CStream & unMarshal(LibCore::CStream & cs);
+		virtual CUtil::CStream & marshal(CUtil::CStream & cs);
+		virtual CUtil::CStream & unMarshal(CUtil::CStream & cs);
 
 	public:
 		template<typename P1>
@@ -107,7 +107,7 @@ namespace Msg
 			return ParameterHelper<P1>::GetParameterValue(*this);
 		} 
 	private:
-		LibCore::CStream   m_objParamStream;
+		CUtil::CStream   m_objParamStream;
 	};
 
 }

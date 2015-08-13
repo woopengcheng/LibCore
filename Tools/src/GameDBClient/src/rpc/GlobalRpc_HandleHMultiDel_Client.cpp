@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Client::GlobalRpc::HandleHMultiDel_RpcClient(Net::ISession 
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleHMultiDel_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/ , LibCore_Chunk & keys/* = LibCore::Chunk()*/) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleHMultiDel_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/ , CUtilChunk & keys/* = CUtil::Chunk()*/) 
 {
 
 

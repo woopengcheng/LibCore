@@ -4,7 +4,7 @@ Author		:	generate by tools
 HostName	:	woopengcheng
 IP			:	192.168.1.107
 Version		:	0.0.1
-Date		:	2015-08-11 00:44:22
+Date		:	2015-08-13 22:54:35
 Description	:	客户端调用的rpc.
 ************************************/
 #ifndef __msg_rpc_call_funcs_h__
@@ -18,53 +18,53 @@ Description	:	客户端调用的rpc.
 
 namespace Client
 {
-	static INT32  rpc_testMulitServerNode(const char * pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	static INT32  rpc_testMulitServerNode(const char * pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
 	{
 		GEN_RPC_CALL_5((&(Client::DBClient::GetInstance())) , pSessionName , Msg::g_sztestMulitServerNode_RpcCall , dbname , value , value2 , value22 , valChar, vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
 	}
 
-	static INT32  rpc_testMulitServerNode(const char * pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	static INT32  rpc_testMulitServerNode(const char * pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
 	{
 		std::vector<Msg::Object> vecTargets;
 		vecTargets.push_back(objTarget);
 		return rpc_testMulitServerNode( pSessionName ,vecTargets , objSrc , dbname , value , value2 , value22 , valChar, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_testMulitServerNode(const char * pSessionName , Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	static INT32  rpc_testMulitServerNode(const char * pSessionName , Msg::Object objSrc , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
 	{
 		return rpc_testMulitServerNode( pSessionName , 0 , objSrc , dbname , value , value2 , value22 , valChar, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_testMulitServerNode(const std::string & pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	static INT32  rpc_testMulitServerNode(const std::string & pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
 	{
 		GEN_RPC_CALL_5((&(Client::DBClient::GetInstance())) , pSessionName , Msg::g_sztestMulitServerNode_RpcCall , dbname , value , value2 , value22 , valChar, vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
 	}
 
-	static INT32  rpc_testMulitServerNode(const std::string & pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	static INT32  rpc_testMulitServerNode(const std::string & pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
 	{
 		std::vector<Msg::Object> vecTargets;
 		vecTargets.push_back(objTarget);
 		return rpc_testMulitServerNode( pSessionName ,vecTargets , objSrc , dbname , value , value2 , value22 , valChar, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_testMulitServerNode(const std::string & pSessionName , Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	static INT32  rpc_testMulitServerNode(const std::string & pSessionName , Msg::Object objSrc , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
 	{
 		return rpc_testMulitServerNode( pSessionName , 0 , objSrc , dbname , value , value2 , value22 , valChar, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_testMulitServerNode(INT32 nSessionID , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	static INT32  rpc_testMulitServerNode(INT32 nSessionID , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
 	{
 		GEN_RPC_CALL_5((&(Client::DBClient::GetInstance())) , nSessionID , Msg::g_sztestMulitServerNode_RpcCall , dbname , value , value2 , value22 , valChar, vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
 	}
 
-	static INT32  rpc_testMulitServerNode(INT32 nSessionID , Msg::Object objTarget, Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	static INT32  rpc_testMulitServerNode(INT32 nSessionID , Msg::Object objTarget, Msg::Object objSrc , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
 	{
 		std::vector<Msg::Object> vecTargets;
 		vecTargets.push_back(objTarget);
 		return rpc_testMulitServerNode( nSessionID ,vecTargets , objSrc , dbname , value , value2 , value22 , valChar, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_testMulitServerNode(INT32 nSessionID , Msg::Object objSrc , std_string & dbname = std::string() , LibCore_Chunk & value = LibCore::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	static INT32  rpc_testMulitServerNode(INT32 nSessionID , Msg::Object objSrc , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
 	{
 		return rpc_testMulitServerNode( nSessionID , 0 , objSrc , dbname , value , value2 , value22 , valChar, usPriority , objSyncType);
 	}
@@ -1191,155 +1191,155 @@ namespace Client
 		return rpc_HandleHList( nSessionID , 0 , objSrc , usPriority , objSyncType);
 	}
 
-	static INT32  rpc_HandleHMultiSet(const char * pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keyvalues = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiSet(const char * pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keyvalues = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		GEN_RPC_CALL_2((&(Client::DBClient::GetInstance())) , pSessionName , Msg::g_szHandleHMultiSet_RpcCall , table , keyvalues, vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
 	}
 
-	static INT32  rpc_HandleHMultiSet(const char * pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keyvalues = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiSet(const char * pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keyvalues = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		std::vector<Msg::Object> vecTargets;
 		vecTargets.push_back(objTarget);
 		return rpc_HandleHMultiSet( pSessionName ,vecTargets , objSrc , table , keyvalues, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_HandleHMultiSet(const char * pSessionName , Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keyvalues = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiSet(const char * pSessionName , Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keyvalues = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		return rpc_HandleHMultiSet( pSessionName , 0 , objSrc , table , keyvalues, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_HandleHMultiSet(const std::string & pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keyvalues = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiSet(const std::string & pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keyvalues = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		GEN_RPC_CALL_2((&(Client::DBClient::GetInstance())) , pSessionName , Msg::g_szHandleHMultiSet_RpcCall , table , keyvalues, vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
 	}
 
-	static INT32  rpc_HandleHMultiSet(const std::string & pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keyvalues = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiSet(const std::string & pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keyvalues = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		std::vector<Msg::Object> vecTargets;
 		vecTargets.push_back(objTarget);
 		return rpc_HandleHMultiSet( pSessionName ,vecTargets , objSrc , table , keyvalues, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_HandleHMultiSet(const std::string & pSessionName , Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keyvalues = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiSet(const std::string & pSessionName , Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keyvalues = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		return rpc_HandleHMultiSet( pSessionName , 0 , objSrc , table , keyvalues, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_HandleHMultiSet(INT32 nSessionID , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keyvalues = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiSet(INT32 nSessionID , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keyvalues = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		GEN_RPC_CALL_2((&(Client::DBClient::GetInstance())) , nSessionID , Msg::g_szHandleHMultiSet_RpcCall , table , keyvalues, vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
 	}
 
-	static INT32  rpc_HandleHMultiSet(INT32 nSessionID , Msg::Object objTarget, Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keyvalues = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiSet(INT32 nSessionID , Msg::Object objTarget, Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keyvalues = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		std::vector<Msg::Object> vecTargets;
 		vecTargets.push_back(objTarget);
 		return rpc_HandleHMultiSet( nSessionID ,vecTargets , objSrc , table , keyvalues, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_HandleHMultiSet(INT32 nSessionID , Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keyvalues = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiSet(INT32 nSessionID , Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keyvalues = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		return rpc_HandleHMultiSet( nSessionID , 0 , objSrc , table , keyvalues, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_HandleHMultiGet(const char * pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keys = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiGet(const char * pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keys = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		GEN_RPC_CALL_2((&(Client::DBClient::GetInstance())) , pSessionName , Msg::g_szHandleHMultiGet_RpcCall , table , keys, vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
 	}
 
-	static INT32  rpc_HandleHMultiGet(const char * pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keys = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiGet(const char * pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keys = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		std::vector<Msg::Object> vecTargets;
 		vecTargets.push_back(objTarget);
 		return rpc_HandleHMultiGet( pSessionName ,vecTargets , objSrc , table , keys, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_HandleHMultiGet(const char * pSessionName , Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keys = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiGet(const char * pSessionName , Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keys = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		return rpc_HandleHMultiGet( pSessionName , 0 , objSrc , table , keys, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_HandleHMultiGet(const std::string & pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keys = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiGet(const std::string & pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keys = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		GEN_RPC_CALL_2((&(Client::DBClient::GetInstance())) , pSessionName , Msg::g_szHandleHMultiGet_RpcCall , table , keys, vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
 	}
 
-	static INT32  rpc_HandleHMultiGet(const std::string & pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keys = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiGet(const std::string & pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keys = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		std::vector<Msg::Object> vecTargets;
 		vecTargets.push_back(objTarget);
 		return rpc_HandleHMultiGet( pSessionName ,vecTargets , objSrc , table , keys, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_HandleHMultiGet(const std::string & pSessionName , Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keys = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiGet(const std::string & pSessionName , Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keys = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		return rpc_HandleHMultiGet( pSessionName , 0 , objSrc , table , keys, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_HandleHMultiGet(INT32 nSessionID , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keys = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiGet(INT32 nSessionID , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keys = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		GEN_RPC_CALL_2((&(Client::DBClient::GetInstance())) , nSessionID , Msg::g_szHandleHMultiGet_RpcCall , table , keys, vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
 	}
 
-	static INT32  rpc_HandleHMultiGet(INT32 nSessionID , Msg::Object objTarget, Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keys = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiGet(INT32 nSessionID , Msg::Object objTarget, Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keys = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		std::vector<Msg::Object> vecTargets;
 		vecTargets.push_back(objTarget);
 		return rpc_HandleHMultiGet( nSessionID ,vecTargets , objSrc , table , keys, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_HandleHMultiGet(INT32 nSessionID , Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keys = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiGet(INT32 nSessionID , Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keys = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		return rpc_HandleHMultiGet( nSessionID , 0 , objSrc , table , keys, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_HandleHMultiDel(const char * pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keys = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiDel(const char * pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keys = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		GEN_RPC_CALL_2((&(Client::DBClient::GetInstance())) , pSessionName , Msg::g_szHandleHMultiDel_RpcCall , table , keys, vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
 	}
 
-	static INT32  rpc_HandleHMultiDel(const char * pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keys = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiDel(const char * pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keys = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		std::vector<Msg::Object> vecTargets;
 		vecTargets.push_back(objTarget);
 		return rpc_HandleHMultiDel( pSessionName ,vecTargets , objSrc , table , keys, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_HandleHMultiDel(const char * pSessionName , Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keys = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiDel(const char * pSessionName , Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keys = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		return rpc_HandleHMultiDel( pSessionName , 0 , objSrc , table , keys, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_HandleHMultiDel(const std::string & pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keys = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiDel(const std::string & pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keys = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		GEN_RPC_CALL_2((&(Client::DBClient::GetInstance())) , pSessionName , Msg::g_szHandleHMultiDel_RpcCall , table , keys, vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
 	}
 
-	static INT32  rpc_HandleHMultiDel(const std::string & pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keys = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiDel(const std::string & pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keys = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		std::vector<Msg::Object> vecTargets;
 		vecTargets.push_back(objTarget);
 		return rpc_HandleHMultiDel( pSessionName ,vecTargets , objSrc , table , keys, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_HandleHMultiDel(const std::string & pSessionName , Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keys = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiDel(const std::string & pSessionName , Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keys = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		return rpc_HandleHMultiDel( pSessionName , 0 , objSrc , table , keys, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_HandleHMultiDel(INT32 nSessionID , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keys = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiDel(INT32 nSessionID , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keys = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		GEN_RPC_CALL_2((&(Client::DBClient::GetInstance())) , nSessionID , Msg::g_szHandleHMultiDel_RpcCall , table , keys, vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
 	}
 
-	static INT32  rpc_HandleHMultiDel(INT32 nSessionID , Msg::Object objTarget, Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keys = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiDel(INT32 nSessionID , Msg::Object objTarget, Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keys = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		std::vector<Msg::Object> vecTargets;
 		vecTargets.push_back(objTarget);
 		return rpc_HandleHMultiDel( nSessionID ,vecTargets , objSrc , table , keys, usPriority , objSyncType);
 	}
 
-	static INT32  rpc_HandleHMultiDel(INT32 nSessionID , Msg::Object objSrc , std_string & table = std::string() , LibCore_Chunk & keys = LibCore::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	static INT32  rpc_HandleHMultiDel(INT32 nSessionID , Msg::Object objSrc , std_string & table = std::string() , CUtilChunk & keys = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		return rpc_HandleHMultiDel( nSessionID , 0 , objSrc , table , keys, usPriority , objSyncType);
 	}

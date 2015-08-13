@@ -6,7 +6,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "Common/LibCore.h" 
+#include "Common/CUtil.h" 
 #include "Common/Chunk.h" 
 #include "MsgLib/inc/RpcClientManager.h"
 #include "MsgLib/inc/Object.h"
@@ -91,7 +91,7 @@ void PackParams( std::vector<std::string> & vecParams , INT32 argc , char ** arg
 } 
 int _tmain(int argc, _TCHAR* argv[])
 {  
-	LibCore::Init("DBClient"); 
+	CUtil::Init("DBClient"); 
 
 	std::string defaultConf = "./gdbClient.conf";
 	if(argc > 1)
@@ -148,7 +148,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
 	Client::DBClient::GetInstance().Cleanup(); 
-	LibCore::Cleanup();
+	CUtil::Cleanup();
 	 
 	system("pause");
 	return 0;
@@ -166,7 +166,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
 
-	LibCore::Cleanup(); 
+	CUtil::Cleanup(); 
 	return 0;
 }
 

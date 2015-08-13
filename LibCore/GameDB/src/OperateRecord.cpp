@@ -20,7 +20,7 @@ namespace GameDB
 		++m_nCount;
 	}
 
-	LibCore::Chunk & OperateRecord::GetData()
+	CUtil::Chunk & OperateRecord::GetData()
 	{ 
 		if (!m_bAddCount)
 		{

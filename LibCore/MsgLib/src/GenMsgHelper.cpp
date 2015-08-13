@@ -43,7 +43,7 @@ namespace Msg
 
 		if (ullMsgID == 0)
 		{
-			objMsgCall.m_ullMsgID = (UINT64)((LibCore::GenerateUUIDByTime())); 
+			objMsgCall.m_ullMsgID = (UINT64)((CUtil::GenerateUUIDByTime())); 
 		} 
 		else
 		{

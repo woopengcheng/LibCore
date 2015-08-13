@@ -110,9 +110,9 @@ namespace Msg
 			{
 				Assert_ReF1(pBuffer && m_pRpcManager);  
 
-				LibCore::CStream cs(pBuffer , unLength);
+				CUtil::CStream cs(pBuffer , unLength);
 				UINT32 unTargetsCount = 0;
-				cs >> LibCore::Marshal::Begin >> unTargetsCount >> LibCore::Marshal::Rollback;
+				cs >> CUtil::Marshal::Begin >> unTargetsCount >> CUtil::Marshal::Rollback;
 
 				RPCMsgCall * pMsg = new(unTargetsCount * sizeof(Object))RPCMsgCall;  
 				pMsg->unMarshal(cs);

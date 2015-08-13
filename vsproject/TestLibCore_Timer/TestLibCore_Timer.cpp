@@ -4,7 +4,7 @@
 #include "TimerLib/inc/GlobalTimer.h"
 #include "TimerLib/inc/GlobalTimerTask.h"
 #include "TimerLib/inc/TimerHelp.h"
-#include "Common/LibCore.h"
+#include "Common/CUtil.h"
 
 #include "stdafx.h"
 
@@ -66,7 +66,7 @@ INT32 TestTimer::SetTimer( UINT32 unInterval , UINT32 unTimes , UINT32 unStartTi
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	LibCore::Init("Timer");
+	CUtil::Init("Timer");
 	Timer::GlobalTimer::GetInstance().Init(1,1);
 
 	TestTimer test;
@@ -81,6 +81,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
 	Timer::GlobalTimer::GetInstance().Cleanup();
-	LibCore::Cleanup();
+	CUtil::Cleanup();
 	return 0;
 }

@@ -1,6 +1,6 @@
 #include "NetLib/inc/NetHelper.h"
 #include "NetLib/inc/ISession.h"
-#include "Common/LibCore.h"
+#include "Common/CUtil.h"
 
 #ifdef WIN32
 #include <Windows.h>  
@@ -22,7 +22,7 @@ namespace Net
 	std::string NetHelper::GenerateRemoteName( const char * pNetType , const char * pAddress , UINT16 usPort )
 	{ 
 		char szPort[MAX_NAME_LENGTH]; 
-		LibCore::itoa(szPort , (INT64)usPort); 
+		CUtil::itoa(szPort , (INT64)usPort); 
 
 		return GenerateRemoteName(pNetType , pAddress , szPort); 
 	}
@@ -30,8 +30,8 @@ namespace Net
 	std::string NetHelper::GenerateRemoteName( const char * pNetType , const char * pAddress , UINT16 usPort ,UINT16 usRemotePort )
 	{
 		char szPort[MAX_NAME_LENGTH] , szRemotePort[MAX_NAME_LENGTH];
-		LibCore::itoa(szPort , (INT64)usPort);  
-		LibCore::itoa(szRemotePort , (INT64)usRemotePort);  
+		CUtil::itoa(szPort , (INT64)usPort);  
+		CUtil::itoa(szRemotePort , (INT64)usRemotePort);  
 
 		return GenerateRemoteName(pNetType , pAddress , szPort , szRemotePort); 
 	}
@@ -149,7 +149,7 @@ namespace Net
 		char* ipstr = inet_ntoa(*(in_addr*)(answer->h_addr_list)[0]);
 		if(ipstr == NULL)
 			return false;
-		LibCore::strncpy(ip, strlen(ipstr) + 1 , ipstr);
+		CUtil::strncpy(ip, strlen(ipstr) + 1 , ipstr);
 		return true;
 	}
 

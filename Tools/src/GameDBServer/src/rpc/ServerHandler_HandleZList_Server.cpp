@@ -2,7 +2,7 @@
 
 Msg::ObjectMsgCall * Server::ServerHandler::HandleZList_RpcServer(Net::ISession * pSession, Msg::Object objSrc   )
 {
-	LibCore_Chunk res = 0;
+	CUtilChunk res = 0;
 
 	GameDB::Database * pDB = this->GetDataBase();
 	if (!pDB)

@@ -110,8 +110,8 @@ namespace Msg
 		void ReplaceDelayTarget();
 
 	public: 
-		virtual LibCore::CStream & marshal(LibCore::CStream & cs);
-		virtual LibCore::CStream & unMarshal(LibCore::CStream & cs);
+		virtual CUtil::CStream & marshal(CUtil::CStream & cs);
+		virtual CUtil::CStream & unMarshal(CUtil::CStream & cs);
 	public:    
 		BOOL           m_bClientRequest;
 		UINT64         m_ullTimeout;   

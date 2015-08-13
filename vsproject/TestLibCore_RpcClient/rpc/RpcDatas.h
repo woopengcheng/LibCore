@@ -30,7 +30,7 @@ namespace Client
 		double localid10;
 		float localid11;
 		std_string localid12;
-		LibCore_Chunk localid13;
+		CUtilChunk localid13;
 
 		UserLogin()
 			: userid1( 0 ) 
@@ -44,7 +44,7 @@ namespace Client
 			, localid10( 1.0f ) 
 			, localid11( 1.0f ) 
 			, localid12( std::string() ) 
-			, localid13( LibCore::Chunk() ) 
+			, localid13( CUtil::Chunk() ) 
 			{}
 	}; 
  

@@ -32,8 +32,8 @@ namespace Net
 		INT32   RecvToCircleBuffer(char * pBuf , UINT32 unSize);   //5 将消息扔给CircleBuffer 
 
 	protected:
-		LibCore::CircleBuffer    m_objSendBuf;
-		LibCore::CircleBuffer    m_objRecvBuf;
+		CUtil::CircleBuffer    m_objSendBuf;
+		CUtil::CircleBuffer    m_objRecvBuf;
 	}; 
 
 	DECLARE_BOOST_POINTERS(NetHandlerTransit);

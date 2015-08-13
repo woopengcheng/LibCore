@@ -1,7 +1,7 @@
 #ifndef __gamedb_orm_vector_h__
 #define __gamedb_orm_vector_h__
 #include "GameDB/inc/DBCommon.h"
-#include "Common/LibCore.h" 
+#include "Common/CUtil.h" 
 #include "bson/bson.h"
 
 namespace GameDB
@@ -55,11 +55,11 @@ namespace GameDB
 		INT64		HashMake(INT64 llSeed = DEFAULT_HASH_SEED)
 		{
 			size_t size = CollectionOrmsT::size();
-			INT64  hash = LibCore::CityHash(&size , sizeof(size) , llSeed);
+			INT64  hash = CUtil::CityHash(&size , sizeof(size) , llSeed);
 			for (size_t i = 0;I < size;++i)
 			{
-				hash = LibCore::CityHash(&i , sizeof(size_t) , hash);
-				hash = LibCore::HashMake<T>(CollectionOrmsT::at(i) , hash);
+				hash = CUtil::CityHash(&i , sizeof(size_t) , hash);
+				hash = CUtil::HashMake<T>(CollectionOrmsT::at(i) , hash);
 			}
 
 			return hash;
@@ -157,10 +157,10 @@ namespace GameDB
 		INT64		HashMake(INT64 llSeed = DEFAULT_HASH_SEED)
 		{
 			size_t size = CollectionOrmsT::size();
-			INT64  hash = LibCore::CityHash(&size , sizeof(size) , llSeed);
+			INT64  hash = CUtil::CityHash(&size , sizeof(size) , llSeed);
 			for (size_t i = 0;I < size;++i)
 			{
-				hash = LibCore::CityHash(&i , sizeof(size_t) , hash);
+				hash = CUtil::CityHash(&i , sizeof(size_t) , hash);
 				if (T t = CollectionOrmsT::at(i))
 				{
 					hash = t.HashMake(hash);

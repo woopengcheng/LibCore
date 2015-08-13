@@ -3,7 +3,7 @@
 
 Msg::ObjectMsgCall * Server::ServerHandler::HandleZRTop_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/ , INT64 start/* = 0*/ , INT64 end/* = 0*/ , INT64 limit/* = 0*/  )
 {
-	LibCore_Chunk res;
+	CUtilChunk res;
 	 
 	GameDB::Database * pDB = this->GetDataBase();
 	if (table.size() == 0 || !pDB)

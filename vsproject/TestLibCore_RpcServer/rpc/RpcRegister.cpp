@@ -28,7 +28,7 @@ namespace Server
 	static double g_rpcDefaultParam_double = 0.0f;
 	static float g_rpcDefaultParam_float = 0.0f;
 	static std_string g_rpcDefaultParam_std_string = std::string();
-	static LibCore_Chunk g_rpcDefaultParam_LibCore_Chunk = LibCore::Chunk();
+	static CUtilChunk g_rpcDefaultParam_LibCore_Chunk = CUtil::Chunk();
 	static UserLogin g_rpcDefaultParam_UserLogin = UserLogin();
 
 	void RpcInstance::OnRegisterRpcs( void )

@@ -1,8 +1,8 @@
 #include "MasterHandler.h"
 
-Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcServerProxy(Net::ISession * pSession , Msg::Object objSrc , std_string & dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/ , int value2/* = 0*/ , unsigned int value22/* = 0*/ , char valChar/* = char(0)*/)
+Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcServerProxy(Net::ISession * pSession , Msg::Object objSrc , std_string & dbname/* = std::string()*/ , CUtilChunk & value/* = CUtil::Chunk()*/ , int value2/* = 0*/ , unsigned int value22/* = 0*/ , char valChar/* = char(0)*/)
 {
-	LibCore_Chunk res = LibCore::Chunk();
+	CUtilChunk res = CUtil::Chunk();
 
 
 	if(ERR_FAILURE == ProxySendMsg("tcp://127.0.0.1:8002" , 0 , dbname , value , value2 , value22 , valChar))
@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcServerProxy(N
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc  ,LibCore_Chunk & res/* = LibCore::Chunk()*/)
+Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc  ,CUtilChunk & res/* = CUtil::Chunk()*/)
 {
 
 
@@ -25,7 +25,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcClientProxy(N
 	Return(res);
 }
 
-Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcTimeoutProxy(Net::ISession * pSession , Msg::Object objSrc,std_string & dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/ , int value2/* = 0*/ , unsigned int value22/* = 0*/ , char valChar/* = char(0)*/ )
+Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcTimeoutProxy(Net::ISession * pSession , Msg::Object objSrc,std_string & dbname/* = std::string()*/ , CUtilChunk & value/* = CUtil::Chunk()*/ , int value2/* = 0*/ , unsigned int value22/* = 0*/ , char valChar/* = char(0)*/ )
 {
 
 

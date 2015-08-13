@@ -277,7 +277,7 @@ namespace Msg
 //  		char szBuf[MAX_MESSAGE_LENGTH]; 
 // 			memset(szBuf , 0 , sizeof(szBuf));
 // 			UINT32 unSerializationSize = pRpcMsg->Serialization(szBuf + sizeof(Net::MsgHeader)); 
-			LibCore::CStream objStream;
+			CUtil::CStream objStream;
 			pRpcMsg->marshal(objStream);
 			UINT32 unSerializationSize = objStream.GetDataLen();//pRpcMsg->GetPacketSize();
 		

@@ -1,8 +1,8 @@
-#ifndef __libcore_min_heap_h__
-#define __libcore_min_heap_h__
+#ifndef __cutil_min_heap_h__
+#define __cutil_min_heap_h__
 #include "Common/Heap.h"  
 
-namespace LibCore
+namespace CUtil
 { 
 	template <typename ValueType>
 	class MinHeap :	public Heap<ValueType>

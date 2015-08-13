@@ -1,8 +1,8 @@
 #include "ServerHandler.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiGet_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/ , LibCore_Chunk & keys/* = LibCore::Chunk()*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiGet_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/ , CUtilChunk & keys/* = CUtil::Chunk()*/  )
 {
-	LibCore_Chunk res = 0;
+	CUtilChunk res = 0;
 
 	if (table.size() == 0 || !this->GetDataBase())
 	{
@@ -13,7 +13,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiGet_RpcServer(Net::ISess
 
 	GameDB::CollectionSlicesT vecKeys;
 	std::vector<std::string> vecStrKeys;
-	LibCore::CStream cs;
+	CUtil::CStream cs;
 	cs << keys;
 	cs >> vecStrKeys;
 	std::vector<std::string>::iterator iter = vecStrKeys.begin();

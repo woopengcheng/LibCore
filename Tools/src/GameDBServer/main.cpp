@@ -9,7 +9,7 @@
 #include <iostream>
 
 #include "TimerLib/inc/TimerHelp.h"
-#include "Common/LibCore.h" 
+#include "Common/CUtil.h" 
 #include "json/json.h"
 #include "ServerHandler.h"  
 #include "DBServer.h"
@@ -22,7 +22,7 @@
 
 int _tmain(int argc, _TCHAR* argv[])
 {  
-	LibCore::Init("DBServer"); 
+	CUtil::Init("DBServer"); 
 
 	std::string defaultConf = "./gdbServer.conf";
 	if(argc > 1)
@@ -96,7 +96,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		Server::DBMaster::GetInstance().Cleanup();  
 	}
 
-	LibCore::Cleanup();
+	CUtil::Cleanup();
 	 
 	return 0;
 }

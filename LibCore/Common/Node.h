@@ -1,15 +1,15 @@
-#ifndef __libcore_node_h__
-#define __libcore_node_h__
+#ifndef __cutil_node_h__
+#define __cutil_node_h__
 #include "Common/Common.h"
 #include "Common/ClassTypeInterface.h" 
 #include "ThreadPoolLib/inc/ThreadLock.h"
 
-namespace LibCore
+namespace CUtil
 { 
 	template<typename ValueType>
-	class  Node : public LibCore::ClassTypeInterface
+	class  Node : public CUtil::ClassTypeInterface
 	{
-		CLASS_TYPE_ID(Node<ValueType> , LibCore::ClassTypeInterface , CTID_Node)
+		CLASS_TYPE_ID(Node<ValueType> , CUtil::ClassTypeInterface , CTID_Node)
 	public:
 		Node()
 			: m_unNodePos(-1)

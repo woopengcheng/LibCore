@@ -516,9 +516,6 @@
     <ClInclude Include="..\..\LibCore\Common\intrusive_ptr.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\LibCore.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\Common\LinkedPtr.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -550,6 +547,9 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\LibCore\Common\UnitTest.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\CUtil.h">
       <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
@@ -788,13 +788,13 @@
     <ClCompile Include="..\..\LibCore\Common\Common.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\LibCore\Common\LibCore.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\LibCore\Common\Random.cpp">
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\Common\UnitTest.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Common\CUtil.cpp">
       <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>

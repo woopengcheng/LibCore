@@ -1,5 +1,5 @@
-#ifndef __libcore_random_h__
-#define __libcore_random_h__
+#ifndef __cutil_random_h__
+#define __cutil_random_h__
 #include "Common/Common.h"
 
 #ifdef WIN32
@@ -8,7 +8,7 @@
 #include <wincrypt.h>
 #endif
 
-namespace LibCore
+namespace CUtil
 { 
 #ifdef WIN32
 	class Random

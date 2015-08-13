@@ -2,7 +2,7 @@
 
 Msg::ObjectMsgCall * Server::ServerHandler::HandleHScan_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/ , std_string & start/* = std::string()*/ ,std_string & regexp/* = std::string()*/ , INT64 limit/* = 10*/  )
 {
-	LibCore_Chunk res = LibCore::Chunk();
+	CUtilChunk res = CUtil::Chunk();
 
 	if (table.size() == 0 || !this->GetDataBase())
 	{

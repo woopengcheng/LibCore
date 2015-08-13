@@ -1,8 +1,8 @@
-#ifndef __libcore_chunk_h__
-#define __libcore_chunk_h__ 
+#ifndef __cutil_chunk_h__
+#define __cutil_chunk_h__ 
 #include "Common/Common.h" 
 
-namespace LibCore
+namespace CUtil
 { 
 	class DLL_EXPORT Chunk
 	{
@@ -65,5 +65,5 @@ namespace LibCore
 		char  m_szBuffer[unSize];
 	};
 }
-#define LibCore_Chunk LibCore::Chunk
+#define CUtilChunk CUtil::Chunk
 #endif

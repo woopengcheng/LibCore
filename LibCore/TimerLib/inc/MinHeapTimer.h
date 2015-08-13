@@ -6,7 +6,7 @@
 
 namespace Timer
 { 
-	class MinHeapTimer : public LibCore::MinHeap<TimerType> , public IStrategy
+	class MinHeapTimer : public CUtil::MinHeap<TimerType> , public IStrategy
 	{
 	public:
 		MinHeapTimer( void ){}
@@ -18,7 +18,7 @@ namespace Timer
 		virtual TimerNode * Update(void)
 		{ 
 			TimerNode * pTimerNode = NULL;
-			LibCore::Node<TimerType> * pNode = LibCore::MinHeap<TimerType>::Update();
+			CUtil::Node<TimerType> * pNode = CUtil::MinHeap<TimerType>::Update();
 			if (pNode)
 			{
 				pTimerNode = pNode->GetClass<TimerNode>();
@@ -32,16 +32,16 @@ namespace Timer
 	public:
 		virtual INT32		InsertNode(UINT32 unNodeID ,TimerNode * pNode)
 		{
-			return LibCore::MinHeap<TimerType>::InsertNode(unNodeID , pNode);
+			return CUtil::MinHeap<TimerType>::InsertNode(unNodeID , pNode);
 		}
 		virtual INT32		RemoveNode(UINT32 unNodeID)
 		{
-			return LibCore::MinHeap<TimerType>::RemoveNode(unNodeID); 
+			return CUtil::MinHeap<TimerType>::RemoveNode(unNodeID); 
 		}
 		virtual TimerNode * GetNode(UINT32 unNodeID)
 		{ 
 			TimerNode * pTimerNode = NULL;
-			LibCore::Node<TimerType> * pNode = LibCore::MinHeap<TimerType>::GetNode(unNodeID);
+			CUtil::Node<TimerType> * pNode = CUtil::MinHeap<TimerType>::GetNode(unNodeID);
 			if (pNode)
 			{
 				pTimerNode = pNode->GetClass<TimerNode>();

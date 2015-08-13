@@ -2,10 +2,10 @@
 #include "GameDB/inc/OperateRecord.h"
 #include "GameDB/inc/DBCommon.h"
 
-Msg::ObjectMsgCall * Server::SlaveHandler::SyncDataToSlave_RpcServer(Net::ISession * pSession, Msg::Object objSrc ,std_string & dbname/* = std::string()*/ , LibCore_Chunk & value/* = LibCore::Chunk()*/)
+Msg::ObjectMsgCall * Server::SlaveHandler::SyncDataToSlave_RpcServer(Net::ISession * pSession, Msg::Object objSrc ,std_string & dbname/* = std::string()*/ , CUtilChunk & value/* = CUtil::Chunk()*/)
 {
 	INT32 res = 0;
-	LibCore::CStream cs;
+	CUtil::CStream cs;
 	cs.Pushback(value.Begin() , value.GetDataLen());
 
 	INT32 nCount = 0;

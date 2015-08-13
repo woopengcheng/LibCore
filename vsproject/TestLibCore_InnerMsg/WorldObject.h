@@ -7,7 +7,7 @@
 #include "MsgNameDefine.h" 
 #include "MsgLib/inc/Object.h" 
 #include "Common/Chunk.h"
-#include "Common/LibCore.h"
+#include "Common/CUtil.h"
 #include "MsgDefines.h"
 
 

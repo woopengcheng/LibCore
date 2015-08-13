@@ -24,7 +24,7 @@
 // 
 // 	};
 // 
-// 	class DLL_EXPORT Slice : public leveldb::Slice , public LibCore::Marshal
+// 	class DLL_EXPORT Slice : public leveldb::Slice , public CUtil::Marshal
 // 	{
 // 	public:
 // 		// Create an empty slice.
@@ -47,13 +47,13 @@
 // 			: leveldb::Slice(s) { } 
 // 
 // 	public: 
-// 		LibCore::CStream & marshal( LibCore::CStream & cs )
+// 		CUtil::CStream & marshal( CUtil::CStream & cs )
 // 		{ 
 // 			cs << (UINT64)size();
 // 			cs.Pushback((void*)data() , size());
 // 			return cs; 
 // 		} 
-// 		LibCore::CStream & unMarshal( LibCore::CStream & cs )
+// 		CUtil::CStream & unMarshal( CUtil::CStream & cs )
 // 		{ 
 // 			UINT64 ullSize = 0; 
 // 			cs >> ullSize;

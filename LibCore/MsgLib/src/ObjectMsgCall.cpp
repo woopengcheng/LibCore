@@ -118,7 +118,7 @@ namespace Msg
 		return ERR_SUCCESS; 
 	}
 
-	LibCore::CStream & ObjectMsgCall::marshal( LibCore::CStream & cs )
+	CUtil::CStream & ObjectMsgCall::marshal( CUtil::CStream & cs )
 	{ 
 		cs << m_unTargetsCount;
 		cs.Pushback(m_aTargets , m_unTargetsCount * sizeof(Object));
@@ -129,7 +129,7 @@ namespace Msg
 		return cs;
 	}
 
-	LibCore::CStream & ObjectMsgCall::unMarshal( LibCore::CStream & cs )
+	CUtil::CStream & ObjectMsgCall::unMarshal( CUtil::CStream & cs )
 	{
 		cs >> m_unTargetsCount;
 

@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"  
-#include "Common/LibCore.h"
+#include "Common/CUtil.h"
 #include "MsgLib/inc/InnerMsg.h"
 #include "ThreadPoolLib/inc/ThreadTask.h"  
 #include "ThreadPoolLib/inc/ThreadPoolInterface.h"  
@@ -10,7 +10,7 @@
 
 int _tmain(int argc, _TCHAR* argv[])
 {   
-	LibCore::Init("Client");
+	CUtil::Init("Client");
 
 	int nCount = ThreadPool::ThreadPoolInterface::GetInstance().GetThreadsCount(); 	
 	Client client;
@@ -19,7 +19,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	client.Update();
 
 
-	LibCore::Cleanup(); 
+	CUtil::Cleanup(); 
 
 	return 0;
 }

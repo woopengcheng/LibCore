@@ -1,7 +1,7 @@
-#ifndef __libcore_linked_ptr_h__
-#define __libcore_linked_ptr_h__
+#ifndef __cutil_linked_ptr_h__
+#define __cutil_linked_ptr_h__
 
-namespace LibCore
+namespace CUtil
 {
 	template<typename T>
 	class LinkedPtr

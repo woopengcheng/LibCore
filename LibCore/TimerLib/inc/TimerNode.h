@@ -5,10 +5,10 @@
 
 namespace Timer
 {   
-	class DLL_EXPORT  TimerNode : public LibCore::Node<TimerType>
+	class DLL_EXPORT  TimerNode : public CUtil::Node<TimerType>
 	{ 
 	public:
-		CLASS_TYPE_ID(TimerNode , LibCore::Node<TimerType> , CTID_TimerNode)
+		CLASS_TYPE_ID(TimerNode , CUtil::Node<TimerType> , CTID_TimerNode)
 	public:
 		TimerNode()
 			: m_bDelete(FALSE)
@@ -18,7 +18,7 @@ namespace Timer
 			, m_unStartTime(0)
 			, m_unTimes(0)
 			, m_pCallBackFunc(NULL)
-			, LibCore::Node<TimerType>(0)
+			, CUtil::Node<TimerType>(0)
 			, m_pNext(NULL)
 			, m_pPrev(NULL)
 		{}
@@ -30,7 +30,7 @@ namespace Timer
 			, m_unStartTime(unStartTime)
 			, m_unTimes(unTimes)
 			, m_pCallBackFunc(pFunc)
-			, LibCore::Node<TimerType>(unStartTime + unTimeInterval)
+			, CUtil::Node<TimerType>(unStartTime + unTimeInterval)
 			, m_pNext(NULL)
 			, m_pPrev(NULL)
 		{

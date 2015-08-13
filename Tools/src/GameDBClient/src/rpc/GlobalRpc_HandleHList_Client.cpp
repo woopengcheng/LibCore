@@ -1,10 +1,10 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleHList_RpcClient(Net::ISession * pSession, Msg::Object objSrc , LibCore_Chunk & res/* = LibCore::Chunk()*/) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleHList_RpcClient(Net::ISession * pSession, Msg::Object objSrc , CUtilChunk & res/* = CUtil::Chunk()*/) 
 {
 	if (res.GetDataLen() != 0)
 	{
-		LibCore::CStream cs;
+		CUtil::CStream cs;
 		cs.Pushback(res.GetBuf() , res.GetDataLen());
 
 		INT32 nCount = 0;
