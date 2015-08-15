@@ -1,7 +1,6 @@
 #include "Marshal/inc/CommonMarshal.h"
 #include "Marshal/inc/CStream.h"
 
-
 namespace CUtil
 {
 	CStream & CharPtr::marshal( CStream & cs )
