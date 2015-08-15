@@ -1,8 +1,8 @@
+#include "Common/inc/Parameters.h"
 #include "MsgLib/inc/RpcBase.h"
 #include "MsgLib/inc/RpcInterface.h"
 #include "MsgLib/inc/ICallableObject.h"
-#include "MsgLib/inc/GenMsgHelper.h"
-#include "MsgLib/inc/Parameters.h"
+#include "Common/inc/GenMsgHelper.h"
 #include "MsgLib/inc/RPCMsgCall.h"
 #include "MsgLib/inc/RpcServerManager.h"
 #include "MsgLib/inc/IRpcMsgCallableObject.h"
@@ -113,7 +113,7 @@ namespace Msg
 		return  m_objTimeout.IsExpired();
 	}
 
-	Msg::Parameters * Rpc::GetInParams()
+	CUtil::Parameters * Rpc::GetInParams()
 	{
 		if (m_pRpcMsgCall && m_pRpcManager && m_pRpcManager->GetRpcInterface() && m_pRpcManager->GetRpcInterface()->GetRpcServerManager())
 		{

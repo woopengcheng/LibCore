@@ -1,7 +1,7 @@
 #ifndef __msg_object_msg_call_h__
 #define __msg_object_msg_call_h__
 #include "MsgLib/inc/MsgCommon.h"
-#include "MsgLib/inc/Parameters.h"
+#include "Common/inc/Parameters.h"
 #include "MsgLib/inc/Object.h"
 
 #ifdef WIN32
@@ -13,7 +13,7 @@ namespace Msg
 	class DLL_EXPORT  ObjectMsgCall : public CUtil::Marshal
 	{ 
 	public:
-		ObjectMsgCall(/*const Msg::Parameters & objParams*/)
+		ObjectMsgCall(/*const CUtil::Parameters & objParams*/)
 //			: m_objParams(objParams)
 			: m_ullMsgID(0) 
 			, m_unTargetsCount(0) 
@@ -73,7 +73,7 @@ namespace Msg
 	public:      
 		UINT64             m_ullMsgID;                                 //5 消息的ID,在进程内部.这个变量基本上无用了.
 		char               m_szMsgMethod[MAX_MSG_METHOD_NAME_LENGTH];  //5 调用消息的函数
-		Parameters         m_objParams;                                //5 消息函数的参数. 
+		CUtil::Parameters  m_objParams;                                //5 消息函数的参数. 
 		UINT16             m_usPriority;							   //5 优先级
 		Object			   m_objSource;								   //5 消息源
 

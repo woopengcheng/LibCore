@@ -1,14 +1,14 @@
 // #ifndef __msg_gen_msg_params_h__
 // #define __msg_gen_msg_params_h__ 
 // #include "MsgLib/inc/MsgCommon.h"
-// #include "MsgLib/inc/ParameterHelper.h" 
-// #include "MsgLib/inc/Parameters.h"
+// #include "CUtil/inc/ParameterHelper.h" 
+// #include "Common/inc/Parameters.h"
 // 
 // namespace Msg
 // {
 // 	namespace GenMsgHelper
 // 	{ 	
-// 		static void GenMsgParams(Msg::Parameters & objParams)
+// 		static void GenMsgParams(CUtil::Parameters & objParams)
 // 		{
 // 			objParams.m_unParamCount = 0; 
 // 		}

@@ -27,7 +27,6 @@ namespace Msg
 #define DEFAULT_MSG_HANDLE_THREAD_ID     4
 
 #define MAX_MSG_METHOD_NAME_LENGTH       60
-#define MSG_MAX_PARAMETER_NUMBER         10 
 
 #define MAX_MSG_TIME_OUT                 15
 

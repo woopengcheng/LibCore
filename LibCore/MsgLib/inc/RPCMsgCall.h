@@ -40,7 +40,7 @@ namespace Msg
 		typedef std::set<Msg::Object> CollectionTargetsT;
 
 	public:
-		RPCMsgCall(/*const Msg::Parameters & objParams*/)   
+		RPCMsgCall(/*const CUtil::Parameters & objParams*/)   
 //			: ObjectMsgCall(objParams)
 			: m_bClientRequest(FALSE)
 			, m_ullTimeout(MAX_MSG_TIME_OUT)  

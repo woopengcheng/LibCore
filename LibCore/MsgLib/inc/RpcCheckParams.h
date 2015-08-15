@@ -2,40 +2,40 @@
 #define __msg_rpc_check_params_h__
 #include "MsgLib/inc/MsgCommon.h"     
 #include "Common/Chunk.h"
-#include "MsgLib/inc/Parameter.h"
-#include "MsgLib/inc/GenMsgHelper.h"
+#include "Common/inc/Parameter.h"
+#include "Common/inc/GenMsgHelper.h"
  
 namespace Msg
 {   
 	class RpcCheckParams;
 	extern DLL_IMPORT RpcCheckParams * g_pRpcCheckParams; 
 
-#define	CheckParams_0(PARAM) GenMsgHelper::CheckParams(*PARAM) 
-#define	CheckParams_1(PARAM , p1) GenMsgHelper::CheckParams(*PARAM , p1 ) 
-#define	CheckParams_2(PARAM , p1 , p2) GenMsgHelper::CheckParams(*PARAM , p1 , p2 ) 
-#define	CheckParams_3(PARAM , p1 , p2 , p3) GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3 ) 
-#define	CheckParams_4(PARAM , p1 , p2 , p3, p4) GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 ) 
-#define	CheckParams_5(PARAM , p1 , p2 , p3, p4 , p5) GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 ) 
-#define	CheckParams_6(PARAM , p1 , p2 , p3, p4 , p5 , p6) GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 , p6 ) 
-#define	CheckParams_7(PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7) GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7 )  
-#define	CheckParams_8(PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7 , p8) GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7 , p8) 
+#define	CheckParams_0(PARAM) CUtil::GenMsgHelper::CheckParams(*PARAM) 
+#define	CheckParams_1(PARAM , p1) CUtil::GenMsgHelper::CheckParams(*PARAM , p1 ) 
+#define	CheckParams_2(PARAM , p1 , p2) CUtil::GenMsgHelper::CheckParams(*PARAM , p1 , p2 ) 
+#define	CheckParams_3(PARAM , p1 , p2 , p3) CUtil::GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3 ) 
+#define	CheckParams_4(PARAM , p1 , p2 , p3, p4) CUtil::GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 ) 
+#define	CheckParams_5(PARAM , p1 , p2 , p3, p4 , p5) CUtil::GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 ) 
+#define	CheckParams_6(PARAM , p1 , p2 , p3, p4 , p5 , p6) CUtil::GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 , p6 ) 
+#define	CheckParams_7(PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7) CUtil::GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7 )  
+#define	CheckParams_8(PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7 , p8) CUtil::GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7 , p8) 
 
 #define GET_PARAMETER Assert_Re0(g_pRpcCheckParams);\
-	Parameters * pParameter = NULL;\
+	CUtil::Parameters * pParameter = NULL;\
 	if (bDeliver)\
 		{\
-		pParameter = g_pRpcCheckParams->GetDeliverParams(pFunName);\
+			pParameter = g_pRpcCheckParams->GetDeliverParams(pFunName);\
 		}\
 		else\
 		{\
-		pParameter = g_pRpcCheckParams->GetReturnParams(pFunName);\
+			pParameter = g_pRpcCheckParams->GetReturnParams(pFunName);\
 		} \
 		Assert_Re0(pParameter) 
 
 	class DLL_EXPORT RpcCheckParams
 	{
 	public:
-		typedef std_unordered_map<std::string , Parameters> MapCollectParametersT;
+		typedef std_unordered_map<std::string , CUtil::Parameters> MapCollectParametersT;
 
 	public:
 		RpcCheckParams()   
@@ -106,10 +106,10 @@ namespace Msg
 		}
 
 	public:  
-		Parameters * GetDeliverParams(std::string strFunName);
-		Parameters * GetReturnParams(std::string strFunName);
-		void         InsertDeliverParams(std::string strFunName , Parameters & objParam);
-		void         InsertReturnParams(std::string strFunName , Parameters & objParam);
+		CUtil::Parameters * GetDeliverParams(std::string strFunName);
+		CUtil::Parameters * GetReturnParams(std::string strFunName);
+		void         InsertDeliverParams(std::string strFunName , CUtil::Parameters & objParam);
+		void         InsertReturnParams(std::string strFunName , CUtil::Parameters & objParam);
 
 	public:  
 		MapCollectParametersT   m_mapReturnParams;

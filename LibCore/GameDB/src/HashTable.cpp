@@ -1,5 +1,5 @@
 #include "GameDB/inc/HashTable.h"
-#include "MsgLib/inc/GenMsgHelper.h" 
+#include "Common/inc/GenMsgHelper.h" 
 #include "Common/DeelxRegexp.h"
 
 namespace GameDB

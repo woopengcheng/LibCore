@@ -1,12 +1,11 @@
 #ifndef __database_common_h__ 
 #define __database_common_h__
-#include "Common/Common.h" 
+#include "Common/inc/Parameters.h" 
 #include "leveldb/db.h"
 #include "leveldb/iterator.h"
 #include "leveldb/comparator.h"
 #include "Common/CUtil.h"
 #include "Common/Chunk.h"
-#include "MsgLib/inc/Parameters.h"
 #include "Common/StringEx.h"
 
 const size_t MAX_DB_TEMP_BUFFER_LENGTH = (64*1024*1024);
@@ -23,7 +22,7 @@ namespace GameDB
 	typedef leveldb::Slice			 Slice;
 	typedef leveldb::Status			 Status;
 	typedef leveldb::WriteBatch		 WriteBatch;  
-	typedef Msg::Parameters			 Parameters; 
+	typedef CUtil::Parameters			 Parameters; 
 	class DLL_EXPORT Options : public leveldb::Options{};
 	 
 	extern DLL_EXPORT CUtil::CStream & operator << (CUtil::CStream& cs,const leveldb::Slice& c); 

@@ -40,7 +40,8 @@ typedef int   INT32;
 typedef unsigned int   UINT32; 
 typedef std::string    std_string;
 
-#define MAX_NAME_LENGTH          50
+#define MAX_NAME_LENGTH					50
+#define MSG_MAX_PARAMETER_NUMBER		10 
 
 #define SAFE_DELETE(x) if(x){ delete x; x = NULL;}
 #define SAFE_DELETE_ARRAY(x) if(x){ delete []x; x = NULL;}

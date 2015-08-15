@@ -1,5 +1,5 @@
 #include "GameDB/inc/SortedSet.h"
-#include "MsgLib/inc/GenMsgHelper.h" 
+#include "Common/inc/GenMsgHelper.h" 
 
 namespace GameDB
 {
