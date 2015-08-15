@@ -1,7 +1,5 @@
 #include "MasterHandler.h"
 
-
-
 Msg::ObjectMsgCall * Server::MasterHandler::testParamsAndRpcDatas_RpcClient(Net::ISession * pSession, Msg::Object objSrc , INT32 res/* = 0*/)
 {
 	CUtil::Parameters * pParams = GetInParams();
