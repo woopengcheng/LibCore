@@ -4,7 +4,7 @@ Author		:	generate by tools
 HostName	:	woopengcheng
 IP			:	192.168.1.107
 Version		:	0.0.1
-Date		:	2015-08-15 09:17:19
+Date		:	2015-08-15 10:09:23
 Description	:	网络消息的数据域.
 ************************************/
 #ifndef __Server_rpc_datas_h__
