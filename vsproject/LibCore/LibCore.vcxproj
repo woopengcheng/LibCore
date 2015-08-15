@@ -249,6 +249,10 @@
     <ClInclude Include="..\..\LibCore\Common\DeelxRegexp.h" />
     <ClInclude Include="..\..\LibCore\Common\ErrorCode.h" />
     <ClInclude Include="..\..\LibCore\Common\Heap.h" />
+    <ClInclude Include="..\..\LibCore\Common\inc\GenMsgHelper.h" />
+    <ClInclude Include="..\..\LibCore\Common\inc\Parameter.h" />
+    <ClInclude Include="..\..\LibCore\Common\inc\ParameterHelper.h" />
+    <ClInclude Include="..\..\LibCore\Common\inc\Parameters.h" />
     <ClInclude Include="..\..\LibCore\Common\intrusive_ptr.h" />
     <ClInclude Include="..\..\LibCore\Common\CUtil.h" />
     <ClInclude Include="..\..\LibCore\Common\LinkedPtr.h" />
@@ -322,9 +326,6 @@
     <ClInclude Include="..\..\LibCore\MsgLib\inc\Object.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\ObjectMethodImplHelper.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\ObjectMsgCall.h" />
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\Parameter.h" />
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\ParameterHelper.h" />
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\Parameters.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\ParaseMsgCall.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\Ping.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\RemoteRpcClient.h" />
@@ -396,6 +397,9 @@
     <ClCompile Include="..\..\LibCore\Common\Common.cpp" />
     <ClCompile Include="..\..\LibCore\Common\CUtil.cpp" />
     <ClCompile Include="..\..\LibCore\Common\Random.cpp" />
+    <ClCompile Include="..\..\LibCore\Common\src\GenMsgHelper.cpp" />
+    <ClCompile Include="..\..\LibCore\Common\src\Parameter.cpp" />
+    <ClCompile Include="..\..\LibCore\Common\src\Parameters.cpp" />
     <ClCompile Include="..\..\LibCore\Common\UnitTest.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\inc\DBSlaveManager.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\BackupEnvironment.cpp" />
@@ -423,7 +427,6 @@
     <ClCompile Include="..\..\LibCore\LogLib\src\LogInterface.cpp" />
     <ClCompile Include="..\..\LibCore\Marshal\CommonMarshal.cpp" />
     <ClCompile Include="..\..\LibCore\Marshal\CStream.cpp" />
-    <ClCompile Include="..\..\LibCore\MsgLib\src\GenMsgHelper.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\InnerMsg.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\InternalMsgTask.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\MsgDispatcher.cpp" />
@@ -432,8 +435,6 @@
     <ClCompile Include="..\..\LibCore\MsgLib\src\NetNode.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\Object.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\ObjectMsgCall.cpp" />
-    <ClCompile Include="..\..\LibCore\MsgLib\src\Parameter.cpp" />
-    <ClCompile Include="..\..\LibCore\MsgLib\src\Parameters.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\RemoteRpcClient.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\RemoteRpcServer.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\RpcBase.cpp" />
@@ -442,6 +443,7 @@
     <ClCompile Include="..\..\LibCore\MsgLib\src\RpcInterface.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\RpcManager.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\RpcMsgCall.cpp" />
+    <ClCompile Include="..\..\LibCore\MsgLib\src\MsgHelper.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\RpcServerManager.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\ISession.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\MsgHandler.cpp" />

@@ -97,6 +97,12 @@
     <Filter Include="GameDB\inc\DBClient">
       <UniqueIdentifier>{b9191a33-9ba0-4225-afcc-b413be20348f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\inc">
+      <UniqueIdentifier>{f719500b-564d-4cb8-8f75-4140b76b4b72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\src">
+      <UniqueIdentifier>{30d08656-1f0c-4c38-b85c-86daea142b00}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -172,15 +178,6 @@
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\LibCore\MsgLib\inc\ObjectMsgCall.h">
-      <Filter>MsgLib\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\Parameter.h">
-      <Filter>MsgLib\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\ParameterHelper.h">
-      <Filter>MsgLib\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\Parameters.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\LibCore\MsgLib\inc\ParaseMsgCall.h">
@@ -552,6 +549,18 @@
     <ClInclude Include="..\..\LibCore\Common\CUtil.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\Parameter.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\ParameterHelper.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\Parameters.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\GenMsgHelper.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -572,9 +581,6 @@
     <ClCompile Include="..\..\LibCore\LogLib\src\LogInterface.cpp">
       <Filter>Log\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\LibCore\MsgLib\src\GenMsgHelper.cpp">
-      <Filter>MsgLib\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\LibCore\MsgLib\src\InnerMsg.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
@@ -591,12 +597,6 @@
       <Filter>MsgLib\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\MsgLib\src\ObjectMsgCall.cpp">
-      <Filter>MsgLib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\MsgLib\src\Parameter.cpp">
-      <Filter>MsgLib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\MsgLib\src\Parameters.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\MsgLib\src\RemoteRpcClient.cpp">
@@ -796,6 +796,18 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\Common\CUtil.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Common\src\Parameter.cpp">
+      <Filter>Common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Common\src\Parameters.cpp">
+      <Filter>Common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\MsgLib\src\MsgHelper.cpp">
+      <Filter>MsgLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Common\src\GenMsgHelper.cpp">
+      <Filter>Common\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

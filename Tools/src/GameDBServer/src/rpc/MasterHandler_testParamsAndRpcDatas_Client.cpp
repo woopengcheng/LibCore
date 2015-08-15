@@ -4,7 +4,7 @@
 
 Msg::ObjectMsgCall * Server::MasterHandler::testParamsAndRpcDatas_RpcClient(Net::ISession * pSession, Msg::Object objSrc , INT32 res/* = 0*/)
 {
-	Msg::Parameters * pParams = GetInParams();
+	CUtil::Parameters * pParams = GetInParams();
 	if (pParams)
 	{
 		TestRpcData   p1 = pParams->GetValue<TestRpcData>(0);

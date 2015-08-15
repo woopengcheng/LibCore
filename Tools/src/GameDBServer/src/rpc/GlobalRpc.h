@@ -4,7 +4,7 @@ Author		:	generate by tools
 HostName	:	woopengcheng
 IP			:	192.168.1.107
 Version		:	0.0.1
-Date		:	2015-08-13 22:54:34
+Date		:	2015-08-15 09:17:19
 Description	:	静态函数,无对象时通过这个类处理.
 ************************************/
 #ifndef __Server_global_rpc_h__

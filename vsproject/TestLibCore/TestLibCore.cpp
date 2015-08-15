@@ -4,9 +4,9 @@
 #include "stdafx.h" 
 #include "ctype.h"
 #include "Marshal/Marshal.h"
-#include "MsgLib/inc/ParameterHelper.h"
-#include "MsgLib/inc/GenMsgHelper.h"
-#include "MsgLib/inc/Parameters.h"
+#include "CUtil/inc/ParameterHelper.h"
+#include "Common/inc/GenMsgHelper.h"
+#include "Common/inc/Parameters.h"
 
 template<typename T>
 class test
@@ -50,8 +50,8 @@ public:
 
 void testRe(std::vector<INT32> & vec)
 {
-	Msg::Parameters         m_objParams;  
-	Msg::GenMsgHelper::GenMsgParams(m_objParams , vec);
+	CUtil::Parameters         m_objParams;  
+	CUtil::GenMsgHelper::GenMsgParams(m_objParams , vec);
 
 }
 

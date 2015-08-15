@@ -4,15 +4,15 @@ Author		:	generate by tools
 HostName	:	woopengcheng
 IP			:	192.168.1.107
 Version		:	0.0.1
-Date		:	2015-08-13 22:54:35
+Date		:	2015-08-15 09:17:19
 Description	:	网络消息的数据域.
 ************************************/
 #ifndef __Server_rpc_datas_h__
 #define __Server_rpc_datas_h__
 #include "Common/Common.h"
 #include "Common/Chunk.h"
-#include "MsgLib/inc/Parameter.h"
-#include "MsgLib/inc/ParameterHelper.h"
+#include "Common/inc/Parameter.h"
+#include "Common/inc/ParameterHelper.h"
 
 namespace Server
 {
@@ -129,11 +129,11 @@ namespace Server
  
 }//Server
 
-namespace Msg
+namespace CUtil
 { 
 	enum PARAMETER_TYPE_USER_DEFINES 
 	{ 
-		PARAMETER_TYPE_USER_DEFINE_FIRST = Msg::PARAMETER_TYPE_USER_DEFINE  ,
+		PARAMETER_TYPE_USER_DEFINE_FIRST = CUtil::PARAMETER_TYPE_USER_DEFINE  ,
 		PARAMETER_TYPE_USER_DEFINE_TestRpcData,
 		PARAMETER_TYPE_USER_DEFINE_TestRpcData2,
 	}; 

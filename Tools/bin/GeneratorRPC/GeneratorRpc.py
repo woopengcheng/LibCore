@@ -730,16 +730,16 @@ def GenerateRpcRegister():
 		fileRpc.write(twoTab + "Assert(m_pRpcServerManager && Msg::g_pRpcCheckParams);	\n")
 		fileRpc.write(twoTab + "static " + rpcServerName.namespace + "::GlobalRpc g_pGlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcServerManager); \n\n") 
 
-		fileRpc.write(twoTab + "Msg::Parameters objDeliverParams , objReturnParams;\n")
+		fileRpc.write(twoTab + "CUtil::Parameters objDeliverParams , objReturnParams;\n")
 		
 		rpcRecords = collections.OrderedDict()
 		for index , rpc in g_rpcMsgs.rpcs.rpcs.items():  
 			fileRpc.write(twoTab + "//5 " + rpc.name + " generate default deliver and return check param here\n")
 			fileRpc.write(twoTab + "{\n")
 			strDefaultParams = GetRpcSpecialParamsIncludeDefault(rpc.call)
-			fileRpc.write(threeTab + "Msg::GenMsgHelper::GenMsgParams(objDeliverParams " + strDefaultParams +  ");\n") 
+			fileRpc.write(threeTab + "CUtil::GenMsgHelper::GenMsgParams(objDeliverParams " + strDefaultParams +  ");\n") 
 			strDefaultParams = GetRpcSpecialParamsIncludeDefault(rpc.returns)
-			fileRpc.write(threeTab + "Msg::GenMsgHelper::GenMsgParams(objReturnParams " + strDefaultParams +  ");\n") 
+			fileRpc.write(threeTab + "CUtil::GenMsgHelper::GenMsgParams(objReturnParams " + strDefaultParams +  ");\n") 
 			fileRpc.write(threeTab + "Msg::g_pRpcCheckParams->InsertDeliverParams(" + "\"" + rpc.name  + "\", objDeliverParams);\n") 
 			fileRpc.write(threeTab + "Msg::g_pRpcCheckParams->InsertReturnParams(" + "\"" + rpc.name  +  "\", objReturnParams);\n") 
 			fileRpc.write(threeTab + "objDeliverParams.Clear();\n") 
@@ -1011,11 +1011,11 @@ def GenerateRpcDatas():
 			
 			fileRpc.write("}//" + serverName.namespace + "\n\n")
 			
-			fileRpc.write("namespace Msg\n")
+			fileRpc.write("namespace CUtil\n")
 			fileRpc.write("{ \n")
 			fileRpc.write(oneTab + "enum PARAMETER_TYPE_USER_DEFINES \n")
 			fileRpc.write(oneTab + "{ \n")
-			fileRpc.write(twoTab + "PARAMETER_TYPE_USER_DEFINE_FIRST = Msg::PARAMETER_TYPE_USER_DEFINE  ,\n")			
+			fileRpc.write(twoTab + "PARAMETER_TYPE_USER_DEFINE_FIRST = CUtil::PARAMETER_TYPE_USER_DEFINE  ,\n")			
 			for index , rpcData in g_rpcMsgs.rpcs.rpcDatas.items():   
 				fileRpc.write(twoTab + "PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ",\n")  
 			fileRpc.write(oneTab + "}; \n \n") 
@@ -1099,7 +1099,7 @@ def WriteParamHelper(namespace , fileRpc , rpcData):
 	fileRpc.write(oneTab + "GEN_PARAMTER_HELPER(" + namespace + "::" + rpcData.name + " , PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ");\n") 
 	
 # def WriteParamHelper(namespace , fileRpc , rpcData):
-	# fileRpc.write(oneTab + "template<> class Msg::ParameterHelper<" + namespace + "::" + rpcData.name + ">\n") 
+	# fileRpc.write(oneTab + "template<> class CUtil::ParameterHelper<" + namespace + "::" + rpcData.name + ">\n") 
 	# fileRpc.write(oneTab + "{ \n")
 	# fileRpc.write(oneTab + "public:\n")
 	# fileRpc.write(twoTab + "static UINT32 GetParameterType()\n")
@@ -1139,7 +1139,7 @@ def WriteParamHelper(namespace , fileRpc , rpcData):
 	
 			
 	
-	# fileRpc.write(oneTab + "template<> class Msg::ParameterHelper<" + namespace + "::" + rpcData.name + "&>\n") 
+	# fileRpc.write(oneTab + "template<> class CUtil::ParameterHelper<" + namespace + "::" + rpcData.name + "&>\n") 
 	# fileRpc.write(oneTab + "{ \n")
 	# fileRpc.write(oneTab + "public:\n")
 	# fileRpc.write(twoTab + "static UINT32 GetParameterType()\n")
@@ -1173,8 +1173,8 @@ def  GenerateRpcDatasHeader(fileRpc , serverName):
 	fileRpc.write("#define __" + serverName.namespace + "_rpc_datas_h__\n")  
 	fileRpc.write("#include \"Common/Common.h\"\n") 
 	fileRpc.write("#include \"Common/Chunk.h\"\n")
-	fileRpc.write("#include \"MsgLib/inc/Parameter.h\"\n")   
-	fileRpc.write("#include \"MsgLib/inc/ParameterHelper.h\"\n\n")   
+	fileRpc.write("#include \"Common/inc/Parameter.h\"\n")   
+	fileRpc.write("#include \"Common/inc/ParameterHelper.h\"\n\n")   
 	fileRpc.write("namespace " + serverName.namespace)   
 	fileRpc.write("\n{\n")   
 	
