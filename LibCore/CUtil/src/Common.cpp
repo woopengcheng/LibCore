@@ -1,5 +1,5 @@
-#include "Common/inc/Common.h"
-#include "Common/inc/ErrorCode.h"
+#include "CUtil/inc/Common.h"
+#include "CUtil/inc/ErrorCode.h"
 
 
 const char * g_szErrorString[ERR_NUM]=

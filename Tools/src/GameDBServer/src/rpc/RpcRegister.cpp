@@ -9,7 +9,7 @@ Description	:	注册每个函数.以及检测网络传递的消息是否是正确的参数.
 ************************************/
 #include "MsgLib/inc/RpcServerManager.h"
 #include "MsgLib/inc/RpcCheckParams.h"
-#include "Common/inc/Chunk.h"
+#include "CUtil/inc/Chunk.h"
 #include "MsgNameDefine.h"
 #include "DBServer.h"
 #include "DBMaster.h"

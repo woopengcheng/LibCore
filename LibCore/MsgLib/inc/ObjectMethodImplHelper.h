@@ -2,7 +2,7 @@
 #define __msg_object_method_impl_helper_h__ 
 #include "MsgLib/inc/MethodImpl.h" 
 #include "MsgLib/inc/ParaseMsgCall.h"
-#include "Common/inc/ParameterHelper.h"
+#include "CUtil/inc/ParameterHelper.h"
 #include "MsgLib/inc/Object.h"
 
 namespace Msg

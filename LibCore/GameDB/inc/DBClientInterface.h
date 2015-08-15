@@ -30,7 +30,7 @@ namespace GameDB
 // #ifndef __gamedb_db_client_h__
 // #define __gamedb_db_client_h__   
 // #include "GameDB/inc/DatabaseCommon.h"
-// #include "ThreadPoolLib/inc/ThreadTask.h"
+// #include "ThreadPool/inc/ThreadTask.h"
 // #include "NetLib/inc/INetReactor.h"
 // #include "NetLib/inc/ISession.h"
 // #include "NetLib/inc/NetReactorSelect.h"  

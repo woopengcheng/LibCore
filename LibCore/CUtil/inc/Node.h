@@ -1,8 +1,8 @@
 #ifndef __cutil_node_h__
 #define __cutil_node_h__
-#include "Common/inc/Common.h"
-#include "Common/inc/ClassTypeInterface.h" 
-#include "ThreadPoolLib/inc/ThreadLock.h"
+#include "CUtil/inc/Common.h"
+#include "CUtil/inc/ClassTypeInterface.h" 
+#include "ThreadPool/inc/ThreadLock.h"
 
 namespace CUtil
 { 

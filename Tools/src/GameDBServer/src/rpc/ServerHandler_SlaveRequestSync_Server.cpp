@@ -1,7 +1,7 @@
 #include "DBServer.h"
 #include "ServerHandler.h"
 #include "GameDB/inc/Environment.h"
-#include "TimerLib/inc/TimerHelp.h"
+#include "Timer/inc/TimerHelp.h"
 
 
 Msg::ObjectMsgCall * Server::ServerHandler::SlaveRequestSync_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string & dbname/* = std::string()*/)

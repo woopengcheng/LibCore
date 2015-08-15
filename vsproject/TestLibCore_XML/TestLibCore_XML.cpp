@@ -4,7 +4,7 @@
 #include "stdafx.h" 
 #include "XMLLib/inc/xml.h"
 #include "LogLib/inc/Log.h"
-#include "Common/inc/CUtil.h" 
+#include "CUtil/inc/CUtil.h" 
 
 int _tmain(int argc, _TCHAR* argv[])
 { 

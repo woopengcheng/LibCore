@@ -4,7 +4,7 @@
 #include <boost/weak_ptr.hpp> 
 #include <boost/enable_shared_from_this.hpp>
 #include "boost/core/noncopyable.hpp"
-#include "Common/inc/intrusive_ptr.h"
+#include "CUtil/inc/intrusive_ptr.h"
 //#include "boost/intrusive_ptr.hpp"
 
 #ifndef __SPU__

@@ -1,7 +1,7 @@
 #ifndef __net_net_handler_transit_h__
 #define __net_net_handler_transit_h__ 
 #include "NetLib/inc/INetHandler.h"
-#include "Common/inc/CircleBuffer.h"
+#include "CUtil/inc/CircleBuffer.h"
 
 namespace Net 
 {  

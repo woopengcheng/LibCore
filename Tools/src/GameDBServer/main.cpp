@@ -8,8 +8,8 @@
 #include <fstream>
 #include <iostream>
 
-#include "TimerLib/inc/TimerHelp.h"
-#include "Common/inc/CUtil.h" 
+#include "Timer/inc/TimerHelp.h"
+#include "CUtil/inc/CUtil.h" 
 #include "json/json.h"
 #include "ServerHandler.h"  
 #include "DBServer.h"
@@ -18,7 +18,7 @@
 #include "MasterHandler.h"
 #include "MsgLib/inc/RpcClientManager.h"
 #include "SlaveHandler.h" 
-#include "ThreadPoolLib/inc/ThreadPoolInterface.h"
+#include "ThreadPool/inc/ThreadPoolInterface.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {  

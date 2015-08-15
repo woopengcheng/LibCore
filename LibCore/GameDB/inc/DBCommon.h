@@ -1,12 +1,12 @@
 #ifndef __database_common_h__ 
 #define __database_common_h__
-#include "Common/inc/Parameters.h" 
+#include "CUtil/inc/Parameters.h" 
 #include "leveldb/db.h"
 #include "leveldb/iterator.h"
 #include "leveldb/comparator.h"
-#include "Common/inc/CUtil.h"
-#include "Common/inc/Chunk.h"
-#include "Common/inc/StringEx.h"
+#include "CUtil/inc/CUtil.h"
+#include "CUtil/inc/Chunk.h"
+#include "CUtil/inc/StringEx.h"
 
 const size_t MAX_DB_TEMP_BUFFER_LENGTH = (64*1024*1024);
 #pragma warning(disable:4275)

@@ -1,7 +1,7 @@
 #ifndef __cutil_bson_to_cpp_h__
 #define __cutil_bson_to_cpp_h__
-#include "Common/inc/Common.h"
-#include "Common/inc/StringEx.h"
+#include "CUtil/inc/Common.h"
+#include "CUtil/inc/StringEx.h"
 #include "bson/bson.h"
 
 namespace CUtil

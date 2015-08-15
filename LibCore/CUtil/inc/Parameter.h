@@ -1,6 +1,6 @@
 #ifndef __cutil_parameter_h__
 #define __cutil_parameter_h__ 
-#include "Common/inc/Common.h"
+#include "CUtil/inc/Common.h"
 #include "Marshal/inc/Marshal.h"
 #include "Marshal/inc/CStream.h"
 

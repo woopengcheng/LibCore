@@ -1,8 +1,8 @@
 #ifndef __msg_msg_queue_h__
 #define __msg_msg_queue_h__
 #include "MsgLib/inc/MsgCommon.h"
-#include "TimerLib/inc/TimerNode.h"
-#include "TimerLib/inc/TimerInterface.h"
+#include "Timer/inc/TimerNode.h"
+#include "Timer/inc/TimerInterface.h"
 
 namespace Msg
 { 

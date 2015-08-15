@@ -15,11 +15,11 @@
 #include <unordered_set>  
 #include <iostream>
 
-#include "Common/inc/MsgAssert.h" 
-#include "Common/inc/ClassTypeID.h"
-#include "Common/inc/Platform.h"
-#include "Common/inc/ErrorCode.h"
-#include "Common/inc/BoostHelper.h"
+#include "CUtil/inc/MsgAssert.h" 
+#include "CUtil/inc/ClassTypeID.h"
+#include "CUtil/inc/Platform.h"
+#include "CUtil/inc/ErrorCode.h"
+#include "CUtil/inc/BoostHelper.h"
 
 #define TRUE    1
 #define FALSE   0

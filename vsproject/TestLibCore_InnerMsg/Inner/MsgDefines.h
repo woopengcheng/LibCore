@@ -3,7 +3,7 @@
 #include "MsgLib/inc/MsgCommon.h"   
 #include "MsgLib/inc/ObjectMsgCall.h"
 #include "MsgLib/inc/Object.h"  
-#include "Common/inc/Chunk.h"
+#include "CUtil/inc/Chunk.h"
 
 namespace Client
 {  

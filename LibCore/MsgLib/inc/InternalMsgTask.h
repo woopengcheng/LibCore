@@ -1,7 +1,7 @@
 #ifndef __msg_internal_msg_task_h__
 #define __msg_internal_msg_task_h__ 
 #include "MsgLib/inc/MsgCommon.h"
-#include "ThreadPoolLib/inc/ThreadTask.h"
+#include "ThreadPool/inc/ThreadTask.h"
 
 namespace Msg
 { 

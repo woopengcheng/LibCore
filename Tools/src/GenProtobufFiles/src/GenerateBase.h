@@ -1,6 +1,6 @@
 #ifndef __protobuf_generate_generate_base_h__
 #define __protobuf_generate_generate_base_h__
-#include "Common/inc/Common.h"
+#include "CUtil/inc/Common.h"
 #include <google/protobuf/descriptor.h>
 #include <google/protobuf/dynamic_message.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>

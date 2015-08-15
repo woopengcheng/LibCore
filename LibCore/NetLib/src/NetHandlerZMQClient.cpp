@@ -5,7 +5,7 @@ extern "C"
 #include "NetLib/inc/NetHandlerZMQClient.h"
 #include "NetLib/inc/NetHelper.h"
 #include "NetLib/inc/INetReactor.h" 
-#include "Common/inc/CUtil.h"
+#include "CUtil/inc/CUtil.h"
 
 
 namespace Net

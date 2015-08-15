@@ -1,13 +1,13 @@
 #ifndef __msg_rpc_h__
 #define __msg_rpc_h__ 
-#include "Common/inc/GenMsgHelper.h"
+#include "CUtil/inc/GenMsgHelper.h"
 #include "MsgLib/inc/MsgCommon.h" 
 #include "MsgLib/inc/ICallableObject.h"
 #include "MsgLib/inc/RPCMsgCall.h"
 #include "MsgLib/inc/RpcCheckParams.h"
 #include "MsgLib/inc/RpcManager.h"
 #include "NetLib/inc/ISession.h"
-#include "TimerLib/inc/TimeCount.h" 
+#include "Timer/inc/TimeCount.h" 
 
 #define ReturnNULL return NULL;
 #define ReturnDelay return RPCReturn(Msg::RETURN_TYPE_DELAY); 

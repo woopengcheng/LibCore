@@ -5,7 +5,7 @@
 #include "MsgLib/inc/ParaseMsgCall.h" 
 #include "MsgLib/inc/StaticMethodImplHelper.h"
 #include "MsgLib/inc/ObjectMethodImplHelper.h"
-#include "Common/inc/CUtil.h"
+#include "CUtil/inc/CUtil.h"
 
 namespace Msg 
 { 

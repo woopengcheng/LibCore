@@ -3,7 +3,7 @@
 #include "NetLib/inc/ByteOrder.h"
 #include "NetLib/inc/ISession.h"
 #include "NetLib/inc/INetReactor.h"
-#include "TimerLib/inc/TimerHelp.h"
+#include "Timer/inc/TimerHelp.h"
 
 #ifdef WIN32
 #include "Winsock.h"

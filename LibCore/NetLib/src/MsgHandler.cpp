@@ -2,9 +2,9 @@
 #include "NetLib/inc/RakNetUDPManager.h" 
 #include "NetLib/inc/MsgWrapper.h"
 #include "MsgLib/inc/InnerMsg.h"
-#include "ThreadPoolLib/inc/ThreadTask.h" 
-#include "ThreadPoolLib/inc/ThreadPoolInterface.h" 
-#include "TimerLib/inc/TimerHelp.h"
+#include "ThreadPool/inc/ThreadTask.h" 
+#include "ThreadPool/inc/ThreadPoolInterface.h" 
+#include "Timer/inc/TimerHelp.h"
 
 namespace Net
 { 

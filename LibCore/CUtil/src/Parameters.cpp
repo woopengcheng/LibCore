@@ -1,4 +1,4 @@
-#include "Common/inc/Parameters.h"
+#include "CUtil/inc/Parameters.h"
 #include "Marshal/inc/CStream.h"
 
 namespace CUtil

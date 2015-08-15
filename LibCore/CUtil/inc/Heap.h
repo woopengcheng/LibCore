@@ -1,7 +1,7 @@
 #ifndef __cutil_heap_h__
 #define __cutil_heap_h__
-#include "Common/inc/Common.h"
-#include "Common/inc/Node.h"   
+#include "CUtil/inc/Common.h"
+#include "CUtil/inc/Node.h"   
 
 namespace CUtil
 {

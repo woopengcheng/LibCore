@@ -1,6 +1,6 @@
 #ifndef __cutil_random_h__
 #define __cutil_random_h__
-#include "Common/inc/Common.h"
+#include "CUtil/inc/Common.h"
 
 #ifdef WIN32
 #define WIN32_LEAN_AND_MEAN

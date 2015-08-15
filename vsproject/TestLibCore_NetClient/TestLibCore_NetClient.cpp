@@ -2,10 +2,10 @@
 //
 
 #include "stdafx.h"  
-#include "Common/inc/CUtil.h"
+#include "CUtil/inc/CUtil.h"
 #include "MsgLib/inc/InnerMsg.h"
-#include "ThreadPoolLib/inc/ThreadTask.h"  
-#include "ThreadPoolLib/inc/ThreadPoolInterface.h"  
+#include "ThreadPool/inc/ThreadTask.h"  
+#include "ThreadPool/inc/ThreadPoolInterface.h"  
 #include "client.h"
 
 int _tmain(int argc, _TCHAR* argv[])

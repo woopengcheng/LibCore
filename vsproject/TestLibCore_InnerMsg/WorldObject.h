@@ -2,12 +2,12 @@
 #include "MsgInstance.h"
 #include "MsgLib/inc/ObjectMsgCall.h"
 #include "MsgLib/inc/IMsgCallableObject.h"
-#include "TimerLib/inc/TimerHelp.h"
+#include "Timer/inc/TimerHelp.h"
 #include "MsgFuncCalls.h"
 #include "MsgNameDefine.h" 
 #include "MsgLib/inc/Object.h" 
-#include "Common/inc/Chunk.h"
-#include "Common/inc/CUtil.h"
+#include "CUtil/inc/Chunk.h"
+#include "CUtil/inc/CUtil.h"
 #include "MsgDefines.h"
 
 

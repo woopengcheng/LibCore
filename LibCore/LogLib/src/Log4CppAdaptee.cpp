@@ -1,4 +1,4 @@
-#include "TimerLib/inc/TimerHelp.h"
+#include "Timer/inc/TimerHelp.h"
 #include "LogLib/inc/Log4CppAdaptee.h"
 
 #ifdef WIN32

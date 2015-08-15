@@ -6,12 +6,12 @@
 #include <fstream>
 #include <iostream>
 
-#include "Common/inc/CUtil.h" 
-#include "Common/inc/Chunk.h" 
+#include "CUtil/inc/CUtil.h" 
+#include "CUtil/inc/Chunk.h" 
 #include "MsgLib/inc/RpcClientManager.h"
 #include "MsgLib/inc/Object.h"
-#include "TimerLib/inc/TimerHelp.h" 
-#include "Common/inc/carg_parser.h"
+#include "Timer/inc/TimerHelp.h" 
+#include "CUtil/inc/carg_parser.h"
 #include "json/json.h" 
 #include "MsgNameDefine.h"  
 #include "RPCCallFuncs.h"

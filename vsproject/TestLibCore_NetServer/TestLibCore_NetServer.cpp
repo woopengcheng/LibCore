@@ -3,10 +3,10 @@
 
 #include "stdafx.h"  
 #include "MsgLib/inc/InnerMsg.h"
-#include "ThreadPoolLib/inc/ThreadTask.h"  
-#include "ThreadPoolLib/inc/ThreadPoolInterface.h"  
+#include "ThreadPool/inc/ThreadTask.h"  
+#include "ThreadPool/inc/ThreadPoolInterface.h"  
 #include "Server.h"
-#include "Common/inc/CUtil.h"
+#include "CUtil/inc/CUtil.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {   

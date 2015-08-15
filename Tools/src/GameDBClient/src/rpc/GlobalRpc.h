@@ -9,7 +9,7 @@ Description	:	静态函数,无对象时通过这个类处理.
 ************************************/
 #ifndef __Client_global_rpc_h__
 #define __Client_global_rpc_h__
-#include "Common/inc/Chunk.h" 
+#include "CUtil/inc/Chunk.h" 
 #include "MsgLib/inc/Object.h" 
 #include "MsgLib/inc/RPCMsgCall.h" 
 #include "MsgLib/inc/RpcServerManager.h" 

@@ -1,7 +1,7 @@
 #ifndef __net_i_session_h__
 #define __net_i_session_h__ 
 #include "NetLib/inc/NetCommon.h"
-#include "TimerLib/inc/TimeCount.h"
+#include "Timer/inc/TimeCount.h"
 
 namespace Net 
 {  

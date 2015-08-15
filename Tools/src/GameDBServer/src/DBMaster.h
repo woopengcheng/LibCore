@@ -3,7 +3,7 @@
 #include "MsgLib/inc/RpcInterface.h"
 #include "MsgLib/inc/IRpcListener.h"
 #include "GameDB/inc/DBMasterInterface.h"
-#include "ThreadPoolLib/inc/ThreadTask.h"
+#include "ThreadPool/inc/ThreadTask.h"
 #include "GameDB/inc/HashTable.h"
 #include "GameDB/inc/Environment.h"
 #include "GameDB/inc/Database.h"

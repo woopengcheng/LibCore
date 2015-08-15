@@ -1,7 +1,7 @@
 #ifndef __cutil_parameter_helper_h__
 #define __cutil_parameter_helper_h__
-#include "Common/inc/Parameter.h"
-#include "Common/inc/Chunk.h"
+#include "CUtil/inc/Parameter.h"
+#include "CUtil/inc/Chunk.h"
 #include "Marshal/inc/CStream.h"
 #include "Marshal/inc/CommonMarshal.h"
 

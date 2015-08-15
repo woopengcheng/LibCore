@@ -1,6 +1,6 @@
 #include "GameDB/inc/Comparator.h"
 #include "GameDB/inc/DBCommon.h"
-#include "TimerLib/inc/TimerHelp.h"
+#include "Timer/inc/TimerHelp.h"
 #include "SlaveHandler.h"
 #include "leveldb/db.h"
 #include "leveldb/env.h"

@@ -3,8 +3,8 @@
 #include "tbb/concurrent_unordered_map.h"
 #include "tbb/concurrent_hash_map.h"
 #include "tbb/concurrent_queue.h"
-#include "Common/inc/Common.h"
-#include "Common/inc/BoostHelper.h"
+#include "CUtil/inc/Common.h"
+#include "CUtil/inc/BoostHelper.h"
 #include "LogLib/inc/Log.h"
 
 

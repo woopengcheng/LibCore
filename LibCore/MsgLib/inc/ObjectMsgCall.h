@@ -1,7 +1,7 @@
 #ifndef __msg_object_msg_call_h__
 #define __msg_object_msg_call_h__
 #include "MsgLib/inc/MsgCommon.h"
-#include "Common/inc/Parameters.h"
+#include "CUtil/inc/Parameters.h"
 #include "MsgLib/inc/Object.h"
 
 #ifdef WIN32

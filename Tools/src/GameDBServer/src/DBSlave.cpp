@@ -1,5 +1,5 @@
-#include "ThreadPoolLib/inc/ThreadPoolInterface.h"
-#include "TimerLib/inc/TimerHelp.h"
+#include "ThreadPool/inc/ThreadPoolInterface.h"
+#include "Timer/inc/TimerHelp.h"
 #include "DBSlave.h" 
 #include "SlaveHandler.h"
 

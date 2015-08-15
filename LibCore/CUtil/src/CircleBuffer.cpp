@@ -1,4 +1,4 @@
-#include "Common/inc/CircleBuffer.h"
+#include "CUtil/inc/CircleBuffer.h"
 
 namespace CUtil
 {

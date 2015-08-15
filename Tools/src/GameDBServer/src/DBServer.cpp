@@ -1,6 +1,6 @@
 #include "DBServer.h"
 #include "RPCCallFuncs.h"
-#include "Common/inc/RemoteNodeDefine.h"
+#include "CUtil/inc/RemoteNodeDefine.h"
 
 namespace Server
 {   

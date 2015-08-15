@@ -5,8 +5,8 @@
 #include "ctype.h"
 #include "Marshal/inc/Marshal.h"
 #include "CUtil/inc/ParameterHelper.h"
-#include "Common/inc/GenMsgHelper.h"
-#include "Common/inc/Parameters.h"
+#include "CUtil/inc/GenMsgHelper.h"
+#include "CUtil/inc/Parameters.h"
 
 template<typename T>
 class test

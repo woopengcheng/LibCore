@@ -1,5 +1,5 @@
-#include "Common/inc/Chunk.h"
-#include "Common/inc/CUtil.h"
+#include "CUtil/inc/Chunk.h"
+#include "CUtil/inc/CUtil.h"
 
 namespace CUtil
 { 

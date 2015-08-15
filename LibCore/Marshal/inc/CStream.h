@@ -1,10 +1,10 @@
 #ifndef __cutil_c_stream_h__
 #define __cutil_c_stream_h__
-#include "Common/inc/Common.h"
-#include "Common/inc/Chunk.h"
+#include "CUtil/inc/Common.h"
+#include "CUtil/inc/Chunk.h"
 #include "Marshal/inc/Marshal.h"
 #include "Marshal/inc/CommonMarshal.h"
-#include "Common/inc/BoostHelper.h"
+#include "CUtil/inc/BoostHelper.h"
 
 namespace Msg
 {

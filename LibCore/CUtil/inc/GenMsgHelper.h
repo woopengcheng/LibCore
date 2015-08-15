@@ -1,8 +1,8 @@
 #ifndef __msg_gen_msg_helper_h__
 #define __msg_gen_msg_helper_h__ 
-#include "Common/inc/ParameterHelper.h" 
-#include "Common/inc/Parameters.h" 
-#include "Common/inc/CUtil.h"
+#include "CUtil/inc/ParameterHelper.h" 
+#include "CUtil/inc/Parameters.h" 
+#include "CUtil/inc/CUtil.h"
 
 namespace CUtil
 {

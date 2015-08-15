@@ -2,7 +2,7 @@
 #define __msg_rpc_instance_h__  
 #include "MsgLib/inc/RpcInterface.h"
 #include "GameDB/inc/DBServerInterface.h"
-#include "ThreadPoolLib/inc/ThreadTask.h"
+#include "ThreadPool/inc/ThreadTask.h"
 #include "json/json.h"
 
 

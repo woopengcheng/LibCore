@@ -1,6 +1,6 @@
 #ifndef __circle_buffer_h__
 #define __circle_buffer_h__
-#include "Common/inc/Common.h"
+#include "CUtil/inc/Common.h"
 
 namespace CUtil
 {  

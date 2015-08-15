@@ -1,7 +1,7 @@
 #ifndef __cutil_string_ex_h__
 #define __cutil_string_ex_h__
-#include "Common/inc/Common.h"
-#include "Common/inc/CUtil.h"
+#include "CUtil/inc/Common.h"
+#include "CUtil/inc/CUtil.h"
  
 namespace  CUtil
 {

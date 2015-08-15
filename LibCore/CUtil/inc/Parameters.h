@@ -1,6 +1,6 @@
 #ifndef __cutil_parameters_h__
 #define __cutil_parameters_h__ 
-#include "Common/inc/Parameter.h"
+#include "CUtil/inc/Parameter.h"
 
 namespace CUtil
 { 

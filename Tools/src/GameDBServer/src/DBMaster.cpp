@@ -1,5 +1,5 @@
-#include "ThreadPoolLib/inc/ThreadPoolInterface.h"
-#include "Common/inc/RemoteNodeDefine.h"
+#include "ThreadPool/inc/ThreadPoolInterface.h"
+#include "CUtil/inc/RemoteNodeDefine.h"
 #include "DBMaster.h"
 #include "MasterHandler.h"
 #include "RPCCallFuncs.h"

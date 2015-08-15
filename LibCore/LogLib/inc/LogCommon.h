@@ -1,6 +1,6 @@
 #ifndef __log_log_common_h__
 #define __log_log_common_h__
-#include "Common/inc/Common.h"
+#include "CUtil/inc/Common.h"
 
 namespace Log
 {

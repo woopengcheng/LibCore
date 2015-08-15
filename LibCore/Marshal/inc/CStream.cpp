@@ -1,5 +1,5 @@
-#include "Marshal\CStream.h"
-#include "Marshal\MashalTest.h"
+#include "Marshal\inc\CStream.h"
+#include "Marshal\inc\MashalTest.h"
 #include "MsgLib\inc\Object.h"
 
 namespace CUtil

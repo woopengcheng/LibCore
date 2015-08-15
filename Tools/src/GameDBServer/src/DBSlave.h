@@ -1,7 +1,7 @@
 #ifndef __server_db_slave_h__
 #define __server_db_slave_h__   
 #include "GameDB/inc/DBSlaveInterface.h"
-#include "ThreadPoolLib/inc/ThreadTask.h"
+#include "ThreadPool/inc/ThreadTask.h"
 #include "GameDB/inc/HashTable.h"
 #include "GameDB/inc/Environment.h"
 #include "GameDB/inc/Database.h"

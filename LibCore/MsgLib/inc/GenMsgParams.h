@@ -2,7 +2,7 @@
 // #define __msg_gen_msg_params_h__ 
 // #include "MsgLib/inc/MsgCommon.h"
 // #include "CUtil/inc/ParameterHelper.h" 
-// #include "Common/inc/Parameters.h"
+// #include "CUtil/inc/Parameters.h"
 // 
 // namespace Msg
 // {

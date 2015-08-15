@@ -1,6 +1,6 @@
 #include "NetLib/inc/NetReactorSelect.h"
 #include "NetLib/inc/NetHandlerClient.h"
-#include "TimerLib/inc/TimerHelp.h"
+#include "Timer/inc/TimerHelp.h"
 
 #ifdef WIN32
 #include <windows.h>

@@ -9,10 +9,10 @@ Description	:	网络消息的数据域.
 ************************************/
 #ifndef __Client_rpc_datas_h__
 #define __Client_rpc_datas_h__
-#include "Common/inc/Common.h"
-#include "Common/inc/Chunk.h"
-#include "Common/inc/Parameter.h"
-#include "Common/inc/ParameterHelper.h"
+#include "CUtil/inc/Common.h"
+#include "CUtil/inc/Chunk.h"
+#include "CUtil/inc/Parameter.h"
+#include "CUtil/inc/ParameterHelper.h"
 
 namespace Client
 {
