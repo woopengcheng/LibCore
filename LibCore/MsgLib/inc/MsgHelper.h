@@ -4,8 +4,8 @@
 #include "MsgLib/inc/RPCMsgCall.h" 
 #include "Common/inc/ParameterHelper.h" 
 #include "Common/inc/GenMsgHelper.h" 
-#include "Common/CUtil.h"
-#include "Common/Chunk.h"
+#include "Common/inc/CUtil.h"
+#include "Common/inc/Chunk.h"
 #include "MsgLib/inc/MsgHelper.h"
 
 namespace Msg

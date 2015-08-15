@@ -6,7 +6,7 @@
 #include "ThreadPoolLib/inc/ThreadTask.h"  
 #include "ThreadPoolLib/inc/ThreadPoolInterface.h"  
 #include "Server.h"
-#include "Common/CUtil.h"
+#include "Common/inc/CUtil.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {   

@@ -5,7 +5,7 @@
 #include "MsgLib/inc/Object.h"
 #include "GameDB/inc/SlaveSession.h"
 #include "GameDB/inc/Database.h"
-#include "Common/Chunk.h"
+#include "Common/inc/Chunk.h"
 #include "MsgNameDefine.h"  
 #include "RpcDefines.h" 
 #include "DBSlave.h" 

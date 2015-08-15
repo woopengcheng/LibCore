@@ -1,5 +1,5 @@
 #include "MsgLib/inc/ObjectMsgCall.h"
-#include "Marshal/CStream.h"
+#include "Marshal/inc/CStream.h"
 
 namespace Msg
 {

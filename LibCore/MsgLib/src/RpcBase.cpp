@@ -6,7 +6,7 @@
 #include "MsgLib/inc/RPCMsgCall.h"
 #include "MsgLib/inc/RpcServerManager.h"
 #include "MsgLib/inc/IRpcMsgCallableObject.h"
-#include "Common/Chunk.h"
+#include "Common/inc/Chunk.h"
 
 namespace Msg
 {  

@@ -1,6 +1,6 @@
 #ifndef __protobuf_generate_generate_manager_h__
 #define __protobuf_generate_generate_manager_h__
-#include "Common/Common.h"
+#include "Common/inc/Common.h"
 #include "GenerateBase.h"
 #include <vector>
 

@@ -2,7 +2,7 @@
 #include "MsgLib/inc/RpcManager.h"
 #include "MsgLib/inc/RpcInterface.h"
 #include "MsgLib/inc/RPCMsgCall.h"
-#include "Marshal/CStream.h"
+#include "Marshal/inc/CStream.h"
 
 namespace Msg
 {  

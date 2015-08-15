@@ -1,7 +1,7 @@
 #ifndef __msg_object_h__
 #define __msg_object_h__ 
 #include "MsgLib/inc/MsgCommon.h" 
-#include "Marshal/Marshal.h"
+#include "Marshal/inc/Marshal.h"
 namespace Msg
 { 
 	class DLL_EXPORT  Object/* : public CUtil::Marshal*/

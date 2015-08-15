@@ -2,7 +2,7 @@
 #include "MsgLib/inc/RemoteRpcServer.h"
 #include "MsgLib/inc/RemoteRpcClient.h" 
 #include "MsgLib/inc/RpcBase.h"
-#include "Marshal/CStream.h"
+#include "Marshal/inc/CStream.h"
 
 namespace Msg
 {  

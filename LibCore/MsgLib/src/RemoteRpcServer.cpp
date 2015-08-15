@@ -3,7 +3,7 @@
 #include "MsgLib/inc/RpcManager.h"
 #include "MsgLib/inc/RpcInterface.h"
 #include "MsgLib/inc/RPCMsgCall.h"
-#include "Marshal/Marshal.h"
+#include "Marshal/inc/Marshal.h"
 
 namespace Msg
 {

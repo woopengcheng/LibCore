@@ -2,7 +2,7 @@
 #define __msg_gen_msg_helper_h__ 
 #include "Common/inc/ParameterHelper.h" 
 #include "Common/inc/Parameters.h" 
-#include "Common/CUtil.h"
+#include "Common/inc/CUtil.h"
 
 namespace CUtil
 {

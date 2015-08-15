@@ -1,5 +1,5 @@
 #include "Common/inc/Parameters.h"
-#include "Marshal/CStream.h"
+#include "Marshal/inc/CStream.h"
 
 namespace CUtil
 { 

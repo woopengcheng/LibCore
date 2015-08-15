@@ -1,4 +1,4 @@
-#include "Common/CUtil.h"
+#include "Common/inc/CUtil.h"
 #include "UnitTest++/UnitTestPP.h"
 
 TEST(strcmp)

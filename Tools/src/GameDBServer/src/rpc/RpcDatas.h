@@ -9,8 +9,8 @@ Description	:	网络消息的数据域.
 ************************************/
 #ifndef __Server_rpc_datas_h__
 #define __Server_rpc_datas_h__
-#include "Common/Common.h"
-#include "Common/Chunk.h"
+#include "Common/inc/Common.h"
+#include "Common/inc/Chunk.h"
 #include "Common/inc/Parameter.h"
 #include "Common/inc/ParameterHelper.h"
 

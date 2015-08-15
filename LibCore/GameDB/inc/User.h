@@ -1,6 +1,6 @@
 #ifndef __gamedb_user_h__
 #define __gamedb_user_h__
-#include "Common/StringEx.h"
+#include "Common/inc/StringEx.h"
 #include "GameDB/inc/Orm.h"
 
 namespace GameDB

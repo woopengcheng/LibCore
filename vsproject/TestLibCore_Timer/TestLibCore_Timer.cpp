@@ -4,7 +4,7 @@
 #include "TimerLib/inc/GlobalTimer.h"
 #include "TimerLib/inc/GlobalTimerTask.h"
 #include "TimerLib/inc/TimerHelp.h"
-#include "Common/CUtil.h"
+#include "Common/inc/CUtil.h"
 
 #include "stdafx.h"
 

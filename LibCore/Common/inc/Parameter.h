@@ -1,8 +1,8 @@
 #ifndef __cutil_parameter_h__
 #define __cutil_parameter_h__ 
-#include "Common/Common.h"
-#include "Marshal/Marshal.h"
-#include "Marshal/CStream.h"
+#include "Common/inc/Common.h"
+#include "Marshal/inc/Marshal.h"
+#include "Marshal/inc/CStream.h"
 
 namespace CUtil
 { 

@@ -4,9 +4,9 @@
 #include "leveldb/db.h"
 #include "leveldb/iterator.h"
 #include "leveldb/comparator.h"
-#include "Common/CUtil.h"
-#include "Common/Chunk.h"
-#include "Common/StringEx.h"
+#include "Common/inc/CUtil.h"
+#include "Common/inc/Chunk.h"
+#include "Common/inc/StringEx.h"
 
 const size_t MAX_DB_TEMP_BUFFER_LENGTH = (64*1024*1024);
 #pragma warning(disable:4275)

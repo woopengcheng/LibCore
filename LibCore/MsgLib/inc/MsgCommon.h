@@ -1,6 +1,6 @@
 ﻿#ifndef __msg_msg_common_h__
 #define __msg_msg_common_h__
-#include "Common/Common.h"
+#include "Common/inc/Common.h"
 #include "tbb/concurrent_unordered_map.h"
 #include "tbb/concurrent_hash_map.h"
 #include "tbb/concurrent_queue.h"

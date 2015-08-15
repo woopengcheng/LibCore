@@ -1,7 +1,7 @@
 #ifndef __gamedb_orm_vector_h__
 #define __gamedb_orm_vector_h__
 #include "GameDB/inc/DBCommon.h"
-#include "Common/CUtil.h" 
+#include "Common/inc/CUtil.h" 
 #include "bson/bson.h"
 
 namespace GameDB

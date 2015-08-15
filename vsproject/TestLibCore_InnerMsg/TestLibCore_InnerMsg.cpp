@@ -9,8 +9,8 @@
 #include "MsgLib/inc/Object.h" 
 #include "MsgFuncCalls.h"
 #include "MsgNameDefine.h" 
-#include "Common/Chunk.h"
-#include "Common/CUtil.h"
+#include "Common/inc/Chunk.h"
+#include "Common/inc/CUtil.h"
 #include "MsgDefines.h"
 #include "WorldObject.h"
 

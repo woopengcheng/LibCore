@@ -3,7 +3,7 @@
 
 #include "stdafx.h" 
 #include "ctype.h"
-#include "Marshal/Marshal.h"
+#include "Marshal/inc/Marshal.h"
 #include "CUtil/inc/ParameterHelper.h"
 #include "Common/inc/GenMsgHelper.h"
 #include "Common/inc/Parameters.h"

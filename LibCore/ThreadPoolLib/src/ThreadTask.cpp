@@ -2,7 +2,7 @@
 #include "TimerLib/inc/TimerHelp.h"
 #include "ThreadPoolLib/inc/ThreadContext.h"
 #include "ThreadPoolLib/inc/ThreadState.h"
-#include "Common/CUtil.h"
+#include "Common/inc/CUtil.h"
 
 namespace ThreadPool
 { 

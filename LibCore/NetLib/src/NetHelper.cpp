@@ -1,6 +1,6 @@
 #include "NetLib/inc/NetHelper.h"
 #include "NetLib/inc/ISession.h"
-#include "Common/CUtil.h"
+#include "Common/inc/CUtil.h"
 
 #ifdef WIN32
 #include <Windows.h>  

@@ -1,6 +1,6 @@
 #ifndef __timer_timer_common_h__
 #define __timer_timer_common_h__
-#include "Common/Common.h"
+#include "Common/inc/Common.h"
 
 #ifdef WIN32
 #include <Windows.h>

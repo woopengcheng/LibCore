@@ -103,6 +103,12 @@
     <Filter Include="Common\src">
       <UniqueIdentifier>{30d08656-1f0c-4c38-b85c-86daea142b00}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Marshal\inc">
+      <UniqueIdentifier>{b2df1b43-0120-4675-83f1-3d3c5eea3b39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Marshal\src">
+      <UniqueIdentifier>{83d44835-8cdb-491d-93ba-5159fc7d29d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -357,18 +363,6 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetCommon.h">
       <Filter>NetLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\Marshal\Marshal.h">
-      <Filter>Marshal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Marshal\CStream.h">
-      <Filter>Marshal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Marshal\MashalTest.h">
-      <Filter>Marshal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Marshal\CommonMarshal.h">
-      <Filter>Marshal</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\GameDB\inc\Database.h">
       <Filter>GameDB\inc</Filter>
     </ClInclude>
@@ -471,84 +465,6 @@
     <ClInclude Include="..\..\LibCore\MsgLib\inc\NetNode.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\arg_parser.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\BoostHelper.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\BsonToCpp.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\carg_parser.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\Chunk.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\CircleBuffer.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\ClassTypeID.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\ClassTypeInterface.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\CommandHandler.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\Common.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\DeelxRegexp.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\ErrorCode.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\Heap.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\intrusive_ptr.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\LinkedPtr.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\MinHeap.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\MsgAssert.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\Node.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\Platform.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\Random.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\Refcounted.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\RemoteNodeDefine.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\SafeVariable.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\StringEx.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\UnitTest.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\Common\CUtil.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\Common\inc\Parameter.h">
       <Filter>Common\inc</Filter>
     </ClInclude>
@@ -560,6 +476,96 @@
     </ClInclude>
     <ClInclude Include="..\..\LibCore\Common\inc\GenMsgHelper.h">
       <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\arg_parser.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\BoostHelper.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\BsonToCpp.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\carg_parser.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\Chunk.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\CircleBuffer.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\ClassTypeID.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\ClassTypeInterface.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\CommandHandler.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\Common.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\CUtil.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\DeelxRegexp.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\ErrorCode.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\Heap.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\intrusive_ptr.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\LinkedPtr.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\MinHeap.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\MsgAssert.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\Node.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\Platform.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\Random.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\Refcounted.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\RemoteNodeDefine.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\SafeVariable.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\StringEx.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Common\inc\UnitTest.h">
+      <Filter>Common\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Marshal\inc\CommonMarshal.h">
+      <Filter>Marshal\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Marshal\inc\CStream.h">
+      <Filter>Marshal\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Marshal\inc\Marshal.h">
+      <Filter>Marshal\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\Marshal\inc\MashalTest.h">
+      <Filter>Marshal\inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -695,14 +701,8 @@
     <ClCompile Include="..\..\LibCore\MsgLib\Src\RpcCheckParams.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\LibCore\Marshal\CStream.cpp">
-      <Filter>Marshal</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\LibCore\MsgLib\src\Object.cpp">
       <Filter>MsgLib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\Marshal\CommonMarshal.cpp">
-      <Filter>Marshal</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\Test\LibCore_Test.cpp">
       <Filter>Test</Filter>
@@ -770,33 +770,6 @@
     <ClCompile Include="..\..\LibCore\MsgLib\src\NetNode.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\LibCore\Common\arg_parser.cc">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\Common\BsonToCpp.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\Common\carg_parser.c">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\Common\Chunk.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\Common\CircleBuffer.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\Common\Common.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\Common\Random.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\Common\UnitTest.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\Common\CUtil.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\LibCore\Common\src\Parameter.cpp">
       <Filter>Common\src</Filter>
     </ClCompile>
@@ -808,6 +781,39 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\Common\src\GenMsgHelper.cpp">
       <Filter>Common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Common\src\arg_parser.cc">
+      <Filter>Common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Common\src\BsonToCpp.cpp">
+      <Filter>Common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Common\src\carg_parser.c">
+      <Filter>Common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Common\src\Chunk.cpp">
+      <Filter>Common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Common\src\CircleBuffer.cpp">
+      <Filter>Common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Common\src\Common.cpp">
+      <Filter>Common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Common\src\CUtil.cpp">
+      <Filter>Common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Common\src\Random.cpp">
+      <Filter>Common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Common\src\UnitTest.cpp">
+      <Filter>Common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Marshal\inc\CStream.cpp">
+      <Filter>Marshal\inc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Marshal\src\CommonMarshal.cpp">
+      <Filter>Marshal\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"  
-#include "Common/CUtil.h"
+#include "Common/inc/CUtil.h"
 #include "MsgLib/inc/InnerMsg.h"
 #include "ThreadPoolLib/inc/ThreadTask.h"  
 #include "ThreadPoolLib/inc/ThreadPoolInterface.h"  
