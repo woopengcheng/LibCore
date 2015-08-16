@@ -61,7 +61,7 @@ namespace CUtil
 	extern INT64  DLL_EXPORT  BKDRHash(const char* pBuf);
 	extern INT64  DLL_EXPORT  BKDRHashSum(const char* pBuf);
 	extern UINT32 DLL_EXPORT  Compress(const char * pBuf , UINT32 unLength , std::string & strUncompressed);
-	extern bool   DLL_EXPORT  UnCompress(const char * pBuf , UINT32 unLength , std::string & strUncompressed);
+	extern bool   DLL_EXPORT  Uncompress(const char * pBuf , UINT32 unLength , std::string & strUncompressed);
 
 	extern void   DLL_EXPORT GenerateUUIDBySys( char* buf );
  	extern INT64  DLL_EXPORT GenerateUUIDByTime( void );

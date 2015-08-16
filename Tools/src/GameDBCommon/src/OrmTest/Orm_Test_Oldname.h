@@ -2,9 +2,9 @@
 FileName	:	Orm_Test_Oldname.h
 Author		:	generate by tools
 HostName	:	woopengcheng
-IP			:	192.168.1.104
+IP			:	192.168.1.107
 Version		:	0.0.1
-Date		:	2015-08-16 13:48:48
+Date		:	2015-08-17 00:08:59
 Description	:	orm操作集合.
 ************************************/
 #ifndef __Orm_Orm_Test_Oldname_h__
@@ -13,11 +13,15 @@ Description	:	orm操作集合.
 
 namespace Orm
 {
-	class DLL_EXPORT Test_Oldname : public GameDB::Orm
+	class Test_Oldname : public GameDB::Orm
 	{ 
 		public:
 			Test_Oldname();
 			virtual ~Test_Oldname();
+		
+		private:
+			Test_Oldname( const Test_Oldname &);
+			const Test_Oldname& operator=( const Test_Oldname &);
 		
 		public:
 			Test_Oldname* Clone();
@@ -37,14 +41,14 @@ namespace Orm
 			virtual void		ToBson(mongo::BSONObj  & objBson);
 			virtual void		FromBson(const char * pData , INT32 nSize);
 			virtual void		FromBson(const mongo::BSONObj  & objBson);
-			virtual void		ToCompress(std::string & __buf); 
+			virtual void		ToCompress(std::string & strBuf); 
 			virtual void		FromCompress(const char* data,INT32 size);
 			virtual void		FromCompress(const std::string & strBuf);
 		
 		public:
 			virtual INT64		HashMake(INT64 llSeed = DEFAULT_HASH_SEED);
 			virtual INT64		CurHash(){ return __hash; }
-			virtual void		HashUpdate(INT64 llHash);
+			virtual void		HashUpdate(INT64 llHash){ __hash = llHash; }
 		
 		public:
 			virtual void		AutoIncrease(INT64 llKey); 
@@ -54,15 +58,15 @@ namespace Orm
 			virtual const char*	GetMasterStrID(); 
 		
 		public:
-			int Getid() const;
-			void Setid(int& value);
+			INT64 Getid() const;
+			void Setid(INT64& value);
 
 			std::string Getp1() const;
 			void Setp1(std::string& value);
 
 		
 		public:
-			int	id;
+			INT64	id;
 			std::string	p1;
 		
 		private:

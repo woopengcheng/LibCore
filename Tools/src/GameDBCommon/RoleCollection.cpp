@@ -67,13 +67,16 @@ namespace Orm
 	}
 
 	void RoleCollection::ToBson(std::string & strBuf)
-	{
-
+	{ 
+		mongo::BSONObj __tmpobj;
+		ToBson(__tmpobj);
+		CUtil::Compress(__tmpobj.objdata(),__tmpobj.objsize(),strBuf);
 	}
 
 	void RoleCollection::ToBson(mongo::BSONObj & objBson)
 	{
-
+		mongo::BSONObjBuilder __builder;
+		objBson = __builder.obj();
 	}
 
 	void RoleCollection::FromBson(const char * pData , INT32 nSize)

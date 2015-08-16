@@ -77,7 +77,7 @@ namespace Orm
 	void Role::FromCompress(const std::string& __inbuf)
 	{
 		std::string tmpbuf;
-		CUtil::UnCompress(__inbuf.c_str(),(UINT32)__inbuf.length(),tmpbuf);
+		CUtil::Uncompress(__inbuf.c_str(),(UINT32)__inbuf.length(),tmpbuf);
 		mongo::BSONObj  __obj(tmpbuf.c_str());
 		assert(__obj.objsize() == tmpbuf.length());
 		FromBson(__obj);
@@ -86,7 +86,7 @@ namespace Orm
 	void Role::FromCompress(const char* __data,INT32 __size)
 	{
 		std::string tmpbuf;
-		CUtil::UnCompress(__data,__size,tmpbuf);
+		CUtil::Uncompress(__data,__size,tmpbuf);
 		mongo::BSONObj  __obj(tmpbuf.c_str());
 		assert(__obj.objsize() == tmpbuf.length());
 		FromBson(__obj);

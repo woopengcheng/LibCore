@@ -48,70 +48,71 @@ namespace Orm
 		return pNew;
 	}
 
-	void Test_PrimaryKey::ToCompress(std::string & __buf)
+	void Test_PrimaryKey::ToCompress(std::string & strBuf)
 	{
-		mongo::BSONObj  __obj;
-		ToBson(__obj);
-		CUtil::Compress(__obj.objdata(),__obj.objsize(),__buf);
+		mongo::BSONObj  obj;
+		ToBson(obj);
+		CUtil::Compress(obj.objdata(),obj.objsize(),strBuf);
 	}
 
-	void Test_PrimaryKey::ToBson(std::string & __buf)
+	void Test_PrimaryKey::ToBson(std::string & strBuf)
 	{
-		mongo::BSONObj  __obj;
-		ToBson(__obj);
-		__buf = std::string(__obj.objdata(),__obj.objsize());
+		mongo::BSONObj  obj;
+		ToBson(obj);
+		strBuf = std::string(obj.objdata(),obj.objsize());
 	}
 
-	void Test_PrimaryKey::ToBson(mongo::BSONObj  & __obj)
+	void Test_PrimaryKey::ToBson(mongo::BSONObj  & obj)
 	{
-		mongo::BSONObjBuilder __builder;
-		__builder.append("_T",TableName());
+		mongo::BSONObjBuilder builder;
+		builder.append("_T",TableName());
 		if(id != 0)
-			__builder.append("id",id);
+			builder.append("id",id);
 		if(p1 != std::string())
-			__builder.append("p1",p1);
-		__obj = __builder.obj();
+			builder.append("p1",p1);
+		obj = builder.obj();
 	}
 
-	void Test_PrimaryKey::FromCompress(const std::string& __inbuf)
+	void Test_PrimaryKey::FromCompress(const std::string& inbuf)
 	{
 		std::string tmpbuf;
-		CUtil::UnCompress(__inbuf.c_str(),(UINT32)__inbuf.length(),tmpbuf);
-		mongo::BSONObj  __obj(tmpbuf.c_str());
-		MsgAssert(__obj.objsize() == tmpbuf.length() , "");
-		FromBson(__obj);
+		CUtil::Uncompress(inbuf.c_str(),(UINT32)inbuf.length(),tmpbuf);
+		mongo::BSONObj  obj(tmpbuf.c_str());
+		MsgAssert(obj.objsize() == tmpbuf.length() , "");
+		FromBson(obj);
 	}
 
-	void Test_PrimaryKey::FromCompress(const char* __data,INT32 __size)
+	void Test_PrimaryKey::FromCompress(const char* pData,INT32 size)
 	{
 		std::string tmpbuf;
-		CUtil::UnCompress(__data,__size,tmpbuf);
-		mongo::BSONObj  __obj(tmpbuf.c_str());
-		MsgAssert(__obj.objsize() == tmpbuf.length() , "");
-		FromBson(__obj);
+		CUtil::Uncompress(pData,size,tmpbuf);
+		mongo::BSONObj  obj(tmpbuf.c_str());
+		MsgAssert(obj.objsize() == tmpbuf.length() , "");
+		FromBson(obj);
 	}
 
-	void Test_PrimaryKey::FromBson(const char* __data,INT32 __size)
+	void Test_PrimaryKey::FromBson(const char* pData,INT32 size)
 	{
-		mongo::BSONObj  __obj(__data);
-		MsgAssert(__obj.objsize() == __size , "FromBson error.");
-		FromBson(__obj);
+		mongo::BSONObj  obj(pData);
+		MsgAssert(obj.objsize() == size , "FromBson error.");
+		FromBson(obj);
 	}
 
-	void Test_PrimaryKey::FromBson(const mongo::BSONObj  & __obj)
+	void Test_PrimaryKey::FromBson(const mongo::BSONObj  & obj)
 	{
-		mongo::BSONObjIterator  iter(__obj); 
-		while(iter.more())		{			mongo::BSONElement __be = iter.next();
-			const char* fieldName = __be.fieldName();
+		mongo::BSONObjIterator  iter(obj); 
+		while(iter.more())		{			mongo::BSONElement be = iter.next();
+			const char* fieldName = be.fieldName();
 			INT64 hash = CUtil::BKDRHashSum(fieldName);
 			switch(hash)
 			{
 			case 880468309535: // id
 				{
-					MsgAssert(CUtil::strcmp(__be.valuestr(), TableName()) == 0 , "FromBson error.");
+					CUtil::BsonToCpp( id , be);
 				}break;
 			case 691489749377: // p1
 				{
+					MsgAssert(CUtil::strcmp(be.valuestr(), TableName()) == 0 , "FromBson error.");
 				}break;
 			}
 		}
@@ -123,15 +124,16 @@ namespace Orm
 		INT64 _result = seed;
 		_result = CUtil::CityHash(&id,sizeof(id),_result);
 		return _result;
+		_result = CUtil::CityHash(&p1,sizeof(p1),_result);
 		return _result;
 	}
 
-	int Test_PrimaryKey::Getid() const
+	INT64 Test_PrimaryKey::Getid() const
 	{
 		return id;
 	}
 
-	void Test_PrimaryKey::Setid(int & value)
+	void Test_PrimaryKey::Setid(INT64 & value)
 	{
 		id = value;
 	}

@@ -405,7 +405,7 @@ namespace CUtil
 		return (UINT32)snappy::Compress(pBuf,unLength,&strUncompressed);
 	}
 
-	bool UnCompress(const char * pBuf , UINT32 unLength , std::string & strUncompressed)
+	bool Uncompress(const char * pBuf , UINT32 unLength , std::string & strUncompressed)
 	{
 		return snappy::Uncompress(pBuf , unLength , &strUncompressed);
 	}

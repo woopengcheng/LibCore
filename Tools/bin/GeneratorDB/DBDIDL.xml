@@ -156,13 +156,23 @@
 			<Param type="CUtilChunk" name="p13" /> 
 		</Struct>
 		
-		<Table name = "Test_Oldname" slaveFrom="" slave_table="">    
-			<Field name="id" type="int" masterID="" oldName="" bitmask="" count="" ignore_reflection_define="" ignore_collection="" value_type=""/>
-			<Field name="p1" type="std::string" oldName="" autoIncr="" bitmask="" count="" ignore_reflection_define="" ignore_collection="" value_type=""/>
+		<Table name = "Test_Oldname">    
+			<Field name="id" type="INT64" masterID="" oldName=""  ignore_reflection_define="" ignore_collection="" value_type=""/>
+			<Field name="p1" type="std::string" oldName="" autoIncr=""  ignore_reflection_define="" ignore_collection="" value_type=""/>
 		</Table>
-		<Table name = "Test_PrimaryKey" slaveFrom="" slave_table="">    
-			<Field name="id" type="int" primaryKey="" oldName="" autoIncr="" bitmask="" count="" ignore_reflection_define="" ignore_collection="" value_type=""/>
-			<Field name="p1" type="std::string" oldName="" bitmask="" count="" ignore_reflection_define="" ignore_collection="" value_type=""/>
+		<Table name = "Test_PrimaryKey">    
+			<Field name="id" type="INT64" primaryKey="" oldName="" autoIncr=""  ignore_reflection_define="" ignore_collection="" value_type=""/>
+			<Field name="p1" type="std::string" oldName=""  ignore_reflection_define="" ignore_collection="" value_type=""/>
+		</Table>
+		<Table name = "TestSlave">    
+			<Field name="id" type="INT64" masterID="" oldName=""  ignore_reflection_define="" ignore_collection="" value_type=""/> 
+		</Table>
+		<Table name = "TestSlave1" slaveFrom="TestSlave">    
+			<Field name="id" type="INT64" masterID="" oldName=""  ignore_reflection_define="" ignore_collection="" value_type=""/> 
+		</Table>
+		<Table name = "TestSlave2" slaveTable="TestSlave">    
+			<Field name="id" type="INT64" masterID="" oldName=""  ignore_reflection_define="" ignore_collection="" value_type=""/>   
+			<Field name="id2" type="INT64" oldName="" bitmask="" count="" ignore_reflection_define="" ignore_collection="" value_type=""/> 
 		</Table>
 	</Tables>
 	

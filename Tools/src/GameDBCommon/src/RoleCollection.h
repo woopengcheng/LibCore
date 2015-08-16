@@ -2,8 +2,7 @@
 #define __orm_role_collection_h__
 #include "GameDB/inc/DBCommon.h" 
 #include "GameDB/inc/OrmCollection.h" 
-#include "GameDB/inc/OrmVector.h"
-#include "bson/bson.h"
+#include "GameDB/inc/OrmVector.h" 
 #include "Role.h"
 #include "RoleItems.h"
 

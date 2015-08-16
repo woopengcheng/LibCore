@@ -28,6 +28,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\OrmHelper.h" />
+    <ClInclude Include="src\OrmTest\Orm_Reflection.h" />
+    <ClInclude Include="src\OrmTest\Orm_TestSlave.h" />
+    <ClInclude Include="src\OrmTest\Orm_TestSlave1.h" />
+    <ClInclude Include="src\OrmTest\Orm_TestSlave2.h" />
+    <ClInclude Include="src\OrmTest\Orm_TestSlaveCollection.h" />
     <ClInclude Include="src\OrmTest\Orm_Test_Oldname.h" />
     <ClInclude Include="src\OrmTest\Orm_Test_PrimaryKey.h" />
     <ClInclude Include="src\Role.h" />
@@ -37,6 +42,11 @@
   <ItemGroup>
     <ClCompile Include="RoleCollection.cpp" />
     <ClCompile Include="src\OrmHelper.cpp" />
+    <ClCompile Include="src\OrmTest\Orm_Reflection.cpp" />
+    <ClCompile Include="src\OrmTest\Orm_TestSlave.cpp" />
+    <ClCompile Include="src\OrmTest\Orm_TestSlave1.cpp" />
+    <ClCompile Include="src\OrmTest\Orm_TestSlave2.cpp" />
+    <ClCompile Include="src\OrmTest\Orm_TestSlaveCollection.cpp" />
     <ClCompile Include="src\OrmTest\Orm_Test_Oldname.cpp" />
     <ClCompile Include="src\OrmTest\Orm_Test_PrimaryKey.cpp" />
     <ClCompile Include="src\Role.cpp" />
@@ -61,7 +71,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>

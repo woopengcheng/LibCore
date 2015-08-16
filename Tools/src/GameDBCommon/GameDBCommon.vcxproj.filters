@@ -21,10 +21,25 @@
     <ClInclude Include="src\RoleItems.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\OrmTest\Orm_Reflection.h">
+      <Filter>src\OrmTest</Filter>
+    </ClInclude>
     <ClInclude Include="src\OrmTest\Orm_Test_Oldname.h">
       <Filter>src\OrmTest</Filter>
     </ClInclude>
     <ClInclude Include="src\OrmTest\Orm_Test_PrimaryKey.h">
+      <Filter>src\OrmTest</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OrmTest\Orm_TestSlave.h">
+      <Filter>src\OrmTest</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OrmTest\Orm_TestSlave1.h">
+      <Filter>src\OrmTest</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OrmTest\Orm_TestSlave2.h">
+      <Filter>src\OrmTest</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OrmTest\Orm_TestSlaveCollection.h">
       <Filter>src\OrmTest</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,10 +56,25 @@
     <ClCompile Include="src\RoleItems.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\OrmTest\Orm_Reflection.cpp">
+      <Filter>src\OrmTest</Filter>
+    </ClCompile>
     <ClCompile Include="src\OrmTest\Orm_Test_Oldname.cpp">
       <Filter>src\OrmTest</Filter>
     </ClCompile>
     <ClCompile Include="src\OrmTest\Orm_Test_PrimaryKey.cpp">
+      <Filter>src\OrmTest</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OrmTest\Orm_TestSlave.cpp">
+      <Filter>src\OrmTest</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OrmTest\Orm_TestSlave1.cpp">
+      <Filter>src\OrmTest</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OrmTest\Orm_TestSlave2.cpp">
+      <Filter>src\OrmTest</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OrmTest\Orm_TestSlaveCollection.cpp">
       <Filter>src\OrmTest</Filter>
     </ClCompile>
   </ItemGroup>
