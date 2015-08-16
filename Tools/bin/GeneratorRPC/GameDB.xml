@@ -122,6 +122,7 @@
 	<LongDefaultParams type="unsigned int"  default="0"/>
 	<LongDefaultParams type="unsigned short"  default="0"/>
 	<LongDefaultParams type="unsigned char" default="0"/> 
+	<LongDefaultParams type="std::string" default="std::string()"/> 
 	<LongDefaultParams type="time_t" default="0"/>
 	<SpecialDefaultParam type="std::vector" defaultSuffix="(1)" specialType="0"/>
 	<SpecialDefaultParam type="std::set" defaultSuffix="()" specialType="0"/>

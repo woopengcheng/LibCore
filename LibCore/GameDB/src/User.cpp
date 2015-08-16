@@ -1,5 +1,4 @@
 #include "GameDB/inc/User.h" 
-#include "CUtil/inc/BsonToCpp.h"
 
 namespace GameDB
 { 
@@ -18,7 +17,7 @@ namespace GameDB
 	{
 		std::string result;
 		result.reserve(64);
-
+		
 		result.append(name.c_str());
 		return result;
 	}
@@ -35,7 +34,7 @@ namespace GameDB
 
 	void User::AutoIncrease(INT64 llKey)
 	{ 
-		assert(false);
+		MsgAssert(false , "AutoIncrease key:" << llKey);
 	}
 
 	User* User::Clone()

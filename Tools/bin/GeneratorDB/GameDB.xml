@@ -52,7 +52,7 @@
 					RPC的参数类型可以传递RpcData.相当于定义一个结构体,传递消息时,大家可以共用一份.
 				使用方法:
 					同param参数.
-			Rpc: 
+			Table: 
 				功能:
 					定义一个RPC
 				name:
@@ -145,7 +145,7 @@
 	<RpcServerName serverName="Master" include="DBMaster.h" namespace="Server" rpcInterface="DBMaster" outputPath="../../../Tools/src/GameDBServer/src/rpc/"/>
 	<RpcServerName serverName="Slave" include="DBSlave.h" namespace="Server" rpcInterface="DBSlave" outputPath="../../../Tools/src/GameDBServer/src/rpc/"/> 
 	
-	<Rpcs>  
+	<Tables>  
 		<RpcData name="TestRpcData">
 			<Param type="inT" name="p1" default="111"/>
 			<Param type="unsigned iNt" name="p2" default="21"/> 
@@ -176,7 +176,7 @@
 		<!--		
 			rpc测试用例
 		-->		
-		<Rpc name="testMulitServerNode" syncType="1" timeout="10">
+		<Table name="testMulitServerNode" syncType="1" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Proxy name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -196,9 +196,9 @@
 			<Return>  
 				<Param name="res" type="LibCore_Chunk" refer=""/> 
 			</Return>
-		</Rpc>
+		</Table>
 		
-		<Rpc name="testParamsAndRpcDatas" syncType="1" timeout="10">
+		<Table name="testParamsAndRpcDatas" syncType="1" timeout="10">
 			<Targets> 
 				<Client name="Master" include="MasterHandler.h" class="MasterHandler" /> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" />  
@@ -213,12 +213,12 @@
 			<Return>  
 				<Param name="res" type="INT32" refer=""/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
 		<!--		
 		databse处理rpc
 		-->
-		<Rpc name="HandleUserAuth" syncType="0" timeout="10">
+		<Table name="HandleUserAuth" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -232,9 +232,9 @@
 			<Return>
 				<Param name="res" type="INT32" default="0"/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleSelectDatabase" syncType="0" timeout="10">
+		<Table name="HandleSelectDatabase" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -247,9 +247,9 @@
 			<Return>
 				<Param name="res" type="INT32" default="0"/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleCreateDatabase" syncType="0" timeout="10">
+		<Table name="HandleCreateDatabase" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -262,9 +262,9 @@
 			<Return>
 				<Param name="res" type="INT32" default="0"/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleDeleteDatabase" syncType="0" timeout="10">
+		<Table name="HandleDeleteDatabase" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -277,9 +277,9 @@
 			<Return>
 				<Param name="res" type="INT32" default="0"/> 
 			</Return>
-		</Rpc> 		
+		</Table> 		
 		
-		<Rpc name="HandleShowDatabases" syncType="0" timeout="10">
+		<Table name="HandleShowDatabases" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -291,9 +291,9 @@
 			<Return>
 				<Param name="res" type="LibCore_Chunk" default=""/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleCreateUser" syncType="0" timeout="10">
+		<Table name="HandleCreateUser" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -308,9 +308,9 @@
 			<Return>
 				<Param name="res" type="INT32" default="0"/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleDeleteUser" syncType="0" timeout="10">
+		<Table name="HandleDeleteUser" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -323,9 +323,9 @@
 			<Return>
 				<Param name="res" type="INT32" default="0"/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleModifyUser" syncType="0" timeout="10">
+		<Table name="HandleModifyUser" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -340,13 +340,13 @@
 			<Return>
 				<Param name="res" type="INT32" default="0"/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 			
 		
 		<!--
 		hashtable处理rpc
 		-->
-		<Rpc name="HandleHSet" syncType="0" timeout="10">
+		<Table name="HandleHSet" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -361,9 +361,9 @@
 			<Return>
 				<Param name="res" type="INT32" default="0"/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleHSetNX" syncType="0" timeout="10">
+		<Table name="HandleHSetNX" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -378,9 +378,9 @@
 			<Return>
 				<Param name="res" type="INT32" default="0"/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleHSetOW" syncType="0" timeout="10">
+		<Table name="HandleHSetOW" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -395,9 +395,9 @@
 			<Return>
 				<Param name="res" type="INT32" default="0"/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleHGet" syncType="0" timeout="10">
+		<Table name="HandleHGet" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -411,9 +411,9 @@
 			<Return> 
 				<Param name="value" type="std_string" default=""/>
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleHDel" syncType="0" timeout="10">
+		<Table name="HandleHDel" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -427,9 +427,9 @@
 			<Return>
 				<Param name="res" type="INT32" default="0"/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleHSetIncr" syncType="0" timeout="10">
+		<Table name="HandleHSetIncr" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -444,9 +444,9 @@
 			<Return>
 				<Param name="res" type="INT64" default="0"/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleHSetIncrFloat" syncType="0" timeout="10">
+		<Table name="HandleHSetIncrFloat" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -461,9 +461,9 @@
 			<Return>
 				<Param name="res" type="double" default="0"/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleHGetKeys" syncType="0" timeout="10">
+		<Table name="HandleHGetKeys" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -476,9 +476,9 @@
 			<Return>
 				<Param name="res" type="LibCore_Chunk" default=""/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleHGetVals" syncType="0" timeout="10">
+		<Table name="HandleHGetVals" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -491,9 +491,9 @@
 			<Return>
 				<Param name="res" type="LibCore_Chunk" default=""/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleHGetKeyVals" syncType="0" timeout="10">
+		<Table name="HandleHGetKeyVals" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -506,9 +506,9 @@
 			<Return>
 				<Param name="res" type="LibCore_Chunk" default=""/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleHScan" syncType="0" timeout="10">
+		<Table name="HandleHScan" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -524,9 +524,9 @@
 			<Return>
 				<Param name="res" type="LibCore_Chunk" default=""/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleHCount" syncType="0" timeout="10">
+		<Table name="HandleHCount" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -539,9 +539,9 @@
 			<Return>
 				<Param name="res" type="INT64" default=""/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleHDrop" syncType="0" timeout="10">
+		<Table name="HandleHDrop" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -554,9 +554,9 @@
 			<Return>
 				<Param name="res" type="INT64" default=""/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleHList" syncType="0" timeout="10">
+		<Table name="HandleHList" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -568,9 +568,9 @@
 			<Return>
 				<Param name="res" type="LibCore_Chunk" default=""/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleHMultiSet" syncType="0" timeout="10">
+		<Table name="HandleHMultiSet" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -584,9 +584,9 @@
 			<Return>
 				<Param name="res" type="INT32" default="0"/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleHMultiGet" syncType="0" timeout="10">
+		<Table name="HandleHMultiGet" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -600,9 +600,9 @@
 			<Return>
 				<Param name="res" type="LibCore_Chunk" default=""/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleHMultiDel" syncType="0" timeout="10">
+		<Table name="HandleHMultiDel" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -616,12 +616,12 @@
 			<Return>
 				<Param name="res" type="INT32" default="0"/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
 		<!--
 		sortedset处理rpc
 		-->
-		<Rpc name="HandleZSet" syncType="0" timeout="10">
+		<Table name="HandleZSet" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -636,9 +636,9 @@
 			<Return>
 				<Param name="resCode" type="INT32" default="0"/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleZGet" syncType="0" timeout="10">
+		<Table name="HandleZGet" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -652,9 +652,9 @@
 			<Return> 
 				<Param name="score" type="INT64" default="0"/>
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleZDel" syncType="0" timeout="10">
+		<Table name="HandleZDel" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -668,9 +668,9 @@
 			<Return> 
 				<Param name="score" type="INT64" default="0"/>
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleZTop" syncType="0" timeout="10">
+		<Table name="HandleZTop" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -686,9 +686,9 @@
 			<Return>
 				<Param name="res" type="LibCore_Chunk" default=""/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleZRTop" syncType="0" timeout="10">
+		<Table name="HandleZRTop" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -704,9 +704,9 @@
 			<Return>
 				<Param name="res" type="LibCore_Chunk" /> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleZDrop" syncType="0" timeout="10">
+		<Table name="HandleZDrop" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -719,9 +719,9 @@
 			<Return>
 				<Param name="res" type="INT32" default="0"/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleZCount" syncType="0" timeout="10">
+		<Table name="HandleZCount" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -734,9 +734,9 @@
 			<Return>
 				<Param name="res" type="INT64" default=""/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleZList" syncType="0" timeout="10">
+		<Table name="HandleZList" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -748,9 +748,9 @@
 			<Return>
 				<Param name="res" type="LibCore_Chunk" default=""/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
-		<Rpc name="HandleDump" syncType="0" timeout="10">
+		<Table name="HandleDump" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
 				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
@@ -762,12 +762,12 @@
 			<Return>
 				<Param name="res" type="LibCore_Chunk" default=""/> 
 			</Return>
-		</Rpc> 
+		</Table> 
 		
 		<!--
 		slave相关rpc
 		-->
-		<Rpc name="SyncMasterHandler" syncType="1" timeout="10">
+		<Table name="SyncMasterHandler" syncType="1" timeout="10">
 			<Targets> 
 				<Client name="Master" include="MasterHandler.h" class="MasterHandler"/> 
 				<Server name="Slave" include="SlaveHandler.h" class="SlaveHandler" /> 
@@ -780,9 +780,9 @@
 			<Return>  
 				<Param name="res" type="INT32" /> 
 			</Return>
-		</Rpc>
+		</Table>
 		
-		<Rpc name="SlaveStartAuth" syncType="1" timeout="10">
+		<Table name="SlaveStartAuth" syncType="1" timeout="10">
 			<Targets> 
 				<Client name="Slave" include="SlaveHandler.h" class="SlaveHandler" /> 
 				<Proxy name="Master" include="MasterHandler.h" class="MasterHandler" /> 
@@ -797,9 +797,9 @@
 			<Return>  
 				<Param name="value" type="std_string" default=""/> 
 			</Return>
-		</Rpc>
+		</Table>
 		
-		<Rpc name="SlaveSelectDB" syncType="1" timeout="10">
+		<Table name="SlaveSelectDB" syncType="1" timeout="10">
 			<Targets> 
 				<Client name="Slave" include="SlaveHandler.h" class="SlaveHandler" /> 
 				<Server name="Master" include="MasterHandler.h" class="MasterHandler" /> 
@@ -812,9 +812,9 @@
 			<Return>  
 				<Param name="res" type="INT32" default="0"/> 
 			</Return>
-		</Rpc>
+		</Table>
 		
-		<Rpc name="SlaveRequestSync" syncType="1" timeout="3600">
+		<Table name="SlaveRequestSync" syncType="1" timeout="3600">
 			<Targets> 
 				<Client name="Slave" include="SlaveHandler.h" class="SlaveHandler" /> 
 				<Proxy name="Master" include="MasterHandler.h" class="MasterHandler" /> 
@@ -829,9 +829,9 @@
 				<Param name="newbackdir" type="std_string" default=""/>  
 				<Param name="res" type="INT32" default="0"/> 
 			</Return>
-		</Rpc>
+		</Table>
 		
-		<Rpc name="MasterStartSync" syncType="1" timeout="10">
+		<Table name="MasterStartSync" syncType="1" timeout="10">
 			<Targets> 
 				<Client name="Master" include="MasterHandler.h" class="MasterHandler" /> 
 				<Server name="Slave" include="SlaveHandler.h" class="SlaveHandler" /> 
@@ -847,9 +847,9 @@
 			<Return>  
 				<Param name="res" type="INT32" default="0"/> 
 			</Return>
-		</Rpc>
+		</Table>
 		
-		<Rpc name="SyncDataToSlave" syncType="1" timeout="10">
+		<Table name="SyncDataToSlave" syncType="1" timeout="10">
 			<Targets> 
 				<Client name="Server" include="ServerHandler.h" class="ServerHandler" />  
 				<Proxy name="Master" /> 
@@ -864,7 +864,7 @@
 			<Return>  
 				<Param name="res" type="INT32" default="0"/> 
 			</Return>
-		</Rpc>
-	</Rpcs>
+		</Table>
+	</Tables>
 	 
 </RpcMsgs>

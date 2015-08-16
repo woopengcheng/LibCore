@@ -1,6 +1,5 @@
 #ifndef __gamedb_user_h__
 #define __gamedb_user_h__
-#include "CUtil/inc/StringEx.h"
 #include "GameDB/inc/Orm.h"
 
 namespace GameDB

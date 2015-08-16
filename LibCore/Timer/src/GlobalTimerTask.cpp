@@ -1,5 +1,5 @@
-#include "TimerLib/inc/GlobalTimerTask.h"
-#include "TimerLib/inc/GlobalTimer.h"
+#include "Timer/inc/GlobalTimerTask.h"
+#include "Timer/inc/GlobalTimer.h"
 
 namespace Timer
 {

@@ -1,5 +1,6 @@
 #ifndef __gamedb_orm_h__
 #define __gamedb_orm_h__
+#include "CUtil/inc/BsonToCpp.h"
 #include "GameDB/inc/DBCommon.h"
 #include "bson/bson.h"
 

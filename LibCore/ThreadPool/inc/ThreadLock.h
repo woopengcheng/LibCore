@@ -1,7 +1,7 @@
 #ifndef __thread_pool_thread_lock_h__
 #define __thread_pool_thread_lock_h__
 
-#include "ThreadPoolLib/inc/ThreadCommon.h" 
+#include "ThreadPool/inc/ThreadCommon.h" 
 #include "tbb/spin_mutex.h"
 #include "tbb/spin_rw_mutex.h"
 
