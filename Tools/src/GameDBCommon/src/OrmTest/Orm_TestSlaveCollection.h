@@ -4,7 +4,7 @@ Author		:	generate by tools
 HostName	:	woopengcheng
 IP			:	192.168.1.107
 Version		:	0.0.1
-Date		:	2015-08-17 00:08:59
+Date		:	2015-08-18 22:59:34
 Description	:	针对orm子表操作的集合类.
 ************************************/
 #ifndef __Orm_Orm_TestSlave_collection_h__
@@ -39,9 +39,6 @@ namespace Orm
 		public:
 		template<class VISITOR,class PARAM> void visit(VISITOR visitor,PARAM& param)
 		{
-			if(!visitor(m_pTestSlave1 , param))
-				return ;
-		
 			if(!visitor(m_pTestSlave , param))
 				return ;
 		
@@ -54,8 +51,6 @@ namespace Orm
 		}
 		
 		public:
-			TestSlave1 * GetTestSlave1();
-			void CleanupTestSlave1();
 			TestSlave * GetTestSlave();
 			void CleanupTestSlave();
 		
@@ -67,7 +62,6 @@ namespace Orm
 			void SaveTestSlave2(mongo::BSONArrayBuilder & bab);
 		
 		protected:
-			TestSlave1	 * m_pTestSlave1;
 			TestSlave	 * m_pTestSlave;
 			GameDB::OrmVectorEx<TestSlave2 *>	 m_vecTestSlave2;
 		

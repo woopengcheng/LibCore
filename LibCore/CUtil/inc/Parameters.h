@@ -47,7 +47,7 @@ namespace CUtil
 		T GetValue(INT32 nPos = 0)
 		{
 			T t;
-			UINT32 unType = 0;
+			UINT8 unType = 0;
 			MsgAssert_Re( nPos >= 0 && nPos <= MSG_MAX_PARAMETER_NUMBER , t , "GetValue pos error."); 
 
 			Parameter param;
@@ -64,7 +64,7 @@ namespace CUtil
 		template<typename P1>
 		BOOL GetValue(UINT32 nStartPos , P1 & p1)
 		{
-			UINT32 unType = 0;
+			UINT8 unType = 0;
 			MsgAssert_Re0( nStartPos + 1 <= m_unParamCount , "GetValue pos error."); 
 
 			Parameters params;
@@ -85,7 +85,7 @@ namespace CUtil
 		template<typename P1 , typename P2>
 		BOOL GetValue(UINT32 nStartPos , P1 &p1 , P2 &p2) 
 		{
-			UINT32 unType = 0;
+			UINT8 unType = 0;
 			MsgAssert_Re0( nStartPos + 2 <= m_unParamCount , "GetValue pos error."); 
 
 			Parameters params;
@@ -111,7 +111,7 @@ namespace CUtil
 		template<typename P1 , typename P2 , typename P3 >
 		BOOL GetValue(UINT32 nStartPos , P1 &p1 , P2 &p2 , P3 &p3) 
 		{
-			UINT32 unType = 0;
+			UINT8 unType = 0;
 			MsgAssert_Re0( nStartPos + 3 <= m_unParamCount , "GetValue pos error."); 
 
 			Parameters params;
@@ -141,7 +141,7 @@ namespace CUtil
 		template<typename P1 , typename P2 , typename P3 , typename P4 >
 		BOOL GetValue(UINT32 nStartPos , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 ) 
 		{
-			UINT32 unType = 0;
+			UINT8 unType = 0;
 			MsgAssert_Re0( nStartPos + 4 <= m_unParamCount , "GetValue pos error."); 
 
 			Parameters params;
@@ -176,7 +176,7 @@ namespace CUtil
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5>
 		BOOL GetValue(UINT32 nStartPos , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 ) 
 		{
-			UINT32 unType = 0;
+			UINT8 unType = 0;
 			MsgAssert_Re0( nStartPos + 5 <= m_unParamCount , "GetValue pos error."); 
 
 			Parameters params;
@@ -215,7 +215,7 @@ namespace CUtil
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6>
 		BOOL GetValue(UINT32 nStartPos , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6) 
 		{
-			UINT32 unType = 0;
+			UINT8 unType = 0;
 			MsgAssert_Re0( nStartPos + 6 <= m_unParamCount , "GetValue pos error."); 
 
 			Parameters params;
@@ -258,7 +258,7 @@ namespace CUtil
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7>
 		BOOL GetValue(UINT32 nStartPos , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7) 
 		{
-			UINT32 unType = 0;
+			UINT8 unType = 0;
 			MsgAssert_Re0( nStartPos + 7 <= m_unParamCount , "GetValue pos error."); 
 
 			Parameters params;
@@ -306,7 +306,7 @@ namespace CUtil
 		template<typename P1>
 		BOOL GetValueEx(P1 &p1)
 		{
-			UINT32 unType = 0;
+			UINT8 unType = 0;
 			MsgAssert_Re0(m_unParamCount >= 1 , "GetValueEx size error:size=" << m_unParamCount ); 
 
 			Parameters params;
@@ -327,7 +327,7 @@ namespace CUtil
 		template<typename P1 , typename P2 >
 		BOOL GetValueEx(P1 &p1 , P2 &p2 )
 		{
-			UINT32 unType = 0;
+			UINT8 unType = 0;
 			MsgAssert_Re0(m_unParamCount >= 2 , "GetValueEx size error:size=" << m_unParamCount ); 
 
 			Parameters params;
@@ -352,7 +352,7 @@ namespace CUtil
 		template<typename P1 , typename P2 , typename P3  >
 		BOOL GetValueEx(P1 &p1 , P2 &p2 , P3 &p3   )
 		{
-			UINT32 unType = 0;
+			UINT8 unType = 0;
 			MsgAssert_Re0(m_unParamCount >= 3 , "GetValueEx size error:size=" << m_unParamCount ); 
 
 			Parameters params;
@@ -381,7 +381,7 @@ namespace CUtil
 		template<typename P1 , typename P2 , typename P3 , typename P4 >
 		BOOL GetValueEx(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 )
 		{
-			UINT32 unType = 0;
+			UINT8 unType = 0;
 			MsgAssert_Re0(m_unParamCount >= 4 , "GetValueEx size error:size=" << m_unParamCount ); 
 
 			Parameters params;
@@ -415,7 +415,7 @@ namespace CUtil
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5  >
 		BOOL GetValueEx(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 )
 		{
-			UINT32 unType = 0;
+			UINT8 unType = 0;
 			MsgAssert_Re0(m_unParamCount >= 5 , "GetValueEx size error:size=" << m_unParamCount ); 
 
 			Parameters params;
@@ -453,7 +453,7 @@ namespace CUtil
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 >
 		BOOL GetValueEx(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6   )
 		{
-			UINT32 unType = 0;
+			UINT8 unType = 0;
 			MsgAssert_Re0(m_unParamCount >= 6 , "GetValueEx size error:size=" << m_unParamCount ); 
 
 			Parameters params;
@@ -495,7 +495,7 @@ namespace CUtil
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7>
 		BOOL GetValueEx(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7)
 		{
-			UINT32 unType = 0;
+			UINT8 unType = 0;
 			MsgAssert_Re0(m_unParamCount >= 7 , "GetValueEx size error:size=" << m_unParamCount ); 
 
 			Parameters params;
@@ -540,7 +540,7 @@ namespace CUtil
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8>
 		BOOL GetValueEx(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7 , P8 &p8 )
 		{
-			UINT32 unType = 0;
+			UINT8 unType = 0;
 			MsgAssert_Re0(m_unParamCount >= 8 , "GetValueEx size error:size=" << m_unParamCount ); 
 
 			Parameters params;

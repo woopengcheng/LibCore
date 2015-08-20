@@ -4,29 +4,12 @@ namespace Orm
 {
 	TestSlaveCollection::TestSlaveCollection()
 	{
-		m_pTestSlave1 = NULL;
 		m_pTestSlave = NULL;
 	}
 
 	TestSlaveCollection::~TestSlaveCollection()
 	{
-		SAFE_DELETE(m_pTestSlave1);
 		SAFE_DELETE(m_pTestSlave);
-	}
-
-	TestSlave1 * TestSlaveCollection::GetTestSlave1()
-	{
-		if(m_pTestSlave1 == NULL)
-		{
-			m_pTestSlave1 = new TestSlave1();
-			m_pTestSlave1->SetMasterID( m_vMasterId );
-		}
-		return m_pTestSlave1;
-	}
-
-	void TestSlaveCollection::CleanupTestSlave1()
-	{
-		SAFE_DELETE(m_pTestSlave1);
 	}
 
 	TestSlave * TestSlaveCollection::GetTestSlave()
@@ -96,13 +79,6 @@ namespace Orm
 	void TestSlaveCollection::ToBson(mongo::BSONObj  & obj)
 	{
 		mongo::BSONObjBuilder builder(1 * 1024 * 1024);
-		if(m_pTestSlave1 != NULL)
-		{
-			mongo::BSONObj obj;
-			m_pTestSlave1->ToBson(obj);
-			builder.append(TestSlave1::TableName() , obj);
-		}
-
 		if(m_pTestSlave != NULL)
 		{
 			mongo::BSONObj obj;
@@ -140,10 +116,6 @@ namespace Orm
 			INT64 hash = CUtil::BKDRHashSum(be.fieldName());
 			switch(hash)
 			{
-			case 4176497947260: // TestSlave1
-				{
-					GetTestSlave1()->FromBson(tmpobj);
-				}break;
 			case 3965202877593: // TestSlave
 				{
 					GetTestSlave()->FromBson(tmpobj);

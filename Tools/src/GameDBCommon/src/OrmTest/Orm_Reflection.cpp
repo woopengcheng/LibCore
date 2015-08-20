@@ -10,13 +10,13 @@ namespace Orm
 {
 	const char* cst_slaves_of_TestSlave[] = 
  	{
-		"TestSlave1",
+		"TestSlave2",
 		NULL 
 	};
 
 	INT64 cst_slaves_hash_of_TestSlave[] = 
  	{
-		4176497947260,
+		4180792914557,
 		NULL 
 	};
 

@@ -1,4 +1,5 @@
 #include "CUtil/inc/BsonToCpp.h"
+#include "CUtil/inc/Parameter.h"
 
 namespace CUtil
 {
@@ -129,6 +130,22 @@ namespace CUtil
 			return ;
 		}
 		MsgAssert(false,__FUNCTION__ << " to UINT64:" << be.toString());
+		Assert(false && "BsonToCpp: invalid convert");
+	}
+
+	void BsonToCpp( Parameter & var,mongo::BSONElement& be )
+	{
+		if(be.type() == mongo::BinData)
+		{
+			if (mongo::bdtParamter == be.binDataType())
+			{
+				int len = 0;
+				const char* data = be.binData(len);
+				var.GetParamStream().Pushback((void*)data , len);
+			}
+		}  
+
+		MsgAssert(false,__FUNCTION__ << " to Parameter:" << be.toString());
 		Assert(false && "BsonToCpp: invalid convert");
 	}
 }

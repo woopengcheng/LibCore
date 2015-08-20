@@ -156,23 +156,23 @@
 			<Param type="CUtilChunk" name="p13" /> 
 		</Struct>
 		
-		<Table name = "Test_Oldname">    
-			<Field name="id" type="INT64" masterID="" oldName=""  ignore_reflection_define="" ignore_collection="" value_type=""/>
-			<Field name="p1" type="std::string" oldName="" autoIncr=""  ignore_reflection_define="" ignore_collection="" value_type=""/>
+		<Table name = "Test_Oldname" ignore_reflection_define="" ignore_collection="" >    
+			<Field name="id" type="INT64" masterID="" oldName=""  value_type=""/>
+			<Field name="p1" type="std::string" oldName="" autoIncr="" value_type=""/>
 		</Table>
 		<Table name = "Test_PrimaryKey">    
-			<Field name="id" type="INT64" primaryKey="" oldName="" autoIncr=""  ignore_reflection_define="" ignore_collection="" value_type=""/>
-			<Field name="p1" type="std::string" oldName=""  ignore_reflection_define="" ignore_collection="" value_type=""/>
+			<Field name="id" type="INT64" primaryKey="" oldName="" autoIncr="" value_type=""/>
+			<Field name="p1" type="std::string" oldName="" value_type=""/>
 		</Table>
 		<Table name = "TestSlave">    
-			<Field name="id" type="INT64" masterID="" oldName=""  ignore_reflection_define="" ignore_collection="" value_type=""/> 
+			<Field name="id" type="INT64" masterID="" oldName="" value_type=""/> 
 		</Table>
-		<Table name = "TestSlave1" slaveFrom="TestSlave">    
-			<Field name="id" type="INT64" masterID="" oldName=""  ignore_reflection_define="" ignore_collection="" value_type=""/> 
+		<Table name = "TestSlave1" slaveFrom="TestSlave" ignore_reflection_define="" ignore_collection="" >    
+			<Field name="id" type="INT64" masterID="" oldName="" value_type=""/> 
 		</Table>
 		<Table name = "TestSlave2" slaveTable="TestSlave">    
-			<Field name="id" type="INT64" masterID="" oldName=""  ignore_reflection_define="" ignore_collection="" value_type=""/>   
-			<Field name="id2" type="INT64" oldName="" bitmask="" count="" ignore_reflection_define="" ignore_collection="" value_type=""/> 
+			<Field name="id" type="INT64" masterID="" oldName="" value_type=""/>   
+			<Field name="id2" type="INT64" oldName="" bitmask="" count="" value_type=""/> 
 		</Table>
 	</Tables>
 	

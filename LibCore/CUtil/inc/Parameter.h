@@ -29,15 +29,19 @@ namespace CUtil
 
 		PARAMETER_TYPE_SYSTEM_COUNT ,
 
-		PARAMETER_TYPE_USER_DEFINE = 1000 ,   //5 用户自定义类型.从1000后面开始吧.
+		PARAMETER_TYPE_USER_DEFINE = 128 ,   //5 用户自定义类型.从128后面开始吧.
 	};
 
 	struct DLL_EXPORT Parameter : public CUtil::Marshal
 	{
 	public:
 		Parameter(); 
-		Parameter(INT32 nType , UINT32 unSize , void * pData); 
 		Parameter(const Parameter & objParameter) ;
+		template<typename T>
+		Parameter(T & t)
+		{
+			MakeParameter(t);
+		}
 
 		virtual ~Parameter(){}
 
@@ -46,8 +50,10 @@ namespace CUtil
 	public:
 		void       Clear(void);
 		UINT32     GetSize( void );
-		UINT32     GetType( void );
+		UINT8	   GetType( void );
 		void    *  GetData( void );
+		UINT32     GetStreamSize( void ){ return m_objParamStream.GetDataLen(); }
+		void    *  GetStreamData( void );
 		UINT32     Copy(Parameter & objParam);
 		CUtil::CStream  GetParamStream() const { return m_objParamStream; } 
 		CUtil::CStream & GetParamStream() { return m_objParamStream; } 

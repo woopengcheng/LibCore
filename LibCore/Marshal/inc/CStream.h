@@ -37,6 +37,13 @@ namespace CUtil
 		{
 
 		}
+		CStream(CUtil::Chunk & objChunk)
+			: m_nCurPos(0)
+			, m_nTransactionPos(0)
+			, m_objChunk(objChunk.Begin(), objChunk.GetDataLen())
+		{
+
+		}
 		~CStream(){}
 
 		void Copy(const CStream & cs) 

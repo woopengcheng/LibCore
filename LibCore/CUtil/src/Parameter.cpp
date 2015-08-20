@@ -5,17 +5,9 @@ namespace CUtil
 {  
 
 	Parameter::Parameter() 
-	{  
-//		m_objParamStream << (INT32)0 << (INT32)0;   
+	{   
 	}
-
-	Parameter::Parameter( INT32 nType , UINT32 unSize , void * pData ) 
-	{
-// 		MsgAssert(!(nType > PARAMETER_TYPE_ERROR || nType < PARAMETER_TYPE_COUNT) , "ParamType error.");
-// 		m_objParamStream << nType << unSize;    
-// 		m_objParamStream.Pushback(pData , unSize);
-	} 
-
+	
 	Parameter::Parameter( const Parameter & objParameter )
 	{
 		m_objParamStream = objParameter.GetParamStream();
@@ -50,15 +42,16 @@ namespace CUtil
 
 	UINT32 Parameter::GetSize()
 	{
-		UINT32 unSize = 0 , unType = 0;
+		UINT32 unSize = 0 ;
+		UINT8 unType = 0;
 		m_objParamStream >> CUtil::Marshal::Begin >> unType >> unSize >> CUtil::Marshal::Rollback;
 
 		return unSize;
 	}
 
-	UINT32 Parameter::GetType()
+	UINT8 Parameter::GetType()
 	{
-		UINT32 unType = 0;
+		UINT8 unType = 0;
 		m_objParamStream >> CUtil::Marshal::Begin >> unType >> CUtil::Marshal::Rollback;
 
 		return unType;
@@ -66,7 +59,8 @@ namespace CUtil
 
 	void    * Parameter::GetData(void)
 	{
-		UINT32 unSize = 0 , unType = 0;
+		UINT32 unSize = 0 ;
+		UINT8 unType = 0;
 		void * pBuf = NULL;
 
 		m_objParamStream >> CUtil::Marshal::Begin >> unType >> unSize;
@@ -82,6 +76,11 @@ namespace CUtil
 	void      Parameter::Clear( void )
 	{ 
 		m_objParamStream.Clear();
+	}
+
+	void * Parameter::GetStreamData(void)
+	{
+		return m_objParamStream.Begin();
 	}
 
 }

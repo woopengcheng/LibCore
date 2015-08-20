@@ -7,94 +7,64 @@
 #include "CUtil/inc/ParameterHelper.h"
 #include "CUtil/inc/GenMsgHelper.h"
 #include "CUtil/inc/Parameters.h"
-
-template<typename T>
-class test
-{
-public:
-	test(T & t):m_t(&t){}
-
-private:
-	T * m_t;
-};
-//template<typename T > class  helper { };
-
-template <typename T>
-class helper
-{
-public:
-	static void te(test<T> t)
-	{
-		printf("adsf");
-	}
-	static void te(test<T> & t)
-	{
-		printf("adsf");
-	}
-};
-
-template<typename T>
-void testFunc(T & vec)
-{
-	helper<T>::te(vec);
-}
-
-
-template<typename Container>
-class STContainer 
-{
-	Container *pc;
-public:
-	STContainer(Container & c) : pc(&c) { }
-};
-
-void testRe(std::vector<INT32> & vec)
-{
-	CUtil::Parameters         m_objParams;  
-	CUtil::GenMsgHelper::GenMsgParams(m_objParams , vec);
-
-}
-
-// template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8>
-// BOOL GetValue(P1 &p1 = INT32(0) , P2 &p2 = INT32(0) , P3 &p3 = INT32(0) , P4 &p4 = INT32(0) , P5 &p5 = INT32(0) , P6 &p6 = INT32(0) , P7 &p7 = INT32(0) , P8 &p8 = INT32(0))
-// {
-// 	std::cout << p1 << p2 << p3 << p4 << p5 << p6 << p7 << p8 << std::endl;
-// }
-
-
-static INT32 testA;
-
-class testb
-{
-public:
-	int a ;
-protected:
-private:
-};
-
-class Paramter
-{
-public:
-	int a ;
-
-	operator bool()
-	{
-		return a;
-	}
-	template <typename T>
-	operator T()
-	{
-		return a;
-	}
-};
-
+#include "bson/bson.h"
+#include "CUtil/inc/BsonToCpp.h"
+ 
 int _tmain(int argc, _TCHAR* argv[])
-{ 
-	Paramter p;
-	int a = p;
+{  
+	CUtil::Parameter p;
+	CUtil::Parameter p2;
+	int a = 1;
 
-//	testFunc(vec);
-//	testRe(vec);
+	std::vector<int> vec;
+	std::vector<int> vec2;
+	std::vector<int> vec3;
+	vec.push_back(1);
+	vec.push_back(3);
+	vec.push_back(4);
+	vec.push_back(5);
+	p.MakeParameter(vec);
+	mongo::BSONObjBuilder builder;
+	builder.append("_T",a);
+	builder.appendBinData("vec" , p.GetStreamSize() , mongo::bdtCustom , (const char *)(p.GetStreamData()));
+
+	mongo::BSONObj obj = builder.obj();
+	mongo::BSONObjIterator  iter(obj); 
+	while(iter.more())	
+	{			
+		mongo::BSONElement be = iter.next();
+		const char* fieldName = be.fieldName(); 
+		if (strcmp(fieldName , "_T") == 0 )
+		{
+			int id = 0;
+			CUtil::BsonToCpp( id , be);
+
+			std::cout << " id: "<< id <<std::endl;
+		}
+		if (strcmp(fieldName , "vec") == 0 )
+		{
+			int id = 0;
+
+			if(be.type() == mongo::BinData)
+			{
+				int len = 0;
+				const char* data = be.binData(len);
+				p2.GetParamStream().Pushback((void*)data , len);
+				p2.GetParameterValue(vec2); 
+
+				CUtil::Parameter p3(vec2);
+				p3.GetParameterValue(vec3); 
+
+			}
+
+//			CUtil::BsonToCpp( id , be);
+
+			std::cout << " id: "<< id <<std::endl;
+		}
+
+	}
+
+
 	return 0;
 }
 

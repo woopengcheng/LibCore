@@ -101,7 +101,8 @@ namespace mongo {
         bdtUUID = 3, /* deprecated */
         newUUID=4, /* language-independent UUID format across all drivers */
         MD5Type=5,
-        bdtCustom=128
+        bdtCustom=128 , 
+		bdtParamter ,  //5 用户自定义的从128开始.paramter,支持所有类型.
     };
 
 }

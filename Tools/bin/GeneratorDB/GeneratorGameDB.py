@@ -82,6 +82,8 @@ class Table(ParentPoint):
 		self.name = None
 		self.slaveFrom = None
 		self.slaveTable = None
+		self.ignore_reflection_define = None	
+		self.ignore_collection = None
 		self.fields = collections.OrderedDict() 
 		
 class Field(ParentPoint):
@@ -95,8 +97,6 @@ class Field(ParentPoint):
 		self.autoIncr =  None
 		self.bitmask = None
 		self.count = None
-		self.ignore_reflection_define = None	
-		self.ignore_collection = None
 		self.value_type = None
 		
 class Struct(ParentPoint):
@@ -247,8 +247,8 @@ def handleConfig(config , xmlData):
 		if attr.lower() == "outputPath".lower():
 			config.outputPath = xmlData.attrib[attr]
 
-def handleTables(tables , xmlRpcs):
-	for xmlData in iter(xmlRpcs.getchildren()): 
+def handleTables(tables , xmDatas):
+	for xmlData in iter(xmDatas.getchildren()): 
 		if xmlData.tag.lower() == "Struct".lower():
 			handleStructs(tables.structs , xmlData)
 		if xmlData.tag.lower() == "Table".lower():
@@ -284,16 +284,20 @@ def handleStructs(structs , xmlData):
 	g_gameDB.defaultParams[defaultParam.type] = defaultParam
 	g_gameDB.defaultParamsList[defaultParam.type] = "g_rpcDefaultParam_" + ReplaceSpecialCharToUnderlineFromType(defaultParam.type)
 		
-def handleTable(tables , xmlRpc): 
+def handleTable(tables , xmData): 
 	table = Table(tables)
 
-	for attr in iter(xmlRpc.attrib):
+	for attr in iter(xmData.attrib):
 		if attr.lower() == "name".lower():
-			table.name = xmlRpc.attrib[attr]
+			table.name = xmData.attrib[attr]
 		if attr.lower() == "slaveFrom".lower():
-			table.slaveFrom = xmlRpc.attrib[attr]
+			table.slaveFrom = xmData.attrib[attr]
 		if attr.lower() == "slaveTable".lower():
-			table.slaveTable = xmlRpc.attrib[attr] 
+			table.slaveTable = xmData.attrib[attr] 
+		if attr.lower() == "ignore_reflection_define".lower():
+			table.ignore_reflection_define = xmData.attrib[attr]
+		if attr.lower() == "ignore_collection".lower():
+			table.ignore_collection = xmData.attrib[attr]
 			
 	if IsHasSameData(tables , table.name):
 		LogOutError("Parase Table :" , table.name , "has same rpcName.") 
@@ -320,7 +324,7 @@ def handleTable(tables , xmlRpc):
 				LogOutError("Parase Table :" , table.name , "has same slaveTable.") 				
 			g_gameDB.tables.collectionTables[table.slaveTable].slaveTables[table.name] = table			
 			
-	for xmlData in iter(xmlRpc.getchildren()): 
+	for xmlData in iter(xmData.getchildren()): 
 		if xmlData.tag.lower() == "Field".lower():
 			handleField(table.fields , xmlData , table) 
 			
@@ -345,10 +349,6 @@ def handleField(fields , xmData , table):
 			field.bitmask = xmData.attrib[attr]
 		if attr.lower() == "count".lower():
 			field.count = xmData.attrib[attr]
-		if attr.lower() == "ignore_reflection_define".lower():
-			field.ignore_reflection_define = xmData.attrib[attr]
-		if attr.lower() == "ignore_collection".lower():
-			field.ignore_collection = xmData.attrib[attr]
 		if attr.lower() == "value_type".lower():
 			field.value_type = xmData.attrib[attr]
 						
@@ -974,58 +974,64 @@ def  GenerateOrmCollectionHeaderInclude(fileOrm , collectionTable):
 			
 def GenerateOrmSlavesHead(fileOrm , collectionTable): 
 	for index , table in collectionTable.slaves.items():  
-		fileOrm.write(threeTab + table.name + " * Get" + table.name + "();\n")  
-		fileOrm.write(threeTab + "void Cleanup" + table.name + "();\n")  
+		if table.ignore_collection == None:
+			fileOrm.write(threeTab + table.name + " * Get" + table.name + "();\n")  
+			fileOrm.write(threeTab + "void Cleanup" + table.name + "();\n")  
 		
 def GenerateOrmCollectionVisitor(fileOrm , collectionTable):  	
 	fileOrm.write(twoTab + "template<class VISITOR,class PARAM> void visit(VISITOR visitor,PARAM& param)\n" ) 
 	fileOrm.write(twoTab + "{\n")    		
 	
 	for index , table in collectionTable.slaves.items():  
-		fileOrm.write(threeTab + "if(!visitor(m_p" + table.name + " , param))\n") 
-		fileOrm.write(fourTab + "return ;\n")  
-		fileOrm.write(twoTab + "\n")   
+		if table.ignore_collection == None:
+			fileOrm.write(threeTab + "if(!visitor(m_p" + table.name + " , param))\n") 
+			fileOrm.write(fourTab + "return ;\n")  
+			fileOrm.write(twoTab + "\n")   
 		
 	for index , table in collectionTable.slaveTables.items():  
-		fileOrm.write(threeTab + "for(GameDB::OrmVectorEx< " + table.name + " *>::iterator iter = m_v" + table.name + ".begin(); iter != m_v" + table.name + ".end(); ++iter)\n") 
-		fileOrm.write(threeTab + "{\n")     		
-		fileOrm.write(fourTab + "if(!visitor(*iter,param))\n")  
-		fileOrm.write(fiveTab + "return ;\n")  
-		fileOrm.write(threeTab + "}\n")  
-		fileOrm.write(twoTab + "\n")      		
-		
+		if table.ignore_collection == None:
+			fileOrm.write(threeTab + "for(GameDB::OrmVectorEx< " + table.name + " *>::iterator iter = m_v" + table.name + ".begin(); iter != m_v" + table.name + ".end(); ++iter)\n") 
+			fileOrm.write(threeTab + "{\n")     		
+			fileOrm.write(fourTab + "if(!visitor(*iter,param))\n")  
+			fileOrm.write(fiveTab + "return ;\n")  
+			fileOrm.write(threeTab + "}\n")  
+			fileOrm.write(twoTab + "\n")      		
+			
 	fileOrm.write(twoTab + "}\n")     
 	
 def GenerateOrmSlaveTablesHead(fileOrm , collectionTable): 
 	for index , table in collectionTable.slaveTables.items():  	
-		fileOrm.write(threeTab + "GameDB::OrmVectorEx< " + table.name + " *> & Get" + table.name + "(){ return m_vec" + table.name + "; }\n")  
-		fileOrm.write(threeTab + table.name + " * Create" + table.name + "(BOOL bAddToManager = TRUE);\n") 
-		fileOrm.write(threeTab + "BOOL Delete" + table.name + "(" + table.name + " * pValue , bool bFree = false);\n")
-		fileOrm.write(threeTab + "void Load" + table.name + "(mongo::BSONObj & obj);\n")   	
-		fileOrm.write(threeTab + "void Save" + table.name + "(mongo::BSONArrayBuilder & bab);\n")		
+		if table.ignore_collection == None:
+			fileOrm.write(threeTab + "GameDB::OrmVectorEx< " + table.name + " *> & Get" + table.name + "(){ return m_vec" + table.name + "; }\n")  
+			fileOrm.write(threeTab + table.name + " * Create" + table.name + "(BOOL bAddToManager = TRUE);\n") 
+			fileOrm.write(threeTab + "BOOL Delete" + table.name + "(" + table.name + " * pValue , bool bFree = false);\n")
+			fileOrm.write(threeTab + "void Load" + table.name + "(mongo::BSONObj & obj);\n")   	
+			fileOrm.write(threeTab + "void Save" + table.name + "(mongo::BSONArrayBuilder & bab);\n")		
 			
 def  GenerateSlaveTableDefine(fileOrm , collectionTable):  
 	for index , table in collectionTable.slaves.items():  
-		strData = threeTab  
-		strData += table.name  
-		strData += oneTab  
-		strData += " * m_p"
-		strData += table.name
-		strData += ";\n"
-		
-		fileOrm.write(strData)   
+		if table.ignore_collection == None:
+			strData = threeTab  
+			strData += table.name  
+			strData += oneTab  
+			strData += " * m_p"
+			strData += table.name
+			strData += ";\n"
+			
+			fileOrm.write(strData)   
 		 
 	for index , table in collectionTable.slaveTables.items():  
-		strData = threeTab  
-		strData += "GameDB::OrmVectorEx<"   
-		strData += table.name  
-		strData += " *>"
-		strData += oneTab  
-		strData += " m_vec"
-		strData += table.name
-		strData += ";\n"
-		
-		fileOrm.write(strData)  
+		if table.ignore_collection == None:
+			strData = threeTab  
+			strData += "GameDB::OrmVectorEx<"   
+			strData += table.name  
+			strData += " *>"
+			strData += oneTab  
+			strData += " m_vec"
+			strData += table.name
+			strData += ";\n"
+			
+			fileOrm.write(strData)  
 		
 def GenerateOrmsCollectionCPPFile():			
 	outputPath = GetOutputPath()   
@@ -1060,7 +1066,8 @@ def GenerateOrmCollectionCppConstructor(fileOrm , collectionTable):
 	fileOrm.write(oneTab + "{\n" );
 	
 	for index , slave in collectionTable.slaves.items():
-		fileOrm.write(twoTab + "m_p" + slave.name + " = NULL;\n")
+		if slave.ignore_collection == None:
+			fileOrm.write(twoTab + "m_p" + slave.name + " = NULL;\n")
 	
 	fileOrm.write(oneTab + "}\n\n")
 	
@@ -1069,84 +1076,87 @@ def GenerateOrmCollectionCppDestructor(fileOrm , collectionTable):
 	fileOrm.write(oneTab + "{\n")
 	  
 	for index , slave in collectionTable.slaves.items():
-		fileOrm.write(twoTab + "SAFE_DELETE(m_p" + slave.name + ");\n")
+		if slave.ignore_collection == None:
+			fileOrm.write(twoTab + "SAFE_DELETE(m_p" + slave.name + ");\n")
 		
 	fileOrm.write(oneTab + "}\n\n")
 		
 def GenerateOrmCollectionCppSlaves(fileOrm , collectionTable): 	
 	for index , slave in collectionTable.slaves.items():
-		fileOrm.write(oneTab + slave.name + " * " + collectionTable.name + "Collection::Get" + slave.name + "()\n")
-		fileOrm.write(oneTab + "{\n")
-		
-		fileOrm.write(twoTab + "if(m_p" + slave.name + " == NULL)\n")
-		fileOrm.write(twoTab + "{\n")
-		fileOrm.write(threeTab + "m_p" + slave.name + " = new " + slave.name + "();\n")
-		fileOrm.write(threeTab + "m_p" + slave.name + "->SetMasterID( m_vMasterId );\n")
-		fileOrm.write(twoTab + "}\n")
-		fileOrm.write(twoTab + "return " + "m_p" + slave.name + ";\n")
-		
-		fileOrm.write(oneTab + "}\n\n") 
-		
-		#删除操作
-		fileOrm.write(oneTab + "void " + collectionTable.name + "Collection::Cleanup" + slave.name + "()\n")
-		fileOrm.write(oneTab + "{\n")
-		
-		fileOrm.write(twoTab + "SAFE_DELETE(m_p" + slave.name + ");\n")
-		
-		fileOrm.write(oneTab + "}\n\n") 
+		if slave.ignore_collection == None:
+			fileOrm.write(oneTab + slave.name + " * " + collectionTable.name + "Collection::Get" + slave.name + "()\n")
+			fileOrm.write(oneTab + "{\n")
+			
+			fileOrm.write(twoTab + "if(m_p" + slave.name + " == NULL)\n")
+			fileOrm.write(twoTab + "{\n")
+			fileOrm.write(threeTab + "m_p" + slave.name + " = new " + slave.name + "();\n")
+			fileOrm.write(threeTab + "m_p" + slave.name + "->SetMasterID( m_vMasterId );\n")
+			fileOrm.write(twoTab + "}\n")
+			fileOrm.write(twoTab + "return " + "m_p" + slave.name + ";\n")
+			
+			fileOrm.write(oneTab + "}\n\n") 
+			
+			#删除操作
+			fileOrm.write(oneTab + "void " + collectionTable.name + "Collection::Cleanup" + slave.name + "()\n")
+			fileOrm.write(oneTab + "{\n")
+			
+			fileOrm.write(twoTab + "SAFE_DELETE(m_p" + slave.name + ");\n")
+			
+			fileOrm.write(oneTab + "}\n\n") 
 		
 def GenerateOrmCollectionCppSlaveTables(fileOrm , collectionTable): 	
 	for index , slave in collectionTable.slaveTables.items():
-		fileOrm.write(oneTab + slave.name + " * " + collectionTable.name + "Collection::Create" + slave.name + "(BOOL bAddToManager /*= TRUE*/)\n")
-		fileOrm.write(oneTab + "{\n")
-		
-		fileOrm.write(twoTab + slave.name + "* p" + slave.name + " = new " + slave.name + ";\n")
-		fileOrm.write(twoTab + "p" + slave.name + "->SetMasterID(m_vMasterId);\n")
-		fileOrm.write(twoTab + "if (bAddToManager)\n")
-		fileOrm.write(twoTab + "{\n")
-		fileOrm.write(threeTab + "m_vec" + slave.name + ".push_back( p" + slave.name + ");\n")
-		fileOrm.write(twoTab + "}\n\n")
-		fileOrm.write(twoTab + "return " + "p" + slave.name + ";\n")
-		
-		fileOrm.write(oneTab + "}\n\n") 
-		
-		#删除操作
-		fileOrm.write(oneTab + "BOOL " + collectionTable.name + "Collection::Delete" + slave.name + "(" + slave.name + " * pValue , bool bFree /*= false*/)\n")
-		fileOrm.write(oneTab + "{\n")
-		
-		fileOrm.write(twoTab + "return m_vec" + slave.name + ".Remove(pValue , bFree);\n")
-		
-		fileOrm.write(oneTab + "}\n\n") 
-		
-		#载入操作
-		fileOrm.write(oneTab + "void " + collectionTable.name + "Collection::Load" + slave.name + "(mongo::BSONObj & obj)\n")
-		fileOrm.write(oneTab + "{\n")
-		
-		fileOrm.write(twoTab + "m_vec" + slave.name + ".Cleanup();\n")
-		fileOrm.write(twoTab + "mongo::BSONObjIterator iter(obj);\n")
-		fileOrm.write(twoTab + "while(iter.more())\n")
-		fileOrm.write(twoTab + "{\n")
-		fileOrm.write(threeTab + "mongo::BSONElement be = iter.next();\n")
-		fileOrm.write(threeTab + "Assert(be.isABSONObj());\n\n")
-		fileOrm.write(threeTab + slave.name + " * p" + slave.name + " = Create" + slave.name + "();\n")
-		fileOrm.write(threeTab + "p" + slave.name + "->FromBson(be.Obj());\n")
-		fileOrm.write(twoTab + "}\n")
-		
-		fileOrm.write(oneTab + "}\n\n") 
-		
-		#保存操作
-		fileOrm.write(oneTab + "void " + collectionTable.name + "Collection::Save" + slave.name + "(mongo::BSONArrayBuilder & bab)\n")
-		fileOrm.write(oneTab + "{\n")
-		
-		fileOrm.write(twoTab + "for (size_t i = 0;i < m_vec" + slave.name + ".size();++i)\n")
-		fileOrm.write(twoTab + "{\n") 
-		fileOrm.write(threeTab + "mongo::BSONObj obj;\n") 
-		fileOrm.write(threeTab + slave.name + " * p" + slave.name + " = m_vec" + slave.name + "[i];\n")
-		fileOrm.write(threeTab + "p" + slave.name + "->ToBson(obj);\n")
-		fileOrm.write(threeTab + "bab.append(obj);\n")
-		fileOrm.write(twoTab + "}\n")
-		
-		fileOrm.write(oneTab + "}\n\n") 
+		if slave.ignore_collection == None:
+			fileOrm.write(oneTab + slave.name + " * " + collectionTable.name + "Collection::Create" + slave.name + "(BOOL bAddToManager /*= TRUE*/)\n")
+			fileOrm.write(oneTab + "{\n")
+			
+			fileOrm.write(twoTab + slave.name + "* p" + slave.name + " = new " + slave.name + ";\n")
+			fileOrm.write(twoTab + "p" + slave.name + "->SetMasterID(m_vMasterId);\n")
+			fileOrm.write(twoTab + "if (bAddToManager)\n")
+			fileOrm.write(twoTab + "{\n")
+			fileOrm.write(threeTab + "m_vec" + slave.name + ".push_back( p" + slave.name + ");\n")
+			fileOrm.write(twoTab + "}\n\n")
+			fileOrm.write(twoTab + "return " + "p" + slave.name + ";\n")
+			
+			fileOrm.write(oneTab + "}\n\n") 
+			
+			#删除操作
+			fileOrm.write(oneTab + "BOOL " + collectionTable.name + "Collection::Delete" + slave.name + "(" + slave.name + " * pValue , bool bFree /*= false*/)\n")
+			fileOrm.write(oneTab + "{\n")
+			
+			fileOrm.write(twoTab + "return m_vec" + slave.name + ".Remove(pValue , bFree);\n")
+			
+			fileOrm.write(oneTab + "}\n\n") 
+			
+			#载入操作
+			fileOrm.write(oneTab + "void " + collectionTable.name + "Collection::Load" + slave.name + "(mongo::BSONObj & obj)\n")
+			fileOrm.write(oneTab + "{\n")
+			
+			fileOrm.write(twoTab + "m_vec" + slave.name + ".Cleanup();\n")
+			fileOrm.write(twoTab + "mongo::BSONObjIterator iter(obj);\n")
+			fileOrm.write(twoTab + "while(iter.more())\n")
+			fileOrm.write(twoTab + "{\n")
+			fileOrm.write(threeTab + "mongo::BSONElement be = iter.next();\n")
+			fileOrm.write(threeTab + "Assert(be.isABSONObj());\n\n")
+			fileOrm.write(threeTab + slave.name + " * p" + slave.name + " = Create" + slave.name + "();\n")
+			fileOrm.write(threeTab + "p" + slave.name + "->FromBson(be.Obj());\n")
+			fileOrm.write(twoTab + "}\n")
+			
+			fileOrm.write(oneTab + "}\n\n") 
+			
+			#保存操作
+			fileOrm.write(oneTab + "void " + collectionTable.name + "Collection::Save" + slave.name + "(mongo::BSONArrayBuilder & bab)\n")
+			fileOrm.write(oneTab + "{\n")
+			
+			fileOrm.write(twoTab + "for (size_t i = 0;i < m_vec" + slave.name + ".size();++i)\n")
+			fileOrm.write(twoTab + "{\n") 
+			fileOrm.write(threeTab + "mongo::BSONObj obj;\n") 
+			fileOrm.write(threeTab + slave.name + " * p" + slave.name + " = m_vec" + slave.name + "[i];\n")
+			fileOrm.write(threeTab + "p" + slave.name + "->ToBson(obj);\n")
+			fileOrm.write(threeTab + "bab.append(obj);\n")
+			fileOrm.write(twoTab + "}\n")
+			
+			fileOrm.write(oneTab + "}\n\n") 
 		 
 def GenerateOrmCollectionCppToBson(fileOrm , collectionTable): 
 	fileOrm.write(oneTab + "void " + collectionTable.name + "Collection::ToBson(std::string & strBuf)\n") 
@@ -1165,19 +1175,21 @@ def GenerateOrmCollectionCppToBson2(fileOrm , collectionTable):
 	fileOrm.write(twoTab + "mongo::BSONObjBuilder builder(1 * 1024 * 1024);\n")  
 	
 	for index , slave in collectionTable.slaves.items(): 
-		fileOrm.write(twoTab + "if(m_p" + slave.name + " != NULL)\n")
-		fileOrm.write(twoTab + "{\n")
-		fileOrm.write(threeTab + "mongo::BSONObj obj;\n")
-		fileOrm.write(threeTab + "m_p" + slave.name + "->ToBson(obj);\n")
-		fileOrm.write(threeTab + "builder.append(" + slave.name + "::TableName() , obj);\n")
-		fileOrm.write(twoTab + "}\n\n") 
+		if slave.ignore_collection == None:
+			fileOrm.write(twoTab + "if(m_p" + slave.name + " != NULL)\n")
+			fileOrm.write(twoTab + "{\n")
+			fileOrm.write(threeTab + "mongo::BSONObj obj;\n")
+			fileOrm.write(threeTab + "m_p" + slave.name + "->ToBson(obj);\n")
+			fileOrm.write(threeTab + "builder.append(" + slave.name + "::TableName() , obj);\n")
+			fileOrm.write(twoTab + "}\n\n") 
 		 
 	for index , slave in collectionTable.slaveTables.items():  
-		fileOrm.write(twoTab + "{\n")
-		fileOrm.write(threeTab + "mongo::BSONArrayBuilder objBuilder;\n")
-		fileOrm.write(threeTab + "this->Save" + slave.name + "(objBuilder);\n")
-		fileOrm.write(threeTab + "objBuilder.append(" + slave.name + "::TableName() , objBuilder.obj());\n")
-		fileOrm.write(twoTab + "}\n\n") 
+		if slave.ignore_collection == None:
+			fileOrm.write(twoTab + "{\n")
+			fileOrm.write(threeTab + "mongo::BSONArrayBuilder objBuilder;\n")
+			fileOrm.write(threeTab + "this->Save" + slave.name + "(objBuilder);\n")
+			fileOrm.write(threeTab + "objBuilder.append(" + slave.name + "::TableName() , objBuilder.obj());\n")
+			fileOrm.write(twoTab + "}\n\n") 
 		 
 	fileOrm.write(twoTab + "obj = builder.obj();\n\n") 
 	fileOrm.write(oneTab + "}\n\n")  
@@ -1211,20 +1223,22 @@ def GenerateOrmCollectionCppFromBson2(fileOrm , collectionTable):
 	fileOrm.write(threeTab + "{\n")
 	
 	for index , slave in collectionTable.slaves.items():
-		fileOrm.write(threeTab + "case " + GetBKDRHash(slave.name) + ": // " + slave.name + "\n")
-		fileOrm.write(fourTab + "{\n")
-		
-		fileOrm.write(fiveTab + "Get" + slave.name +"()->FromBson(tmpobj);\n") 
-		
-		fileOrm.write(fourTab + "}break;\n") 
+		if slave.ignore_collection == None:
+			fileOrm.write(threeTab + "case " + GetBKDRHash(slave.name) + ": // " + slave.name + "\n")
+			fileOrm.write(fourTab + "{\n")
+			
+			fileOrm.write(fiveTab + "Get" + slave.name +"()->FromBson(tmpobj);\n") 
+			
+			fileOrm.write(fourTab + "}break;\n") 
 		
 	for index , slave in collectionTable.slaveTables.items():
-		fileOrm.write(threeTab + "case " + GetBKDRHash(slave.name) + ": // " + slave.name + "\n")
-		fileOrm.write(fourTab + "{\n")
-		
-		fileOrm.write(fiveTab + "Load" + slave.name +"(tmpobj);\n") 
-		
-		fileOrm.write(fourTab + "}break;\n") 
+		if slave.ignore_collection == None:
+			fileOrm.write(threeTab + "case " + GetBKDRHash(slave.name) + ": // " + slave.name + "\n")
+			fileOrm.write(fourTab + "{\n")
+			
+			fileOrm.write(fiveTab + "Load" + slave.name +"(tmpobj);\n") 
+			
+			fileOrm.write(fourTab + "}break;\n") 
 		
 	fileOrm.write(threeTab + "default:\n")
 	fileOrm.write(fourTab + "{\n")	
@@ -1292,13 +1306,19 @@ def GenerateOrmReflectionCppSlaves(fileOrm):
 	for index , collectionTable in g_gameDB.tables.collectionTables.items():   
 		fileOrm.write(oneTab + "const char* cst_slaves_of_" + collectionTable.name + "[] = \n " + oneTab + "{\n") 	
 		for index , slave in collectionTable.slaves.items():
-			if slave.name != collectionTable.name :
+			if slave.name != collectionTable.name and slave.ignore_reflection_define == None:
+				fileOrm.write(twoTab + "\"" + slave.name + "\",\n") 
+		for index , slave in collectionTable.slaveTables.items():
+			if slave.name != collectionTable.name and slave.ignore_reflection_define == None:
 				fileOrm.write(twoTab + "\"" + slave.name + "\",\n") 
 		fileOrm.write(twoTab + "NULL \n" + oneTab + "};\n\n") 	
 			
 		fileOrm.write(oneTab + "INT64 cst_slaves_hash_of_" + collectionTable.name + "[] = \n " + oneTab + "{\n") 	
 		for index , slave in collectionTable.slaves.items():
-			if slave.name != collectionTable.name :
+			if slave.name != collectionTable.name and slave.ignore_reflection_define == None:
+				fileOrm.write(twoTab + GetBKDRHash(slave.name) + ",\n")
+		for index , slave in collectionTable.slaveTables.items():
+			if slave.name != collectionTable.name and slave.ignore_reflection_define == None:
 				fileOrm.write(twoTab + GetBKDRHash(slave.name) + ",\n")
 		fileOrm.write(twoTab + "NULL \n" + oneTab + "};\n\n") 
 		
