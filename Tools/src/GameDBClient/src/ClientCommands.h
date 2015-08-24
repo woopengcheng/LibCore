@@ -69,6 +69,7 @@ namespace Client
 		//5 Orm≤‚ ‘.
 		static void  pfnHandleOrmHSet(DBClient * pClient ,  std::vector<std::string> & objParams);
 		static void  pfnHandleOrmCollectInsert(DBClient * pClient ,  std::vector<std::string> & objParams);
+		static void  pfnHandleOrmCollection(DBClient * pClient ,  std::vector<std::string> & objParams);
 
 	private:
 		CollectionClientCommandsT m_mapCommands;

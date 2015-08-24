@@ -2,6 +2,9 @@
 #include "RPCCallFuncs.h"
 #include "GameDB/inc/User.h"
 #include "RoleCollection.h"
+#include "OrmTest/Orm_TestSlaveCollection.h"
+#include "OrmTest/Orm_TestSlave.h"
+#include "OrmTest/Orm_TestSlave2.h"
 #include "RoleItems.h"
 #include "OrmHelper.h"
 
@@ -66,6 +69,7 @@ namespace Client
 		m_mapCommands["hormset"] = &ClientCommands::pfnHandleOrmHSet;
 		m_mapCommands["hormcollectinsert"] = &ClientCommands::pfnHandleOrmCollectInsert;
 
+		m_mapCommands["testCollection"] = &ClientCommands::pfnHandleOrmCollection;
 	} 
 
 	void ClientCommands::Execute(DBClient * pClient ,  std::vector<std::string> & objParams)
@@ -480,6 +484,46 @@ namespace Client
 
 		pRoleCollection->GetRoleItems().Cleanup(TRUE);
 		gDebugStream( "pfnHandleOrmCollectInsert" );
+	}
+
+	void ClientCommands::pfnHandleOrmCollection(DBClient * pClient ,  std::vector<std::string> & objParams)
+	{
+		Orm::TestSlaveCollection * pCollection = new Orm::TestSlaveCollection; 
+		pCollection->SetMasterID(1);
+
+		INT64 id = 2;
+		Orm::TestSlave * pTest = pCollection->GetTestSlave();
+		if (pTest)
+		{
+			pTest->Setid(id);
+		}
+		GameDB::OrmHelper::OrmUpdate(pTest);
+
+		Orm::TestSlave2 * pNew = pCollection->CreateTestSlave2();
+
+		id += 1;
+		pNew->Setid(id);
+		
+		id += 1;
+		pNew->Setid2(id);
+
+		Orm::TestStruct id3;
+		id3.p1 = 1;
+		id3.p2 = 3;
+		id3.p3 = 2; 
+		id3.p5.push_back(1);
+		id3.p5.push_back(3);
+		id3.p5.push_back(6);
+		pNew->Setid3(id3);
+
+		GameDB::OrmVectorEx<Orm::TestSlave2  *> & objItems = pCollection->GetTestSlave2(); 
+		for (int i = 0;i < objItems.size();++i)
+		{
+			GameDB::OrmHelper::OrmInsert(objItems[i]);
+		}
+
+		pCollection->GetTestSlave2().Cleanup(TRUE);
+		gDebugStream( "pfnHandleOrmCollection" );
 	}
 
 	void ClientCommands::pfnHandleZDel(DBClient * pClient ,  std::vector<std::string> & objParams)

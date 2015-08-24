@@ -57,6 +57,25 @@ namespace CUtil
 		return * this;
 	}
 
+	bool Chunk::operator ==(const Chunk & objChunk)
+	{
+		if (objChunk.GetDataLen() == m_unDataLen && objChunk.GetBuf() == m_pBuf)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	bool Chunk::operator !=(const Chunk & objChunk)
+	{
+		if (objChunk.GetDataLen() != m_unDataLen || objChunk.GetBuf() != m_pBuf)
+		{
+			return true;
+		}
+
+		return false;
+	}
 
 	Chunk::~Chunk()
 	{

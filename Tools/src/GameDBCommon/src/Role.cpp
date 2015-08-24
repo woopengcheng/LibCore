@@ -177,21 +177,6 @@ namespace Orm
 		sysuser = value;
 	}
 
-
-	bool Role::IsDefaultValue()
-	{
-		if(name.length() != 0)
-			return false;
-
-		if(pswd.length() != 0)
-			return false;
-
-		if(sysuser != false)
-			return false;
-
-		return true;
-	}
-
 	void Role::HashUpdate(INT64 llHash)
 	{ 
 		__hash = llHash; 

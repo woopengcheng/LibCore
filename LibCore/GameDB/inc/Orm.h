@@ -19,7 +19,6 @@ namespace GameDB
 		virtual std::string GetKey() = 0;
 		virtual std::string GetRawKey() = 0;
 		virtual std::string GetTableName() = 0;
-		virtual bool        IsDefaultValue() = 0;
 
 	public:
 		virtual void		ToBson(std::string & strBuf) = 0;

@@ -5,12 +5,35 @@ namespace Orm
 	TestSlave2::TestSlave2()
 		: id(0)
 		, id2(0)
+		, id3(TestStruct())
 	{
 	}
 
 	TestSlave2::~TestSlave2()
 	{
 	}
+
+	bool TestSlave2::IsEqual(const TestSlave2 & val)
+	{ 
+		if(
+			id == val.id&&
+			id2 == val.id2&&
+			id3 == val.id3)
+		{
+			return true;
+		}
+		return false;
+	} 
+
+	bool TestSlave2::operator == (const TestSlave2 & val)
+	{ 
+		return IsEqual(val);
+	} 
+
+	bool  TestSlave2::operator != (const TestSlave2 & val)
+	{ 
+		return !IsEqual(val);
+	} 
 
 	std::string TestSlave2::GetRawKey()
 	{
@@ -72,6 +95,11 @@ namespace Orm
 			builder.append("id",id);
 		if(id2 != 0)
 			builder.append("id2",id2);
+		if(id3 != TestStruct())
+		{
+			CUtil::Parameter p(id3);
+			builder.appendBinData("id3" , p.GetStreamSize() , mongo::bdtParamter , (const char *)(p.GetStreamData())); 
+		}
 		obj = builder.obj();
 	}
 
@@ -103,11 +131,17 @@ namespace Orm
 	void TestSlave2::FromBson(const mongo::BSONObj  & obj)
 	{
 		mongo::BSONObjIterator  iter(obj); 
-		while(iter.more())		{			mongo::BSONElement be = iter.next();
+		while(iter.more())
+		{
+			mongo::BSONElement be = iter.next();
 			const char* fieldName = be.fieldName();
 			INT64 hash = CUtil::BKDRHashSum(fieldName);
 			switch(hash)
 			{
+			case 768799158513: // _T
+				{
+					MsgAssert(CUtil::strcmp(be.valuestr(), TableName()) == 0 , "FromBson error.");
+				}break;
 			case 880468309535: // id
 				{
 					CUtil::BsonToCpp( id , be);
@@ -115,6 +149,12 @@ namespace Orm
 			case 1095218475535: // id2
 				{
 					CUtil::BsonToCpp( id2 , be);
+				}break;
+			case 1099513442832: // id3
+				{
+					CUtil::Parameter p;
+					CUtil::BsonToCpp( p , be);
+					id3 = p;
 				}break;
 			}
 		}
@@ -127,6 +167,8 @@ namespace Orm
 		_result = CUtil::CityHash(&id,sizeof(id),_result);
 		return _result;
 		_result = CUtil::CityHash(&id2,sizeof(id2),_result);
+		return _result;
+		_result = CUtil::CityHash(&id3,sizeof(id3),_result);
 		return _result;
 	}
 
@@ -173,6 +215,16 @@ namespace Orm
 	BOOL TestSlave2::Isid2Include(INT64 & value)
 	{
 		return id2 & value;
+	}
+
+	TestStruct TestSlave2::Getid3() const
+	{
+		return id3;
+	}
+
+	void TestSlave2::Setid3(TestStruct & value)
+	{
+		id3 = value;
 	}
 
 }//Orm

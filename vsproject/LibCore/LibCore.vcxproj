@@ -239,6 +239,7 @@
     <ClInclude Include="..\..\LibCore\CUtil\inc\arg_parser.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\BoostHelper.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\BsonToCpp.h" />
+    <ClInclude Include="..\..\LibCore\CUtil\inc\ByteOrder.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\carg_parser.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\Chunk.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\CircleBuffer.h" />
@@ -461,6 +462,7 @@
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorSelect.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorZMQ.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\RakNetUDPManager.cpp" />
+    <ClCompile Include="..\..\LibCore\Test\CStream_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\LibCore_Test.cpp" />
     <ClCompile Include="..\..\LibCore\ThreadPool\src\ThreadPool.cpp" />
     <ClCompile Include="..\..\LibCore\ThreadPool\src\ThreadTask.cpp" />

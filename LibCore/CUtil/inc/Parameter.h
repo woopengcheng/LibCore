@@ -29,7 +29,7 @@ namespace CUtil
 
 		PARAMETER_TYPE_SYSTEM_COUNT ,
 
-		PARAMETER_TYPE_USER_DEFINE = 128 ,   //5 用户自定义类型.从128后面开始吧.
+		PARAMETER_TYPE_USER_DEFINE = 32 ,   //5 用户自定义类型.从32后面开始吧.
 	};
 
 	struct DLL_EXPORT Parameter : public CUtil::Marshal

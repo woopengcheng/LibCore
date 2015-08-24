@@ -2,10 +2,10 @@
 #define __cutil_c_stream_h__
 #include "CUtil/inc/Common.h"
 #include "CUtil/inc/Chunk.h"
+#include "CUtil/inc/ByteOrder.h"
 #include "Marshal/inc/Marshal.h"
 #include "Marshal/inc/CommonMarshal.h"
-#include "CUtil/inc/BoostHelper.h"
-
+#pragma warning(disable:4146)
 namespace Msg
 {
 	class Object;
@@ -15,6 +15,15 @@ namespace CUtil
 {
 	class DLL_EXPORT CStream
 	{
+	public:
+		class Exception
+		{
+		public: 
+			std::string what;
+			Exception (){}
+			Exception(const char *t):what(t){}
+		};
+
 	public:
 		CStream()
 			: m_nCurPos(0)
@@ -79,6 +88,139 @@ namespace CUtil
 			return * this;
 		}
 
+//		unsigned char PopByte8()
+//		{
+//			unsigned char c;
+//			Pop(c);
+//			return c;
+//		}
+//		unsigned short PopByte16()
+//		{
+//			unsigned short s;
+//			Pop(s);
+//			return byteorder_16(s);
+//		}
+//		unsigned int PopByte32()
+//		{
+//			unsigned int l;
+//			Pop(l);
+//			return byteorder_32(l);
+//		}
+//		UINT64 pop_byte_64()
+//		{
+//			UINT64 ll;
+//			Pop(ll);
+//			return byteorder_64(ll);
+//		}
+// 		CStream & Pushback16(INT16 x)
+// 		{ 
+// 
+// 			return * this;
+// 		}
+// 		CStream & Pushback16(UINT16 x)
+// 		{ 
+// 
+// 			return * this;
+// 		}
+// 		CStream & Pushback32(UINT32 x)//change unsigned int to size_t to forbid convert from size_t to 
+// 		{
+// 			if (x>UINT_MAX) 
+// 				throw CStream::Exception("size of x is bigger than UINT_MAX in Marshal::compact_uint32\n");
+// 			if (x < 0x80) return Pushback((unsigned char)x);
+// 			else if (x < 0x4000) return Pushback(byteorder_16(x|0x8000));
+// 			else if (x < 0x20000000) return Pushback(byteorder_32(x|0xc0000000));
+// 			Pushback((unsigned char)0xe0);
+// 			return Pushback(byteorder_32(x)); 
+// 		}
+// 		CStream & Pushback32(INT32 x)//change unsigned int to size_t to forbid convert from size_t to 
+// 		{
+// 			if (x >= 0)
+// 			{
+// 				if (x < 0x40) return Pushback((unsigned char)x);
+// 				else if (x < 0x2000) return Pushback(byteorder_16(x|0x8000));
+// 				else if (x < 0x10000000) return Pushback(byteorder_32(x|0xc0000000));
+// 				Pushback((unsigned char)0xe0);
+// 				return Pushback(byteorder_32(x));
+// 			}
+// 			if (-x > 0)
+// 			{
+// 				x = -x;
+// 				if (x < 0x40) return Pushback((unsigned char)x|0x40);
+// 				else if (x < 0x2000) return Pushback(byteorder_16(x|0xa000));
+// 				else if (x < 0x10000000) return Pushback(byteorder_32(x|0xd0000000));
+// 				Pushback((unsigned char)0xf0);
+// 				return Pushback(byteorder_32(x));
+// 			}
+// 			Pushback((unsigned char)0xf0);
+// 			return Pushback(byteorder_32(x));
+// 		}
+// 		CStream & Pushback64(void * pBuf , UINT32 unSize)
+// 		{
+// 			m_objChunk.Pushback(pBuf , unSize); 
+// 
+// 			return * this;
+// 		}
+// 
+// 		CStream & Pop32(UINT32 & x)
+// 		{
+// 			MsgAssert_Re (m_nCurPos + sizeof(x) <= m_objChunk.GetDataLen() , *this , "CStream pop error.");
+// 
+// 			switch ( *( (char *)m_objChunk.Begin() + m_nCurPos) & 0xe0)
+// 			{
+// 			case 0xe0:
+// 				PopByte8();
+// 				x = PopByte32();
+// 				return *this;
+// 			case 0xc0:
+// 				x = PopByte32() & ~0xc0000000;
+// 				return *this;
+// 			case 0xa0:
+// 			case 0x80:
+// 				x = PopByte16() & ~0x8000;
+// 				return *this;
+// 			}
+// 			x = PopByte8();
+// 			return *this;
+// 		}
+// 		CStream & Pop32(INT32 & x)
+// 		{
+// 			MsgAssert_Re (m_nCurPos + sizeof(x) <= m_objChunk.GetDataLen() , *this , "CStream pop error.");
+// 			 
+// 			switch ( *( (char *)m_objChunk.Begin() + m_nCurPos) & 0xf0)
+// 			{
+// 			case 0xf0:
+// 				PopByte8();
+// 				x = -(PopByte32());
+// 				return *this;
+// 			case 0xe0:
+// 				PopByte8();
+// 				x = PopByte32();
+// 				return *this;
+// 			case 0xd0:
+// 				x = -(PopByte32() & ~0xd0000000);
+// 				return *this;
+// 			case 0xc0:
+// 				x = PopByte32() & ~0xc0000000;
+// 				return *this;
+// 			case 0xb0:
+// 			case 0xa0:
+// 				x = -(PopByte16() & ~0xa000);
+// 				return *this;
+// 			case 0x90:
+// 			case 0x80:
+// 				x = PopByte16() & ~0x8000;
+// 				return *this;
+// 			case 0x70:
+// 			case 0x60:
+// 			case 0x50:
+// 			case 0x40:
+// 				x = -(PopByte8() & ~0x40);
+// 				return *this;
+// 			}
+// 			x = PopByte8();
+// 			return *this;
+// 		}
+ 
 		template<typename T>
 		CStream & Pop(T & t)
 		{

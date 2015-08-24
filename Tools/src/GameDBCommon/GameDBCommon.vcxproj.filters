@@ -42,6 +42,9 @@
     <ClInclude Include="src\OrmTest\Orm_TestSlaveCollection.h">
       <Filter>src\OrmTest</Filter>
     </ClInclude>
+    <ClInclude Include="src\OrmTest\Orm_OrmStructs.h">
+      <Filter>src\OrmTest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\OrmHelper.cpp">

@@ -176,21 +176,6 @@ namespace GameDB
 		sysuser = value;
 	}
 
-
-	bool User::IsDefaultValue()
-	{
-		if(name.length() != 0)
-			return false;
-
-		if(pswd.length() != 0)
-			return false;
-
-		if(sysuser != false)
-			return false;
-
-		return true;
-	}
-
 	void User::HashUpdate(INT64 llHash)
 	{ 
 		__hash = llHash; 

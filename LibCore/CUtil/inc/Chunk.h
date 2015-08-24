@@ -14,7 +14,9 @@ namespace CUtil
 		~Chunk();
 
 	public:
-		Chunk	&  operator = (const Chunk & objChunk);
+		Chunk		&	operator = (const Chunk & objChunk);
+		bool			operator !=(const Chunk & objChunk);
+		bool			operator ==(const Chunk & objChunk);
 
 	public:
 		virtual Chunk   &  Insert(void * pPos , void * pBegin , UINT32 unLen);

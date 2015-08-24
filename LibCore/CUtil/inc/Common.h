@@ -44,5 +44,7 @@ typedef std::string    std_string;
 
 #define SAFE_DELETE(x) if(x){ delete x; x = NULL;}
 #define SAFE_DELETE_ARRAY(x) if(x){ delete []x; x = NULL;}
- 
+
+#define ARRAY_SIZE(x) (sizeof(x) / sizeof(x[0]))
+
 #endif

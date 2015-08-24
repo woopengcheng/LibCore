@@ -11,6 +11,26 @@ namespace Orm
 	{
 	}
 
+	bool TestSlave1::IsEqual(const TestSlave1 & val)
+	{ 
+		if(
+			id == val.id)
+		{
+			return true;
+		}
+		return false;
+	} 
+
+	bool TestSlave1::operator == (const TestSlave1 & val)
+	{ 
+		return IsEqual(val);
+	} 
+
+	bool  TestSlave1::operator != (const TestSlave1 & val)
+	{ 
+		return !IsEqual(val);
+	} 
+
 	std::string TestSlave1::GetRawKey()
 	{
 		std::string result;
@@ -100,11 +120,17 @@ namespace Orm
 	void TestSlave1::FromBson(const mongo::BSONObj  & obj)
 	{
 		mongo::BSONObjIterator  iter(obj); 
-		while(iter.more())		{			mongo::BSONElement be = iter.next();
+		while(iter.more())
+		{
+			mongo::BSONElement be = iter.next();
 			const char* fieldName = be.fieldName();
 			INT64 hash = CUtil::BKDRHashSum(fieldName);
 			switch(hash)
 			{
+			case 768799158513: // _T
+				{
+					MsgAssert(CUtil::strcmp(be.valuestr(), TableName()) == 0 , "FromBson error.");
+				}break;
 			case 880468309535: // id
 				{
 					CUtil::BsonToCpp( id , be);

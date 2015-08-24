@@ -2,13 +2,14 @@
 FileName	:	Orm_Test_Oldname.h
 Author		:	generate by tools
 HostName	:	woopengcheng
-IP			:	192.168.1.107
+IP			:	192.168.1.104
 Version		:	0.0.1
-Date		:	2015-08-18 22:59:34
+Date		:	2015-08-23 22:17:08
 Description	:	orm²Ù×÷¼¯ºÏ.
 ************************************/
 #ifndef __Orm_Orm_Test_Oldname_h__
 #define __Orm_Orm_Test_Oldname_h__
+#include "Orm_OrmStructs.h"
 #include "GameDB/inc/Orm.h"
 
 namespace Orm
@@ -34,7 +35,11 @@ namespace Orm
 			virtual std::string GetKey();
 			virtual std::string GetRawKey();
 			virtual std::string GetTableName();
-			virtual bool        IsDefaultValue();
+		
+		public:
+			bool IsEqual(const Test_Oldname & val);
+			bool operator == (const Test_Oldname & val);
+			bool operator != (const Test_Oldname & val);
 		
 		public:
 			virtual void		ToBson(std::string & strBuf);
@@ -52,10 +57,10 @@ namespace Orm
 		
 		public:
 			virtual void		AutoIncrease(INT64 llKey); 
-			virtual void		SetMasterID(INT64 llID);
-			virtual void		SetMasterID(const char* pID);
-			virtual INT64		GetMasterID();
-			virtual const char*	GetMasterStrID(); 
+			virtual void		SetMasterID(INT64 llID){id = llID; }
+			virtual void		SetMasterID(const char* pID){ }
+			virtual INT64		GetMasterID(){ return id;}
+			virtual const char*	GetMasterStrID(){ return "";}
 		
 		public:
 			INT64 Getid() const;

@@ -573,6 +573,9 @@
     <ClInclude Include="..\..\LibCore\Timer\inc\TimingWheel.h">
       <Filter>Timer\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\CUtil\inc\ByteOrder.h">
+      <Filter>CUtil\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -826,6 +829,9 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\Timer\src\TimerTask.cpp">
       <Filter>Timer\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Test\CStream_Test.cpp">
+      <Filter>Test</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

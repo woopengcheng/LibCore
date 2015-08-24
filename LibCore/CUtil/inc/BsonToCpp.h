@@ -2,6 +2,7 @@
 #define __cutil_bson_to_cpp_h__
 #include "CUtil/inc/Common.h"
 #include "CUtil/inc/StringEx.h"
+#include "CUtil/inc/Parameter.h"
 #include "bson/bson.h"
 
 namespace CUtil
@@ -17,6 +18,7 @@ namespace CUtil
 	extern void DLL_EXPORT  BsonToCpp(bool& var,mongo::BSONElement& be);
 	extern void DLL_EXPORT  BsonToCpp(std::string& var,mongo::BSONElement& be);
 	extern void DLL_EXPORT  BsonToCpp(StringExBase & var,mongo::BSONElement& be);
+	extern void DLL_EXPORT  BsonToCpp(Parameter & var,mongo::BSONElement& be );
 
 	template<typename T>
 	struct HashMake

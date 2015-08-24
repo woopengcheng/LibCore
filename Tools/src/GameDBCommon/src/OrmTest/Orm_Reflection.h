@@ -2,9 +2,9 @@
 FileName	:	Orm_Reflection.h
 Author		:	generate by tools
 HostName	:	woopengcheng
-IP			:	192.168.1.107
+IP			:	192.168.1.104
 Version		:	0.0.1
-Date		:	2015-08-18 22:59:34
+Date		:	2015-08-23 22:17:08
 Description	:	针对slave的类产生反射.
 ************************************/
 #ifndef __Orm_Orm__feflection_h__

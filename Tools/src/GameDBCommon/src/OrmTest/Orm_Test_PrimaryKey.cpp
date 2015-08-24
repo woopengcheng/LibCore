@@ -12,6 +12,27 @@ namespace Orm
 	{
 	}
 
+	bool Test_PrimaryKey::IsEqual(const Test_PrimaryKey & val)
+	{ 
+		if(
+			id == val.id&&
+			p1 == val.p1)
+		{
+			return true;
+		}
+		return false;
+	} 
+
+	bool Test_PrimaryKey::operator == (const Test_PrimaryKey & val)
+	{ 
+		return IsEqual(val);
+	} 
+
+	bool  Test_PrimaryKey::operator != (const Test_PrimaryKey & val)
+	{ 
+		return !IsEqual(val);
+	} 
+
 	std::string Test_PrimaryKey::GetRawKey()
 	{
 		std::string result;
@@ -101,18 +122,24 @@ namespace Orm
 	void Test_PrimaryKey::FromBson(const mongo::BSONObj  & obj)
 	{
 		mongo::BSONObjIterator  iter(obj); 
-		while(iter.more())		{			mongo::BSONElement be = iter.next();
+		while(iter.more())
+		{
+			mongo::BSONElement be = iter.next();
 			const char* fieldName = be.fieldName();
 			INT64 hash = CUtil::BKDRHashSum(fieldName);
 			switch(hash)
 			{
+			case 768799158513: // _T
+				{
+					MsgAssert(CUtil::strcmp(be.valuestr(), TableName()) == 0 , "FromBson error.");
+				}break;
 			case 880468309535: // id
 				{
 					CUtil::BsonToCpp( id , be);
 				}break;
 			case 691489749377: // p1
 				{
-					MsgAssert(CUtil::strcmp(be.valuestr(), TableName()) == 0 , "FromBson error.");
+					CUtil::BsonToCpp( p1 , be);
 				}break;
 			}
 		}

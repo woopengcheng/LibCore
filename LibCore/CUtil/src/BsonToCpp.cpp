@@ -143,6 +143,8 @@ namespace CUtil
 				const char* data = be.binData(len);
 				var.GetParamStream().Pushback((void*)data , len);
 			}
+
+			return ;
 		}  
 
 		MsgAssert(false,__FUNCTION__ << " to Parameter:" << be.toString());

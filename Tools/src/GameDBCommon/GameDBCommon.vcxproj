@@ -28,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\OrmHelper.h" />
+    <ClInclude Include="src\OrmTest\Orm_OrmStructs.h" />
     <ClInclude Include="src\OrmTest\Orm_Reflection.h" />
     <ClInclude Include="src\OrmTest\Orm_TestSlave.h" />
     <ClInclude Include="src\OrmTest\Orm_TestSlave1.h" />

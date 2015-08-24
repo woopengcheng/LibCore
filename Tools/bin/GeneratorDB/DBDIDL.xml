@@ -173,6 +173,7 @@
 		<Table name = "TestSlave2" slaveTable="TestSlave">    
 			<Field name="id" type="INT64" masterID="" oldName="" value_type=""/>   
 			<Field name="id2" type="INT64" oldName="" bitmask="" count="" value_type=""/> 
+			<Field name="id3" type="TestStruct"  value_type=""/> 
 		</Table>
 	</Tables>
 	

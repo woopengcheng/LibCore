@@ -323,11 +323,11 @@ def handleTable(tables , xmData):
 			if IsHasSameData(g_gameDB.tables.collectionTables[table.slaveTable].slaveTables , table.name):
 				LogOutError("Parase Table :" , table.name , "has same slaveTable.") 				
 			g_gameDB.tables.collectionTables[table.slaveTable].slaveTables[table.name] = table			
-			
+				
 	for xmlData in iter(xmData.getchildren()): 
 		if xmlData.tag.lower() == "Field".lower():
 			handleField(table.fields , xmlData , table) 
-			
+	
 	tables[table.name] = table 
 	
 def handleField(fields , xmData , table): 
@@ -481,6 +481,9 @@ def GenerateGameDB():
 	GenerateOrms()
 	LogOutInfo("generate Struct.h file finished.\n")
 	
+	GenerateOrmStructs()
+	LogOutInfo("generate OrmStruct.h file finished.\n")
+	
 #	GenerateGameDBCallFuncs()
 #	LogOutInfo("generate RpcCallFuncs.h file finished.\n") 
 	
@@ -528,7 +531,13 @@ def GenerateOrmsHeadFile():
 		fileOrm.write(threeTab + "virtual std::string GetKey();\n")
 		fileOrm.write(threeTab + "virtual std::string GetRawKey();\n")
 		fileOrm.write(threeTab + "virtual std::string GetTableName();\n")
-		fileOrm.write(threeTab + "virtual bool        IsDefaultValue();\n") 
+#		fileOrm.write(threeTab + "virtual bool        IsDefaultValue();\n") 
+		fileOrm.write(twoTab + "\n")
+		
+		fileOrm.write(twoTab + "public:\n")		
+		fileOrm.write(threeTab + "bool IsEqual(const " + table.name + " & val);\n" )
+		fileOrm.write(threeTab + "bool operator == (const " + table.name + " & val);\n" )
+		fileOrm.write(threeTab + "bool operator != (const " + table.name + " & val);\n" )
 		fileOrm.write(twoTab + "\n")
 		
 		fileOrm.write(twoTab + "public:\n")
@@ -549,10 +558,10 @@ def GenerateOrmsHeadFile():
 		
 		fileOrm.write(twoTab + "public:\n")
 		fileOrm.write(threeTab + "virtual void		AutoIncrease(INT64 llKey); \n")
-		fileOrm.write(threeTab + "virtual void		SetMasterID(INT64 llID);\n")
-		fileOrm.write(threeTab + "virtual void		SetMasterID(const char* pID);\n")
-		fileOrm.write(threeTab + "virtual INT64		GetMasterID();\n")
-		fileOrm.write(threeTab + "virtual const char*	GetMasterStrID(); \n") 
+		fileOrm.write(threeTab + "virtual void		SetMasterID(INT64 llID){" + GetMasterIDFieldNameINT64(table , 0) + " }\n")
+		fileOrm.write(threeTab + "virtual void		SetMasterID(const char* pID){" + GetMasterIDFieldNameString(table , 0) + " }\n")
+		fileOrm.write(threeTab + "virtual INT64		GetMasterID(){ " + GetMasterIDFieldNameINT64(table , 1) + "}\n")
+		fileOrm.write(threeTab + "virtual const char*	GetMasterStrID(){ " + GetMasterIDFieldNameString(table , 1) + "}\n")
 		fileOrm.write(twoTab + "\n")
 		
 		fileOrm.write(twoTab + "public:\n")
@@ -578,6 +587,7 @@ def  GenerateOrmHeader(fileOrm , table_name):
 	WriteFileDescription(fileOrm , g_ormPrefix + table_name + ".h" , "orm操作集合.") 
 	fileOrm.write("#ifndef __" + g_namespace + "_" + g_ormPrefix + table_name + "_h__\n") 
 	fileOrm.write("#define __" + g_namespace + "_" + g_ormPrefix + table_name + "_h__\n")  
+	fileOrm.write("#include \"" + g_ormPrefix +  "OrmStructs" + ".h\"\n")  
 	fileOrm.write("#include \"GameDB/inc/Orm.h\"\n\n")  
 	  
 	fileOrm.write("namespace " + g_namespace)   
@@ -592,7 +602,7 @@ def  GenerateTableFeildDefine(fileOrm , fields):
 		strData += ";\n"
 		
 		fileOrm.write(strData)   
-		
+	
 def GenerateOrmHeadFields(fileOrm , table): 
 	for index , field in table.fields.items():  
 		fileOrm.write(threeTab + field.type + " Get" + field.name + "() const;\n") 
@@ -616,6 +626,8 @@ def GenerateOrmsCPPFile():
 		GenerateOrmCppHeader(fileOrm , table.name)
 		GenerateOrmCppConstructor(fileOrm , table)  #构造函数
 		GenerateOrmCppDestructor(fileOrm , table)	#析构函数 
+		GenerateOrmCppIsEqual(fileOrm , table);
+		GenerateOrmCppOperatorEqualAndNotEqual(fileOrm , table);
 		GenerateOrmCppGetRawKey(fileOrm , table)  
 		GenerateOrmCppGetKey(fileOrm , table)   
 		GenerateOrmCppGetTableName(fileOrm , table)  
@@ -663,6 +675,38 @@ def GenerateOrmCppDestructor(fileOrm , table):
 			
 	fileOrm.write(oneTab + "}\n\n")
 		
+def GenerateOrmCppIsEqual(fileOrm , table):
+	fileOrm.write(oneTab + "bool " + table.name + "::IsEqual(const " + table.name + " & val)\n" )
+	fileOrm.write(oneTab + "{ \n")
+	strParam = twoTab + "if(\n"
+	
+	count = 0
+	for index , field in table.fields.items():  
+		count = count + 1
+		strParam = strParam + threeTab + field.name + " == val." + field.name
+		if count == len(table.fields):
+			strParam = strParam +  ")\n"
+		else:
+			strParam = strParam + "&&\n"
+			
+	strParam = strParam + twoTab + "{\n"	
+	strParam = strParam + threeTab + "return true;\n"	
+	strParam = strParam + twoTab + "}\n"	
+	strParam = strParam + twoTab + "return false;\n"	
+	fileOrm.write(strParam)
+	fileOrm.write(oneTab + "} \n\n")
+	
+def GenerateOrmCppOperatorEqualAndNotEqual(fileOrm , table):
+	fileOrm.write(oneTab + "bool " + table.name + "::operator == (const " + table.name + " & val)\n" )
+	fileOrm.write(oneTab + "{ \n")
+	fileOrm.write(twoTab + "return IsEqual(val);\n") 
+	fileOrm.write(oneTab + "} \n\n")
+	
+	fileOrm.write(oneTab + "bool  " + table.name + "::operator != (const " + table.name + " & val)\n" )
+	fileOrm.write(oneTab + "{ \n") 
+	fileOrm.write(twoTab + "return !IsEqual(val);\n") 
+	fileOrm.write(oneTab + "} \n\n")	
+	
 def GenerateOrmCppGetRawKey(fileOrm , table): 
 	fileOrm.write(oneTab + "std::string " + table.name + "::GetRawKey()\n")
 	fileOrm.write(oneTab + "{\n")
@@ -771,7 +815,13 @@ def GenerateOrmCppToBson2(fileOrm , table):
 	
 	for index , field in table.fields.items():
 		fileOrm.write(twoTab + "if(" + field.name + " != " + GetDefaultParamValue(field.type) + ")\n")
-		fileOrm.write(threeTab + "builder.append(\"" + field.name + "\"," + field.name + ");\n")
+		if IsUserDefineType(field.type):
+			fileOrm.write(twoTab + "{\n")
+			fileOrm.write(threeTab + "CUtil::Parameter p(" + field.name + ");\n")
+			fileOrm.write(threeTab + "builder.appendBinData(\"" + field.name + "\" , p.GetStreamSize() , mongo::bdtParamter , (const char *)(p.GetStreamData())); \n")
+			fileOrm.write(twoTab + "}\n")
+		else:
+			fileOrm.write(threeTab + "builder.append(\"" + field.name + "\"," + field.name + ");\n")
 	
 	fileOrm.write(twoTab + "obj = builder.obj();\n")
 		
@@ -816,8 +866,8 @@ def GenerateOrmCppFromBson2(fileOrm , table):
 	fileOrm.write(oneTab + "{\n")
 	
 	fileOrm.write(twoTab + "mongo::BSONObjIterator  iter(obj); \n") 
-	fileOrm.write(twoTab + "while(iter.more())") 
-	fileOrm.write(twoTab + "{") 
+	fileOrm.write(twoTab + "while(iter.more())\n") 
+	fileOrm.write(twoTab + "{\n") 
 	
 	fileOrm.write(threeTab + "mongo::BSONElement be = iter.next();\n")
 	fileOrm.write(threeTab + "const char* fieldName = be.fieldName();\n")
@@ -825,18 +875,23 @@ def GenerateOrmCppFromBson2(fileOrm , table):
 	fileOrm.write(threeTab + "switch(hash)\n")
 	fileOrm.write(threeTab + "{\n")
 	
+	fileOrm.write(threeTab + "case " + GetBKDRHash(g_tableMeta) + ": // " + g_tableMeta + "\n")
+	fileOrm.write(fourTab + "{\n")
+	fileOrm.write(fiveTab + "MsgAssert(CUtil::strcmp(be.valuestr(), TableName()) == 0 , \"FromBson error.\");\n")
+	fileOrm.write(fourTab + "}break;\n") 
+	
 	for index , field in table.fields.items():
 		fileOrm.write(threeTab + "case " + GetBKDRHash(field.name) + ": // " + field.name + "\n")
 		fileOrm.write(fourTab + "{\n")
-		if field.name == g_tableMeta:
-			fileOrm.write(fiveTab + "MsgAssert(CUtil::strcmp(be.valuestr(), TableName()) == 0 , \"FromBson error.\");\n")
-		elif IsUserDefineType(field.type):
-			fileOrm.write(fiveTab + "MsgAssert(CUtil::strcmp(be.valuestr(), TableName()) == 0 , \"FromBson error.\");\n")
+		if IsUserDefineType(field.type):
+			fileOrm.write(fiveTab + "CUtil::Parameter p;\n")
+			fileOrm.write(fiveTab + "CUtil::BsonToCpp( p , be);\n")
+			fileOrm.write(fiveTab + field.name + " = p" + ";\n") 
 		elif IsSystemDefineType(field.type):
 			fileOrm.write(fiveTab + "CUtil::BsonToCpp( " + field.name + " , be);\n")
 		
 		fileOrm.write(fourTab + "}break;\n") 
-		
+			
 	fileOrm.write(threeTab + "}\n")	
 	fileOrm.write(twoTab + "}\n")	
 	fileOrm.write(twoTab + "__hash = HashMake(0);\n")		
@@ -1362,41 +1417,62 @@ def GenerateOrmReflectionCreateObject(fileOrm):
 	fileOrm.write(oneTab + "}\n") 	  
 			
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
+def GenerateOrmStructs():		
+	outputPath = GetOutputPath()    
+	outputFilePath = outputPath + g_ormPrefix + "OrmStructs.h" 
+	fileOrm = open(outputFilePath , "a") 
+	GenerateOrmStructsHeader(fileOrm) 
+	
+	for index , ormStruct in g_gameDB.tables.structs.items():   
+		fileOrm.write(oneTab + "class " + ormStruct.name + ": public CUtil::Marshal\n") 
+		fileOrm.write(oneTab + "{ \n")
+		fileOrm.write(twoTab + "public:\n")
+		WriteDefineParamsWithoutDefault(fileOrm , ormStruct.params) 
+		
+		fileOrm.write("\n")
+		fileOrm.write(twoTab + ormStruct.name + "()\n")
+		WriteDefineParamsWithDefault(fileOrm , ormStruct.params)  
+		fileOrm.write(threeTab + "{}\n")				
+		
+		WriteOrmStructCopyFunc(fileOrm , ormStruct)
+		WriteOrmStructIsEqual(fileOrm , ormStruct)
+		WriteOrmStructOperatorEqualAndNotEqual(fileOrm , ormStruct) 
+		
+		WriteOrmStructMarshal(fileOrm , ormStruct)
+		WriteOrmStructunMarshal(fileOrm , ormStruct) 
+		
+		fileOrm.write(oneTab + "}; \n \n")
+	
+	fileOrm.write("}//" + g_namespace + "\n\n")
+	
+	fileOrm.write("namespace CUtil\n")
+	fileOrm.write("{ \n")
+	fileOrm.write(oneTab + "enum PARAMETER_TYPE_ORM_STRUCTS_USER_DEFINES \n")
+	fileOrm.write(oneTab + "{ \n")
+	fileOrm.write(twoTab + "PARAMETER_TYPE_ORM_STRUCTS_USER_DEFINE_FIRST = CUtil::PARAMETER_TYPE_USER_DEFINE + 156 ,\n")			
+	for index , ormStruct in g_gameDB.tables.structs.items():   
+		fileOrm.write(twoTab + "PARAMETER_TYPE_ORM_STRUCTS_USER_DEFINE_" + ormStruct.name + ",\n")  
+	fileOrm.write(oneTab + "}; \n \n") 
+	
+	for index , ormStruct in g_gameDB.tables.structs.items():   			
+		WriteParamHelper(g_namespace , fileOrm , ormStruct) 
+	fileOrm.write("}\n\n")	
+	
+	fileOrm.write("#endif\n")				
+	fileOrm.close() 
+		
+def  GenerateOrmStructsHeader(fileOrm):
+	WriteFileDescription(fileOrm , "OrmStructs.h" , "数据库中定义的数据.") 
+	fileOrm.write("#ifndef __" + g_namespace + "_orm_structs_h__\n") 
+	fileOrm.write("#define __" + g_namespace + "_orm_structs_h__\n")  
+	fileOrm.write("#include \"CUtil/inc/Common.h\"\n") 
+	fileOrm.write("#include \"CUtil/inc/Chunk.h\"\n")
+	fileOrm.write("#include \"CUtil/inc/Parameter.h\"\n")   
+	fileOrm.write("#include \"CUtil/inc/ParameterHelper.h\"\n\n")   
+	fileOrm.write("namespace " + g_namespace)   
+	fileOrm.write("\n{\n") 
+	
 def WriteDefineParamsWithDefault(fileOrm , params):
 	fileOrm.write(threeTab + ":")
 	nCount = 0
@@ -1425,670 +1501,73 @@ def WriteDefineParamsWithoutDefault(fileOrm , params):
 		strParams += ";\n" 
 		fileOrm.write(strParams) 
 		
-def WriteRpcDataCopyFunc(fileOrm , rpcData):
-	fileOrm.write(twoTab + rpcData.name + "(const " + rpcData.name + " & val)\n" )
+def WriteOrmStructCopyFunc(fileOrm , ormStruct):
+	fileOrm.write(twoTab + ormStruct.name + "(const " + ormStruct.name + " & val)\n" )
 	fileOrm.write(twoTab + "{ \n")
 	strParam = ""
-	for index , param in rpcData.params.items():  
+	for index , param in ormStruct.params.items():  
 		strParam = strParam + threeTab + param.name + " = val." + param.name + ";\n"
 	fileOrm.write(strParam)
 	fileOrm.write(twoTab + "} \n\n")
 
-def WriteRpcDataMarshal(fileOrm , rpcData):
-	fileOrm.write(twoTab + "virtual LibCore::CStream & marshal(LibCore::CStream & cs)\n" )
+def WriteOrmStructIsEqual(fileOrm , ormStruct):
+	fileOrm.write(twoTab + "bool IsEqual(const " + ormStruct.name + " & val)\n" )
+	fileOrm.write(twoTab + "{ \n")
+	strParam = threeTab + "if(\n"
+	
+	count = 0
+	for index , param in ormStruct.params.items():  
+		count = count + 1
+		strParam = strParam + fourTab + param.name + " == val." + param.name
+		if count == len(ormStruct.params):
+			strParam = strParam +  ")\n"
+		else:
+			strParam = strParam + "&&\n"
+			
+	strParam = strParam + threeTab + "{\n"	
+	strParam = strParam + fourTab + "return true;\n"	
+	strParam = strParam + threeTab + "}\n"	
+	strParam = strParam + threeTab + "return false;\n"	
+	fileOrm.write(strParam)
+	fileOrm.write(twoTab + "} \n\n")
+	
+def WriteOrmStructOperatorEqualAndNotEqual(fileOrm , ormStruct):
+	fileOrm.write(twoTab + "bool operator == (const " + ormStruct.name + " & val)\n" )
+	fileOrm.write(twoTab + "{ \n")
+	fileOrm.write(threeTab + "return IsEqual(val);\n") 
+	fileOrm.write(twoTab + "} \n\n")
+	
+	fileOrm.write(twoTab + "bool operator != (const " + ormStruct.name + " & val)\n" )
+	fileOrm.write(twoTab + "{ \n") 
+	fileOrm.write(threeTab + "return !IsEqual(val);\n") 
+	fileOrm.write(twoTab + "} \n\n")	
+	
+def WriteOrmStructMarshal(fileOrm , ormStruct):
+	fileOrm.write(twoTab + "virtual CUtil::CStream & marshal(CUtil::CStream & cs)\n" )
 	fileOrm.write(twoTab + "{ \n")
 	strParam = threeTab + "cs"
-	for index , param in rpcData.params.items():  
+	for index , param in ormStruct.params.items():  
 		strParam = strParam + " << " + param.name
 	strParam += ";\n"
 	fileOrm.write(strParam)
 	fileOrm.write(threeTab + "return cs; \n")
 	fileOrm.write(twoTab + "} \n\n")
 	
-def WriteRpcDataunMarshal(fileOrm , rpcData):
-	fileOrm.write(twoTab + "virtual LibCore::CStream & unMarshal(LibCore::CStream & cs)\n" )
+def WriteOrmStructunMarshal(fileOrm , ormStruct):
+	fileOrm.write(twoTab + "virtual CUtil::CStream & unMarshal(CUtil::CStream & cs)\n" )
 	fileOrm.write(twoTab + "{ \n")
 	strParam = threeTab + "cs"
-	for index , param in rpcData.params.items():  
+	for index , param in ormStruct.params.items():  
 		strParam = strParam + " >> " + param.name
 	strParam += ";\n"
 	fileOrm.write(strParam)
 	fileOrm.write(threeTab + "return cs; \n")
 	fileOrm.write(twoTab + "} \n\n")
 
-def WriteParamHelper(namespace , fileOrm , rpcData):
-	fileOrm.write(oneTab + "GEN_PARAMTER_HELPER(" + namespace + "::" + rpcData.name + " , PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ");\n") 
-	
-	
-def GenerateMsgNameDefine(): 
-	sameNamespace = collections.OrderedDict()
-	for index , rpcServerName in g_gameDB.rpcServerNames.items():  
-		outputPath = GetOutputPath(rpcServerName.serverName)  
-		outputPath = outputPath + "MsgNameDefine.h"     
-		
-		fileOrm = open(outputPath , "a")
-		if rpcServerName.namespace not in sameNamespace :
-			GenerateRPCParamDefineHeader(fileOrm , rpcServerName.namespace)
-			sameNamespace[rpcServerName.namespace] = 1
-		
-			sameRecord = collections.OrderedDict()
-			for index , rpc in g_gameDB.rpcs.rpcs.items():   
-				if rpc.name not in sameRecord :
-					GenerateRPCParamDefine(rpc , fileOrm) 
-					sameRecord[rpc.name] = 1
+def WriteParamHelper(namespace , fileOrm , ormStruct):
+	fileOrm.write(oneTab + "GEN_PARAMTER_HELPER(" + namespace + "::" + ormStruct.name + " , PARAMETER_TYPE_ORM_STRUCTS_USER_DEFINE_" + ormStruct.name + ");\n") 			
 			
-		fileOrm.close()	
-
-	sameNamespace = collections.OrderedDict() 
-	for index , rpcServerName in g_gameDB.rpcServerNames.items():  
-		outputPath = GetOutputPath(rpcServerName.serverName)  
-		outputPath = outputPath + "MsgNameDefine.h"     
-		
-		if rpcServerName.namespace not in sameNamespace : 
-			fileOrm = open(outputPath , "a")
-			fileOrm.write("}\n\n#endif\n\n")
-			fileOrm.close()	
-			sameNamespace[rpcServerName.namespace] = 1
-
-def GenerateRPCParamDefineHeader(fileOrm , namespace):  
-	WriteFileDescription(fileOrm , "MsgNameDefine.h" , "用于定义消息的全局唯一名字")
-	fileOrm.write("#ifndef __msg_" + namespace + "_msg_name_define_h__\n")
-	fileOrm.write("#define __msg_" + namespace + "_msg_name_define_h__\n") 
-	fileOrm.write("#include \"MsgLib/inc/MsgCommon.h\" \n\n") 
-	fileOrm.write("namespace Msg\n") 
-	fileOrm.write("{\n") 
-	
-
-def GenerateRPCParamDefine(rpc , fileOrm): 
-	fileOrm.write(oneTab + "//5 " + rpc.name + " declare here\n")
-	fileOrm.write(oneTab + "RPC_DEFINE(" + rpc.name + ");\n\n")
-	
-def GenerateRPCDefines(): 
-
-	rpcRecords = collections.OrderedDict()		
-	sameNamespace = collections.OrderedDict()   
-	for index , rpcServerName in g_gameDB.rpcServerNames.items():  
-		outputPath = GetOutputPath(rpcServerName.serverName)  
-		outputPath = outputPath + "RPCDefines.h"    
-		 
-		fileOrm = open(outputPath , "a")
-		if rpcServerName.namespace not in sameNamespace :
-			GenerateRPCDefinesHeader(fileOrm , rpcServerName.namespace)			
-			sameNamespace[rpcServerName.namespace] = 1  
-			
-			for recordIndex , rpcClasses in g_rpcRecords[rpcServerName.namespace].items():
-				GenerateRPCDefine(recordIndex , rpcClasses , fileOrm , rpcServerName.namespace)						
-	
-		fileOrm.write("\n\n")
-		fileOrm.close()	 
-			
-	sameNamespace = collections.OrderedDict() 
-	for index , rpcServerName in g_gameDB.rpcServerNames.items():  
-		outputPath = GetOutputPath(rpcServerName.serverName)  
-		outputPath = outputPath + "RPCDefines.h"     
-		
-		if rpcServerName.namespace not in sameNamespace : 
-			fileOrm = open(outputPath , "a")
-			fileOrm.write("\n}\n\n#endif\n\n")
-			fileOrm.close()	
-			sameNamespace[rpcServerName.namespace] = 1
-			
-def GenerateRPCDefinesHeader(fileOrm , namespace):
-	WriteFileDescription(fileOrm , "RPCDefines.h" , "RPC函数定义")
-	fileOrm.write("#ifndef __msg_" + namespace + "_rpc_defines_h__\n")
-	fileOrm.write("#define __msg_" + namespace + "_rpc_defines_h__\n")  
-	fileOrm.write("#include \"RpcDatas.h\" \n\n") 
-	fileOrm.write("namespace " + namespace + "\n") 
-	fileOrm.write("{\n") 
-
-def GenerateRPCDefine(className , rpcs , fileOrm , serverName): 
-	fileOrm.write("\n#define  RPC_DEFINE_" + className + " public:\\\n")
-	for rpcIndex , rpc in rpcs.items():
-		strParams = GetSpecialParamsIncludeDefaultParam(rpc.call.params)  
-		strReturnParams = GetSpecialParamsIncludeDefaultParam(rpc.returns.params) 
-		for targetIndex , target in rpc.targets.items():
-			if target.targetType == g_targetTypeClient and target.classes == className:
-				fileOrm.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) " + strReturnParams + ");\\\n") 
-				fileOrm.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) " + strParams + ");\\\n")
-				
-			if target.targetType == g_targetTypeProxy and target.classes == className:
-				fileOrm.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcServerProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) " + strParams + ");\\\n")
-				fileOrm.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcTimeoutProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) " + strParams + ");\\\n")
-				fileOrm.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) " + strReturnParams + ");\\\n") 
-
-			if target.targetType == g_targetTypeServer and target.classes == className:
-				fileOrm.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID)" + strParams + ");\\\n")				
-								
-	GenerateObjectHaveCurFunc(fileOrm , className , rpcs)
-		
-def GenerateObjectHaveCurFunc(fileOrm , className , rpcs):	
-	fileOrm.write("public:\\\n")
-	fileOrm.write(oneTab + "static CollectionObjectFuncsT s_setFuncs;\\\n")
-	fileOrm.write(oneTab + "static void InitObjectFuncs()\\\n")
-	fileOrm.write(oneTab + "{\\\n")
-	for index , rpc in rpcs.items(): 
-		fileOrm.write(twoTab + className + "::" + "s_setFuncs.insert(\"" + rpc.name + "\");\\\n")
-	fileOrm.write(oneTab + "}\\\n")
-	fileOrm.write(oneTab + "virtual BOOL IsHasFunc(const std::string & strFunc)\\\n")
-	fileOrm.write(oneTab + "{\\\n") 
-	fileOrm.write(twoTab + "CollectionObjectFuncsT::iterator iter = " + className + "::s_setFuncs.find(strFunc);\\\n")
-	fileOrm.write(twoTab + "if (iter != " + className + "::s_setFuncs.end())\\\n")
-	fileOrm.write(twoTab + "{\\\n") 
-	fileOrm.write(threeTab + "return TRUE;\\\n")
-	fileOrm.write(twoTab + "}\\\n")
-	fileOrm.write(oneTab + "return FALSE;\\\n") 
-	fileOrm.write(oneTab + "}\\\n")		
-
-	
-def GenerateGlableRpc():
-	sameNamespace = collections.OrderedDict()
-	for index , rpcServerName in g_gameDB.rpcServerNames.items():  
-		outputPath = GetOutputPath(rpcServerName.namespace)  
-		outputPath = outputPath + "GlobalRpc.h"   
-					
-		fileOrm = open(outputPath , "a")
-		if rpcServerName.namespace not in sameNamespace :
-			GenerateGlableRpcHeaderNamespace(fileOrm , rpcServerName.namespace)
-			sameNamespace[rpcServerName.namespace] = 1
-							
-		fileOrm.close()	
-
-	sameNamespace = collections.OrderedDict()
-	for index , rpcServerName in g_gameDB.rpcServerNames.items():  
-		outputPath = GetOutputPath(rpcServerName.namespace)  
-		outputPath = outputPath + "GlobalRpc.h"   
-		
-		if rpcServerName.namespace not in sameNamespace :
-			fileOrm = open(outputPath , "a")
-			
-			GenerateGlableRpcLastNamespace(fileOrm , rpcServerName.namespace)
-			sameNamespace[rpcServerName.namespace] = 1  
-			fileOrm.close()	
-		 
-#生成GlableRpc头部部分.
-def GenerateGlableRpcHeaderNamespace(fileOrm , namespace):
-	WriteFileDescription(fileOrm , "GlableRpc.h" , "静态函数,无对象时通过这个类处理.") 
-	fileOrm.write("#ifndef __" + namespace + "_global_rpc_h__\n") 
-	fileOrm.write("#define __" + namespace + "_global_rpc_h__\n") 
-	fileOrm.write("#include \"Common/Chunk.h\" \n") 
-	fileOrm.write("#include \"MsgLib/inc/Object.h\" \n") 
-	fileOrm.write("#include \"MsgLib/inc/RPCMsgCall.h\" \n") 
-	fileOrm.write("#include \"MsgLib/inc/RpcServerManager.h\" \n") 
-	fileOrm.write("#include \"MsgLib/inc/IRpcMsgCallableObject.h\" \n") 
-	fileOrm.write("#include \"RpcDatas.h\" \n") 
-	fileOrm.write("#include \"RpcDefines.h\" \n") 
-	fileOrm.write("\n") 
-	fileOrm.write("namespace " +  namespace  + "\n{\n") 
-	
-	fileOrm.write(oneTab + "class GlobalRpc : public Msg::IRpcMsgCallableObject\n") 
-	fileOrm.write(oneTab + "{\n") 
-	fileOrm.write(twoTab + "RPC_DEFINE_GlobalRpc;\n") 
-	fileOrm.write(oneTab + "public:\n") 
-	fileOrm.write(twoTab + "GlobalRpc(Msg::Object nID , Msg::RpcManager * pRpcManager)\n") 
-	fileOrm.write(threeTab + ": Msg::IRpcMsgCallableObject(nID , pRpcManager)\n") 
-	fileOrm.write(twoTab + "{\n")  
-	fileOrm.write(threeTab +"GlobalRpc::InitObjectFuncs();\n")  
-	fileOrm.write(twoTab +"}\n")   
-	fileOrm.write(oneTab +"public:\n")  
 			 
-#生成GlableRpc尾部部分.
-def GenerateGlableRpcLastNamespace(fileOrm , namespace):  
-	fileOrm.write(oneTab + "};\n\n")
-	fileOrm.write("}\n\n")
-	fileOrm.write("#endif\n\n")
-	
-def GenerateGameDBRegister():   
-	#生成注册的头 
-	sameNamespace = collections.OrderedDict()   
-	for index , rpcServerName in g_gameDB.rpcServerNames.items():  
-		outputPath = GetOutputPath(rpcServerName.serverName)  
-		outputPath = outputPath + "RpcRegister.cpp"    
- 
-		fileOrm = open(outputPath , "a")    
-		if rpcServerName.namespace not in sameNamespace :
-			GenerateGameDBRegisterHeader(fileOrm , rpcServerName.namespace)
-			sameNamespace[rpcServerName.namespace] = 1  
-			
-		fileOrm.write(oneTab + "void " + rpcServerName.rpcInterface + "::OnRegisterRpcs( void )\n")
-		fileOrm.write(oneTab + "{\n")
-		fileOrm.write(twoTab + "Assert(m_pRpcServerManager && Msg::g_pRpcCheckParams);	\n")
-		fileOrm.write(twoTab + "static " + rpcServerName.namespace + "::GlobalRpc g_pGlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcServerManager); \n\n") 
-
-		fileOrm.write(twoTab + "Msg::Parameters objDeliverParams , objReturnParams;\n")
-		
-		rpcRecords = collections.OrderedDict()
-		for index , rpc in g_gameDB.rpcs.rpcs.items():  
-			fileOrm.write(twoTab + "//5 " + rpc.name + " generate default deliver and return check param here\n")
-			fileOrm.write(twoTab + "{\n")
-			strDefaultParams = GetRpcSpecialParamsIncludeDefault(rpc.call)
-			fileOrm.write(threeTab + "Msg::GenMsgHelper::GenMsgParams(objDeliverParams " + strDefaultParams +  ");\n") 
-			strDefaultParams = GetRpcSpecialParamsIncludeDefault(rpc.returns)
-			fileOrm.write(threeTab + "Msg::GenMsgHelper::GenMsgParams(objReturnParams " + strDefaultParams +  ");\n") 
-			fileOrm.write(threeTab + "Msg::g_pRpcCheckParams->InsertDeliverParams(" + "\"" + rpc.name  + "\", objDeliverParams);\n") 
-			fileOrm.write(threeTab + "Msg::g_pRpcCheckParams->InsertReturnParams(" + "\"" + rpc.name  +  "\", objReturnParams);\n") 
-			fileOrm.write(threeTab + "objDeliverParams.Clear();\n") 
-			fileOrm.write(threeTab + "objReturnParams.Clear();\n") 
-			GenerateGameDBRegisterFuncs(rpc , fileOrm , rpcServerName.serverName)
-			fileOrm.write(twoTab +"}\n\n") 
-			
-			for index , target in rpc.targets.items():  
-				if target.classes not in rpcRecords and rpcServerName.serverName == target.name:
-					rpcRecords[target.classes] = 1		
-
-		GenerateInitStaticFunc(fileOrm , rpcServerName.namespace , rpcRecords)
-				
-		fileOrm.write(oneTab + "}\n\n")
-		
-		fileOrm.close() 
-		
-	sameNamespace = collections.OrderedDict()
-	for index , rpcServerName in g_gameDB.rpcServerNames.items():  
-		outputPath = GetOutputPath(rpcServerName.namespace)  
-		outputPath = outputPath + "RpcRegister.cpp"    
-		
-		if rpcServerName.namespace not in sameNamespace :
-			fileOrm = open(outputPath , "a")
-			
-			GenerateDefineStaticFunc(fileOrm , rpcServerName.namespace)
-				
-			fileOrm.write("}//" + rpcServerName.namespace + "\n\n") 
-			
-			sameNamespace[rpcServerName.namespace] = 1 
-			fileOrm.close()	 
-
-def GenerateInitStaticFunc(fileOrm , namespace , rpcRecords):	  
-	for index , rpcs in rpcRecords.items(): 
-		fileOrm.write(twoTab + namespace + "::"+ index + "::" +"InitObjectFuncs();\n")
-		
-def GenerateDefineStaticFunc(fileOrm , namespace):	  
-	for index , rpcs in g_rpcRecords[namespace].items(): 
-		fileOrm.write(oneTab + "CollectionObjectFuncsT " + namespace + "::"+ index + "::" +"s_setFuncs;\n")
-	
-def GenerateGameDBRegisterHeader(fileOrm , rpcNamespace) :
-	WriteFileDescription(fileOrm , "RpcRegister.cpp" , "注册每个函数.以及检测网络传递的消息是否是正确的参数.") 
-	fileOrm.write("#include \"MsgLib/inc/RpcServerManager.h\"\n")
-	fileOrm.write("#include \"MsgLib/inc/RpcCheckParams.h\"\n") 
-	fileOrm.write("#include \"Common/Chunk.h\"\n")  
-	fileOrm.write("#include \"MsgNameDefine.h\"\n")  
-	GenerateGameDBRegisterHeaderInclude(fileOrm , rpcNamespace)
-
-	sameNamespace = collections.OrderedDict()
-	for index , rpcServerName in g_gameDB.rpcServerNames.items():
-		if rpcServerName.namespace == rpcNamespace : 
-			sameNamespace[rpcServerName.serverName] = 1 
-			
-	for index , foo in sameNamespace.items():   
-		GenerateGameDBRegisterServerHeader(g_gameDB.rpcs.rpcs , fileOrm , index)
- 
-	fileOrm.write("\n") 
-
-	fileOrm.write("namespace " + rpcNamespace + "\n{\n")
-	fileOrm.write(oneTab + "//5 defaultParams define here.\n")
-	WriteDefaultParams(fileOrm)
-	
-def WriteDefaultParams(fileOrm):
-	for index , defaultParam in g_gameDB.defaultParams.items():
-		fileOrm.write(oneTab + "static " + defaultParam.type + " g_rpcDefaultParam_" + ReplaceSpecialCharToUnderlineFromType(defaultParam.type) + " = " + defaultParam.value + ";\n")
-#	fileOrm.write("\n")
- 
-	for index , defaultParam in g_gameDB.defaultParamsList.items():
-		if index not in g_gameDB.defaultParams:
-			fileOrm.write(oneTab + "static " + index + " " + defaultParam + ";\n")
-	fileOrm.write("\n")
-	
-def GenerateGameDBRegisterHeaderInclude(fileOrm , rpcNamespace): 
-	for index , rpcServerName in g_gameDB.rpcServerNames.items():  
-		if rpcNamespace == rpcServerName.namespace :
-			fileOrm.write("#include \"" + rpcServerName.include + "\"\n")
-	
-def GenerateGameDBRegisterServerHeader(rpcs , fileOrm , serverName):
-	
-	sameRecord = collections.OrderedDict()
-	#生成所有的rpc
-	for index , rpc in rpcs.items():  
-		for index , target in rpc.targets.items():     
-			if target.name == serverName and target.include not in sameRecord: 			
-				fileOrm.write("#include \"" + target.include + "\"\n") 
-				sameRecord[target.include] = 1
- 
-def GenerateGameDBRegisterFuncs(rpc , fileOrm , serverName):
-
-	#生成所有的rpc  
-	for index , target in rpc.targets.items():  
-
-		className = target.classes
-				
-		if target.targetType == g_targetTypeClient and serverName == target.name:
-		
-			fileOrm.write(threeTab + "\n") 
-			fileOrm.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcClient , &" + className + "::" + rpc.name + "_RpcClient); \n") 
-			fileOrm.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcTimeout ,&" + className + "::" + rpc.name + "_RpcTimeout); \n") 
-				
-		elif target.targetType == g_targetTypeProxy and serverName == target.name:
-		
-			fileOrm.write(threeTab + "\n")
-			fileOrm.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcServerProxy , &" + className + "::" + rpc.name + "_RpcServerProxy); \n") 
-			fileOrm.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcClientProxy , &" + className + "::" + rpc.name + "_RpcClientProxy); \n") 
-			fileOrm.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcTimeoutProxy ,&" + className + "::" + rpc.name + "_RpcTimeoutProxy); \n") 
-				
-		elif target.targetType == g_targetTypeServer and serverName == target.name:
-			fileOrm.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcServer , &" + className + "::" + rpc.name + "_RpcServer); \n") 
-	
-def GenerateGameDBHandlers():
-	#生成注册的头 
-	for index , rpcServerName in g_gameDB.rpcServerNames.items():   
-		GenerateGameDBHandler(g_gameDB.rpcs.rpcs , rpcServerName.serverName, rpcServerName.namespace) 
-
-def GenerateGameDBHandler(rpcs , serverName , old_namespace):
-	namespace = old_namespace
-
-	#生成所有的rpc
-	for index , rpc in rpcs.items():			
-		for index , target in rpc.targets.items(): 
-			if serverName != target.name:
-				continue 
-				
-			className = target.classes
-				
-			outputPath = GetOutputPath(serverName)  
-			outputPath = outputPath + target.classes + "_" + rpc.name
-			if target.targetType == g_targetTypeClient and serverName == target.name:
-				outputPath = outputPath + "_Client.cpp"
-			elif target.targetType == g_targetTypeProxy and serverName == target.name:
-				outputPath = outputPath + "_Proxy.cpp" 
-			elif target.targetType == g_targetTypeServer and serverName == target.name:
-				outputPath = outputPath + "_Server.cpp"
-			else:
-				continue
-			
-			if rpc.name == "testMulitServerNode" and IsPathExist(outputPath):
-				os.remove(outputPath)
-				
-			if IsPathExist(outputPath):
-#				os.remove(outputPath) or rpc.name == "testParamsAndRpcDatas" 
-				continue
-				
-			fileOrm = open(outputPath , "a")
-			fileOrm.write("#include \"" + target.include + "\"\n\n") 
- 				
-			if target.targetType == g_targetTypeClient and serverName == target.name:			
-			
-				fileOrm.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" +  rpc.name + "_RpcClient(Net::ISession * pSession, Msg::Object objSrc ")
-				strParams = GetSpecialParamsExcludeDefaultParam(rpc.returns.params) 
-				fileOrm.write(strParams + ")\n{\n\n\n")
-
-				fileOrm.write(oneTab + "std::cout << \"" + rpc.name + "_RpcClient\" << std::endl;\n")
-				fileOrm.write(oneTab + "ReturnNULL;\n}\n\n")
-
-				fileOrm.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc ") 
-				strParams = GetSpecialParamsExcludeDefaultParam(rpc.call.params) 
-				fileOrm.write(strParams + ")\n{\n\n\n")
-					
-				fileOrm.write(oneTab + "std::cout << \"" + rpc.name + "_RpcTimeout\" << std::endl;\n")
-				fileOrm.write(oneTab + "ReturnNULL;\n}\n\n")
-
-				fileOrm.close()
-				
-			elif target.targetType == g_targetTypeProxy and serverName == target.name:
-				fileOrm.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcServerProxy(Net::ISession * pSession , Msg::Object objSrc ")
-				strParams = GetSpecialParamsExcludeDefaultParam(rpc.call.params) 
-				fileOrm.write(strParams + ")\n{\n")
-				
-				WriteDefineParams(fileOrm , rpc.returns.params)
-				fileOrm.write("\n\n");			
-				
-				strParamsNoType = GetParamsExcludeDefaultAndType(rpc.call.params)
-				if len(rpc.call.params) == 0:
-					fileOrm.write(oneTab + "if(ERR_FAILURE == ProxySendMsg(\"tcp://127.0.0.1:8002\" , 0))\n")
-				else:
-					fileOrm.write(oneTab + "if(ERR_FAILURE == ProxySendMsg(\"tcp://127.0.0.1:8002\" , 0 , " + strParamsNoType + "))\n")
-					
-				fileOrm.write(oneTab + "{\n")
-				strParamsNoType= GetParamsExcludeDefaultAndType(rpc.returns.params)
-				strReturnCount = len(rpc.returns.params)
-				fileOrm.write(twoTab + "Return(" + strParamsNoType + ");\n") 
-				fileOrm.write(oneTab + "}\n\n\n")
-				
-				strParamsNoType= GetParamsExcludeDefaultAndType(rpc.returns.params)
-				strReturnCount = len(rpc.returns.params)
-				fileOrm.write(oneTab + "std::cout << \"" + rpc.name + "_RpcServerProxy\" << std::endl;\n")
-				fileOrm.write(oneTab + "ReturnNULL;\n}\n\n")
-
-				fileOrm.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc  ,") 
-				strParams = GetParamsExcludeDefault(rpc.returns.params)
-				if len(strParams) != 0:
-					fileOrm.write(strParams + ")\n{\n\n\n")
-				else:
-					fileOrm.write(")\n{\n\n\n")	  
-				fileOrm.write("\n\n")
-				
-				fileOrm.write(oneTab + "std::cout << \"" + rpc.name + "_RpcClientProxy\" << std::endl;\n")
-
-				strParamsNoType= GetParamsExcludeDefaultAndType(rpc.returns.params)
-				strReturnCount = len(rpc.returns.params)
-				fileOrm.write(oneTab + "Return(" + strParamsNoType + ");\n}\n\n")
-
-				strParams = GetParamsExcludeDefault(rpc.call.params)
-				fileOrm.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcTimeoutProxy(Net::ISession * pSession , Msg::Object objSrc,")
-				fileOrm.write(strParams + " )\n{\n\n\n ")
-				fileOrm.write(oneTab + "std::cout << \"" + rpc.name + "_RpcTimeoutProxy\" << std::endl;\n")
-				fileOrm.write(oneTab + "ReturnNULL;\n}\n\n")
-
-				fileOrm.close()
-			elif target.targetType == g_targetTypeServer and serverName == target.name:
-			
-				fileOrm.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcServer(Net::ISession * pSession, Msg::Object objSrc ")
-				strParams = GetSpecialParamsExcludeDefaultParam(rpc.call.params)
-				fileOrm.write(strParams + ")\n{\n")
-					
-				WriteDefineParams(fileOrm , rpc.returns.params)
-				fileOrm.write("\n\n")
-				
-				strParamsNoType= GetParamsExcludeDefaultAndType(rpc.returns.params)
-				strReturnCount = len(rpc.returns.params)
-				fileOrm.write(oneTab + "std::cout << \"" + rpc.name + "_RpcServer \"<< std::endl;\n")
-				fileOrm.write(oneTab + "Return(" + strParamsNoType + ");\n}\n\n")
-	  
-				fileOrm.close() 
- 
-def WriteDefineParams(fileOrm , params):
-	for index , param in params.items():  
-		strParams = oneTab 
-		strParams += param.type
-		strParams += " "
-		strParams += param.name
-		strParams += " = "
-
-		strParams += GetAndCheckDefaultParam(param)
-
-		strParams += ";\n" 
-		fileOrm.write(strParams) 
-		
-# def WriteParamHelper(namespace , fileOrm , rpcData):
-	# fileOrm.write(oneTab + "template<> class Msg::ParameterHelper<" + namespace + "::" + rpcData.name + ">\n") 
-	# fileOrm.write(oneTab + "{ \n")
-	# fileOrm.write(oneTab + "public:\n")
-	# fileOrm.write(twoTab + "static UINT32 GetParameterType()\n")
-	# fileOrm.write(twoTab + "{ \n")
-	# fileOrm.write(threeTab + "return PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ";\n") 
-	# fileOrm.write(twoTab + "} \n\n")
-	
-	# fileOrm.write(twoTab + "static " + namespace + "::" + rpcData.name + " GetParameterValue(Parameter & objParam)\n") 
-	# fileOrm.write(twoTab + "{ \n")
-	# fileOrm.write(threeTab + "INT32 unType = 0;\n")
-	# fileOrm.write(threeTab + namespace + "::" + rpcData.name + " val;\n\n")
-	# strParam = threeTab + "objParam.GetParamStream() >> unType "
-	# for index , param in rpcData.params.items():  
-		# strParam = strParam + " >> val." + param.name
-	# fileOrm.write(strParam + ";\n")
-	# fileOrm.write(threeTab + "MsgAssert_Re(unType == PARAMETER_TYPE_USER_DEFINE_" + rpcData.name +" , val , \"get param error.\");\n\n")
-	# fileOrm.write(threeTab + "return val;\n")
-	# fileOrm.write(twoTab + "}\n\n")
-	
-	# fileOrm.write(twoTab + "static void MakeParameter(Parameter & objParam , " + namespace + "::" + rpcData.name + " val)\n") 
-	# fileOrm.write(twoTab + "{ \n") 
-	# strParam = threeTab + "objParam.GetParamStream() << (INT32)PARAMETER_TYPE_USER_DEFINE_" + rpcData.name 
-	# for index , param in rpcData.params.items():  
-		# strParam = strParam + " << val." + param.name
-	# fileOrm.write(strParam + ";\n")
-	# fileOrm.write(twoTab + "} \n\n")
-	
-	# fileOrm.write(twoTab + "static BOOL CheckParamType(Parameter & objParam)\n") 
-	# fileOrm.write(twoTab + "{ \n") 
-	# fileOrm.write(threeTab + "if (objParam.GetType() == PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ")\n")
-	# fileOrm.write(threeTab + "{ \n") 
-	# fileOrm.write(fourTab + "return TRUE; \n") 	 
-	# fileOrm.write(threeTab + "} \n\n")
-	# fileOrm.write(threeTab + "return FALSE; \n") 	 
-	# fileOrm.write(twoTab + "} \n\n")	
-	# fileOrm.write(oneTab + "}; \n \n")
-	
-			
-	
-	# fileOrm.write(oneTab + "template<> class Msg::ParameterHelper<" + namespace + "::" + rpcData.name + "&>\n") 
-	# fileOrm.write(oneTab + "{ \n")
-	# fileOrm.write(oneTab + "public:\n")
-	# fileOrm.write(twoTab + "static UINT32 GetParameterType()\n")
-	# fileOrm.write(twoTab + "{ \n")
-	# fileOrm.write(threeTab + "return PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ";\n") 
-	# fileOrm.write(twoTab + "} \n\n")
-	
-	# fileOrm.write(twoTab + "static " + namespace + "::" + rpcData.name + " GetParameterValue(Parameter & objParam)\n") 
-	# fileOrm.write(twoTab + "{ \n") 
-	# fileOrm.write(threeTab + "return ParameterHelper<" + namespace + "::" + rpcData.name + ">::GetParameterValue(objParam);\n\n")
-	# fileOrm.write(twoTab + "} \n")
-		
-	# fileOrm.write(twoTab + "static void MakeParameter(Parameter & objParam , " + namespace + "::" + rpcData.name + " val)\n") 
-	# fileOrm.write(twoTab + "{ \n") 
-	# fileOrm.write(threeTab + "return ParameterHelper<" + namespace + "::" + rpcData.name + ">::MakeParameter(objParam , val);\n")
-	# fileOrm.write(twoTab + "} \n\n")
-	
-	# fileOrm.write(twoTab + "static BOOL CheckParamType(Parameter & objParam)\n") 
-	# fileOrm.write(twoTab + "{ \n") 
-	# fileOrm.write(threeTab + "if (objParam.GetType() == PARAMETER_TYPE_USER_DEFINE_" + rpcData.name + ")\n")
-	# fileOrm.write(threeTab + "{ \n") 
-	# fileOrm.write(fourTab + "return TRUE; \n") 	 
-	# fileOrm.write(threeTab + "} \n\n")
-	# fileOrm.write(threeTab + "return FALSE; \n") 	 
-	# fileOrm.write(twoTab + "} \n\n")	
-	# fileOrm.write(oneTab + "}; \n \n")
-	
-def GenerateGameDBCallFuncs(): 
-	sameNamespace = collections.OrderedDict() 
-	for index , serverName in g_gameDB.rpcServerNames.items(): 
-		outputPath = GetOutputPath(serverName.serverName)   
-		outputPath += "RPCCallFuncs.h" 
-			 
-		fileOrm = open(outputPath , "a")
-		if serverName.namespace not in sameNamespace :
-			GenerateGameDBCallFuncsHeader(fileOrm , serverName)
-			sameNamespace[serverName.namespace] = 1 
-		
-		for index , rpc in g_gameDB.rpcs.rpcs.items(): 
-			for targetInde , target in rpc.targets.items():
-				if serverName.serverName == target.name and target.targetType == g_targetTypeClient:	
-					strDefaultParams = GetSpecialParamsIncludeDefaultParam(rpc.call.params) 
-					syncType = GetSyncTypeInString(rpc.syncType)	
-					
-					strExcludeDefaultParams = GetParamsExcludeDefaultParamAndType(rpc.call.params) 
-					strSpecialExcludeDefaultParams = GetParamsExcludeDefaultParamAndType(rpc.call.params) 
-					strExcludeDefaultParamsCount = len(rpc.call.params)
-					
-					#生成sessionName方式带有vec发送的RPC					
-					fileOrm.write(oneTab + "static INT32  rpc_" + rpc.name + "(const char * pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc " + strDefaultParams + " , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n" + oneTab + "{\n")
-					fileOrm.write(twoTab + "GEN_RPC_CALL_" + str(strExcludeDefaultParamsCount) + "((&(" + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance())) , pSessionName , " + "Msg::g_sz" + rpc.name + "_RpcCall " + strSpecialExcludeDefaultParams + ", vecTargets , objSrc , usPriority , " + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance().GetServerName() , objSyncType , " + str(rpc.timeout) + ");\n" + oneTab + "}\n\n")
-					
-					#生成sessionName方式不带有vec发送的RPC
-					fileOrm.write(oneTab + "static INT32  rpc_" + rpc.name + "(const char * pSessionName , Msg::Object objTarget, Msg::Object objSrc " + strDefaultParams + " , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
-					fileOrm.write(oneTab + "{\n")
-					
-					fileOrm.write(twoTab + "std::vector<Msg::Object> vecTargets;\n" + twoTab + "vecTargets.push_back(objTarget);\n" )
-					fileOrm.write(twoTab + "return rpc_" + rpc.name + "( pSessionName ,vecTargets , objSrc " + strExcludeDefaultParams + ", usPriority , objSyncType);\n" )
-					fileOrm.write(oneTab + "}\n\n")		
-					
-					#生成sessionName方式不带有vec且全局发送的RPC
-					fileOrm.write(oneTab + "static INT32  rpc_" + rpc.name + "(const char * pSessionName , Msg::Object objSrc " + strDefaultParams + " , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
-					fileOrm.write(oneTab + "{\n")
-					  
-					fileOrm.write(twoTab + "return rpc_" + rpc.name + "( pSessionName , 0 , objSrc " + strExcludeDefaultParams + ", usPriority , objSyncType);\n" )
-					fileOrm.write(oneTab + "}\n\n")	
-					
-					#生成strNodeName方式带有vec发送的RPC
-					fileOrm.write(oneTab + "static INT32  rpc_" + rpc.name + "(const std::string & pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc " + strDefaultParams + " , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
-					fileOrm.write(oneTab + "{\n")
-					
-					fileOrm.write(twoTab + "GEN_RPC_CALL_" + str(strExcludeDefaultParamsCount) + "((&(" + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance())) , pSessionName , " + "Msg::g_sz" + rpc.name + "_RpcCall " + strSpecialExcludeDefaultParams + ", vecTargets , objSrc , usPriority , " + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance().GetServerName() , objSyncType , " + str(rpc.timeout) + ");\n")
-					fileOrm.write(oneTab + "}\n\n")	
-																	
-					#生成strNodeName方式不带有vec发送的RPC
-					fileOrm.write(oneTab + "static INT32  rpc_" + rpc.name + "(const std::string & pSessionName , Msg::Object objTarget, Msg::Object objSrc " + strDefaultParams + " , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
-					fileOrm.write(oneTab + "{\n")
-					
-					fileOrm.write(twoTab + "std::vector<Msg::Object> vecTargets;\n" + twoTab + "vecTargets.push_back(objTarget);\n" )
-					fileOrm.write(twoTab + "return rpc_" + rpc.name + "( pSessionName ,vecTargets , objSrc " + strExcludeDefaultParams + ", usPriority , objSyncType);\n" )
-					fileOrm.write(oneTab + "}\n\n")	
-							
-					#生成strNodeName方式不带有vec且全局发送的RPC
-					fileOrm.write(oneTab + "static INT32  rpc_" + rpc.name + "(const std::string & pSessionName , Msg::Object objSrc " + strDefaultParams + " , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
-					fileOrm.write(oneTab + "{\n")
-					
-					fileOrm.write(twoTab + "return rpc_" + rpc.name + "( pSessionName , 0 , objSrc " + strExcludeDefaultParams + ", usPriority , objSyncType);\n" )
-					fileOrm.write(oneTab + "}\n\n")	
-					
-					#生成sessionID方式带有vec发送的RPC
-					fileOrm.write(oneTab + "static INT32  rpc_" + rpc.name + "(INT32 nSessionID , Msg::VecObjects & vecTargets , Msg::Object objSrc " + strDefaultParams + " , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
-					fileOrm.write(oneTab + "{\n")
-					
-					fileOrm.write(twoTab + "GEN_RPC_CALL_" + str(strExcludeDefaultParamsCount) + "((&(" + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance())) , nSessionID , " + "Msg::g_sz" + rpc.name + "_RpcCall " + strSpecialExcludeDefaultParams + ", vecTargets , objSrc , usPriority , " + serverName.namespace + "::" + serverName.rpcInterface + "::GetInstance().GetServerName() , objSyncType , " + str(rpc.timeout) + ");\n")
-					fileOrm.write(oneTab + "}\n\n")	
-																	
-					#生成sessionID方式不带有vec发送的RPC
-					fileOrm.write(oneTab + "static INT32  rpc_" + rpc.name + "(INT32 nSessionID , Msg::Object objTarget, Msg::Object objSrc " + strDefaultParams + " , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
-					fileOrm.write(oneTab + "{\n")
-					
-					fileOrm.write(twoTab + "std::vector<Msg::Object> vecTargets;\n" + twoTab + "vecTargets.push_back(objTarget);\n" )
-					fileOrm.write(twoTab + "return rpc_" + rpc.name + "( nSessionID ,vecTargets , objSrc " + strExcludeDefaultParams + ", usPriority , objSyncType);\n" )	
-					fileOrm.write(oneTab + "}\n\n")	
-										
-					#生成sessionID方式不带有vec且全局发送的RPC
-					fileOrm.write(oneTab + "static INT32  rpc_" + rpc.name + "(INT32 nSessionID , Msg::Object objSrc " + strDefaultParams + " , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
-					fileOrm.write(oneTab + "{\n")
-					
-					fileOrm.write(twoTab + "return rpc_" + rpc.name + "( nSessionID , 0 , objSrc " + strExcludeDefaultParams + ", usPriority , objSyncType);\n" )
-					fileOrm.write(oneTab + "}\n\n")	
-					
-		fileOrm.close()
-			
-	sameNamespace = collections.OrderedDict() 
-	for index , rpcServerName in g_gameDB.rpcServerNames.items():  
-		outputPath = GetOutputPath(rpcServerName.serverName)  
-		outputPath = outputPath + "RPCCallFuncs.h"     
-		
-		if rpcServerName.namespace not in sameNamespace : 
-			fileOrm = open(outputPath , "a")
-			fileOrm.write("}\n\n")	
-			fileOrm.write("#endif\n")				
-			fileOrm.close()
-			sameNamespace[rpcServerName.namespace] = 1
-			
-
-def  GenerateGameDBCallFuncsHeader(fileOrm , serverName):
-	WriteFileDescription(fileOrm , "RpcCallFuncs.h" , "客户端调用的rpc.") 
-	fileOrm.write("#ifndef __msg_rpc_call_funcs_h__\n")
-	fileOrm.write("#define __msg_rpc_call_funcs_h__\n")
-	fileOrm.write("\n")
-	fileOrm.write("#include \"MsgLib/inc/MsgHelper.h\"\n") 
-	fileOrm.write("#include \"MsgLib/inc/RPCMsgCall.h\"\n")  
-	fileOrm.write("#include \"MsgNameDefine.h\"\n") 
-	fileOrm.write("#include \"RpcDatas.h\"\n") 
-	for index , serverNames in g_gameDB.rpcServerNames.items(): 
-		if serverNames.namespace == serverName.namespace:
-			fileOrm.write("#include \"" + serverNames.include + "\"\n") 
-	
-	fileOrm.write("\n") 
-	fileOrm.write("namespace " + serverName.namespace + "\n") 
-	fileOrm.write("{\n") 
-		
 ################################流程无关函数处理#####################################
 def Usage():
     print('PyTest.py usage:')
@@ -2134,6 +1613,32 @@ def GetBKDRHash(name):
 		hash = hash * seed + ord(char)
 	
 	return str((sum << 32) + (hash & 0x7FFFFFFF))
+	
+def GetMasterIDFieldNameINT64(table , type):
+	for index  , field in table.fields.items():
+		if field.masterID != None and (field.type.lower() == "INT64".lower() or field.type.lower() == "long long".lower()):
+			if type == 0:
+				return field.name + " = llID;"
+			else:
+				return "return " + field.name + ";"
+	
+	if type == 0:
+		return ""
+	else:
+		return "return -1;"
+	
+def GetMasterIDFieldNameString(table , type):
+	for index  , field in table.fields.items():
+		if field.masterID != None and (field.type.lower() == "std::string".lower() or field.type.lower() == "std_string".lower()):
+			if type == 0:
+				return field.name + " = pID;"
+			else:
+				return "return " + field.name + ";"
+
+	if type == 0:
+		return ""
+	else:
+		return "return \"\";"
 	
 def WriteFileDescription(fileOrm , file , desc):
 	fileOrm.write("/************************************" + "\n")
@@ -2446,6 +1951,10 @@ def DeleteGameDBGenerateFiles():
 	if os.path.exists(outputFilePath): 
 		os.remove(outputFilePath) 
 		
+	outputFilePath = outputPath + g_ormPrefix + "OrmStructs.h" 
+	if os.path.exists(outputFilePath): 
+		os.remove(outputFilePath) 
+		
 def CreateOutputPath(): 
 	if False == os.path.exists(g_gameDB.config.outputPath):
 		LogOutDebug(g_gameDB.config.outputPath)
@@ -2477,24 +1986,17 @@ def IsSystemDefineType(type):
 		type.lower()  == "char".lower() or type.lower()  == "unsigned int".lower() or \
 		type.lower()  == "short".lower() or type.lower()  == "unsigned short".lower() or \
 		type.lower()  == "long".lower() or type.lower()  == "time_t".lower() or \
+		type.lower()  == "std_string".lower() or type.lower()  == "std::string".lower() or \
 		type.lower()  == "int".lower():
 		return True
 	
 	return False
 
 def IsUserDefineType(type): 
-	if type.lower()  == "SINT8".lower() or type.lower()  == "UINT8".lower() or\
-		type.lower()  == "INT16".lower() or type.lower()  == "UINT16".lower() or\
-		type.lower()  == "INT32".lower() or type.lower()  == "UINT32".lower() or\
-		type.lower()  == "INT64".lower() or type.lower()  == "INT64".lower() or\
-		type.lower()  == "double".lower() or type.lower()  == "float".lower() or \
-		type.lower()  == "char".lower() or type.lower()  == "unsigned int".lower() or \
-		type.lower()  == "short".lower() or type.lower()  == "unsigned short".lower() or \
-		type.lower()  == "long".lower() or type.lower()  == "time_t".lower() or \
-		type.lower()  == "int".lower():
-		return False
+	if GetParamType(type)  == g_paramTypeSTL or GetParamType(type) == g_paramTypeStruct:
+		return True
 	
-	return True
+	return False
 
 def GetParamType(type): 
 	return g_gameDB.defaultParams[type].paramType
