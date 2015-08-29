@@ -13,7 +13,7 @@ namespace Net
 		virtual ~ServerSession(){}
 
 	public:
-		virtual    INT32    Cleanup() { return ISession::Cleanup();	} 
+		virtual    CErrno    Cleanup() { return ISession::Cleanup();	} 
 	};  
 
 }

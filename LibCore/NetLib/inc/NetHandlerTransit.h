@@ -14,22 +14,22 @@ namespace Net
 		virtual ~NetHandlerTransit( void );
 
 	public:
-		virtual INT32  Init( void ); 
-		virtual INT32  Cleanup( void ); 
-		virtual INT32  Update( void );
-		virtual INT32  OnClose( void ) ;   
+		virtual CErrno  Init( void ); 
+		virtual CErrno  Cleanup( void ); 
+		virtual CErrno  Update( void );
+		virtual CErrno  OnClose( void ) ;   
 
 	public:                   
-		virtual INT32  OnMsgRecving( void ); 
-		virtual INT32  OnMsgSending( void );      
+		virtual CErrno  OnMsgRecving( void ); 
+		virtual CErrno  OnMsgSending( void );      
 		virtual INT32  SendMsg( const char * pBuf , UINT32 unSize );
-		virtual INT32  HandleMsg(ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
+		virtual CErrno  HandleMsg(ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
 
 	protected:
-		INT32   Send( const char * pBuf , UINT32 unSize);
-		INT32   ParaseRecvMsg();     
+		INT32			Send( const char * pBuf , UINT32 unSize);
+		CErrno   ParaseRecvMsg();     
 		INT32   FlushSendBuffer( void );
-		INT32   RecvToCircleBuffer(char * pBuf , UINT32 unSize);   //5 将消息扔给CircleBuffer 
+		CErrno   RecvToCircleBuffer(char * pBuf , UINT32 unSize);   //5 将消息扔给CircleBuffer 
 
 	protected:
 		CUtil::CircleBuffer    m_objSendBuf;

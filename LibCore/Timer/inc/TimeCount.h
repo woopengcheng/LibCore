@@ -15,8 +15,8 @@ namespace Timer
  		~TimeCount(){}
  
  	public:
-		virtual INT32 Start(UINT64 ullTimeInterval);
-		virtual INT32 Clean(); 
+		virtual CErrno Start(UINT64 ullTimeInterval);
+		virtual CErrno Clean(); 
  
  	public:
  		//************************************
@@ -49,8 +49,8 @@ namespace Timer
  		~TimeCount_Safe(){}
  
  	public:
- 		virtual INT32 Start(UINT64 ullTimeInterval);
- 		virtual INT32 Clean(); 
+ 		virtual CErrno Start(UINT64 ullTimeInterval);
+ 		virtual CErrno Clean(); 
  
  	public:
  		//************************************
@@ -65,7 +65,7 @@ namespace Timer
  		BOOL     IsExpired(UINT64 unCurTime = 0 , UINT64 * pDiff = NULL);
  		BOOL     IsStarted();
 		UINT64	 ElapseTicks();
- 		INT32    ResetTime();
+ 		CErrno    ResetTime();
  
  	public:
  		void     SetLastTime(UINT64 ullLastTime);

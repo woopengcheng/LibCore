@@ -15,55 +15,8 @@ namespace Msg
 	{  
 		m_aTargets = (Object *)((const char * )this + sizeof(ObjectMsgCall));
 	}
-//
-// 	UINT32 ObjectMsgCall::Serialization( char * pMsg )
-// 	{   
-// 		UINT32 unSize = 0;
-// 
-// 		memcpy(pMsg + unSize , &m_unTargetsCount , sizeof(m_unTargetsCount));
-// 		unSize += sizeof(m_unTargetsCount);
-// 		memcpy(pMsg + unSize , m_aTargets , m_unTargetsCount * sizeof(Object));
-// 		unSize += m_unTargetsCount * sizeof(Object);
-// 		memcpy(pMsg + unSize , &m_objSource , sizeof(m_objSource));
-// 		unSize += sizeof(m_objSource);
-// 		memcpy(pMsg + unSize , &m_usPriority , sizeof(m_usPriority));
-// 		unSize += sizeof(m_usPriority);
-// 		memcpy(pMsg + unSize , m_szMsgMethod , sizeof(m_szMsgMethod));
-// 		unSize += sizeof(m_szMsgMethod);
-// 		memcpy(pMsg + unSize , &m_unMsgLength , sizeof(m_unMsgLength));
-// 		unSize += sizeof(m_unMsgLength);
-// 		memcpy(pMsg + unSize, &m_ullMsgID , sizeof(m_ullMsgID));
-// 		unSize += sizeof(m_ullMsgID);
-// 
-// 		unSize += m_objParams.Serialization(pMsg + unSize); 
-// 
-// 		return unSize;
-// 	} 
-// 
-// 	UINT32 ObjectMsgCall::UnSerialization(const char * pMsg )
-// 	{
-// 		UINT32 unSize = 0;      
-// 
-// 		m_unTargetsCount = *(UINT32*)(pMsg);     //5 第一位必须是他.否则有问题.
-// 		unSize += sizeof(m_unTargetsCount); 
-// 		memcpy(m_aTargets , pMsg + unSize , m_unTargetsCount * sizeof(Object));
-// 		unSize += m_unTargetsCount * sizeof(Object);
-// 		m_objSource = *(Object*)(pMsg + unSize);
-// 		unSize += sizeof(m_objSource);
-// 		m_usPriority = *(UINT16*)(pMsg + unSize);
-// 		unSize += sizeof(m_usPriority);
-// 		memcpy(m_szMsgMethod , pMsg + unSize , sizeof(m_szMsgMethod));
-// 		unSize += sizeof(m_szMsgMethod);
-// 		m_unMsgLength = *(UINT32*)(pMsg + unSize);
-// 		unSize += sizeof(m_unMsgLength);
-// 		m_ullMsgID = *(UINT64*)((pMsg + unSize));
-// 		unSize += sizeof(m_ullMsgID);
-// 
-// 		unSize += m_objParams.UnSerialization(pMsg + unSize);   
-// 		return unSize;
-// 	}
 
-	UINT32 ObjectMsgCall::Copy(ObjectMsgCall *& pMsg)
+	CErrno ObjectMsgCall::Copy(ObjectMsgCall *& pMsg)
 	{  
 		pMsg = new(sizeof(Object)*m_unTargetsCount)ObjectMsgCall;
 
@@ -79,10 +32,10 @@ namespace Msg
 			pMsg->m_aTargets[i] = m_aTargets[i];
 		} 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	} 
 
-	UINT32 ObjectMsgCall::CopyExcludeParams(ObjectMsgCall *& pMsg)
+	CErrno ObjectMsgCall::CopyExcludeParams(ObjectMsgCall *& pMsg)
 	{
 		pMsg = new(sizeof(Object)*m_unTargetsCount)ObjectMsgCall;
 
@@ -97,10 +50,10 @@ namespace Msg
 			pMsg->m_aTargets[i] = m_aTargets[i];
 		} 
 
-		return ERR_SUCCESS; 
+		return CErrno::Success(); 
 	}
 
-	UINT32 ObjectMsgCall::CopyExcludeParamsAndTargets(ObjectMsgCall *& pMsg ,const std::vector<Msg::Object> & vecTargets , Msg::Object objSrc)
+	CErrno ObjectMsgCall::CopyExcludeParamsAndTargets(ObjectMsgCall *& pMsg ,const std::vector<Msg::Object> & vecTargets , Msg::Object objSrc)
 	{
 		pMsg = new(sizeof(Object)*vecTargets.size())ObjectMsgCall;
 
@@ -109,13 +62,13 @@ namespace Msg
 		pMsg->m_usPriority     = m_usPriority; 
 		memcpy(pMsg->m_szMsgMethod , m_szMsgMethod , MAX_MSG_METHOD_NAME_LENGTH); 
 
-		pMsg->SetTargetsCount(vecTargets.size()); 
+		pMsg->SetTargetsCount((UINT32)(vecTargets.size())); 
 		for (UINT32 i = 0;i < vecTargets.size();++i)
 		{
 			pMsg->m_aTargets[i] = vecTargets[i];
 		} 
 
-		return ERR_SUCCESS; 
+		return CErrno::Success(); 
 	}
 
 	CUtil::CStream & ObjectMsgCall::marshal( CUtil::CStream & cs )

@@ -17,8 +17,8 @@ namespace CUtil
 #define __max(a,b)  (((a) > (b)) ? (a) : (b))
 #endif
 
-	extern INT32  DLL_EXPORT  Init(std::string strLogFile = "CUtil");
-	extern INT32  DLL_EXPORT  Cleanup( void );
+	extern CErrno  DLL_EXPORT  Init(std::string strLogFile = "CUtil");
+	extern CErrno  DLL_EXPORT  Cleanup( void );
 
 
 	///////////////////////////////Í¨ÓÃº¯Êý///////////////////////////////////////////

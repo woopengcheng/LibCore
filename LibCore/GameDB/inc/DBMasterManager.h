@@ -25,7 +25,7 @@ namespace GameDB
 		virtual ~DBMasterManager(void){}   
 
 	public: 
-		virtual INT32 HandlePing( Net::ISession * pSession , Msg::SPing * pPing );
+		virtual CErrno HandlePing( Net::ISession * pSession , Msg::SPing * pPing );
 		virtual Net::NetHandlerTransitPtr OnCreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket = 0 , void * context = NULL);
 
 	protected:

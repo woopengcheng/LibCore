@@ -18,15 +18,15 @@ namespace GameDB
 	{  
 	}
 
-	INT32 DBServerInterface::Init(Json::Value & conf)
+	CErrno DBServerInterface::Init(Json::Value & conf)
 	{   
 		InitNet(conf);
 		InitDB(conf);
 
-		return ERR_SUCCESS; 
+		return CErrno::Success(); 
 	}
 
-	INT32 DBServerInterface::InitDB(const Json::Value & conf)
+	CErrno DBServerInterface::InitDB(const Json::Value & conf)
 	{ 
 		m_nMode					 = conf.get("auth_mode","0").asInt();
 		m_strBackupDir			 = conf.get("backup_dir","./db_backups/").asCString();
@@ -44,10 +44,10 @@ namespace GameDB
 		}
 		leveldb::Env::Default()->CreateDir(m_strBackupDir);
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 DBServerInterface::InitNet(const Json::Value & conf)
+	CErrno DBServerInterface::InitNet(const Json::Value & conf)
 	{
 		if (!m_pNetReactor)
 		{
@@ -56,10 +56,10 @@ namespace GameDB
 #else
 			m_pNetReactor = new Net::NetReactorSelect; 
 #endif
-			if(ERR_SUCCESS != m_pNetReactor->Init())
+			if(CErrno::Success() != m_pNetReactor->Init())
 			{
 				SAFE_DELETE(m_pNetReactor);
-				MsgAssert_ReF1(0, "init net fail."); 
+				MsgAssert_ReF(0, "init net fail."); 
 			}
 		}
 
@@ -84,10 +84,10 @@ namespace GameDB
 
 		RegisterRpc(); 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 DBServerInterface::Cleanup(void)
+	CErrno DBServerInterface::Cleanup(void)
 	{  
 		if (m_pEnvironment)
 		{
@@ -98,7 +98,7 @@ namespace GameDB
 		return RpcInterface::Cleanup();
 	}
 
-	INT32 DBServerInterface::Update(void)
+	CErrno DBServerInterface::Update(void)
 	{ 
 		return RpcInterface::Update();
 	}  

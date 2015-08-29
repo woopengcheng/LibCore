@@ -31,19 +31,19 @@ namespace XML
 		pValues->GetVectorParents().pop_back();   //5 将最后一个值弹出去.
 	}
 
-	INT32 XML::LoadFromFile( const std::string strFilePath )
+	CErrno XML::LoadFromFile( const std::string strFilePath )
 	{
 		std::fstream fStream(strFilePath.c_str());
 
 		if (!fStream.good())
 		{
-			return ERR_FAILURE;
+			return CErrno::Failure();
 		}
 		
 		return LoadFromStream(fStream);
 	}
 
-	INT32 XML::LoadFromStream( std::istream & objStream )
+	CErrno XML::LoadFromStream( std::istream & objStream )
 	{
 		XMLValue   objValue; 
 		XML_Parser objParser = XML_ParserCreate(NULL);
@@ -61,7 +61,7 @@ namespace XML
 			if (XML_Parse(objParser , szBuf , (INT32)strlen(szBuf) , bEOF ? 1 : 0) == XML_STATUS_ERROR)
 			{
 				gErrorStream( XML_ErrorString(XML_GetErrorCode(objParser))  << "at line " <<  XML_GetCurrentLineNumber(objParser));
-				return ERR_FAILURE;
+				return CErrno::Failure();
 			}
 			if(bEOF)
 				break;
@@ -70,10 +70,10 @@ namespace XML
 		XML_ParserFree(objParser);
 		m_mapXMLValues = objValue.GetXMLValues();
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 XML::LoadFromString( const std::string strXMLContent )
+	CErrno XML::LoadFromString( const std::string strXMLContent )
 	{ 
 		XMLValue   objValue; 
 		XML_Parser objParser = XML_ParserCreate(NULL);
@@ -85,13 +85,13 @@ namespace XML
 		if (XML_Parse(objParser , strXMLContent.c_str() , (INT32)strXMLContent.length() , 1) == XML_STATUS_ERROR)
 		{
 			gErrorStream( XML_ErrorString(XML_GetErrorCode(objParser))  << "at line " <<  XML_GetCurrentLineNumber(objParser));
-			return -1;
+			return CErrno::Failure();
 		} 
 
 		XML_ParserFree(objParser);
 		m_mapXMLValues = objValue.GetXMLValues();
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 	std::string XML::GetXMLValue( std::string strXMLPath , std::string strDefaultValue )

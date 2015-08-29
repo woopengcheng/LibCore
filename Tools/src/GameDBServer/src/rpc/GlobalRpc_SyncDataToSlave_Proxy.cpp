@@ -9,7 +9,7 @@ Msg::ObjectMsgCall * Server::GlobalRpc::SyncDataToSlave_RpcServerProxy(Net::ISes
 	Server::SlaveRecord * pSlaveRecord = Server::DBMaster::GetInstance().GetSlaveRecord(dbname);
 	if (pSlaveRecord)
 	{
-		if(ERR_FAILURE == ProxySendMsg(pSlaveRecord->GetSlaveSessionID() , pSlaveRecord->GetObjRemoteSlaveID() , dbname , value))
+		if(-1 == ProxySendMsg(pSlaveRecord->GetSlaveSessionID() , pSlaveRecord->GetObjRemoteSlaveID() , dbname , value))
 		{
 			Return(res);
 		}

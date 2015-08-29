@@ -13,14 +13,14 @@ namespace Net
 		virtual ~NetBase(){};
 
 	public:
-		virtual INT32          Init(void) = 0;
-		virtual INT32          Cleanup(void) = 0;
-		virtual INT32          Connect(char* pIPAddress, UINT16 usPort) = 0;
-		virtual INT32          CloseConnection(void) = 0;
-		virtual INT32          SendMsg(MsgWrapper* pMsg) = 0;
+		virtual CErrno          Init(void) = 0;
+		virtual CErrno          Cleanup(void) = 0;
+		virtual CErrno          Connect(char* pIPAddress, UINT16 usPort) = 0;
+		virtual CErrno          CloseConnection(void) = 0;
+		virtual CErrno          SendMsg(MsgWrapper* pMsg) = 0;
 		virtual MsgWrapper *   RecvMsg(void) = 0;
 		virtual void           Run(void) = 0;
-		virtual BOOL           IsConnected(void){ return ERR_FAILURE; }
+		virtual BOOL           IsConnected(void){ return 0; }
 
 	public:
 //		virtual INT32 SendSpace() = 0;

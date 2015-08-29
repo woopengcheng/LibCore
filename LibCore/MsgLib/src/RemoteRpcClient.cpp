@@ -20,19 +20,19 @@ namespace Msg
 		SAFE_DELETE(m_pSession);
 	}
 
-	INT32 RemoteRpcClient::Cleanup( void )
+	CErrno RemoteRpcClient::Cleanup( void )
 	{
 		return Net::NetHandlerClient::Cleanup();
 	}  
 	 
-	INT32 RemoteRpcClient::Update( void )
+	CErrno RemoteRpcClient::Update( void )
 	{
 		return Net::NetHandlerClient::Update();
 	}
 
-	INT32 RemoteRpcClient::OnReconnect( void )
+	CErrno RemoteRpcClient::OnReconnect( void )
 	{   
-		int nResult = -1;
+		INT32 nResult;
 		if (m_pSession && m_pSession->IsClosed())
 		{
 			nResult = Connect(m_pSession->GetAddress() , m_pSession->GetPort());
@@ -43,13 +43,14 @@ namespace Msg
 
 				Net::NetHandlerTransitPtr pHandler = m_pRpcManager->GetNetHandlerBySessionID(m_pSession->GetSessionID());
 				m_pNetReactor->AddNetHandler(pHandler);
+				return  CErrno(CErrno::ERR_SUCCESS);  
 			} 
 		}
-
-		return  nResult;  
+		 
+		return  CErrno(CErrno::ERR_FAILURE);  
 	} 
 
-	INT32 RemoteRpcClient::OnClose( void )
+	CErrno RemoteRpcClient::OnClose( void )
 	{  
 		if(GetSession() && GetSession()->GetSessionID() != -1 && m_pRpcManager)
 		{  
@@ -59,7 +60,7 @@ namespace Msg
 		return NetHandlerClient::OnClose(); 
 	} 
 
-	INT32 RemoteRpcClient::HandleMsg( Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
+	CErrno RemoteRpcClient::HandleMsg( Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
 	{ 
 		switch(unMsgID)
 		{
@@ -68,7 +69,7 @@ namespace Msg
 			}break;
 		case DEFAULT_RPC_MSG_ID:
 			{
-				Assert_ReF1(pBuffer && m_pRpcManager);  
+				Assert_ReF(pBuffer && m_pRpcManager);  
 				CUtil::CStream cs(pBuffer , unLength);
 				UINT32 unTargetsCount = (UINT32)*pBuffer;
 				cs >> unTargetsCount;
@@ -83,7 +84,7 @@ namespace Msg
 			break;
 		}
 
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	} 
 
 }

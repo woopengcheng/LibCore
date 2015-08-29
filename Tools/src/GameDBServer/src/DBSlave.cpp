@@ -13,7 +13,7 @@ namespace Server
 
 	}
 
-	INT32 DBSlave::Init(Json::Value & conf)
+	CErrno DBSlave::Init(Json::Value & conf)
 	{
 		Json::Value objThreads = conf.get("thread" , Json::Value());
 		InitThread(objThreads);  
@@ -21,12 +21,12 @@ namespace Server
 		return DBSlaveInterface::Init(conf);
 	}
 
-	INT32 DBSlave::Update(void)
+	CErrno DBSlave::Update(void)
 	{  
 		return DBSlaveInterface::Update();
 	}
 
-	INT32 DBSlave::InitThread(Json::Value & conf)
+	CErrno DBSlave::InitThread(Json::Value & conf)
 	{
 		std::map<UINT32 , UINT32> mapThreads;
 		INT32 nCount = conf.size(); 
@@ -43,10 +43,10 @@ namespace Server
 		ThreadPool::ThreadPoolInterface::GetInstance().Startup();  
 		ThreadPool::ThreadPoolInterface::GetInstance().AddTask(this);  
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 DBSlave::Cleanup(void)
+	CErrno DBSlave::Cleanup(void)
 	{
 		ThreadPool::ThreadPoolInterface::GetInstance().Cleanup();
 		return DBSlaveInterface::Cleanup();

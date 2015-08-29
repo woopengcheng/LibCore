@@ -18,12 +18,12 @@ namespace Net
 		virtual ~RaknetUDPManager();
 
 	public:
-		virtual INT32 Init(void);
-		virtual INT32 Cleanup(void);
-		virtual INT32 Connect(char* pIPAddress, UINT16 usPort);
-		virtual INT32 CloseConnection(void);
-		virtual INT32 CloseConnection(UINT32 unIndex);
-		virtual INT32 SendMsg(MsgWrapper* pMsg);
+		virtual CErrno Init(void);
+		virtual CErrno Cleanup(void);
+		virtual CErrno Connect(char* pIPAddress, UINT16 usPort);
+		virtual CErrno CloseConnection(void);
+		virtual CErrno CloseConnection(UINT32 unIndex);
+		virtual CErrno SendMsg(MsgWrapper* pMsg);
 		virtual MsgWrapper *   RecvMsg(void);
 
 	public:

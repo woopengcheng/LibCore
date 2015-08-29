@@ -9,6 +9,7 @@
 #include "CUtil/inc/Parameters.h"
 #include "bson/bson.h"
 #include "CUtil/inc/BsonToCpp.h"
+#include "half.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {   
@@ -75,6 +76,10 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 
 	}
+
+	float aaa = 1023.f;
+
+	std::cout << FLOAT16::ToFloat16Fast(aaa);
 	 
 	CUtil::Cleanup();
 	return 0;

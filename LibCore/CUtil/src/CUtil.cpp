@@ -41,24 +41,24 @@ namespace CUtil
 		return (Timer::TimerHelper::GetTickCount());
 	}
 
-	INT32  Init(std::string strLogFile)
+	CErrno  Init(std::string strLogFile)
 	{  
-		Assert_ReF1(!Log::Init(strLogFile.c_str() , NULL , 0)) ; 
-		Assert_ReF1(!Net::InitNet()); 
+		Assert_ReF(Log::Init(strLogFile.c_str() , NULL , 0).IsSuccess()) ; 
+		Assert_ReF(!Net::InitNet()); 
 
 		UnitTestStart();
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32  Cleanup( void)
+	CErrno  Cleanup( void)
 	{ 
-		Assert_ReF1(!Net::CleanNet());   
-		Assert_ReF1(!Log::Cleanup()); 
+		Assert_ReF(!Net::CleanNet());   
+		Assert_ReF(Log::Cleanup().IsSuccess()); 
 
 		SAFE_DELETE(Msg::g_pRpcCheckParams);
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	} 
 
 	INT32   strcmp( const char* str1,const char* str2 )

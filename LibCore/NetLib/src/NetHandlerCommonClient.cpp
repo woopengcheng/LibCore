@@ -4,17 +4,17 @@
 
 namespace Net
 {   
-	 INT32  NetHandlerCommonClient::HandleMsg( ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
+	 CErrno  NetHandlerCommonClient::HandleMsg( ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
 	{
 		if (m_pMsgProcess)
 		{
 			return m_pMsgProcess->Process(pSession , unMsgID , pBuffer , unLength);
 		}
 
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}
 
-	 INT32 NetHandlerCommonClient::Init( const char* ip,int port )
+	 CErrno NetHandlerCommonClient::Init( const char* ip,int port )
 	 { 
 		 m_pSession->SetAddress(ip);
 		 m_pSession->SetSocktPort(port);
@@ -24,20 +24,20 @@ namespace Net
 			 gDebugStream("Connect Init " << m_pSession->GetRemoteName());
 			 return NetHandlerTransit::Init();
 		 }
-		 return ERR_FAILURE;  
+		 return CErrno::Failure();  
 	 }
 
-	 INT32 NetHandlerCommonClient::Init(void)
+	 CErrno NetHandlerCommonClient::Init(void)
 	 {
 		 if (m_pSession)
 		 {
 			 return Init(m_pSession->GetAddress() , m_pSession->GetPort());
 		 }
 
-		 return ERR_FAILURE;
+		 return CErrno::Failure();
 	 }
 
-	 INT32 NetHandlerCommonClient::Cleanup(void)
+	 CErrno NetHandlerCommonClient::Cleanup(void)
 	 { 
 		 return NetHandlerTransit::Cleanup();
 	 }
@@ -74,14 +74,15 @@ namespace Net
 		 return  nResult;
 	 }
 
-	 INT32 NetHandlerCommonClient::OnClose(void)
+	 CErrno NetHandlerCommonClient::OnClose(void)
 	 {
 		 return NetHandlerTransit::OnClose();
 	 }
 
-	 INT32 NetHandlerCommonClient::OnReconnect(void)
+	 CErrno NetHandlerCommonClient::OnReconnect(void)
 	 {
 		 int nResult = -1;
+		 CErrno result(CErrno::ERR_FAILURE);
 		 if (m_pSession)
 		 {
 			 nResult = Connect(m_pSession->GetAddress() , m_pSession->GetPort());
@@ -91,9 +92,10 @@ namespace Net
 				 m_pSession->SetClosed(FALSE);
 
 				 m_pNetReactor->AddNetHandler(NetHandlerTransitPtr(this));
+				 result = CErrno::Success();
 			 } 
 		 }
-		 return  nResult;
+		 return  result;
 	 }
 
 	 NetHandlerCommonClient::NetHandlerCommonClient( INetReactor * pNetReactor , ISession * pSession , MsgProcess * pMsgProcess /*= NULL*/ ) 
@@ -106,7 +108,7 @@ namespace Net
 	 {  
 	 }
 
-	 INT32 NetHandlerCommonClient::Update( void )
+	 CErrno NetHandlerCommonClient::Update( void )
 	 { 
 		 Reconnect();
 

@@ -18,7 +18,7 @@ namespace CUtil
 		return unResult;
 	}
 
-	UINT32 Parameters::Copy( Parameters & pParam )
+	CErrno Parameters::Copy( Parameters & pParam )
 	{
 		pParam.m_unParamCount = m_unParamCount;
 
@@ -27,7 +27,7 @@ namespace CUtil
 			m_aParameter[i].Copy(pParam.m_aParameter[i]); 
 		} 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 // 
 // 	UINT32 Parameters::Serialization( char * pMsg )

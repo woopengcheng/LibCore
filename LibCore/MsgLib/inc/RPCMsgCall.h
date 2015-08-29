@@ -86,10 +86,10 @@ namespace Msg
 		// Qualifier: 将当前对象拷贝给pMsg使用
 		// Parameter: RpcMsgCall * pMsg
 		//************************************
-		UINT32 Copy(RPCMsgCall *& pMsg);
-		UINT32 CopyExcludeNetDatas(RPCMsgCall *& pMsg);
-		UINT32 CopyExcludeParams(RPCMsgCall *& pMsg);
-		UINT32 CopyExcludeParamsAndTargets(RPCMsgCall *& pMsg ,const std::vector<Msg::Object> & vecTargets , Msg::Object objSrc);
+		CErrno Copy(RPCMsgCall *& pMsg);
+		CErrno CopyExcludeNetDatas(RPCMsgCall *& pMsg);
+		CErrno CopyExcludeParams(RPCMsgCall *& pMsg);
+		CErrno CopyExcludeParamsAndTargets(RPCMsgCall *& pMsg ,const std::vector<Msg::Object> & vecTargets , Msg::Object objSrc);
 
 
 	public:

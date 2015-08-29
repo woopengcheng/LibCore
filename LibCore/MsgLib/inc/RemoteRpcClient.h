@@ -15,11 +15,11 @@ namespace Msg
 		virtual ~RemoteRpcClient();
 
 	public: 
-		virtual INT32  Cleanup( void );
-		virtual INT32  Update(void);
-		virtual INT32  OnClose( void );   
-		virtual INT32  OnReconnect( void );
-		virtual INT32  HandleMsg(Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength); 
+		virtual CErrno  Cleanup( void );
+		virtual CErrno  Update(void);
+		virtual CErrno  OnClose( void );   
+		virtual CErrno  OnReconnect( void );
+		virtual CErrno  HandleMsg(Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength); 
 
 	private:
 		RpcManager * m_pRpcManager;  

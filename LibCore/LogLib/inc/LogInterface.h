@@ -4,8 +4,8 @@
 
 namespace Log
 {
-	extern UINT32 DLL_EXPORT Init(const char * pLogName , const char * pLayoutConfig = NULL , BOOL bMultCategory = TRUE) ;
-	extern UINT32 DLL_EXPORT Cleanup();
+	extern CErrno DLL_EXPORT Init(const char * pLogName , const char * pLayoutConfig = NULL , BOOL bMultCategory = TRUE) ;
+	extern CErrno DLL_EXPORT Cleanup();
 
 	class DLL_EXPORT LogInterface
 	{
@@ -14,8 +14,8 @@ namespace Log
 		~LogInterface(){}
 
 	public:
-		virtual  INT32  Init(const char * pLogName , const char * pLayoutConfig = NULL , BOOL bMultCategory = TRUE) ; 
-		virtual  INT32  Cleanup(); 
+		virtual  CErrno  Init(const char * pLogName , const char * pLayoutConfig = NULL , BOOL bMultCategory = TRUE) ; 
+		virtual  CErrno  Cleanup(); 
 
 	public:
 		static LogInterface & GetInstance(){ static LogInterface m_sLogInterface; return m_sLogInterface; }

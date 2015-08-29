@@ -22,11 +22,11 @@ namespace Net
 		}
 
 	public:
-		virtual    INT32   Init( const char * pAddress ,INT16 usSocktPort , const char * pRemoteName , INT32 nSessionID , NetSocket socket , INT64 llTimeout = 0);
-		virtual    INT32   Cleanup( void ); 
-		virtual    INT32   OnRecvMsg( void );
-		virtual    INT32   OnSendMsg( void );
-		virtual    INT32   OnClose( void ); 
+		virtual    CErrno   Init( const char * pAddress ,INT16 usSocktPort , const char * pRemoteName , INT32 nSessionID , NetSocket socket , INT64 llTimeout = 0);
+		virtual    CErrno   Cleanup( void ); 
+		virtual    CErrno   OnRecvMsg( void );
+		virtual    CErrno   OnSendMsg( void );
+		virtual    CErrno   OnClose( void ); 
 		 
 	public:
 		INT32 GetSessionID() const { return m_nSessionID; }

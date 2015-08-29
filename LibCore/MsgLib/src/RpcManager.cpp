@@ -35,34 +35,34 @@ namespace Msg
 	}
 
 
-	INT32   RpcManager::CleanupRpcInfo( std::string strRpcInfo )
+	CErrno   RpcManager::CleanupRpcInfo( std::string strRpcInfo )
 	{
 		MapRpcInfosT::iterator iter = m_mapRpcInfos.find(strRpcInfo);
 		if (iter != m_mapRpcInfos.end() )
 		{ 
 			iter->second.nSessionID = -1;     //5 代表断开了.需要重连.  
-			return ERR_SUCCESS;
+			return CErrno::Success();
 		}
 
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}
 
 
-	INT32 RpcManager::CleanupRemoteRpc( INT32 nSessionID )
+	CErrno RpcManager::CleanupRemoteRpc( INT32 nSessionID )
 	{
 		Net::NetHandlerTransitPtr pNetHandler = GetNetHandlerBySessionID(nSessionID);
 		if (pNetHandler)
 		{  
 			pNetHandler->Cleanup(); 
 
-			return ERR_SUCCESS;
+			return CErrno::Success();
 		}  
 
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}
 
 
-	INT32 RpcManager::UpdateHandlers( void )
+	CErrno RpcManager::UpdateHandlers( void )
 	{
 		MapSessionToHandlersT::iterator iter = m_mapRemoteRpcs.begin();
 		for (;iter != m_mapRemoteRpcs.end();)
@@ -75,7 +75,7 @@ namespace Msg
 			}
 		}
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 
@@ -100,15 +100,15 @@ namespace Msg
 	}
 
 
-	BOOL RpcManager::IsRpcInfoVaild( std::string strRpcInfo )
+	CErrno RpcManager::IsRpcInfoVaild( std::string strRpcInfo )
 	{
 		SRpcInfo * pInfo = GetRpcInfo(strRpcInfo);
 		if ( !pInfo || strcmp(pInfo->szRemoteName , strRpcInfo.c_str()) != 0)
 		{
-			return ERR_FAILURE; 
+			return CErrno::Failure(); 
 		} 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	} 
 
 	void RpcManager::InsertSendRpc( UINT64 ullRpcMsgID, Rpc * pRpc )
@@ -130,7 +130,7 @@ namespace Msg
 		InsertSendRpc(pMsg->m_ullMsgID , pRpc);
 	} 
 
-	BOOL RpcManager::ChangeNameBySesson( const INT32 nSessionID , const char * pName)
+	CErrno RpcManager::ChangeNameBySesson( const INT32 nSessionID , const char * pName)
 	{
 		MapSessionToHandlersT::iterator iter = m_mapRemoteRpcs.find(nSessionID);
 		if (iter != m_mapRemoteRpcs.end())
@@ -138,11 +138,11 @@ namespace Msg
 			if (strcmp(iter->second->GetSession()->GetRemoteName() , "") == 0)
 			{
 				iter->second->GetSession()->SetRemoteName(pName);
-				return ERR_SUCCESS;
+				return CErrno::Success();
 			} 
 		}
 
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}
 
 
@@ -243,9 +243,9 @@ namespace Msg
 	}
 
 
-	INT32 RpcManager::HandleMsg( Net::ISession * pSession , RPCMsgCall * pMsg )
+	CErrno RpcManager::HandleMsg( Net::ISession * pSession , RPCMsgCall * pMsg )
 	{ 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 
@@ -263,9 +263,8 @@ namespace Msg
 			return pRemoteRpc->SendMsg(szBuf , unLength + sizeof(Net::MsgHeader));
 		}
 
-		return ERR_FAILURE;
-	}
-
+		return -1;
+	} 
 
 	INT32 RpcManager::SendMsg( Net::NetHandlerTransitPtr pRemoteRpc , RPCMsgCall * pRpcMsg , BOOL bForce/* = FALSE*/ , BOOL bAddRpc/* = TRUE*/)
 	{  
@@ -281,7 +280,7 @@ namespace Msg
 			pRpcMsg->marshal(objStream);
 			UINT32 unSerializationSize = objStream.GetDataLen();//pRpcMsg->GetPacketSize();
 		
-//			MsgAssert_ReF1(unSerializationSize == objStream.GetDataLen() , "sendMsg Length error. " << unSerializationSize << " stream: " <<objStream.GetDataLen());
+//			MsgAssert_ReF(unSerializationSize == objStream.GetDataLen() , "sendMsg Length error. " << unSerializationSize << " stream: " <<objStream.GetDataLen());
 			
 			INT32 nMsgID = DEFAULT_RPC_MSG_ID , nMsgLength = unSerializationSize + sizeof(Net::MsgHeader);
 			objStream.Insert(objStream.Begin() , &nMsgLength , sizeof(nMsgLength));
@@ -298,7 +297,7 @@ namespace Msg
 
 	INT32 RpcManager::SendMsg( INT32 nSessionID , RPCMsgCall * pMsg  , BOOL bForce/* = FALSE*/ , BOOL bAddRpc/* = TRUE*/)
 	{
-		return ERR_FAILURE; 
+		return -1; 
 	}
 
 
@@ -309,35 +308,34 @@ namespace Msg
 		{
 			return SendMsg(iter->second.nSessionID , pMsg , bForce , bAddRpc);
 		}
-		return ERR_FAILURE;
+		return -1;
 	}
 
 
-	INT32 RpcManager::Update( void )
+	CErrno RpcManager::Update( void )
 	{ 
 		UpdateHandlers();
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
-
-
-	INT32 RpcManager::Cleanup( void )
+	 
+	CErrno RpcManager::Cleanup( void )
 	{  
 		m_mapRemoteRpcs.clear();
 
 		m_mapRpcInfos.clear();
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 
-	INT32 RpcManager::Init( void )
+	CErrno RpcManager::Init( void )
 	{ 
 
-		return ERR_SUCCESS; 
+		return CErrno::Success(); 
 	}
 
 
-	INT32 RpcManager::DelRemoteRpc( INT32 nSessionID )
+	CErrno RpcManager::DelRemoteRpc( INT32 nSessionID )
 	{  
 		Net::NetHandlerTransitPtr pNetHandler = GetNetHandlerBySessionID(nSessionID);
 		if (pNetHandler)
@@ -348,13 +346,13 @@ namespace Msg
 
 		DelNetHandler(nSessionID);
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 
-	INT32 RpcManager::AddRemoteRpc( INT32 nSessionID , Net::NetHandlerTransitPtr pRpc )
+	CErrno RpcManager::AddRemoteRpc( INT32 nSessionID , Net::NetHandlerTransitPtr pRpc )
 	{
-		Assert_ReF1(pRpc.get());
+		Assert_ReF(pRpc.get());
 
 		AddNetHandler(nSessionID , pRpc);
 
@@ -363,7 +361,7 @@ namespace Msg
 
 		AddRpcInfo(objRpcInfo);
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 	BOOL RpcManager::IsConnected(const char * pRpcServerName)

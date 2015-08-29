@@ -13,8 +13,8 @@ namespace Timer
 		virtual ~MinHeapTimer( void ){} 
 
 	public:
-		virtual INT32		Init( void ){ return ERR_SUCCESS; }
-		virtual INT32		Cleanup( void ){ return ERR_SUCCESS; } 
+		virtual CErrno		Init( void ){ return CErrno::Success(); }
+		virtual CErrno		Cleanup( void ){ return CErrno::Success(); } 
 		virtual TimerNode * Update(void)
 		{ 
 			TimerNode * pTimerNode = NULL;
@@ -27,14 +27,14 @@ namespace Timer
 
 			return pTimerNode;
 		}
- 		virtual INT32		SetTimer(UINT32 unTimeInterval , UINT32 unStartTime , UINT32 unTimes , void * pObj = NULL , TimerCallBackFunc pFunc = NULL){ return ERR_SUCCESS; }
+ 		virtual CErrno		SetTimer(UINT32 unTimeInterval , UINT32 unStartTime , UINT32 unTimes , void * pObj = NULL , TimerCallBackFunc pFunc = NULL){ return CErrno::Success(); }
 
 	public:
-		virtual INT32		InsertNode(UINT32 unNodeID ,TimerNode * pNode)
+		virtual CErrno		InsertNode(UINT32 unNodeID ,TimerNode * pNode)
 		{
 			return CUtil::MinHeap<TimerType>::InsertNode(unNodeID , pNode);
 		}
-		virtual INT32		RemoveNode(UINT32 unNodeID)
+		virtual CErrno		RemoveNode(UINT32 unNodeID)
 		{
 			return CUtil::MinHeap<TimerType>::RemoveNode(unNodeID); 
 		}

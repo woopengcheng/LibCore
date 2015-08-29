@@ -13,8 +13,8 @@ namespace Log
 		virtual ~Log4CppAdaptee(){} 
 			
 	public: 
-		virtual  UINT32  Init(const char * pLogName , const char * pLayoutConfig = NULL , BOOL bMultCategory = TRUE) ; 
-		virtual  UINT32  Cleanup( void ); 
+		virtual  CErrno  Init(const char * pLogName , const char * pLayoutConfig = NULL , BOOL bMultCategory = TRUE) ; 
+		virtual  CErrno  Cleanup( void ); 
 
 	public:
 		virtual  void    Debug( std_ostream & os); 
@@ -24,7 +24,7 @@ namespace Log
 		virtual  void    Other( std_ostream & os); 
 
 	private: 
-		virtual  UINT32 CreateLog(const char * pName , const char * pLayoutConfig ,const char * pFile); 
+		virtual  CErrno CreateLog(const char * pName , const char * pLayoutConfig ,const char * pFile); 
 	};
 } 
 

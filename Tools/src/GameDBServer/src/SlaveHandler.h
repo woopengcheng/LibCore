@@ -32,7 +32,7 @@ namespace Server
 			SAFE_DELETE(m_pDatabase);
 		}
 	public:
-		virtual INT32 Update(){ return 0; } 
+		virtual CErrno Update(){ return CErrno::Success(); } 
 
 	public:
 		void		StartAuth();

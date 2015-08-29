@@ -16,14 +16,14 @@ namespace Net
 		virtual ~NetReactorSelect( void );
 
 	public:
-		virtual INT32   Init( void );
-		virtual INT32   Cleanup( void );
-		virtual INT32   Update( void );
+		virtual CErrno   Init( void );
+		virtual CErrno   Cleanup( void );
+		virtual CErrno   Update( void );
 
 	public:
-		virtual INT32   AddNetHandler(INetHandlerPtr  pNetHandler , ENetHandlerFuncMask objMask = NET_FUNC_DEFAULT);
-		virtual INT32   DelNetHandler(INetHandlerPtr  pNetHandler , BOOL bEraseHandler = TRUE);
-		virtual INT32   ModNetHandler(INetHandlerPtr  pNetHandler , ENetHandlerFuncMask objMask);
+		virtual CErrno   AddNetHandler(INetHandlerPtr  pNetHandler , ENetHandlerFuncMask objMask = NET_FUNC_DEFAULT);
+		virtual CErrno   DelNetHandler(INetHandlerPtr  pNetHandler , BOOL bEraseHandler = TRUE);
+		virtual CErrno   ModNetHandler(INetHandlerPtr  pNetHandler , ENetHandlerFuncMask objMask);
 		virtual INetHandlerPtr  GetNetHandler(UINT32  unNetHandlerIndex);
 
 	private: //5 reactor一般都是单线程.所以不必考虑线程安全.如果多线程的话一定不安全.

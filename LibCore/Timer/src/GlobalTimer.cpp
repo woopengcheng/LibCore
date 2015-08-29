@@ -7,7 +7,7 @@
 
 namespace Timer
 {  
-	INT32 GlobalTimer::Init(UINT32 unTimerThreadPriorityCount , UINT32 unTimerHandlerthreadPriorityCount , UINT32 unTimerThreadPriority /* = DEFAULT_TIMER_THREAD_ID*/ ,UINT32 unTimerHandlerthreadPriority /*= DEFAULT_TIMER_HANDLE_THREAD_ID */)
+	CErrno GlobalTimer::Init(UINT32 unTimerThreadPriorityCount , UINT32 unTimerHandlerthreadPriorityCount , UINT32 unTimerThreadPriority /* = DEFAULT_TIMER_THREAD_ID*/ ,UINT32 unTimerHandlerthreadPriority /*= DEFAULT_TIMER_HANDLE_THREAD_ID */)
 	{
  		ThreadPool::ThreadPoolInterface::GetInstance().Init(std::map<UINT32 , UINT32>() , TRUE);
  		ThreadPool::ThreadPoolInterface::GetInstance().Startup();
@@ -19,19 +19,19 @@ namespace Timer
 		return TimerInterface::Init();              //5 这里必须调用
 	}
 
-	INT32 GlobalTimer::Cleanup( void )
+	CErrno GlobalTimer::Cleanup( void )
 	{
 		ThreadPool::ThreadPoolInterface::GetInstance().Cleanup();
 
 		return TimerInterface::Cleanup();            //5 这里必须调用
 	} 
 
-	INT32  GlobalTimer::Update_Thread( void )
+	CErrno  GlobalTimer::Update_Thread( void )
 	{  
 		TimerNode * pNode = TimerInterface::Update();
 		if (!pNode)
 		{
-			return ERR_FAILURE;
+			return CErrno::Failure();
 		} 
 
 		while(pNode)
@@ -44,6 +44,6 @@ namespace Timer
 				pNode = pNode->GetNext();
 			}  
 		}
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	} 
 }

@@ -12,7 +12,7 @@ namespace Msg
 {  
 	INT32 Rpc::ProxySendBack()
 	{
-		MsgAssert_ReF1(m_pRpcMsgCall , "rpc packet is null."); 
+		MsgAssert_ReF(m_pRpcMsgCall , "rpc packet is null."); 
 
 		RPCMsgCall * pRpcMsgCall = NULL;
 		m_pRpcMsgCall->Copy(pRpcMsgCall);

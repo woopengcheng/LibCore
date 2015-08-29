@@ -31,7 +31,7 @@ namespace GameDB
 		virtual ~MasterSession(){}
 
 	public:
-		virtual    INT32    Cleanup() 
+		virtual    CErrno    Cleanup() 
 		{  
 			return ClientSession::Cleanup();	
 		} 

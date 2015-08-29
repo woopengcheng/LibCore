@@ -23,11 +23,11 @@ namespace Timer
 		{
 
 		}
-		virtual INT32 Update_Thread(void)
+		virtual CErrno Update_Thread(void)
 		{
-			return ERR_SUCCESS;
+			return CErrno::Success();
 		} 
-		virtual INT32 Update(void)
+		virtual CErrno Update(void)
 		{
 			return Update_Thread();
 		} 
@@ -52,11 +52,11 @@ namespace Timer
 		static GlobalTimer & GetInstance( void ){ static GlobalTimer m_sInstance; return m_sInstance;}
 
 	public: 
-		virtual INT32    Init(UINT32 unTimerThreadPriorityCount = 1 , UINT32 unTimerHandlerthreadPriorityCount = 1, UINT32 unTimerThreadPriority = DEFAULT_TIMER_THREAD_ID ,UINT32 unTimerHandlerthreadPriority = DEFAULT_TIMER_HANDLE_THREAD_ID );
-		virtual INT32    Cleanup(void);
+		virtual CErrno    Init(UINT32 unTimerThreadPriorityCount = 1 , UINT32 unTimerHandlerthreadPriorityCount = 1, UINT32 unTimerThreadPriority = DEFAULT_TIMER_THREAD_ID ,UINT32 unTimerHandlerthreadPriority = DEFAULT_TIMER_HANDLE_THREAD_ID );
+		virtual CErrno    Cleanup(void);
 
 	public:  
-		virtual INT32    Update_Thread(void); 
+		virtual CErrno    Update_Thread(void); 
 	};  
 } 
 #endif

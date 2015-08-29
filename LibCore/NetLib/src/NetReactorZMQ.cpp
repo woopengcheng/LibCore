@@ -18,20 +18,20 @@ namespace Net
 	{    
 	}
 
-	INT32 NetReactorZMQ::Init( void )
+	CErrno NetReactorZMQ::Init( void )
 	{
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 NetReactorZMQ::Cleanup( void )
+	CErrno NetReactorZMQ::Cleanup( void )
 	{  
 		m_mapNetHandlers.clear(); 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 NetReactorZMQ::Update( void )
+	CErrno NetReactorZMQ::Update( void )
 	{ 
 		MapNetHandlersT::iterator iterHandlers = m_mapNetHandlers.begin();
 		for (; iterHandlers != m_mapNetHandlers.end();)
@@ -61,20 +61,20 @@ namespace Net
 			}
 		} 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 NetReactorZMQ::AddNetHandler( INetHandlerPtr  pNetHandler  , ENetHandlerFuncMask objMask /*= NET_FUNC_DEFAULT*/ )
+	CErrno NetReactorZMQ::AddNetHandler( INetHandlerPtr  pNetHandler  , ENetHandlerFuncMask objMask /*= NET_FUNC_DEFAULT*/ )
 	{
-		Assert_ReF1(m_unMaxConnectionCount > m_nNetHandlerCount && pNetHandler->GetSession());
+		Assert_ReF(m_unMaxConnectionCount > m_nNetHandlerCount && pNetHandler->GetSession());
 		  
 		m_mapNetHandlers.insert(std::make_pair(pNetHandler->GetSession()->GetSessionID() , pNetHandler)); 
 
 		++m_nNetHandlerCount;
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 NetReactorZMQ::DelNetHandler( INetHandlerPtr  pNetHandler , BOOL bEraseHandler/* = TRUE */)
+	CErrno NetReactorZMQ::DelNetHandler( INetHandlerPtr  pNetHandler , BOOL bEraseHandler/* = TRUE */)
 	{
 		if (pNetHandler.get())
 		{  
@@ -83,13 +83,13 @@ namespace Net
 			--m_nNetHandlerCount;
 		}
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 NetReactorZMQ::ModNetHandler( INetHandlerPtr  pNetHandler  , ENetHandlerFuncMask objMask )
+	CErrno NetReactorZMQ::ModNetHandler( INetHandlerPtr  pNetHandler  , ENetHandlerFuncMask objMask )
 	{ 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 	Net::INetHandlerPtr NetReactorZMQ::GetNetHandler( UINT32 unNetHandlerIndex )

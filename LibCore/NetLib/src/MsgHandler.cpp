@@ -19,13 +19,13 @@ namespace Net
 
 	}
 
-	INT32 MsgHandler::Init()
+	CErrno MsgHandler::Init()
 	{
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	} 
 
-	INT32 MsgHandler::Cleanup()
+	CErrno MsgHandler::Cleanup()
 	{
 		MapMsgHandlerImpT::iterator iter = m_mapMsgHandlerImp.begin();
 		for (;iter != m_mapMsgHandlerImp.end();++iter)
@@ -35,23 +35,23 @@ namespace Net
 		}
 		m_mapMsgHandlerImp.clear();
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	} 
 
-	UINT32 MsgHandler::AddClient( MsgProcess * pMsgProcess , char* pAddress, UINT16 usPort , BOOL bAutoManagerMemeory)
+	INT32 MsgHandler::AddClient( MsgProcess * pMsgProcess , char* pAddress, UINT16 usPort , BOOL bAutoManagerMemeory)
 	{
-		int nClientIndex = GetClientIndex();
+		INT32 nClientIndex = GetClientIndex();
 
 		MsgHandlerImp * pMsgHandlerImp = new MsgHandlerImp;
 		
 		pMsgHandlerImp->Init(pMsgProcess , bAutoManagerMemeory);
 		  
-		if(ERR_FAILURE == pMsgHandlerImp->ConnectServer( pAddress , usPort))
+		if(CErrno::Failure() == pMsgHandlerImp->ConnectServer( pAddress , usPort))
 		{ 
 			pMsgHandlerImp->Cleanup();
 			SAFE_DELETE(pMsgHandlerImp);
 
-			return ERR_FAILURE;
+			return -1;
 		}
 
 		ThreadPool::ThreadPoolInterface::GetInstance().AddTask(pMsgHandlerImp);
@@ -90,7 +90,7 @@ namespace Net
 		return -1;
 	}
 
-	INT32 MsgHandler::SendMsg( UINT32 unClientIndex , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
+	CErrno MsgHandler::SendMsg( UINT32 unClientIndex , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
 	{
 		MsgHandlerImp * pMsgHandlerImp = GetMsgHandlerImp(unClientIndex);
 		if (pMsgHandlerImp)
@@ -98,7 +98,7 @@ namespace Net
 			return pMsgHandlerImp->SendMsg(unMsgID , pBuffer , unLength);
 		}
 		
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}
 
 	MsgHandlerImp * MsgHandler::GetMsgHandlerImp( UINT32 unClientIndex )
@@ -120,11 +120,10 @@ namespace Net
 			return pMsgHandlerImp->IsConnected();
 		}
 
-		return ERR_FAILURE;
-
+		return FALSE; 
 	}
 
-	INT32 MsgHandlerImp::ConnectServer(char * pAddress , UINT16 usPort )
+	CErrno MsgHandlerImp::ConnectServer(char * pAddress , UINT16 usPort )
 	{
 		if (m_pNet)
 		{
@@ -136,19 +135,19 @@ namespace Net
 				return m_pNet->Connect(pAddress , usPort);
 		}
 
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}
 	
-	INT32 MsgHandlerImp::Update()
+	CErrno MsgHandlerImp::Update()
 	{ 
 		InflowRecvBuffer();
 		PorcessMsg(); 
 		OutflowSendBuffer(); 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 MsgHandlerImp::Init(MsgProcess * pMsgProcess , BOOL bAutoManagerMemeory)
+	CErrno MsgHandlerImp::Init(MsgProcess * pMsgProcess , BOOL bAutoManagerMemeory)
 	{ 
 #ifdef USE_RAKNET
 		m_pNet = new RaknetUDPManager;
@@ -157,7 +156,7 @@ namespace Net
 		return m_pNet->Init();
 	}
 
-	INT32 MsgHandlerImp::Cleanup()
+	CErrno MsgHandlerImp::Cleanup()
 	{  
 		m_pNet->Cleanup();
 		SAFE_DELETE(m_pNet);
@@ -167,20 +166,20 @@ namespace Net
 			SAFE_DELETE(m_pMsgProcess);
 		}
 
-		return 0;
+		return CErrno::Success();
 	}
 
-	INT32 MsgHandlerImp::IsConnected()
+	BOOL MsgHandlerImp::IsConnected()
 	{
 		if (m_pNet)
 		{
 			return m_pNet->IsConnected();
 		}
 
-		return ERR_FAILURE;
+		return FALSE;
 	}
 
-	INT32 MsgHandlerImp::InflowRecvBuffer( void )
+	CErrno MsgHandlerImp::InflowRecvBuffer( void )
 	{
 		if (m_pNet)
 		{
@@ -192,13 +191,13 @@ namespace Net
 				Timer::TimerHelper::sleep(1);
 			}
 
-			return ERR_SUCCESS;
+			return CErrno::Success();
 		}
 
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}
 
-	INT32 MsgHandlerImp::PorcessMsg()
+	CErrno MsgHandlerImp::PorcessMsg()
 	{
 		MsgWrapper * pMsgWrapper = NULL; 
 
@@ -214,10 +213,10 @@ namespace Net
 
 				Timer::TimerHelper::sleep(1);
 			}
-			return ERR_SUCCESS;
+			return CErrno::Success();
 		} 
 		
-		return ERR_FAILURE; 
+		return CErrno::Failure(); 
 	}
 
 	INT32 MsgHandlerImp::FetchMsgFromRecvBuffer( MsgWrapper *& pMsg )
@@ -225,9 +224,9 @@ namespace Net
 		return m_queueRecvMsgs.try_pop(pMsg);
 	}
 
-	INT32 MsgHandlerImp::OutflowSendBuffer()
+	CErrno MsgHandlerImp::OutflowSendBuffer()
 	{
-		INT32 nCodeError = ERR_FAILURE;
+		CErrno nCodeError = CErrno::Failure();
 		if (m_pNet)
 		{
 			MsgWrapper * pMsgWrapper = NULL;
@@ -245,7 +244,7 @@ namespace Net
 		return nCodeError;
 	}
 
-	INT32 MsgHandlerImp::SendMsg( UINT32 unMsgID, const char* pBuffer, UINT32 unLength)
+	CErrno MsgHandlerImp::SendMsg( UINT32 unMsgID, const char* pBuffer, UINT32 unLength)
 	{
 		if (m_pNet)
 		{
@@ -255,10 +254,10 @@ namespace Net
 
 			m_queueSendMsgs.push(pMsgWrapper);
 
-			return ERR_SUCCESS;
+			return CErrno::Success();
 		} 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 }

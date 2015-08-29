@@ -4,16 +4,16 @@
 
 namespace GameDB
 { 
-	INT32 OrmHelper::OrmInsert(GameDB::Orm * obj , EORM_MASK objMask /*= ORM_NONE*/)
+	CErrno OrmHelper::OrmInsert(GameDB::Orm * obj , EORM_MASK objMask /*= ORM_NONE*/)
 	{
-		MsgAssert_ReF1(obj , "error obj.");
+		MsgAssert_ReF(obj , "error obj.");
 
 		return Commit(obj,OPERATION_INSERT); 
 	}
 
-	INT32 OrmHelper::OrmUpdate(GameDB::Orm * obj , EORM_MASK objMask /*= ORM_NONE*/)
+	CErrno OrmHelper::OrmUpdate(GameDB::Orm * obj , EORM_MASK objMask /*= ORM_NONE*/)
 	{
-		MsgAssert_ReF1(obj , "error obj.");
+		MsgAssert_ReF(obj , "error obj.");
 
 		INT64 llOldHash = obj->CurHash();
 		INT64 llNewHash = obj->HashMake(DEFAULT_HASH_SEED);
@@ -22,23 +22,23 @@ namespace GameDB
 		{
 			gDebugStream("OrmUpdate table: " << obj->GetTableName() << " key:" << obj->GetKey() << "is same hash.");
 			
-			return ERR_FAILURE;
+			return CErrno::Failure();
 		}
 
 		obj->HashUpdate(llNewHash);
 		return Commit(obj,OPERATION_UPDATE); 
 	}
 
-	INT32 OrmHelper::OrmDelete(GameDB::Orm * obj , EORM_MASK objMask /*= ORM_NONE*/)
+	CErrno OrmHelper::OrmDelete(GameDB::Orm * obj , EORM_MASK objMask /*= ORM_NONE*/)
 	{
-		MsgAssert_ReF1(obj , "error obj.");
+		MsgAssert_ReF(obj , "error obj.");
 
 		return Commit(obj,OPERATION_DELETE); 
 	}
 
-	INT32 OrmHelper::Commit(GameDB::Orm * obj , EORM_OPERATION objOper)
+	CErrno OrmHelper::Commit(GameDB::Orm * obj , EORM_OPERATION objOper)
 	{
-		MsgAssert_ReF1(obj , "error obj.");
+		MsgAssert_ReF(obj , "error obj.");
 
 		switch (objOper)
 		{
@@ -79,7 +79,7 @@ namespace GameDB
 			break;
 		}
 		
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 }

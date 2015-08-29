@@ -16,7 +16,7 @@
 
 namespace Log
 { 
-	UINT32 Log4CppAdaptee::Init( const char * pLogName , const char * pLayoutConfig , BOOL bMultCategory /* = FALSE*/)
+	CErrno Log4CppAdaptee::Init( const char * pLogName , const char * pLayoutConfig , BOOL bMultCategory /* = FALSE*/)
 	{
 		std::string strFileName = "";
 
@@ -45,14 +45,14 @@ namespace Log
 			}
 		}
 		 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 	 
-	UINT32 Log4CppAdaptee::CreateLog( const char * pName , const char * pLayoutConfig , const char * pFile )
+	CErrno Log4CppAdaptee::CreateLog( const char * pName , const char * pLayoutConfig , const char * pFile )
 	{
 		if (pName == NULL)
 		{
-			return 0;
+			return CErrno::Failure();
 		}
 
 		//Log4cpp的内存是自动释放的.
@@ -80,13 +80,13 @@ namespace Log
 		objCategory.setAppender(pAppender);
 		objCategory.setPriority(log4cpp::Priority::DEBUG);     //5 在debug优先级以上的都要存储
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	} 
 
-	UINT32 Log4CppAdaptee::Cleanup()
+	CErrno Log4CppAdaptee::Cleanup()
 	{
 		log4cpp::Category::shutdown(); 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	} 
 
 	void Log4CppAdaptee::Debug( std_ostream & os )

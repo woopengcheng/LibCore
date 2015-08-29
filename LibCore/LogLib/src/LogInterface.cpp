@@ -27,32 +27,32 @@ namespace Log
 
 	}
 
-	INT32 LogInterface::Init( const char * pLogName , const char * pLayoutConfig /*= NULL */, BOOL bMultCategory /*= TRUE*/ )
+	CErrno LogInterface::Init( const char * pLogName , const char * pLayoutConfig /*= NULL */, BOOL bMultCategory /*= TRUE*/ )
 	{
 		if (m_pLogAdapter)
 		{
 			return m_pLogAdapter->Init(pLogName , pLayoutConfig , bMultCategory);
 		}
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}
 
-	INT32 LogInterface::Cleanup()
+	CErrno LogInterface::Cleanup()
 	{
 		if (m_pLogAdapter)
 		{ 
 			m_pLogAdapter->Cleanup();
 			SAFE_DELETE(m_pLogAdapter);
-			return 0;
+			return CErrno::Success();
 		}
-		return  -1;
+		return  CErrno::Failure();
 	} 
 
-	UINT32  Init(const char * pLogName , const char * pLayoutConfig  , BOOL bMultCategory ) 
+	CErrno  Init(const char * pLogName , const char * pLayoutConfig  , BOOL bMultCategory ) 
 	{ 
 		return LogInterface::GetInstance().Init(pLogName , pLayoutConfig , bMultCategory);
 	}
 
-	UINT32  Cleanup()
+	CErrno  Cleanup()
 	{
 		return Log::LogInterface::GetInstance().Cleanup(); 
 	}

@@ -129,7 +129,7 @@ namespace GameDB
 			break;
 		case CHECK_RESULT_SAME:
 			{
-				oper.SetErrorCode(ERR_SUCCESS);
+				oper.SetErrorCode(CErrno::Success());
 				return ;
 			}
 			break;
@@ -161,7 +161,7 @@ namespace GameDB
 			HCount_Initial(db,sizeKey,sizeVal);
 			if(!HCount_IncrIfNonExists(db,encodedKey,sizeVal))
 			{
-				oper.SetErrorCode(ERR_HAS_EXISTS);
+				oper.SetErrorCode(CErrno::ERR_HAS_EXISTS);
 				return ;
 			}
 		}
@@ -189,7 +189,7 @@ namespace GameDB
 		{
 		case CHECK_RESULT_SAME:
 			{
-				oper.SetErrorCode(ERR_SUCCESS);
+				oper.SetErrorCode(CErrno::Success());
 				return ;
 			};
 		} 
@@ -230,7 +230,7 @@ namespace GameDB
 			HCount_Initial(db,sizeKey,sizeVal);
 			if(!HCount_DecrIfExists(db,encodedKey,sizeVal))
 			{
-				oper.SetErrorCode(ERR_HAS_EXISTS);
+				oper.SetErrorCode(CErrno::ERR_HAS_EXISTS);
 				return ;
 			}
 		}
@@ -436,7 +436,7 @@ namespace GameDB
 
 		oper.GetOperateReturns().GetStream() <<llCount;
 		oper.GetOperateReturns().GetStream().Pushback(cs.Begin() , cs.GetDataLen());
-		oper.SetErrorCode(ERR_SUCCESS); 
+		oper.SetErrorCode(CErrno::Success()); 
 
 	}
 
@@ -475,7 +475,7 @@ namespace GameDB
 		status = db.QuickWrite(&batch);
 		
 		oper.GetOperateReturns().GetStream() << nCount;
-		oper.SetErrorCode(ERR_SUCCESS); 
+		oper.SetErrorCode(CErrno::Success()); 
 	}
 
 	void HashTable::HSetIncr(Database &db,Operate & oper,const Slice& table,const Slice& key,INT64 val)
@@ -502,7 +502,7 @@ namespace GameDB
 		{
 			if (strVal.length() != sizeof(INT64))
 			{
-				oper.SetErrorCode(ERR_INVALID_DATA);
+				oper.SetErrorCode(CErrno::ERR_INVALID_DATA);
 				return;
 			}
 
@@ -550,7 +550,7 @@ namespace GameDB
 		{
 			if (strVal.length() != sizeof(INT64))
 			{
-				oper.SetErrorCode(ERR_INVALID_DATA);
+				oper.SetErrorCode(CErrno::ERR_INVALID_DATA);
 				return;
 			}
 
@@ -578,7 +578,7 @@ namespace GameDB
 	{
 		if (limit < 0)
 		{
-			oper.SetErrorCode(ERR_INVALID_DATA);
+			oper.SetErrorCode(CErrno::ERR_INVALID_DATA);
 			return;
 		}
 
@@ -646,7 +646,7 @@ namespace GameDB
 		oper.GetOperateReturns().GetStream() << nCount[objType];
 		oper.GetOperateReturns().GetStream().Pushback(cs.Begin() , cs.GetDataLen());
 
-		oper.SetErrorCode(ERR_SUCCESS); 
+		oper.SetErrorCode(CErrno::Success()); 
 	}
 
 	void HashTable::HCount(Database &db,Operate & oper,const Slice& table)
@@ -662,7 +662,7 @@ namespace GameDB
 		}
 
 		oper.GetOperateReturns().GetStream() << sizeVal;
-		oper.SetErrorCode(ERR_SUCCESS);
+		oper.SetErrorCode(CErrno::Success());
 	}
 
 	void HashTable::HList(Database &db,Operate & oper)
@@ -697,7 +697,7 @@ namespace GameDB
 
 		oper.GetOperateReturns().GetStream() << llCount;
 		oper.GetOperateReturns().GetStream().Pushback(cs.Begin() , cs.GetDataLen());
-		oper.SetErrorCode(ERR_SUCCESS);
+		oper.SetErrorCode(CErrno::Success());
 	}
 
 }

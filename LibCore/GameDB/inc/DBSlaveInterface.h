@@ -15,14 +15,14 @@ namespace GameDB
 		virtual ~DBSlaveInterface(void);
 
 	public: 
-		virtual INT32  Init(Json::Value & conf); 
-		virtual INT32  Cleanup(void);
-		virtual INT32  Update(void);  
+		virtual CErrno  Init(Json::Value & conf); 
+		virtual CErrno  Cleanup(void);
+		virtual CErrno  Update(void);  
 		virtual void   OnCreateDatabase(const SDBSlaveInfo & objInfo){} 
 
 	private: 
-		INT32    InitDB(const Json::Value & conf);
-		INT32    InitNet(const Json::Value & conf); 
+		CErrno    InitDB(const Json::Value & conf);
+		CErrno    InitNet(const Json::Value & conf); 
 	};
 
 	DECLARE_BOOST_POINTERS(DBSlaveInterface); 

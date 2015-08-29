@@ -23,22 +23,22 @@ namespace Net
 		return sNetInterface;
 	}
 
-	INT32 NetInterface::Init( void )
+	CErrno NetInterface::Init( void )
 	{
  		ThreadPool::ThreadPoolInterface::GetInstance().CreateThread(DEFAULT_THREAD_PRIORITY , DEFAULT_THREAD_PRIORITY_COUNT);
 		
 		m_pMsgHandler = new MsgHandler;
 		m_pMsgHandler->Init();
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 NetInterface::Cleanup( void )
+	CErrno NetInterface::Cleanup( void )
 	{
 		m_pMsgHandler->Cleanup();
 		SAFE_DELETE(m_pMsgHandler);
 		 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 	INT32 NetInterface::AddClient( MsgProcess * pMsgProcess , char* pAddress, UINT16 usPort ,  BOOL bAutoManagerMemeory )
@@ -48,7 +48,7 @@ namespace Net
 			return m_pMsgHandler->AddClient(pMsgProcess , pAddress , usPort , bAutoManagerMemeory); 
 		}
 
-		return ERR_FAILURE;
+		return -1;
 	}
 
 	BOOL NetInterface::IsConnected( UINT32 unClientIndex )
@@ -61,14 +61,14 @@ namespace Net
 		return FALSE;
 	}
 
-	INT32 NetInterface::SendMsg( UINT32 unClientIndex , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
+	CErrno NetInterface::SendMsg( UINT32 unClientIndex , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
 	{
 		if (m_pMsgHandler)
 		{
 			return m_pMsgHandler->SendMsg(unClientIndex , unMsgID , pBuffer , unLength);
 		}
 		
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}
 
 

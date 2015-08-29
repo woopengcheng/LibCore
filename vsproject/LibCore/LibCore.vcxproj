@@ -249,7 +249,7 @@
     <ClInclude Include="..\..\LibCore\CUtil\inc\Common.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\CUtil.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\DeelxRegexp.h" />
-    <ClInclude Include="..\..\LibCore\CUtil\inc\ErrorCode.h" />
+    <ClInclude Include="..\..\LibCore\CUtil\inc\CErrno.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\GenMsgHelper.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\Heap.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\intrusive_ptr.h" />

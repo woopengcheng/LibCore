@@ -18,18 +18,18 @@ namespace CUtil
 		virtual ~Heap(void){ m_mapNodes.clear(); }
 
 	public:
-		virtual  INT32    Init(void);
-		virtual  INT32    Cleanup(void); 
+		virtual  CErrno		Init(void);
+		virtual  CErrno		Cleanup(void); 
 		virtual  Node<ValueType> *  Update(void);
 
 	public:
-		virtual  INT32    InsertNode(UINT32 unNodeID , Node<ValueType> * pNode){ return ERR_SUCCESS; }
-		virtual  INT32    RemoveNode(UINT32 unNodeID) { return ERR_SUCCESS; }
+		virtual  CErrno		InsertNode(UINT32 unNodeID , Node<ValueType> * pNode){ return CErrno::Success(); }
+		virtual  CErrno		RemoveNode(UINT32 unNodeID) { return CErrno::Success(); }
 		virtual  Node<ValueType> * GetNode(UINT32 unNodeID);
 
 	protected:
-		virtual  INT32    HeapRebuildDown(Node<ValueType> * pRebuildNode){ return ERR_SUCCESS; }
-		virtual  INT32    HeapRebuildUp(Node<ValueType>  * pRebuildNode) { return ERR_SUCCESS; }
+		virtual  CErrno    HeapRebuildDown(Node<ValueType> * pRebuildNode){ return CErrno::Success(); }
+		virtual  CErrno    HeapRebuildUp(Node<ValueType>  * pRebuildNode) { return CErrno::Success(); }
 
 	public:
 		INT32             GetHeapParentPos(UINT32 unPos);
@@ -52,7 +52,7 @@ namespace CUtil
 	}
 
 	template <typename ValueType>
-	INT32 Heap<ValueType>::Cleanup( void )
+	CErrno Heap<ValueType>::Cleanup( void )
 	{
 		MapNodesT::iterator iter = m_mapNodes.begin();
 		for (;iter != m_mapNodes.end();++iter)
@@ -63,14 +63,14 @@ namespace CUtil
 
 //		SAFE_DELETE_ARRAY(m_pNodes);
 
-		return TRUE;
+		return CErrno::Success();
 	}
 
 	template <typename ValueType>
-	INT32 Heap<ValueType>::Init( void )
+	CErrno Heap<ValueType>::Init( void )
 	{ 
 //		m_pNodes = new Node<ValueType>*[MAX_NODE_SIZE];
-		return TRUE;
+		return CErrno::Success();
 	}
 
 	template <typename ValueType>

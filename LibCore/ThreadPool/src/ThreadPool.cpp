@@ -25,14 +25,14 @@ namespace ThreadPool
 		}
 	}
 
-	INT32 IThreadPool::Init(char * pFile)
+	CErrno IThreadPool::Init(char * pFile)
 	{
-		Assert_ReF1(pFile) 
+		Assert_ReF(pFile) 
 		 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	} 
 
-	INT32 IThreadPool::Init(std::map<UINT32 , UINT32 > & mapPriorityCount , BOOL bPirorityStrict/* = TRUE*/)
+	CErrno IThreadPool::Init(std::map<UINT32 , UINT32 > & mapPriorityCount , BOOL bPirorityStrict/* = TRUE*/)
 	{
 		std::map<UINT32 , UINT32 >::iterator iter = mapPriorityCount.begin();
 		for (;iter != mapPriorityCount.end();++ iter)
@@ -41,14 +41,14 @@ namespace ThreadPool
 		}
 
 		m_bPirorityStrict = bPirorityStrict;
-		
+		ThreadContext<ThreadState>::Init(); 
  //		RegisterSig(THREAD_SIG_QUIT , SigHandler);
-		return ThreadContext<ThreadState>::Init(); 
+		return CErrno::Success();
 	}
 
-	INT32 IThreadPool::Cleanup()
+	CErrno IThreadPool::Cleanup()
 	{
-		Assert_ReF1(KillChildrenThread())
+		Assert_ReF(KillChildrenThread())
 		{
 			m_mapThreadPriorityCount.clear();
 
@@ -75,10 +75,10 @@ namespace ThreadPool
 // 			Assert(0 && "删除信号灯失败....\n"); 
 // 		} 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 IThreadPool::Startup()
+	CErrno IThreadPool::Startup()
 	{
 		pthread_t pID = pthread_self(); 
 		pthread_detach(pID);
@@ -100,13 +100,13 @@ namespace ThreadPool
 			}
 		}
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 IThreadPool::Closeup()
+	CErrno IThreadPool::Closeup()
 	{
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 	 
 	BOOL IThreadPool::AddTask( ThreadTask * pThreadTask )
@@ -263,11 +263,11 @@ namespace ThreadPool
 		return NULL;
 	}
 
-	INT32 IThreadPool::CreateThread( UINT32 unPriority , UINT32 unThreadCount /*= 1*/ )
+	CErrno IThreadPool::CreateThread( UINT32 unPriority , UINT32 unThreadCount /*= 1*/ )
 	{
 		if (HasPriorityThread(unPriority))
 		{
-			return ERR_FAILURE;
+			return CErrno::Failure();
 		}
 		else
 		{
@@ -287,10 +287,10 @@ namespace ThreadPool
 			}  
 		} 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 IThreadPool::CreateThread(pthread_t &th , pthread_attr_t * attr , thread_fun  pFunc , void * pParam )
+	CErrno IThreadPool::CreateThread(pthread_t &th , pthread_attr_t * attr , thread_fun  pFunc , void * pParam )
 	{ 
 		pthread_attr_t objAtrr;
 		if (attr == NULL)
@@ -300,11 +300,14 @@ namespace ThreadPool
 			pthread_attr_setdetachstate (&objAtrr, PTHREAD_CREATE_JOINABLE);   
 			pthread_setcancelstate(PTHREAD_CANCEL_ENABLE , NULL);
 			pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS , NULL);
-
-			return pthread_create( &th, &objAtrr, pFunc, (void*)pParam);  
+			pthread_create( &th, &objAtrr, pFunc, (void*)pParam); 
+			return  CErrno::Success();
 		}
 		else 
-			return pthread_create( &th, attr, pFunc, (void*)pParam);     //5 创建成功返回0 
+		{
+			pthread_create( &th, attr, pFunc, (void*)pParam);     //5 创建成功返回0 
+			return CErrno::Success();
+		}
 	}
 
 	BOOL IThreadPool::HasPriorityThread( UINT32 unPriority )

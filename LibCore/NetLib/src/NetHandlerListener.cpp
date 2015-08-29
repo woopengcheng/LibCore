@@ -20,20 +20,24 @@ namespace Net
 		m_pSession->SetSocket(socket); 
 	}
 
-	INT32 NetHandlerListener::Init( const char * pAddress , INT32 nPort , BOOL bResueAddr /*= TRUE */, INT32 nListenerCount /*= DEFAULT_LISTENER_COUNT*/ )
+	CErrno NetHandlerListener::Init( const char * pAddress , INT32 nPort , BOOL bResueAddr /*= TRUE */, INT32 nListenerCount /*= DEFAULT_LISTENER_COUNT*/ )
 	{ 
-		Assert_ReF1(!Bind(pAddress , nPort));
+		Assert_ReF(!Bind(pAddress , nPort));
 
-		return Listen(nListenerCount);
+		if (Listen(nListenerCount) == 0)
+		{
+			return CErrno::Success();
+		}
+		return CErrno::Failure();
 	}
 
-	INT32 NetHandlerListener::Cleanup()
+	CErrno NetHandlerListener::Cleanup()
 	{ 
 		SAFE_DELETE(m_pSession);
-		return FALSE;
+		return CErrno::Success();
 	}
 
-	INT32 NetHandlerListener::OnMsgRecving( void )
+	CErrno NetHandlerListener::OnMsgRecving( void )
 	{
 		sockaddr_in addr = {0};
 #ifdef __linux
@@ -47,7 +51,7 @@ namespace Net
 			NetHelper::SetSocket(socket);	  
 			this->OnAccept(socket , &addr);
 		}
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 	INT32 NetHandlerListener::Listen( INT32 nListenerCount /*= DEFAULT_LISTENER_COUNT*/)

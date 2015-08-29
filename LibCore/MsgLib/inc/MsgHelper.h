@@ -27,7 +27,7 @@ namespace Msg
 		return pSendInstance->SendMsg(pSessionName , pMsg );\
 	}\
 	\
-	return ERR_SUCCESS;\
+	return -1;\
 	 
 #define GEN_RPC_CALL_7(pSendInstance , pSessionName , rpcCallName , p1 , p2 , p3 , p4 , p5 , p6 , p7 , vecTargets , objSrc , usPriority , pServerName , objSyncType , nTimeout) \
 	if (vecTargets.size() == 0 && !pServerName)\
@@ -45,7 +45,7 @@ namespace Msg
 		return pSendInstance->SendMsg(pSessionName , pMsg );\
 	}\
 	\
-	return ERR_SUCCESS;\
+	return -1;\
 	 
 #define GEN_RPC_CALL_6(pSendInstance , pSessionName , rpcCallName , p1 , p2 , p3 , p4 , p5 , p6 , vecTargets , objSrc , usPriority , pServerName , objSyncType , nTimeout) \
 	if (vecTargets.size() == 0 && !pServerName)\
@@ -63,7 +63,7 @@ namespace Msg
 		return pSendInstance->SendMsg(pSessionName , pMsg );\
 	}\
 	\
-	return ERR_SUCCESS;\
+	return -1;\
 	 
 #define GEN_RPC_CALL_5(pSendInstance , pSessionName , rpcCallName , p1 , p2 , p3 , p4 , p5 , vecTargets , objSrc , usPriority , pServerName , objSyncType , nTimeout) \
 	if (vecTargets.size() == 0 && !pServerName)\
@@ -81,7 +81,7 @@ namespace Msg
 		return pSendInstance->SendMsg(pSessionName , pMsg );\
 	}\
 	\
-	return ERR_SUCCESS;\
+	return -1;\
 	 
 #define GEN_RPC_CALL_4(pSendInstance , pSessionName , rpcCallName , p1 , p2 , p3 , p4 , vecTargets , objSrc , usPriority , pServerName , objSyncType , nTimeout) \
 	if (vecTargets.size() == 0 && !pServerName)\
@@ -99,7 +99,7 @@ namespace Msg
 		return pSendInstance->SendMsg(pSessionName , pMsg );\
 	}\
 	\
-	return ERR_SUCCESS;\
+	return -1;\
 	 
 #define GEN_RPC_CALL_3(pSendInstance , pSessionName , rpcCallName , p1 , p2 , p3 , vecTargets , objSrc , usPriority , pServerName , objSyncType , nTimeout) \
 	if (vecTargets.size() == 0 && !pServerName)\
@@ -117,7 +117,7 @@ namespace Msg
 		return pSendInstance->SendMsg(pSessionName , pMsg );\
 	}\
 	\
-	return ERR_SUCCESS;\
+	return -1;\
 	 
 #define GEN_RPC_CALL_2(pSendInstance , pSessionName , rpcCallName , p1 , p2 , vecTargets , objSrc , usPriority , pServerName , objSyncType , nTimeout) \
 	if (vecTargets.size() == 0 && !pServerName)\
@@ -135,7 +135,7 @@ namespace Msg
 		return pSendInstance->SendMsg(pSessionName , pMsg );\
 	}\
 	\
-	return ERR_SUCCESS;\
+	return -1;\
 	 
 #define GEN_RPC_CALL_1(pSendInstance , pSessionName , rpcCallName , p1 , vecTargets , objSrc , usPriority , pServerName , objSyncType , nTimeout) \
 	if (vecTargets.size() == 0 && !pServerName)\
@@ -153,7 +153,7 @@ namespace Msg
 		return pSendInstance->SendMsg(pSessionName , pMsg );\
 	}\
 	\
-	return ERR_SUCCESS;\
+	return -1;\
 	 
 #define GEN_RPC_CALL_0(pSendInstance , pSessionName , rpcCallName , vecTargets , objSrc , usPriority , pServerName , objSyncType , nTimeout) \
 	if (vecTargets.size() == 0 && !pServerName)\
@@ -171,13 +171,13 @@ namespace Msg
 		return pSendInstance->SendMsg(pSessionName , pMsg );\
 	}\
 	\
-	return ERR_SUCCESS;\
+	return -1;\
 	 
 	
 #define GEN_MSG_CALL(rpcCallName , p1 , p2 , p3 , p4 , p5 , p6 , p7 , vecTargets , objSrc , usPriority) \
 	if (vecTargets.size() == 0)\
 	{\
-		Assert_ReF1(FALSE);\
+		Assert_ReF(FALSE);\
 	}\
 	else\
 	{ \
@@ -186,10 +186,10 @@ namespace Msg
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7);\
 		\
-		MsgInstance::GetInstance().SendMsg(pMsg);\
+		return MsgInstance::GetInstance().SendMsg(pMsg);\
 	}\
 	\
-	return ERR_SUCCESS;\
+	return -1;\
 
 	class DLL_EXPORT MsgHelper
 	{

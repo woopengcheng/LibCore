@@ -13,7 +13,7 @@ namespace ThreadPool
 	public:
 		virtual void  OnStartThread( void );    //5 线程开始执行的时候调用.
 		virtual void  Run( void );
-		virtual INT32 Update( void ) = 0 ;
+		virtual CErrno Update( void ) = 0 ;
 
 		//************************************
 		// Method:    OnEndThread
@@ -46,7 +46,7 @@ namespace ThreadPool
 		ThreadNormalTask(UINT32 unPriority , char * pTaskName = "UnknownName", BOOL bInStack = FALSE):ThreadTask(unPriority , pTaskName , bInStack){}
 
 	public:  
-		virtual INT32  Update( void ); 
+		virtual CErrno  Update( void ); 
 	};
 
 	class DLL_EXPORT ThreadSustainTask : public ThreadTask
@@ -65,7 +65,7 @@ namespace ThreadPool
 		// Qualifier: 这里不需要再在Update里面加死循环.会阻塞程序.
 		// Parameter: void
 		//************************************
-		virtual INT32  Update( void ); 
+		virtual CErrno  Update( void ); 
 	};
 }
 

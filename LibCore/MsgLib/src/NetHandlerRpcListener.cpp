@@ -5,12 +5,12 @@
 
 namespace Msg
 { 
-	INT32 NetHandlerRpcListener::Init( const char * pAddress , INT32 nPort , BOOL bResueAddr /*= TRUE */, INT32 nListenerCount /*= DEFAULT_LISTENER_COUNT*/ )
+	CErrno NetHandlerRpcListener::Init( const char * pAddress , INT32 nPort , BOOL bResueAddr /*= TRUE */, INT32 nListenerCount /*= DEFAULT_LISTENER_COUNT*/ )
 	{
 		return NetHandlerListener::Init(pAddress , nPort , bResueAddr , nListenerCount);
 	}
 
-	INT32 NetHandlerRpcListener::Cleanup()
+	CErrno NetHandlerRpcListener::Cleanup()
 	{
 		return NetHandlerListener::Cleanup();
 	} 

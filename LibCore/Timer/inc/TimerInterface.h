@@ -30,12 +30,12 @@ namespace Timer
 		virtual ~TimerInterface(void){} 
 
 	public:
-		virtual INT32		Init(ETimerStrategyType objTimerStrategyType = TIMER_STRATEGY_DEFAULT);
-		virtual INT32		Cleanup(void);
+		virtual CErrno		Init(ETimerStrategyType objTimerStrategyType = TIMER_STRATEGY_DEFAULT);
+		virtual CErrno		Cleanup(void);
 
 	public:
 		virtual INT32		SetTimer(UINT32 unTimeInterval , UINT32 unStartTime = 0, UINT32 unTimes = 0, void * pObj = NULL , TimerCallBackFunc pFunc = NULL);
-		virtual INT32		RemoveTimer(UINT32 unTimeID);
+		virtual CErrno		RemoveTimer(UINT32 unTimeID);
 		virtual TimerNode * Update(void);
 
 	public:

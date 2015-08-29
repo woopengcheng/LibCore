@@ -39,7 +39,7 @@ namespace CUtil
 		} 
 	public:  
 		UINT32     GetSize();
-		UINT32     Copy(Parameters & pParam); 
+		CErrno     Copy(Parameters & pParam); 
 		void       Clear(void);
 
 		//5 这个接口性能不够高 

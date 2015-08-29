@@ -24,7 +24,7 @@ namespace Net
 		m_objRecvBuf.Cleanup();
 	}
 	 
-	INT32 NetHandlerTransit::OnMsgRecving( void )
+	CErrno NetHandlerTransit::OnMsgRecving( void )
 	{
 		char szBuf[DEFAULT_CIRCLE_BUFFER_SIZE];  
 
@@ -36,19 +36,19 @@ namespace Net
 		{
 			nBufSize = NetHelper::RecvMsg(socket , szBuf , sizeof(szBuf));
 			if( nBufSize <  0 && NetHelper::IsSocketEagain())
-				return 0;
+				return CErrno::Success();
 			if( nBufSize <= 0 )
-				return ERR_FAILURE;
+				return CErrno::Failure();
 
-			int result = RecvToCircleBuffer( szBuf , nBufSize);
-			if( result < 0 )
+			CErrno result = RecvToCircleBuffer( szBuf , nBufSize);
+			if( !result.IsSuccess() )
 				return result;
 		}while(0);
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 NetHandlerTransit::RecvToCircleBuffer( char * pBuf , UINT32 unSize )
+	CErrno NetHandlerTransit::RecvToCircleBuffer( char * pBuf , UINT32 unSize )
 	{
 		if(m_objRecvBuf.GetSpace() > unSize)
 		{
@@ -62,14 +62,14 @@ namespace Net
 		}
 		else
 		{
-			MsgAssert_Re(0 , ERR_FAILURE , "buffer full.");  
+			MsgAssert_Re(0 , CErrno::Failure() , "buffer full.");  
 			this->m_objRecvBuf.SkipBytes(m_objRecvBuf.GetDataLength());
-			return ERR_FAILURE;
+			return CErrno::Failure();
 		}
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 NetHandlerTransit::ParaseRecvMsg()
+	CErrno NetHandlerTransit::ParaseRecvMsg()
 	{
 		while(m_objRecvBuf.GetDataLength() > 0)
 		{
@@ -80,7 +80,7 @@ namespace Net
 			if(nRecvBuf < sizeof(UINT32))
 			{
 				gErrorStream( "parase msg header failed.");
-				return ERR_FAILURE; 
+				return CErrno::Failure(); 
 			}
 
 //			Convert<UINT32>::ToHostOrder(unMsgLength);
@@ -88,11 +88,11 @@ namespace Net
 			if(unMsgLength > MAX_MESSAGE_LENGTH || unMsgLength <= 0)
 			{
 				gErrorStream( "error package len ,discard connection");
-				return ERR_FAILURE;   
+				return CErrno::Failure();   
 			}
 
 			if(m_objRecvBuf.GetDataLength() < unMsgLength)
-				return ERR_SUCCESS;
+				return CErrno::Success();
 
 			char szBuf[MAX_MESSAGE_LENGTH];
 			m_objRecvBuf.GetBuffer(szBuf , unMsgLength);
@@ -102,16 +102,17 @@ namespace Net
 			HandleMsg(m_pSession , pHeader->unMsgID , szBuf + sizeof(MsgHeader) , pHeader->unMsgLength - sizeof(MsgHeader) );
 		}
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 NetHandlerTransit::OnMsgSending( void )
+	CErrno NetHandlerTransit::OnMsgSending( void )
 	{
 		if (m_pSession)
 		{
 			m_pSession->SetCanWrite(TRUE);
 		}
-		return FlushSendBuffer();
+		FlushSendBuffer();
+		return CErrno::Success();
 	}
 
 	INT32 NetHandlerTransit::FlushSendBuffer( void )
@@ -183,20 +184,20 @@ namespace Net
 					if( nSendBytes <= 0)
 					{
 						gErrorStream("sendbuffer.length=0,direct send failed");
-						return ERR_FAILURE;
+						return -1;
 					}
 					else if(nSendBytes != unSize)
 					{
 						gErrorStream("sendbuffer.length=0,direct send failed");
-						return ERR_FAILURE; 
+						return -1; 
 					}
 
-					return (nSendBytes > 0) ? nSendBytes : ERR_FAILURE;
+					return (nSendBytes > 0) ? nSendBytes : -1;
 				}
 				else
 				{
 					gErrorStream("sendbuff not empty");
-					return ERR_FAILURE;  
+					return -1;  
 				}
 			}
 			return unSize;
@@ -210,7 +211,7 @@ namespace Net
 	{ 
 		if(m_pSession && !m_pSession->IsCanWrite())
 		{
-			return ERR_FAILURE;
+			return -1;
 		} 
 
 		UINT32 unTotalSendBytes = 0;
@@ -240,31 +241,31 @@ namespace Net
 		return unTotalSendBytes;
 	}
 
-	INT32 NetHandlerTransit::HandleMsg( ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
+	CErrno NetHandlerTransit::HandleMsg( ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
 	{
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 NetHandlerTransit::OnClose( void )
+	CErrno NetHandlerTransit::OnClose( void )
 	{ 
 		if (m_pSession)
 		{
 			m_pSession->OnClose();
 		} 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 	  
-	INT32 NetHandlerTransit::Update( void )
+	CErrno NetHandlerTransit::Update( void )
 	{   
 		return INetHandler::Update();
 	}
 
-	INT32 NetHandlerTransit::Init( void )
+	CErrno NetHandlerTransit::Init( void )
 	{
 		return INetHandler::Init();
 	}
 
-	INT32 NetHandlerTransit::Cleanup( void )
+	CErrno NetHandlerTransit::Cleanup( void )
 	{
 		return INetHandler::Cleanup();
 	}

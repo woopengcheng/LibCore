@@ -5,7 +5,7 @@
 
 namespace Log
 { 
-	UINT32 GLogAdaptee::Init( const char * pLogName , const char * pLayoutConfig /*= NULL */, BOOL bMultCategory /*= TRUE*/ )
+	CErrno GLogAdaptee::Init( const char * pLogName , const char * pLayoutConfig /*= NULL */, BOOL bMultCategory /*= TRUE*/ )
 	{
 		google::InitGoogleLogging("./"); 
  		google::SetStderrLogging(0); //5 设置级别高于INFO的输出到屏幕
@@ -41,12 +41,12 @@ namespace Log
 				CreateLog((LOG_TYPE)i , pLayoutConfig , (strFileName + "_" + g_strLogTypeName[i] + ".log").c_str()); 
 			}
 		}  
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	UINT32 GLogAdaptee::Cleanup()
+	CErrno GLogAdaptee::Cleanup()
 	{
-		return TRUE;
+		return CErrno::Success();
 	}
 
 	void GLogAdaptee::Debug( std_ostream & os )
@@ -74,7 +74,7 @@ namespace Log
 //		RAW_VLOG(LOG_OTHERS , os.str().c_str());
 	}
 
-	UINT32 GLogAdaptee::CreateLog( LOG_TYPE objLogType , const char * pLayoutConfig , const char * pFile )
+	CErrno GLogAdaptee::CreateLog( LOG_TYPE objLogType , const char * pLayoutConfig , const char * pFile )
 	{ 
 		switch(objLogType)
 		{
@@ -105,7 +105,7 @@ namespace Log
 				break; 
 		} 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 }

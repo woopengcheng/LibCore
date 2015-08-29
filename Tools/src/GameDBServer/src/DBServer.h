@@ -31,7 +31,7 @@ namespace Server
 
 	public:  
 		virtual void   OnRegisterRpcs(void); 
-		virtual INT32  Update(void); 
+		virtual CErrno  Update(void); 
 	};  
 	 
 

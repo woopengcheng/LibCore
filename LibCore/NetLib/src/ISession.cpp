@@ -18,25 +18,25 @@ namespace Net
 		}
 	}  
 
-	INT32 ISession::OnRecvMsg( void )
+	CErrno ISession::OnRecvMsg( void )
 	{
 		m_objTimeout.ResetTime();
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 ISession::OnSendMsg( void )
+	CErrno ISession::OnSendMsg( void )
 	{ 
 		m_objTimeout.ResetTime();
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 ISession::OnClose( void )
+	CErrno ISession::OnClose( void )
 	{ 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 ISession::Init( const char * pAddress ,INT16 usSocktPort , const char * pRemoteName , INT32 nSessionID , NetSocket socket , INT64 llTimeout)
+	CErrno ISession::Init( const char * pAddress ,INT16 usSocktPort , const char * pRemoteName , INT32 nSessionID , NetSocket socket , INT64 llTimeout)
 	{  
 		m_bClosed = TRUE;
 		memcpy(m_szAddress , pAddress , strlen(pAddress) + 1);
@@ -47,10 +47,10 @@ namespace Net
 
 		m_objTimeout.Start(llTimeout);
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 ISession::Cleanup(void)
+	CErrno ISession::Cleanup(void)
 	{  
 		m_bClosed = TRUE;
 		m_nNetState = NET_STATE_LOSTED; 
@@ -61,7 +61,7 @@ namespace Net
 			NetHelper::CloseSocket(this);
 			m_socket = -1; 
 		}
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 	 
 	void ISession::AutoSetSessionID( void )

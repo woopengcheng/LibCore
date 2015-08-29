@@ -6,7 +6,7 @@ namespace Server
 {   
 	const int maxCount = 100;
 	static UINT32 unCount = maxCount;
-	INT32 DBServer::Update( void )
+	CErrno DBServer::Update( void )
 	{ 
 		std::string strDB = "ll";
 		while(unCount == 0)

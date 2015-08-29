@@ -5,7 +5,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcServerProxy(N
 	CUtilChunk res = CUtil::Chunk();
 
 
-	if(ERR_FAILURE == ProxySendMsg("tcp://127.0.0.1:8002" , 0 , dbname , value , value2 , value22 , valChar))
+	if(-1 == ProxySendMsg("tcp://127.0.0.1:8002" , 0 , dbname , value , value2 , value22 , valChar))
 	{
 		Return(res);
 	}

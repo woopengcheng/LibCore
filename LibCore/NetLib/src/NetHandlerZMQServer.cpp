@@ -35,7 +35,7 @@ namespace Net
 		SAFE_DELETE(m_pZmqMsg);
 	} 
 
-	INT32 NetHandlerZMQServer::Init( const char* ip,int port )
+	CErrno NetHandlerZMQServer::Init( const char* ip,int port )
 	{   
 		m_pSession->SetAddress(ip);
 		m_pSession->SetSocktPort(port);
@@ -45,28 +45,28 @@ namespace Net
 		str += ":";
 		str += CUtil::itoa(port); 
 			 
-		MsgAssert_ReF1(!zmq_bind (m_pZmqSocket , str.c_str()) , zmq_strerror (errno)); 
+		MsgAssert_ReF(!zmq_bind (m_pZmqSocket , str.c_str()) , zmq_strerror (errno)); 
 			 
 		return INetHandler::Init(); 
 	}
 
-	INT32 NetHandlerZMQServer::Cleanup(void)
+	CErrno NetHandlerZMQServer::Cleanup(void)
 	{ 
 		return INetHandler::Cleanup();
 	}
 	 
-	INT32 NetHandlerZMQServer::OnClose(void)
+	CErrno NetHandlerZMQServer::OnClose(void)
 	{
 		return INetHandler::OnClose();
 	}
 
-	INT32 NetHandlerZMQServer::OnMsgRecving( void )
+	CErrno NetHandlerZMQServer::OnMsgRecving( void )
 	{
 		int nResult = zmq_msg_init (m_pZmqMsg);
 		if (nResult != 0) 
 		{
 			gErrorStream("error in zmq_msg_init: %s\n" << zmq_strerror (errno));
-			return -1;
+			return CErrno::Failure();
 		}
 
 		nResult = zmq_recvmsg (m_pZmqSocket , m_pZmqMsg, ZMQ_DONTWAIT);
@@ -77,13 +77,13 @@ namespace Net
 				nResult = zmq_msg_close (m_pZmqMsg);
 				if (nResult != 0) {
 					printf ("error in zmq_msg_close: %s\n", zmq_strerror (errno));
-					return -1;
-				} 
-				return 0;
+					return  CErrno::Failure();
+				}
+				CErrno::Success();
 			}
 			
 			printf ("error in zmq_recvmsg: %s\n", zmq_strerror (errno));
-			return -1;
+			return CErrno::Failure();
 		}
 		void * pBuf = zmq_msg_data(m_pZmqMsg);
 		size_t usSize = zmq_msg_size(m_pZmqMsg);
@@ -94,9 +94,9 @@ namespace Net
 		nResult = zmq_msg_close (m_pZmqMsg);
 		if (nResult != 0) {
 			printf ("error in zmq_msg_close: %s\n", zmq_strerror (errno));
-			return -1;
+			return CErrno::Failure();
 		} 
-		return nResult;
+		return  CErrno::Success();
 	}
 
 

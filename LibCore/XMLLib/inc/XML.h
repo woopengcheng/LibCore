@@ -16,9 +16,9 @@ namespace XML
 		static void EndElement(void * pUserData , const char * pName);
 
 	public:
-		INT32 DLL_EXPORT LoadFromFile(const std::string strFilePath);
-		INT32 DLL_EXPORT LoadFromStream(std::istream & stream);
-		INT32 DLL_EXPORT LoadFromString(const std::string strXMLContent);
+		CErrno DLL_EXPORT LoadFromFile(const std::string strFilePath);
+		CErrno DLL_EXPORT LoadFromStream(std::istream & stream);
+		CErrno DLL_EXPORT LoadFromString(const std::string strXMLContent);
 
 	public:
 		std::string DLL_EXPORT GetXMLValue(std::string  strXMLPath , std::string strDefaultValue = "" );

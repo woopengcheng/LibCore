@@ -4,7 +4,7 @@
 
 namespace Net
 {   
-	INT32  NetHandlerCommonServer::HandleMsg( ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
+	CErrno  NetHandlerCommonServer::HandleMsg( ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
 	{
 		printf("%s" , pBuffer);
 
@@ -14,10 +14,10 @@ namespace Net
 		memcpy(pBuf + sizeof(Net::MsgHeader) , "woope" , 6);
 		SendMsg(pBuf , 6 + sizeof(Net::MsgHeader)); 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 NetHandlerCommonServer::OnClose( void )
+	CErrno NetHandlerCommonServer::OnClose( void )
 	{ 
 		return NetHandlerTransit::OnClose();
 	}

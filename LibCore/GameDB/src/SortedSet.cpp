@@ -190,7 +190,7 @@ namespace GameDB
 			{
 				if (val.length() != sizeof(INT64))
 				{
-					oper.SetErrorCode(ERR_INVALID_DATA);
+					oper.SetErrorCode(CErrno::ERR_INVALID_DATA);
 					return ;
 				}
 
@@ -253,17 +253,17 @@ namespace GameDB
 		{
 			if (strValue.length() != sizeof(INT64))
 			{
-				oper.SetErrorCode(ERR_INVALID_DATA);
+				oper.SetErrorCode(CErrno::ERR_INVALID_DATA);
 				return ;
 			}
 
 			INT64 llScore = *reinterpret_cast<const INT64*>(strValue.c_str());
 			oper.GetOperateReturns().GetStream() << llScore;
-			oper.SetErrorCode(ERR_SUCCESS);
+			oper.SetErrorCode(CErrno::Success());
 		}
 		else
 		{
-			oper.SetErrorCode(ERR_FAILURE);
+			oper.SetErrorCode(CErrno::Failure());
 		}
 	}
 
@@ -277,7 +277,7 @@ namespace GameDB
 
 		if (llEnd - llStart <= 0 && llLimit == 0)
 		{
-			oper.SetErrorCode(ERR_FAILURE);
+			oper.SetErrorCode(CErrno::Failure());
 			return ;
 		}
 
@@ -318,7 +318,7 @@ namespace GameDB
 
 		delete iter;
 
-		oper.SetErrorCode(ERR_SUCCESS);
+		oper.SetErrorCode(CErrno::Success());
 	}
 
 	void SortedSet::ZTop(Database &db,Operate & oper,const Slice& table,INT64 llStart , INT64 llEnd , INT64 llLimit)
@@ -331,7 +331,7 @@ namespace GameDB
 
 		if (llEnd - llStart <= 0 && llLimit == 0)
 		{
-			oper.SetErrorCode(ERR_FAILURE);
+			oper.SetErrorCode(CErrno::Failure());
 			return ;
 		}
 
@@ -372,7 +372,7 @@ namespace GameDB
 
 		delete iter;
 
-		oper.SetErrorCode(ERR_SUCCESS);
+		oper.SetErrorCode(CErrno::Success());
 
 	}
 
@@ -404,7 +404,7 @@ namespace GameDB
 			{
 				if (val.length() != sizeof(INT64))
 				{
-					oper.SetErrorCode(ERR_INVALID_DATA);
+					oper.SetErrorCode(CErrno::ERR_INVALID_DATA);
 					return ;
 				}
 
@@ -413,7 +413,7 @@ namespace GameDB
 			} 
 			else
 			{
-				oper.SetErrorCode(ERR_NOTFOUND);
+				oper.SetErrorCode(CErrno::ERR_NOTFOUND);
 				return ;
 			}
 		}
@@ -470,7 +470,7 @@ namespace GameDB
 
 			if (val.size() != sizeof(INT64))
 			{
-				oper.SetErrorCode(ERR_INVALID_DATA);
+				oper.SetErrorCode(CErrno::ERR_INVALID_DATA);
 				return;
 			}
 			INT64 llOldScore = *reinterpret_cast<const INT64*>(val.data());
@@ -518,7 +518,7 @@ namespace GameDB
 		ZCount_Initial(db , sizeKey , llCount);
 
 		oper.GetOperateReturns().GetStream() << llCount;
-		oper.SetErrorCode(ERR_SUCCESS);
+		oper.SetErrorCode(CErrno::Success());
 	}
 
 	void SortedSet::ZList(Database &db,Operate & oper)
@@ -554,7 +554,7 @@ namespace GameDB
 
 		oper.GetOperateReturns().GetStream() << nCount;
 		oper.GetOperateReturns().GetStream().Pushback(cs.Begin() , cs.GetDataLen());
-		oper.SetErrorCode(ERR_SUCCESS);
+		oper.SetErrorCode(CErrno::Success());
 	}
 
 

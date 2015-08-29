@@ -10,7 +10,7 @@ namespace GameDB
 	{
 	public:
 		Operate()
-			: m_nErrorCode(ERR_FAILURE)
+			: m_nErrorCode(CErrno::Failure())
 		{ 
 		}
 		virtual ~Operate()
@@ -18,31 +18,30 @@ namespace GameDB
 
 		}
 	public:
-		bool		IsSuccess(){ return m_nErrorCode == ERR_SUCCESS; }
-		bool		IsNotFound(){ return m_nErrorCode == ERR_NOTFOUND; }
-		void		SetErrorCode(ErrCode code){ m_nErrorCode = code; }
+		bool		IsSuccess(){ return m_nErrorCode == CErrno::Success(); }
+		bool		IsNotFound(){ return m_nErrorCode == CErrno::NotFound(); }
+		void		SetErrorCode(CErrno code){ m_nErrorCode = code; }
 		void		SetErrorCode(const leveldb::Status& status)
 		{
 			if(status.ok())
-				m_nErrorCode = ERR_SUCCESS;
+				m_nErrorCode = CErrno::Success();
 			else if(status.IsIOError())
-				m_nErrorCode = ERR_IOERROR;
+				m_nErrorCode = CErrno::IOError();
 			else if(status.IsCorruption())
-				m_nErrorCode = ERR_CORRUPTION;
+				m_nErrorCode = CErrno::Corruption();
 			else if(status.IsNotFound())
-				m_nErrorCode = ERR_NOTFOUND;
+				m_nErrorCode = CErrno::NotFound();
 			else
-				m_nErrorCode = ERR_INVALIDARGUMENT;
+				m_nErrorCode = CErrno::InvaildArgument();
 		}
-		ErrCode  GetErrorCode(){ return m_nErrorCode; }
-		std::string GetErrorString(){ return g_szErrorString[m_nErrorCode]; }
+		CErrno  GetErrorCode(){ return m_nErrorCode; }
 
 	public:
 		OperateRecord  & GetOperateRecord()	{ return m_objOperateRecord;}
 		OperateReturns & GetOperateReturns(){ return m_objOperateReturns; }
 
 	private:
-		ErrCode	         m_nErrorCode;
+		CErrno	         m_nErrorCode;
 		OperateRecord    m_objOperateRecord;
 		OperateReturns   m_objOperateReturns;
 	};

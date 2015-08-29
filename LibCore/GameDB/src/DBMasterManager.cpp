@@ -11,7 +11,7 @@
 namespace GameDB
 {
 #ifdef USE_ZMQ
-	INT32 DBMasterManager::HandlePing( Net::ISession * pSession , Msg::SPing * pPing )
+	CErrno DBMasterManager::HandlePing( Net::ISession * pSession , Msg::SPing * pPing )
 	{ 
 		if(m_pRpcInterface && pSession && pPing )
 		{  
@@ -39,7 +39,7 @@ namespace GameDB
 	} 
 
 #else
-	INT32 DBMasterManager::HandlePing( Net::ISession * pSession , Msg::SPing * pPing )
+	CErrno DBMasterManager::HandlePing( Net::ISession * pSession , Msg::SPing * pPing )
 	{ 
 		if(m_pRpcInterface && pSession && pPing )
 		{  
@@ -66,7 +66,7 @@ namespace GameDB
 				}  
 				else if(pNetHandler->GetSession() && pNetHandler->GetSession()->IsClosed())
 				{
-					if(ERR_SUCCESS == pNetHandler->Init())
+					if(CErrno::Success() == pNetHandler->Init())
 					{
 						pNetHandler->GetSession()->SetNetState(Net::NET_STATE_CONNECTING); 
 						pNetHandler->GetSession()->SetClosed(FALSE);  
@@ -98,7 +98,7 @@ namespace GameDB
 			//			gDebugStream("recv client ping. " << strRemoteRPCName << std::endl);
 		}  
 
-		return TRUE;
+		return CErrno::Success();
 	}  
 #endif
 

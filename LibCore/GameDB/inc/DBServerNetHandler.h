@@ -13,7 +13,7 @@ namespace GameDB
 		virtual ~DBServerNetHandler();
 	
 	public:
-		virtual INT32  UpdatePing( void ); 
+		virtual CErrno  UpdatePing( void ); 
 // 	public:   
 // 		virtual INT32  HandleMsg(Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);   
 	};

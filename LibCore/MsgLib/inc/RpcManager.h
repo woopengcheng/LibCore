@@ -70,20 +70,20 @@ namespace Msg
 		virtual ~RpcManager(void){} 
 		 
 	public:
-		virtual INT32  Init(void);
-		virtual INT32  Cleanup(void);
-		virtual INT32  Update(void);
+		virtual CErrno  Init(void);
+		virtual CErrno  Cleanup(void);
+		virtual CErrno  Update(void);
 
 	public:
-		virtual INT32  AddRemoteRpc(INT32 nSessionID , Net::NetHandlerTransitPtr pRpc);
-		virtual INT32  DelRemoteRpc(INT32 nSessionID);
+		virtual CErrno  AddRemoteRpc(INT32 nSessionID , Net::NetHandlerTransitPtr pRpc);
+		virtual CErrno  DelRemoteRpc(INT32 nSessionID);
 		virtual void   AddNetHandler(INT32 nSessionID , Net::NetHandlerTransitPtr pRpc);
 		virtual void   DelNetHandler(INT32 nSessionID);
 		virtual void   AddRpcInfo(SRpcInfo & objRpcInfo);
 		virtual void   DelRpcInfo(std::string strRpcInfo);
-		virtual INT32  UpdateHandlers(void);
-		virtual INT32  CleanupRemoteRpc(INT32 nSessionID);
-		virtual INT32  CleanupRpcInfo(std::string strRpcInfo);
+		virtual CErrno  UpdateHandlers(void);
+		virtual CErrno  CleanupRemoteRpc(INT32 nSessionID);
+		virtual CErrno  CleanupRpcInfo(std::string strRpcInfo);
 		virtual void   CloseNet(const char * pName){}
 		virtual void   CloseNet(INT32 nSessionID){}
 
@@ -92,10 +92,10 @@ namespace Msg
 		virtual INT32  SendMsg(INT32 nSessionID , RPCMsgCall * pMsg , BOOL bForce = FALSE , BOOL bAddRpc = TRUE); 
 		virtual INT32  SendMsg( Net::NetHandlerTransitPtr pRemoteRpc , RPCMsgCall * pRpcMsg , BOOL bForce = FALSE , BOOL bAddRpc = TRUE); 
 		virtual INT32  SendMsg( Net::NetHandlerTransitPtr pRemoteRpc , UINT32 unMsgID, const char* pBuffer, UINT32 unLength , BOOL bForce = FALSE , BOOL bAddRpc = TRUE);
-		virtual INT32  ProxySendMsg(INT32 nSessionID , RPCMsgCall * pMsg){ return -1; } 
-		virtual INT32  ProxySendMsg(const char * pRpcServerName , RPCMsgCall * pMsg){ return -1; }
-		virtual INT32  HandleMsg(Net::ISession * pSession , RPCMsgCall * pMsg);  
-		virtual INT32  HandlePing( Net::ISession * pSession , SPing * pPing ){ return -1; }
+		virtual CErrno  ProxySendMsg(INT32 nSessionID , RPCMsgCall * pMsg){ return CErrno::Failure(); } 
+		virtual CErrno  ProxySendMsg(const char * pRpcServerName , RPCMsgCall * pMsg){ return CErrno::Failure(); }
+		virtual CErrno  HandleMsg(Net::ISession * pSession , RPCMsgCall * pMsg);  
+		virtual CErrno  HandlePing( Net::ISession * pSession , SPing * pPing ){ return CErrno::Failure(); }
 
 		virtual Net::NetHandlerTransitPtr OnCreateNetHandler(const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket = 0 , void * context = NULL){ return Net::NetHandlerTransitPtr(NULL); }
 		  
@@ -112,11 +112,11 @@ namespace Msg
 		MapRpcInfosT & GetMapRpcInfos() { return m_mapRpcInfos; }
 		Net::INetReactor *  GetNetReactor() { return m_pNetReactor; }
 		BOOL  IsHasSessionByName(const char * pRpcServerName);  
-		BOOL  ChangeNameBySesson(const INT32 nSessionID , const char * pName);   
+		CErrno  ChangeNameBySesson(const INT32 nSessionID , const char * pName);   
 		void  InsertSendRpc(RPCMsgCall * pMsg);
 		void  InsertSendRpc(UINT64 ullRpcMsgID, Rpc * pRpc);
 		RpcInterface * GetRpcInterface(){ return m_pRpcInterface; }
-		BOOL   IsRpcInfoVaild(std::string strRpcInfo);
+		CErrno   IsRpcInfoVaild(std::string strRpcInfo);
 		SRpcInfo * GetRpcInfo(std::string strRpcInfo);
 		Net::NetHandlerTransitPtr CreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket = 0 , void * context = NULL);
 		Net::NetHandlerTransitPtr CreateNetHandler( const char * pName , const char * pAddress , const char * pPort , Net::NetSocket socket = 0 , void * context = NULL);

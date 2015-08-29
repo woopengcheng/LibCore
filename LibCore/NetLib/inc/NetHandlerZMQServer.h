@@ -17,15 +17,15 @@ namespace Net
 		virtual ~NetHandlerZMQServer();
 
 	public:
-		virtual INT32  Init( const char* ip,int port );
-		virtual INT32  Cleanup( void );
-		virtual INT32  OnClose( void ); 
+		virtual CErrno  Init( const char* ip,int port );
+		virtual CErrno  Cleanup( void );
+		virtual CErrno  OnClose( void ); 
 		  
 	public:
-		virtual INT32  OnMsgRecving( void );
-		virtual INT32  OnMsgSending( void ){ return 0; }
-		virtual INT32  SendMsg( const char * pBuf , UINT32 unSize ){ return 0; } 
-		virtual INT32  HandleMsg(ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength){ return 0; }
+		virtual CErrno  OnMsgRecving( void );
+		virtual CErrno  OnMsgSending( void ){ return CErrno::Success(); }
+		virtual INT32  SendMsg( const char * pBuf , UINT32 unSize ){ return -1; } 
+		virtual CErrno  HandleMsg(ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength){ return CErrno::Success(); }
 
 	protected:  
 		zmqSocketPtr   m_pZmqSocket;

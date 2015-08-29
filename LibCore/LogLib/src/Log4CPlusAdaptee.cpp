@@ -19,7 +19,7 @@
 namespace Log
 {   
 
-	UINT32 Log4CPlusAdaptee::Init( const char * pLogName , const char * pLayoutConfig , BOOL bMultCategory /* = FALSE*/)
+	CErrno Log4CPlusAdaptee::Init( const char * pLogName , const char * pLayoutConfig , BOOL bMultCategory /* = FALSE*/)
 	{
 		log4cplus::initialize();    //5 log4cplus 初始化
 		log4cplus::helpers::LogLog::getLogLog()->setInternalDebugging(false);
@@ -50,10 +50,10 @@ namespace Log
 				CreateLog(g_strLogTypeName[i].c_str() , pLayoutConfig , (strFileName + "_" + g_strLogTypeName[i] + ".log").c_str()); 
 			}
 		}
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	UINT32 Log4CPlusAdaptee::CreateLog( const char * pName , const char * pLayoutConfig , const char * pFile )
+	CErrno Log4CPlusAdaptee::CreateLog( const char * pName , const char * pLayoutConfig , const char * pFile )
 	{
 		//5 1.创建layout,这里是先定义Layout的格式.
 		log4cplus::tstring pattern = LOG4CPLUS_TEXT("");
@@ -80,14 +80,14 @@ namespace Log
 		objLogger.addAppender(pAppender);
 		objLogger.setLogLevel(log4cplus::ALL_LOG_LEVEL);
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	} 
 
-	UINT32 Log4CPlusAdaptee::Cleanup()
+	CErrno Log4CPlusAdaptee::Cleanup()
 	{
 		log4cplus::Logger::shutdown(); 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 	  
 	void Log4CPlusAdaptee::Debug( std_ostream & os )

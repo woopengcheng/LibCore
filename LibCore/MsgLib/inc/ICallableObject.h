@@ -19,7 +19,7 @@ namespace Msg
 		// Returns:   INT32
 		// Qualifier: Update是作为对象供给其他类调用的时候使用.
 		//************************************
-		virtual INT32 Update(){ return 0; } 
+		virtual CErrno Update(){ return CErrno::Success(); } 
 
 	public:
 		virtual Object  GetObjectID(){ return m_objID; }                   //5 这个函数也可以重载.但是没有这个必要.

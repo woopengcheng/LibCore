@@ -46,7 +46,7 @@ namespace Msg
 		return unMsgLength;
 	}
 	
-	UINT32 RPCMsgCall::Copy( RPCMsgCall *& pMsg )
+	CErrno RPCMsgCall::Copy( RPCMsgCall *& pMsg )
 	{
 		pMsg = new(sizeof(Object) * GetTargetsCount())RPCMsgCall;  
 
@@ -67,10 +67,10 @@ namespace Msg
 		{
 			pMsg->m_aTargets[i] = m_aTargets[i];
 		}  
-		return ERR_SUCCESS; 
+		return CErrno::Success(); 
 	}
 
-	UINT32 RPCMsgCall::CopyExcludeParams(RPCMsgCall *& pMsg)
+	CErrno RPCMsgCall::CopyExcludeParams(RPCMsgCall *& pMsg)
 	{
 		pMsg = new(sizeof(Object) * GetTargetsCount())RPCMsgCall;  
 
@@ -90,11 +90,11 @@ namespace Msg
 		{
 			pMsg->m_aTargets[i] = m_aTargets[i];
 		}  
-		return ERR_SUCCESS; 
+		return CErrno::Success(); 
 
 	}
 
-	UINT32 RPCMsgCall::CopyExcludeParamsAndTargets(RPCMsgCall *& pMsg ,const std::vector<Msg::Object> & vecTargets , Msg::Object objSrc)
+	CErrno RPCMsgCall::CopyExcludeParamsAndTargets(RPCMsgCall *& pMsg ,const std::vector<Msg::Object> & vecTargets , Msg::Object objSrc)
 	{
 		pMsg = new(sizeof(Object) * vecTargets.size())RPCMsgCall;  
 
@@ -109,15 +109,15 @@ namespace Msg
 		memcpy(pMsg->m_szRemoteName , m_szRemoteName , sizeof(m_szRemoteName));  
 
 		UINT32 unTargetsCount = GetTargetsCount();
-		pMsg->SetTargetsCount(vecTargets.size());    //5 这个必须放在最后刷新内存.
+		pMsg->SetTargetsCount((UINT32)vecTargets.size());    //5 这个必须放在最后刷新内存.
 		for (UINT32 i = 0;i < vecTargets.size();++i)
 		{
 			pMsg->m_aTargets[i] = vecTargets[i];
 		}  
-		return ERR_SUCCESS; 
+		return CErrno::Success(); 
 	}
 
-	UINT32 RPCMsgCall::CopyExcludeNetDatas(RPCMsgCall *& pMsg)
+	CErrno RPCMsgCall::CopyExcludeNetDatas(RPCMsgCall *& pMsg)
 	{
 		pMsg->m_objProxySrcID  = m_objProxySrcID;
 		pMsg->m_objSyncType    = m_objSyncType;
@@ -126,7 +126,7 @@ namespace Msg
 		pMsg->m_nRpcMsgCallType  = m_nRpcMsgCallType;
 		memcpy(pMsg->m_szSessionName , m_szSessionName , sizeof(m_szSessionName));    
 
-		return ERR_SUCCESS; 
+		return CErrno::Success(); 
 
 	}
 
@@ -168,11 +168,11 @@ namespace Msg
 	void RPCMsgCall::ReplaceDelayTarget()
 	{
 		CollectionTargetsT::iterator iter = m_setDelayTargets.begin();
-		for (INT32 i = 0;iter == m_setDelayTargets.end() && i < m_unTargetsCount;++iter , ++i)
+		for (UINT32 i = 0;iter == m_setDelayTargets.end() && i < m_unTargetsCount;++iter , ++i)
 		{
 			m_aTargets[i] = *iter;
 		}
-		m_unTargetsCount = m_setDelayTargets.size();
+		m_unTargetsCount = (UINT32)m_setDelayTargets.size();
 		m_setDelayTargets.clear();
 	}
 

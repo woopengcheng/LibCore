@@ -17,15 +17,15 @@ namespace GameDB
 	{  
 	}
 
-	INT32 DBSlaveInterface::Init(Json::Value & conf)
+	CErrno DBSlaveInterface::Init(Json::Value & conf)
 	{   
 		InitNet(conf);
 		InitDB(conf);
 
-		return ERR_SUCCESS; 
+		return CErrno::Success(); 
 	}
 
-	INT32 DBSlaveInterface::InitDB(const Json::Value & conf)
+	CErrno DBSlaveInterface::InitDB(const Json::Value & conf)
 	{  
 		std::string timestamp = Timer::TimerHelper::GetDate();
 		for(size_t i = 0; i < timestamp.length(); ++i)
@@ -52,13 +52,13 @@ namespace GameDB
 		if(!databases.isArray())
 		{
 			std::cerr << "invalid conf: databases not array" << std::endl;
-			return 1;
+			return CErrno::Failure();
 		}
 
 		if(databases.size() == 0)
 		{
 			std::cerr << "invalid conf: databases not contain name" << std::endl;
-			return 2;
+			return CErrno::Failure();
 		}
 
 		for(size_t i = 0; i < databases.size(); ++i)
@@ -76,11 +76,11 @@ namespace GameDB
 				m_pRpcClientManager->CreateNetHandler(strRemoteRPCName.c_str() , strAddress.c_str() , strPort.c_str() , 0 , &objInfo); 
 			}   
 		} 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 	 
 
-	INT32 DBSlaveInterface::InitNet(const Json::Value & conf)
+	CErrno DBSlaveInterface::InitNet(const Json::Value & conf)
 	{
 		if (!m_pNetReactor)
 		{
@@ -89,10 +89,10 @@ namespace GameDB
 #else
 			m_pNetReactor = new Net::NetReactorSelect; 
 #endif
-			if(ERR_SUCCESS != m_pNetReactor->Init())
+			if(CErrno::Success() != m_pNetReactor->Init())
 			{
 				SAFE_DELETE(m_pNetReactor);
-				MsgAssert_ReF1(0, "init net fail."); 
+				MsgAssert_ReF(0, "init net fail."); 
 			}
 		}
 
@@ -114,16 +114,16 @@ namespace GameDB
 		 
 		RegisterRpc(); 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 DBSlaveInterface::Cleanup(void)
+	CErrno DBSlaveInterface::Cleanup(void)
 	{ 
  
 		return RpcInterface::Cleanup();
 	}
 
-	INT32 DBSlaveInterface::Update(void)
+	CErrno DBSlaveInterface::Update(void)
 	{ 
 		return RpcInterface::Update();
 	}  

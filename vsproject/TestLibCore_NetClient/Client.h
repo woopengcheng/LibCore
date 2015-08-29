@@ -22,9 +22,9 @@ public:
 	~Client(){  }
 
 public:
-	virtual INT32  Init();
-	virtual INT32  Cleanup(); 
-	virtual INT32  Update(); 
+	virtual CErrno  Init();
+	virtual CErrno  Cleanup(); 
+	virtual CErrno  Update(); 
 
 private:
 	Net::INetReactor         *  m_pNetReactor;

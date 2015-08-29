@@ -14,10 +14,10 @@ namespace Net
 		virtual ~NetHandlerCommonServer();
 
 	public:
-		virtual INT32  OnClose( void )     ;
+		virtual CErrno  OnClose( void )     ;
 
 	public:
-		virtual INT32 HandleMsg(ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
+		virtual CErrno HandleMsg(ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
 
 	}; 
 

@@ -13,9 +13,9 @@ namespace GameDB
 		virtual ~DBClientInterface(void);
 
 	public: 
-		virtual INT32  Init(Json::Value & conf); 
-		virtual INT32  Cleanup(void);
-		virtual INT32  Update(void);  
+		virtual CErrno  Init(Json::Value & conf); 
+		virtual CErrno  Cleanup(void);
+		virtual CErrno  Update(void);  
 		virtual void   StartupRPCClient(const Json::Value & client); 
 	};
 

@@ -14,7 +14,7 @@ namespace Timer
 		virtual ~InternalTimerTask( void );
 
 	public:
-		virtual INT32  Update();
+		virtual CErrno  Update();
 
 	private:
 		TimerNode		* m_pNode;

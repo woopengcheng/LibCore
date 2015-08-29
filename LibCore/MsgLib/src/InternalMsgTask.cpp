@@ -19,12 +19,12 @@ namespace Msg
 	}
 
 
-	INT32 InternalMsgTask::Update( void )
+	CErrno InternalMsgTask::Update( void )
 	{
 		if (m_pMsg && m_pInnerMsg)
 		{ 
 			MethodImpl * pMethodImpl = m_pInnerMsg->GetMethodImpl(m_pMsg->m_szMsgMethod);
-			Assert_Re0(pMethodImpl);
+			Assert_ReF(pMethodImpl);
 
 			ParaseMsgCall objParaseMsgCall;
 			objParaseMsgCall.m_pMehtodImpl = pMethodImpl;
@@ -52,10 +52,10 @@ namespace Msg
 				SAFE_DELETE(m_pMsg);    //5 这里释放的是每个函数调用的时候那个指针.如果是线程池在这里释放.
 			}
 
-			return ERR_SUCCESS;
+			return CErrno::Success();
 		}
 
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}
 
 }

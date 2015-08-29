@@ -6,13 +6,13 @@
 
 namespace Msg
 { 
-	INT32 MsgQueue::Init( void )
+	CErrno MsgQueue::Init( void )
 	{ 
 		return TimerInterface::Init();
 	}
 
 
-	INT32 MsgQueue::Cleanup( void )
+	CErrno MsgQueue::Cleanup( void )
 	{
 		return TimerInterface::Cleanup();
 	}
@@ -38,17 +38,19 @@ namespace Msg
 		return NULL;
 	}  
 
-	INT32 MsgQueue::AddMsg( ObjectMsgCall * pMsg , UINT32 unTimeout/* = 0*/)
+	CErrno MsgQueue::AddMsg( ObjectMsgCall * pMsg , UINT32 unTimeout/* = 0*/)
 	{
-		Assert_ReF1(pMsg);
+		Assert_ReF(pMsg);
 		if (unTimeout == 0)
 		{
 			m_queueMsgs.push(pMsg);
 		}
 		else
-			return SetTimer(pMsg , unTimeout);
+		{
+			SetTimer(pMsg , unTimeout); 
+		}
 
-		return ERR_SUCCESS; 
+		return CErrno::Success(); 
 	}
 
 
@@ -62,7 +64,7 @@ namespace Msg
 		return pMsg;
 	}
 
-	INT32 MsgQueue::SetTimer( ObjectMsgCall * pMsg , UINT32 unTimeInterval , UINT32 unStartTime /*= 0*/, UINT32 unTimes /*= 0*/, void * pObj /*= NULL */, TimerCallBackFunc pFunc /*= NULL*/ )
+	UINT32 MsgQueue::SetTimer( ObjectMsgCall * pMsg , UINT32 unTimeInterval , UINT32 unStartTime /*= 0*/, UINT32 unTimes /*= 0*/, void * pObj /*= NULL */, TimerCallBackFunc pFunc /*= NULL*/ )
 	{
 		if (m_pTimerStrategy)
 		{
@@ -72,7 +74,7 @@ namespace Msg
 			return GetTimerIDCount(); 
 		}
 
-		return ERR_FAILURE;
+		return -1;
 	}
 
 

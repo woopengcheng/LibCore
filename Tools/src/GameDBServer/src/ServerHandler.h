@@ -22,7 +22,7 @@ namespace Server
 			, m_strDatabaseName("")
 		{}
 	public:
-		virtual INT32 Update(){ return 0; } 
+		virtual CErrno Update(){ return CErrno::Success(); } 
 		 
 	public:
 		DBServer * GetDBServer(){ return m_pDBServer; }

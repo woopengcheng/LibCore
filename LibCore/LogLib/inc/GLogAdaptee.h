@@ -12,8 +12,8 @@ namespace Log
 		virtual ~GLogAdaptee(){} 
 
 	public: 
-		virtual  UINT32  Init(const char * pLogName , const char * pLayoutConfig = NULL , BOOL bMultCategory = TRUE) ; 
-		virtual  UINT32  Cleanup(); 
+		virtual  CErrno  Init(const char * pLogName , const char * pLayoutConfig = NULL , BOOL bMultCategory = TRUE) ; 
+		virtual  CErrno  Cleanup(); 
 
 	public:
 		virtual  void    Debug( std_ostream & os ); 
@@ -23,7 +23,7 @@ namespace Log
 		virtual  void    Other( std_ostream & os); 
 
 	public: 
-		virtual  UINT32	 CreateLog( LOG_TYPE objLogType , const char * pLayoutConfig , const char * pFile);  
+		virtual  CErrno	 CreateLog( LOG_TYPE objLogType , const char * pLayoutConfig , const char * pFile);  
 	};
 
 } 

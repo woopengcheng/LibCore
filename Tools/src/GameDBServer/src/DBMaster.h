@@ -31,17 +31,17 @@ namespace Server
 		} 
 
 	public: 
-		virtual INT32  Init(Json::Value & conf); 
-		virtual INT32  Cleanup(void);
+		virtual CErrno  Init(Json::Value & conf); 
+		virtual CErrno  Cleanup(void);
 		virtual void   OnRegisterRpcs(void); 
-		virtual INT32  Update(void);
+		virtual CErrno  Update(void);
 
 	public:
 		INT32			CreateMasterHandler(INT32 nSessionID); 
 		SlaveRecord *	GetSlaveRecord(const std::string & strDBName);
 
 	private: 
-		INT32   InitThread(Json::Value & conf);
+		CErrno   InitThread(Json::Value & conf);
 	private:
 		INT32 m_nHandlerCount;
 		CollectionMasterHandlersT m_vecMasterHandlers; 
@@ -59,8 +59,8 @@ namespace Server
 		}
 
 	public:
-		virtual INT32 OnConnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pClientSession , const std::string & strNetNodeName);
-		virtual INT32 OnDisconnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pServerSession , Net::ISession * pClientSession);
+		virtual CErrno OnConnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pClientSession , const std::string & strNetNodeName);
+		virtual CErrno OnDisconnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pServerSession , Net::ISession * pClientSession);
 
 	private:
 		DBMaster * m_pDBMaster;

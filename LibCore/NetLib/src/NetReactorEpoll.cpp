@@ -2,40 +2,40 @@
 
 namespace Net
 { 
-	INT32 NetReactorEpoll::Init( void )
+	CErrno NetReactorEpoll::Init( void )
 	{
 
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}
 
-	INT32 NetReactorEpoll::Cleanup( void )
+	CErrno NetReactorEpoll::Cleanup( void )
 	{
 
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}
 
-	INT32 NetReactorEpoll::Update( void )
+	CErrno NetReactorEpoll::Update( void )
 	{
 
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}
 
-	INT32 NetReactorEpoll::AddNetHandler( INetHandlerPtr  pNetHandler  , ENetHandlerFuncMask objMask /*= NET_FUNC_DEFAULT*/ )
+	CErrno NetReactorEpoll::AddNetHandler( INetHandlerPtr  pNetHandler  , ENetHandlerFuncMask objMask /*= NET_FUNC_DEFAULT*/ )
 	{
 
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}
 
-	INT32 NetReactorEpoll::DelNetHandler( INetHandlerPtr  pNetHandler  )
+	CErrno NetReactorEpoll::DelNetHandler( INetHandlerPtr  pNetHandler  )
 	{
 
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}
 
-	INT32 NetReactorEpoll::ModNetHandler( INetHandlerPtr  pNetHandler  , ENetHandlerFuncMask objMask )
+	CErrno NetReactorEpoll::ModNetHandler( INetHandlerPtr  pNetHandler  , ENetHandlerFuncMask objMask )
 	{
 
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}
 
 }

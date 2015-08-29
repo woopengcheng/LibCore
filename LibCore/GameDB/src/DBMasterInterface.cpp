@@ -15,14 +15,14 @@ namespace GameDB
 	{  
 	}
 
-	INT32 DBMasterInterface::Init(Json::Value & conf)
+	CErrno DBMasterInterface::Init(Json::Value & conf)
 	{    
 		InitNet(conf);
 
-		return ERR_SUCCESS; 
+		return CErrno::Success(); 
 	}
 	 
-	INT32 DBMasterInterface::InitNet(const Json::Value & conf)
+	CErrno DBMasterInterface::InitNet(const Json::Value & conf)
 	{
 		if (!m_pNetReactor)
 		{
@@ -31,10 +31,10 @@ namespace GameDB
 #else
 			m_pNetReactor = new Net::NetReactorSelect; 
 #endif
-			if(ERR_SUCCESS != m_pNetReactor->Init())
+			if(CErrno::Success() != m_pNetReactor->Init())
 			{
 				SAFE_DELETE(m_pNetReactor);
-				MsgAssert_ReF1(0, "init net fail."); 
+				MsgAssert_ReF(0, "init net fail."); 
 			}
 		}
 
@@ -59,15 +59,15 @@ namespace GameDB
 
 		RegisterRpc(); 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 DBMasterInterface::Cleanup(void)
+	CErrno DBMasterInterface::Cleanup(void)
 	{  
 		return RpcInterface::Cleanup();
 	}
 
-	INT32 DBMasterInterface::Update(void)
+	CErrno DBMasterInterface::Update(void)
 	{ 
 		return RpcInterface::Update();
 	}  

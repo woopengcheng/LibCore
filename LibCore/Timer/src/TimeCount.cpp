@@ -3,20 +3,20 @@
 
 namespace Timer
 {  
-	INT32 TimeCount::Start( UINT64 ullTimeInterval )
+	CErrno TimeCount::Start( UINT64 ullTimeInterval )
 	{
 		m_ullLastTime = TimerHelper::GetTickCount();
 		m_ullTimeInterval = TimerHelper::GetMicroSecond(ullTimeInterval);
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 TimeCount::Clean()
+	CErrno TimeCount::Clean()
 	{
 		m_ullLastTime = 0;
 		m_ullTimeInterval = 0;
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 	BOOL TimeCount::IsExpired(UINT64 unCurTime/* = 0 */, UINT64 * pDiff/* = NULL*/)
@@ -118,20 +118,20 @@ namespace Timer
 		return ullTimeInterval != 0; 
 	}
 
-	INT32 TimeCount_Safe::Start( UINT64 ullTimeInterval )
+	CErrno TimeCount_Safe::Start( UINT64 ullTimeInterval )
 	{
 		m_ullLastTime = TimerHelper::GetTickCount();
 		m_ullTimeInterval = TimerHelper::GetMicroSecond(ullTimeInterval);
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 TimeCount_Safe::Clean()
+	CErrno TimeCount_Safe::Clean()
 	{
 		SetLastTime(0);
 		SetTimeInterval(0);
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 	UINT64 TimeCount_Safe::ElapseTicks()
@@ -139,9 +139,9 @@ namespace Timer
 		return TimerHelper::GetMicroSecond(__max(0LL,Timer::TimerHelper::GetTickCount() - GetLastTime()));
 	}
 
-	INT32 TimeCount_Safe::ResetTime()
+	CErrno TimeCount_Safe::ResetTime()
 	{
 		 SetLastTime(Timer::TimerHelper::GetTickCount()) ;
-		 return ERR_SUCCESS;
+		 return CErrno::Success();
 	}
 }

@@ -29,39 +29,39 @@ namespace Msg
 		return FALSE;
 	}
 	 
-	INT32 MsgDispatcher::AddCallableObject( ICallableObject * pCallableObject )
+	CErrno MsgDispatcher::AddCallableObject( ICallableObject * pCallableObject )
 	{
 		MapCallableObjectsT::iterator result = m_mapCallableObjects.find(pCallableObject->GetObjectID());
 		if (result == m_mapCallableObjects.end())
 		{
 			m_mapCallableObjects.insert(std::make_pair(pCallableObject->GetObjectID() , pCallableObject));
 
-			return ERR_SUCCESS;
+			return CErrno::Success();
 		}
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}
 
-	INT32 MsgDispatcher::DelCallableObject( ICallableObject * pCallableObject )
+	CErrno MsgDispatcher::DelCallableObject( ICallableObject * pCallableObject )
 	{
 		MapCallableObjectsT::iterator result = m_mapCallableObjects.find(pCallableObject->GetObjectID());
 		if (result != m_mapCallableObjects.end())
 		{ 
 			m_mapCallableObjects.erase(pCallableObject->GetObjectID());
 
-			return ERR_SUCCESS;
+			return CErrno::Success();
 		}
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}
 	 
 	 
-	INT32 MsgDispatcher::Dispatcher( ObjectMsgCall * pObjectMsgCall ,Object obj )
+	CErrno MsgDispatcher::Dispatcher( ObjectMsgCall * pObjectMsgCall ,Object obj )
 	{
-		Assert_ReF1(pObjectMsgCall);
+		Assert_ReF(pObjectMsgCall);
 		ParaseMsgCall objParseMsgCall; 
 		objParseMsgCall.m_pMsgCall = pObjectMsgCall;
 
 		objParseMsgCall.m_pMehtodImpl = GetMethodImpl(objParseMsgCall.m_pMsgCall->m_szMsgMethod);  
-		Assert_ReF1(objParseMsgCall.m_pMehtodImpl); 
+		Assert_ReF(objParseMsgCall.m_pMehtodImpl); 
 
 		if (objParseMsgCall.m_pMehtodImpl->m_cMethodType == METHOD_TYPE_STATIC)
 		{
@@ -70,7 +70,7 @@ namespace Msg
 		else
 		{
 			ICallableObject * pCallableObject = GetCallableObject(obj);
-			Assert_ReF1(pCallableObject);
+			Assert_ReF(pCallableObject);
 
 			MapCallableObjectsT::iterator result = m_mapCallableObjects.find(pCallableObject->GetObjectID());
 			if (result != m_mapCallableObjects.end())
@@ -79,10 +79,10 @@ namespace Msg
 				objParseMsgCall.m_pMehtodImpl->m_pMethodImpl(&objParseMsgCall);
 			} 
 			else
-				Assert_ReF1(0);
+				Assert_ReF(0);
 		}
 
-		return ERR_SUCCESS; 
+		return CErrno::Success(); 
 	}
 
 	MethodImpl * MsgDispatcher::GetMethodImpl( std::string strFuncName )

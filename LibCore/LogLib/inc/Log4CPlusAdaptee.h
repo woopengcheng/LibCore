@@ -53,8 +53,8 @@ namespace Log
 		virtual ~Log4CPlusAdaptee(){} 
 
 	public: 
-		virtual  UINT32  Init(const char * pLogName , const char * pLayoutConfig = NULL , BOOL bMultCategory = TRUE) ; 
-		virtual  UINT32  Cleanup(); 
+		virtual  CErrno  Init(const char * pLogName , const char * pLayoutConfig = NULL , BOOL bMultCategory = TRUE) ; 
+		virtual  CErrno  Cleanup(); 
 
 	public:
 		virtual  void    Debug( std_ostream & os ); 
@@ -64,7 +64,7 @@ namespace Log
 		virtual  void    Other( std_ostream & os); 
 
 	public: 
-		virtual  UINT32				CreateLog(const char * pName , const char * pLayoutConfig , const char * pFile);
+		virtual  CErrno				CreateLog(const char * pName , const char * pLayoutConfig , const char * pFile);
 //		virtual  log4cplus::Logger  GetLog(LOG_TYPE logType);  
 	};
 

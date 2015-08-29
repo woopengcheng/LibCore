@@ -11,8 +11,8 @@ namespace Log
 		virtual ~LogAdapter(){}
 		 
 	public: 
-		virtual  UINT32  Init(const char * pLogName , const char * pLayoutConfig = NULL , BOOL bMultCategory = TRUE) { return ERR_FAILURE; }
-		virtual  UINT32  Cleanup(){ return FALSE; }
+		virtual  CErrno  Init(const char * pLogName , const char * pLayoutConfig = NULL , BOOL bMultCategory = TRUE) { return CErrno::Failure(); }
+		virtual  CErrno  Cleanup(){ return CErrno::Success(); }
 
 	public:
 		static LogAdapter & GetInstance(){ static LogAdapter m_sLogAdapter; return m_sLogAdapter; }

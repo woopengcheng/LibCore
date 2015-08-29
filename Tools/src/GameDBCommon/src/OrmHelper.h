@@ -22,12 +22,12 @@ namespace GameDB
 	class OrmHelper
 	{
 	public:
-		static INT32 OrmInsert(GameDB::Orm * obj , EORM_MASK objMask = ORM_NONE);
-		static INT32 OrmUpdate(GameDB::Orm * obj , EORM_MASK objMask = ORM_NONE);
-		static INT32 OrmDelete(GameDB::Orm * obj , EORM_MASK objMask = ORM_NONE);
+		static CErrno OrmInsert(GameDB::Orm * obj , EORM_MASK objMask = ORM_NONE);
+		static CErrno OrmUpdate(GameDB::Orm * obj , EORM_MASK objMask = ORM_NONE);
+		static CErrno OrmDelete(GameDB::Orm * obj , EORM_MASK objMask = ORM_NONE);
 	
 	protected:
-		static INT32 Commit(GameDB::Orm * obj , EORM_OPERATION objOper);
+		static CErrno Commit(GameDB::Orm * obj , EORM_OPERATION objOper);
 	};
 }
 

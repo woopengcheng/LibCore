@@ -17,7 +17,7 @@ namespace Net
 		RakNet::RakPeerInterface::DestroyInstance(m_pRakPeerInstance);
 	}
 
-	INT32 RaknetUDPManager::Init( void )
+	CErrno RaknetUDPManager::Init( void )
 	{
 //5		m_pRakPeerInstance->InitializeSecurity(0,0,0,0);
 //5		RakNet::PacketLogger packetLogger;
@@ -30,27 +30,27 @@ namespace Net
 		
 		if (objResult != RakNet::RAKNET_STARTED)
 		{
-			return ERR_FAILURE;
+			return CErrno::Failure();
 		}
 		m_pRakPeerInstance->SetOccasionalPing(true);
 		
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 RaknetUDPManager::Cleanup( void )
+	CErrno RaknetUDPManager::Cleanup( void )
 	{
 		m_pRakPeerInstance->Shutdown(300);
 
 		m_bConnected = FALSE;
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 RaknetUDPManager::Connect( char* pIPAddress, UINT16 usPort )
+	CErrno RaknetUDPManager::Connect( char* pIPAddress, UINT16 usPort )
 	{ 
 		if (pIPAddress == NULL)
 		{
-			return ERR_FAILURE;
+			return CErrno::Failure();
 		}
 
 		char * pPassword = NULL;      //5 这个其实就是一开始发送了一个验证密码.
@@ -72,27 +72,27 @@ namespace Net
 #endif 
         if(car != RakNet::CONNECTION_ATTEMPT_STARTED)
 		{
-			return ERR_FAILURE;
+			return CErrno::Failure();
 		}
 		 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 RaknetUDPManager::CloseConnection( void )
+	CErrno RaknetUDPManager::CloseConnection( void )
 	{
 		return CloseConnection(0);
 	}
 
-	INT32 RaknetUDPManager::CloseConnection( UINT32 unIndex )
+	CErrno RaknetUDPManager::CloseConnection( UINT32 unIndex )
 	{
 		m_pRakPeerInstance->CloseConnection(m_pRakPeerInstance->GetSystemAddressFromIndex(unIndex) , true);
 
 		m_bConnected = FALSE;
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 RaknetUDPManager::SendMsg( MsgWrapper* pMsg )
+	CErrno RaknetUDPManager::SendMsg( MsgWrapper* pMsg )
 	{
 		UINT32 unPacketSize = pMsg->GetMsgSize() + sizeof(pMsg->GetMsgID());
 		RakNet::BitStream bs;
@@ -103,9 +103,9 @@ namespace Net
 			
 		UINT32 unResult = m_pRakPeerInstance->Send(&bs, HIGH_PRIORITY , RELIABLE_ORDERED, 0, m_pRakPeerInstance->GetSystemAddressFromIndex(0), false);
 		if (unResult == 0)
-			return ERR_FAILURE;
+			return CErrno::Failure();
 		else
-			return ERR_SUCCESS;
+			return CErrno::Success();
 	}
 
 	MsgWrapper * RaknetUDPManager::RecvMsg( void )

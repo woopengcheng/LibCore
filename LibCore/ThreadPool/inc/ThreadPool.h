@@ -26,18 +26,18 @@ namespace ThreadPool
 		virtual ~IThreadPool(){}  
 		  
 	public:
-		virtual INT32 Init(char * pFile = NULL);
-		virtual INT32 Init(std::map<UINT32 , UINT32 > & mapPriorityCount , BOOL bStrict = TRUE);
-		virtual INT32 Cleanup();
-		virtual INT32 Startup(); 
-		virtual INT32 Closeup();
+		virtual CErrno Init(char * pFile = NULL);
+		virtual CErrno Init(std::map<UINT32 , UINT32 > & mapPriorityCount , BOOL bStrict = TRUE);
+		virtual CErrno Cleanup();
+		virtual CErrno Startup(); 
+		virtual CErrno Closeup();
 
 	public:
 		virtual BOOL         AddTask(ThreadTask * pThreadTask);
 		virtual ThreadTask * FetchTask( UINT32 unThreadPriority); 
 		virtual UINT32       GetThreadsCount();
-		virtual INT32        CreateThread(UINT32 unPriority , UINT32 unThreadCount = 1);
-		virtual INT32        CreateThread(pthread_t & th , pthread_attr_t * attr ,thread_fun pFunc , void * pParam ); 
+		virtual CErrno        CreateThread(UINT32 unPriority , UINT32 unThreadCount = 1);
+		virtual CErrno        CreateThread(pthread_t & th , pthread_attr_t * attr ,thread_fun pFunc , void * pParam ); 
 		 
 	private:
 		static void * ThreadFunc(void * pParam); 

@@ -30,10 +30,10 @@ namespace Server
 		} 
 
 	public: 
-		virtual INT32  Init(Json::Value & conf); 
-		virtual	INT32  Cleanup(void);
+		virtual CErrno  Init(Json::Value & conf); 
+		virtual	CErrno  Cleanup(void);
 		virtual void   OnRegisterRpcs(void); 
-		virtual INT32  Update(void);
+		virtual CErrno  Update(void);
 		virtual void   OnCreateDatabase(const GameDB::SDBSlaveInfo & objInfo);
 		GameDB::SDBSlaveInfo * GetDBSlaveInfo(INT32 nID);
 
@@ -43,7 +43,7 @@ namespace Server
 		Msg::Object    GetMasterSessionID( ){ return m_objMasterSessionID; }
 
 	private: 
-		INT32		   InitThread(Json::Value & conf); 
+		CErrno		   InitThread(Json::Value & conf); 
 
 	private:
 		INT32				m_nSlaveCount;

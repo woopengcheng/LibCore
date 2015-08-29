@@ -49,9 +49,9 @@ namespace ThreadPool
 	}
 
 
-	INT32 ThreadNormalTask::Update( void )
+	CErrno ThreadNormalTask::Update( void )
 	{ 
-		return 0; 
+		return CErrno::Success(); 
 	}
 
 
@@ -84,10 +84,10 @@ namespace ThreadPool
 		}
 	}
 
-	INT32 ThreadSustainTask::Update( void )
+	CErrno ThreadSustainTask::Update( void )
 	{
 
-		return 0;
+		return CErrno::Success();
 	}
 
 }

@@ -17,10 +17,10 @@ namespace GameDB
 			SlaveSession * pClientSession =  new SlaveSession((SDBSlaveInfo *)context , pAddress , usPort , pName );
 			DBSlaveNetHandlerPtr pNetHandlerClient = DBSlaveNetHandlerPtr(new DBSlaveNetHandler(this , m_pNetReactor , pClientSession)); 
 
-			int nResult = pNetHandlerClient->Init(pAddress, usPort); 
+			CErrno nResult = pNetHandlerClient->Init(pAddress, usPort); 
 			AddRemoteRpc(pClientSession->GetSessionID() , pNetHandlerClient); 
 
-			if(0 == nResult) 
+			if(nResult.IsSuccess()) 
 			{  
 				m_pNetReactor->AddNetHandler(pNetHandlerClient);  
 				pClientSession->SetClosed(FALSE);

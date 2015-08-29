@@ -20,11 +20,11 @@ namespace CUtil
 		return *this;
 	} 
 
-	UINT32 Parameter::Copy( Parameter & objParameter )
+	CErrno Parameter::Copy( Parameter & objParameter )
 	{ 
 		objParameter.m_objParamStream.Copy(m_objParamStream);
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 	CUtil::CStream & Parameter::marshal( CUtil::CStream & cs )

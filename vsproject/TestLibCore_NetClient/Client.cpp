@@ -1,6 +1,6 @@
 #include "Client.h"
 
-INT32 Client::Init()
+CErrno Client::Init()
 {
 	if (!m_pNetReactor)
 	{
@@ -21,18 +21,18 @@ INT32 Client::Init()
 	m_pNetHandlerClient->Init("127.0.0.1" , 5555);
 	m_pNetReactor->AddNetHandler(m_pNetHandlerClient);
 
-	return ERR_SUCCESS;
+	return CErrno::Success();
 }
 
-INT32 Client::Cleanup()
+CErrno Client::Cleanup()
 {
 	SAFE_DELETE(m_pMsgProcess);
 	SAFE_DELETE(m_pNetReactor);
 
-	return ERR_SUCCESS;
+	return CErrno::Success();
 }
 
-INT32 Client::Update()
+CErrno Client::Update()
 {
 	while(1)
 	{

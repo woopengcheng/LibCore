@@ -26,7 +26,7 @@ namespace Server
 		{}
 		~MasterHandler();
 	public:
-		virtual INT32	Update(){ return 0; } 
+		virtual CErrno	Update(){ return CErrno::Success(); } 
 
 	public:
 		bool			SendFile(const std::string & strFilePath , std::string & strFileName);

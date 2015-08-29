@@ -6,7 +6,7 @@
 namespace Timer
 { 
 
-	INT32 TimerInterface::Init( ETimerStrategyType objTimerStrategyType )
+	CErrno TimerInterface::Init( ETimerStrategyType objTimerStrategyType )
 	{
 		switch(objTimerStrategyType)
 		{
@@ -24,9 +24,9 @@ namespace Timer
 		return m_pTimerStrategy->Init();
 	}
 
-	INT32 TimerInterface::Cleanup( void )
+	CErrno TimerInterface::Cleanup( void )
 	{
-		INT32 nResult = -1;
+		CErrno nResult(CErrno::ERR_FAILURE);
 		if (m_pTimerStrategy)
 		{
 			nResult = m_pTimerStrategy->Cleanup();
@@ -47,9 +47,9 @@ namespace Timer
 		return m_unTimerIDCount;
 	}
 
-	INT32 TimerInterface::RemoveTimer( UINT32 unTimeID )
+	CErrno TimerInterface::RemoveTimer( UINT32 unTimeID )
 	{
-		INT32 nResult = -1;
+		CErrno nResult(CErrno::ERR_FAILURE);
 		if (m_pTimerStrategy)
 		{
 			nResult = m_pTimerStrategy->RemoveNode(unTimeID);

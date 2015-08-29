@@ -36,7 +36,7 @@ namespace Msg
 	}
 
 
-	INT32 RemoteRpcServer::Update( void )
+	CErrno RemoteRpcServer::Update( void )
 	{ 
 
 #ifndef USE_ZMQ     //5 如果是ZMQ,底层有重连机制.
@@ -44,10 +44,9 @@ namespace Msg
 #endif
 
 		return NetHandlerTransit::Update();
-	}
+	} 
 
-
-	INT32 RemoteRpcServer::UpdatePing( void )
+	CErrno RemoteRpcServer::UpdatePing( void )
 	{
 		if (m_ullLastRecvPing == 0)
 		{
@@ -62,7 +61,7 @@ namespace Msg
 			
 			GetSession()->SetClosed(TRUE);
 			GetSession()->SetNetState(Net::NET_STATE_LOSTED);
-			return ERR_FAILURE;
+			return CErrno::Failure();
 		}
 
 		INT64 ullCurTime = Timer::TimerHelper::GetTickCount();
@@ -75,11 +74,11 @@ namespace Msg
 			m_pRpcManager->CloseNet(m_pSession->GetSessionID()); 
 		} 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 
-	INT32 RemoteRpcServer::OnClose( void )
+	CErrno RemoteRpcServer::OnClose( void )
 	{   
 		if(GetSession() && GetSession()->GetSessionID() != -1 && m_pRpcManager)
 		{   
@@ -92,13 +91,13 @@ namespace Msg
 	}
 
 
-	INT32 RemoteRpcServer::HandleMsg(Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
+	CErrno RemoteRpcServer::HandleMsg(Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
 	{
 		switch(unMsgID)
 		{
 		case DEFAULT_RPC_PING_ID:
 			{
-				Assert_ReF1(pBuffer && m_pRpcManager && unLength == sizeof(SPing));   
+				Assert_ReF(pBuffer && m_pRpcManager && unLength == sizeof(SPing));   
 				
 				SPing objPing;
 				memcpy(&objPing , pBuffer , unLength);
@@ -108,7 +107,7 @@ namespace Msg
 			}break;
 		case DEFAULT_RPC_MSG_ID:
 			{
-				Assert_ReF1(pBuffer && m_pRpcManager);  
+				Assert_ReF(pBuffer && m_pRpcManager);  
 
 				CUtil::CStream cs(pBuffer , unLength);
 				UINT32 unTargetsCount = 0;
@@ -121,7 +120,7 @@ namespace Msg
 				memcpy(pMsg->m_szRemoteName , m_pRpcManager->GetRpcInterface()->GetServerName() , strlen( m_pRpcManager->GetRpcInterface()->GetServerName()) + 1);
 
 				return m_pRpcManager->HandleMsg(pSession , pMsg); 
-// 				Assert_ReF1(pBuffer && m_pRpcManager);  
+// 				Assert_ReF(pBuffer && m_pRpcManager);  
 // 				UINT32 unTargetsCount = (UINT32)*pBuffer;
 // 				RPCMsgCall * pMsg = new(unTargetsCount * sizeof(Object))RPCMsgCall;  
 // 				pMsg->UnSerialization(pBuffer); 
@@ -133,6 +132,6 @@ namespace Msg
 			break;
 		}
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 }

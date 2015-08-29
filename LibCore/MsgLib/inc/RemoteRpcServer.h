@@ -18,12 +18,12 @@ namespace Msg
 		virtual ~RemoteRpcServer();
 
 	public: 
-		virtual INT32  OnClose( void );    
-		virtual INT32  UpdatePing( void ); 
-		virtual INT32  HandleMsg(Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);  
+		virtual CErrno  OnClose( void );    
+		virtual CErrno  UpdatePing( void ); 
+		virtual CErrno  HandleMsg(Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);  
 
 	public:
-		INT32   Update( void );     
+		CErrno   Update( void );     
 		void    SetLastRecvPingTime( INT64 ullLstRecfPing = 0);
 
 	protected:

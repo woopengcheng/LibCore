@@ -459,9 +459,6 @@
     <ClInclude Include="..\..\LibCore\CUtil\inc\DeelxRegexp.h">
       <Filter>CUtil\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\CUtil\inc\ErrorCode.h">
-      <Filter>CUtil\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\CUtil\inc\GenMsgHelper.h">
       <Filter>CUtil\inc</Filter>
     </ClInclude>
@@ -574,6 +571,9 @@
       <Filter>Timer\inc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\LibCore\CUtil\inc\ByteOrder.h">
+      <Filter>CUtil\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\CUtil\inc\CErrno.h">
       <Filter>CUtil\inc</Filter>
     </ClInclude>
   </ItemGroup>

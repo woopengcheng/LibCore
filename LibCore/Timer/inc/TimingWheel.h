@@ -49,11 +49,11 @@ namespace Timer
 		
 		} 
 	public:
-		virtual INT32  Init(void){ return ERR_SUCCESS; }
-		virtual INT32  Cleanup(void){ return ERR_SUCCESS; }
+		virtual CErrno  Init(void){ return CErrno::Success(); }
+		virtual CErrno  Cleanup(void){ return CErrno::Success(); }
 
 	public: 
-		virtual INT32  RemoveNode(UINT32 unNodeID) 
+		virtual CErrno  RemoveNode(UINT32 unNodeID) 
 		{
 			MapNodesT::accessor result; 
 			if (m_mapNodes.find(result , unNodeID))
@@ -87,7 +87,7 @@ namespace Timer
 			}
 			
 
-			return ERR_SUCCESS; 
+			return CErrno::Success(); 
 		}
 		virtual TimerNode * GetNode(UINT32 unNodeID) 
 		{
@@ -101,7 +101,7 @@ namespace Timer
 		}
 
 	public:
-		virtual INT32  InsertNode(UINT32 unNodeID , TimerNode * pNode)
+		virtual CErrno  InsertNode(UINT32 unNodeID , TimerNode * pNode)
 		{
 			INT32 nFutureTime = m_nCurTime + pNode->GetTimeInterval();
 					
@@ -109,7 +109,7 @@ namespace Timer
 			if ( nFutureTime < (1 << TIMER_ROOT_SIZE_MASK))
 			{
 				m_objRoot.AddTimerNode(pNode);
-				return ERR_SUCCESS;
+				return CErrno::Success();
 			}
 
 			INT32 nSize = 0;
@@ -126,7 +126,7 @@ namespace Timer
 			pNode->SetNodePos((UINT32)nFutureTime);
 			m_aTimer[nSize][nFutureTime].AddTimerNode(pNode); 
 			m_mapNodes.insert(std::make_pair(unNodeID , pNode));
-			return ERR_SUCCESS;
+			return CErrno::Success();
 		}
 
 		virtual TimerNode * Update(void)

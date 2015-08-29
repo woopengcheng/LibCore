@@ -22,8 +22,8 @@ namespace Msg
 		}   
 
 	public:
-		virtual INT32  Init(const char * pAddress , INT32 nPort , BOOL bResueAddr = TRUE , INT32  nListenerCount = DEFAULT_LISTENER_COUNT);
-		virtual INT32  Cleanup();  
+		virtual CErrno  Init(const char * pAddress , INT32 nPort , BOOL bResueAddr = TRUE , INT32  nListenerCount = DEFAULT_LISTENER_COUNT);
+		virtual CErrno  Cleanup();  
 
 	public:   
 		virtual void   OnAccept(Net::NetSocket socket , sockaddr_in * addr); 

@@ -19,7 +19,7 @@ namespace Msg
 		m_mapDelayMsgs.clear();
 	}
 
-	INT32 RpcServerManager::UpdateCalls( void )
+	CErrno RpcServerManager::UpdateCalls( void )
 	{
 		Rpc::VecObjectMsgCallT vecObjectMsgCall;
 
@@ -28,7 +28,7 @@ namespace Msg
 		{
 			Rpc * objRpc = iter->second;
 			RPCMsgCall * pRpcMsgCall = objRpc->GetRpcMsgCall();
-			MsgAssert_ReF1(pRpcMsgCall , "RpcMsg is NULL.");
+			MsgAssert_ReF(pRpcMsgCall , "RpcMsg is NULL.");
 
 			if ( objRpc->IsTimeout() )
 			{  
@@ -48,13 +48,13 @@ namespace Msg
 			}
 		} 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	} 
 
 
-	INT32 RpcServerManager::HandleMsg(Net::ISession * pSession , RPCMsgCall * pMsg )
+	CErrno RpcServerManager::HandleMsg(Net::ISession * pSession , RPCMsgCall * pMsg )
 	{
-		Assert_ReF1(pMsg && strcmp(pMsg->m_szMsgMethod , "") != 0);
+		Assert_ReF(pMsg && strcmp(pMsg->m_szMsgMethod , "") != 0);
 
 		Rpc::VecObjectMsgCallT vecObjectMsgCall;
 
@@ -77,13 +77,13 @@ namespace Msg
 			SAFE_DELETE(pMsg); 
 		} 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}  
 
 
-	INT32 RpcServerManager::HandleClientMsg( Net::ISession * pSession , RPCMsgCall * pMsg )
+	CErrno RpcServerManager::HandleClientMsg( Net::ISession * pSession , RPCMsgCall * pMsg )
 	{
-		Assert_ReF1(pMsg && strcmp(pMsg->m_szMsgMethod , "") != 0);
+		Assert_ReF(pMsg && strcmp(pMsg->m_szMsgMethod , "") != 0);
 
 		MapRpcsT::iterator result = m_mapSendRpcs.find(pMsg->m_ullMsgID);
 		if (result != m_mapSendRpcs.end())
@@ -124,7 +124,7 @@ namespace Msg
 					}
 					else
 					{
-						MsgAssert_ReF1(0 , "客户端接受到错误的RPC包.");
+						MsgAssert_ReF(0 , "客户端接受到错误的RPC包.");
 					}
 				}
 				else if(pTemp->GetSyncType() == SYNC_TYPE_SYNC)
@@ -153,18 +153,18 @@ namespace Msg
 					} 
 					else
 					{
-						MsgAssert_ReF1(0 , "error sync rpc packet.");
+						MsgAssert_ReF(0 , "error sync rpc packet.");
 						pTemp->SetSyncResult(SYNC_RESULT_FALSE);
 					} 
 				}
 				else
 				{
-					MsgAssert_ReF1(0 , "unkown sync_type packet.");
+					MsgAssert_ReF(0 , "unkown sync_type packet.");
 				}
 			}
 			else
 			{
-				MsgAssert_ReF1(0 , "客户端接受到错误的RPC包.");
+				MsgAssert_ReF(0 , "客户端接受到错误的RPC包.");
 			}
 
 			SAFE_DELETE(result->second);
@@ -177,11 +177,11 @@ namespace Msg
 			}
 		} 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 
-	INT32 RpcServerManager::HandleServerMsg( Net::ISession * pSession , RPCMsgCall * pMsg )
+	CErrno RpcServerManager::HandleServerMsg( Net::ISession * pSession , RPCMsgCall * pMsg )
 	{ 
 		Rpc::VecObjectMsgCallT vecObjectMsgCall;
 
@@ -216,29 +216,28 @@ namespace Msg
 		}
 		else
 		{
-			MsgAssert_ReF1(0 , "recv wrong rpc.may not register.name:" << pMsg->m_szMsgMethod << ",from:" << pMsg->GetSessionName());
+			MsgAssert_ReF(0 , "recv wrong rpc.may not register.name:" << pMsg->m_szMsgMethod << ",from:" << pMsg->GetSessionName());
 		}  
 
 		vecObjectMsgCall.clear(); 
-		return ERR_SUCCESS;
-	}
+		return CErrno::Success();
+	} 
 
-
-	INT32 RpcServerManager::Init( UINT32 unMsgThreadPriorityCount /*= 1*/ , UINT32 unMsgHandlerthreadPriorityCount /*= 1*/, UINT32 unMsgThreadPriority /*= DEFAULT_MSG_THREAD_ID*/ ,UINT32 unMsgHandlerthreadPriority /*= DEFAULT_MSG_HANDLE_THREAD_ID*/)
+	CErrno RpcServerManager::Init( UINT32 unMsgThreadPriorityCount /*= 1*/ , UINT32 unMsgHandlerthreadPriorityCount /*= 1*/, UINT32 unMsgThreadPriority /*= DEFAULT_MSG_THREAD_ID*/ ,UINT32 unMsgHandlerthreadPriority /*= DEFAULT_MSG_HANDLE_THREAD_ID*/)
 	{ 
 
 		return RpcManager::Init();
 	}
 
 
-	INT32 RpcServerManager::Cleanup( void )
+	CErrno RpcServerManager::Cleanup( void )
 	{  
 
 		return RpcManager::Cleanup(); 
 	}  
 
 
-	INT32 RpcServerManager::Update( void )
+	CErrno RpcServerManager::Update( void )
 	{  
 #ifndef CLOSE_RPC_TIMEOUT
 		UpdateCalls();
@@ -249,7 +248,7 @@ namespace Msg
 	} 
 
 #ifdef USE_ZMQ
-	INT32 RpcServerManager::HandlePing( Net::ISession * pSession , SPing * pPing )
+	CErrno RpcServerManager::HandlePing( Net::ISession * pSession , SPing * pPing )
 	{ 
 		if(m_pRpcInterface && pSession && pPing )
 		{  
@@ -273,11 +272,11 @@ namespace Msg
 			gDebugStream("zmq recv client ping. " << strRemoteRPCName << std::endl);
 		}  
 
-		return TRUE;
+		return CErrno::Success();
 	} 
 
 #else
-	INT32 RpcServerManager::HandlePing( Net::ISession * pSession , SPing * pPing )
+	CErrno RpcServerManager::HandlePing( Net::ISession * pSession , SPing * pPing )
 	{ 
 		if(m_pRpcInterface && pSession && pPing )
 		{  
@@ -304,7 +303,7 @@ namespace Msg
 				}  
 				else if(pNetHandler->GetSession() && pNetHandler->GetSession()->IsClosed())
 				{
-					if(ERR_SUCCESS == pNetHandler->Init())
+					if(CErrno::Success() == pNetHandler->Init())
 					{
 						pNetHandler->GetSession()->SetNetState(Net::NET_STATE_CONNECTING); 
 						pNetHandler->GetSession()->SetClosed(FALSE);  
@@ -333,7 +332,7 @@ namespace Msg
 			}  
 		}  
 
-		return TRUE;
+		return CErrno::Success();
 	}  
 #endif
 
@@ -383,7 +382,7 @@ namespace Msg
 		DelRemoteRpc(nSessionID); 
 	}
 	
-	INT32 RpcServerManager::PostMsg(const char * pRpcServerName , RPCMsgCall * pMsg)
+	CErrno RpcServerManager::PostMsg(const char * pRpcServerName , RPCMsgCall * pMsg)
 	{
 		Net::NetHandlerTransitPtr pHandler = GetHandlerByName(pRpcServerName);
 		if (pHandler)
@@ -395,14 +394,14 @@ namespace Msg
 			pMsg->Copy(pCopyMsg);
 			InsertPostMsg(pRpcServerName , pCopyMsg); 
 		}
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 RpcServerManager::PostDelayMsg(const char * pRpcServerName , RPCMsgCall * pMsg)
+	CErrno RpcServerManager::PostDelayMsg(const char * pRpcServerName , RPCMsgCall * pMsg)
 	{
 		InsertDelayMsg(pRpcServerName , pMsg); 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 	void RpcServerManager::InsertDelayMsg(const std::string strRpcServerName , RPCMsgCall * pMsg)
@@ -439,7 +438,7 @@ namespace Msg
 		}
 	}
 
-	INT32 RpcServerManager::UpdatePostMsgs(void)
+	CErrno RpcServerManager::UpdatePostMsgs(void)
 	{
 		RPCMsgCall * pMsg = NULL;
 		CollectionPostMsgsT::iterator iter = m_mapPostMsgs.begin();
@@ -449,7 +448,7 @@ namespace Msg
 			CollectionMsgsQueT & que = iter->second;
 
 			Net::NetHandlerTransitPtr pHandler = GetHandlerByName(strRpcServerName.c_str()); 
-			MsgAssert_ReF1(pHandler , "no this handler" << strRpcServerName);
+			MsgAssert_ReF(pHandler , "no this handler" << strRpcServerName);
 			
 			while(que.try_pop(pMsg))
 			{
@@ -457,10 +456,10 @@ namespace Msg
 			}
 		}
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 RpcServerManager::UpdateDelayMsgs(void)
+	CErrno RpcServerManager::UpdateDelayMsgs(void)
 	{
 		RPCMsgCall * pMsg = NULL;
 		CollectionDelayMsgsT::iterator iter = m_mapDelayMsgs.begin();
@@ -470,7 +469,7 @@ namespace Msg
 			CollectionMsgsQueT & que = iter->second;
 
 			Net::NetHandlerTransitPtr pHandler = GetHandlerByName(strRpcServerName.c_str()); 
-			MsgAssert_ReF1(pHandler , "no this handler" << strRpcServerName); 
+			MsgAssert_ReF(pHandler , "no this handler" << strRpcServerName); 
 
 			while(que.try_pop(pMsg))
 			{
@@ -478,7 +477,7 @@ namespace Msg
 			}
 		}
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 

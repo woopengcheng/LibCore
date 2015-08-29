@@ -27,10 +27,10 @@ namespace Msg
 		virtual ~RpcInterface(void);
 
 	public:
-		virtual INT32  Init(std::string strFilePath);
-		virtual INT32  Init(Json::Value & conf);
-		virtual INT32  Cleanup(void);
-		virtual INT32  Update(void); 
+		virtual CErrno  Init(std::string strFilePath);
+		virtual CErrno  Init(Json::Value & conf);
+		virtual CErrno  Cleanup(void);
+		virtual CErrno  Update(void); 
 		virtual void   OnRegisterRpcs(void){}
 		virtual void   StartupRPCServer(const std::string & strNetNodeName , const std::string & strType , const std::string & strAddress , const std::string & strPort);
 		virtual void   StartupRPCClient(XML::XML * pXML);
@@ -45,7 +45,7 @@ namespace Msg
 
 	public:  
 		void   RegisterRpc(void);
-		INT32  CloseNet(const char * pName);  
+		CErrno  CloseNet(const char * pName);  
 		Net::INetReactor *  GetNetReactor(){ return m_pNetReactor; }
 		RpcServerManager  *  GetRpcServerManager(){ return m_pRpcServerManager; }
 		RpcClientManager  *  GetRpcClientManager(){ return m_pRpcClientManager; }

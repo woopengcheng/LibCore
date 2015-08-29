@@ -13,15 +13,15 @@ namespace Net
 		virtual ~NetHandlerCommonClient();
 
 	public:
-		virtual INT32  Init( void ); 
-		virtual INT32  Init( const char* ip,int port );
-		virtual INT32  Cleanup( void );
-		virtual INT32  OnClose( void );
-		virtual INT32  Update( void );
-		virtual INT32  OnReconnect( void );
+		virtual CErrno  Init( void ); 
+		virtual CErrno  Init( const char* ip,int port );
+		virtual CErrno  Cleanup( void );
+		virtual CErrno  OnClose( void );
+		virtual CErrno  Update( void );
+		virtual CErrno  OnReconnect( void );
 
 	public:
-		virtual INT32 HandleMsg(ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
+		virtual CErrno HandleMsg(ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
 
 	public: 
 		BOOL  Reconnect(void)

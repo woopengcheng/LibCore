@@ -12,13 +12,13 @@ namespace Timer
 		virtual ~IStrategy(void){ }
 
 	public:
-		virtual INT32		Init(void) = 0 { return ERR_SUCCESS; }
-		virtual INT32		Cleanup(void) = 0{ return ERR_SUCCESS; }
+		virtual CErrno		Init(void) = 0 { return CErrno::Success(); }
+		virtual CErrno		Cleanup(void) = 0{ return CErrno::Success(); }
 		virtual TimerNode * Update(void) = 0{ return NULL; }
 
 	public:
-		virtual INT32		InsertNode(UINT32 unNodeID ,TimerNode * pNode) = 0 { return ERR_SUCCESS; }
-		virtual INT32		RemoveNode(UINT32 unNodeID) = 0 { return ERR_SUCCESS; }
+		virtual CErrno		InsertNode(UINT32 unNodeID ,TimerNode * pNode) = 0 { return CErrno::Success(); }
+		virtual CErrno		RemoveNode(UINT32 unNodeID) = 0 { return CErrno::Success(); }
 		virtual TimerNode * GetNode(UINT32 unNodeID) = 0{ return NULL; }
 	};   
 } 

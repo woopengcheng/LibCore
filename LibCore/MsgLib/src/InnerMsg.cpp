@@ -5,27 +5,27 @@
 
 namespace Msg
 { 
-	INT32 InnerMsg::Init( void )
+	CErrno InnerMsg::Init( void )
 	{ 
 		RegisterMsg();
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 
-	INT32 InnerMsg::Cleanup( void )
+	CErrno InnerMsg::Cleanup( void )
 	{
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 
-	INT32 InnerMsg::SendMsg( ObjectMsgCall * pMsg  , UINT32 unTimeout/* = 0*/)
+	CErrno InnerMsg::SendMsg( ObjectMsgCall * pMsg  , UINT32 unTimeout/* = 0*/)
 	{   
 		return m_objMsgQueue.AddMsg(pMsg , unTimeout);  
 	} 
 
-	INT32 InnerMsg::Update( void )
+	CErrno InnerMsg::Update( void )
 	{     
 		m_objMsgQueue.Update();  //5 这里更新后,会将到时间的消息加入到队列中
 
@@ -37,15 +37,15 @@ namespace Msg
 			pMsg = m_objMsgQueue.FetchMsg();
 		}
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	} 
 
-	INT32 InnerMsg::RunMsg( ObjectMsgCall * pMsg )
+	CErrno InnerMsg::RunMsg( ObjectMsgCall * pMsg )
 	{
 		if (pMsg)
 		{ 
 			MethodImpl * pMethodImpl = GetMethodImpl(pMsg->m_szMsgMethod);
-			Assert_Re0(pMethodImpl);
+			Assert_ReF(pMethodImpl);
 
 			ParaseMsgCall objParaseMsgCall;
 			objParaseMsgCall.m_pMehtodImpl = pMethodImpl;
@@ -70,10 +70,10 @@ namespace Msg
 				
 			SAFE_DELETE(pMsg); 
 			
-			return ERR_SUCCESS;
+			return CErrno::Success();
 		}
 
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}
 // 
 // 	INT32 InnerMsg::Update( void )
@@ -96,7 +96,7 @@ namespace Msg
 // 			pMsg = m_objMsgQueue.FetchMsg();
 // 		}
 // 
-// 		return ERR_SUCCESS;
+// 		return CErrno::Success();
 // 	}
 
 	void InnerMsg::RegisterMsg( void )

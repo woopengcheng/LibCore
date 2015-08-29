@@ -14,7 +14,7 @@ namespace Net
 		virtual ~ClientSession(){}
 
 	public:
-		virtual    INT32    Cleanup() 
+		virtual    CErrno    Cleanup() 
 		{  
 			return ISession::Cleanup();	
 		} 

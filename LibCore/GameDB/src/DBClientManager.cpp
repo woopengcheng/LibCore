@@ -14,10 +14,10 @@ namespace GameDB
 			Net::ClientSession * pClientSession =  new Net::ClientSession(pAddress , usPort , pName);
 			DBClientNetHandlerPtr pNetHandlerClient = DBClientNetHandlerPtr(new DBClientNetHandler(this , m_pNetReactor , pClientSession)); 
 			   
-			int nResult = pNetHandlerClient->Init(pAddress, usPort); 
+			CErrno nResult = pNetHandlerClient->Init(pAddress, usPort); 
 			AddRemoteRpc(pClientSession->GetSessionID() , pNetHandlerClient); 
 
-			if(0 == nResult) 
+			if(nResult.IsSuccess()) 
 			{  
 				m_pNetReactor->AddNetHandler(pNetHandlerClient);  
 				pClientSession->SetClosed(FALSE);

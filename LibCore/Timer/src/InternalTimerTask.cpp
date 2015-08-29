@@ -19,7 +19,7 @@ namespace Timer
 
 	}
 
-	INT32 InternalTimerTask::Update()
+	CErrno InternalTimerTask::Update()
 	{
 		if (m_pNode)
 		{
@@ -83,10 +83,10 @@ namespace Timer
 			
 			SAFE_DELETE(m_pNode);      //5 这里删除也是醉了.  
 
-			return ERR_SUCCESS;
+			return CErrno::Success();
 		}
 
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}
 
 }

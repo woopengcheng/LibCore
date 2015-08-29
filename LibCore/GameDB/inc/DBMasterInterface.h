@@ -14,12 +14,12 @@ namespace GameDB
 		virtual ~DBMasterInterface(void);
 
 	public: 
-		virtual INT32  Init(Json::Value & conf); 
-		virtual INT32  Cleanup(void);
-		virtual INT32  Update(void);   
+		virtual CErrno  Init(Json::Value & conf); 
+		virtual CErrno  Cleanup(void);
+		virtual CErrno  Update(void);   
 
 	private: 
-		INT32    InitNet(const Json::Value & conf); 
+		CErrno    InitNet(const Json::Value & conf); 
 	};
 
 	DECLARE_BOOST_POINTERS(DBMasterInterface); 

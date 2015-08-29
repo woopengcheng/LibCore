@@ -34,7 +34,7 @@ namespace Msg
 		OnRegisterRpcs();
 	}
 
-	INT32 RpcInterface::Init( std::string strFilePath )
+	CErrno RpcInterface::Init( std::string strFilePath )
 	{ 
 		if (!m_pNetReactor)
 		{
@@ -43,10 +43,10 @@ namespace Msg
 #else
 			m_pNetReactor = new Net::NetReactorSelect; 
 #endif
-			if(ERR_SUCCESS != m_pNetReactor->Init())
+			if(CErrno::Success() != m_pNetReactor->Init())
 			{
 				SAFE_DELETE(m_pNetReactor);
-				MsgAssert_ReF1(0, "rpc init net reactor fail."); 
+				MsgAssert_ReF(0, "rpc init net reactor fail."); 
 			}
 		}
 
@@ -54,7 +54,7 @@ namespace Msg
 		m_pRpcServerManager = new RpcServerManager(this , m_pNetReactor);
 
 		XML::XML xml;  
-		MsgAssert_ReF1(!xml.LoadFromFile(strFilePath) , "xml load fail : " << strFilePath );  
+		MsgAssert_ReF(xml.LoadFromFile(strFilePath).IsSuccess() , "xml load fail : " << strFilePath );  
 		  
 		std::string strType = xml.GetXMLValue("/RemoteRPC/RPCServer/ListenType"); 
 		std::string strAddress = xml.GetXMLValue("/RemoteRPC/RPCServer/ListenAddress");
@@ -66,10 +66,10 @@ namespace Msg
 
 		RegisterRpc();
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
-	INT32 RpcInterface::Init(Json::Value & conf)
+	CErrno RpcInterface::Init(Json::Value & conf)
 	{   
 		if (!m_pNetReactor)
 		{
@@ -78,10 +78,10 @@ namespace Msg
 #else
 			m_pNetReactor = new Net::NetReactorSelect; 
 #endif
-			if(ERR_SUCCESS != m_pNetReactor->Init())
+			if(CErrno::Success() != m_pNetReactor->Init())
 			{
 				SAFE_DELETE(m_pNetReactor);
-				MsgAssert_ReF1(0, "rpc init net reactor fail."); 
+				MsgAssert_ReF(0, "rpc init net reactor fail."); 
 			}
 		}
 
@@ -107,11 +107,11 @@ namespace Msg
 
 		RegisterRpc();
 
-		return ERR_SUCCESS; 
+		return CErrno::Success(); 
 	}
 
 
-	INT32 RpcInterface::Cleanup( void )
+	CErrno RpcInterface::Cleanup( void )
 	{
 		if (m_pNetReactor)
 		{
@@ -131,11 +131,11 @@ namespace Msg
 		}
 		SAFE_DELETE(m_pRpcServerManager); 
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	} 
 
 
-	INT32 RpcInterface::Update( void )
+	CErrno RpcInterface::Update( void )
 	{ 
 		if(m_pNetReactor)
 		{
@@ -153,7 +153,7 @@ namespace Msg
 		}
 
 		Timer::TimerHelper::sleep(1);
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 // 	void RpcInterface::StartupRPCServer( XML::XML * pXML )
@@ -193,7 +193,7 @@ namespace Msg
 #else
 		Net::ISession * pSeesion = new Net::ISession(strAddress.c_str() , m_usServerPort , str.c_str());
 		NetHandlerRpcListenerPtr pNetHandlerListener(new NetHandlerRpcListener(m_pRpcServerManager , m_pNetReactor , pSeesion));
-		if(ERR_FAILURE == pNetHandlerListener->Init(strAddress.c_str() , m_usServerPort))
+		if(CErrno::Failure() == pNetHandlerListener->Init(strAddress.c_str() , m_usServerPort))
 			gErrorStream("listen failure:" << str);
 
 		pSeesion->SetClosed(FALSE);
@@ -260,53 +260,62 @@ namespace Msg
 
 	INT32 RpcInterface::SendMsg( const char * pRpcServerName , RPCMsgCall * pMsg  , BOOL bForce/* = FALSE*/ , BOOL bAddRpc/* = TRUE*/)
 	{
-		if (m_pRpcClientManager && m_pRpcServerManager && m_pRpcClientManager->SendMsg(pRpcServerName , pMsg , bForce , bAddRpc) != ERR_FAILURE && bAddRpc)
+		if (m_pRpcClientManager && m_pRpcServerManager)
 		{   
-			m_pRpcServerManager->InsertSendRpc(pMsg); 
+			INT32 nResult = m_pRpcClientManager->SendMsg(pRpcServerName , pMsg , bForce , bAddRpc);
+			if (nResult >= 0 && bAddRpc)
+			{
+				m_pRpcServerManager->InsertSendRpc(pMsg); 
 
-			TakeOverSync(pMsg);
-			return ERR_SUCCESS;
+				TakeOverSync(pMsg);
+			}
+			return nResult;
 		}
 
-		return ERR_FAILURE;
-	}
-
+		return -1;
+	} 
 
 	INT32 RpcInterface::SendMsg( INT32 nSessionID , RPCMsgCall * pMsg  , BOOL bForce/* = FALSE*/ , BOOL bAddRpc/* = TRUE*/)
 	{   
-		if (m_pRpcClientManager && m_pRpcServerManager && m_pRpcClientManager->SendMsg(nSessionID , pMsg , bForce , bAddRpc) != ERR_FAILURE && bAddRpc)
+		if (m_pRpcClientManager && m_pRpcServerManager)
 		{  
-			m_pRpcServerManager->InsertSendRpc(pMsg); 
+			INT32 nResult =  m_pRpcClientManager->SendMsg(nSessionID , pMsg , bForce , bAddRpc);
+			if (nResult >= 0 && bAddRpc)
+			{
+				m_pRpcServerManager->InsertSendRpc(pMsg); 
 
-			TakeOverSync(pMsg);
-			return ERR_SUCCESS;
+				TakeOverSync(pMsg);
+			}
+			return nResult;
 		}
 
-		return ERR_FAILURE;
-	}
-
+		return -1;
+	} 
 
 	INT32 RpcInterface::SendMsg(Net::NetHandlerTransitPtr pRemoteRpc , UINT32 unMsgID, const char* pBuffer, UINT32 unLength , BOOL bForce/* = FALSE*/ , BOOL bAddRpc/* = TRUE*/)
 	{ 
-		if (m_pRpcClientManager && m_pRpcServerManager && m_pRpcClientManager->SendMsg(pRemoteRpc , unMsgID , pBuffer , unLength , bForce , bAddRpc) != ERR_FAILURE  && bAddRpc)
+		if (m_pRpcClientManager && m_pRpcServerManager)
 		{   
-			return ERR_SUCCESS;
+			INT32 nResult =  m_pRpcClientManager->SendMsg(pRemoteRpc , unMsgID , pBuffer , unLength , bForce , bAddRpc); 
+			return nResult;
 		}
 
-		return ERR_FAILURE;
-	}  
-
+		return -1;
+	}   
 
 	INT32 RpcInterface::SendMsg( Net::NetHandlerTransitPtr pRemoteRpc , RPCMsgCall * pMsg , BOOL bForce/* = FALSE*/ , BOOL bAddRpc/* = TRUE*/)
 	{ 
-		if (m_pRpcClientManager && m_pRpcServerManager && m_pRpcClientManager->SendMsg(pRemoteRpc , pMsg , bForce , bAddRpc) != ERR_FAILURE && bAddRpc)
+		if (m_pRpcClientManager && m_pRpcServerManager)
 		{  
-			m_pRpcServerManager->InsertSendRpc(pMsg);
-			TakeOverSync(pMsg);
-
-			return ERR_SUCCESS;
+			INT32 nResult = m_pRpcClientManager->SendMsg(pRemoteRpc , pMsg , bForce , bAddRpc);
+			if (nResult >= 0 && bAddRpc)
+			{
+				m_pRpcServerManager->InsertSendRpc(pMsg);
+				TakeOverSync(pMsg);
+			}
+			return nResult;
 		} 
-		return ERR_FAILURE;
+		return -1;
 	}  
 
 	INT32 RpcInterface::SendMsg(const std::string & strNetNodeName , RPCMsgCall * pMsg , BOOL bForce /*= FALSE */, BOOL bAddRpc /*= TRUE*/)
@@ -319,7 +328,7 @@ namespace Msg
 				m_pRpcServerManager->InsertSendRpc(pMsg);
 				pInterface->GetRpcServerManager()->PostMsg(GetServerName() , pMsg);
 			}
-			return ERR_SUCCESS;
+			return 0;
 		}
 		else
 		{
@@ -329,9 +338,9 @@ namespace Msg
 			{
 				m_pRpcClientManager->SendMsg(pSession->GetSessionID() , pMsg , bForce , bAddRpc);
 			}
-			return ERR_SUCCESS;
+			return 0;
 		}
-		return ERR_FAILURE;
+		return -1;
 	}
 
 	void RpcInterface::TakeOverSync(RPCMsgCall * pMsg)
@@ -350,7 +359,7 @@ namespace Msg
 		}
 	}
 
-	INT32 RpcInterface::CloseNet(const char * pName)
+	CErrno RpcInterface::CloseNet(const char * pName)
 	{ 
 		//5 对于RPC的客户端需要清空因为下次要重新连接.
 		if (m_pRpcClientManager)
@@ -374,7 +383,7 @@ namespace Msg
 			}
 		}
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}  
 
 }

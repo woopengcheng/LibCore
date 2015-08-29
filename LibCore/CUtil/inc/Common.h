@@ -18,7 +18,7 @@
 #include "CUtil/inc/MsgAssert.h" 
 #include "CUtil/inc/ClassTypeID.h"
 #include "CUtil/inc/Platform.h"
-#include "CUtil/inc/ErrorCode.h"
+#include "CUtil/inc/CErrno.h"
 #include "CUtil/inc/BoostHelper.h"
 
 #define TRUE    1

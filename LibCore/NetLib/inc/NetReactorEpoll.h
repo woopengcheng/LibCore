@@ -12,14 +12,14 @@ namespace Net
 		virtual ~NetReactorEpoll( void ){}
 
 	public:
-		virtual INT32   Init( void );
-		virtual INT32   Cleanup( void );
-		virtual INT32   Update( void );
+		virtual CErrno   Init( void );
+		virtual CErrno   Cleanup( void );
+		virtual CErrno   Update( void );
 
 	public:
-		virtual INT32   AddNetHandler(INetHandlerPtr  pNetHandler   , ENetHandlerFuncMask objMask = NET_FUNC_DEFAULT);
-		virtual INT32   DelNetHandler(INetHandlerPtr  pNetHandler  );
-		virtual INT32   ModNetHandler(INetHandlerPtr  pNetHandler  , ENetHandlerFuncMask objMask);
+		virtual CErrno   AddNetHandler(INetHandlerPtr  pNetHandler   , ENetHandlerFuncMask objMask = NET_FUNC_DEFAULT);
+		virtual CErrno   DelNetHandler(INetHandlerPtr  pNetHandler  );
+		virtual CErrno   ModNetHandler(INetHandlerPtr  pNetHandler  , ENetHandlerFuncMask objMask);
 
 	}; 
 

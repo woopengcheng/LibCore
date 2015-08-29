@@ -17,7 +17,7 @@ namespace GameDB
 	{  
 	}  
 
-	INT32 DBServerNetHandler::UpdatePing(void)
+	CErrno DBServerNetHandler::UpdatePing(void)
 	{
 		if (m_ullLastRecvPing == 0)
 		{
@@ -32,9 +32,9 @@ namespace GameDB
 
 			GetSession()->SetClosed(TRUE);
 			GetSession()->SetNetState(Net::NET_STATE_LOSTED);
-			return ERR_FAILURE;
+			return CErrno::Failure();
 		}
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 // 	INT32 DBServerNetHandler::HandleMsg(Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
@@ -53,7 +53,7 @@ namespace GameDB
 // 			break;
 // 		}
 // 
-// 		return ERR_SUCCESS;
+// 		return CErrno::Success();
 // 	}
 
 }

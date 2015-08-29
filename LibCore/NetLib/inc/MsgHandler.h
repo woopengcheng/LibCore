@@ -26,17 +26,17 @@ namespace Net
 		~MsgHandlerImp(){}
 		 
 	public:
-		virtual INT32   Init(MsgProcess * pMsgProcess , BOOL bAutoManagerMemeory = FALSE);
-		virtual INT32   Cleanup();
-		virtual INT32   ConnectServer(char * pAddress , UINT16 usPort); 
-		virtual INT32   IsConnected();
+		virtual CErrno   Init(MsgProcess * pMsgProcess , BOOL bAutoManagerMemeory = FALSE);
+		virtual CErrno   Cleanup();
+		virtual CErrno   ConnectServer(char * pAddress , UINT16 usPort); 
+		virtual BOOL   IsConnected();
 
 	public:
-		virtual INT32   Update();
-		virtual INT32   InflowRecvBuffer(void);
-		virtual INT32   PorcessMsg();
-		virtual INT32   OutflowSendBuffer(); 
-		virtual INT32   SendMsg( UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
+		virtual CErrno   Update();
+		virtual CErrno   InflowRecvBuffer(void);
+		virtual CErrno   PorcessMsg();
+		virtual CErrno   OutflowSendBuffer(); 
+		virtual CErrno   SendMsg( UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
 	
 	public:
 		BOOL        GetAutoManagerMemory(){ return m_bAutoManagerMemory;}
@@ -72,10 +72,10 @@ namespace Net
 		virtual ~MsgHandler();
 
 	public:
-		virtual INT32      Init();
-		virtual INT32      Cleanup();  
-		virtual UINT32     AddClient(MsgProcess * pMsgProcess , char* pAddress, UINT16 usPort , BOOL bAutoManagerMemeory = FALSE );
-		virtual INT32      SendMsg( UINT32 unClientIndex , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
+		virtual CErrno      Init();
+		virtual CErrno      Cleanup();  
+		virtual INT32     AddClient(MsgProcess * pMsgProcess , char* pAddress, UINT16 usPort , BOOL bAutoManagerMemeory = FALSE );
+		virtual CErrno      SendMsg( UINT32 unClientIndex , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
 		virtual BOOL       IsConnected(UINT32 unClientIndex);
 
 	private:

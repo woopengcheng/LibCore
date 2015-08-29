@@ -18,13 +18,13 @@ namespace Msg
 		virtual ~MsgQueue(){}
 
 	public:
-		virtual INT32			  Init(void);
-		virtual INT32			  Cleanup(void);
+		virtual CErrno			  Init(void);
+		virtual CErrno			  Cleanup(void);
 		virtual Timer::TimerNode* Update(void); 
-		virtual INT32			  SetTimer(ObjectMsgCall * pMsg , UINT32 unTimeInterval , UINT32 unStartTime = 0, UINT32 unTimes = 0, void * pObj = NULL , TimerCallBackFunc pFunc = NULL);
+		virtual UINT32			  SetTimer(ObjectMsgCall * pMsg , UINT32 unTimeInterval , UINT32 unStartTime = 0, UINT32 unTimes = 0, void * pObj = NULL , TimerCallBackFunc pFunc = NULL);
 
 	public: 
-		virtual  INT32            AddMsg(ObjectMsgCall * pMsg , UINT32  unTimeout = 0);
+		virtual  CErrno            AddMsg(ObjectMsgCall * pMsg , UINT32  unTimeout = 0);
 		virtual  ObjectMsgCall  * FetchMsg(); 
 
 	public:

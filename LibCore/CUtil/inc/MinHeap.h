@@ -12,17 +12,17 @@ namespace CUtil
 		virtual ~MinHeap(void){} 
 
 	public:
-		virtual INT32  Init(void);
-		virtual INT32  Cleanup(void);
+		virtual CErrno  Init(void);
+		virtual CErrno  Cleanup(void);
 		virtual Node<ValueType> *    Update(void);
 
 	public:
-		virtual INT32  InsertNode(UINT32 unNodeID , Node<ValueType> * pNode);
-		virtual INT32  RemoveNode(UINT32 unNodeID);  
+		virtual CErrno  InsertNode(UINT32 unNodeID , Node<ValueType> * pNode);
+		virtual CErrno  RemoveNode(UINT32 unNodeID);  
 
 	protected:
-		virtual INT32  HeapRebuildDown(Node<ValueType> * pRebuildNode);
-		virtual INT32  HeapRebuildUp(UINT32 unCurPos , Node<ValueType>  * pRebuildNode);
+		virtual CErrno  HeapRebuildDown(Node<ValueType> * pRebuildNode);
+		virtual CErrno  HeapRebuildUp(UINT32 unCurPos , Node<ValueType>  * pRebuildNode);
 	}; 
 
 	template <typename ValueType>
@@ -32,26 +32,26 @@ namespace CUtil
 	}
 
 	template <typename ValueType>
-	INT32 MinHeap<ValueType>::Init( void )
+	CErrno MinHeap<ValueType>::Init( void )
 	{ 
 		return Heap::Init();
 	}
 
 	template <typename ValueType>
-	INT32 MinHeap<ValueType>::Cleanup( void )
+	CErrno MinHeap<ValueType>::Cleanup( void )
 	{ 
 		return Heap::Cleanup();
 	} 
 
 	template <typename ValueType>
-	INT32 MinHeap<ValueType>::HeapRebuildUp(UINT32 unCurPos , Node<ValueType> * pRebuildNode )
+	CErrno MinHeap<ValueType>::HeapRebuildUp(UINT32 unCurPos , Node<ValueType> * pRebuildNode )
 	{
 		UINT32 unParentPos = GetHeapParentPos(unCurPos);
 		Node<ValueType> * pParentNode = GetNode(unParentPos);
 
 		if (!pRebuildNode || !pParentNode || pParentNode == pRebuildNode)
 		{
-			return ERR_FAILURE;
+			return CErrno::Failure();
 		}
 
 		while (unCurPos > 0)
@@ -69,15 +69,15 @@ namespace CUtil
 
 		SwitchNode(pRebuildNode , unCurPos);
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 	template <typename ValueType>
-	INT32 MinHeap<ValueType>::HeapRebuildDown(Node<ValueType> * pRebuildNode )
+	CErrno MinHeap<ValueType>::HeapRebuildDown(Node<ValueType> * pRebuildNode )
 	{
 		if (!pRebuildNode)
 		{
-			return ERR_FAILURE;
+			return CErrno::Failure();
 		}
 		UINT32 unCurPos   = pRebuildNode->GetNodePos();
 		UINT32 unLeftPos  = GetHeapLeftPos(unCurPos);
@@ -93,7 +93,7 @@ namespace CUtil
 				Node<ValueType> * pRightNode = GetNode(unLeftPos + 1);
 				if(!pLeftNode || !pRightNode)
 				{
-					return FALSE;
+					return CErrno::Failure();
 				} 
 				objLeftValue = pLeftNode->GetValue();
 				objRightValue =  pRightNode->GetValue();
@@ -108,7 +108,7 @@ namespace CUtil
 				Node<ValueType> * pNextNode = GetNode(unLeftPos);
 				if(!pNextNode || !pCurNode)
 				{
-					return ERR_FAILURE;
+					return CErrno::Failure();
 				}  
 				objLeftValue = pCurNode->GetValue();
 				objRightValue =  pNextNode->GetValue();
@@ -125,11 +125,11 @@ namespace CUtil
 		}
 
 		SwitchNode(pRebuildNode , unCurPos);
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	} 
 
 	template <typename ValueType>
-	INT32 MinHeap<ValueType>::RemoveNode( UINT32 unNodeID )
+	CErrno MinHeap<ValueType>::RemoveNode( UINT32 unNodeID )
 	{
 		MapNodesT::accessor result; 
 		if (m_mapNodes.find(result , unNodeID))
@@ -138,7 +138,7 @@ namespace CUtil
 			Node<ValueType> * pCurNode = result->second;
 			if (!pCurNode)
 			{
-				return ERR_FAILURE;
+				return CErrno::Failure();
 			}
 
 			unCurPos = pCurNode->GetNodePos();
@@ -149,7 +149,7 @@ namespace CUtil
 				Node<ValueType> * pParentNode = GetNode(GetHeapParentPos(unCurPos));
 				if(!pLastNode || ! pParentNode)
 				{
-					return ERR_FAILURE; 
+					return CErrno::Failure(); 
 				} 
 				 
 				m_mapNodes.erase(result);
@@ -173,11 +173,11 @@ namespace CUtil
 			}
 		}
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 	template <typename ValueType>
-	INT32 MinHeap<ValueType>::InsertNode( UINT32 unNodeID , Node<ValueType> * pNode )
+	CErrno MinHeap<ValueType>::InsertNode( UINT32 unNodeID , Node<ValueType> * pNode )
 	{
 		if (pNode)
 		{
@@ -194,11 +194,11 @@ namespace CUtil
 			}
 			else
 			{
-				return FALSE;
+				return CErrno::Failure();
 			} 
 		}
 
-		return TRUE;
+		return CErrno::Success();
 	} 
 }  
 #endif

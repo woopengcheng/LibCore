@@ -14,10 +14,10 @@ namespace Msg
 			Net::ClientSession * pClientSession =  new Net::ClientSession(pAddress , usPort , pName);
 			RemoteRpcClientPtr pNetHandlerClient = RemoteRpcClientPtr(new RemoteRpcClient(this , m_pNetReactor , pClientSession)); 
 
-			int nResult = pNetHandlerClient->Init(pAddress, usPort); 
+			CErrno nResult = pNetHandlerClient->Init(pAddress, usPort); 
 			AddRemoteRpc(pClientSession->GetSessionID() , pNetHandlerClient); 
 
-			if(0 == nResult) 
+			if(nResult.IsSuccess()) 
 			{  
 				m_pNetReactor->AddNetHandler(pNetHandlerClient);  
 				pClientSession->SetClosed(FALSE);
@@ -35,7 +35,7 @@ namespace Msg
 	} 
 
 
-	INT32 RpcClientManager::Ping( void )
+	CErrno RpcClientManager::Ping( void )
 	{
 		SPing objPing;
 
@@ -58,20 +58,20 @@ namespace Msg
 			//			gDebugStream("SendPing " <<  pNet->GetSession()->GetRemoteName());
 		}
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 
-	INT32 RpcClientManager::UpdatePing( void )
+	CErrno RpcClientManager::UpdatePing( void )
 	{ 
 		INT64 ullCurTime = Timer::TimerHelper::GetTickSecond(); 
-		if (ullCurTime - m_ullLastSendPing >= DEFAULT_RPC_PING_TIMEOUT)
+		if (ullCurTime - m_llLastSendPing >= DEFAULT_RPC_PING_TIMEOUT)
 		{
-			m_ullLastSendPing = Timer::TimerHelper::GetTickSecond();
+			m_llLastSendPing = Timer::TimerHelper::GetTickSecond();
 			return Ping();
 		} 
 
-		return ERR_FAILURE;
+		return CErrno::Failure();
 	}  
 
 
@@ -79,7 +79,7 @@ namespace Msg
 	{ 
 		if (!pMsg)
 		{
-			return ERR_FAILURE;
+			return -1;
 		}
 
 		Net::NetHandlerTransitPtr pRemoteRpc = NULL;
@@ -96,26 +96,24 @@ namespace Msg
 			return RpcManager::SendMsg(pRemoteRpc , pMsg , bForce , bAddRpc);  
 		}
 
-		return ERR_FAILURE;
+		return -1;
 	}
 
 
-	INT32 RpcClientManager::Init( void )
+	CErrno RpcClientManager::Init( void )
 	{    
 
 		return RpcManager::Init() ;
 	}
 
 
-	INT32 RpcClientManager::Cleanup( void )
+	CErrno RpcClientManager::Cleanup( void )
 	{ 
 
 		return RpcManager::Cleanup(); 
-	}
+	} 
 
-
-
-	INT32 RpcClientManager::Update( void )
+	CErrno RpcClientManager::Update( void )
 	{  
 		UpdatePing(); 
 		return  RpcManager::Update();  

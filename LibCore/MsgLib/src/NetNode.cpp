@@ -65,6 +65,8 @@ namespace Msg
 		{
 			return iter->second;
 		}
+
+		return NULL;
 	}
 
 }

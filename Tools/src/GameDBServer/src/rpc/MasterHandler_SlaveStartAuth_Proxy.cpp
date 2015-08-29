@@ -7,7 +7,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcServerProxy(Net::I
 
 	CreateSlaveRecord(objSrc);
 
-	if(ERR_FAILURE == ProxySendMsg("tcp://127.0.0.1:8001" , 1 , name , pwd))
+	if(-1 == ProxySendMsg("tcp://127.0.0.1:8001" , 1 , name , pwd))
 	{
 		Return(value);
 	}

@@ -26,7 +26,7 @@ namespace Server
 		m_vecMasterHandlers.clear();
 	}
 
-	INT32 DBMaster::Init(Json::Value & conf)
+	CErrno DBMaster::Init(Json::Value & conf)
 	{
 		Json::Value objThreads = conf.get("thread" , Json::Value());
 		InitThread(objThreads); 
@@ -34,13 +34,13 @@ namespace Server
 		return DBMasterInterface::Init(conf);
 	}
 
-	INT32 DBMaster::Update(void)
+	CErrno DBMaster::Update(void)
 	{  
 
 		return DBMasterInterface::Update();
 	}
 	 
-	INT32 DBMaster::InitThread(Json::Value & conf)
+	CErrno DBMaster::InitThread(Json::Value & conf)
 	{
 		std::map<UINT32 , UINT32> mapThreads;
 		INT32 nCount = conf.size(); 
@@ -57,7 +57,7 @@ namespace Server
 		ThreadPool::ThreadPoolInterface::GetInstance().Startup();  
 		ThreadPool::ThreadPoolInterface::GetInstance().AddTask(this);  
 
-		return ERR_SUCCESS;
+		return CErrno::Success();
 	}
 
 	INT32 DBMaster::CreateMasterHandler(INT32 nSessionID)
@@ -86,21 +86,21 @@ namespace Server
 		return NULL;
 	}
 
-	INT32 DBMaster::Cleanup(void)
+	CErrno DBMaster::Cleanup(void)
 	{
 
 		ThreadPool::ThreadPoolInterface::GetInstance().Cleanup();
 		return DBMasterInterface::Cleanup();
 	}
 
-	INT32 MasterListener::OnConnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pClientSession ,const std::string & strNetNodeName)
+	CErrno MasterListener::OnConnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pClientSession ,const std::string & strNetNodeName)
 	{
 		if (m_pDBMaster)
 		{
 			if (strNetNodeName == g_netnodes[NETNODE_DBSLAVE])
 			{
 				INT32 nMasterHandlerID = m_pDBMaster->CreateMasterHandler(pClientSession->GetSessionID());
-				return rpc_SyncMasterHandler(pClientSession->GetSessionID() , Msg::Object(1) , Msg::Object(nMasterHandlerID) , nMasterHandlerID);
+				rpc_SyncMasterHandler(pClientSession->GetSessionID() , Msg::Object(1) , Msg::Object(nMasterHandlerID) , nMasterHandlerID);
 			}
 
 			if (strNetNodeName == g_netnodes[NETNODE_DBSERVER])
@@ -123,17 +123,17 @@ namespace Server
 				test1.p5.push_back(1);
 				test1.p5.push_back(2);
 				TestRpcData2 test2;
-				return rpc_testParamsAndRpcDatas(pClientSession->GetSessionID() ,1 ,nMasterHandlerID , test1 , test2);
+				rpc_testParamsAndRpcDatas(pClientSession->GetSessionID() ,1 ,nMasterHandlerID , test1 , test2);
 			}
 		}
 
-		return 0;
+		return CErrno::Success();
 	}
 
-	INT32 MasterListener::OnDisconnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pServerSession , Net::ISession * pClientSession)
+	CErrno MasterListener::OnDisconnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pServerSession , Net::ISession * pClientSession)
 	{
 
-		return 0;
+		return CErrno::Success();
 	}
 
 }
