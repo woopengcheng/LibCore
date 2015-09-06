@@ -1,17 +1,79 @@
 #ifndef __cutil_chunk_h__
 #define __cutil_chunk_h__ 
 #include "CUtil/inc/Common.h" 
+#include "CUtil/inc/ReferCount.h" 
 
 namespace CUtil
 { 
+	class DLL_EXPORT ChunkData
+	{ 
+	public:
+		ChunkData()
+			: m_unSize(0)
+			, m_unDataLen(0)
+			, m_refCount(0)
+		{}
+	public:
+		static ChunkData	*	Create(UINT32 unSize);
+		static void			*	operator new (size_t size, size_t extra);
+		static void				operator delete (void *p);
+		static ChunkData	&	Null();
+// 
+// 	public:
+// 		bool			operator !=(const ChunkData & objChunk);
+// 		bool			operator ==(const ChunkData & objChunk); 
+
+	public:
+		void		*	Insert(void * pPos , void * pBegin , UINT32 unLen);
+		void		*	Pushback (void * pBegin , UINT32 unLen); 
+		ChunkData	&	Erase(void * pBegin , void * pEnd);
+		ChunkData	*	Reverse(UINT32 unSize);
+		void		*	Begin( void );
+		void		*	End( void );
+		void			Clear( void );
+		void			AddRef(void);
+		void			DecRef( void );
+
+	public:
+		void		*	GetData() { return reinterpret_cast<void *>(this + 1); } 
+		UINT32			GetSize() const { return m_unSize; } 
+		UINT32			GetDataLen() const { return m_unDataLen; }  
+		void			SetDataLen(UINT32 unDataLen) { m_unDataLen = unDataLen; }  
+
+	private:
+		UINT32			FitSize(UINT32 unSize);
+
+	public:
+		AtomicUInt		m_refCount;
+		UINT32			m_unSize;
+		UINT32			m_unDataLen; 
+	};
+
 	class DLL_EXPORT Chunk
 	{
 	public: 
-		Chunk() : m_unSize(0) , m_unDataLen(0) , m_pBuf(NULL) , m_bMustRelease(TRUE){}
-		Chunk(void * pBuf , UINT32 unChunkSize , BOOL bMustRelease = TRUE);
-		Chunk(UINT32 unChunkSize);
+		Chunk()
+			: m_pData(ChunkData::Null().GetData())
+		{
+			GetChunkData()->AddRef();
+		}
+		Chunk(UINT32 unChunkSize)
+			: m_pData(ChunkData::Create(unChunkSize)->GetData())
+		{}
+		Chunk(const void * pBuf , UINT32 unChunkSize)
+			: m_pData(ChunkData::Create(unChunkSize)->GetData())
+		{
+			memcpy(m_pData , pBuf , unChunkSize);
+			GetChunkData()->SetDataLen(unChunkSize);
+		}
 		Chunk(const Chunk & objChunk);
-		~Chunk();
+		~Chunk()
+		{
+			GetChunkData()->DecRef();
+		}
+		
+		ChunkData	*	GetChunkData(){ return reinterpret_cast<ChunkData *>(m_pData) - 1; }
+		ChunkData	*	GetChunkData() const { return reinterpret_cast<ChunkData *>(m_pData) - 1; }
 
 	public:
 		Chunk		&	operator = (const Chunk & objChunk);
@@ -22,38 +84,27 @@ namespace CUtil
 		virtual Chunk   &  Insert(void * pPos , void * pBegin , UINT32 unLen);
 		virtual Chunk   &  Pushback (void * pBegin , UINT32 unLen); 
 		virtual Chunk   &  Erase(void * pBegin , void * pEnd);
-		virtual Chunk   &  Reverse(UINT32 unSize);
-		virtual void	*  Create(UINT32 unSize);
+		virtual Chunk   &  Reverse(UINT32 unSize); 
 		virtual void    *  Begin( void );
+		virtual void    *  Begin( void ) const;
 		virtual void    *  End( void );
+		virtual void    *  End( void ) const ;
 		virtual void       Clear( void );
-		virtual void       Release( void );
 
-	public:
-		void    *  GetBuf() const { return m_pBuf; }
-		void       SetBuf(void * pBuf){ m_pBuf = (char *)pBuf; }
-		UINT32     GetSize() const { return m_unSize; }
-		void       SetSize(UINT32 unChunkSize){ m_unSize = unChunkSize; }
-		UINT32     GetDataLen() const { return m_unDataLen; }
-		void	   SetDataLen(UINT32 val) { m_unDataLen = val; }
-		BOOL	   IsForceCopy() { return m_bMustRelease; }
-
-	private:
-		UINT32     FitSize(UINT32 unSize);
+	public: 
+		UINT32     GetSize() const { return GetChunkData()->GetSize(); } 
+		UINT32     GetDataLen() const { return GetChunkData()->GetDataLen(); }
 
 	protected:
-		void    *  m_pBuf;
-		UINT32     m_unSize;
-		UINT32     m_unDataLen;
-		BOOL       m_bMustRelease;
+		void		*	m_pData;
 	};
 
 	template<UINT32 unSize> 
-	class StackChunk : public Chunk
+	class StackChunk : public ChunkData
 	{ 
 	public:  
 		StackChunk()
-			: Chunk((void*)m_szBuffer , unSize , FALSE)
+			: ChunkData()
 		{
 			m_unDataLen = 0; 
 		}
@@ -67,5 +118,5 @@ namespace CUtil
 		char  m_szBuffer[unSize];
 	};
 }
-#define CUtilChunk CUtil::Chunk
+#define CUtilChunk CUtil::ChunkData
 #endif

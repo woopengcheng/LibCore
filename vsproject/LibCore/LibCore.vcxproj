@@ -237,6 +237,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\LibCore\CUtil\inc\arg_parser.h" />
+    <ClInclude Include="..\..\LibCore\CUtil\inc\AutomicUInt.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\BoostHelper.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\BsonToCpp.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\ByteOrder.h" />
@@ -263,6 +264,7 @@
     <ClInclude Include="..\..\LibCore\CUtil\inc\Platform.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\Random.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\Refcounted.h" />
+    <ClInclude Include="..\..\LibCore\CUtil\inc\ReferCount.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\RemoteNodeDefine.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\SafeVariable.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\StringEx.h" />
@@ -393,6 +395,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\LibCore\CUtil\src\arg_parser.cc" />
+    <ClCompile Include="..\..\LibCore\CUtil\src\AutomicUInt.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\BsonToCpp.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\carg_parser.c" />
     <ClCompile Include="..\..\LibCore\CUtil\src\Chunk.cpp" />
@@ -462,8 +465,10 @@
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorSelect.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorZMQ.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\RakNetUDPManager.cpp" />
+    <ClCompile Include="..\..\LibCore\Test\Chunk_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\CStream_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\LibCore_Test.cpp" />
+    <ClCompile Include="..\..\LibCore\Test\ReferCount_Test.cpp" />
     <ClCompile Include="..\..\LibCore\ThreadPool\src\ThreadPool.cpp" />
     <ClCompile Include="..\..\LibCore\ThreadPool\src\ThreadTask.cpp" />
     <ClCompile Include="..\..\LibCore\Timer\src\GlobalTimer.cpp" />

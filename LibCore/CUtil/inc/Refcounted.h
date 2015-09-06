@@ -1,6 +1,7 @@
 #ifndef __cutil_refcounted_h__
 #define __cutil_refcounted_h__
 #include "CUtil/inc/Common.h"
+#include "CUtil/inc/ReferCount.h"
 
 namespace CUtil
 {
@@ -172,8 +173,7 @@ namespace CUtil
 			if(!use_ref) return 0; 
 			return Refcounted<false>::UnRef();
 		}
-	};
-
+	}; 
 }
 
 #endif // _pw_refcounted_

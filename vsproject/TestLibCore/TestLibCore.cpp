@@ -10,6 +10,8 @@
 #include "bson/bson.h"
 #include "CUtil/inc/BsonToCpp.h"
 #include "half.h"
+#include "CUtil/inc/ReferCount.h"
+
 
 int _tmain(int argc, _TCHAR* argv[])
 {   

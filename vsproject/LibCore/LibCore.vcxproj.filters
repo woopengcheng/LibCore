@@ -576,6 +576,12 @@
     <ClInclude Include="..\..\LibCore\CUtil\inc\CErrno.h">
       <Filter>CUtil\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\CUtil\inc\ReferCount.h">
+      <Filter>CUtil\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\CUtil\inc\AutomicUInt.h">
+      <Filter>CUtil\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -831,6 +837,15 @@
       <Filter>Timer\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\Test\CStream_Test.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\CUtil\src\AutomicUInt.cpp">
+      <Filter>CUtil\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Test\ReferCount_Test.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Test\Chunk_Test.cpp">
       <Filter>Test</Filter>
     </ClCompile>
   </ItemGroup>
