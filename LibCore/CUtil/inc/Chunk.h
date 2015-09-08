@@ -13,15 +13,20 @@ namespace CUtil
 			, m_unDataLen(0)
 			, m_refCount(0)
 		{}
+		ChunkData(UINT32 unDataLen , UINT32 unRefCount)
+			: m_unSize(0)
+			, m_unDataLen(0)
+			, m_refCount(0)
+		{}
 	public:
 		static ChunkData	*	Create(UINT32 unSize);
 		static void			*	operator new (size_t size, size_t extra);
 		static void				operator delete (void *p);
 		static ChunkData	&	Null();
-// 
-// 	public:
-// 		bool			operator !=(const ChunkData & objChunk);
-// 		bool			operator ==(const ChunkData & objChunk); 
+
+	public:
+		bool			operator !=(const ChunkData & objChunk);
+		bool			operator ==(const ChunkData & objChunk); 
 
 	public:
 		void		*	Insert(void * pPos , void * pBegin , UINT32 unLen);
@@ -36,6 +41,7 @@ namespace CUtil
 
 	public:
 		void		*	GetData() { return reinterpret_cast<void *>(this + 1); } 
+		void		*	GetData() const { return reinterpret_cast<void *>(const_cast<ChunkData*>(this) + 1); } 
 		UINT32			GetSize() const { return m_unSize; } 
 		UINT32			GetDataLen() const { return m_unDataLen; }  
 		void			SetDataLen(UINT32 unDataLen) { m_unDataLen = unDataLen; }  
@@ -44,7 +50,7 @@ namespace CUtil
 		UINT32			FitSize(UINT32 unSize);
 
 	public:
-		AtomicUInt		m_refCount;
+		INT32			m_refCount;
 		UINT32			m_unSize;
 		UINT32			m_unDataLen; 
 	};
@@ -60,11 +66,26 @@ namespace CUtil
 		Chunk(UINT32 unChunkSize)
 			: m_pData(ChunkData::Create(unChunkSize)->GetData())
 		{}
-		Chunk(const void * pBuf , UINT32 unChunkSize)
-			: m_pData(ChunkData::Create(unChunkSize)->GetData())
+		Chunk(const void * pBuf , UINT32 unChunkSize , bool bRelease = true)
 		{
-			memcpy(m_pData , pBuf , unChunkSize);
-			GetChunkData()->SetDataLen(unChunkSize);
+			if (bRelease)
+			{
+				m_pData = ChunkData::Create(unChunkSize)->GetData();
+
+				memcpy(m_pData , pBuf , unChunkSize);
+				GetChunkData()->SetDataLen(unChunkSize);
+			}
+			else
+			{
+				if ( unChunkSize >= sizeof(ChunkData))
+				{
+					ChunkData * pData = ((ChunkData *)(pBuf));
+					pData->m_refCount = -1;
+					pData->m_unDataLen = 0;
+					pData->m_unSize = unChunkSize; 
+					m_pData = pData->GetData();
+				}
+			}
 		}
 		Chunk(const Chunk & objChunk);
 		~Chunk()
@@ -100,23 +121,21 @@ namespace CUtil
 	};
 
 	template<UINT32 unSize> 
-	class StackChunk : public ChunkData
+	class StackChunk : public Chunk
 	{ 
 	public:  
 		StackChunk()
-			: ChunkData()
-		{
-			m_unDataLen = 0; 
+			: Chunk(m_szBuffer , unSize , false)
+		{ 
 		}
 
 		virtual void Clear()
-		{ 
-			m_unDataLen = 0;
+		{  
 		}
 
 	private:
 		char  m_szBuffer[unSize];
 	};
 }
-#define CUtilChunk CUtil::ChunkData
+#define CUtilChunk CUtil::Chunk
 #endif

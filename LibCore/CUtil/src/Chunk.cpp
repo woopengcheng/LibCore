@@ -63,26 +63,26 @@ namespace CUtil
 // 
 // 		return * this;
 // 	}
-// 
-// 	bool ChunkData::operator ==(const ChunkData & objChunk)
-// 	{
-// 		if (objChunk.GetDataLen() == m_unDataLen && memcmp(this , &objChunk , m_unDataLen))
-// 		{
-// 			return true;
-// 		}
-// 
-// 		return false;
-// 	}
-//
-// 	bool ChunkData::operator !=(const ChunkData & objChunk)
-// 	{
-// 		if (objChunk.GetDataLen() != m_unDataLen || !memcmp(this , &objChunk , m_unDataLen))
-// 		{
-// 			return true;
-// 		}
-// 
-// 		return false;
-// 	}
+ 
+	bool ChunkData::operator ==(const ChunkData & objChunk)
+	{
+		if (objChunk.GetDataLen() == m_unDataLen && !memcmp(this->GetData() , objChunk.GetData() , m_unDataLen))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	bool ChunkData::operator !=(const ChunkData & objChunk)
+	{
+		if (objChunk.GetDataLen() != m_unDataLen || memcmp(this->GetData() , objChunk.GetData() , m_unDataLen))
+		{
+			return true;
+		}
+
+		return false;
+	}
 
 // 	ChunkData::~ChunkData()
 // 	{
@@ -147,15 +147,6 @@ namespace CUtil
 		return pData->GetData();
 	}
 
-	void ChunkData::DecRef(void)
-	{
-		--m_refCount;
-		if (m_unSize != 0 && m_refCount == 0)
-		{
-			delete(this);
-		}
-	}
-
 	void * ChunkData::Pushback(void * pBegin , UINT32 unLen)
 	{
 		ChunkData * pData = Reverse(m_unDataLen + unLen);
@@ -187,15 +178,29 @@ namespace CUtil
 	}
 
 	void ChunkData::Clear(void)
-	{
-		DecRef();
-		m_unSize = 0;
+	{ 
+		memset((char*)(this+1) , 0 , m_unDataLen);
 		m_unDataLen = 0;
 	}
 
 	void ChunkData::AddRef(void)
 	{
-		++m_refCount;
+		if (m_refCount >= 0)
+		{
+			++m_refCount;
+		}
+	}
+
+	void ChunkData::DecRef(void)
+	{
+		if (m_refCount > 0)
+		{
+			--m_refCount;
+			if (m_unSize != 0 && m_refCount == 0)
+			{
+				delete(this);
+			}
+		}
 	}
 
 	ChunkData	& ChunkData::Null()
@@ -227,21 +232,23 @@ namespace CUtil
 	}
 
 	bool Chunk::operator!=(const Chunk & objChunk)
-	{
-		if (objChunk.GetDataLen() != GetDataLen() || memcmp(m_pData , objChunk.Begin() , GetDataLen()))
-		{
-			return true;
-		}
-		return false;
+	{ 
+		return *GetChunkData() != (*objChunk.GetChunkData());
+// 		if (objChunk.GetDataLen() != GetDataLen() || memcmp(m_pData , objChunk.Begin() , GetDataLen()))
+// 		{
+// 			return true;
+// 		}
+// 		return false;
 	}
 
 	bool Chunk::operator==(const Chunk & objChunk)
 	{
-		if (objChunk.GetDataLen() == GetDataLen() && !memcmp(m_pData , objChunk.Begin() , GetDataLen()))
-		{
-			return true;
-		}
-		return false;		
+		return *GetChunkData() == (*objChunk.GetChunkData());
+// 		if (objChunk.GetDataLen() == GetDataLen() && !memcmp(m_pData , objChunk.Begin() , GetDataLen()))
+// 		{
+// 			return true;
+// 		}
+// 		return false;		
 	}
 
 	Chunk & Chunk::Insert(void * pPos , void * pBegin , UINT32 unLen)

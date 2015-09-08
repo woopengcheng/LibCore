@@ -5,7 +5,7 @@ Msg::ObjectMsgCall * Client::GlobalRpc::HandleHList_RpcClient(Net::ISession * pS
 	if (res.GetDataLen() != 0)
 	{
 		CUtil::CStream cs;
-		cs.Pushback(res.GetBuf() , res.GetDataLen());
+		cs.Pushback(res.Begin() , res.GetDataLen());
 
 		INT32 nCount = 0;
 		cs >> nCount;

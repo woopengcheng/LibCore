@@ -2,7 +2,7 @@
 
 Msg::ObjectMsgCall * Client::GlobalRpc::HandleShowDatabases_RpcClient(Net::ISession * pSession, Msg::Object objSrc , CUtilChunk & res/* = CUtil::Chunk()*/) 
 {
-	CUtil::CStream cs((const char*)res.GetBuf() , res.GetDataLen());
+	CUtil::CStream cs((const char*)res.Begin() , res.GetDataLen());
 
 	UINT32 unCount = 0;
 	cs >> unCount;

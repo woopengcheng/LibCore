@@ -22,7 +22,7 @@ namespace Server
 			MsgAssert_Re0(f.good() , localfilename << "wrong open");
 
 			gDebugStream("recv file:" << strFileName << "recv size: " << objChunk.GetDataLen() );
-			f.write((const char *)objChunk.GetBuf(),objChunk.GetDataLen());  
+			f.write((const char *)objChunk.Begin(),objChunk.GetDataLen());  
 
 			f.close(); 
 		}

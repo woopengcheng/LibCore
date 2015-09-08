@@ -729,21 +729,20 @@ def GenerateRpcRegister():
 		fileRpc.write(oneTab + "{\n")
 		fileRpc.write(twoTab + "Assert(m_pRpcServerManager && Msg::g_pRpcCheckParams);	\n")
 		fileRpc.write(twoTab + "static " + rpcServerName.namespace + "::GlobalRpc g_pGlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcServerManager); \n\n") 
-
-		fileRpc.write(twoTab + "CUtil::Parameters objDeliverParams , objReturnParams;\n")
 		
 		rpcRecords = collections.OrderedDict()
 		for index , rpc in g_rpcMsgs.rpcs.rpcs.items():  
 			fileRpc.write(twoTab + "//5 " + rpc.name + " generate default deliver and return check param here\n")
 			fileRpc.write(twoTab + "{\n")
+			fileRpc.write(threeTab + "CUtil::Parameters objDeliverParams , objReturnParams;\n")
 			strDefaultParams = GetRpcSpecialParamsIncludeDefault(rpc.call)
 			fileRpc.write(threeTab + "CUtil::GenMsgHelper::GenMsgParams(objDeliverParams " + strDefaultParams +  ");\n") 
 			strDefaultParams = GetRpcSpecialParamsIncludeDefault(rpc.returns)
 			fileRpc.write(threeTab + "CUtil::GenMsgHelper::GenMsgParams(objReturnParams " + strDefaultParams +  ");\n") 
 			fileRpc.write(threeTab + "Msg::g_pRpcCheckParams->InsertDeliverParams(" + "\"" + rpc.name  + "\", objDeliverParams);\n") 
 			fileRpc.write(threeTab + "Msg::g_pRpcCheckParams->InsertReturnParams(" + "\"" + rpc.name  +  "\", objReturnParams);\n") 
-			fileRpc.write(threeTab + "objDeliverParams.Clear();\n") 
-			fileRpc.write(threeTab + "objReturnParams.Clear();\n") 
+#			fileRpc.write(threeTab + "objDeliverParams.Clear();\n") 
+#			fileRpc.write(threeTab + "objReturnParams.Clear();\n") 
 			GenerateRpcRegisterFuncs(rpc , fileRpc , rpcServerName.serverName)
 			fileRpc.write(twoTab +"}\n\n") 
 			
@@ -915,9 +914,9 @@ def GenerateRpcHandler(rpcs , serverName , old_namespace):
 				
 				strParamsNoType = GetParamsExcludeDefaultAndType(rpc.call.params)
 				if len(rpc.call.params) == 0:
-					fileRpc.write(oneTab + "if(ERR_FAILURE == ProxySendMsg(\"tcp://127.0.0.1:8002\" , 0))\n")
+					fileRpc.write(oneTab + "if(-1 == ProxySendMsg(\"tcp://127.0.0.1:8002\" , 0))\n")
 				else:
-					fileRpc.write(oneTab + "if(ERR_FAILURE == ProxySendMsg(\"tcp://127.0.0.1:8002\" , 0 , " + strParamsNoType + "))\n")
+					fileRpc.write(oneTab + "if(-1 == ProxySendMsg(\"tcp://127.0.0.1:8002\" , 0 , " + strParamsNoType + "))\n")
 					
 				fileRpc.write(oneTab + "{\n")
 				strParamsNoType= GetParamsExcludeDefaultAndType(rpc.returns.params)
