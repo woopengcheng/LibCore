@@ -67,7 +67,7 @@ namespace Msg
 		void    SetTargetsCount(UINT32 unTargetsCount){ m_unTargetsCount = unTargetsCount;  }
 
 	public: 
-		virtual CUtil::CStream & marshal(CUtil::CStream & cs);
+		virtual CUtil::CStream & marshal(CUtil::CStream & cs)const;
 		virtual CUtil::CStream & unMarshal(CUtil::CStream & cs);
 
 	public:      

@@ -5,7 +5,7 @@
 namespace CUtil
 {  
 
-	CStream & MarshalTest::marshal(CStream & cs)
+	CStream & MarshalTest::marshal(CStream & cs)const
 	{  
 		cs << m_nTest;
 		cs.Pushback(m_nTest);
@@ -21,14 +21,15 @@ namespace CUtil
 		return cs;
 	} 
 
-	CStream & CStream::operator<<(Chunk & t)			
+	CStream & CStream::operator<<(const Chunk & t) 
 	{
-		Pushback(t.GetDataLen()); 
+		UINT32 unLen = t.GetDataLen();
+		Pushback(unLen); 
 		m_objChunk.Pushback(t.Begin() , t.GetDataLen());
 		return *this;
 	} 
 
-	CStream & CStream::operator>>(Chunk & t)
+	CStream & CStream::operator>>(const Chunk & t)
 	{
 		UINT32 unLen = 0;
 		Pop(unLen);
@@ -38,34 +39,34 @@ namespace CUtil
 			return *this;
 		}
 		char * pBuf = (char *)m_objChunk.Begin() + m_nCurPos;
-		t.Pushback(pBuf , unLen);
+		remove_const(t).Pushback(pBuf , unLen);
 		return *this;
 	} 
 
-	CStream & CStream::operator<<(Msg::Object & t)			
+	CStream & CStream::operator<<(const Msg::Object & t) 
 	{
 		*this << t.m_llObjID;
 		 
 		return *this;
 	} 
 
-	CStream & CStream::operator>>(Msg::Object & t)			
+	CStream & CStream::operator>>(const Msg::Object & t)			
 	{
-		*this >> t.m_llObjID;
+		*this >> remove_const(t).m_llObjID;
 
 		return *this;
 	} 
 
-	CStream & CStream::operator<<(CStream & t)			
+	CStream & CStream::operator<<(const CStream & t) 
 	{
 		UINT32 unSize =  t.GetDataLen();
 		*this << unSize;
-		this->Pushback(t.Begin() , unSize);
+		Pushback(t.Begin() , unSize);
 		 
 		return *this;
 	} 
 
-	CStream & CStream::operator>>(CStream & t)			
+	CStream & CStream::operator>>(const CStream & t)
 	{
 		UINT32 unSize = 0;
 		void * pBuf = NULL;
@@ -76,8 +77,8 @@ namespace CUtil
 			this->Pop(pBuf , unSize);
 		}
 
-		t.Pushback(pBuf , unSize);
+		remove_const(t).Pushback(pBuf , unSize);
 
 		return *this;
-	} 
+	}  
 }

@@ -18,7 +18,7 @@ namespace CUtil
 			End , 
 		};
 	public:
-		virtual CStream & marshal(CStream & cs) = 0;
+		virtual CStream & marshal(CStream & cs) const = 0;
 		virtual CStream & unMarshal(CStream & cs) = 0;
 	};
 }

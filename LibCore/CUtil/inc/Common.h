@@ -14,6 +14,7 @@
 #include <unordered_map>
 #include <unordered_set>  
 #include <iostream>
+#include <deque>
 
 #include "CUtil/inc/MsgAssert.h" 
 #include "CUtil/inc/ClassTypeID.h"

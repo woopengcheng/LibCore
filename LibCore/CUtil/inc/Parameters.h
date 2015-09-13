@@ -588,7 +588,7 @@ namespace CUtil
 		}
 
 	public: 
-		virtual CUtil::CStream & marshal(CUtil::CStream & cs);
+		virtual CUtil::CStream & marshal(CUtil::CStream & cs) const;
 		virtual CUtil::CStream & unMarshal(CUtil::CStream & cs);
 
 	public:

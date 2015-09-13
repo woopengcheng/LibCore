@@ -3,7 +3,7 @@
 
 namespace CUtil
 {
-	CStream & CharPtr::marshal( CStream & cs )
+	CStream & CharPtr::marshal( CStream & cs )const
 	{    
 		cs << m_unLen;  
 		cs.Pushback(m_pBuf , m_unLen);
@@ -11,7 +11,7 @@ namespace CUtil
 		return cs;
 	}
 
-	CStream & CharPtr::unMarshal( CStream & cs )
+	CStream & CharPtr::unMarshal(CStream & cs )
 	{ 
 		cs >> m_unLen;
 

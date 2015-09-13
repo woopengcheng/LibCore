@@ -64,7 +64,7 @@ namespace CUtil
 // 		return * this;
 // 	}
  
-	bool ChunkData::operator ==(const ChunkData & objChunk)
+	bool ChunkData::operator ==(const ChunkData & objChunk) const
 	{
 		if (objChunk.GetDataLen() == m_unDataLen && !memcmp(this->GetData() , objChunk.GetData() , m_unDataLen))
 		{
@@ -74,7 +74,7 @@ namespace CUtil
 		return false;
 	}
 
-	bool ChunkData::operator !=(const ChunkData & objChunk)
+	bool ChunkData::operator !=(const ChunkData & objChunk) const
 	{
 		if (objChunk.GetDataLen() != m_unDataLen || memcmp(this->GetData() , objChunk.GetData() , m_unDataLen))
 		{
@@ -91,17 +91,19 @@ namespace CUtil
 
 	ChunkData	* ChunkData::Reverse(UINT32 unSize)
 	{
-		unSize = FitSize(unSize);
-
-		if (unSize > m_unSize)
+		if (m_refCount >= 0 || unSize > m_unSize)
 		{
-			ChunkData * pBuf = Create(unSize);
-			memcpy(pBuf->GetData() , this->GetData() , pBuf->m_unDataLen = m_unDataLen);
+			unSize = FitSize(unSize);
 
-			DecRef();
-			return pBuf;
+			if (unSize > m_unSize)
+			{
+				ChunkData * pBuf = Create(unSize);
+				memcpy(pBuf->GetData() , this->GetData() , pBuf->m_unDataLen = m_unDataLen);
+
+				DecRef();
+				return pBuf;
+			}
 		}
-
 		return this;
 	}
 
@@ -172,6 +174,8 @@ namespace CUtil
 		if (pBegin != pEnd)
 		{
 			FastMemmove(pBegin , pEnd , ((char *)GetData() + m_unDataLen ) - (char *)pBegin);
+			m_unDataLen = m_unDataLen - (UINT32)((char*)pEnd - (char*)pBegin);
+			MsgAssert_Re(m_unDataLen >= 0 , *this ,"chunk erase so long.");
 		}
 
 		return *this;
@@ -213,7 +217,7 @@ namespace CUtil
 	 
 
 
-	Chunk::Chunk(const Chunk & objChunk) 
+	Chunk::Chunk(const Chunk & objChunk)
 		: m_pData(objChunk.m_pData)
 	{
 		GetChunkData()->AddRef();
@@ -231,7 +235,7 @@ namespace CUtil
 		return * this;
 	}
 
-	bool Chunk::operator!=(const Chunk & objChunk)
+	bool Chunk::operator!=(const Chunk & objChunk) const
 	{ 
 		return *GetChunkData() != (*objChunk.GetChunkData());
 // 		if (objChunk.GetDataLen() != GetDataLen() || memcmp(m_pData , objChunk.Begin() , GetDataLen()))
@@ -241,7 +245,7 @@ namespace CUtil
 // 		return false;
 	}
 
-	bool Chunk::operator==(const Chunk & objChunk)
+	bool Chunk::operator==(const Chunk & objChunk) const
 	{
 		return *GetChunkData() == (*objChunk.GetChunkData());
 // 		if (objChunk.GetDataLen() == GetDataLen() && !memcmp(m_pData , objChunk.Begin() , GetDataLen()))
@@ -301,6 +305,10 @@ namespace CUtil
 	void Chunk::Clear(void)
 	{
 		GetChunkData()->Clear();
+	}
+	std::ostream & operator<<(std::ostream&os,const Chunk & objChunk)
+	{
+		return os << "chunk:size=" << objChunk.GetSize() << ":datalen=" << objChunk.GetDataLen() << ":data=" << objChunk.Begin();
 	}
 
 }

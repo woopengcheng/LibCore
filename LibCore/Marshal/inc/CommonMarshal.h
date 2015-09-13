@@ -14,7 +14,7 @@ namespace CUtil
 		CharPtr(char * pBuf , UINT32 unLen) : m_pBuf(pBuf) , m_unLen(unLen) {}
 
 	public:
-		virtual CStream & marshal(CStream & cs);
+		virtual CStream & marshal(CStream & cs) const;
 		virtual CStream & unMarshal(CStream & cs);
 
 	protected:
@@ -32,7 +32,7 @@ namespace CUtil
 			std::copy(stl.GetContainer()->begin(), stl.GetContainer()->end(), std::back_inserter(*m_pContainer));  
 		}
 	public:
-		virtual CStream & marshal( CStream & cs )
+		virtual CStream & marshal( CStream & cs )const
 		{
 			cs << m_pContainer->size();
 
@@ -76,7 +76,7 @@ namespace CUtil
 			std::copy(stl.GetContainer()->begin(), stl.GetContainer()->end(), std::back_inserter(*m_pContainer));  
 		}
 	public:
-		virtual CStream & marshal( CStream & cs )
+		virtual CStream & marshal( CStream & cs ) const
 		{
 			cs << m_pContainer->size();
 
@@ -106,9 +106,60 @@ namespace CUtil
 
 		Container * GetContainer(){ return  m_pContainer; }
 
+		std::ostream&	operator<<(const Container & c)
+		{
+			os << '[';
+			typename _CType::const_iterator i = c.begin(), e = c.end();
+			if ( i != e ) { os << *i; for ( ++i; i != e; ++i) os << ',' << *i; }
+			os << ']';
+			return os;
+		}
+
 	protected:
 		Container * m_pContainer;
 	};
+	 
+	
+	template <class _T1, class _T2>
+	inline std::ostream & operator<<(std::ostream & os, const std::pair<_T1, _T2>& __x)
+	{
+		return os << __x.first << '=' << __x.second;
+	}
+
+	template < typename _CType >
+	std::ostream & TraceContainer(std::ostream & os, const _CType & c)
+	{
+		os << '[';
+		typename _CType::const_iterator i = c.begin(), e = c.end();
+		if ( i != e ) { os << *i; for ( ++i; i != e; ++i) os << ',' << *i; }
+		os << ']';
+		return os;
+	}
+
+	template < typename T >
+	std::ostream & operator << (std::ostream & os, const std::vector<T> &x)
+	{
+		return TraceContainer(os, x);
+	}
+
+	template < typename T >
+	std::ostream & operator << (std::ostream & os, const std::list<T> &x)
+	{
+		return TraceContainer(os, x);
+	}
+
+	template < typename T >
+	std::ostream & operator << (std::ostream & os, const std::deque<T> &x)
+	{
+		return TraceContainer(os, x);
+	}
+
+	template < typename T1, typename T2>
+	std::ostream & operator << (std::ostream & os, const std::map<T1, T2> &x)
+	{
+		return TraceContainer(os, x);
+	}
+
 }
 
 #endif

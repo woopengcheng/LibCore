@@ -27,7 +27,7 @@ namespace CUtil
 		return CErrno::Success();
 	}
 
-	CUtil::CStream & Parameter::marshal( CUtil::CStream & cs )
+	CUtil::CStream & Parameter::marshal( CUtil::CStream & cs )const 
 	{  
 		cs << m_objParamStream; 
 		 

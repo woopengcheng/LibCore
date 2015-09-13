@@ -68,7 +68,7 @@ namespace CUtil
 // 		 
 // 	}
 
-	CUtil::CStream & Parameters::marshal( CUtil::CStream & cs )
+	CUtil::CStream & Parameters::marshal( CUtil::CStream & cs )const
 	{  
 		MsgAssert_Re(m_unParamCount <= MSG_MAX_PARAMETER_NUMBER , cs , "超出参数表最大个数.");
 		cs << m_unParamCount; 
@@ -82,7 +82,7 @@ namespace CUtil
 
 	}
 
-	CUtil::CStream & Parameters::unMarshal( CUtil::CStream & cs )
+	CUtil::CStream & Parameters::unMarshal(CUtil::CStream & cs )
 	{  
 		cs >> m_unParamCount; 
 

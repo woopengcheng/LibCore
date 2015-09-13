@@ -11,7 +11,7 @@ namespace CUtil
 	{
 	public:
 		MarshalTest(int nValue):m_nTest(nValue){}
-		CStream & marshal(CStream & cs);
+		CStream & marshal(CStream & cs)const;
 		CStream & unMarshal(CStream & cs);
 
 	private:

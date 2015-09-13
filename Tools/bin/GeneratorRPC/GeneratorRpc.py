@@ -1073,7 +1073,7 @@ def WriteRpcDataCopyFunc(fileRpc , rpcData):
 	fileRpc.write(twoTab + "} \n\n")
 
 def WriteRpcDataMarshal(fileRpc , rpcData):
-	fileRpc.write(twoTab + "virtual CUtil::CStream & marshal(CUtil::CStream & cs)\n" )
+	fileRpc.write(twoTab + "virtual CUtil::CStream & marshal(CUtil::CStream & cs) const\n" )
 	fileRpc.write(twoTab + "{ \n")
 	strParam = threeTab + "cs"
 	for index , param in rpcData.params.items():  

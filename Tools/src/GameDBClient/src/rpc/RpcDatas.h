@@ -4,7 +4,7 @@ Author		:	generate by tools
 HostName	:	woopengcheng
 IP			:	192.168.1.107
 Version		:	0.0.1
-Date		:	2015-09-08 23:21:00
+Date		:	2015-09-13 21:58:40
 Description	:	网络消息的数据域.
 ************************************/
 #ifndef __Client_rpc_datas_h__
@@ -65,7 +65,7 @@ namespace Client
 			p13 = val.p13;
 		} 
 
-		virtual CUtil::CStream & marshal(CUtil::CStream & cs)
+		virtual CUtil::CStream & marshal(CUtil::CStream & cs) const
 		{ 
 			cs << p1 << p2 << p3 << p4 << p5 << p6 << p7 << p8 << p9 << p10 << p11 << p12 << p13;
 			return cs; 
@@ -113,7 +113,7 @@ namespace Client
 			p9 = val.p9;
 		} 
 
-		virtual CUtil::CStream & marshal(CUtil::CStream & cs)
+		virtual CUtil::CStream & marshal(CUtil::CStream & cs) const
 		{ 
 			cs << p1 << p2 << p3 << p4 << p6 << p7 << p8 << p9;
 			return cs; 

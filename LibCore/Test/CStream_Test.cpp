@@ -195,3 +195,85 @@ TEST(CStream_UINT64)
 		CHECK_EQUAL(p[i] , q[i]); 
 	} 
 }  
+
+TEST(CStream)
+{
+	CUtil::CStream cs; 
+	
+	const char t = 1;
+	const UINT8 t1 = 2;
+	const bool t2 = 1;
+	const INT16 t3 = 4;
+	const UINT16 t4 = 5;
+	const INT32 t5 = 6;
+	const UINT32 t6 = 7;
+	const INT64 t7 = 8;
+	const UINT64 t8 = 9;
+	const float t9 = 10;
+	const double t10 = 11;
+	const CUtil::CharPtr  t11("12" , sizeof("12"));
+	const std::string t12 = "13";
+	const CUtil::CStream  t13("14" , sizeof("14")); 
+	const CUtil::Chunk  t14(15);
+	const std::vector<INT32> t15(1);
+ 	const std::vector<INT32> t16(1);
+ 	const std::list<INT32> t17(1);
+	std::set<INT32> tempSet;
+	tempSet.insert(1);
+	const std::set<INT32> t18 = tempSet; 
+	const std::string t19("t19");
+	std::map<INT32 , INT32> tempMap;
+	tempMap[1] = 2;
+	const std::map<INT32 , INT32> t20 = tempMap;
+	const std::pair<INT32 , INT32> t21;
+	
+	char p = 0;
+	UINT8 p1 = 0;
+	bool p2 = 0;
+	INT16 p3 = 0;
+	UINT16 p4 = 0;
+	INT32 p5 = 0;
+	UINT32 p6 = 0;
+	INT64 p7 = 0;
+	UINT64 p8 = 0;
+	float p9 = 0;
+	double p10 = 0;
+	CUtil::CharPtr p11;
+	std::string p12;
+	CUtil::CStream  p13; 
+	CUtil::Chunk  p14;
+	std::vector<INT32> p15; 
+ 	std::vector<INT32> p16;
+ 	std::list<INT32> p17;
+ 	std::set<INT32> p18; 
+	std::string p19;
+	std::map<INT32 , INT32> p20;
+	std::pair<INT32 , INT32> p21;
+
+
+	cs << t << t1 << t2 << t3 << t4 << t5 << t6 << t7 << t8 << t9 << t10 << t11 << t12 << t13 << t14 << t15 << t16 << t17 << t18 << t19 << t20 << t21  ;
+	cs >> p >> p1 >> p2 >> p3 >> p4 >> p5 >> p6 >> p7 >> p8 >> p9 >> p10 >> p11 >> p12 >> p13 >> p14 >> p15 >> p16 >> p17 >> p18 >> p19 >> p20 >> p21;//  ;
+
+	CHECK_EQUAL(t , p);
+	CHECK_EQUAL(t1 , p1);
+	CHECK_EQUAL(t2 , p2);
+	CHECK_EQUAL(t3 , p3);
+	CHECK_EQUAL(t4 , p4);
+	CHECK_EQUAL(t5 , p5);
+	CHECK_EQUAL(t6 , p6);
+	CHECK_EQUAL(t7 , p7);
+	CHECK_EQUAL(t8 , p8);
+	CHECK_EQUAL(t9 , p9);
+	CHECK_EQUAL(t10 , p10);
+//	CHECK_EQUAL(t11 , p11);
+	CHECK_EQUAL(t12 , p12);
+	CHECK_EQUAL(t13 , p13);
+	CHECK_EQUAL(t14 , p14);
+	Assert(t15 == p15);
+ 	Assert(t16 == p16);
+	Assert(t17 == p17);
+	Assert(t18 == p18);
+	Assert(t19 == p19);
+	Assert(t20 == p20);
+	Assert(t21 == p21);
+}  

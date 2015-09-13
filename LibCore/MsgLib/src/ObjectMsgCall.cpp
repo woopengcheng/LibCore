@@ -71,12 +71,12 @@ namespace Msg
 		return CErrno::Success(); 
 	}
 
-	CUtil::CStream & ObjectMsgCall::marshal( CUtil::CStream & cs )
+	CUtil::CStream & ObjectMsgCall::marshal( CUtil::CStream & cs )const
 	{ 
 		cs << m_unTargetsCount;
 		cs.Pushback(m_aTargets , m_unTargetsCount * sizeof(Object));
 		cs << m_objSource << m_usPriority;
-		cs.Pushback(m_szMsgMethod , MAX_MSG_METHOD_NAME_LENGTH);
+		cs.Pushback((void*)m_szMsgMethod , MAX_MSG_METHOD_NAME_LENGTH);
 		cs << m_ullMsgID << m_objParams; 
 
 		return cs;

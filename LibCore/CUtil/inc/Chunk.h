@@ -25,8 +25,8 @@ namespace CUtil
 		static ChunkData	&	Null();
 
 	public:
-		bool			operator !=(const ChunkData & objChunk);
-		bool			operator ==(const ChunkData & objChunk); 
+		bool			operator !=(const ChunkData & objChunk) const;
+		bool			operator ==(const ChunkData & objChunk) const; 
 
 	public:
 		void		*	Insert(void * pPos , void * pBegin , UINT32 unLen);
@@ -45,6 +45,7 @@ namespace CUtil
 		UINT32			GetSize() const { return m_unSize; } 
 		UINT32			GetDataLen() const { return m_unDataLen; }  
 		void			SetDataLen(UINT32 unDataLen) { m_unDataLen = unDataLen; }  
+		INT32			GetRefCount(void) const { return m_refCount; }
 
 	private:
 		UINT32			FitSize(UINT32 unSize);
@@ -66,7 +67,7 @@ namespace CUtil
 		Chunk(UINT32 unChunkSize)
 			: m_pData(ChunkData::Create(unChunkSize)->GetData())
 		{}
-		Chunk(const void * pBuf , UINT32 unChunkSize , bool bRelease = true)
+		Chunk(const void * pBuf , UINT32 unChunkSize , bool bRelease = true)  //5 使用这个接口的时候要特别注意.长度一定要大于chunkdata,而且不要有数据
 		{
 			if (bRelease)
 			{
@@ -82,7 +83,7 @@ namespace CUtil
 					ChunkData * pData = ((ChunkData *)(pBuf));
 					pData->m_refCount = -1;
 					pData->m_unDataLen = 0;
-					pData->m_unSize = unChunkSize; 
+					pData->m_unSize = unChunkSize - sizeof(CUtil::ChunkData); 
 					m_pData = pData->GetData();
 				}
 			}
@@ -93,31 +94,32 @@ namespace CUtil
 			GetChunkData()->DecRef();
 		}
 		
-		ChunkData	*	GetChunkData(){ return reinterpret_cast<ChunkData *>(m_pData) - 1; }
-		ChunkData	*	GetChunkData() const { return reinterpret_cast<ChunkData *>(m_pData) - 1; }
+		ChunkData	*		GetChunkData(){ return reinterpret_cast<ChunkData *>(m_pData) - 1; }
+		ChunkData	*		GetChunkData() const { return reinterpret_cast<ChunkData *>(m_pData) - 1; }
 
 	public:
-		Chunk		&	operator = (const Chunk & objChunk);
-		bool			operator !=(const Chunk & objChunk);
-		bool			operator ==(const Chunk & objChunk);
+		Chunk		&		operator = (const Chunk & objChunk);
+		bool				operator !=(const Chunk & objChunk) const;
+		bool				operator ==(const Chunk & objChunk) const;
 
 	public:
-		virtual Chunk   &  Insert(void * pPos , void * pBegin , UINT32 unLen);
-		virtual Chunk   &  Pushback (void * pBegin , UINT32 unLen); 
-		virtual Chunk   &  Erase(void * pBegin , void * pEnd);
-		virtual Chunk   &  Reverse(UINT32 unSize); 
-		virtual void    *  Begin( void );
-		virtual void    *  Begin( void ) const;
-		virtual void    *  End( void );
-		virtual void    *  End( void ) const ;
-		virtual void       Clear( void );
+		virtual Chunk	&	Insert(void * pPos , void * pBegin , UINT32 unLen);
+		virtual Chunk   &	Pushback (void * pBegin , UINT32 unLen); 
+		virtual Chunk   &	Erase(void * pBegin , void * pEnd);
+		virtual Chunk   &	Reverse(UINT32 unSize); 
+		virtual void    *	Begin( void );
+		virtual void    *	Begin( void ) const;
+		virtual void    *	End( void );
+		virtual void    *	End( void ) const ;
+		virtual void		Clear( void );
 
 	public: 
-		UINT32     GetSize() const { return GetChunkData()->GetSize(); } 
-		UINT32     GetDataLen() const { return GetChunkData()->GetDataLen(); }
+		UINT32				GetSize() const { return GetChunkData()->GetSize(); } 
+		UINT32				GetDataLen() const { return GetChunkData()->GetDataLen(); }
+		friend	std::ostream&	operator<<(std::ostream&os,const Chunk & objChunk);
 
 	protected:
-		void		*	m_pData;
+		void			*	m_pData;
 	};
 
 	template<UINT32 unSize> 
@@ -127,10 +129,6 @@ namespace CUtil
 		StackChunk()
 			: Chunk(m_szBuffer , unSize , false)
 		{ 
-		}
-
-		virtual void Clear()
-		{  
 		}
 
 	private:
