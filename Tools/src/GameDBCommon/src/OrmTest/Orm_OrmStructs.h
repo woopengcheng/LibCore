@@ -2,9 +2,9 @@
 FileName	:	OrmStructs.h
 Author		:	generate by tools
 HostName	:	woopengcheng
-IP			:	192.168.1.104
+IP			:	192.168.1.107
 Version		:	0.0.1
-Date		:	2015-08-23 22:17:08
+Date		:	2015-09-16 00:05:43
 Description	:	数据库中定义的数据.
 ************************************/
 #ifndef __Orm_orm_structs_h__
@@ -97,7 +97,7 @@ namespace Orm
 			return !IsEqual(val);
 		} 
 
-		virtual CUtil::CStream & marshal(CUtil::CStream & cs)
+		virtual CUtil::CStream & marshal(CUtil::CStream & cs) const
 		{ 
 			cs << p1 << p2 << p3 << p4 << p5 << p6 << p7 << p8 << p9 << p10 << p11 << p12 << p13;
 			return cs; 

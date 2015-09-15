@@ -4,7 +4,7 @@ Author		:	generate by tools
 HostName	:	woopengcheng
 IP			:	192.168.1.107
 Version		:	0.0.1
-Date		:	2015-09-13 21:58:39
+Date		:	2015-09-16 00:04:34
 Description	:	注册每个函数.以及检测网络传递的消息是否是正确的参数.
 ************************************/
 #include "MsgLib/inc/RpcServerManager.h"
@@ -37,10 +37,10 @@ namespace Server
 	static UINT16 g_rpcDefaultParam_UINT16 = 0;
 	static UINT32 g_rpcDefaultParam_UINT32 = 0;
 	static INT32 g_rpcDefaultParam_INT32 = 0;
-	static UINT64 g_rpcDefaultParam_UINT64 = 0;
 	static INT64 g_rpcDefaultParam_INT64 = 0;
-	static float g_rpcDefaultParam_float = 0.0f;
+	static UINT64 g_rpcDefaultParam_UINT64 = 0;
 	static double g_rpcDefaultParam_double = 0.0f;
+	static float g_rpcDefaultParam_float = 0.0f;
 	static std_string g_rpcDefaultParam_std_string = std::string();
 	static CUtilChunk g_rpcDefaultParam_CUtilChunk = CUtil::Chunk();
 	static TestRpcData g_rpcDefaultParam_TestRpcData = TestRpcData();

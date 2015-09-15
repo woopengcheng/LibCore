@@ -1543,7 +1543,7 @@ def WriteOrmStructOperatorEqualAndNotEqual(fileOrm , ormStruct):
 	fileOrm.write(twoTab + "} \n\n")	
 	
 def WriteOrmStructMarshal(fileOrm , ormStruct):
-	fileOrm.write(twoTab + "virtual CUtil::CStream & marshal(CUtil::CStream & cs)\n" )
+	fileOrm.write(twoTab + "virtual CUtil::CStream & marshal(CUtil::CStream & cs) const\n" )
 	fileOrm.write(twoTab + "{ \n")
 	strParam = threeTab + "cs"
 	for index , param in ormStruct.params.items():  

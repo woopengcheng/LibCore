@@ -2,9 +2,9 @@
 FileName	:	Orm_Test_Oldname.h
 Author		:	generate by tools
 HostName	:	woopengcheng
-IP			:	192.168.1.104
+IP			:	192.168.1.107
 Version		:	0.0.1
-Date		:	2015-08-23 22:17:08
+Date		:	2015-09-16 00:05:43
 Description	:	orm²Ù×÷¼¯ºÏ.
 ************************************/
 #ifndef __Orm_Orm_Test_Oldname_h__
