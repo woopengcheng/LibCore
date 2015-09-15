@@ -42,17 +42,17 @@ namespace CUtil
 			m_objChunk = cs.GetData();
 		}
 
-		CStream(const char * pBuf , UINT32 unLength)
+		CStream(const void * pBuf , UINT32 unLength)
 			: m_nCurPos(0)
 			, m_nTransactionPos(0)
-			, m_objChunk((void*)pBuf , unLength)
+			, m_objChunk(pBuf , unLength)
 		{
 
 		}
-		CStream(CUtil::Chunk & objChunk)
+		CStream(const CUtil::Chunk & objChunk)
 			: m_nCurPos(0)
 			, m_nTransactionPos(0)
-			, m_objChunk(objChunk.Begin(), objChunk.GetDataLen())
+			, m_objChunk(objChunk)
 		{
 
 		}
@@ -76,11 +76,11 @@ namespace CUtil
 		}
 		bool operator !=(const CStream & objStream) const
 		{
-			return m_objChunk!=objStream.GetData();
+			return m_objChunk!=objStream.GetData() || m_nCurPos != objStream.GetCurPos() || m_nTransactionPos != objStream.GetTransactionPos();
 		}
 		bool operator ==(const CStream & objStream) const
 		{
-			return m_objChunk==objStream.GetData();
+			return m_objChunk==objStream.GetData() && m_nCurPos == objStream.GetCurPos() && m_nTransactionPos == objStream.GetTransactionPos();
 		}
 		friend	std::ostream&	operator<<(std::ostream&os,const CStream & objStream)
 		{
@@ -273,7 +273,7 @@ namespace CUtil
 		CStream & operator << (const Msg::Object & t);	 
 		CStream & operator << (const CStream & t);	 
 
-		template<typename T> CStream & operator << (std::basic_string<T> & t)
+		template<typename T> CStream & operator << (const std::basic_string<T> & t)
 		{
 			STATIC_ASSERT(sizeof(T) == 1);  //5 测试是否是单字节.utf16和utf32.单独处理
 			UINT32 unBytes = (UINT32)(t.size() )* sizeof(T);
@@ -283,10 +283,10 @@ namespace CUtil
 
 			return *this;
 		}
-		template<typename T> CStream & operator << (const std::basic_string<T> & t)
-		{
-			return operator << (*const_cast<std::basic_string<T>*>(&t)); 
-		}
+// 		template<typename T> CStream & operator << (const std::basic_string<T> & t)
+// 		{
+// 			return operator << (*const_cast<std::basic_string<T>*>(&t)); 
+// 		}
 
 		template<typename T1 , typename T2> CStream & operator << (const std::pair<T1 , T2> & t)
 		{
@@ -295,27 +295,27 @@ namespace CUtil
 
 		template<typename T1> CStream & operator << (const std::vector<T1> & t)
 		{
-			return *this << STLContainer<std::vector<T1>>(const_cast<std::vector<T1> &>(t));
+			return *this << STLContainer<std::vector<T1>>(remove_const(t));
 		} 
 
 		template<typename T1> CStream & operator << (const std::list<T1> & t)
 		{
-			return *this << STLContainer<std::list<T1>>(const_cast<std::list<T1> &>(t));
+			return *this << STLContainer<std::list<T1>>(remove_const(t));
 		} 
 		
 		template<typename T1> CStream & operator << (const std::deque<T1> & t)
 		{
-			return *this << STLContainer<std::deque<T1>>(const_cast<std:deque<T1> &>(t));
+			return *this << STLContainer<std::deque<T1>>(remove_const(t));
 		} 
 
 		template<typename T1> CStream & operator << (const std::set<T1> & t)
 		{
-			return *this << STLContainer<std::set<T1>>(const_cast<std::set<T1> &>(t));
+			return *this << STLContainer<std::set<T1>>(remove_const(t));
 		} 
 
 		template<typename T1 , typename T2> CStream & operator << (const std::map<T1 , T2> & t)
 		{
-			return *this << STLContainer<std::map<T1 , T2> >(const_cast<std::map<T1 , T2> &>(t));
+			return *this << STLContainer<std::map<T1 , T2> >(remove_const(t));
 		} 
 
 	public:
@@ -351,29 +351,29 @@ namespace CUtil
 			return *this;
 		}
 		 
-		template<typename T1> CStream & operator >> (std::vector<T1> & t)
+		template<typename T1> CStream & operator >> (const std::vector<T1> & t)
 		{
-			return *this >> STLContainer<std::vector<T1>>(t);
+			return *this >> STLContainer<std::vector<T1>>(remove_const(t));
 		} 
 
-		template<typename T1> CStream & operator >> (std::list<T1> & t)
+		template<typename T1> CStream & operator >> (const std::list<T1> & t)
 		{
-			return *this >> STLContainer<std::list<T1>>(t);
+			return *this >> STLContainer<std::list<T1>>(remove_const(t));
 		} 
 		
-		template<typename T1> CStream & operator >> (std::deque<T1> & t)
+		template<typename T1> CStream & operator >> (const std::deque<T1> & t)
 		{
-			return *this >> STLContainer<std::deque<T1>>(t);
+			return *this >> STLContainer<std::deque<T1>>(remove_const(t));
 		} 
 
-		template<typename T1> CStream & operator >> (std::set<T1> & t)
+		template<typename T1> CStream & operator >> (const std::set<T1> & t)
 		{
-			return *this >> STLContainer<std::set<T1>>(t);
+			return *this >> STLContainer<std::set<T1>>(remove_const(t));
 		} 
 
-		template<typename T1 , typename T2> CStream & operator >> (std::map<T1 , T2> & t)
+		template<typename T1 , typename T2> CStream & operator >> (const std::map<T1 , T2> & t)
 		{
-			return *this >> STLContainer<std::map<T1 , T2> >(t);
+			return *this >> STLContainer<std::map<T1 , T2> >(remove_const(t));
 		} 
 
 		template<typename T1 , typename T2> CStream & operator >> (const std::pair<T1 , T2> & t)
@@ -381,7 +381,7 @@ namespace CUtil
 			return *this >> t.first >> t.second;
 		} 
 
-		CStream & operator >> (Marshal::Transaction  t) 
+		CStream & operator >> (const Marshal::Transaction  t) 
 		{
 			switch(t)
 			{
@@ -409,7 +409,7 @@ namespace CUtil
 			UINT32  GetDataLen( void ) const { return m_objChunk.GetDataLen(); }
 			INT32   GetCurPos( void )const { return m_nCurPos; }
 			INT32   GetTransactionPos( void ) const { return m_nTransactionPos;	}
-			Chunk & GetData( void ) { return m_objChunk;	}
+//			Chunk & GetData( void ) { return m_objChunk;	}
 			Chunk   GetData( void ) const { return m_objChunk;	}
 			void  * Begin() const { return m_objChunk.Begin(); }
 			void  * End() const { return m_objChunk.End(); }
