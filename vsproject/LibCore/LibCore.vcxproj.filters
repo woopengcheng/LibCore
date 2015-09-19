@@ -765,9 +765,6 @@
     <ClCompile Include="..\..\LibCore\MsgLib\src\MsgHelper.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\LibCore\Marshal\inc\CStream.cpp">
-      <Filter>Marshal\inc</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\LibCore\Marshal\src\CommonMarshal.cpp">
       <Filter>Marshal\src</Filter>
     </ClCompile>
@@ -848,6 +845,12 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\Test\Chunk_Test.cpp">
       <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Test\Paramter_Test.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Marshal\inc\CStream.cpp">
+      <Filter>Marshal\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

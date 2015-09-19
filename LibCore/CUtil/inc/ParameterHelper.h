@@ -24,7 +24,7 @@ namespace CUtil
 			return ParameterHelper<type_name>::GetParameterValue(objParam , val);\
 		}\
 		\
-		static void MakeParameter(Parameter & objParam , type_name & val)\
+		static UINT32 MakeParameter(Parameter & objParam , type_name & val)\
 		{ \
 			return ParameterHelper<type_name>::MakeParameter(objParam , val); \
 		}\
@@ -69,9 +69,14 @@ namespace CUtil
 			return TRUE;\
 		}\
 		\
-		static void MakeParameter(Parameter & objParam , type_name & val)\
+		static UINT32 MakeParameter(Parameter & objParam , type_name & value)\
 		{ \
-			objParam.GetParamStream() << (UINT8)type_macro << val;      \
+			objParam.GetParamStream() << (UINT8)type_macro;\
+			\
+			UINT32 unOldLen = 0;\
+			unOldLen = objParam.GetParamStream().GetDataLen();\
+			objParam.GetParamStream() << value;\
+			return  objParam.GetParamStream().GetDataLen() - unOldLen;\
 		}\
 		\
 		static BOOL CheckParamType(Parameter & objParam)\
@@ -115,10 +120,13 @@ namespace CUtil
 			return TRUE; 
 		}
 
-		static void MakeParameter(Parameter & objParam , T & value)
+		static UINT32 MakeParameter(Parameter & objParam , T & value)
 		{   
+			UINT32 unOldLen = 0;
 			objParam.GetParamStream() << (UINT8)PARAMETER_TYPE_STD_CONTAINER_OR_OTHERS;  
+			unOldLen = objParam.GetParamStream().GetDataLen();
 			objParam.GetParamStream() << value;
+			return  objParam.GetParamStream().GetDataLen() - unOldLen;
 		} 
 
 		static BOOL CheckParamType(Parameter & objParam)
@@ -171,10 +179,14 @@ namespace CUtil
 			return TRUE; 
 		}
 
-		static void MakeParameter(Parameter & objParam , T & value)
+		static UINT32 MakeParameter(Parameter & objParam , T & value)
 		{   
+			UINT32 unOldLen = 0; 
 			objParam.GetParamStream() << (UINT8)PARAMETER_TYPE_STD_CONTAINER_OR_OTHERS;  
+			unOldLen = objParam.GetParamStream().GetDataLen(); 
+
 			objParam.GetParamStream() << value;
+			return  objParam.GetParamStream().GetDataLen() - unOldLen;
 		}
 		 
 		static BOOL CheckParamType(Parameter & objParam)
@@ -224,12 +236,14 @@ namespace CUtil
 			return TRUE; 
 		}
 
-		static void MakeParameter(Parameter & objParam , const char * pValue)
+		static UINT32 MakeParameter(Parameter & objParam , const char * pValue)
 		{  
 			if (!pValue)
 			{
 				objParam.GetParamStream() << (UINT8)PARAMETER_TYPE_STRING << 0;  
 				objParam.GetParamStream().Pushback((void*)pValue , 0);
+
+				return 0;
 			}
 			else
 			{
@@ -237,6 +251,8 @@ namespace CUtil
 
 				objParam.GetParamStream() << (UINT8)PARAMETER_TYPE_STRING << unSize;  
 				objParam.GetParamStream().Pushback((void*)pValue , unSize);
+
+				return unSize;
 			} 
 		}
 
@@ -257,11 +273,9 @@ namespace CUtil
 		static std::string GetParameterValue(Parameter & objParam)
 		{
 			UINT8 nType = 0 ;
-			INT32 nSize = 0;
 
-			objParam.GetParamStream() >> CUtil::Marshal::Begin >> nType >> nSize;
+			objParam.GetParamStream() >> CUtil::Marshal::Begin >> nType;
 			MsgAssert_Re0(nType == PARAMETER_TYPE_STD_STRING , "paramter type is error. :" << nType << " cur: " << PARAMETER_TYPE_STD_STRING);
-			MsgAssert_Re0(!((UINT32)nSize > objParam.GetParamStream().GetDataLen() - objParam.GetParamStream().GetCurPos()) , "unMarshal invalid length."); 
 
 			std::string strValue;
 			objParam.GetParamStream() >> strValue >> CUtil::Marshal::Rollback;
@@ -272,23 +286,24 @@ namespace CUtil
 		static BOOL GetParameterValue(Parameter & objParam , std::string & strValue)
 		{
 			UINT8 nType = 0;
-			INT32 nSize = 0;
 
-			objParam.GetParamStream() >> CUtil::Marshal::Begin >> nType >> nSize;
+			objParam.GetParamStream() >> CUtil::Marshal::Begin >> nType;
 			MsgAssert_Re0(nType == PARAMETER_TYPE_STD_STRING , "paramter type is error. :" << nType << " cur: " << PARAMETER_TYPE_STD_STRING);
-			MsgAssert_Re0(!((UINT32)nSize > objParam.GetParamStream().GetDataLen() - objParam.GetParamStream().GetCurPos()) , "unMarshal invalid length."); 
-			 
+ 
 			objParam.GetParamStream() >> strValue >> CUtil::Marshal::Rollback;
 
 			return TRUE; 
 		}
 
-		static void MakeParameter(Parameter & objParam , std::string & strValue)
+		static UINT32 MakeParameter(Parameter & objParam , std::string & strValue)
 		{   
-				UINT32 unSize = (UINT32)(strValue.length() + 1);
+				UINT32 unOldLen = 0;
 
-				objParam.GetParamStream() << (UINT8)PARAMETER_TYPE_STD_STRING << unSize;  
+				objParam.GetParamStream() << (UINT8)PARAMETER_TYPE_STD_STRING;  
+				unOldLen = objParam.GetParamStream().GetDataLen();
 				objParam.GetParamStream() << strValue;
+
+				return objParam.GetParamStream().GetDataLen() - unOldLen;
 		}
 
 		static BOOL CheckParamType(Parameter & objParam)
@@ -301,7 +316,7 @@ namespace CUtil
 		}
 	};
 
-	template<> class ParameterHelper<std::string &>
+	template<> class ParameterHelper<const std::string &>
 	{
 	public:
 		static UINT8 GetParameterType(){ return (UINT8)PARAMETER_TYPE_STD_STRING; } 
@@ -315,7 +330,7 @@ namespace CUtil
 			return ParameterHelper<std::string>::GetParameterValue(objParam , p1);
 		}
 
-		static void MakeParameter(Parameter & objParam , std::string & strValue)
+		static UINT32 MakeParameter(Parameter & objParam , std::string & strValue)
 		{   
 			return ParameterHelper<std::string>::MakeParameter(objParam , strValue);
 		}
@@ -329,6 +344,35 @@ namespace CUtil
 			return FALSE;
 		}
 	}; 
+
+	template<> class ParameterHelper<const std::string>
+	{
+	public:
+		static UINT8 GetParameterType(){ return (UINT8)PARAMETER_TYPE_STD_STRING; } 
+		static std::string GetParameterValue(Parameter & objParam)
+		{
+			return ParameterHelper<std::string>::GetParameterValue(objParam);
+		}
+
+		static BOOL GetParameterValue(Parameter & objParam , std::string & p1)
+		{
+			return ParameterHelper<std::string>::GetParameterValue(objParam , p1);
+		}
+
+		static UINT32 MakeParameter(Parameter & objParam , std::string & strValue)
+		{   
+			return ParameterHelper<std::string>::MakeParameter(objParam , strValue);
+		}
+
+		static BOOL CheckParamType(Parameter & objParam)
+		{
+			if (objParam.GetType() == PARAMETER_TYPE_STD_STRING)
+			{
+				return TRUE;
+			}
+			return FALSE;
+		}
+	};  
 
 	GEN_PARAMTER_HELPER(bool , PARAMETER_TYPE_BOOL); 
 	GEN_PARAMTER_HELPER(char , PARAMETER_TYPE_SINT8); 

@@ -29,7 +29,7 @@ namespace CUtil
 		return *this;
 	} 
 
-	CStream & CStream::operator>>(const Chunk & t)
+	CStream & CStream::operator>>(Chunk & t)
 	{
 		UINT32 unLen = 0;
 		Pop(unLen);
@@ -39,7 +39,7 @@ namespace CUtil
 			return *this;
 		}
 		char * pBuf = (char *)m_objChunk.Begin() + m_nCurPos;
-		remove_const(t).Pushback(pBuf , unLen);
+		t.Pushback(pBuf , unLen);
 		return *this;
 	} 
 
@@ -50,9 +50,9 @@ namespace CUtil
 		return *this;
 	} 
 
-	CStream & CStream::operator>>(const Msg::Object & t)			
+	CStream & CStream::operator>>(Msg::Object & t)			
 	{
-		*this >> remove_const(t).m_llObjID;
+		*this >> t.m_llObjID;
 
 		return *this;
 	} 
@@ -66,18 +66,26 @@ namespace CUtil
 		return *this;
 	} 
 
-	CStream & CStream::operator>>(const CStream & t)
+	CStream & CStream::operator>>(CStream & t)
 	{
-		UINT32 unSize = 0;
-		void * pBuf = NULL;
-
-		*this >> unSize;
-		if (unSize > 0)
+		if (&t != this)
 		{
-			this->Pop(pBuf , unSize);
-		}
+			UINT32 unSize = 0;
+			void * pBuf = NULL;
 
-		remove_const(t).Pushback(pBuf , unSize);
+			*this >> unSize;
+			if (unSize > 0)
+			{
+				this->Pop(pBuf , unSize);
+			}
+
+//			t << unSize;
+			t.Pushback(pBuf , unSize);
+		}
+		else
+		{
+			t.Pushback(Begin() , GetDataLen());
+		}
 
 		return *this;
 	}  

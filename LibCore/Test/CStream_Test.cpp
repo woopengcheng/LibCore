@@ -198,7 +198,8 @@ TEST(CStream_UINT64)
 
 TEST(CStream)
 {
-	CUtil::CStream cs; 
+	CUtil::CStream c; 
+	CUtil::CStream cs(c); 
 	
 	const char t = 1;
 	const UINT8 t1 = 2;
@@ -265,33 +266,33 @@ TEST(CStream)
 	std::map<INT32 , std::vector<INT32>> p23;
 	std::map<INT32 , std::list<INT32>> p24;
 	std::map<INT32 , std::set<INT32>> p25;
-
-	const char cp = 0;
-	const UINT8 cp1 = 0;
-	const bool cp2 = 0;
-	const INT16 cp3 = 0;
-	const UINT16 cp4 = 0;
-	const INT32 cp5 = 0;
-	const UINT32 cp6 = 0;
-	const INT64 cp7 = 0;
-	const UINT64 cp8 = 0;
-	const float cp9 = 0;
-	const double cp10 = 0;
-	const CUtil::CharPtr cp11;
-	const std::string cp12;
-	const CUtil::CStream  cp13; 
-	const CUtil::Chunk  cp14;
-	const std::vector<INT32> cp15; 
-	const std::vector<INT32> cp16;
-	const std::list<INT32> cp17;
-	const std::set<INT32> cp18; 
-	const std::string cp19;
-	const std::map<INT32 , INT32> cp20;
-	const std::pair<INT32 , INT32> cp21;
-	const std::map<INT32 , CUtil::Chunk> cp22;
-	const std::map<INT32 , std::vector<INT32>> cp23;
-	const std::map<INT32 , std::list<INT32>> cp24;
-	const std::map<INT32 , std::set<INT32>> cp25;
+// 
+// 	const char cp = 0;
+// 	const UINT8 cp1 = 0;
+// 	const bool cp2 = 0;
+// 	const INT16 cp3 = 0;
+// 	const UINT16 cp4 = 0;
+// 	const INT32 cp5 = 0;
+// 	const UINT32 cp6 = 0;
+// 	const INT64 cp7 = 0;
+// 	const UINT64 cp8 = 0;
+// 	const float cp9 = 0;
+// 	const double cp10 = 0;
+// 	const CUtil::CharPtr cp11;
+// 	const std::string cp12;
+// 	const CUtil::CStream  cp13; 
+// 	const CUtil::Chunk  cp14;
+// 	const std::vector<INT32> cp15; 
+// 	const std::vector<INT32> cp16;
+// 	const std::list<INT32> cp17;
+// 	const std::set<INT32> cp18; 
+// 	const std::string cp19;
+// 	const std::map<INT32 , INT32> cp20;
+// 	const std::pair<INT32 , INT32> cp21;
+// 	const std::map<INT32 , CUtil::Chunk> cp22;
+// 	const std::map<INT32 , std::vector<INT32>> cp23;
+// 	const std::map<INT32 , std::list<INT32>> cp24;
+// 	const std::map<INT32 , std::set<INT32>> cp25;
 
 	cs << t << t1 << t2 << t3 << t4 << t5 << t6 << t7 << t8 << t9 << t10 << t11 << t12 << t13 << t14 << t15 << t16 << t17 << t18 << t19 << t20 << t21 << t22 << t23 << t24 << t25 ;
 	INT32 nLengthData = cs.GetDataLen();
@@ -302,27 +303,27 @@ TEST(CStream)
 	CHECK_EQUAL(nLengthData , nLengthData2);
 	CHECK_EQUAL(cs.GetCurPos() , 0);
 
-	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 2);
+	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 1);
 	CUtil::CStream csCopy(cs);
-	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 3);
+	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 2);
 	CUtil::CStream csCopyData(cs.Begin() , cs.GetDataLen());
-	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 3);
+	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 2);
 	CUtil::CStream csCopyChunk(cs.GetData());
-	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 4);
+	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 3);
 	CUtil::CStream csCopyFunc;
 	csCopyFunc.Copy(cs);
-	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 5);
+	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 4);
 	CUtil::CStream csCopyEqual;
 	csCopyEqual = cs;
-	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 6);
+	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 5);
 	CUtil::CStream csNotEqual(cs);
-	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 7);
-	csNotEqual >> cp;
+	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 6);
+	csNotEqual >> p;
 	CUtil::CStream csNotEqual2(cs);
-	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 8);
-	csNotEqual2 >> CUtil::Marshal::Begin >> cp;
+	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 7);
+	csNotEqual2 >> CUtil::Marshal::Begin >> p;
 
-	csCopy >> cp >> cp1 >> cp2 >> cp3 >> cp4 >> cp5 >> cp6 >> cp7 >> cp8 >> cp9 >> cp10 >> cp11 >> cp12 >> cp13 >> cp14 >> cp15 >> cp16 >> cp17 >> cp18 >> cp19 >> cp20 >> cp21 >> cp22 >> cp23 >> cp24 >> cp25;//  ;
+	csCopy >> p >> p1 >> p2 >> p3 >> p4 >> p5 >> p6 >> p7 >> p8 >> p9 >> p10 >> p11 >> p12 >> p13 >> p14 >> p15 >> p16 >> p17 >> p18 >> p19 >> p20 >> p21 >> p22 >> p23 >> p24 >> p25;//  ;
 	CHECK_EQUAL(csCopy.GetDataLen() , nLengthData);
 	CHECK_EQUAL(csCopy.GetCurPos() , nLengthData2);
 	CHECK_EQUAL(csCopyData.GetCurPos() , 0);
@@ -333,8 +334,8 @@ TEST(CStream)
 	CHECK_EQUAL(csCopyFunc.GetDataLen() , nLengthData2);
 	CHECK_EQUAL(csCopyEqual.GetCurPos() , 0);
 	CHECK_EQUAL(csCopyEqual.GetDataLen() , nLengthData2);
-	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 8);
-	CHECK_EQUAL(cs != csCopy && cs == csCopyData && cs == csCopyChunk && cs == csCopyFunc && cs == csCopyEqual, 1);
+	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() ,7);
+	CHECK_EQUAL(cs != csCopy && cs == csCopyData && cs == csCopyChunk && cs == csCopyFunc && cs == csCopyEqual, true);
 	CHECK_EQUAL(cs != csNotEqual, 1);
 	CHECK_EQUAL(cs != csNotEqual2, 1);
 
@@ -371,7 +372,10 @@ TEST(CStream)
 	CHECK_EQUAL(t10 , p10);
 //	CHECK_EQUAL(t11 , p11);
 	CHECK_EQUAL(t12 , p12);
-	CHECK_EQUAL(t13 , p13);
+	p13 >> p13;
+	CHECK_EQUAL(p13.GetDataLen() , 12);
+	std::string str((char *)t13.Begin());
+	CHECK_EQUAL(str , std::string("14"));
 	CHECK_EQUAL(t14 , p14);
 	Assert(t15 == p15);
  	Assert(t16 == p16);

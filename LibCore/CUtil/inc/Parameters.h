@@ -592,55 +592,55 @@ namespace CUtil
 		virtual CUtil::CStream & unMarshal(CUtil::CStream & cs);
 
 	public:
-// 		void GenMsgParams()
+// 		UINT32 GenMsgParams()
 // 		{
-// 			CUtil::GenMsgHelper::GenMsgParams(*this);
+// 			return CUtil::GenMsgHelper::GenMsgParams(*this);
 // 		} 
 // 
 		template<typename P1>
-		void GenMsgParams(P1 &p1)
+		UINT32 GenMsgParams(P1 &p1)
 		{
-			CUtil::GenMsgHelper::GenMsgParams(*this , p1);
+			return CUtil::GenMsgHelper::GenMsgParams(*this , p1);
 		}
 
 		template<typename P1 , typename P2>
-		void GenMsgParams(P1 &p1 , P2 &p2)
+		UINT32 GenMsgParams(P1 &p1 , P2 &p2)
 		{
-			CUtil::GenMsgHelper::GenMsgParams(*this , p1 , p2);
+			return CUtil::GenMsgHelper::GenMsgParams(*this , p1 , p2);
 		}
 
 		template<typename P1 , typename P2 , typename P3>
-		void GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3)
+		UINT32 GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3)
 		{
-			CUtil::GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3);
+			return CUtil::GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3);
 		}
 
 		template<typename P1 , typename P2 , typename P3 , typename P4>
-		void GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4)
+		UINT32 GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4)
 		{
-			CUtil::GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4);
+			return CUtil::GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4);
 		} 
 
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5>
-		void GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5)
+		UINT32 GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5)
 		{
-			CUtil::GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4 , p5 );
+			return CUtil::GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4 , p5 );
 		} 
 
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6>
-		void GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6)
+		UINT32 GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6)
 		{
-			CUtil::GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4 , p5 , p6 );
+			return CUtil::GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4 , p5 , p6 );
 		}
 
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7>
-		void GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7)
+		UINT32 GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7)
 		{
-			CUtil::GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4 , p5 , p6 , p7);
+			return CUtil::GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4 , p5 , p6 , p7);
 		}
 
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8>
-		void GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7 , P8 &p8)
+		UINT32 GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7 , P8 &p8)
 		{
 			GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4 , p5 , p6 , p7 , p8);
 		}

@@ -98,7 +98,7 @@ namespace Orm
 		if(id3 != TestStruct())
 		{
 			CUtil::Parameter p(id3);
-			builder.appendBinData("id3" , p.GetStreamSize() , mongo::bdtParamter , (const char *)(p.GetStreamData())); 
+			builder.appendBinData("id3" , p.GetDataLen() , mongo::bdtParamter , (const char *)(p.GetStreamData())); 
 		}
 		obj = builder.obj();
 	}

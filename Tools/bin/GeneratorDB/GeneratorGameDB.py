@@ -818,7 +818,7 @@ def GenerateOrmCppToBson2(fileOrm , table):
 		if IsUserDefineType(field.type):
 			fileOrm.write(twoTab + "{\n")
 			fileOrm.write(threeTab + "CUtil::Parameter p(" + field.name + ");\n")
-			fileOrm.write(threeTab + "builder.appendBinData(\"" + field.name + "\" , p.GetStreamSize() , mongo::bdtParamter , (const char *)(p.GetStreamData())); \n")
+			fileOrm.write(threeTab + "builder.appendBinData(\"" + field.name + "\" , p.GetDataLen() , mongo::bdtParamter , (const char *)(p.GetStreamData())); \n")
 			fileOrm.write(twoTab + "}\n")
 		else:
 			fileOrm.write(threeTab + "builder.append(\"" + field.name + "\"," + field.name + ");\n")

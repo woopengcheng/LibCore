@@ -8,9 +8,12 @@ namespace CUtil
 		UINT32 unResult = 0;
 		for (UINT32 i = 0;i < m_unParamCount;++i)
 		{
-			unResult += m_aParameter[i].GetSize();
-			unResult += sizeof(m_aParameter[i].GetType());
-			unResult += sizeof(m_aParameter[i].GetSize());
+			UINT8 cType = m_aParameter[i].GetType();
+			UINT32 unSize = m_aParameter[i].GetSize();
+
+			unResult += unSize;
+			unResult += sizeof(cType);
+			unResult += sizeof(unSize);
 		}
 
 		unResult += sizeof(m_unParamCount);

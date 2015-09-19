@@ -9,93 +9,118 @@ namespace CUtil
 	class DLL_EXPORT  GenMsgHelper
 	{ 
 	public:
-		static void GenMsgParams(CUtil::Parameters & objParams)
+		static UINT32 GenMsgParams(CUtil::Parameters & objParams)
 		{
 			objParams.m_unParamCount = 0; 
+			return 0;
 		}
 
 		template<typename P1>
-		static void GenMsgParams(CUtil::Parameters & objParams , P1 &p1)
+		static UINT32 GenMsgParams(CUtil::Parameters & objParams , P1 &p1)
 		{
+			UINT32 unSize = 0;
 			objParams.m_unParamCount = 1; 
-			ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
+			unSize += ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
+
+			return unSize;
 		}
 
 		template<typename P1 , typename P2>
-		static void GenMsgParams(CUtil::Parameters & objParams , P1 &p1 , P2 &p2)
+		static UINT32 GenMsgParams(CUtil::Parameters & objParams , P1 &p1 , P2 &p2)
 		{
+			UINT32 unSize = 0;
 			objParams.m_unParamCount = 2; 
-			ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
-			ParameterHelper<P2>::MakeParameter(objParams.m_aParameter[1] , p2); 
+			unSize += ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
+			unSize += ParameterHelper<P2>::MakeParameter(objParams.m_aParameter[1] , p2); 
+
+			return unSize;
 		}
 
 		template<typename P1 , typename P2 , typename P3>
-		static void GenMsgParams(CUtil::Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3)
+		static UINT32 GenMsgParams(CUtil::Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3)
 		{
+			UINT32 unSize = 0;
 			objParams.m_unParamCount = 3; 
-			ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
-			ParameterHelper<P2>::MakeParameter(objParams.m_aParameter[1] , p2); 
-			ParameterHelper<P3>::MakeParameter(objParams.m_aParameter[2] , p3); 
+			unSize += ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
+			unSize += ParameterHelper<P2>::MakeParameter(objParams.m_aParameter[1] , p2); 
+			unSize += ParameterHelper<P3>::MakeParameter(objParams.m_aParameter[2] , p3); 
+
+			return unSize;
 		}
 
 		template<typename P1 , typename P2 , typename P3 , typename P4>
-		static void GenMsgParams(CUtil::Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4)
+		static UINT32 GenMsgParams(CUtil::Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4)
 		{
+			UINT32 unSize = 0;
 			objParams.m_unParamCount = 4; 
-			ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
-			ParameterHelper<P2>::MakeParameter(objParams.m_aParameter[1] , p2); 
-			ParameterHelper<P3>::MakeParameter(objParams.m_aParameter[2] , p3); 
-			ParameterHelper<P4>::MakeParameter(objParams.m_aParameter[3] , p4);  
+			unSize += ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
+			unSize += ParameterHelper<P2>::MakeParameter(objParams.m_aParameter[1] , p2); 
+			unSize += ParameterHelper<P3>::MakeParameter(objParams.m_aParameter[2] , p3); 
+			unSize += ParameterHelper<P4>::MakeParameter(objParams.m_aParameter[3] , p4);  
+
+			return unSize;
 		} 
 
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5>
-		static void GenMsgParams(CUtil::Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5)
+		static UINT32 GenMsgParams(CUtil::Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5)
 		{
+			UINT32 unSize = 0;
 			objParams.m_unParamCount = 5; 
-			ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
-			ParameterHelper<P2>::MakeParameter(objParams.m_aParameter[1] , p2); 
-			ParameterHelper<P3>::MakeParameter(objParams.m_aParameter[2] , p3); 
-			ParameterHelper<P4>::MakeParameter(objParams.m_aParameter[3] , p4); 
-			ParameterHelper<P5>::MakeParameter(objParams.m_aParameter[4] , p5); 
+			unSize += ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
+			unSize += ParameterHelper<P2>::MakeParameter(objParams.m_aParameter[1] , p2); 
+			unSize += ParameterHelper<P3>::MakeParameter(objParams.m_aParameter[2] , p3); 
+			unSize += ParameterHelper<P4>::MakeParameter(objParams.m_aParameter[3] , p4); 
+			unSize += ParameterHelper<P5>::MakeParameter(objParams.m_aParameter[4] , p5); 
+
+			return unSize;
 		} 
 
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6>
-		static void GenMsgParams(CUtil::Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6)
+		static UINT32 GenMsgParams(CUtil::Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6)
 		{
+			UINT32 unSize = 0;
 			objParams.m_unParamCount = 6; 
-			ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
-			ParameterHelper<P2>::MakeParameter(objParams.m_aParameter[1] , p2); 
-			ParameterHelper<P3>::MakeParameter(objParams.m_aParameter[2] , p3); 
-			ParameterHelper<P4>::MakeParameter(objParams.m_aParameter[3] , p4); 
-			ParameterHelper<P5>::MakeParameter(objParams.m_aParameter[4] , p5); 
-			ParameterHelper<P6>::MakeParameter(objParams.m_aParameter[5] , p6); 
+			unSize += ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
+			unSize += ParameterHelper<P2>::MakeParameter(objParams.m_aParameter[1] , p2); 
+			unSize += ParameterHelper<P3>::MakeParameter(objParams.m_aParameter[2] , p3); 
+			unSize += ParameterHelper<P4>::MakeParameter(objParams.m_aParameter[3] , p4); 
+			unSize += ParameterHelper<P5>::MakeParameter(objParams.m_aParameter[4] , p5); 
+			unSize += ParameterHelper<P6>::MakeParameter(objParams.m_aParameter[5] , p6); 
+
+			return unSize;
 		}
 
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7>
-		static void GenMsgParams(CUtil::Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7)
+		static UINT32 GenMsgParams(CUtil::Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7)
 		{
+			UINT32 unSize = 0;
 			objParams.m_unParamCount = 7; 
-			ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
-			ParameterHelper<P2>::MakeParameter(objParams.m_aParameter[1] , p2); 
-			ParameterHelper<P3>::MakeParameter(objParams.m_aParameter[2] , p3); 
-			ParameterHelper<P4>::MakeParameter(objParams.m_aParameter[3] , p4); 
-			ParameterHelper<P5>::MakeParameter(objParams.m_aParameter[4] , p5); 
-			ParameterHelper<P6>::MakeParameter(objParams.m_aParameter[5] , p6); 
-			ParameterHelper<P7>::MakeParameter(objParams.m_aParameter[6] , p7); 
+			unSize += ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
+			unSize += ParameterHelper<P2>::MakeParameter(objParams.m_aParameter[1] , p2); 
+			unSize += ParameterHelper<P3>::MakeParameter(objParams.m_aParameter[2] , p3); 
+			unSize += ParameterHelper<P4>::MakeParameter(objParams.m_aParameter[3] , p4); 
+			unSize += ParameterHelper<P5>::MakeParameter(objParams.m_aParameter[4] , p5); 
+			unSize += ParameterHelper<P6>::MakeParameter(objParams.m_aParameter[5] , p6); 
+			unSize += ParameterHelper<P7>::MakeParameter(objParams.m_aParameter[6] , p7); 
+
+			return unSize;
 		}
 
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8>
-		static void GenMsgParams(CUtil::Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7 , P8 &p8)
+		static UINT32 GenMsgParams(CUtil::Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7 , P8 &p8)
 		{
+			UINT32 unSize = 0;
 			objParams.m_unParamCount = 8;
-			ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
-			ParameterHelper<P2>::MakeParameter(objParams.m_aParameter[1] , p2); 
-			ParameterHelper<P3>::MakeParameter(objParams.m_aParameter[2] , p3); 
-			ParameterHelper<P4>::MakeParameter(objParams.m_aParameter[3] , p4); 
-			ParameterHelper<P5>::MakeParameter(objParams.m_aParameter[4] , p5); 
-			ParameterHelper<P6>::MakeParameter(objParams.m_aParameter[5] , p6); 
-			ParameterHelper<P7>::MakeParameter(objParams.m_aParameter[6] , p7); 
-			ParameterHelper<P8>::MakeParameter(objParams.m_aParameter[7] , p8); 
+			unSize += ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
+			unSize += ParameterHelper<P2>::MakeParameter(objParams.m_aParameter[1] , p2); 
+			unSize += ParameterHelper<P3>::MakeParameter(objParams.m_aParameter[2] , p3); 
+			unSize += ParameterHelper<P4>::MakeParameter(objParams.m_aParameter[3] , p4); 
+			unSize += ParameterHelper<P5>::MakeParameter(objParams.m_aParameter[4] , p5); 
+			unSize += ParameterHelper<P6>::MakeParameter(objParams.m_aParameter[5] , p6); 
+			unSize += ParameterHelper<P7>::MakeParameter(objParams.m_aParameter[6] , p7); 
+			unSize += ParameterHelper<P8>::MakeParameter(objParams.m_aParameter[7] , p8); 
+
+			return unSize;
 		}
 
 	public:

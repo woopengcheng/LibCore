@@ -12,11 +12,49 @@
 #include "half.h"
 #include "CUtil/inc/ReferCount.h"
 
+class TestS
+{
+public:
+	TestS()
+	{
+		t = 3;
+		printf("asdf");
+	}
+	char t;
+};
+
+class Stream
+{
+public:
+	const Stream & operator >> (const TestS & t)	const		
+	{
+		print(CUtil::remove_const<TestS>(t)); return *this;
+	}  
+
+	const Stream & operator >> (const char & t)	const		
+	{ 
+		return *this;
+	}  
+
+	void print(TestS & t)		const 
+	{ 
+		const TestS tt; 
+		t = tt;
+	} 
+
+};
 
 int _tmain(int argc, _TCHAR* argv[])
 {   
+	const TestS t;
+	const TestS &tt = t;
+	Stream o;
+	o >> t;
 
+	const char c = 1;
+	o >> c;
 	CUtil::Init();
+	
 
 	CUtil::Parameter p;
 	CUtil::Parameter p2;
@@ -34,7 +72,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	p.MakeParameter(vec);
 	mongo::BSONObjBuilder builder;
 	builder.append("_T",a);
-	builder.appendBinData("vec" , p.GetStreamSize() , mongo::bdtParamter , (const char *)(p.GetStreamData()));
+	builder.appendBinData("vec" , p.GetDataLen() , mongo::bdtParamter , (const char *)(p.GetStreamData()));
 
 	mongo::BSONObj obj = builder.obj();
 	mongo::BSONObjIterator  iter(obj); 

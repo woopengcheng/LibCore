@@ -21,7 +21,7 @@ namespace GameDB
 	public:
 		void    Insert(const Slice& dbKey,const Slice& dbValue);
 		void	Delete(const Slice& dbKey);
-		CUtil::Chunk & GetData();
+		CUtil::Chunk  GetData();
 
 		CUtil::CStream & GetStream()
 		{
