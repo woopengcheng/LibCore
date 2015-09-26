@@ -1,6 +1,7 @@
 #ifndef __cutil_parameters_h__
 #define __cutil_parameters_h__ 
 #include "CUtil/inc/Parameter.h"
+#include "CUtil/inc/GenMsgHelper.h" 
 
 namespace CUtil
 { 
@@ -32,16 +33,55 @@ namespace CUtil
 			return *this;
 		} 
 
+		bool IsEqual(const Parameters & objParams) const
+		{
+			if(m_unParamCount != objParams.m_unParamCount)
+			{
+				return false;
+			}
+
+			for (int i = 0;i < MSG_MAX_PARAMETER_NUMBER;++i)
+			{
+				if(m_aParameter[i] != objParams.m_aParameter[i])
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+
+		bool operator ==(const Parameters & objParams) const
+		{ 
+			return IsEqual(objParams);
+		}
+
+		bool operator !=(const Parameters & objParams) const
+		{
+			return !IsEqual(objParams);
+		}
+
+		friend	std::ostream&	operator<<(std::ostream&os,const Parameters & objParams)
+		{
+			os << "Parameter:ParamCount=" << objParams.m_unParamCount ;
+			for (int i = 0;i < MSG_MAX_PARAMETER_NUMBER;++i)
+			{
+				os << "Parameter:ParamCount=" << objParams.m_aParameter[i];
+			}
+			return os;
+		}
+
 		Parameter & operator [] (INT32 i)
 		{
 			MsgAssert_Re(i >= 0 && i <= MSG_MAX_PARAMETER_NUMBER , m_aParameter[0] , "error index of params.");
 			return m_aParameter[i];
 		} 
 	public:  
-		UINT32     GetSize();
-		CErrno     Copy(Parameters & pParam); 
-		void       Clear(void);
+		UINT32		GetParamCount() const{ return m_unParamCount;}
+		UINT32		GetSize();
+		CErrno		Copy(Parameters & pParam); 
+		void		Clear(void);
 
+	public:
 		//5 这个接口性能不够高 
 		template<typename T>
 		T GetValue(INT32 nPos = 0)
@@ -642,7 +682,7 @@ namespace CUtil
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8>
 		UINT32 GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7 , P8 &p8)
 		{
-			GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4 , p5 , p6 , p7 , p8);
+			return GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4 , p5 , p6 , p7 , p8);
 		}
 
 	public:

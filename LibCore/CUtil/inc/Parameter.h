@@ -25,6 +25,7 @@ namespace CUtil
 		PARAMETER_TYPE_STRING ,
 		PARAMETER_TYPE_STD_STRING ,
 		PARAMETER_TYPE_CHUNK  ,
+		PARAMETER_TYPE_PARAMETER  ,
 		PARAMETER_TYPE_STD_CONTAINER_OR_OTHERS  ,  //5 可能是容器,或者重写过CString的都支持.
 
 		PARAMETER_TYPE_SYSTEM_COUNT ,
@@ -88,10 +89,12 @@ namespace CUtil
 		bool		IsString(){ return GetType() == PARAMETER_TYPE_STRING; }
 		bool		IsStdString(){ return GetType() == PARAMETER_TYPE_STD_STRING; }
 		bool		IsChunk(){ return GetType() == PARAMETER_TYPE_CHUNK; }  
+		bool		IsParamter(){ return GetType() == PARAMETER_TYPE_PARAMETER; }  
 		bool		IsContainerOrOthers(){ return GetType() == PARAMETER_TYPE_STD_CONTAINER_OR_OTHERS; }  
 		bool		IsUserDefine(){ return GetType() >= PARAMETER_TYPE_USER_DEFINE; }  
 
 	public:
+		//5 std::string 不能使用。这玩意因为模板太多，不能识别。c++11的auto可以解决这个问题。不能自己获取自己，这样会走赋值构造函数。所以获取自己必须走GetParamValue。
 		template<typename T>
 		operator T ()
 		{
@@ -102,7 +105,7 @@ namespace CUtil
 			MsgAssert_Re(p.GetType() == GetType() , t , "not convert , type error.");
 			return GetParameterValue<T>();
 		}
-		
+						
 	public: 
 		virtual CUtil::CStream & marshal(CUtil::CStream & cs) const;
 		virtual CUtil::CStream & unMarshal(CUtil::CStream & cs);

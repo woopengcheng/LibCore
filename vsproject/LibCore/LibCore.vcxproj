@@ -247,8 +247,10 @@
     <ClInclude Include="..\..\LibCore\CUtil\inc\CircleBuffer.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\ClassTypeID.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\ClassTypeInterface.h" />
+    <ClInclude Include="..\..\LibCore\CUtil\inc\CObject.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\CommandHandler.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\Common.h" />
+    <ClInclude Include="..\..\LibCore\CUtil\inc\CRTTI.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\CUtil.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\DeelxRegexp.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\CErrno.h" />
@@ -402,6 +404,7 @@
     <ClCompile Include="..\..\LibCore\CUtil\src\Chunk.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\CircleBuffer.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\Common.cpp" />
+    <ClCompile Include="..\..\LibCore\CUtil\src\CRTTI.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\CUtil.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\GenMsgHelper.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\Parameter.cpp" />

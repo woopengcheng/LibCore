@@ -116,7 +116,7 @@ namespace CUtil
 		return CUtil::atof(str.c_str());
 	}
 
-	std::string   itoa( INT64 val )
+	std::string   itoa( INT64  val )
 	{
 		char buf[100] = "";
 		itoa(buf,val);
@@ -148,15 +148,15 @@ namespace CUtil
 
 	}
 
-	INT32   floatcmp( float value1,float value2 )
+	bool   floatcmp( float value1,float value2 )
 	{
 		const float fEpsilon = 0.000001f;
 		float fDelta = fabs(value1-value2);
 
 		if (fDelta > fEpsilon)
-			return 1;
+			return true;
 		else
-			return 0; 
+			return false; 
 	}
 
 	INT64   rdtsc()
@@ -302,17 +302,17 @@ namespace CUtil
 		'c', 'd', 'e', 'f'
 	};
 
-	void    tohex( INT64 val,char* obuf,size_t len )
+	void    tohex( INT64 val,char* obuf,UINT32 len )
 	{
 		std::stringstream ss;
 		ss << std::hex << val << std::dec;
 		strncpy(obuf,len,ss.str().c_str());
 	}
 
-	void    tohex( const char* ibuf,size_t ilen,char* obuf,size_t& olen )
+	void    tohex( const char* ibuf,UINT32 ilen,char* obuf,UINT32 & olen )
 	{
-		size_t outlen = 0;
-		for (size_t i = 0; i < ilen && outlen < olen; ++i) {
+		UINT32 outlen = 0;
+		for (UINT32 i = 0; i < ilen && outlen < olen; ++i) {
 			int t = (unsigned char)ibuf[i];
 			int a = t / 16;
 			int b = t % 16;
@@ -325,11 +325,11 @@ namespace CUtil
 		olen = outlen; 
 	}
 
-	void	   create_token( char* buf,size_t len )
+	void	   create_token( char* buf,UINT32 len )
 	{
 		static const char s_objTokenPool[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*()-=+_";
 
-		for(size_t i = 0; i < (len - 1); ++i)
+		for(UINT32 i = 0; i < (len - 1); ++i)
 		{
 			int r = random(0,_countof(s_objTokenPool));
 			buf[i] = s_objTokenPool[r];
@@ -338,7 +338,7 @@ namespace CUtil
 
 	}
 
-	char*   strncat( char* dest,const char* src,size_t destlen )
+	char*   strncat( char* dest,const char* src,UINT32 destlen )
 	{
 		return ::strncat(dest,src,destlen); 
 	}
@@ -417,7 +417,7 @@ namespace CUtil
 
 	UINT64 strtoull(const char* str, char** endptr, INT32 base)
 	{
-		return _strtoui64(str , NULL , 10); 
+		return _strtoui64(str , endptr , base); 
 	}
 
 	INT64 BKDRHash(const char* pBuf)

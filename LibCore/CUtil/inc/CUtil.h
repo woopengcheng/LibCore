@@ -35,7 +35,7 @@ namespace CUtil
 	extern void   DLL_EXPORT  itoa(char* str,INT64 val);
 	extern std::string  DLL_EXPORT  itoa(INT64 val); 
 	extern void   DLL_EXPORT  ftoa(char* str,double val);
-	extern INT32  DLL_EXPORT  floatcmp(float value1,float value2);
+	extern bool  DLL_EXPORT  floatcmp(float value1,float value2);
 	extern char   DLL_EXPORT* strncpy(char* dst,size_t len,const char* src);
 	extern INT64  DLL_EXPORT  rdtsc();
 	extern INT64  DLL_EXPORT  random();
@@ -50,10 +50,10 @@ namespace CUtil
 	extern INT32  DLL_EXPORT  clamp(INT32 ho,INT32 lo,INT32 value);
 	extern BOOL	  DLL_EXPORT  strtobool(const char* text);
 	extern BOOL	  DLL_EXPORT  isNumber(const char* text);
-	extern void   DLL_EXPORT  tohex(INT64 val,char* obuf,size_t len);
-	extern void   DLL_EXPORT  tohex(const char* ibuf,size_t ilen,char* obuf,size_t& olen);
-	extern void	  DLL_EXPORT  create_token(char* buf,size_t len);
-	extern char   DLL_EXPORT* strncat(char* dest,const char* src,size_t destlen); 
+	extern void   DLL_EXPORT  tohex(INT64 val,char* obuf,UINT32 len);
+	extern void   DLL_EXPORT  tohex(const char* ibuf,UINT32 ilen,char* obuf,UINT32& olen);
+	extern void	  DLL_EXPORT  create_token(char* buf,UINT32 len);
+	extern char   DLL_EXPORT* strncat(char* dest,const char* src,UINT32 destlen); 
 	extern void   DLL_EXPORT  FastMemmove(void * dst , const void * src , INT64 unSize);
 	extern INT64  DLL_EXPORT  ParseHumanSizeFromString(const std::string strSize);
 	extern INT64  DLL_EXPORT  ParseHumanSizeFromJson(const Json::Value & value);

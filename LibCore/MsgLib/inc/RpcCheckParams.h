@@ -4,6 +4,7 @@
 #include "CUtil/inc/Chunk.h"
 #include "CUtil/inc/Parameter.h"
 #include "CUtil/inc/GenMsgHelper.h"
+#include "CUtil/inc/Parameters.h"
  
 namespace Msg
 {   

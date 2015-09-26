@@ -1,5 +1,6 @@
 #include "CUtil/inc/Parameter.h"
 #include "Marshal/inc/CStream.h"
+#include "CUtil/inc/ParameterHelper.h"
 
 namespace CUtil
 {  
@@ -10,9 +11,20 @@ namespace CUtil
 	}
 	
 	Parameter::Parameter( const Parameter & objParameter )
-		: m_unSize(objParameter.m_unSize)
 	{
-		m_objParamStream = objParameter.GetParamStream();
+		UINT8 unType = remove_const(objParameter).GetType();
+		if (unType == PARAMETER_TYPE_PARAMETER)
+		{
+			Parameter objParam;
+			CUtil::ParameterHelper<Parameter>::GetParameterValue(remove_const(objParameter) , objParam);
+			m_unSize = objParam.GetSize();
+			m_objParamStream = objParam.GetParamStream();
+		}
+		else
+		{
+			m_unSize = objParameter.GetSize();
+			m_objParamStream = objParameter.GetParamStream();
+		}
 	}
 
 	Parameter & Parameter::operator=( const Parameter & objParameter )

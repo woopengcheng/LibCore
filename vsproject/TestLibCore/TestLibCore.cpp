@@ -41,11 +41,34 @@ public:
 		const TestS tt; 
 		t = tt;
 	} 
+};
 
+class TestString
+{
+public:
+	TestString()
+	{
+
+	}
+	template<typename T>
+	operator T()
+	{
+		T t;
+		return t;
+	}
+
+	operator std::basic_string<char>()
+	{
+		return std::string("1");
+	}
+	 
+	INT32 n;
 };
 
 int _tmain(int argc, _TCHAR* argv[])
 {   
+// 	std::string str ;
+// 	str = (TestString());
 	const TestS t;
 	const TestS &tt = t;
 	Stream o;
@@ -89,28 +112,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 		if (strcmp(fieldName , "vec") == 0 )
 		{
-			//int id = 0;
-
-			//if(be.type() == mongo::BinData)
-			//{
-			//	int len = 0;
-			//	const char* data = be.binData(len);
-			//	p2.GetParamStream().Pushback((void*)data , len);
-			//	p2.GetParameterValue(vec2); 
-
 			CUtil::Parameter p3;
-			//	p3.GetParameterValue(vec3); 
-
-			//	if (vec2 == vec3)
-			//	{
-			//		std::cout << " id: "<< id <<std::endl;
-			//	}
-			//	if (t1 == t2)
-			//	{
-			//		std::cout << " id: "<< id <<std::endl;
-			//	}
-			//}
-
 			CUtil::BsonToCpp(p3 , be);
 			vec2 = p3;
 		}

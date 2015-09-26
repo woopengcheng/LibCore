@@ -583,6 +583,12 @@
     <ClInclude Include="..\..\LibCore\CUtil\inc\AutomicUInt.h">
       <Filter>CUtil\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\CUtil\inc\CObject.h">
+      <Filter>CUtil\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\CUtil\inc\CRTTI.h">
+      <Filter>CUtil\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -851,6 +857,9 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\Marshal\inc\CStream.cpp">
       <Filter>Marshal\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\CUtil\src\CRTTI.cpp">
+      <Filter>CUtil\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -217,7 +217,7 @@ TEST(CStream)
 	const CUtil::CStream  t13("14" , sizeof("14")); 
 	const CUtil::Chunk  t14(15);
 	const std::vector<INT32> t15(1);
- 	const std::vector<INT32> t16(1);
+ 	const std::deque<INT32> t16(1);
  	const std::list<INT32> t17(1);
 	std::set<INT32> tempSet;
 	tempSet.insert(1);
@@ -256,7 +256,7 @@ TEST(CStream)
 	CUtil::CStream  p13; 
 	CUtil::Chunk  p14;
 	std::vector<INT32> p15; 
- 	std::vector<INT32> p16;
+ 	std::deque<INT32> p16;
  	std::list<INT32> p17;
  	std::set<INT32> p18; 
 	std::string p19;

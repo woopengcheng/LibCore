@@ -1,19 +1,15 @@
 #ifndef __msg_gen_msg_helper_h__
 #define __msg_gen_msg_helper_h__ 
 #include "CUtil/inc/ParameterHelper.h" 
-#include "CUtil/inc/Parameters.h" 
 #include "CUtil/inc/CUtil.h"
 
 namespace CUtil
 {
+	class Parameters;
 	class DLL_EXPORT  GenMsgHelper
 	{ 
 	public:
-		static UINT32 GenMsgParams(CUtil::Parameters & objParams)
-		{
-			objParams.m_unParamCount = 0; 
-			return 0;
-		}
+		static UINT32 GenMsgParams(CUtil::Parameters & objParams); 
 
 		template<typename P1>
 		static UINT32 GenMsgParams(CUtil::Parameters & objParams , P1 &p1)
@@ -124,16 +120,7 @@ namespace CUtil
 		}
 
 	public:
-		static BOOL CheckParams(CUtil::Parameters & objParams)
-		{
-			bool bResult = true;
-			if(objParams.m_unParamCount != 0)
-			{
-				bResult = false;
-			}    
-
-			return bResult;
-		}
+		static BOOL CheckParams(CUtil::Parameters & objParams); 
 
 		template<typename P1>
 		static BOOL CheckParams(CUtil::Parameters & objParams , P1 &p1)
