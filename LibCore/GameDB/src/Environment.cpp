@@ -193,9 +193,8 @@ namespace GameDB
 		for(;m_mapDatabases.end() != iter; ++iter)
 		{
 			vecDatabases.push_back(iter->first);
-		}
-		
-	}
+		}		
+	} 
 
 	void Environment::MakeOptions(leveldb::Options & objOptions)
 	{

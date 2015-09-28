@@ -861,5 +861,8 @@
     <ClCompile Include="..\..\LibCore\CUtil\src\CRTTI.cpp">
       <Filter>CUtil\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\LibCore\Test\RTTI_Test.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

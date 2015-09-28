@@ -1,32 +1,30 @@
 #ifndef __cutil_crtti_h__
 #define __cutil_crtti_h__
 #include "CUtil/inc/Common.h"
-#include "CUtil/inc/CObject.h"
-
-#define MAX_RTTI_PARENT_COUNT 4
-
-typedef CObject * (*pCreateFunc)();
-
-#define BASE(ParanetClassName) &m_sClassName##ParanetClassName
-
-#define DECLARE_RTTI_CLASS(ClassName)\
-	static CRTTI			m_sClass##ClassName;\
-	static ClassName	*	CreateObject();\
-	static CRTTI		*	GetClass(){ return & ClassName::m_sClass##ClassName; }\
-	virtual CRTTI		*	GetRuntimeClass() {return & ClassName::m_sClass##ClassName; }
-
-#define DEFINE_RTTI_CLASS(ClassName ,nClassGUID , ...)\
-	CRTTI ClassName::m_sClass##ClassName(#ClassName , nClassGUID , pCreateFunc , sizeof(ClassName) , __VA_ARGS__\
-	CRTTI * ClassName::CreateObject(){ return new ClassName; }
-
 
 namespace CUtil
 {
-	class CRTTI
+	class CObject;
+}
+
+#define MAX_RTTI_PARENT_COUNT 4
+
+#define BASE(ParanetClassName) (ParanetClassName##::GetClass())
+
+#define RTTI(ClassName ,nClassGUID , ...) public:\
+	static CUtil::CObject	*	CreateObject(){ return new ClassName; }\
+	static CUtil::CRTTI		*	GetClass(){ static CUtil::CRTTI	sClass##ClassName(#ClassName , nClassGUID , &ClassName##::CreateObject , sizeof(ClassName) , __VA_ARGS__);return &sClass##ClassName; }\
+	virtual CUtil::CRTTI	*	GetRTTI(){return ClassName::GetClass(); }\
+
+typedef CUtil::CObject * (*pCreateFunc)();
+
+namespace CUtil
+{
+	class DLL_EXPORT CRTTI
 	{
 	public:
-		typedef std::unordered_map<INT32 , CRTTI *> CollectionRTTIByGUIDT;
-		typedef std::unordered_map<std::string , CRTTI *> CollectionRTTIByNameT;
+		typedef std_unordered_map<INT32 , CRTTI *> CollectionRTTIByGUIDT;
+		typedef std_unordered_map<std::string , CRTTI *> CollectionRTTIByNameT;
 
 	public:
 		CRTTI(const char * pName , INT32 nGUID , pCreateFunc pFunc , INT32 nClassSize , CRTTI * pP0 = NULL , CRTTI * pP1 = NULL , CRTTI * pP2 = NULL , CRTTI * pP3 = NULL);
@@ -34,19 +32,20 @@ namespace CUtil
 
 	public:
 		inline	CRTTI	**	GetParents() { return m_pParent; }
-		inline	BOOL		IsDerivedFrom( const CRTTI * pBase);
-		inline	INT32		GetClassSize()	const { return m_nClassSize; }
-		inline	INT32		GetClassGUID()	const { return m_nClassGUID; }
-		inline	std::string GetClassName()	const { return m_strClassName; }
-		CObject	*	CreateObject()
-		{
-			return m_pCreateFunc();
-		}
+		inline	BOOL		IsDerivedFrom( CRTTI * pBase);
+		inline	BOOL		IsDerivedFrom( std::string  strName);
+		inline	BOOL		IsDerivedFrom( INT32 nGUID);
+		inline	INT32		GetClassSize() const { return m_nClassSize; }
+		inline	INT32		GetClassGUID() const { return m_nClassGUID; }
+		inline	std::string GetClassName() const { return m_strClassName; }
+		CUtil::CObject	*	CreateObject(){	return m_pCreateFunc();	}
 
 	public:
 		static	BOOL		InsertRuntimeClass(INT32 nClassGUID , const std::string & strName , CRTTI * pClass);
 		static	CRTTI	*	GetRuntimeClass(const std::string & strName);
 		static	CRTTI	*	GetRuntimeClass(INT32 nClassGUID);
+		static	CollectionRTTIByGUIDT & GetRTTIByGUIDMap();
+		static	CollectionRTTIByNameT & GetRTTIByNameMap();
 
 	private:
 		CRTTI		*	m_pParent[MAX_RTTI_PARENT_COUNT];
@@ -54,10 +53,6 @@ namespace CUtil
 		INT32			m_nClassSize;
 		std::string		m_strClassName;
 		pCreateFunc		m_pCreateFunc;
-
-	public:
-		static CollectionRTTIByGUIDT m_sRTTIByGUID;
-		static CollectionRTTIByNameT m_sRTTIByName;
 	};
 
 }

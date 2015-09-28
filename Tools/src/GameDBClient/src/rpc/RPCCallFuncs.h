@@ -1,10 +1,10 @@
 /************************************
 FileName	:	RpcCallFuncs.h
 Author		:	generate by tools
-HostName	:	woopengcheng
-IP			:	192.168.1.107
+HostName	:	DESKTOP-5AT4DK2
+IP			:	192.168.1.116
 Version		:	0.0.1
-Date		:	2015-09-16 00:04:34
+Date		:	2015-09-27 22:01:06
 Description	:	客户端调用的rpc.
 ************************************/
 #ifndef __msg_rpc_call_funcs_h__
@@ -322,6 +322,57 @@ namespace Client
 	static INT32  rpc_HandleShowDatabases(INT32 nSessionID , Msg::Object objSrc  , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
 	{
 		return rpc_HandleShowDatabases( nSessionID , 0 , objSrc , usPriority , objSyncType);
+	}
+
+	static INT32  rpc_HandleShowUsers(const char * pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc  , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	{
+		GEN_RPC_CALL_0((&(Client::DBClient::GetInstance())) , pSessionName , Msg::g_szHandleShowUsers_RpcCall , vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
+	}
+
+	static INT32  rpc_HandleShowUsers(const char * pSessionName , Msg::Object objTarget, Msg::Object objSrc  , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	{
+		std::vector<Msg::Object> vecTargets;
+		vecTargets.push_back(objTarget);
+		return rpc_HandleShowUsers( pSessionName ,vecTargets , objSrc , usPriority , objSyncType);
+	}
+
+	static INT32  rpc_HandleShowUsers(const char * pSessionName , Msg::Object objSrc  , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	{
+		return rpc_HandleShowUsers( pSessionName , 0 , objSrc , usPriority , objSyncType);
+	}
+
+	static INT32  rpc_HandleShowUsers(const std::string & pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc  , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	{
+		GEN_RPC_CALL_0((&(Client::DBClient::GetInstance())) , pSessionName , Msg::g_szHandleShowUsers_RpcCall , vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
+	}
+
+	static INT32  rpc_HandleShowUsers(const std::string & pSessionName , Msg::Object objTarget, Msg::Object objSrc  , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	{
+		std::vector<Msg::Object> vecTargets;
+		vecTargets.push_back(objTarget);
+		return rpc_HandleShowUsers( pSessionName ,vecTargets , objSrc , usPriority , objSyncType);
+	}
+
+	static INT32  rpc_HandleShowUsers(const std::string & pSessionName , Msg::Object objSrc  , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	{
+		return rpc_HandleShowUsers( pSessionName , 0 , objSrc , usPriority , objSyncType);
+	}
+
+	static INT32  rpc_HandleShowUsers(INT32 nSessionID , Msg::VecObjects & vecTargets , Msg::Object objSrc  , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	{
+		GEN_RPC_CALL_0((&(Client::DBClient::GetInstance())) , nSessionID , Msg::g_szHandleShowUsers_RpcCall , vecTargets , objSrc , usPriority , Client::DBClient::GetInstance().GetServerName() , objSyncType , 10);
+	}
+
+	static INT32  rpc_HandleShowUsers(INT32 nSessionID , Msg::Object objTarget, Msg::Object objSrc  , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	{
+		std::vector<Msg::Object> vecTargets;
+		vecTargets.push_back(objTarget);
+		return rpc_HandleShowUsers( nSessionID ,vecTargets , objSrc , usPriority , objSyncType);
+	}
+
+	static INT32  rpc_HandleShowUsers(INT32 nSessionID , Msg::Object objSrc  , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)
+	{
+		return rpc_HandleShowUsers( nSessionID , 0 , objSrc , usPriority , objSyncType);
 	}
 
 	static INT32  rpc_HandleCreateUser(const char * pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & name = std::string() , std_string & pwd = std::string() , SINT8 issys = 0 , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_SYNC)

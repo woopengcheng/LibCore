@@ -34,7 +34,7 @@ namespace GameDB
 		BOOL       RemoveDatabase(const std::string & strName);
 		BOOL       RepairDatabase(const std::string & strName);
 		Database * GetDatabase(const std::string & strName);
-		void       GetAllDatabase(std::vector<std::string> & vecDatabases);
+		void       GetAllDatabase(std::vector<std::string> & vecDatabases); 
 
 	public:
 		BackupEnvironment * GetBackupEnv() const { return m_pBackupEnv; } 

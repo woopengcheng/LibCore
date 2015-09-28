@@ -1,10 +1,10 @@
 /************************************
 FileName	:	GlableRpc.h
 Author		:	generate by tools
-HostName	:	woopengcheng
-IP			:	192.168.1.107
+HostName	:	DESKTOP-5AT4DK2
+IP			:	192.168.1.116
 Version		:	0.0.1
-Date		:	2015-09-16 00:04:34
+Date		:	2015-09-27 22:01:06
 Description	:	静态函数,无对象时通过这个类处理.
 ************************************/
 #ifndef __Client_global_rpc_h__

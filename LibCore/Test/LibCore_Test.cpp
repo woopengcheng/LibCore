@@ -81,15 +81,15 @@ TEST(itoa)
 	float f = -1.123456789f;
 	char pf[1024];;
 	CUtil::ftoa(pf , f);
-	CHECK_EQUAL(CUtil::strcmp(pf , "-1.123456789") , 0);
+	CHECK_EQUAL(CUtil::strcmp(pf , "-1.123457") , 0);
 } 
 
 TEST(floatcmp)
 { 
 	CHECK_EQUAL(CUtil::floatcmp(0.0f , -0.0f) , false);
-	CHECK_EQUAL(CUtil::floatcmp(0.1f , 0.1f) , true);
-	CHECK_EQUAL(CUtil::floatcmp(0.00001f , 0.00001f) , true);
-	CHECK_EQUAL(CUtil::floatcmp(0.000001f , 0.0000001f) , true);
+	CHECK_EQUAL(CUtil::floatcmp(0.1f , 0.1f) , false);
+	CHECK_EQUAL(CUtil::floatcmp(0.0001f , 0.00001f) , true);
+	CHECK_EQUAL(CUtil::floatcmp(0.000001f , 0.0000001f) , false);
 } 
 
 TEST(strncpy)
@@ -215,10 +215,10 @@ TEST(ParseHumanSizeFromString)
 { 
 	char *p1 = "10K";
 	char *p2 = "10M";
-	char *p3 = "10G";
+	char *p3 = "1G";
 	char *p4 = "10240K"; 
 	INT64 nSize = CUtil::ParseHumanSizeFromString(p1);
-	INT64 nValue = 10 * 1024 * 1024 * 1024;
+	UINT64 nValue = 1 * 1024 * 1024 * 1024;
 	CHECK_EQUAL(nSize , 10 * 1024);
 	nSize = CUtil::ParseHumanSizeFromString(p2);
 	CHECK_EQUAL(nSize , 10 * 1024 * 1024 );
@@ -236,5 +236,5 @@ TEST(Compress)
 
 	std::string strUncompressed2;
 	CUtil::Uncompress(strUncompressed.c_str() , (UINT32)(strUncompressed.length() + 1) , strUncompressed2);
-	CHECK_EQUAL(strUncompressed2 , std::string(p1)); 
+	CHECK_EQUAL(strUncompressed2 , std::string(p1 , strlen(p1) + 1)); 
 }

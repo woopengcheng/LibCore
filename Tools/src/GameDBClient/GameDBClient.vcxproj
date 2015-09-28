@@ -129,6 +129,7 @@
     <ClCompile Include="src\rpc\GlobalRpc_HandleModifyUser_Client.cpp" />
     <ClCompile Include="src\rpc\GlobalRpc_HandleSelectDatabase_Client.cpp" />
     <ClCompile Include="src\rpc\GlobalRpc_HandleShowDatabases_Client.cpp" />
+    <ClCompile Include="src\rpc\GlobalRpc_HandleShowUsers_Client.cpp" />
     <ClCompile Include="src\rpc\GlobalRpc_HandleUserAuth_Client.cpp" />
     <ClCompile Include="src\rpc\GlobalRpc_HandleZCount_Client.cpp" />
     <ClCompile Include="src\rpc\GlobalRpc_HandleZDel_Client.cpp" />

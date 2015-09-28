@@ -1,10 +1,10 @@
 /************************************
 FileName	:	RPCDefines.h
 Author		:	generate by tools
-HostName	:	woopengcheng
-IP			:	192.168.1.107
+HostName	:	DESKTOP-5AT4DK2
+IP			:	192.168.1.116
 Version		:	0.0.1
-Date		:	2015-09-16 00:04:34
+Date		:	2015-09-27 22:01:06
 Description	:	RPCº¯Êý¶¨Òå
 ************************************/
 #ifndef __msg_Server_rpc_defines_h__
@@ -45,6 +45,7 @@ public:\
 	Msg::ObjectMsgCall * HandleCreateDatabase_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & dbname = std::string());\
 	Msg::ObjectMsgCall * HandleDeleteDatabase_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & dbname = std::string());\
 	Msg::ObjectMsgCall * HandleShowDatabases_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
+	Msg::ObjectMsgCall * HandleShowUsers_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 	Msg::ObjectMsgCall * HandleCreateUser_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & name = std::string() , std_string & pwd = std::string() , SINT8 issys = 0);\
 	Msg::ObjectMsgCall * HandleDeleteUser_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & name = std::string());\
 	Msg::ObjectMsgCall * HandleModifyUser_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & name = std::string() , std_string & pwd = std::string() , SINT8 issys = 0);\
@@ -89,6 +90,7 @@ public:\
 		ServerHandler::s_setFuncs.insert("HandleCreateDatabase");\
 		ServerHandler::s_setFuncs.insert("HandleDeleteDatabase");\
 		ServerHandler::s_setFuncs.insert("HandleShowDatabases");\
+		ServerHandler::s_setFuncs.insert("HandleShowUsers");\
 		ServerHandler::s_setFuncs.insert("HandleCreateUser");\
 		ServerHandler::s_setFuncs.insert("HandleDeleteUser");\
 		ServerHandler::s_setFuncs.insert("HandleModifyUser");\

@@ -134,10 +134,11 @@ TEST(Parameter)
 	objParamter.Clear();
 	objParamter = CUtil::Parameter(t18);
 	p18 = objParamter;
-	std::string p19;
+	std::string test;
+	std::string & p19 = test;
 	objParamter.Clear();
 	objParamter = CUtil::Parameter(t19);
-	p19 = objParamter.operator std::string();
+	objParamter.GetParameterValue(p19); 
 	std::map<INT32 , INT32> p20;
 	objParamter.Clear();
 	objParamter = CUtil::Parameter(t20);

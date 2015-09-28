@@ -1,10 +1,10 @@
 /************************************
 FileName	:	RPCDefines.h
 Author		:	generate by tools
-HostName	:	woopengcheng
-IP			:	192.168.1.107
+HostName	:	DESKTOP-5AT4DK2
+IP			:	192.168.1.116
 Version		:	0.0.1
-Date		:	2015-09-16 00:04:34
+Date		:	2015-09-27 22:01:06
 Description	:	RPCº¯Êý¶¨Òå
 ************************************/
 #ifndef __msg_Client_rpc_defines_h__
@@ -27,6 +27,8 @@ namespace Client
 	Msg::ObjectMsgCall * HandleDeleteDatabase_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string());\
 	Msg::ObjectMsgCall * HandleShowDatabases_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , CUtilChunk & res = CUtil::Chunk());\
 	Msg::ObjectMsgCall * HandleShowDatabases_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) );\
+	Msg::ObjectMsgCall * HandleShowUsers_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , CUtilChunk & res = CUtil::Chunk());\
+	Msg::ObjectMsgCall * HandleShowUsers_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) );\
 	Msg::ObjectMsgCall * HandleCreateUser_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);\
 	Msg::ObjectMsgCall * HandleCreateUser_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & name = std::string() , std_string & pwd = std::string() , SINT8 issys = 0);\
 	Msg::ObjectMsgCall * HandleDeleteUser_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);\
@@ -95,6 +97,7 @@ public:\
 		GlobalRpc::s_setFuncs.insert("HandleCreateDatabase");\
 		GlobalRpc::s_setFuncs.insert("HandleDeleteDatabase");\
 		GlobalRpc::s_setFuncs.insert("HandleShowDatabases");\
+		GlobalRpc::s_setFuncs.insert("HandleShowUsers");\
 		GlobalRpc::s_setFuncs.insert("HandleCreateUser");\
 		GlobalRpc::s_setFuncs.insert("HandleDeleteUser");\
 		GlobalRpc::s_setFuncs.insert("HandleModifyUser");\

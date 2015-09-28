@@ -1,10 +1,10 @@
 /************************************
 FileName	:	MsgNameDefine.h
 Author		:	generate by tools
-HostName	:	woopengcheng
-IP			:	192.168.1.107
+HostName	:	DESKTOP-5AT4DK2
+IP			:	192.168.1.116
 Version		:	0.0.1
-Date		:	2015-09-16 00:04:34
+Date		:	2015-09-27 22:01:06
 Description	:	用于定义消息的全局唯一名字
 ************************************/
 #ifndef __msg_Client_msg_name_define_h__
@@ -33,6 +33,9 @@ namespace Msg
 
 	//5 HandleShowDatabases declare here
 	RPC_DEFINE(HandleShowDatabases);
+
+	//5 HandleShowUsers declare here
+	RPC_DEFINE(HandleShowUsers);
 
 	//5 HandleCreateUser declare here
 	RPC_DEFINE(HandleCreateUser);

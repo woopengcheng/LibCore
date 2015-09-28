@@ -5,6 +5,7 @@
 #include "stdlib.h"
 #include <fstream>
 #include <iostream>
+#include <conio.h>
 
 #include "CUtil/inc/CUtil.h" 
 #include "CUtil/inc/Chunk.h" 
@@ -23,24 +24,77 @@ enum ClientError
 	ERROR_ARGS = 0,
 };
 
-char * ReadLine()
+char * ReadLine(const Client::ClientCommands & cc)
 {
 	static char line[1024] = "";
+	memset(line , 0 , sizeof(line));
 
 	std::cout << "GameDBClient>";
-	Timer::TimerHelper::sleep(1000);
+	Timer::TimerHelper::sleep(10);
 	
-	if (!std::cin.good())
-	{
-		return NULL;
+	std::string strTab , strLastTab;
+	char ch = 1;
+	INT32 i = 0;
+	INT32 nTabCount = 0;
+	while (ch != '\n')
+	{ 
+		ch = getch();
+#ifdef WIN32
+		if (ch != '\r')
+#else
+		if (ch != '\n')
+#endif
+		{
+			if (ch == '\t')
+			{
+				strTab = cc.GetNearestCommand(strLastTab , nTabCount);
+				fflush(stdout);
+				memset(line , 0 , sizeof(line));
+				memcpy(line , strTab.c_str() , strTab.length() + 1);
+				for (INT32 j = i;j > 0;--j)
+				{
+					std::cout << '\b' << ' '<< '\b';
+				}
+				std::cout << strTab;
+				i = strTab.length();
+				++nTabCount;
+				continue;
+			}
+			else if (ch == '\b')
+			{
+				if (i > 0)
+				{
+					std::cout << '\b' << ' ' << '\b';
+					--i;
+				}
+				continue;
+			}
+			else
+			{
+				std::cout << ch;
+			}
+			line[i] = ch;
+			strLastTab = line;
+		}
+		else
+		{
+			break;
+		}
+		++i;
 	}
+	std::cout << std::endl;
 
-	std::cin.getline(line , sizeof(line));
+// 	while (!std::cin.good())
+// 	{
+// 		return NULL;
+// 	}
+//
+//	std::cin.getline(line , sizeof(line));
 
 	return line;
 }
 
-void ParseLine( char * line , INT32 & argc , char ** argv)
+void ParseLine(char * line , INT32 & argc , char ** argv)
 { 
 	int result = 0;
 	char* curr = line;
@@ -129,10 +183,10 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		if (Client::DBClient::GetInstance().GetRpcClientManager()->IsAllConnected())
 		{
-			char * pLine = ReadLine();
-			if (pLine == NULL)
+			char * pLine = ReadLine(clientComands); 
+			if (strlen(pLine) <= 1)
 			{
-				break;
+				continue;
 			}
 			if (strcmp("exit" , pLine) == 0)
 			{
@@ -140,6 +194,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			}
 
 			vecParams.clear();
+
 			ParseLine(pLine , nargc , parg);
 			PackParams(vecParams , nargc , parg);
 			 

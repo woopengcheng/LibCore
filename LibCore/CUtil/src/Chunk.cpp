@@ -3,11 +3,11 @@
 
 namespace CUtil
 { 
-	void* ChunkData::operator new (size_t size, size_t extra) 
+	void* ChunkData::operator new (size_t size , size_t extra) 
 	{ 
 		return malloc(size + extra);
 	}
-	void  ChunkData::operator delete (void *p) 
+	void  ChunkData::operator delete (void *p , size_t extra) 
 	{ 
 		free(p); 
 	}
@@ -209,13 +209,9 @@ namespace CUtil
 
 	ChunkData	& ChunkData::Null()
 	{
-		static ChunkData s_null;
+		static ChunkData s_null(-1);
 		return s_null;
 	}
-
-
-	 
-
 
 	Chunk::Chunk(const Chunk & objChunk)
 		: m_pData(objChunk.m_pData)

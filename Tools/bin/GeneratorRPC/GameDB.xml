@@ -294,6 +294,20 @@
 			</Return>
 		</Rpc> 
 		
+		<Rpc name="HandleShowUsers" syncType="0" timeout="10">
+			<Targets> 
+				<Client name="Client"/> 
+				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
+			</Targets>
+			
+			<Call > 
+			</Call>
+
+			<Return>
+				<Param name="res" type="CUtilChunk" default=""/> 
+			</Return>
+		</Rpc> 
+		
 		<Rpc name="HandleCreateUser" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 

@@ -2,8 +2,6 @@
 
 namespace Msg
 { 
-	RpcCheckParams * g_pRpcCheckParams = new RpcCheckParams;
-
 	CUtil::Parameters * RpcCheckParams::GetReturnParams( std::string strFunName )
 	{
 		MapCollectParametersT::iterator iter = m_mapReturnParams.find(strFunName);

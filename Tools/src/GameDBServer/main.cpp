@@ -1,8 +1,8 @@
 // GenRpcs.cpp : Defines the entry point for the console application.
 //
-#ifdef _DEBUG
-#include "vld.h"
-#endif
+// #ifdef _DEBUG
+// #include "vld.h"
+// #endif
 #include "stdafx.h"
 #include "stdlib.h"
 #include <fstream>

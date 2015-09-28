@@ -29,9 +29,10 @@ namespace Client
 		m_mapCommands["selectdb"] = &ClientCommands::pfnHandleSelectDatabase;
 		m_mapCommands["createdb"] = &ClientCommands::pfnHandleCreateDatabase;
 		m_mapCommands["deletedb"] = &ClientCommands::pfnHandleDeleteDatabase;
-		m_mapCommands["showdatabases"] = &ClientCommands::pfnHandleShowDatabases;
+		m_mapCommands["showdbs"] = &ClientCommands::pfnHandleShowDatabases;
 
 		//5 添加,删除,修改用户权限 
+		m_mapCommands["showusers"] = &ClientCommands::pfnHandleShowUsers;
 		m_mapCommands["createuser"] = &ClientCommands::pfnHandleCreateUser;
 		m_mapCommands["deleteuser"] = &ClientCommands::pfnHandleDeleteUser;
 		m_mapCommands["modifyuser"] = &ClientCommands::pfnHandleModifyUser;
@@ -72,6 +73,31 @@ namespace Client
 		m_mapCommands["testCollection"] = &ClientCommands::pfnHandleOrmCollection;
 	} 
 
+	std::string ClientCommands::GetNearestCommand(const std::string & strCommand , INT32 nCount) const
+	{
+		std::string res;
+		if (nCount >= 0)
+		{
+			std::vector<std::string> vecCommands;
+			CollectionClientCommandsT::const_iterator iter = m_mapCommands.begin();
+			for (;iter != m_mapCommands.end();++iter)
+			{
+				if (iter->first.find(strCommand) != std::string::npos)
+				{
+					vecCommands.push_back(iter->first);
+				}
+			}
+
+			if (vecCommands.size() > 0)
+			{
+				nCount %= vecCommands.size();
+				res = vecCommands[nCount];
+			}
+		}
+
+		return res;
+	}
+
 	void ClientCommands::Execute(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
 		CHECK_ARGS_GREAT_COUNT(1);
@@ -85,16 +111,22 @@ namespace Client
 
 	void ClientCommands::pfnHandleHelp(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		printf("command list: \n"
-			"\t""showdatabases"                      "\n" 
+		printf("\t""first:showdbs \n"
+			"\t""second:selectdb dbname\n"
+			"command list: \n"
+			"数据库相关操作:"                      "\n" 
+			"\t""showdbs"                      "\n" 
 			"\t""createdb dbname"                      "\n"
 			"\t""selectdb dbname"                      "\n"
 			"\t""deletedb dbname"                      "\n"
 			"\n"
-			"\t""createuser name"                      "\n" 
+			"数据库用户相关操作:"                      "\n" 
+			"\t""showusers"                      "\n"
+			"\t""createuser name password issys"                      "\n" 
 			"\t""deleteuser name"                      "\n"
-			"\t""modifyuser name"                      "\n"
+			"\t""modifyuser name password issys"                      "\n"
 			"\n"
+			"数据库hash表相关操作:"                      "\n" 
 			"\t""hget table key"                      "\n"
 			"\t""hset table key value"                "\n"
 			"\t""hdel table key"                      "\n"
@@ -104,13 +136,14 @@ namespace Client
 			"\t""hmultidel table key1 key2 ..."           "\n"
 			"\t""hsetincr table key int64value"            "\n"
 			"\t""hsetincrfloat table key doublevalue"      "\n"
-			"\t""hkeysvals table"                              "\n"
-			"\t""hkeys table"                              "\n"
-			"\t""hvals table"                              "\n"
+			"\t""hgetkeysvals table"                              "\n"
+			"\t""hgetkeys table"                              "\n"
+			"\t""hgetvals table"                              "\n"
 			"\t""hdrop table"                            "\n"
 			"\t""hcount table"								"\n"
 			"\t""hlist"								"\n"
 			"\n" 
+			"数据库有序集合相关操作:"                      "\n" 
 			"\t""zget table key"                          "\n"
 			"\t""zset table key score"                    "\n"
 			"\t""zdel table key"                          "\n"
@@ -121,6 +154,7 @@ namespace Client
 			"\t""zlist "                            "\n"
 			"\n"
 			"\t""dump"                                   "\n"
+			"\t""exit"                                   "\n"
 			);
 	}
 
@@ -162,6 +196,15 @@ namespace Client
 
 		Client::rpc_HandleDeleteDatabase("tcp://127.0.0.1:8001" , targets , Msg::Object(0) , objParams[1] , 1);
 	} 
+
+	void ClientCommands::pfnHandleShowUsers(DBClient * pClient , std::vector<std::string> & objParams)
+	{
+		CHECK_ARGS_EQUAL_COUNT(1);
+
+		std::vector<Msg::Object> targets;
+		targets.push_back(Msg::Object(1));  
+		Client::rpc_HandleShowUsers("tcp://127.0.0.1:8001" , targets , Msg::Object(0) , 1);
+	}
 
 	void ClientCommands::pfnHandleCreateUser(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{

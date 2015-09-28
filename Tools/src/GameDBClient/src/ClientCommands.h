@@ -20,6 +20,7 @@ namespace Client
 	public:
 		void InitCommands(); 
 		void Execute(DBClient * pClient , std::vector<std::string> & objParams);
+		std::string GetNearestCommand(const std::string & strCommand , INT32 nCount) const;
 
 	public:
 		//5 本地操作
@@ -32,6 +33,7 @@ namespace Client
 		static void  pfnHandleShowDatabases(DBClient * pClient ,  std::vector<std::string> & objParams);
 
 		//5 添加,删除,修改用户权限 
+		static void  pfnHandleShowUsers(DBClient * pClient ,  std::vector<std::string> & objParams);
 		static void  pfnHandleCreateUser(DBClient * pClient ,  std::vector<std::string> & objParams); 
 		static void  pfnHandleDeleteUser(DBClient * pClient ,  std::vector<std::string> & objParams);
 		static void  pfnHandleModifyUser(DBClient * pClient ,  std::vector<std::string> & objParams);

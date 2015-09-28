@@ -143,6 +143,7 @@
     <ClCompile Include="src\rpc\ServerHandler_HandleModifyUser_Server.cpp" />
     <ClCompile Include="src\rpc\ServerHandler_HandleSelectDatabase_Server.cpp" />
     <ClCompile Include="src\rpc\ServerHandler_HandleShowDatabases_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleShowUsers_Server.cpp" />
     <ClCompile Include="src\rpc\ServerHandler_HandleUserAuth_Server.cpp" />
     <ClCompile Include="src\rpc\ServerHandler_HandleZCount_Server.cpp" />
     <ClCompile Include="src\rpc\ServerHandler_HandleZDel_Server.cpp" />

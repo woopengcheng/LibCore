@@ -56,8 +56,6 @@ namespace CUtil
 		Assert_ReF(!Net::CleanNet());   
 		Assert_ReF(Log::Cleanup().IsSuccess()); 
 
-		SAFE_DELETE(Msg::g_pRpcCheckParams);
-
 		return CErrno::Success();
 	} 
 
@@ -134,7 +132,7 @@ namespace CUtil
 
 	void    ftoa( char* str,double val )
 	{
-		sprintf(str,"%f",val);
+		sprintf(str,"%lf",val);
 	}
 
 	char*   strncpy( char* dst,size_t len,const char* src )
@@ -361,7 +359,7 @@ namespace CUtil
 	INT64  ParseHumanSizeFromString(const std::string strSize)
 	{  
 		INT64 llFactor = 1;
-		switch(strSize[strSize.length()])
+		switch(strSize[strSize.length() - 1])
 		{
 		case 'G':
 		case 'g':
@@ -377,7 +375,7 @@ namespace CUtil
 			break;
 		}  
 
-		return  atoi(strSize.c_str()) * llFactor;  //5 这里遇到字符串会自动截取掉后面的.
+		return  atoull(strSize.c_str()) * llFactor;  //5 这里遇到字符串会自动截取掉后面的.
 	}
 
 	INT64  ParseHumanSizeFromJson(const Json::Value & objValue)

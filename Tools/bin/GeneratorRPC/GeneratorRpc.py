@@ -727,7 +727,7 @@ def GenerateRpcRegister():
 			
 		fileRpc.write(oneTab + "void " + rpcServerName.rpcInterface + "::OnRegisterRpcs( void )\n")
 		fileRpc.write(oneTab + "{\n")
-		fileRpc.write(twoTab + "Assert(m_pRpcServerManager && Msg::g_pRpcCheckParams);	\n")
+		fileRpc.write(twoTab + "Assert(m_pRpcServerManager && Msg::RpcCheckParams::GetInstance());	\n")
 		fileRpc.write(twoTab + "static " + rpcServerName.namespace + "::GlobalRpc g_pGlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcServerManager); \n\n") 
 		
 		rpcRecords = collections.OrderedDict()
@@ -739,8 +739,8 @@ def GenerateRpcRegister():
 			fileRpc.write(threeTab + "CUtil::GenMsgHelper::GenMsgParams(objDeliverParams " + strDefaultParams +  ");\n") 
 			strDefaultParams = GetRpcSpecialParamsIncludeDefault(rpc.returns)
 			fileRpc.write(threeTab + "CUtil::GenMsgHelper::GenMsgParams(objReturnParams " + strDefaultParams +  ");\n") 
-			fileRpc.write(threeTab + "Msg::g_pRpcCheckParams->InsertDeliverParams(" + "\"" + rpc.name  + "\", objDeliverParams);\n") 
-			fileRpc.write(threeTab + "Msg::g_pRpcCheckParams->InsertReturnParams(" + "\"" + rpc.name  +  "\", objReturnParams);\n") 
+			fileRpc.write(threeTab + "Msg::RpcCheckParams::GetInstance()->InsertDeliverParams(" + "\"" + rpc.name  + "\", objDeliverParams);\n") 
+			fileRpc.write(threeTab + "Msg::RpcCheckParams::GetInstance()->InsertReturnParams(" + "\"" + rpc.name  +  "\", objReturnParams);\n") 
 #			fileRpc.write(threeTab + "objDeliverParams.Clear();\n") 
 #			fileRpc.write(threeTab + "objReturnParams.Clear();\n") 
 			GenerateRpcRegisterFuncs(rpc , fileRpc , rpcServerName.serverName)

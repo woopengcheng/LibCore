@@ -35,7 +35,7 @@ namespace CUtil
 	extern void   DLL_EXPORT  itoa(char* str,INT64 val);
 	extern std::string  DLL_EXPORT  itoa(INT64 val); 
 	extern void   DLL_EXPORT  ftoa(char* str,double val);
-	extern bool  DLL_EXPORT  floatcmp(float value1,float value2);
+	extern bool  DLL_EXPORT  floatcmp(float value1,float value2);    //5 超过-e6的就不能这么比较了.
 	extern char   DLL_EXPORT* strncpy(char* dst,size_t len,const char* src);
 	extern INT64  DLL_EXPORT  rdtsc();
 	extern INT64  DLL_EXPORT  random();

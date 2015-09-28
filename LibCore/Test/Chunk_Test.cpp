@@ -1,20 +1,6 @@
 #include "CUtil/inc/Chunk.h"
 #include "UnitTest++/UnitTestPP.h"
-
-// struct ChunkFixture
-// {
-// 	ChunkFixture() 
-// 	{ 
-// 	}
-// 	~ChunkFixture() { /* some teardown */ }
-// 
-// 	CUtil::Chunk objChunk;
-// };
-// TEST_FIXTURE(ChunkFixture, Chunk)
-// {
-// 	CHECK_EQUAL(pStr2 , pStr1); // succeeds 
-//}
-
+ 
 TEST(Chunk)
 {
 	{
@@ -22,9 +8,9 @@ TEST(Chunk)
 		CHECK_EQUAL(objChunk.GetChunkData()->GetDataLen() , 0);
 		{
 			CUtil::Chunk objChunk2 = objChunk;
-			CHECK_EQUAL(objChunk.GetChunkData()->GetRefCount() , 2);
+			CHECK_EQUAL(objChunk.GetChunkData()->GetRefCount() , -1);
 		}
-		CHECK_EQUAL(objChunk.GetChunkData()->GetRefCount() , 1);
+		CHECK_EQUAL(objChunk.GetChunkData()->GetRefCount() , -1);
 	}
 	{
 		CUtil::Chunk objChunk("test" , sizeof("test"));

@@ -316,7 +316,7 @@ namespace CUtil
 		}
 	};
 
-	template<> class ParameterHelper<const std::string &>
+	template<> class ParameterHelper<std::string &>
 	{
 	public:
 		static UINT8 GetParameterType(){ return (UINT8)PARAMETER_TYPE_STD_STRING; } 

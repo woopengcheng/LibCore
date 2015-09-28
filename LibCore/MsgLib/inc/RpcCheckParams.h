@@ -6,10 +6,6 @@
 #include "CUtil/inc/GenMsgHelper.h"
 #include "CUtil/inc/Parameters.h"
  
-namespace Msg
-{   
-	class RpcCheckParams;
-	extern DLL_IMPORT RpcCheckParams * g_pRpcCheckParams; 
 
 #define	CheckParams_0(PARAM) CUtil::GenMsgHelper::CheckParams(*PARAM) 
 #define	CheckParams_1(PARAM , p1) CUtil::GenMsgHelper::CheckParams(*PARAM , p1 ) 
@@ -21,18 +17,19 @@ namespace Msg
 #define	CheckParams_7(PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7) CUtil::GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7 )  
 #define	CheckParams_8(PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7 , p8) CUtil::GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7 , p8) 
 
-#define GET_PARAMETER Assert_Re0(g_pRpcCheckParams);\
-	CUtil::Parameters * pParameter = NULL;\
+#define GET_PARAMETER CUtil::Parameters * pParameter = NULL;\
 	if (bDeliver)\
-		{\
-			pParameter = g_pRpcCheckParams->GetDeliverParams(pFunName);\
-		}\
-		else\
-		{\
-			pParameter = g_pRpcCheckParams->GetReturnParams(pFunName);\
-		} \
-		Assert_Re0(pParameter) 
+	{\
+		pParameter = Msg::RpcCheckParams::GetInstance()->GetDeliverParams(pFunName);\
+	}\
+	else\
+	{\
+		pParameter = Msg::RpcCheckParams::GetInstance()->GetReturnParams(pFunName);\
+	} \
+	Assert_Re0(pParameter) 
 
+namespace Msg
+{
 	class DLL_EXPORT RpcCheckParams
 	{
 	public:
@@ -42,6 +39,9 @@ namespace Msg
 		RpcCheckParams()   
 		{  
 		} 
+
+	public:
+		static RpcCheckParams * GetInstance(){ static RpcCheckParams sInstance; return &sInstance; }
 
 	public: 
 		BOOL CheckRpcParams(BOOL bDeliver , const char * pFunName)

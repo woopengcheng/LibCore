@@ -8,20 +8,15 @@ namespace CUtil
 	class DLL_EXPORT ChunkData
 	{ 
 	public:
-		ChunkData()
+		explicit ChunkData(INT32 nRefCount = 0)
 			: m_unSize(0)
 			, m_unDataLen(0)
-			, m_refCount(0)
-		{}
-		ChunkData(UINT32 unDataLen , UINT32 unRefCount)
-			: m_unSize(0)
-			, m_unDataLen(0)
-			, m_refCount(0)
+			, m_refCount(nRefCount)
 		{}
 	public:
 		static ChunkData	*	Create(UINT32 unSize);
-		static void			*	operator new (size_t size, size_t extra);
-		static void				operator delete (void *p);
+		static void			*	operator new (size_t size , size_t extra);
+		static void				operator delete (void *p , size_t extra);
 		static ChunkData	&	Null();
 
 	public:
