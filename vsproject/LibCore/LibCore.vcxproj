@@ -347,6 +347,7 @@
     <ClInclude Include="..\..\LibCore\MsgLib\inc\StaticMethodImplHelper.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\ByteOrder.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\ClientSession.h" />
+    <ClInclude Include="..\..\LibCore\NetLib\inc\HttpProtocol.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\INetHandler.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\INetReactor.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\ISession.h" />
@@ -366,6 +367,7 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHelper.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetInterface.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorEpoll.h" />
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerHttpServer.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorRakNet.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorSelect.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorZMQ.h" />
@@ -455,6 +457,7 @@
     <ClCompile Include="..\..\LibCore\MsgLib\src\RpcMsgCall.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\MsgHelper.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\RpcServerManager.cpp" />
+    <ClCompile Include="..\..\LibCore\NetLib\src\HttpProtocol.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\ISession.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\MsgHandler.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerCommonClient.cpp" />
@@ -466,6 +469,7 @@
     <ClCompile Include="..\..\LibCore\NetLib\src\NetHelper.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetInterface.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorEpoll.cpp" />
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerHttpServer.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorSelect.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorZMQ.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\RakNetUDPManager.cpp" />

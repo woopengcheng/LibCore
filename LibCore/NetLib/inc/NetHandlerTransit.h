@@ -21,15 +21,16 @@ namespace Net
 
 	public:                   
 		virtual CErrno  OnMsgRecving( void ); 
+		virtual CErrno  OnMsgRecving( const char * pBuf , UINT32 unSize ); 
 		virtual CErrno  OnMsgSending( void );      
-		virtual INT32  SendMsg( const char * pBuf , UINT32 unSize );
+		virtual INT32	SendMsg( const char * pBuf , UINT32 unSize );
 		virtual CErrno  HandleMsg(ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
 
 	protected:
 		INT32			Send( const char * pBuf , UINT32 unSize);
-		CErrno   ParaseRecvMsg();     
-		INT32   FlushSendBuffer( void );
-		CErrno   RecvToCircleBuffer(char * pBuf , UINT32 unSize);   //5 将消息扔给CircleBuffer 
+		CErrno			ParaseRecvMsg();     
+		INT32			FlushSendBuffer( void );
+		CErrno			RecvToCircleBuffer(const char * pBuf , UINT32 unSize);   //5 将消息扔给CircleBuffer 
 
 	protected:
 		CUtil::CircleBuffer    m_objSendBuf;

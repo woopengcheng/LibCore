@@ -116,6 +116,9 @@
     <ClCompile Include="src\rpc\GlobalRpc_HandleShowUsers_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
+    <ClCompile Include="src\DBClientHttpServer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -146,6 +149,9 @@
     </ClInclude>
     <ClInclude Include="src\rpc\RPCDefines.h">
       <Filter>src\rpc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DBClientHttpServer.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

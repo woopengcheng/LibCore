@@ -36,7 +36,7 @@ namespace Net
 		virtual CErrno  OnMsgSending( void ) { return CErrno::Success(); }  
 
 	public: 
-		ISession * GetSession(){ return m_pSession; }
+		ISession	* GetSession(){ return m_pSession; }
 		INetReactor * GetNetReactor(){ return m_pNetReactor; }
 
 	protected: 

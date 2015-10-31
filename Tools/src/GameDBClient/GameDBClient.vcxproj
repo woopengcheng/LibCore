@@ -104,6 +104,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\ClientCommands.cpp" />
+    <ClCompile Include="src\DBClientHttpServer.cpp" />
     <ClCompile Include="src\rpc\GlobalRpc_HandleCreateDatabase_Client.cpp" />
     <ClCompile Include="src\rpc\GlobalRpc_HandleCreateUser_Client.cpp" />
     <ClCompile Include="src\rpc\GlobalRpc_HandleDeleteDatabase_Client.cpp" />
@@ -144,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ClientCommands.h" />
+    <ClInclude Include="src\DBClientHttpServer.h" />
     <ClInclude Include="src\rpc\DBClient.h" />
     <ClInclude Include="src\rpc\GlobalRpc.h" />
     <ClInclude Include="src\rpc\MsgNameDefine.h" />

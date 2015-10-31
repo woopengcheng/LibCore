@@ -92,11 +92,11 @@ namespace Net
 				if (pINetHandler)
 				{
 					socket = iterHandlers->second->GetSession()->GetSocket();
-					if (iterEvents->second & (NET_FUNC_READ | NET_FUNC_ACCEPT)) 
+					if (iterEvents->second & (FD_READ | FD_ACCEPT)) 
 						FD_SET(socket , pFdSetReads); 
-					if (iterEvents->second & NET_FUNC_WRITE) 
+					if (iterEvents->second & FD_WRITE) 
 						FD_SET(socket , pFdSetWrites); 
-					if (iterEvents->second & NET_FUNC_EXCEPT) 
+					if (iterEvents->second & FD_CLOSE) 
 						FD_SET(socket , pFdSetExcepts);   
 				}
 			}

@@ -589,6 +589,12 @@
     <ClInclude Include="..\..\LibCore\CUtil\inc\CRTTI.h">
       <Filter>CUtil\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerHttpServer.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\HttpProtocol.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -863,6 +869,12 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\Test\RTTI_Test.cpp">
       <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerHttpServer.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\HttpProtocol.cpp">
+      <Filter>NetLib\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -40,7 +40,7 @@ namespace Net
 			if( nBufSize <= 0 )
 				return CErrno::Failure();
 
-			CErrno result = RecvToCircleBuffer( szBuf , nBufSize);
+			CErrno result = OnMsgRecving(szBuf , nBufSize);
 			if( !result.IsSuccess() )
 				return result;
 		}while(0);
@@ -48,7 +48,12 @@ namespace Net
 		return CErrno::Success();
 	}
 
-	CErrno NetHandlerTransit::RecvToCircleBuffer( char * pBuf , UINT32 unSize )
+	CErrno NetHandlerTransit::OnMsgRecving(const char * pBuf , UINT32 unSize)
+	{
+		return RecvToCircleBuffer( pBuf , unSize);
+	}
+
+	CErrno NetHandlerTransit::RecvToCircleBuffer(const char * pBuf , UINT32 unSize )
 	{
 		if(m_objRecvBuf.GetSpace() > unSize)
 		{

@@ -16,7 +16,7 @@ namespace GameDB
 		virtual CErrno  Init(Json::Value & conf); 
 		virtual CErrno  Cleanup(void);
 		virtual CErrno  Update(void);  
-		virtual void   StartupRPCClient(const Json::Value & client); 
+		virtual void	StartupRPCClient(const Json::Value & client); 
 	};
 
 	DECLARE_BOOST_POINTERS(DBClientInterface); 

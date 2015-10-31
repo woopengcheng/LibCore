@@ -11,7 +11,7 @@ namespace Net
 	class DLL_EXPORT NetHandlerListener : public INetHandler
 	{
 	public:
-		NetHandlerListener(  INetReactor * pNetReactor , ISession * pSession);
+		NetHandlerListener( INetReactor * pNetReactor , ISession * pSession);
 		virtual ~NetHandlerListener( void ){}  
 
 	public:
@@ -20,7 +20,7 @@ namespace Net
 	public:
 		virtual CErrno  Init(const char * pAddress , INT32 nPort , BOOL bResueAddr = TRUE , INT32  nListenerCount = DEFAULT_LISTENER_COUNT);
 		virtual CErrno  Cleanup(); 
-		virtual void   OnAccept(NetSocket socket , sockaddr_in * addr);
+		virtual void    OnAccept(NetSocket socket , sockaddr_in * addr);
 
 	protected:
 		INT32   Listen(INT32  nListenerCount = DEFAULT_LISTENER_COUNT);

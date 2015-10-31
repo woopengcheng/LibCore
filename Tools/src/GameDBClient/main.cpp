@@ -18,6 +18,7 @@
 #include "RPCCallFuncs.h"
 #include "DBClient.h" 
 #include "ClientCommands.h"
+#include "DBClientHttpServer.h"
 
 enum ClientError
 {
@@ -34,7 +35,7 @@ char * ReadLine(const Client::ClientCommands & cc)
 	
 	std::string strTab , strLastTab;
 	char ch = 1;
-	INT32 i = 0;
+	size_t i = 0;
 	INT32 nTabCount = 0;
 	while (ch != '\n')
 	{ 
@@ -51,7 +52,7 @@ char * ReadLine(const Client::ClientCommands & cc)
 				fflush(stdout);
 				memset(line , 0 , sizeof(line));
 				memcpy(line , strTab.c_str() , strTab.length() + 1);
-				for (INT32 j = i;j > 0;--j)
+				for (size_t j = i;j > 0;--j)
 				{
 					std::cout << '\b' << ' '<< '\b';
 				}
@@ -154,6 +155,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	Json::Value root;
 	JsonParase(defaultConf.c_str() , root); 
 	 
+	//5 建立一个单线程.用来处理Http链接
+	Client::DBClientHttpServer::GetInstance().Init(root);
+
 	//5 连接服务器,并建立双连接..
 	Client::DBClient::GetInstance().Init(root);  
 	while (!Client::DBClient::GetInstance().GetRpcClientManager()->IsAllConnected())

@@ -24,7 +24,7 @@ namespace Net
 	public:
 		virtual CErrno  OnMsgRecving( void );
 		virtual CErrno  OnMsgSending( void ){ return CErrno::Success(); }
-		virtual INT32  SendMsg( const char * pBuf , UINT32 unSize ){ return -1; } 
+		virtual INT32	SendMsg( const char * pBuf , UINT32 unSize ){ return -1; } 
 		virtual CErrno  HandleMsg(ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength){ return CErrno::Success(); }
 
 	protected:  

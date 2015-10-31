@@ -1,0 +1,57 @@
+#include "ThreadPool/inc/ThreadPoolInterface.h" 
+#include "NetLib/inc/NetReactorSelect.h."
+#include "DBClientHttpServer.h"
+
+namespace Client
+{
+	CErrno DBClientHttpServer::Init(Json::Value & conf)
+	{
+		Json::Value http = conf.get("http" , Json::Value()); 
+		std::string strType = http.get("type" , "tcp").asCString();
+		std::string strAddress = http.get("address" , "127.0.0.1").asCString();
+		INT32 nPort = http.get("port" , 8080).asInt();
+
+		return Init(strAddress.c_str() , nPort);
+	}
+
+	CErrno DBClientHttpServer::Init(const char * pAddress , INT32 nPort , BOOL bResueAddr /*= TRUE */, INT32 nListenerCount /*= DEFAULT_LISTENER_COUNT*/)
+	{
+		CErrno err = Net::HttpServer::Init(pAddress , nPort , bResueAddr , nListenerCount);
+		if (err.IsSuccess())
+		{
+			ThreadPool::ThreadPoolInterface::GetInstance().CreateThread(2 , 1);  
+			ThreadPool::ThreadPoolInterface::GetInstance().AddTask(this);  
+		}
+
+		return err;
+	}
+
+	CErrno DBClientHttpServer::Cleanup()
+	{
+
+		ThreadPool::ThreadPoolInterface::GetInstance().Cleanup();
+		return Net::HttpServer::Cleanup();
+	} 
+
+	CErrno DBClientHttpServer::Update(void)
+	{ 
+		m_pNetReactor->Update();
+		return ThreadPool::ThreadSustainTask::Update();
+	} 
+
+	DBClientHttpServer::DBClientHttpServer(Net::INetReactor * pNetReactor /*= NULL*/)
+		: HttpServer(pNetReactor)
+		, ThreadPool::ThreadSustainTask(2 , "DBClientHttpServer" )
+	{  
+		if (!m_pNetReactor)
+		{
+			m_pNetReactor = new Net::NetReactorSelect; 
+
+			if(CErrno::Success() != m_pNetReactor->Init())
+			{
+				SAFE_DELETE(m_pNetReactor);
+			}
+		}
+	}
+
+}
