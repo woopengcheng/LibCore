@@ -1,5 +1,6 @@
 #include "ThreadPool/inc/ThreadPoolInterface.h" 
 #include "NetLib/inc/NetReactorSelect.h."
+#include "NetLib/inc/HttpProtocol.h"
 #include "DBClientHttpServer.h"
 
 namespace Client
@@ -52,6 +53,29 @@ namespace Client
 				SAFE_DELETE(m_pNetReactor);
 			}
 		}
+	}
+
+	CErrno DBClientHttpServer::HttpHandler(Net::HttpSession * pSession , Net::HttpProtocol& request,Net::HttpProtocol& response)
+	{
+		std::string strURL = request.GetInputUrl();
+
+		if (strURL == "index")
+		{
+			std::string result = "<HTML>\n				<HEAD>\n				<TITLE>MiniWeb</TITLE>\n				</HEAD>\n				</HTML>";
+
+			response.Reserve(result.length() + 512);
+			response.WriteResponseHeader(200,"OK");
+			response.WriteHeader(Net::HttpConsts::HEADER_CONNECTION,"Keep-Alive");
+			response.WriteHeader(Net::HttpConsts::HEADER_CONTENT_TYPE,"text/html;charset=utf-8");
+			response.WriteHeader(Net::HttpConsts::HEADER_CONTENT_LENGTH,result.length());
+			response.WriteContent(result.c_str(), result.length());
+		}
+		else if(strURL == "pwd")
+		{
+
+		}
+
+		return CErrno::Success();
 	}
 
 }

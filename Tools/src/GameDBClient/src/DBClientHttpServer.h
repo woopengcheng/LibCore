@@ -23,11 +23,7 @@ namespace Client
 		virtual CErrno		Init(const char * pAddress , INT32 nPort , BOOL bResueAddr = TRUE , INT32  nListenerCount = DEFAULT_LISTENER_COUNT);
 		virtual CErrno		Cleanup(); 
 		virtual CErrno		Update(void);
-		virtual	CErrno		HttpHandler(Net::HttpSession * pSession , Net::HttpProtocol& request,Net::HttpProtocol& response)
-		{
-
-			return CErrno::Success();
-		}
+		virtual	CErrno		HttpHandler(Net::HttpSession * pSession , Net::HttpProtocol& request,Net::HttpProtocol& response);
 	};  
 
 } 

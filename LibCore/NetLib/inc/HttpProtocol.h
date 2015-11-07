@@ -4,37 +4,37 @@ namespace Net
 {
 	namespace HttpConsts
 	{
-		extern const char* LF;
-		extern const char* LF2X;
+		extern DLL_EXPORT const char* LF;
+		extern DLL_EXPORT const char* LF2X;
 
-		extern const char* METHOD_GET;
-		extern const char* METHOD_PUT;
-		extern const char* METHOD_POST;
+		extern DLL_EXPORT const char* METHOD_GET;
+		extern DLL_EXPORT const char* METHOD_PUT;
+		extern DLL_EXPORT const char* METHOD_POST;
 
-		extern const char* VERSION_10;
-		extern const char* VERSION_11;
+		extern DLL_EXPORT const char* VERSION_10;
+		extern DLL_EXPORT const char* VERSION_11;
 
-		extern const char* HEADER_HOST;
-		extern const char* HEADER_USER_AGENT;
-		extern const char* HEADER_CONTENT_TYPE;
-		extern const char* HEADER_CONTENT_LENGTH;
-		extern const char* HEADER_CONTENT_ENCODING;
+		extern DLL_EXPORT const char* HEADER_HOST;
+		extern DLL_EXPORT const char* HEADER_USER_AGENT;
+		extern DLL_EXPORT const char* HEADER_CONTENT_TYPE;
+		extern DLL_EXPORT const char* HEADER_CONTENT_LENGTH;
+		extern DLL_EXPORT const char* HEADER_CONTENT_ENCODING;
 
-		extern const char* HEADER_ACCEPT;
-		extern const char* HEADER_ACCEPT_CHARSET;
-		extern const char* HEADER_ACCEPT_ENCODING;
-		extern const char* HEADER_ACCEPT_LANGUAGE;
+		extern DLL_EXPORT const char* HEADER_ACCEPT;
+		extern DLL_EXPORT const char* HEADER_ACCEPT_CHARSET;
+		extern DLL_EXPORT const char* HEADER_ACCEPT_ENCODING;
+		extern DLL_EXPORT const char* HEADER_ACCEPT_LANGUAGE;
 
-		extern const char* HEADER_COOKIE;
-		extern const char* HEADER_CONNECTION;
-		extern const char* HEADER_AUTHORIZATION;
+		extern DLL_EXPORT const char* HEADER_COOKIE;
+		extern DLL_EXPORT const char* HEADER_CONNECTION;
+		extern DLL_EXPORT const char* HEADER_AUTHORIZATION;
 
-		extern const char* VALUE_CONNECTION_KEEP_ALIVE;
+		extern DLL_EXPORT const char* VALUE_CONNECTION_KEEP_ALIVE;
 
-		extern const char* HEADER_LOCATION;
+		extern DLL_EXPORT const char* HEADER_LOCATION;
 	}
 
-	class HttpProtocol
+	class DLL_EXPORT HttpProtocol
 	{
 	public:
 		HttpProtocol();
