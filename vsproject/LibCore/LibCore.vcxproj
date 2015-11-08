@@ -208,8 +208,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)..\bin\dll\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\tbb\lib\intel64\vc10;$(SolutionDir)..\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\boost\lib;$(SolutionDir)..\deps\pthread\lib\x64;$(SolutionDir)..\deps\gperftools-2.1\debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libiconv_debug.lib;lib_json.lib;lua.lib;libzmq_d.lib;ws2_32.lib;tbb_debug.lib;pthreadVC2.lib;Log4Cpp.lib;log4cplusUD.lib;BasicLib_DLL_DLL_Debug_x64_x64.lib;libglog.lib;expat.lib;UnitTest.lib;leveldb.lib;Snappy.lib;MongoBson.lib;CityHash.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>LIBCMTD;</IgnoreSpecificDefaultLibraries>
+      <AdditionalDependencies>libiconv_debug.lib;lib_json.lib;lua.lib;libzmq_d.lib;ws2_32.lib;tbb_debug.lib;pthreadVC2.lib;log4cplusUD.lib;LibStatic.lib;expat.lib;UnitTest.lib;leveldb.lib;Snappy.lib;MongoBson.lib;CityHash.lib;Ws2_32.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>LIBCMTD;MSVCRT;</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <HeapReserveSize>104857600</HeapReserveSize>
       <HeapCommitSize>104857600</HeapCommitSize>
