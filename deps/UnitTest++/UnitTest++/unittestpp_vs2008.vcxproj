@@ -199,7 +199,7 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='win32_dll_vc90_debug|Win32'">$(SolutionDir)bin\$(Configuration)\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|Win32'">$(SolutionDir)bin\$(Configuration)\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='win32_dll_vc90_debug|x64'">$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">$(SolutionDir)..\bin\_vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_dll_vc90_debug|Win32'">$(SolutionDir)obj\$(ProjectName)\$(Configuration)\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|Win32'">$(SolutionDir)obj\$(ProjectName)\$(Configuration)\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_dll_vc90_debug|x64'">$(SolutionDir)obj\$(ProjectName)\$(Configuration)\</IntDir>
@@ -212,8 +212,8 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='win32_static_vc90_mt_debug|x64'">$(SolutionDir)lib\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_static_vc90_mt_debug|Win32'">$(SolutionDir)obj\$(ProjectName)\$(Configuration)\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_static_vc90_mt_debug|x64'">$(SolutionDir)obj\$(ProjectName)\$(Configuration)\</IntDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='win32_static_vc90_mt_release|Win32'">$(SolutionDir)..\bin\_vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='win32_static_vc90_mt_release|x64'">$(SolutionDir)..\bin\_vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='win32_static_vc90_mt_release|Win32'">$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='win32_static_vc90_mt_release|x64'">$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_static_vc90_mt_release|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_static_vc90_mt_release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='win32_dll_vc90_debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>

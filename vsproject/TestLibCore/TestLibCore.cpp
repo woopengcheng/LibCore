@@ -1,6 +1,6 @@
 // TestLibCore.cpp : 定义控制台应用程序的入口点。
 //
-
+#include "cmath"
 #include "stdafx.h" 
 #include "ctype.h"
 #include "Marshal/inc/Marshal.h"
@@ -9,7 +9,6 @@
 #include "CUtil/inc/Parameters.h"
 #include "bson/bson.h"
 #include "CUtil/inc/BsonToCpp.h"
-#include "half.h"
 #include "CUtil/inc/ReferCount.h"
 
 class TestS
@@ -83,8 +82,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	CUtil::Parameter p2;
 	int a = 1;
 
-	std::vector<int> vec;
-	std::vector<int> vec2;
+	std::vector<int> vec; 
 	std::vector<int> vec3;
 	std::map<int , int> t1;
 	std::map<int , int> t2;
@@ -114,14 +112,11 @@ int _tmain(int argc, _TCHAR* argv[])
 		{
 			CUtil::Parameter p3;
 			CUtil::BsonToCpp(p3 , be);
-			vec2 = p3;
+			std::vector<int> vec2 = p3;
 		}
 
 	}
-
-	float aaa = 1023.f;
-
-	std::cout << FLOAT16::ToFloat16Fast(aaa);
+	
 	 
 	CUtil::Cleanup();
 	return 0;

@@ -23,7 +23,7 @@ namespace Client
 		} 
 
 	public:  
-		virtual INT32  Init( UINT32 unMsgHandlerthreadPriorityCount = 1 , UINT32 unMsgHandlerthreadPriority = DEFAULT_MSG_HANDLE_THREAD_ID )
+		virtual CErrno   Init( UINT32 unMsgHandlerthreadPriorityCount = 1 , UINT32 unMsgHandlerthreadPriority = DEFAULT_MSG_HANDLE_THREAD_ID )
 		{ 
 			ThreadPool::ThreadPoolInterface::GetInstance().Init(std::map<UINT32 , UINT32>() , TRUE);
 			ThreadPool::ThreadPoolInterface::GetInstance().Startup();
@@ -34,7 +34,7 @@ namespace Client
 			return InnerMsg::Init();
 		}
 
-		virtual INT32  Cleanup( void )
+		virtual CErrno  Cleanup( void )
 		{
 			return ThreadPool::ThreadPoolInterface::GetInstance().Cleanup();
 		}
