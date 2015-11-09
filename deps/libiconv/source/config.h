@@ -372,7 +372,9 @@
 
 
 /* Define to a type if <wchar.h> does not define. */
+#ifndef HAVE_MBSTATE_T
 #define mbstate_t int
+#endif
 
 /* Define to a replacement function name for realpath(). */
 #define realpath rpl_realpath

@@ -7,7 +7,7 @@
 class TestMsgProcess : public Net::MsgProcess
 {
 public:
-	virtual INT32 Process(Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
+	virtual CErrno Process(Net::ISession * pSession, UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
 };
 
 class Client  

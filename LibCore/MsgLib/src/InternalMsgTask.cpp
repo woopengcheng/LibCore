@@ -49,7 +49,7 @@ namespace Msg
 
 //			if (m_pInnerMsg->GetThreadPool())
 			{
-				SAFE_DELETE(m_pMsg);    //5 这里释放的是每个函数调用的时候那个指针.如果是线程池在这里释放.
+				SAFE_DELETE_NEW(m_pMsg);    //5 这里释放的是每个函数调用的时候那个指针.如果是线程池在这里释放.
 			}
 
 			return CErrno::Success();

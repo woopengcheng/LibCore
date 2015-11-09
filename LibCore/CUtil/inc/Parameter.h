@@ -95,6 +95,7 @@ namespace CUtil
 
 	public:
 		//5 std::string 不能使用。这玩意因为模板太多，不能识别。c++11的auto可以解决这个问题。不能自己获取自己，这样会走赋值构造函数。所以获取自己必须走GetParamValue。
+		//5 容器的使用在vs2015需要通过定义的方式获得值.类似:		std::vector<INT32> p15 = objParamter;
 		template<typename T>
 		operator T ()
 		{

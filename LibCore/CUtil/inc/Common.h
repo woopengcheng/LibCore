@@ -44,6 +44,7 @@ typedef std::string    std_string;
 #define MSG_MAX_PARAMETER_NUMBER		10 
 
 #define SAFE_DELETE(x) if(x){ delete x; x = NULL;}
+#define SAFE_DELETE_NEW(x) if(x){ void * p = (void*)x; delete p; x = NULL; }
 #define SAFE_DELETE_ARRAY(x) if(x){ delete []x; x = NULL;}
 
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof(x[0]))

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -38,33 +38,34 @@
     <ProjectGuid>{1C23993E-2F33-4E3F-B81A-F07FA561AB77}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>LibCore</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='LibDebug|x64'">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -74,18 +75,18 @@
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='LibDebug|x64'">
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'" Label="Configuration">
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v100</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='LibDebug|Win32'">
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|Win32'">
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -124,8 +125,8 @@
     <TargetName>$(ProjectName)_vs$(VisualStudioVersion)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-    <OutDir>$(SolutionDir)..\bin\dll\$(Platform)\$(Configuration)\</OutDir>
-    <TargetName>$(ProjectName)_vs$(VisualStudioVersion)</TargetName>
+    <OutDir>$(SolutionDir)..\bin\_vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\</OutDir>
+    <TargetName>$(ProjectName)</TargetName>
     <IgnoreImportLibrary>false</IgnoreImportLibrary>
     <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
@@ -207,8 +208,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\bin\dll\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\tbb\lib\intel64\vc10;$(SolutionDir)..\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\boost\lib;$(SolutionDir)..\deps\pthread\lib\x64;$(SolutionDir)..\deps\gperftools-2.1\debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libiconv_debug.lib;lib_json.lib;lua.lib;libzmq_d.lib;ws2_32.lib;tbb_debug.lib;pthreadVC2.lib;log4cplusUD.lib;LibStatic.lib;expat.lib;UnitTest.lib;leveldb.lib;Snappy.lib;MongoBson.lib;CityHash.lib;Ws2_32.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\bin\_vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\tbb\lib\intel64\vc10;$(SolutionDir)..\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\boost\lib;$(SolutionDir)..\deps\pthread\lib\x64;$(SolutionDir)..\deps\gperftools-2.1\debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libiconv_static.lib;lib_json.lib;lua.lib;libzmq_d.lib;ws2_32.lib;tbb_debug.lib;pthreadVC2.lib;log4cplusUD.lib;LibStatic.lib;expat.lib;UnitTest.lib;leveldb.lib;Snappy.lib;MongoBson.lib;CityHash.lib;Ws2_32.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>LIBCMTD;MSVCRT;</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <HeapReserveSize>104857600</HeapReserveSize>
@@ -221,7 +222,7 @@
     </Link>
     <ClCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)LibCore;$(SolutionDir)../LibCore/;$(SolutionDir)../deps/leveldb/;$(SolutionDir)../deps/leveldb/db;$(SolutionDir)../deps/leveldb/util;$(SolutionDir)../deps/leveldb/port;$(SolutionDir)../deps/leveldb/table;$(SolutionDir)../deps/leveldb/include;$(SolutionDir)../deps/boost;$(SolutionDir)../deps/expat/lib;$(SolutionDir)../deps/zeromq/include;$(SolutionDir)../deps/tbb/include;$(SolutionDir)../deps/UnitTest++/;$(SolutionDir)../deps/protobuf/src;$(SolutionDir)../deps/raknet/source;$(SolutionDir)../deps/pthread/include;$(SolutionDir)../deps/glog/src/windows;$(SolutionDir)../deps/log4cpp/include;$(SolutionDir)../deps/log4cplus/include;$(SolutionDir)../deps/lua/src;$(SolutionDir)../deps/jsoncpp/include;$(SolutionDir)../deps/libiconv/source/include;$(SolutionDir)../deps/Snappy;$(SolutionDir)../deps/CityHash/src;$(SolutionDir)../deps/MongoBson/;$(SolutionDir)../deps/rapidjson/include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions> _CRT_SECURE_NO_WARNINGS;_AFXEXT;CLOSE_RPC_TIMEOUT;NOMINMAX;BSON_COMPILATION;LEVELDB_PLATFORM_WINDOWS;OS_WIN;HYCOMMONWINAPI_EXPORTS;DLL_EXPORTS;USE_RAKNET;WIN32;_DEBUG;USE_LOG4CPLUS;_CONSOLE;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions> HAVE_STRUCT_TIMESPEC;_CRT_SECURE_NO_WARNINGS;_AFXEXT;CLOSE_RPC_TIMEOUT;NOMINMAX;BSON_COMPILATION;LEVELDB_PLATFORM_WINDOWS;OS_WIN;HYCOMMONWINAPI_EXPORTS;DLL_EXPORTS;USE_RAKNET;WIN32;_DEBUG;USE_LOG4CPLUS;_CONSOLE;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level3</WarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -233,7 +234,6 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>

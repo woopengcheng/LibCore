@@ -3,11 +3,11 @@
 
 namespace CUtil
 { 
-	void* ChunkData::operator new (size_t size , size_t extra) 
+	void* ChunkData::operator new (size_t size , UINT32 extra)
 	{ 
 		return malloc(size + extra);
 	}
-	void  ChunkData::operator delete (void *p , size_t extra) 
+	void  ChunkData::operator delete (void *p , UINT32 extra)
 	{ 
 		free(p); 
 	}
@@ -202,7 +202,7 @@ namespace CUtil
 			--m_refCount;
 			if (m_unSize != 0 && m_refCount == 0)
 			{
-				delete(this);
+				delete((void*)this);
 			}
 		}
 	}

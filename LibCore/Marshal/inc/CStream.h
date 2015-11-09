@@ -196,7 +196,8 @@ namespace CUtil
 // 				return *this;
 // 			}
 // 			x = PopByte8();
-// 			return *this;
+// 			return *this;
+
 // 		}
 // 		CStream & Pop32(INT32 & x)
 // 		{

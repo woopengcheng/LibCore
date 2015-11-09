@@ -78,5 +78,6 @@ TEST(CRTTI)
 	CHECK_EQUAL(pCObject->GetRTTI()->IsDerivedFrom(BASE(C)) , TRUE); 
 	CHECK_EQUAL(pCObject->GetRTTI()->IsDerivedFrom(BASE(F)) , TRUE);
 
-	SAFE_DELETE(pCObject);
+//	SAFE_DELETE(pCObject);
+	delete pCObject;
 }

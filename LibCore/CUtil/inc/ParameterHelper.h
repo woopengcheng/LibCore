@@ -4,6 +4,7 @@
 #include "CUtil/inc/Chunk.h"
 #include "Marshal/inc/CStream.h"
 #include "Marshal/inc/CommonMarshal.h"
+#include "MsgLib/inc/Object.h"
 
 namespace CUtil 
 { 

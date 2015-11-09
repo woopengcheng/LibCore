@@ -215,9 +215,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\port\win\stdint.h">
-      <Filter>port\win</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\util\arena.h">
       <Filter>util</Filter>
     </ClInclude>
@@ -370,6 +367,9 @@
     </ClInclude>
     <ClInclude Include="..\..\db\write_batch_internal.h">
       <Filter>db</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\port\win\stdint.h">
+      <Filter>port\win</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

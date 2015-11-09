@@ -37,7 +37,7 @@ namespace Msg
 
 				objRpc->OnTimeout(pRpcMsgCall , vecObjectMsgCall);	
 
-				SAFE_DELETE(pRpcMsgCall);
+				SAFE_DELETE_NEW(pRpcMsgCall);
 				vecObjectMsgCall.clear();
 				SAFE_DELETE(iter->second);
 				m_mapSendRpcs.erase(iter++);
@@ -74,7 +74,7 @@ namespace Msg
 		}
 		else if ((pMsg->GetReturnType() & RETURN_TYPE_IGNORE) || (pMsg->GetReturnType() & RETURN_TYPE_DONE))
 		{
-			SAFE_DELETE(pMsg); 
+			SAFE_DELETE_NEW(pMsg);
 		} 
 
 		return CErrno::Success();
@@ -118,7 +118,7 @@ namespace Msg
 							if (pReturnMsg)
 							{ 
 								SendMsg(pMsg->GetSessionName(), pReturnMsg , FALSE , FALSE);
-								SAFE_DELETE(pReturnMsg);
+								SAFE_DELETE_NEW(pReturnMsg);
 							}
 						}  
 					}
@@ -147,7 +147,7 @@ namespace Msg
 							RPCMsgCall * pReturnMsg = (RPCMsgCall *)(*iter);
 							if (pReturnMsg)
 							{ 
-								SAFE_DELETE(pReturnMsg);
+								SAFE_DELETE_NEW(pReturnMsg);
 							}
 						} 
 					} 
@@ -173,7 +173,7 @@ namespace Msg
 
 			if (pTemp->GetSyncType() == SYNC_TYPE_NONSYNC)
 			{
-				SAFE_DELETE(pTemp);  
+				SAFE_DELETE_NEW(pTemp);
 			}
 		} 
 
@@ -198,7 +198,7 @@ namespace Msg
 				RPCMsgCall * pReturnMsg = (RPCMsgCall *)(*iter);
 
 				SendMsg(pMsg->GetSessionName() , pReturnMsg , FALSE , FALSE);
-				SAFE_DELETE(pReturnMsg);
+				SAFE_DELETE_NEW(pReturnMsg);
 			} 
 		}
 		else if (HasSimilarRegisterFunc(pMsg->m_szMsgMethod , RPCServerProxy))
@@ -211,7 +211,7 @@ namespace Msg
 			{
 				RPCMsgCall * pReturnMsg = (RPCMsgCall *)(*iter);
 
-				SAFE_DELETE(pReturnMsg);
+				SAFE_DELETE_NEW(pReturnMsg);
 			} 
 		}
 		else

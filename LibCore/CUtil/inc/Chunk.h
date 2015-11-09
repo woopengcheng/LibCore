@@ -15,8 +15,8 @@ namespace CUtil
 		{}
 	public:
 		static ChunkData	*	Create(UINT32 unSize);
-		static void			*	operator new (size_t size , size_t extra);
-		static void				operator delete (void *p , size_t extra);
+		static void			*	operator new (size_t size , UINT32  extra);
+		static void				operator delete (void *p , UINT32  extra);
 		static ChunkData	&	Null();
 
 	public:

@@ -60,12 +60,12 @@ namespace Msg
 		}
 
 	public: 
-		static void * operator new(size_t size , size_t unExtra)
+		static void * operator new(size_t size , UINT32 unExtra)throw()
 		{
 			return malloc(size + unExtra); 
 		}
 
-		void operator delete(void * p , size_t unExtra)
+		void operator delete(void * p , UINT32 unExtra)throw()
 		{
 			free(p); 
 		} 

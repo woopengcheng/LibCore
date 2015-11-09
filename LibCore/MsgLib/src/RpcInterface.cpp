@@ -355,7 +355,7 @@ namespace Msg
 // 					m_pNetReactor->Update();  //5 这里其实是接管网络的消息部分用于同步处理.也相当于这个线程阻塞了.
 // 				}
 			}
-			SAFE_DELETE(pMsg);
+			SAFE_DELETE_NEW(pMsg);
 		}
 	}
 

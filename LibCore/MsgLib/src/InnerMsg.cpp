@@ -68,7 +68,7 @@ namespace Msg
 				}  
 			} 
 				
-			SAFE_DELETE(pMsg); 
+			SAFE_DELETE_NEW(pMsg);
 			
 			return CErrno::Success();
 		}

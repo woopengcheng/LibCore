@@ -49,13 +49,13 @@ CErrno Client::Update()
 		}
 		Timer::TimerHelper::sleep(1); 
 	}
-	return TRUE;
+	return CErrno::Success();
 }
 
 
-INT32 TestMsgProcess::Process( Net::ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
+CErrno TestMsgProcess::Process(Net::ISession * pSession, UINT32 unMsgID, const char* pBuffer, UINT32 unLength)
 {
 	printf("%s\n" , pBuffer);
 
-	return TRUE;
+	return Net::MsgProcess::Process(pSession , unMsgID , pBuffer , unLength);
 }

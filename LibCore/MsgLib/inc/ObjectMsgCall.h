@@ -34,12 +34,12 @@ namespace Msg
 		// Returns:   UINT32
 		// Qualifier: 重载New.这个只是简单的调用底层的New.只是大小不确定.所以在这里更改了一下.每次只传入柔性数组的大小和参数的大小以及本体的大小.
 		//************************************
-		static void * operator new(size_t size , size_t unExtra)
+		static void * operator new(size_t size , UINT32 unExtra)throw()
 		{
 			return malloc(size + unExtra); 
 		}
 
-		void operator delete(void * p , size_t unExtra)
+		void operator delete(void * p , UINT32 unExtra)throw()
 		{
 			free(p); 
 		}

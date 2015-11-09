@@ -118,51 +118,47 @@ TEST(Parameter)
 	objParamter.Clear();
 	objParamter = CUtil::Parameter(t14);
 	p14 = objParamter;
-	std::vector<INT32> p15; 
 	objParamter.Clear();
 	objParamter = CUtil::Parameter(t15);
-	p15 = objParamter;
-	std::vector<INT32> p16;
+	std::vector<INT32> p15 = objParamter; 
 	objParamter.Clear();
 	objParamter = CUtil::Parameter(t16);
-	p16 = objParamter;
-	std::list<INT32> p17;
+	std::vector<INT32> p16 = objParamter;
 	objParamter.Clear();
 	objParamter = CUtil::Parameter(t17);
-	p17 = objParamter;
-	std::set<INT32> p18; 
+	std::list<INT32> p17 = objParamter;
+	
 	objParamter.Clear();
 	objParamter = CUtil::Parameter(t18);
-	p18 = objParamter;
+	std::set<INT32> p18 = objParamter;
 	std::string test;
 	std::string & p19 = test;
 	objParamter.Clear();
 	objParamter = CUtil::Parameter(t19);
 	objParamter.GetParameterValue(p19); 
-	std::map<INT32 , INT32> p20;
 	objParamter.Clear();
 	objParamter = CUtil::Parameter(t20);
-	p20 = objParamter;
-	std::pair<INT32 , INT32> p21;
+	std::map<INT32, INT32> p20 = objParamter;
+	
 	objParamter.Clear();
 	objParamter = CUtil::Parameter(t21);
-	p21 = objParamter;
-	std::map<INT32 , CUtil::Chunk> p22;
+	std::pair<INT32, INT32> p21 = objParamter;
+	
 	objParamter.Clear();
 	objParamter = CUtil::Parameter(t22);
-	p22 = objParamter;
-	std::map<INT32 , std::vector<INT32>> p23;
+	std::map<INT32, CUtil::Chunk> p22 = objParamter;
+	
 	objParamter.Clear();
 	objParamter = CUtil::Parameter(t23);
-	p23 = objParamter;
-	std::map<INT32 , std::list<INT32>> p24;
+	std::map<INT32, std::vector<INT32>> p23 = objParamter;
+	;
 	objParamter.Clear();
 	objParamter = CUtil::Parameter(t24);
-	p24 = objParamter;
-	std::map<INT32 , std::set<INT32>> p25;
+	std::map<INT32, std::list<INT32>> p24 = objParamter;
+	
 	objParamter.Clear();
 	objParamter = CUtil::Parameter(t25);
-	p25 = objParamter;
+	std::map<INT32, std::set<INT32>> p25 = objParamter;
 	CHECK_EQUAL(objParamter.GetType() , CUtil::PARAMETER_TYPE_STD_CONTAINER_OR_OTHERS);
 
 	CHECK_EQUAL(t , p);

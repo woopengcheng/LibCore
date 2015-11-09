@@ -1,1 +1,1 @@
-GameDBServer_vs10.0.exe ./gdbSlave.conf
+GameDBServer.exe ./gdbSlave.conf

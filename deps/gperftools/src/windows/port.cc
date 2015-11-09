@@ -46,6 +46,7 @@
 #include "base/spinlock.h"
 #include "internal_logging.h"
 #include "system-alloc.h"
+#include <algorithm>
 
 // -----------------------------------------------------------------------
 // Basic libraries
