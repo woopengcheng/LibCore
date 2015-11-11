@@ -5479,188 +5479,233 @@
     <Filter Include="asm">
       <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm\aes">
+    <Filter Include="asm\x64-win32-masm\aes">
       <UniqueIdentifier>{83FE378C-C51E-AAF4-4B41-8788EDC1CC28}</UniqueIdentifier>
     </Filter>
     <Filter Include="asm">
       <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm\aes">
+    <Filter Include="asm\x64-win32-masm\aes">
       <UniqueIdentifier>{83FE378C-C51E-AAF4-4B41-8788EDC1CC28}</UniqueIdentifier>
     </Filter>
     <Filter Include="asm">
       <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm\aes">
+    <Filter Include="asm\x64-win32-masm\aes">
       <UniqueIdentifier>{83FE378C-C51E-AAF4-4B41-8788EDC1CC28}</UniqueIdentifier>
     </Filter>
     <Filter Include="asm">
       <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm\bf">
-      <UniqueIdentifier>{1C792FB1-1F00-66DE-0167-CA93E849AEBE}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm\aes">
+      <UniqueIdentifier>{83FE378C-C51E-AAF4-4B41-8788EDC1CC28}</UniqueIdentifier>
     </Filter>
     <Filter Include="asm">
       <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm\bn">
+    <Filter Include="asm\x64-win32-masm\aes">
+      <UniqueIdentifier>{83FE378C-C51E-AAF4-4B41-8788EDC1CC28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm">
+      <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm\x64-win32-masm\aes">
+      <UniqueIdentifier>{83FE378C-C51E-AAF4-4B41-8788EDC1CC28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm">
+      <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm\x64-win32-masm\aes">
+      <UniqueIdentifier>{83FE378C-C51E-AAF4-4B41-8788EDC1CC28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm">
+      <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm\x64-win32-masm\bn">
       <UniqueIdentifier>{EC9FF1C0-EAEB-8DD2-AB73-9FD7462D8280}</UniqueIdentifier>
     </Filter>
     <Filter Include="asm">
       <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm\bn">
+    <Filter Include="asm\x64-win32-masm\bn">
       <UniqueIdentifier>{EC9FF1C0-EAEB-8DD2-AB73-9FD7462D8280}</UniqueIdentifier>
     </Filter>
     <Filter Include="asm">
       <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm\bn">
+    <Filter Include="asm\x64-win32-masm\bn">
       <UniqueIdentifier>{EC9FF1C0-EAEB-8DD2-AB73-9FD7462D8280}</UniqueIdentifier>
     </Filter>
     <Filter Include="asm">
       <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm\bn">
+    <Filter Include="asm\x64-win32-masm\bn">
       <UniqueIdentifier>{EC9FF1C0-EAEB-8DD2-AB73-9FD7462D8280}</UniqueIdentifier>
     </Filter>
     <Filter Include="asm">
       <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm\camellia">
+    <Filter Include="asm\x64-win32-masm\bn">
+      <UniqueIdentifier>{EC9FF1C0-EAEB-8DD2-AB73-9FD7462D8280}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm">
+      <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm\x64-win32-masm\camellia">
       <UniqueIdentifier>{42C2276F-875B-3E32-5AA6-4F211A2B0754}</UniqueIdentifier>
     </Filter>
     <Filter Include="asm">
       <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm\cast">
-      <UniqueIdentifier>{C862B4C1-82E6-A117-15BF-FB2958E7F586}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="asm">
-      <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="asm\x86-win32-masm\des">
-      <UniqueIdentifier>{123B3E53-9D80-AA2F-D5A4-90441B70291A}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm\ec">
+      <UniqueIdentifier>{18B3EEE8-8307-53B0-D3D0-BD994AE7172D}</UniqueIdentifier>
     </Filter>
     <Filter Include="asm">
       <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm\des">
-      <UniqueIdentifier>{123B3E53-9D80-AA2F-D5A4-90441B70291A}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="asm">
-      <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="asm\x86-win32-masm\md5">
+    <Filter Include="asm\x64-win32-masm\md5">
       <UniqueIdentifier>{B755C510-6809-FCFB-6F5C-BCD6FD7B0424}</UniqueIdentifier>
     </Filter>
     <Filter Include="asm">
       <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm\rc4">
+    <Filter Include="asm\x64-win32-masm\rc4">
       <UniqueIdentifier>{A8A8AB5B-72BC-260A-C35E-FAEA99C265AE}</UniqueIdentifier>
     </Filter>
     <Filter Include="asm">
       <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm\ripemd">
-      <UniqueIdentifier>{916985DD-936A-763F-5671-613299EC6F99}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm\rc4">
+      <UniqueIdentifier>{A8A8AB5B-72BC-260A-C35E-FAEA99C265AE}</UniqueIdentifier>
     </Filter>
     <Filter Include="asm">
       <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm\sha">
+    <Filter Include="asm\x64-win32-masm\sha">
       <UniqueIdentifier>{0AE014ED-7B4C-DBF7-5DA1-45C57CF9EB95}</UniqueIdentifier>
     </Filter>
     <Filter Include="asm">
       <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm\sha">
+    <Filter Include="asm\x64-win32-masm\sha">
       <UniqueIdentifier>{0AE014ED-7B4C-DBF7-5DA1-45C57CF9EB95}</UniqueIdentifier>
     </Filter>
     <Filter Include="asm">
       <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm\sha">
+    <Filter Include="asm\x64-win32-masm\sha">
       <UniqueIdentifier>{0AE014ED-7B4C-DBF7-5DA1-45C57CF9EB95}</UniqueIdentifier>
     </Filter>
     <Filter Include="asm">
       <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm\whrlpool">
+    <Filter Include="asm\x64-win32-masm\sha">
+      <UniqueIdentifier>{0AE014ED-7B4C-DBF7-5DA1-45C57CF9EB95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm">
+      <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm\x64-win32-masm\sha">
+      <UniqueIdentifier>{0AE014ED-7B4C-DBF7-5DA1-45C57CF9EB95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm">
+      <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm\x64-win32-masm\whrlpool">
       <UniqueIdentifier>{613EEE13-7D17-5583-902A-AC863F144135}</UniqueIdentifier>
     </Filter>
     <Filter Include="asm">
       <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm\modes">
+    <Filter Include="asm\x64-win32-masm\modes">
       <UniqueIdentifier>{5F7AF2C5-5E06-3D12-E642-09E1D5EE9C5E}</UniqueIdentifier>
     </Filter>
     <Filter Include="asm">
       <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asm\x86-win32-masm">
-      <UniqueIdentifier>{6EBE87D5-90C8-3DC7-5043-8D7B758F47EA}</UniqueIdentifier>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm\x64-win32-masm\modes">
+      <UniqueIdentifier>{5F7AF2C5-5E06-3D12-E642-09E1D5EE9C5E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm">
+      <UniqueIdentifier>{FCB20295-9805-239A-10B2-41A081E97F07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asm\x64-win32-masm">
+      <UniqueIdentifier>{2C1E9999-2D80-F367-C7C9-65646C300A01}</UniqueIdentifier>
     </Filter>
     <Filter Include="openssl">
       <UniqueIdentifier>{A2039617-BE22-2E2D-B4F3-3B64B7BAFB84}</UniqueIdentifier>
@@ -5668,8 +5713,80 @@
     <Filter Include="openssl\crypto">
       <UniqueIdentifier>{DFFB1441-5E91-CEAB-DBC4-604225CE8161}</UniqueIdentifier>
     </Filter>
-    <Filter Include="openssl\crypto\whrlpool">
-      <UniqueIdentifier>{613EEE13-7D17-5583-902A-AC863F144135}</UniqueIdentifier>
+    <Filter Include="openssl\crypto\bn">
+      <UniqueIdentifier>{EC9FF1C0-EAEB-8DD2-AB73-9FD7462D8280}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl">
+      <UniqueIdentifier>{A2039617-BE22-2E2D-B4F3-3B64B7BAFB84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl\crypto">
+      <UniqueIdentifier>{DFFB1441-5E91-CEAB-DBC4-604225CE8161}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl\crypto\bf">
+      <UniqueIdentifier>{1C792FB1-1F00-66DE-0167-CA93E849AEBE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl">
+      <UniqueIdentifier>{A2039617-BE22-2E2D-B4F3-3B64B7BAFB84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl\crypto">
+      <UniqueIdentifier>{DFFB1441-5E91-CEAB-DBC4-604225CE8161}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl\crypto\bn">
+      <UniqueIdentifier>{EC9FF1C0-EAEB-8DD2-AB73-9FD7462D8280}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl">
+      <UniqueIdentifier>{A2039617-BE22-2E2D-B4F3-3B64B7BAFB84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl\crypto">
+      <UniqueIdentifier>{DFFB1441-5E91-CEAB-DBC4-604225CE8161}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl\crypto\cast">
+      <UniqueIdentifier>{C862B4C1-82E6-A117-15BF-FB2958E7F586}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl">
+      <UniqueIdentifier>{A2039617-BE22-2E2D-B4F3-3B64B7BAFB84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl\crypto">
+      <UniqueIdentifier>{DFFB1441-5E91-CEAB-DBC4-604225CE8161}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl\crypto\camellia">
+      <UniqueIdentifier>{42C2276F-875B-3E32-5AA6-4F211A2B0754}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl">
+      <UniqueIdentifier>{A2039617-BE22-2E2D-B4F3-3B64B7BAFB84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl\crypto">
+      <UniqueIdentifier>{DFFB1441-5E91-CEAB-DBC4-604225CE8161}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl\crypto\des">
+      <UniqueIdentifier>{123B3E53-9D80-AA2F-D5A4-90441B70291A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl">
+      <UniqueIdentifier>{A2039617-BE22-2E2D-B4F3-3B64B7BAFB84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl\crypto">
+      <UniqueIdentifier>{DFFB1441-5E91-CEAB-DBC4-604225CE8161}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl\crypto\des">
+      <UniqueIdentifier>{123B3E53-9D80-AA2F-D5A4-90441B70291A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl">
+      <UniqueIdentifier>{A2039617-BE22-2E2D-B4F3-3B64B7BAFB84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl\crypto">
+      <UniqueIdentifier>{DFFB1441-5E91-CEAB-DBC4-604225CE8161}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl\crypto\ec">
+      <UniqueIdentifier>{18B3EEE8-8307-53B0-D3D0-BD994AE7172D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl">
+      <UniqueIdentifier>{A2039617-BE22-2E2D-B4F3-3B64B7BAFB84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl\crypto">
+      <UniqueIdentifier>{DFFB1441-5E91-CEAB-DBC4-604225CE8161}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openssl\crypto\ui">
+      <UniqueIdentifier>{3ED3C5AE-0459-82A6-2795-7EAB6F83FEC7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -7572,71 +7689,110 @@
     <ClCompile Include="openssl\engines\e_ubsec.c">
       <Filter>openssl\engines</Filter>
     </ClCompile>
-    <Assemble Include="asm\x86-win32-masm\aes\aes-586.asm">
-      <Filter>asm\x86-win32-masm\aes</Filter>
+    <Assemble Include="asm\x64-win32-masm\aes\aes-x86_64.asm">
+      <Filter>asm\x64-win32-masm\aes</Filter>
     </Assemble>
-    <Assemble Include="asm\x86-win32-masm\aes\aesni-x86.asm">
-      <Filter>asm\x86-win32-masm\aes</Filter>
+    <Assemble Include="asm\x64-win32-masm\aes\aesni-x86_64.asm">
+      <Filter>asm\x64-win32-masm\aes</Filter>
     </Assemble>
-    <Assemble Include="asm\x86-win32-masm\aes\vpaes-x86.asm">
-      <Filter>asm\x86-win32-masm\aes</Filter>
+    <Assemble Include="asm\x64-win32-masm\aes\aesni-mb-x86_64.asm">
+      <Filter>asm\x64-win32-masm\aes</Filter>
     </Assemble>
-    <Assemble Include="asm\x86-win32-masm\bf\bf-586.asm">
-      <Filter>asm\x86-win32-masm\bf</Filter>
+    <Assemble Include="asm\x64-win32-masm\aes\aesni-sha256-x86_64.asm">
+      <Filter>asm\x64-win32-masm\aes</Filter>
     </Assemble>
-    <Assemble Include="asm\x86-win32-masm\bn\bn-586.asm">
-      <Filter>asm\x86-win32-masm\bn</Filter>
+    <Assemble Include="asm\x64-win32-masm\aes\vpaes-x86_64.asm">
+      <Filter>asm\x64-win32-masm\aes</Filter>
     </Assemble>
-    <Assemble Include="asm\x86-win32-masm\bn\co-586.asm">
-      <Filter>asm\x86-win32-masm\bn</Filter>
+    <Assemble Include="asm\x64-win32-masm\aes\bsaes-x86_64.asm">
+      <Filter>asm\x64-win32-masm\aes</Filter>
     </Assemble>
-    <Assemble Include="asm\x86-win32-masm\bn\x86-mont.asm">
-      <Filter>asm\x86-win32-masm\bn</Filter>
+    <Assemble Include="asm\x64-win32-masm\aes\aesni-sha1-x86_64.asm">
+      <Filter>asm\x64-win32-masm\aes</Filter>
     </Assemble>
-    <Assemble Include="asm\x86-win32-masm\bn\x86-gf2m.asm">
-      <Filter>asm\x86-win32-masm\bn</Filter>
+    <Assemble Include="asm\x64-win32-masm\bn\rsaz-avx2.asm">
+      <Filter>asm\x64-win32-masm\bn</Filter>
     </Assemble>
-    <Assemble Include="asm\x86-win32-masm\camellia\cmll-x86.asm">
-      <Filter>asm\x86-win32-masm\camellia</Filter>
+    <Assemble Include="asm\x64-win32-masm\bn\rsaz-x86_64.asm">
+      <Filter>asm\x64-win32-masm\bn</Filter>
     </Assemble>
-    <Assemble Include="asm\x86-win32-masm\cast\cast-586.asm">
-      <Filter>asm\x86-win32-masm\cast</Filter>
+    <Assemble Include="asm\x64-win32-masm\bn\x86_64-mont.asm">
+      <Filter>asm\x64-win32-masm\bn</Filter>
     </Assemble>
-    <Assemble Include="asm\x86-win32-masm\des\crypt586.asm">
-      <Filter>asm\x86-win32-masm\des</Filter>
+    <Assemble Include="asm\x64-win32-masm\bn\x86_64-mont5.asm">
+      <Filter>asm\x64-win32-masm\bn</Filter>
     </Assemble>
-    <Assemble Include="asm\x86-win32-masm\des\des-586.asm">
-      <Filter>asm\x86-win32-masm\des</Filter>
+    <Assemble Include="asm\x64-win32-masm\bn\x86_64-gf2m.asm">
+      <Filter>asm\x64-win32-masm\bn</Filter>
     </Assemble>
-    <Assemble Include="asm\x86-win32-masm\md5\md5-586.asm">
-      <Filter>asm\x86-win32-masm\md5</Filter>
+    <Assemble Include="asm\x64-win32-masm\camellia\cmll-x86_64.asm">
+      <Filter>asm\x64-win32-masm\camellia</Filter>
     </Assemble>
-    <Assemble Include="asm\x86-win32-masm\rc4\rc4-586.asm">
-      <Filter>asm\x86-win32-masm\rc4</Filter>
+    <Assemble Include="asm\x64-win32-masm\ec\ecp_nistz256-x86_64.asm">
+      <Filter>asm\x64-win32-masm\ec</Filter>
     </Assemble>
-    <Assemble Include="asm\x86-win32-masm\ripemd\rmd-586.asm">
-      <Filter>asm\x86-win32-masm\ripemd</Filter>
+    <Assemble Include="asm\x64-win32-masm\md5\md5-x86_64.asm">
+      <Filter>asm\x64-win32-masm\md5</Filter>
     </Assemble>
-    <Assemble Include="asm\x86-win32-masm\sha\sha1-586.asm">
-      <Filter>asm\x86-win32-masm\sha</Filter>
+    <Assemble Include="asm\x64-win32-masm\rc4\rc4-x86_64.asm">
+      <Filter>asm\x64-win32-masm\rc4</Filter>
     </Assemble>
-    <Assemble Include="asm\x86-win32-masm\sha\sha256-586.asm">
-      <Filter>asm\x86-win32-masm\sha</Filter>
+    <Assemble Include="asm\x64-win32-masm\rc4\rc4-md5-x86_64.asm">
+      <Filter>asm\x64-win32-masm\rc4</Filter>
     </Assemble>
-    <Assemble Include="asm\x86-win32-masm\sha\sha512-586.asm">
-      <Filter>asm\x86-win32-masm\sha</Filter>
+    <Assemble Include="asm\x64-win32-masm\sha\sha1-mb-x86_64.asm">
+      <Filter>asm\x64-win32-masm\sha</Filter>
     </Assemble>
-    <Assemble Include="asm\x86-win32-masm\whrlpool\wp-mmx.asm">
-      <Filter>asm\x86-win32-masm\whrlpool</Filter>
+    <Assemble Include="asm\x64-win32-masm\sha\sha1-x86_64.asm">
+      <Filter>asm\x64-win32-masm\sha</Filter>
     </Assemble>
-    <Assemble Include="asm\x86-win32-masm\modes\ghash-x86.asm">
-      <Filter>asm\x86-win32-masm\modes</Filter>
+    <Assemble Include="asm\x64-win32-masm\sha\sha256-mb-x86_64.asm">
+      <Filter>asm\x64-win32-masm\sha</Filter>
     </Assemble>
-    <Assemble Include="asm\x86-win32-masm\x86cpuid.asm">
-      <Filter>asm\x86-win32-masm</Filter>
+    <Assemble Include="asm\x64-win32-masm\sha\sha256-x86_64.asm">
+      <Filter>asm\x64-win32-masm\sha</Filter>
     </Assemble>
-    <ClCompile Include="openssl\crypto\whrlpool\wp_block.c">
-      <Filter>openssl\crypto\whrlpool</Filter>
+    <Assemble Include="asm\x64-win32-masm\sha\sha512-x86_64.asm">
+      <Filter>asm\x64-win32-masm\sha</Filter>
+    </Assemble>
+    <Assemble Include="asm\x64-win32-masm\whrlpool\wp-x86_64.asm">
+      <Filter>asm\x64-win32-masm\whrlpool</Filter>
+    </Assemble>
+    <Assemble Include="asm\x64-win32-masm\modes\aesni-gcm-x86_64.asm">
+      <Filter>asm\x64-win32-masm\modes</Filter>
+    </Assemble>
+    <Assemble Include="asm\x64-win32-masm\modes\ghash-x86_64.asm">
+      <Filter>asm\x64-win32-masm\modes</Filter>
+    </Assemble>
+    <Assemble Include="asm\x64-win32-masm\x86_64cpuid.asm">
+      <Filter>asm\x64-win32-masm</Filter>
+    </Assemble>
+    <ClCompile Include="openssl\crypto\bn\bn_asm.c">
+      <Filter>openssl\crypto\bn</Filter>
+    </ClCompile>
+    <ClCompile Include="openssl\crypto\bf\bf_enc.c">
+      <Filter>openssl\crypto\bf</Filter>
+    </ClCompile>
+    <ClCompile Include="openssl\crypto\bn\rsaz_exp.c">
+      <Filter>openssl\crypto\bn</Filter>
+    </ClCompile>
+    <ClCompile Include="openssl\crypto\cast\c_enc.c">
+      <Filter>openssl\crypto\cast</Filter>
+    </ClCompile>
+    <ClCompile Include="openssl\crypto\camellia\cmll_misc.c">
+      <Filter>openssl\crypto\camellia</Filter>
+    </ClCompile>
+    <ClCompile Include="openssl\crypto\des\des_enc.c">
+      <Filter>openssl\crypto\des</Filter>
+    </ClCompile>
+    <ClCompile Include="openssl\crypto\des\fcrypt_b.c">
+      <Filter>openssl\crypto\des</Filter>
+    </ClCompile>
+    <ClCompile Include="openssl\crypto\ec\ecp_nistz256.c">
+      <Filter>openssl\crypto\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="openssl\crypto\ui\ui_compat.c">
+      <Filter>openssl\crypto\ui</Filter>
     </ClCompile>
     <None Include="openssl.gyp"/>
   </ItemGroup>
