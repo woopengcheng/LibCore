@@ -103,7 +103,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\tbb\lib\intel64\vc10;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>MongoBson.lib;GameDBCommon.lib;lib_json.lib;LibCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>openssl.lib;MongoBson.lib;GameDBCommon.lib;lib_json.lib;LibCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
