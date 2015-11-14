@@ -115,7 +115,12 @@ namespace Timer
 		return std::string(tmp); 
 	}
 
-	void TimerHelper::sleep( INT64 llMillSec )
+	time_t TimerHelper::GetTime()
+	{
+		return time(0);
+	}
+
+	void TimerHelper::sleep(INT64 llMillSec)
 	{
 #ifdef WIN32
 		::Sleep((DWORD)llMillSec);

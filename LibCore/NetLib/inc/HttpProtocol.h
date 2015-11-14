@@ -32,6 +32,7 @@ namespace Net
 		extern DLL_EXPORT const char* VALUE_CONNECTION_KEEP_ALIVE;
 
 		extern DLL_EXPORT const char* HEADER_LOCATION;
+		extern DLL_EXPORT const char* HEADER_WWW_AUTHORIZATION;
 	}
 
 	class DLL_EXPORT HttpProtocol
@@ -109,6 +110,7 @@ namespace Net
 		char* m_phSetCookie;
 		char* m_phReferer;
 		char* m_phLocation;
+		char* m_phWWWAuthorization;
 	};
 
 	class HttpProtocolEx : public HttpProtocol

@@ -24,7 +24,7 @@ namespace CUtil
 	///////////////////////////////通用函数///////////////////////////////////////////
 
 	extern INT32  DLL_EXPORT  strcmp(const char* str1,const char* str2);
-	extern INT32  DLL_EXPORT  stricmp(const char* str1,const char* str2);
+	extern INT32  DLL_EXPORT  stricmp(const char* str1,const char* str2);  //5 不区分大小写
 	extern INT64  DLL_EXPORT  atoi(const char* str);
 	extern INT64  DLL_EXPORT  atoi(const std::string & str);
 	extern UINT64  DLL_EXPORT atoull(const char* str);
@@ -62,6 +62,8 @@ namespace CUtil
 	extern INT64  DLL_EXPORT  BKDRHashSum(const char* pBuf);
 	extern UINT32 DLL_EXPORT  Compress(const char * pBuf , UINT32 unLength , std::string & strUncompressed);
 	extern bool   DLL_EXPORT  Uncompress(const char * pBuf , UINT32 unLength , std::string & strUncompressed);
+	extern bool	  DLL_EXPORT  Base64EncodeBySSL(std::string & strDst , const std::string & strSrc);
+	extern bool	  DLL_EXPORT  Base64DecodeBySSL(std::string & strDst , const std::string & strSrc);
 
 	extern void   DLL_EXPORT GenerateUUIDBySys( char* buf );
  	extern INT64  DLL_EXPORT GenerateUUIDByTime( void );

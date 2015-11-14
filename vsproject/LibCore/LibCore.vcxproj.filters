@@ -875,5 +875,8 @@
     <ClCompile Include="..\..\LibCore\NetLib\src\HttpProtocol.cpp">
       <Filter>NetLib\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\LibCore\CUtil\src\aa.cpp">
+      <Filter>CUtil\src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

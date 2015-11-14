@@ -72,7 +72,24 @@ namespace Client
 		}
 		else if(strURL == "pwd")
 		{
+			std::string strLic = "";
+			if (!m_objAuths.HasRight(request.m_phAuthorization , strLic))
+			{
+				response.WriteResponseHeader(401, "Authorization failed");
+				response.WriteHeader(Net::HttpConsts::HEADER_WWW_AUTHORIZATION, "Basic realm=\"woopengcheng.com.cn\"");
+				response.WriteContent("Unauthorized.", sizeof("Unauthorized."));
+			}
+			else
+			{
+				std::string result = "<HTML>\n				<HEAD>\n				<TITLE>MiniWeb</TITLE>\n				</HEAD>\n				</HTML>";
 
+				response.Reserve(result.length() + 512);
+				response.WriteResponseHeader(200, "OK");
+				response.WriteHeader(Net::HttpConsts::HEADER_CONNECTION, "Keep-Alive");
+				response.WriteHeader(Net::HttpConsts::HEADER_CONTENT_TYPE, "text/html;charset=utf-8");
+				response.WriteHeader(Net::HttpConsts::HEADER_CONTENT_LENGTH, result.length());
+				response.WriteContent(result.c_str(), result.length());
+			}
 		}
 
 		return CErrno::Success();

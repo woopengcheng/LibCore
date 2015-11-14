@@ -39,6 +39,7 @@ namespace Net
 		const char* VALUE_CONNECTION_KEEP_ALIVE = "Keep-Alive";
 
 		const char* HEADER_LOCATION = "Location";
+		const char* HEADER_WWW_AUTHORIZATION = "WWW-authorization";
 	}
 
 	HttpProtocol::HttpProtocol()
@@ -166,6 +167,10 @@ namespace Net
 		{
 			m_phLocation = value;
 		}
+		else if(strcmp(name,HttpConsts::HEADER_WWW_AUTHORIZATION) == 0)
+		{
+			m_phWWWAuthorization = value;
+		}
 		else
 		{
 			return false;
@@ -198,6 +203,7 @@ namespace Net
 		adjust_buffer(m_phCookie);
 		adjust_buffer(m_phReferer);
 		adjust_buffer(m_phLocation);
+		adjust_buffer(m_phWWWAuthorization);
 #undef adjust_buffer
 	}
 	
@@ -229,6 +235,7 @@ namespace Net
 		m_phCookie = 0;
 		m_phReferer = 0;
 		m_phLocation = 0;
+		m_phWWWAuthorization = 0;
 	}
 
 	bool HttpProtocol::Parse(const char* buf,INT32 len,INT32* remainLen)

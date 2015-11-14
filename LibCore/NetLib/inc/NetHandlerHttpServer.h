@@ -66,6 +66,39 @@ namespace Net
 	}; 
 	DECLARE_BOOST_POINTERS(HttpServerListener);
 
+	class HttpAuth
+	{
+	public:
+		struct Entry
+		{
+			std::string strName;
+			std::string strPWD;
+			INT64		nExpireTime;
+			Entry()
+				: strName("")
+				, strPWD("")
+				, nExpireTime(0)
+			{}
+		};
+		typedef std::vector<Entry> CollectionEntrysT;
+	
+	public:
+		HttpAuth() {}
+		~HttpAuth() {}
+
+	public:
+		virtual bool InitPassword(const std::string & strLicense , void * pPublicKey);
+		virtual bool InitPassword(const std::string & strLicense, BIO * pBio);
+		virtual bool InitPassword(const std::string & strLicense, const char * pFile);
+	
+		virtual bool HasRight(const std::string & strHeadAuth, const std::string & strLicFile);
+	public:
+
+	
+	private:
+		CollectionEntrysT	m_vecEntries;
+	};
+
 	class DLL_EXPORT HttpServer
 	{
 	public:
@@ -78,9 +111,13 @@ namespace Net
 		virtual void			OnAccept(NetSocket socket , sockaddr_in * addr);
 		virtual	CErrno			HttpHandler(HttpSession * pSession , HttpProtocol& request,HttpProtocol& response){ return CErrno::Success();}
 
+	public:
+		const HttpAuth	&		GetHttpAuth() { return m_objAuths; }
+
 	protected:
 		HttpServerListenerPtr	m_pListener;
 		INetReactor			*	m_pNetReactor;
+		HttpAuth				m_objAuths;
 	}; 
 	DECLARE_BOOST_POINTERS(HttpServer);
 

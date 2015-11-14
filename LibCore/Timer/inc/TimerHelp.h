@@ -7,19 +7,19 @@ namespace Timer
 	class DLL_EXPORT TimerHelper
 	{
 	public:  
-		static INT64  GetTickCount();                 //5 获得CPU的时钟频率启动后的次数,如果除以频率的速度.就可以得到毫秒
-		static INT64  GetTickFrequency();             //5 CPU频率.
-		static INT64  GetTickSecond(INT64 llTime = -1);              //5 获取CPU运行的时间(秒)
-		static INT64  GetTickMicroSecond(INT64 llTime = -1);         //5 获取CPU运行的时间(毫秒)
-		static INT64  GetTickMilliSecond(INT64 llTime = -1);         //5 获取CPU运行的时间(微妙) 
+		static INT64  GetTickCount();									//5 获得CPU的时钟频率启动后的次数,如果除以频率的速度.就可以得到毫秒
+		static INT64  GetTickFrequency();								//5 CPU频率.
+		static INT64  GetTickSecond(INT64 llTime = -1);					//5 获取CPU运行的时间(秒)
+		static INT64  GetTickMicroSecond(INT64 llTime = -1);			//5 获取CPU运行的时间(毫秒)
+		static INT64  GetTickMilliSecond(INT64 llTime = -1);			//5 获取CPU运行的时间(微妙) 
 
-		static INT64  GetMilliSecond(INT64 llTime); //5 获得微妙
-		static INT64  GetMicroSecond(INT64 llTime); //5 获得毫秒 
-		static INT64  GetSecond(INT64 llTime);      //5 获得秒  
+		static INT64  GetMilliSecond(INT64 llTime);						//5 获得微妙
+		static INT64  GetMicroSecond(INT64 llTime);						//5 获得毫秒 
+		static INT64  GetSecond(INT64 llTime);							//5 获得秒  
 
-		static INT64  DiffMilliSecond(INT64 llTime1 , INT64 llTime2);  //5 比较两个毫秒的差异
-		static INT64  DiffMicroSecond(INT64 llTime1 , INT64 llTime2);  //5 比较两个毫秒的差异
-		static INT64  DiffSecond(INT64 llTime1 , INT64 llTime2);       //5 比较两个秒的差异
+		static INT64  DiffMilliSecond(INT64 llTime1 , INT64 llTime2);	//5 比较两个毫秒的差异
+		static INT64  DiffMicroSecond(INT64 llTime1 , INT64 llTime2);	//5 比较两个毫秒的差异
+		static INT64  DiffSecond(INT64 llTime1 , INT64 llTime2);		//5 比较两个秒的差异
 		
 		/*
 			%a 星期几的缩写。Eg:Tue 
@@ -44,6 +44,7 @@ namespace Timer
 			%Y 完整的年份数字表示，即四位数。 Eg:2008
 			%Z(%z) 时区或名称缩写。Eg:中国标准时间 */
 		static std::string GetDate(std::string strFormat = "%Y-%m-%d");
+		static time_t GetTime();
 
 		static  void   sleep(INT64 llMillSec);
 

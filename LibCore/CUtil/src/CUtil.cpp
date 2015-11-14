@@ -6,6 +6,10 @@
 #include "Timer/inc/TimerHelp.h"
 #include "MsgLib/inc/RpcCheckParams.h"
 #include "json/value.h"
+#include <openssl/rsa.h>
+#include <openssl/pem.h>
+#include <openssl/err.h>
+#include <openssl/hmac.h>
 #include "city.h"
 #include "snappy.h"
 
@@ -17,7 +21,7 @@
 
 namespace CUtil
 {
-	void GenerateUUIDBySys( char* buf )
+	void GenerateUUIDBySys(char* buf)
 	{
 
 #ifdef WIN32
@@ -446,5 +450,36 @@ namespace CUtil
 		return (sum << 32) + (hash & 0x7FFFFFFF); 
 	}
 
+	bool	Base64EncodeBySSL(std::string & strDst, const std::string & strSrc)
+	{
+		return false;
+	}
+
+	bool	Base64DecodeBySSL(std::string & strDst, const std::string & strSrc)
+	{
+		char * pDst = NULL;
+		bool bFlag[2] = { false , true };
+		for (int i = 0;i < 2;++i)
+		{
+			BIO * b64 = BIO_new(BIO_f_base64());
+			if (bFlag[i])
+			{
+				BIO_set_flags(b64, BIO_FLAGS_BASE64_NO_NL);
+			}
+
+			BIO * pMemery = BIO_new_mem_buf((void*)strSrc.c_str(), strSrc.size());
+			pMemery = BIO_push(b64, pMemery);
+			size_t lExpireSize = BIO_read(pMemery , (void*)pDst , strSrc.size());
+			BIO_free_all(pMemery);
+			if (lExpireSize > 0)
+			{
+				strDst.resize(lExpireSize);
+				strDst.copy(pDst , lExpireSize);
+				return true;
+			}
+		}
+
+		return false;
+	}
 
 }
