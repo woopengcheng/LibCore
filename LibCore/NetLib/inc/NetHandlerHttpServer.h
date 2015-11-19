@@ -3,6 +3,7 @@
 #include "NetLib/inc/NetHandlerListener.h"
 #include "NetLib/inc/NetHandlerServer.h"
 #include "NetLib/inc/ServerSession.h"
+#include "openssl/bio.h"
 
 namespace Net 
 {   

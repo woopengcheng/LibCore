@@ -39,7 +39,7 @@
     <ClInclude Include="..\..\snappy-stubs-internal.h" />
     <ClInclude Include="..\..\snappy-stubs-public.h" />
     <ClInclude Include="..\..\snappy.h" />
-    <ClInclude Include="..\..\stdint.h" />
+    <ClInclude Include="..\..\stdint_bk.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4B707F34-30A9-4BDB-A43C-BB9BCDBA94A7}</ProjectGuid>

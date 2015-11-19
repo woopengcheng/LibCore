@@ -138,7 +138,7 @@ namespace Net
 			std::string strDecodeLic;
 			CUtil::Base64DecodeBySSL(strDecodeLic, strLicense);
 
-			char szBuf[1024] = {0};
+			unsigned char szBuf[1024] = {0};
 			INT32 ret = RSA_public_decrypt(strDecodeLic.size(), (const unsigned char *)strDecodeLic.data(), szBuf, pRsa, RSA_PKCS1_PADDING);
 			RSA_free(pRsa);
 			if (ret <= 0)
@@ -147,7 +147,7 @@ namespace Net
 			}
 			
 			char  szNamePwdTime[3][256];
-			if (sscanf_s(szBuf , "%[^:]:%[^:]:%s" , szNamePwdTime[0] , szNamePwdTime[1] , szNamePwdTime[2]) != 3)
+			if (sscanf_s((const char *)szBuf , "%[^:]:%[^:]:%s" , szNamePwdTime[0] , szNamePwdTime[1] , szNamePwdTime[2]) != 3)
 			{
 				return false;
 			}

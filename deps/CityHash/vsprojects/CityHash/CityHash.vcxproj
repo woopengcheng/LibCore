@@ -133,6 +133,7 @@
     <ClCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)../LibCore/Common;$(SolutionDir)../deps/CityHash/;$(SolutionDir)../deps/CityHash/src</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
     </ClCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
