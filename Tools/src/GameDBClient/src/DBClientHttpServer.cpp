@@ -65,17 +65,23 @@ namespace Client
 
 			response.Reserve(result.length() + 512);
 			response.WriteResponseHeader(200,"OK");
-			response.WriteHeader(Net::HttpConsts::HEADER_CONNECTION,"Keep-Alive");
+			response.WriteHeader(Net::HttpConsts::HEADER_CONNECTION,"close");
 			response.WriteHeader(Net::HttpConsts::HEADER_CONTENT_TYPE,"text/html;charset=utf-8");
 			response.WriteHeader(Net::HttpConsts::HEADER_CONTENT_LENGTH,result.length());
 			response.WriteContent(result.c_str(), result.length());
 		}
 		else if(strURL == "pwd")
 		{
-			std::string strLic = "";
-			if (!m_objAuths.HasRight(request.m_phAuthorization , strLic))
+			std::string strLic = "123";
+			std::string strAuth;
+			if (request.m_phAuthorization)
+			{
+				strAuth = request.m_phAuthorization;
+			}
+			if (!m_objAuths.HasRight(strAuth, strLic))
 			{
 				response.WriteResponseHeader(401, "Authorization failed");
+				response.WriteHeader(Net::HttpConsts::HEADER_CONNECTION, "keep-alive");
 				response.WriteHeader(Net::HttpConsts::HEADER_WWW_AUTHORIZATION, "Basic realm=\"woopengcheng.com.cn\"");
 				response.WriteContent("Unauthorized.", sizeof("Unauthorized."));
 			}
@@ -85,7 +91,7 @@ namespace Client
 
 				response.Reserve(result.length() + 512);
 				response.WriteResponseHeader(200, "OK");
-				response.WriteHeader(Net::HttpConsts::HEADER_CONNECTION, "Keep-Alive");
+				response.WriteHeader(Net::HttpConsts::HEADER_CONNECTION, "close");
 				response.WriteHeader(Net::HttpConsts::HEADER_CONTENT_TYPE, "text/html;charset=utf-8");
 				response.WriteHeader(Net::HttpConsts::HEADER_CONTENT_LENGTH, result.length());
 				response.WriteContent(result.c_str(), result.length());

@@ -594,6 +594,12 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\HttpProtocol.h">
       <Filter>NetLib\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\CUtil\inc\Iconv.h">
+      <Filter>CUtil\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\CUtil\inc\ThreadSpecific.h">
+      <Filter>CUtil\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -876,6 +882,9 @@
       <Filter>NetLib\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\CUtil\src\aa.cpp">
+      <Filter>CUtil\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\CUtil\src\Iconv.cpp">
       <Filter>CUtil\src</Filter>
     </ClCompile>
   </ItemGroup>

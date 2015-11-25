@@ -256,6 +256,7 @@
     <ClInclude Include="..\..\LibCore\CUtil\inc\CErrno.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\GenMsgHelper.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\Heap.h" />
+    <ClInclude Include="..\..\LibCore\CUtil\inc\Iconv.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\intrusive_ptr.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\LinkedPtr.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\MinHeap.h" />
@@ -271,6 +272,7 @@
     <ClInclude Include="..\..\LibCore\CUtil\inc\RemoteNodeDefine.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\SafeVariable.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\StringEx.h" />
+    <ClInclude Include="..\..\LibCore\CUtil\inc\ThreadSpecific.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\UnitTest.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\BackupEnvironment.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\Comparator.h" />
@@ -412,6 +414,7 @@
     <ClCompile Include="..\..\LibCore\CUtil\src\CRTTI.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\CUtil.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\GenMsgHelper.cpp" />
+    <ClCompile Include="..\..\LibCore\CUtil\src\Iconv.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\Parameter.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\Parameters.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\Random.cpp" />

@@ -56,6 +56,10 @@ namespace Net
 	public:
 		std::string GetInputUrl();
 		std::string GetInputParam();
+		std::string GetStatueCode();
+		std::string GetMethod();
+		std::string GetStatusText();
+		std::string GetVersion();
 	public:
 		void WriteBuffer(const char* buf);
 		void WriteBuffer(const char* buf,INT32 len);
@@ -91,26 +95,54 @@ namespace Net
 	public:
 		char* m_phStatusCode;
 		char* m_phStatusText;
-
 		char* m_phMethod;
 		char* m_phUrl;
 		char* m_phVersion;
 		char* m_phHost;
+		char* Host() const { return m_phHost; }
+		void Host(char* val) { m_phHost = val; }
 		char* m_phCookie;
+		char* Cookie() const { return m_phCookie; }
+		void Cookie(char* val) { m_phCookie = val; }
 		char* m_phConnection;
+		char* Connection() const { return m_phConnection; }
+		void Connection(char* val) { m_phConnection = val; }
 		char* m_phAccept;
+		char* Accept() const { return m_phAccept; }
+		void Accept(char* val) { m_phAccept = val; }
 		char* m_phAcceptEncoding;
+		char* AcceptEncoding() const { return m_phAcceptEncoding; }
+		void AcceptEncoding(char* val) { m_phAcceptEncoding = val; }
 		char* m_phAcceptLanguage;
+		char* AcceptLanguage() const { return m_phAcceptLanguage; }
+		void AcceptLanguage(char* val) { m_phAcceptLanguage = val; }
 		char* m_phAcceptCharset;
+		char* AcceptCharset() const { return m_phAcceptCharset; }
+		void AcceptCharset(char* val) { m_phAcceptCharset = val; }
 		char* m_phContentType;
+		char* ContentType() const { return m_phContentType; }
+		void ContentType(char* val) { m_phContentType = val; }
 		char* m_phContentLength;
+		char* ContentLength() const { return m_phContentLength; }
+		void ContentLength(char* val) { m_phContentLength = val; }
 		char* m_phContentEndcoding;
+		char* ContentEndcoding() const { return m_phContentEndcoding; }
+		void ContentEndcoding(char* val) { m_phContentEndcoding = val; }
 		char* m_phAuthorization;
-
+		char* Authorization() const { return m_phAuthorization; }
+		void Authorization(char* val) { m_phAuthorization = val; }
 		char* m_phSetCookie;
+		char* SetCookie() const { return m_phSetCookie; }
+		void SetCookie(char* val) { m_phSetCookie = val; }
 		char* m_phReferer;
+		char* Referer() const { return m_phReferer; }
+		void Referer(char* val) { m_phReferer = val; }
 		char* m_phLocation;
+		char* Location() const { return m_phLocation; }
+		void Location(char* val) { m_phLocation = val; }
 		char* m_phWWWAuthorization;
+		char* WWWAuthorization() const { return m_phWWWAuthorization; }
+		void WWWAuthorization(char* val) { m_phWWWAuthorization = val; }
 	};
 
 	class HttpProtocolEx : public HttpProtocol

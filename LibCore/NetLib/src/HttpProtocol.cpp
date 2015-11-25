@@ -39,7 +39,7 @@ namespace Net
 		const char* VALUE_CONNECTION_KEEP_ALIVE = "Keep-Alive";
 
 		const char* HEADER_LOCATION = "Location";
-		const char* HEADER_WWW_AUTHORIZATION = "WWW-authorization";
+		const char* HEADER_WWW_AUTHORIZATION = "WWW-authenticate";
 	}
 
 	HttpProtocol::HttpProtocol()
