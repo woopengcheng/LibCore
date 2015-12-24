@@ -9,8 +9,8 @@ namespace CUtil
 	public:
 		IConvEncoding()
 		{
-			m_hIconvGBKToUTF8 = iconv_open("UTF-8", "GBK");
-			m_hIconvUTF8ToGBK = iconv_open("GBK", "UTF-8");
+			m_hIconvGBKToUTF8 = iconv_open("UTF-8", "GB2312");
+			m_hIconvUTF8ToGBK = iconv_open("GB2312", "UTF-8");
 		}
 		~IConvEncoding()
 		{
@@ -21,7 +21,7 @@ namespace CUtil
 	public:
 		std::string UTF8ToGBK(const std::string & strInput)
 		{
-			return Convert(m_hIconvGBKToUTF8, strInput);
+			return Convert(m_hIconvUTF8ToGBK, strInput);
 		}
 		std::string GBKToUTF8(const std::string & strInput)
 		{
@@ -39,9 +39,10 @@ namespace CUtil
 			size_t ilen = strInput.length();
 			const char* ibuf = strInput.c_str();
 
-			size_t olen = (ilen + 1) * 4;
+			size_t olen = (ilen+1) * 4;
 			size_t nlen = olen;
 			char* obuf = (char*)alloca(olen);//&buf[0];
+			memset(obuf, 0, olen);
 			char* obuf2 = obuf;
 
 #ifdef _MSC_VER
@@ -82,12 +83,12 @@ namespace CUtil
 
 	std::string GBKToUTF8(const std::string * strInput)
 	{
-		return GetCurrentEncoding()->UTF8ToGBK(*strInput);
+		return GetCurrentEncoding()->GBKToUTF8(*strInput);
 	}
 
 	std::string GBKToUTF8(const std::string & strInput)
 	{
-		return GetCurrentEncoding()->UTF8ToGBK(strInput);
+		return GetCurrentEncoding()->GBKToUTF8(strInput);
 	}
 	
 }

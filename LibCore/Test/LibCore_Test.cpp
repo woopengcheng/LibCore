@@ -1,4 +1,5 @@
-#include "CUtil/inc/CUtil.h"
+﻿#include "CUtil/inc/CUtil.h"
+#include "CUtil/inc/Iconv.h"
 #include "UnitTest++/UnitTestPP.h"
 
 TEST(strcmp)
@@ -237,4 +238,13 @@ TEST(Compress)
 	std::string strUncompressed2;
 	CUtil::Uncompress(strUncompressed.c_str() , (UINT32)(strUncompressed.length() + 1) , strUncompressed2);
 	CHECK_EQUAL(strUncompressed2 , std::string(p1 , strlen(p1) + 1)); 
+}
+
+TEST(IConv)
+{
+	std::string strUTF8 = "UTF8-编码";
+	std::string strGBK = CUtil::UTF8ToGBK(strUTF8);
+	std::string strNewUTF8 = CUtil::GBKToUTF8(strGBK);
+
+	CHECK_EQUAL(strNewUTF8 , strUTF8);
 }
