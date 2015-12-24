@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="rpcalls.xsl"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="GameDB.xsl"?>
 <!--
 	使用方法:RPCMsgs包含了所有的RPC的消息.
 		DefaultParams和LongDefaultParams:
