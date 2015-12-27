@@ -26,6 +26,7 @@ namespace Net
 
 		if (Listen(nListenerCount) == 0)
 		{
+			m_pSession->SetClosed(FALSE);
 			return CErrno::Success();
 		}
 		return CErrno::Failure();

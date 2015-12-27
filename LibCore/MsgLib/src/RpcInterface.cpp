@@ -41,7 +41,7 @@ namespace Msg
 #ifdef USE_ZMQ
 			m_pNetReactor = new Net::NetReacgtorZMQ; 
 #else
-			m_pNetReactor = new Net::NetReactorSelect; 
+			m_pNetReactor = new Net::NetReactorDefault;
 #endif
 			if(CErrno::Success() != m_pNetReactor->Init())
 			{
@@ -76,7 +76,7 @@ namespace Msg
 #ifdef USE_ZMQ
 			m_pNetReactor = new Net::NetReacgtorZMQ; 
 #else
-			m_pNetReactor = new Net::NetReactorSelect; 
+			m_pNetReactor = new Net::NetReactorDefault;
 #endif
 			if(CErrno::Success() != m_pNetReactor->Init())
 			{
@@ -191,12 +191,11 @@ namespace Msg
 #ifdef USE_ZMQ
 		m_pRpcServerManager->CreateNetHandler(m_szServerName , strAddress.c_str() , m_usServerPort , 0);
 #else
-		Net::ISession * pSeesion = new Net::ISession(strAddress.c_str() , m_usServerPort , str.c_str());
+		Net::ISession * pSeesion = new Net::ServerSession(strAddress.c_str() , m_usServerPort , str.c_str());
 		NetHandlerRpcListenerPtr pNetHandlerListener(new NetHandlerRpcListener(m_pRpcServerManager , m_pNetReactor , pSeesion));
 		if(CErrno::Failure() == pNetHandlerListener->Init(strAddress.c_str() , m_usServerPort))
 			gErrorStream("listen failure:" << str);
 
-		pSeesion->SetClosed(FALSE);
 		pSeesion->SetNetState(Net::NET_STATE_CONNECTED);
 		m_pNetReactor->AddNetHandler(pNetHandlerListener);
 #endif 

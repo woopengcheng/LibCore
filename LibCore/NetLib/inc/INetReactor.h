@@ -41,7 +41,6 @@ namespace Net
 		virtual CErrno   AddNetHandler(INetHandlerPtr  pNetHandler , ENetHandlerFuncMask objMask = NET_FUNC_DEFAULT) = 0;
 		virtual CErrno   DelNetHandler(INetHandlerPtr  pNetHandler , BOOL bEraseHandler = TRUE) = 0;
 		virtual CErrno   ModNetHandler(INetHandlerPtr  pNetHandler , ENetHandlerFuncMask objMask) = 0;
-		virtual INetHandlerPtr  GetNetHandler(UINT32  unNetHandlerIndex) = 0;
 	}; 
 	 
 }

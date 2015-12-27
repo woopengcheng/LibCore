@@ -21,7 +21,6 @@ namespace GameDB
 			pServerSession->SetNetState(Net::NET_STATE_CONNECTING);
 #endif
 			DBServerNetHandlerPtr pRpcServer(new DBServerNetHandler(this , m_pNetReactor , pServerSession)); 
-			pServerSession->SetClosed(FALSE);
 
 			gDebugStream("accept: ID: " << pServerSession->GetSessionID());
 

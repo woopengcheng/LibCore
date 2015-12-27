@@ -1,12 +1,9 @@
 ﻿#ifndef __msg_rpc_manager_h__
 #define __msg_rpc_manager_h__ 
-#include "MsgLib/inc/MsgCommon.h"
 #include "ThreadPool/inc/ThreadTask.h"
+#include "NetLib/inc/NetLib.h"
 #include "MsgLib/inc/MsgDispatcher.h"
-#include "NetLib/inc/NetReactorSelect.h" 
-#include "NetLib/inc/NetHandlerTransit.h"
-#include "NetLib/inc/NetHelper.h" 
-#include "NetLib/inc/ISession.h"
+#include "MsgLib/inc/MsgCommon.h"
 #include "MsgLib/inc/Ping.h"
 
 namespace Msg

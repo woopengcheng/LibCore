@@ -1,5 +1,4 @@
-#include "NetLib/inc/NetReactorSelect.h"
-#include "NetLib/inc/ISession.h"
+#include "NetLib/inc/NetLib.h"
 #include "NetLib/inc/NetHandlerClient.h"
 #include "Timer/inc/TimerHelp.h"
 #include "NetLib/inc/MsgProcess.h"

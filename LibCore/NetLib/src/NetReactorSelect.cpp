@@ -142,7 +142,7 @@ namespace Net
 					if (bClosed)
 					{
 						//++ iterHandlers;
-						gDebugStream("delete " << pNetHandler->GetSession()->GetRemoteName());
+						gDebugStream("delete " << pNetHandler->GetSession()->GetRemoteName() << ":addr=" << pNetHandler->GetSession()->GetAddress() << ":port=" <<pNetHandler->GetSession()->GetPort());
 						DelNetHandler(pNetHandler , FALSE); 
 						m_mapNetHandlers.erase(iterHandlers++); 
 					}  
@@ -213,17 +213,6 @@ namespace Net
 			return  CErrno::Failure();
 
 		return CErrno::Success();
-	}
-
-	Net::INetHandlerPtr NetReactorSelect::GetNetHandler( UINT32 unNetHandlerIndex )
-	{ 
-
-		MapNetHandlersT::iterator iterHandlers = m_mapNetHandlers.find(unNetHandlerIndex);
-		if( iterHandlers != m_mapNetHandlers.end() )
-		{
-			return iterHandlers->second;
-		}
-		return Net::INetHandlerPtr(NULL);
 	}
 
 

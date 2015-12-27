@@ -24,7 +24,6 @@ namespace Net
 		virtual CErrno   AddNetHandler(INetHandlerPtr  pNetHandler , ENetHandlerFuncMask objMask = NET_FUNC_DEFAULT);
 		virtual CErrno   DelNetHandler(INetHandlerPtr  pNetHandler , BOOL bEraseHandler = TRUE);
 		virtual CErrno   ModNetHandler(INetHandlerPtr  pNetHandler , ENetHandlerFuncMask objMask);
-		virtual INetHandlerPtr  GetNetHandler(UINT32  unNetHandlerIndex);
 
 	private: //5 reactor一般都是单线程.所以不必考虑线程安全.如果多线程的话一定不安全.
 		UINT32          m_nNetHandlerCount;
@@ -39,6 +38,7 @@ namespace Net
 
 	}; 
 
+//	typedef Net::NetReactorSelect NetReactorDefault;
 }
 
 #endif

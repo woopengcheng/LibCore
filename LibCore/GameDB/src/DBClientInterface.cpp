@@ -1,7 +1,7 @@
 #include "GameDB/inc/DBClientInterface.h"  
 #include "LogLib/inc/Log.h"
 #include "json/json.h"
-#include "NetLib/inc/NetReactorSelect.h"
+#include "NetLib/inc/NetLib.h"
 #include "GameDB/inc/DBClientManager.h"
 #include "GameDB/inc/DBServerManager.h"
 
@@ -23,7 +23,7 @@ namespace GameDB
 #ifdef USE_ZMQ
 			m_pNetReactor = new Net::NetReactorZMQ; 
 #else
-			m_pNetReactor = new Net::NetReactorSelect; 
+			m_pNetReactor = new Net::NetReactorDefault;
 #endif
 			if(CErrno::Success() != m_pNetReactor->Init())
 			{

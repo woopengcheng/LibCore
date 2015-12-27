@@ -4,11 +4,11 @@ INT32 Server::Init()
 {
 	if (!m_pNetReactor)
 	{
-		m_pNetReactor = new Net::NetReactorSelect;
+		m_pNetReactor = new Net::NetReactorDefault;
 	}
 	m_pNetReactor->Init();
 
-	Net::NetHandlerListenerPtr pNetHandlerListener(new Net::NetHandlerListener(m_pNetReactor , new Net::ISession("127.0.0.1" , 5555 , "")));
+	Net::NetHandlerListenerPtr pNetHandlerListener(new Net::NetHandlerListener(m_pNetReactor , new Net::ServerSession("127.0.0.1" , 5555 , "")));
 	pNetHandlerListener->Init("127.0.0.1" , 5555);
 	m_pNetReactor->AddNetHandler(pNetHandlerListener);
 

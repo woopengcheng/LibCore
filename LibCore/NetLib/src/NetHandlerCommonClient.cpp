@@ -21,7 +21,8 @@ namespace Net
 		  
 		 if (m_pSession->IsClosed() && !Connect(ip , port))
 		 {
-			 gDebugStream("Connect Init " << m_pSession->GetRemoteName());
+			 gDebugStream("Connect Init success" << m_pSession->GetRemoteName());
+			 m_pSession->SetClosed(FALSE);
 			 return NetHandlerTransit::Init();
 		 }
 		 return CErrno::Failure();  

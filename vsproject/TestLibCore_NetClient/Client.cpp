@@ -4,7 +4,7 @@ CErrno Client::Init()
 {
 	if (!m_pNetReactor)
 	{
-		m_pNetReactor = new Net::NetReactorSelect;
+		m_pNetReactor = new Net::NetReactorDefault;
 	}
 	m_pNetReactor->Init();
 
@@ -15,7 +15,7 @@ CErrno Client::Init()
 
 	if (!m_pNetHandlerClient)
 	{
-		m_pNetHandlerClient = Net::NetHandlerClientPtr(new Net::NetHandlerClient(m_pNetReactor , new Net::ISession("127.0.0.1" , 5555 , "") , m_pMsgProcess));
+		m_pNetHandlerClient = Net::NetHandlerClientPtr(new Net::NetHandlerClient(m_pNetReactor , new Net::ClientSession("127.0.0.1" , 5555 , "") , m_pMsgProcess));
 	}
 
 	m_pNetHandlerClient->Init("127.0.0.1" , 5555);

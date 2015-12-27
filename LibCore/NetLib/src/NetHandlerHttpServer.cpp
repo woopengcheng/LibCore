@@ -62,7 +62,6 @@ namespace Net
 			std::string strName = Net::NetHelper::GenerateRemoteName(NET_TYPE_TCP , szAddress , usPort);
 
 			ServerSession * pServerSession = new HttpSession(szAddress , usPort , strName.c_str() , 0 , -1 , socket);
-			pServerSession->SetClosed(FALSE);
 			NetHandlerHttpServerPtr pServer( new NetHandlerHttpServer(this , m_pNetReactor , pServerSession) ); 
 			m_pNetReactor->AddNetHandler(pServer); 
 		} 

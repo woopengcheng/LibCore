@@ -2,7 +2,7 @@
 #define __msg_rpc_client_manager_h__ 
 #include "MsgLib/inc/MsgCommon.h"
 #include "ThreadPool/inc/ThreadTask.h" 
-#include "NetLib/inc/NetReactorSelect.h"
+#include "NetLib/inc/NetLib.h"
 #include "MsgLib/inc/InnerMsg.h"
 #include "MsgLib/inc/RemoteRpcServer.h"
 #include "MsgLib/inc/RemoteRpcClient.h"
