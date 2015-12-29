@@ -214,39 +214,65 @@ namespace Net
 
 	INT32 NetHandlerTransit::Send( const char * pBuf , UINT32 unSize)
 	{ 
-		if(m_pSession && !m_pSession->IsCanWrite())
+		if (m_pSession)
+		{
+			switch (m_pSession->GetReactorType())
+			{
+				case REACTOR_TYPE_IOCP:
+				{
+					return SendIOCP(pBuf, unSize);
+				}break;
+				default:
+				{
+					return SendCommon(pBuf, unSize);
+				}break;
+			}
+		}
+		return -1;
+	}
+
+	INT32 NetHandlerTransit::SendIOCP(const char * pBuf, UINT32 unSize)
+	{
+		return NetHelper::WSASend(INetHandlerPtr(this), pBuf , unSize);
+	}
+
+	INT32 NetHandlerTransit::SendCommon(const char * pBuf, UINT32 unSize)
+	{
+		if (m_pSession && !m_pSession->IsCanWrite())
 		{
 			return -1;
-		} 
+		}
 
 		UINT32 unTotalSendBytes = 0;
-		while((unSize > unTotalSendBytes))
+		while ((unSize > unTotalSendBytes))
 		{
 #ifdef WIN32
-			int nSendBytes = ::send(m_pSession->GetSocket(),&pBuf[unTotalSendBytes] , unSize - unTotalSendBytes , 0);
+			int nSendBytes = ::send(m_pSession->GetSocket(), &pBuf[unTotalSendBytes], unSize - unTotalSendBytes, 0);
 #else
-			int nSendBytes = ::send(m_pSession->GetSocket(),&pBuf[unTotalSendBytes] , unSize - unTotalSendBytes,MSG_DONTWAIT);
+			int nSendBytes = ::send(m_pSession->GetSocket(), &pBuf[unTotalSendBytes], unSize - unTotalSendBytes, MSG_DONTWAIT);
 #endif
-			if(nSendBytes > 0)
+			if (nSendBytes > 0)
 			{
 				unTotalSendBytes += nSendBytes;
-			} 
-			else if(nSendBytes < 0 && NetHelper::IsSocketEagain())
+			}
+			else if (nSendBytes < 0 && NetHelper::IsSocketEagain())
 			{
 				m_pSession->SetCanWrite(FALSE);
 				break;
-			} 
+			}
 			else
 			{
-				gErrorStream("send error , close it."); 
+				gErrorStream("send error , close it.addr:" << m_pSession->GetAddress() << "=port:" << m_pSession->GetPort());
 				m_pSession->SetClosed(TRUE);
+				break;
 			}
 			Timer::TimerHelper::sleep(1);
 		}
+
 		return unTotalSendBytes;
 	}
 
-	CErrno NetHandlerTransit::HandleMsg( ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength )
+	CErrno NetHandlerTransit::HandleMsg(ISession * pSession, UINT32 unMsgID, const char* pBuffer, UINT32 unLength)
 	{
 		return CErrno::Success();
 	}

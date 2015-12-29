@@ -10,7 +10,7 @@ INT32 Server::Init()
 
 	Net::NetHandlerListenerPtr pNetHandlerListener(new Net::NetHandlerListener(m_pNetReactor , new Net::ServerSession("127.0.0.1" , 5555 , "")));
 	pNetHandlerListener->Init("127.0.0.1" , 5555);
-	m_pNetReactor->AddNetHandler(pNetHandlerListener);
+	m_pNetReactor->AddNetHandler(pNetHandlerListener , Net::NET_FUNC_ACCEPT_DEFAULT);
 
 	return TRUE;
 }

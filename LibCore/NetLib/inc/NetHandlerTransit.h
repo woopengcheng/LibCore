@@ -27,7 +27,9 @@ namespace Net
 		virtual CErrno  HandleMsg(ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
 
 	protected:
-		INT32			Send( const char * pBuf , UINT32 unSize);
+		INT32			Send(const char * pBuf, UINT32 unSize);
+		INT32			SendCommon(const char * pBuf, UINT32 unSize);
+		INT32			SendIOCP(const char * pBuf, UINT32 unSize);
 		CErrno			ParaseRecvMsg();     
 		INT32			FlushSendBuffer( void );
 		CErrno			RecvToCircleBuffer(const char * pBuf , UINT32 unSize);   //5 将消息扔给CircleBuffer 

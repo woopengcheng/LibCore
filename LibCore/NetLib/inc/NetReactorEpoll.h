@@ -1,7 +1,7 @@
 #ifndef __net_i_net_reactor_epoll_h__
 #define __net_i_net_reactor_epoll_h__ 
 
-#ifdef __LINUX__
+#ifdef _LINUX
 
 #include "NetLib/inc/INetHandler.h"
 #include "NetLib/inc/INetReactor.h"

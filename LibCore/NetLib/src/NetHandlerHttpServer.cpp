@@ -41,7 +41,7 @@ namespace Net
 			if (err.IsSuccess())
 			{
 				m_pListener->GetSession()->SetClosed(FALSE);
-				m_pNetReactor->AddNetHandler(m_pListener , NET_FUNC_ACCEPT);
+				m_pNetReactor->AddNetHandler(m_pListener , NET_FUNC_ACCEPT_DEFAULT);
 			}
 		}
 		return err;

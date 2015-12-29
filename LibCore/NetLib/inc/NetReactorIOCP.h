@@ -2,16 +2,18 @@
 #define __net_i_net_reactor_iocp_h__ 
 
 #ifdef _MSC_VER
-
 #include "NetLib/inc/INetHandler.h"
 #include "NetLib/inc/INetReactor.h"
 
 namespace Net 
-{   
+{
 	class DLL_EXPORT NetReactorIOCP :public INetReactor
 	{
 	public:
-		NetReactorIOCP(UINT32 unMaxConnectionCount);
+		typedef std_unordered_map<UINT32, INetHandlerPtr> MapNetHandlersT;
+
+	public:
+		NetReactorIOCP();
 		virtual ~NetReactorIOCP(void);
 
 	public:
@@ -25,8 +27,11 @@ namespace Net
 		virtual CErrno		ModNetHandler(INetHandlerPtr  pNetHandler  , ENetHandlerFuncMask objMask);
 
 	protected:
-		UINT32				m_unMaxConnectionCount;
-	}; 
+		HANDLE				m_hIocp;
+		MapNetHandlersT		m_mapNetHandlers;
+	};
+
+	typedef Net::NetReactorIOCP NetReactorDefault;
 
 }
 #endif

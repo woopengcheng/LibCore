@@ -1,9 +1,11 @@
 #include "NetLib/inc/NetHelper.h"
 #include "NetLib/inc/ISession.h"
+#include "NetLib/inc/INetHandler.h"
+#include "NetLib/inc/NetReactorIOCP.h"
 #include "CUtil/inc/CUtil.h"
 
-#ifdef WIN32
-#include <Windows.h>  
+#ifdef _WIN32
+#include <windows.h>  
 #endif 
 
 namespace Net
@@ -197,6 +199,5 @@ namespace Net
 	{
 		return ::socket(af , type , protocol);
 	}
-
 #endif
 }

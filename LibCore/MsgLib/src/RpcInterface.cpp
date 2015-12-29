@@ -197,7 +197,7 @@ namespace Msg
 			gErrorStream("listen failure:" << str);
 
 		pSeesion->SetNetState(Net::NET_STATE_CONNECTED);
-		m_pNetReactor->AddNetHandler(pNetHandlerListener);
+		m_pNetReactor->AddNetHandler(pNetHandlerListener , Net::NET_FUNC_ACCEPT_DEFAULT);
 #endif 
 
 		NetNode::GetInstance().InsertMyselfNodes(m_szNetNodeName , this);

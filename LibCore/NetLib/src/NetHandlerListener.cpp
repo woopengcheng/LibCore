@@ -37,8 +37,26 @@ namespace Net
 		SAFE_DELETE(m_pSession);
 		return CErrno::Success();
 	}
+	CErrno NetHandlerListener::OnMsgRecving(void)
+	{
+		if (m_pSession)
+		{
+			switch (m_pSession->GetReactorType())
+			{
+			case REACTOR_TYPE_IOCP:
+			{
+				return OnMsgRecvingIOCP();
+			}break;
+			default:
+			{
+				return OnMsgRecvingCommon();
+			}break;
+			}
+		}
+		return CErrno::Failure();
+	}
 
-	CErrno NetHandlerListener::OnMsgRecving( void )
+	CErrno NetHandlerListener::OnMsgRecvingCommon( void )
 	{
 		sockaddr_in addr = {0};
 #ifdef __linux

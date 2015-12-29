@@ -12,6 +12,16 @@ namespace Net
 		NET_STATE_CONNECTED ,     
 	};
 
+	enum EReactorType
+	{
+		REACTOR_TYPE_VAILID,
+		REACTOR_TYPE_SELECT,
+		REACTOR_TYPE_EPOLL,
+		REACTOR_TYPE_WES,
+		REACTOR_TYPE_IOCP,
+		REACTOR_TYPE_ZMQ,
+	};
+
 	class DLL_EXPORT ISession
 	{
 	public:
@@ -19,14 +29,18 @@ namespace Net
 		virtual ~ISession( void )
 		{
 			Cleanup();
+			if (m_pContext)
+			{
+				SAFE_DELETE(m_pContext);
+			}
 		}
 
 	public:
-		virtual    CErrno   Init( const char * pAddress ,INT16 usSocktPort , const char * pRemoteName , INT32 nSessionID , NetSocket socket , INT64 llTimeout = 0);
-		virtual    CErrno   Cleanup( void ); 
-		virtual    CErrno   OnRecvMsg( void );
-		virtual    CErrno   OnSendMsg( void );
-		virtual    CErrno   OnClose( void ); 
+		virtual	CErrno		Init( const char * pAddress ,INT16 usSocktPort , const char * pRemoteName , INT32 nSessionID , NetSocket socket , INT64 llTimeout = 0);
+		virtual	CErrno		Cleanup( void ); 
+		virtual	CErrno		OnRecvMsg( void );
+		virtual	CErrno		OnSendMsg( void );
+		virtual	CErrno		OnClose( void ); 
 		 
 	public:
 		INT32 GetSessionID() const { return m_nSessionID; }
@@ -49,6 +63,10 @@ namespace Net
 		void SetCanWrite(BOOL val) { m_bCanWrite = val; }
 		ISession * GetOtherSession() const { return m_pOtherSession; }
 		void SetOtherSession(ISession * val) { m_pOtherSession = val; }
+		void SetContext(void * val) { m_pContext = val; }
+		void * GetContext(void) { return m_pContext; }
+		Net::EReactorType GetReactorType() const { return m_objReactorType; }
+		void SetReactorType(Net::EReactorType val) { m_objReactorType = val; }
 		BOOL IsTimeout(void)
 		{ 
 			if (m_objTimeout.IsStarted())
@@ -62,18 +80,19 @@ namespace Net
 		} 
 
 	protected:
-		NetSocket            m_socket;  
-		INT32             m_nNetState;
-		BOOL              m_bClosed;
-		INT32			  m_nSessionID;
-		UINT16            m_usSocktPort;
-		char		      m_szAddress[MAX_NAME_LENGTH];
-		char              m_szRemoteName[MAX_NAME_LENGTH]; 
-		ISession      *   m_pOtherSession;
-
+		NetSocket			m_socket;  
+		INT32				m_nNetState;
+		BOOL				m_bClosed;
+		INT32				m_nSessionID;
+		UINT16				m_usSocktPort;
+		char				m_szAddress[MAX_NAME_LENGTH];
+		char				m_szRemoteName[MAX_NAME_LENGTH]; 
+		ISession	*		m_pOtherSession;
+		void		*		m_pContext;
+		EReactorType		m_objReactorType;
 	private:
-		BOOL              m_bCanWrite;
-		Timer::TimeCount  m_objTimeout; 
+		BOOL				m_bCanWrite;
+		Timer::TimeCount	m_objTimeout; 
 	}; 
 
 }

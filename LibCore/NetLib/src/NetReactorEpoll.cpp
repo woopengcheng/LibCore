@@ -1,4 +1,4 @@
-#ifdef __LINUX__
+#ifdef _LINUX
 #include "NetLib/inc/NetReactorEpoll.h"
 #include "Timer/inc/TimerHelp.h"
 #include "LogLib/inc/Log.h"

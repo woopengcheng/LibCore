@@ -7,7 +7,7 @@ namespace Net
 {  
 	class ISession;
 	class INetReactor;
-
+	
 	class DLL_EXPORT INetHandler
 	{
 	public:

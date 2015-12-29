@@ -23,6 +23,8 @@ namespace Net
 		virtual void    OnAccept(NetSocket socket , sockaddr_in * addr);
 
 	protected:
+		CErrno  OnMsgRecvingCommon(void);
+		CErrno  OnMsgRecvingIOCP(void);
 		INT32   Listen(INT32  nListenerCount = DEFAULT_LISTENER_COUNT);
 		INT32   Bind(const char * pAddress , INT32 nPort , BOOL bResueAddr = TRUE);
 	}; 
