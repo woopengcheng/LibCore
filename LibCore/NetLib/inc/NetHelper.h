@@ -29,9 +29,9 @@ namespace Net
 		static BOOL   GetIPByHost( char* ip , const char* host = NULL);
 		static BOOL   GetAddressAndPortByAddrIn(sockaddr_in * pAddrIn , char * pAddress , UINT16 & usPort);
 #ifdef _WIN32
-		static INT32 WSARecv(INetHandlerPtr pNetHandler);
-		static INT32 WSAAccept(INetHandlerPtr pNetHandler);
-		static INT32 WSASend(INetHandlerPtr pNetHandler ,const char* buf, INT32 len);
+		static INT32 WSARecv(INetHandler * pNetHandler);
+		static INT32 WSAAccept(INetHandler * pNetHandler);
+		static INT32 WSASend(INetHandler * pNetHandler ,const char* buf, INT32 len);
 #endif
 	};
 }

@@ -95,7 +95,7 @@ namespace Net
 	}
 
 
-	INT32 NetHelper::WSARecv(INetHandlerPtr pNetHandler)
+	INT32 NetHelper::WSARecv(INetHandler * pNetHandler)
 	{
 		if (pNetHandler && pNetHandler->GetSession())
 		{
@@ -119,7 +119,7 @@ namespace Net
 				case WSAECONNRESET:
 				case WSAEDISCON:
 				{
-					pNetHandler->GetNetReactor()->DelNetHandler(pNetHandler);
+					pNetHandler->GetNetReactor()->DelNetHandler(INetHandlerPtr(pNetHandler));
 					pNetHandler->OnClose();
 
 					return -10;
@@ -139,7 +139,7 @@ namespace Net
 	}
 
 	static LPFN_ACCEPTEX gpfnAcceptEx = NULL;
-	int NetHelper::WSAAccept(INetHandlerPtr pNetHandler)
+	int NetHelper::WSAAccept(INetHandler * pNetHandler)
 	{
 		SOCKET sock = pNetHandler->GetSession()->GetSocket();
 		IocpContext* ctx = (IocpContext*)pNetHandler->GetSession()->GetContext();
@@ -166,7 +166,7 @@ namespace Net
 			case WSAECONNRESET:
 			case WSAEDISCON:
 			{
-				pNetHandler->GetNetReactor()->DelNetHandler(pNetHandler);
+				pNetHandler->GetNetReactor()->DelNetHandler(INetHandlerPtr(pNetHandler));
 				pNetHandler->OnClose();
 				return -10;
 			}
@@ -184,7 +184,7 @@ namespace Net
 		return 0;
 	}
 
-	INT32 NetHelper::WSASend(INetHandlerPtr pNetHandler, const char* buf, INT32 len)
+	INT32 NetHelper::WSASend(INetHandler * pNetHandler, const char* buf, INT32 len)
 	{
 		SOCKET sock = pNetHandler->GetSession()->GetSocket();
 		IocpContext* ctx = (IocpContext*)pNetHandler->GetSession()->GetContext();
@@ -207,7 +207,7 @@ namespace Net
 			case WSAECONNRESET:
 			case WSAEDISCON:
 			{
-				pNetHandler->GetNetReactor()->DelNetHandler(pNetHandler);
+				pNetHandler->GetNetReactor()->DelNetHandler(INetHandlerPtr(pNetHandler));
 				pNetHandler->OnClose();
 				return -10;
 			}
@@ -220,9 +220,9 @@ namespace Net
 			break;
 			}
 		}
-		ctx->sendNum++;
+// 		ctx->sendNum++;
 
-		return 0;
+		return bytes;
 	}
 
 	CErrno NetHandlerListener::OnMsgRecvingIOCP(void)
@@ -289,14 +289,14 @@ namespace Net
 			INT32  nFDMask = 0;
 			if (objMask & NET_FUNC_READ)
 			{
-				NetHelper::WSARecv(pNetHandler);
+				NetHelper::WSARecv(pNetHandler.get());
 			}
 			if (objMask & NET_FUNC_ACCEPT)
 			{
 				INT32 nValue = 1;
 				MsgAssert_ReF(setsockopt(pNetHandler->GetSession()->GetSocket(), SOL_SOCKET, SO_UPDATE_ACCEPT_CONTEXT, (char*)&nValue, sizeof(nValue)) , "create iocp accept error.");
 
-				NetHelper::WSAAccept(pNetHandler);
+				NetHelper::WSAAccept(pNetHandler.get());
 			}
 
 			pNetHandler->GetSession()->SetReactorType(REACTOR_TYPE_IOCP);
@@ -353,13 +353,13 @@ namespace Net
 					{
 						bClosed = !pNetHandler->OnMsgRecving().IsSuccess() || bClosed;
 						if (!bClosed)
-							NetHelper::WSARecv(INetHandlerPtr(pNetHandler));
+							NetHelper::WSARecv(pNetHandler);
 					}
 				}
 				break;
 				case IocpContext::ASYNC_OPER_SEND:
 				{
-					--ctx->sendNum;
+// 					--ctx->sendNum;
 					if (!bClosed)
 					{
 						bClosed = !pNetHandler->OnMsgSending().IsSuccess() || bClosed;
@@ -373,7 +373,7 @@ namespace Net
 					{
 						bClosed = !pNetHandler->OnMsgRecving().IsSuccess() || bClosed;
 						if (!bClosed)
-							NetHelper::WSAAccept(INetHandlerPtr(pNetHandler));
+							NetHelper::WSAAccept(pNetHandler);
 					}
 				}
 				break;

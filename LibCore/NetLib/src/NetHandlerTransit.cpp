@@ -137,11 +137,13 @@ namespace Net
 			char   szBuf[DEFAULT_CIRCLE_BUFFER_SIZE];
 			INT32  nLength = m_objSendBuf.TryGetBuffer(szBuf,sizeof(szBuf));
 
-#ifndef WIN32
-			INT32 nSendLength = ::send(m_pSession->GetSocket(),szBuf,nLength,MSG_DONTWAIT);
-#else
-			INT32 nSendLength = ::send(m_pSession->GetSocket(),szBuf,nLength,0);
-#endif 
+			INT32 nSendLength = Send(szBuf, nLength);
+
+// #ifndef WIN32
+// 			INT32 nSendLength = ::send(m_pSession->GetSocket(),szBuf,nLength,MSG_DONTWAIT);
+// #else
+// 			INT32 nSendLength = ::send(m_pSession->GetSocket(),szBuf,nLength,0);
+// #endif 
 			if( nSendLength > 0 )
 			{ 
 				nSendBytes += nSendLength;
@@ -233,7 +235,7 @@ namespace Net
 
 	INT32 NetHandlerTransit::SendIOCP(const char * pBuf, UINT32 unSize)
 	{
-		return NetHelper::WSASend(INetHandlerPtr(this), pBuf , unSize);
+		return NetHelper::WSASend(this, pBuf , unSize);
 	}
 
 	INT32 NetHandlerTransit::SendCommon(const char * pBuf, UINT32 unSize)
