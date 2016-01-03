@@ -31,7 +31,7 @@ namespace Net
 		MapNetHandlersT		m_mapNetHandlers;
 	};
 
-	typedef Net::NetReactorIOCP NetReactorDefault;
+//	typedef Net::NetReactorIOCP NetReactorDefault;
 
 }
 #endif

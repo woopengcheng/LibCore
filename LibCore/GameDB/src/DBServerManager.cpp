@@ -13,13 +13,9 @@ namespace GameDB
 		Net::NetHandlerTransitPtr pNetHandler = GetNetHandlerByName(strRemoteName.c_str());
 		if (!pNetHandler)
 		{
-#ifdef USE_ZMQ
-			Net::ServerSession * pServerSession =  new Net::ServerSession(pAddress , usPort , pName , -1 , 0 , socket);
-			pServerSession->SetNetState(Net::NET_STATE_CONNECTED); 
-#else
 			Net::ServerSession * pServerSession =  new Net::ServerSession(pAddress , 0 , pName , -1 , 0 , socket);
 			pServerSession->SetNetState(Net::NET_STATE_CONNECTING);
-#endif
+
 			DBServerNetHandlerPtr pRpcServer(new DBServerNetHandler(this , m_pNetReactor , pServerSession)); 
 
 			gDebugStream("accept: ID: " << pServerSession->GetSessionID());

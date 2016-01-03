@@ -15,6 +15,20 @@ INT32 Server::Init()
 	return TRUE;
 }
 
+INT32 Server::InitUDP()
+{
+	if (!m_pNetReactor)
+	{
+		m_pNetReactor = new Net::NetReactorUDP;
+	}
+	m_pNetReactor->Init();
+
+	Net::NetHandlerServerPtr pNetHandlerListener(new Net::NetHandlerServer(m_pNetReactor , new Net::ServerSession("127.0.0.1" , 5555 , "")));
+	m_pNetReactor->AddNetHandler(pNetHandlerListener , Net::NET_FUNC_ACCEPT_DEFAULT);
+
+	return TRUE;
+}
+
 INT32 Server::Cleanup()
 {
 	if (m_pNetReactor)

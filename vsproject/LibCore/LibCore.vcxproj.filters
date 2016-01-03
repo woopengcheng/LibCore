@@ -240,16 +240,7 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerListener.h">
       <Filter>NetLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerServer.h">
-      <Filter>NetLib\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerTransit.h">
-      <Filter>NetLib\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerZMQClient.h">
-      <Filter>NetLib\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerZMQServer.h">
       <Filter>NetLib\inc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHelper.h">
@@ -284,15 +275,6 @@
     </ClInclude>
     <ClInclude Include="..\..\LibCore\XMLLib\inc\XML.h">
       <Filter>XMLLib\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerCommonClient.h">
-      <Filter>NetLib\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerClient.h">
-      <Filter>NetLib\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerCommonServer.h">
-      <Filter>NetLib\inc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcCheckParams.h">
       <Filter>MsgLib\inc</Filter>
@@ -612,6 +594,9 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorUDP.h">
       <Filter>NetLib\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerServer.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -683,12 +668,6 @@
     <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerTransit.cpp">
       <Filter>NetLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerZMQClient.cpp">
-      <Filter>NetLib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerZMQServer.cpp">
-      <Filter>NetLib\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\LibCore\NetLib\src\NetHelper.cpp">
       <Filter>NetLib\src</Filter>
     </ClCompile>
@@ -712,12 +691,6 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\XMLLib\src\XML.cpp">
       <Filter>XMLLib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerCommonServer.cpp">
-      <Filter>NetLib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerCommonClient.cpp">
-      <Filter>NetLib\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\MsgLib\Src\RpcCheckParams.cpp">
       <Filter>MsgLib\src</Filter>
@@ -906,6 +879,12 @@
       <Filter>NetLib\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorUDP.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerClient.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerServer.cpp">
       <Filter>NetLib\src</Filter>
     </ClCompile>
   </ItemGroup>

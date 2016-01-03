@@ -1,6 +1,5 @@
 #ifndef __msg_remote_rpc_server_h__
 #define __msg_remote_rpc_server_h__ 
-#include "NetLib/inc/NetHandlerZMQServer.h"
 #include "MsgLib/inc/MsgCommon.h"
 #include "NetLib/inc/NetHandlerServer.h" 
 #include "Timer/inc/TimerHelp.h"

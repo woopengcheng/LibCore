@@ -1,32 +1,42 @@
-#ifndef __net_net_handler_server_h__
-#define __net_net_handler_server_h__  
-#include "NetLib/inc/NetHandlerZMQServer.h"
-#include "NetLib/inc/NetHandlerCommonServer.h"
+#ifndef __net_net_handler_common_server_h__
+#define __net_net_handler_common_server_h__ 
+#include "NetLib/inc/NetHandlerTransit.h"
 
-namespace Net
-{ 
-#ifndef USE_ZMQ
-	class DLL_EXPORT NetHandlerServer : public NetHandlerCommonServer
-	{ 
+struct zmq_msg_t;
+
+namespace Net 
+{
+	typedef void * zmqSocketPtr;
+	typedef void * zmqContextPtr;
+
+	class DLL_EXPORT NetHandlerServer :public NetHandlerTransit
+	{
 	public:
-		NetHandlerServer(INetReactor * pNetReactor , ISession * pSession)
-			: NetHandlerCommonServer(pNetReactor , pSession) 
-		{
-		}
-	};
+		NetHandlerServer(INetReactor * pNetReactor, ISession * pSession);
+		virtual ~NetHandlerServer();
 
-#else
-	class DLL_EXPORT NetHandlerServer : public NetHandlerZMQServer 
-	{ 
 	public:
-		NetHandlerServer(INetReactor * pNetReactor , ISession * pSession)
-			: NetHandlerZMQServer(pNetReactor , pSession) 
-		{
-		}
-	};
+		virtual CErrno  OnClose( void )     ;
 
-#endif
-	DECLARE_BOOST_POINTERS(NetHandlerServer); 
+	public:
+		virtual CErrno  OnMsgRecving(void);
+		virtual CErrno	HandleMsg(ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
+
+	protected:
+		BOOL			IsZMQ();
+		CErrno			InitZMQ();
+		CErrno			InitUDP();
+		CErrno			Init(const char* ip, int port);
+		CErrno			OnMsgRecvingZMQ(void);
+
+	protected:
+		zmqSocketPtr   m_pZmqSocket;
+		zmqContextPtr  m_pZmqContext;
+		zmq_msg_t    * m_pZmqMsg;
+	}; 
+
+	DECLARE_BOOST_POINTERS(NetHandlerServer);
+	 
 }
 
 #endif 

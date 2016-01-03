@@ -13,7 +13,7 @@ class Client
 {
 public:
 	Client()
-		: m_pNetReactor(new Net::NetReactorSelect)  
+		: m_pNetReactor(NULL)
 		, m_pMsgProcess(NULL)
 	{
 
@@ -22,7 +22,8 @@ public:
 
 public:
 	virtual CErrno  Init();
-	virtual CErrno  Cleanup(); 
+	CErrno InitUDP();
+	virtual CErrno  Cleanup();
 	virtual CErrno  Update(); 
 
 private:

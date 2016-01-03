@@ -38,10 +38,7 @@ namespace Msg
 
 	CErrno RemoteRpcServer::Update( void )
 	{ 
-
-#ifndef USE_ZMQ     //5 如果是ZMQ,底层有重连机制.
 		UpdatePing();
-#endif
 
 		return NetHandlerTransit::Update();
 	} 

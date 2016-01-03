@@ -19,10 +19,6 @@ namespace Net
 		virtual ~ISession( void )
 		{
 			Cleanup();
-			if (m_pContext)
-			{
-				SAFE_DELETE(m_pContext);
-			}
 		}
 
 	public:
@@ -53,7 +49,7 @@ namespace Net
 		void SetCanWrite(BOOL val) { m_bCanWrite = val; }
 		ISession * GetOtherSession() const { return m_pOtherSession; }
 		void SetOtherSession(ISession * val) { m_pOtherSession = val; }
-		void SetContext(void * val) { m_pContext = val; }
+		void SetContext(void * val);
 		void * GetContext(void) { return m_pContext; }
 		Net::EReactorType GetReactorType() const { return m_objReactorType; }
 		void SetReactorType(Net::EReactorType val) { m_objReactorType = val; }

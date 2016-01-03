@@ -102,7 +102,7 @@ namespace Net
 		bool res = false;
 		if (pPublicKey)
 		{
-			BIO * pBio = BIO_new_mem_buf(pPublicKey, strlen((const char *)pPublicKey));
+			BIO * pBio = BIO_new_mem_buf(pPublicKey, (INT32)(strlen((const char *)pPublicKey)));
 			res = InitPassword(strLicense , pBio);
 			BIO_vfree(pBio);
 		}
@@ -138,7 +138,7 @@ namespace Net
 			CUtil::Base64DecodeBySSL(strDecodeLic, strLicense);
 
 			unsigned char szBuf[1024] = {0};
-			INT32 ret = RSA_public_decrypt(strDecodeLic.size(), (const unsigned char *)strDecodeLic.data(), szBuf, pRsa, RSA_PKCS1_PADDING);
+			INT32 ret = RSA_public_decrypt((INT32)(strDecodeLic.size()), (const unsigned char *)strDecodeLic.data(), szBuf, pRsa, RSA_PKCS1_PADDING);
 			RSA_free(pRsa);
 			if (ret <= 0)
 			{

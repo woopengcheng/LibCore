@@ -247,35 +247,6 @@ namespace Msg
 		return RpcManager::Update();
 	} 
 
-#ifdef USE_ZMQ
-	CErrno RpcServerManager::HandlePing( Net::ISession * pSession , SPing * pPing )
-	{ 
-		if(m_pRpcInterface && pSession && pPing )
-		{  
-			std::string strRemoteRPCName = pPing->szRemoteName;  
-
-			RpcClientManager *  pRpcClientManager = m_pRpcInterface->GetRpcClientManager();
-			if (pRpcClientManager)
-			{  
-				Net::NetHandlerTransitPtr pNetHandlerClient = pRpcClientManager->GetHandlerByName(strRemoteRPCName.c_str());
-				if (!pNetHandlerClient)
-				{  
-					pNetHandlerClient = pRpcClientManager->CreateNetHandler(strRemoteRPCName.c_str() , pSession->GetAddress() , pPing->usRemoteRPCPort); 
-				}  
-
-				if(pNetHandlerClient && m_pRpcInterface->GetRpcListener())
-				{   
-					m_pRpcInterface->GetRpcListener()->OnConnected(m_pRpcInterface);  
-				} 
-			}  
-
-			gDebugStream("zmq recv client ping. " << strRemoteRPCName << std::endl);
-		}  
-
-		return CErrno::Success();
-	} 
-
-#else
 	CErrno RpcServerManager::HandlePing( Net::ISession * pSession , SPing * pPing )
 	{ 
 		if(m_pRpcInterface && pSession && pPing )
@@ -334,7 +305,6 @@ namespace Msg
 
 		return CErrno::Success();
 	}  
-#endif
 
 	Net::NetHandlerTransitPtr RpcServerManager::OnCreateNetHandler( const char * pName , const char * pAddress , UINT16 usPort , Net::NetSocket socket /*= 0*/  , void * context/* = NULL*/)
 	{
@@ -344,13 +314,9 @@ namespace Msg
 		Net::NetHandlerTransitPtr pNetHandler = GetNetHandlerByName(strRemoteName.c_str());
 		if (!pNetHandler)
 		{
-#ifdef USE_ZMQ
-			Net::ServerSession * pServerSession =  new Net::ServerSession(pAddress , usPort , pName , -1 , 0 , socket);
-			pServerSession->SetNetState(Net::NET_STATE_CONNECTED); 
-#else
 			Net::ServerSession * pServerSession =  new Net::ServerSession(pAddress , 0 , pName , -1 , 0 , socket);
 			pServerSession->SetNetState(Net::NET_STATE_CONNECTING);
-#endif
+
 			RemoteRpcServerPtr pRpcServer(new RemoteRpcServer(this , m_pNetReactor , pServerSession));
 
 			gDebugStream("accept: ID: " << pServerSession->GetSessionID());

@@ -83,11 +83,8 @@ namespace GameDB
 	{
 		if (!m_pNetReactor)
 		{
-#ifdef USE_ZMQ
-			m_pNetReactor = new Net::NetReacgtorZMQ; 
-#else
 			m_pNetReactor = new Net::NetReactorDefault;
-#endif
+
 			if(CErrno::Success() != m_pNetReactor->Init())
 			{
 				SAFE_DELETE(m_pNetReactor);

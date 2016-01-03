@@ -40,7 +40,7 @@ namespace Net
 		WSAEVENT		*	m_pEvents;
 	}; 
 
-//	typedef Net::NetReactorWES NetReactorDefault;
+	typedef Net::NetReactorWES NetReactorDefault;
 }
 #endif
 

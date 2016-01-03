@@ -24,6 +24,30 @@ CErrno Client::Init()
 	return CErrno::Success();
 }
 
+CErrno Client::InitUDP()
+{
+	if (!m_pNetReactor)
+	{
+		m_pNetReactor = new Net::NetReactorUDP;
+	}
+	m_pNetReactor->Init();
+
+	if (!m_pMsgProcess)
+	{
+		m_pMsgProcess = new TestMsgProcess();
+	}
+
+	if (!m_pNetHandlerClient)
+	{
+		Net::ClientSession * pSession = new Net::ClientSession("127.0.0.1", 5555, "");
+		m_pNetHandlerClient = Net::NetHandlerClientPtr(new Net::NetHandlerClient(m_pNetReactor , pSession , m_pMsgProcess));
+	}
+
+	m_pNetHandlerClient->Init("127.0.0.1", 5555);
+	m_pNetReactor->AddNetHandler(m_pNetHandlerClient);
+
+	return CErrno::Success();
+}
 CErrno Client::Cleanup()
 {
 	SAFE_DELETE(m_pMsgProcess);

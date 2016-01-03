@@ -1,1 +1,0 @@
-GameDBServer.exe ./gdbServer.conf

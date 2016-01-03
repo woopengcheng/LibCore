@@ -38,11 +38,8 @@ namespace Msg
 	{ 
 		if (!m_pNetReactor)
 		{
-#ifdef USE_ZMQ
-			m_pNetReactor = new Net::NetReacgtorZMQ; 
-#else
 			m_pNetReactor = new Net::NetReactorDefault;
-#endif
+
 			if(CErrno::Success() != m_pNetReactor->Init())
 			{
 				SAFE_DELETE(m_pNetReactor);
@@ -73,11 +70,8 @@ namespace Msg
 	{   
 		if (!m_pNetReactor)
 		{
-#ifdef USE_ZMQ
-			m_pNetReactor = new Net::NetReacgtorZMQ; 
-#else
 			m_pNetReactor = new Net::NetReactorDefault;
-#endif
+
 			if(CErrno::Success() != m_pNetReactor->Init())
 			{
 				SAFE_DELETE(m_pNetReactor);
@@ -155,30 +149,7 @@ namespace Msg
 		Timer::TimerHelper::sleep(1);
 		return CErrno::Success();
 	}
-
-// 	void RpcInterface::StartupRPCServer( XML::XML * pXML )
-// 	{ 
-// 		if (pXML)
-// 		{   
-// 			std::string str = Net::NetHelper::GenerateRemoteName(strType.c_str() , strAddress.c_str() , strPort.c_str());
-// 
-// 			m_usServerPort = atoi(strPort.c_str());
-// 			memcpy(m_szServerName , str.c_str() , str.length());
-// 			memcpy(m_szRpcType , strType.c_str() , strType.length()); 
-// 
-// #ifdef USE_ZMQ
-// 			m_pRpcServerManager->CreateNetHandler(m_szServerName , strAddress.c_str() , m_usServerPort , 0);
-// #else
-// 			Net::ISession * pSeesion = new Net::ISession(strAddress.c_str() , m_usServerPort , str.c_str());
-// 			NetHandlerRpcListenerPtr pNetHandlerListener(new NetHandlerRpcListener(m_pRpcServerManager , m_pNetReactor , pSeesion));
-// 			pNetHandlerListener->Init(strAddress.c_str() , m_usServerPort);
-// 			pSeesion->SetClosed(FALSE);
-// 			pSeesion->SetNetState(Net::NET_STATE_CONNECTED);
-// 			m_pNetReactor->AddNetHandler(pNetHandlerListener);
-// #endif 
-// 		}
-// 	}
-
+	
 	void RpcInterface::StartupRPCServer(const std::string & strNetNodeName , const std::string & strType , const std::string & strAddress , const std::string & strPort)
 	{
 		std::string str = Net::NetHelper::GenerateRemoteName(strType.c_str() , strAddress.c_str() , strPort.c_str());
@@ -188,9 +159,6 @@ namespace Msg
 		memcpy(m_szNetNodeName , strNetNodeName.c_str() , strNetNodeName.length());
 		memcpy(m_szRpcType , strType.c_str() , strType.length()); 
 
-#ifdef USE_ZMQ
-		m_pRpcServerManager->CreateNetHandler(m_szServerName , strAddress.c_str() , m_usServerPort , 0);
-#else
 		Net::ISession * pSeesion = new Net::ServerSession(strAddress.c_str() , m_usServerPort , str.c_str());
 		NetHandlerRpcListenerPtr pNetHandlerListener(new NetHandlerRpcListener(m_pRpcServerManager , m_pNetReactor , pSeesion));
 		if(CErrno::Failure() == pNetHandlerListener->Init(strAddress.c_str() , m_usServerPort))
@@ -198,7 +166,6 @@ namespace Msg
 
 		pSeesion->SetNetState(Net::NET_STATE_CONNECTED);
 		m_pNetReactor->AddNetHandler(pNetHandlerListener , Net::NET_FUNC_ACCEPT_DEFAULT);
-#endif 
 
 		NetNode::GetInstance().InsertMyselfNodes(m_szNetNodeName , this);
 		gDebugStream("StartupRPCServer success:" << str);

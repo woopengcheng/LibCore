@@ -35,7 +35,7 @@ namespace Net
 		char szBuf[DEFAULT_CIRCLE_BUFFER_SIZE];  
 
 		NetSocket socket  = m_pSession->GetSocket();
-		INT32  nBufSize = sizeof(szBuf);
+		INT32  nBufSize = 0;
 		UINT32 unMaxBufSize = sizeof(szBuf);
 
 		do

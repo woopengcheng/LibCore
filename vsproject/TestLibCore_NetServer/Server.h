@@ -15,6 +15,7 @@ public:
 
 public:
 	virtual INT32  Init();
+	virtual INT32  InitUDP();
 	virtual INT32  Cleanup();
 	virtual INT32  Update();
 

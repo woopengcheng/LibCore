@@ -63,12 +63,27 @@ namespace Net
 			NetHelper::CloseSocket(this);
 			m_socket = -1; 
 		}
+
+		if (m_pContext)
+		{
+			SAFE_DELETE(m_pContext);
+		}
 		return CErrno::Success();
 	}
 	 
 	void ISession::AutoSetSessionID( void )
 	{
 		 m_nSessionID = ++Net::g_nSessionCount;
+	}
+
+	void ISession::SetContext(void * val)
+	{
+		if (m_pContext)
+		{
+			SAFE_DELETE(m_pContext);
+		}
+
+		m_pContext = val;
 	}
 
 }

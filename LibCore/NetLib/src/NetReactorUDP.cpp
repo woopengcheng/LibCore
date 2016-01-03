@@ -97,6 +97,7 @@ namespace Net
 						}
 
 						pContext->SetPeerAddr(addr);
+						pNetHandler->GetSession()->SetContext(pContext);
 
 						bClosed = !pNetHandler->OnMsgRecving().IsSuccess() || bClosed;
 					}
@@ -121,12 +122,6 @@ namespace Net
 					else
 					{
 						++ iterHandlers;
-					}
-
-					if (pNetHandler->GetSession()->GetContext())
-					{
-						delete pNetHandler->GetSession()->GetContext();
-						pNetHandler->GetSession()->SetContext(NULL);
 					}
 				}
 			}
