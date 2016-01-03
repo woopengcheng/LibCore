@@ -10,7 +10,8 @@ namespace Net
 {   
 	NetReactorZMQ::NetReactorZMQ( UINT32 unMaxConnectionCount )
 		: m_nNetHandlerCount(0)
-		, m_unMaxConnectionCount(unMaxConnectionCount)  
+		, m_unMaxConnectionCount(unMaxConnectionCount)
+		, INetReactor(REACTOR_TYPE_ZMQ)
 	{   
 	}
 

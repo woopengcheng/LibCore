@@ -27,7 +27,8 @@ namespace Net
 	class DLL_EXPORT INetReactor
 	{
 	public:
-		INetReactor( void )
+		INetReactor(EReactorType objType = REACTOR_TYPE_VAILID)
+			: m_objReactorType(objType)
 		{
 		}
 		virtual ~INetReactor( void )
@@ -42,6 +43,13 @@ namespace Net
 		virtual CErrno   AddNetHandler(INetHandlerPtr  pNetHandler , ENetHandlerFuncMask objMask = NET_FUNC_DEFAULT) = 0;
 		virtual CErrno   DelNetHandler(INetHandlerPtr  pNetHandler , BOOL bEraseHandler = TRUE) = 0;
 		virtual CErrno   ModNetHandler(INetHandlerPtr  pNetHandler , ENetHandlerFuncMask objMask) = 0;
+
+	public:
+		EReactorType	GetReactorType() const { return m_objReactorType; }
+		void			SetReactorType(EReactorType val) { m_objReactorType = val; }
+
+	protected:
+		EReactorType m_objReactorType;
 	}; 
 	 
 }

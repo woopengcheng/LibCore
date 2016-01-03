@@ -41,6 +41,17 @@ namespace Net
 #define NET_TYPE_UDP  "udp"
 #define NET_TYPE_UNIX "unix"
 
+	enum EReactorType
+	{
+		REACTOR_TYPE_VAILID,
+		REACTOR_TYPE_SELECT,
+		REACTOR_TYPE_EPOLL,
+		REACTOR_TYPE_WES,
+		REACTOR_TYPE_IOCP,
+		REACTOR_TYPE_ZMQ,
+		REACTOR_TYPE_UDP,
+	};
+
 	struct MsgHeader 
 	{
 		UINT32 unMsgLength;    //5 第一个必须是长度

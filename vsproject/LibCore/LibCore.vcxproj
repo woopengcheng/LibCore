@@ -374,6 +374,7 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorIOCP.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorRakNet.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorSelect.h" />
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorUDP.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorWES.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorZMQ.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\RakNetUDPManager.h" />
@@ -481,6 +482,7 @@
     <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerHttpServer.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorIOCP.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorSelect.cpp" />
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorUDP.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorWES.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorZMQ.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\RakNetUDPManager.cpp" />

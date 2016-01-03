@@ -609,6 +609,9 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetLib.h">
       <Filter>NetLib\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorUDP.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -900,6 +903,9 @@
       <Filter>NetLib\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorIOCP.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorUDP.cpp">
       <Filter>NetLib\src</Filter>
     </ClCompile>
   </ItemGroup>

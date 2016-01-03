@@ -248,6 +248,7 @@ namespace Net
 	}
 
 	NetReactorIOCP::NetReactorIOCP()
+		: INetReactor(REACTOR_TYPE_IOCP)
 	{
 		m_hIocp = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, NULL, 1);
 		MsgAssert(m_hIocp != NULL && m_hIocp != INVALID_HANDLE_VALUE , "error iocp create.");
@@ -299,7 +300,6 @@ namespace Net
 				NetHelper::WSAAccept(pNetHandler.get());
 			}
 
-			pNetHandler->GetSession()->SetReactorType(REACTOR_TYPE_IOCP);
 			m_mapNetHandlers.insert(std::make_pair(pNetHandler->GetSession()->GetSessionID(), pNetHandler));
 			return CErrno::Success();
 		}

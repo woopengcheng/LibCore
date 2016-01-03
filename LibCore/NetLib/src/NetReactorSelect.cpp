@@ -8,28 +8,9 @@
 
 namespace Net
 { 
-	INT32 InitNet()
-	{
-#ifdef WIN32
-		WSADATA wsd;
-		return WSAStartup(MAKEWORD(2,2),&wsd);  //5 0代表成功
-#else
-		return 0;
-#endif
-	}
-
-	INT32 CleanNet()
-	{
-#ifdef WIN32
-		return WSACleanup();
-#else
-		return 0;
-#endif
-
-	}
-	 
-	NetReactorSelect::NetReactorSelect( UINT32 unMaxConnectionCount )
-		: m_nNetHandlerCount(0)
+	NetReactorSelect::NetReactorSelect(UINT32 unMaxConnectionCount)
+		: INetReactor(REACTOR_TYPE_SELECT)
+		, m_nNetHandlerCount(0)
 		, m_unMaxConnectionCount(unMaxConnectionCount) 
 		, m_pFdSetReads(NULL)
 		, m_pFdSetWrites(NULL)

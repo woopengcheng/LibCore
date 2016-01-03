@@ -9,7 +9,27 @@
 #endif 
 
 namespace Net
-{ 
+{
+	INT32 InitNet()
+	{
+#ifdef WIN32
+		WSADATA wsd;
+		return WSAStartup(MAKEWORD(2, 2), &wsd);  //5 0代表成功
+#else
+		return 0;
+#endif
+	}
+
+	INT32 CleanNet()
+	{
+#ifdef WIN32
+		return WSACleanup();
+#else
+		return 0;
+#endif
+
+	}
+
 	std::string NetHelper::GenerateRemoteName( const char * pNetType , const char * pAddress , const char * pPort )
 	{
 		std::string str = pNetType;
@@ -63,12 +83,21 @@ namespace Net
 		SetIOCtrl(socket,FIOASYNC,&valuetrue);
 	}
 
-	INT32 NetHelper::RecvMsg(NetSocket socket , char * pBuf , UINT32 unSize )
+	INT32 NetHelper::RecvMsg(NetSocket socket , char * pBuf , UINT32 unSize)
 	{
 #ifdef __linux
-		return ::recv(socket , pBuf , unSize , MSG_DONTWAIT);
+			return ::recv(socket, pBuf, unSize, MSG_DONTWAIT);
 #else
-		return ::recv(socket , pBuf , unSize , 0);
+			return ::recv(socket, pBuf, unSize, 0);
+#endif
+	}
+
+	INT32 NetHelper::RecvMsg(NetSocket socket, char * pBuf, UINT32 unSize, struct sockaddr * from , int  * fromlen)
+	{
+#ifdef __linux
+		return ::recv(socket, pBuf, unSize, MSG_DONTWAIT, from, fromlen);
+#else
+		return ::recvfrom(socket, pBuf, unSize , 0 , from, fromlen);
 #endif
 	}
 

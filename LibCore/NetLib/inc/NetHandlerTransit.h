@@ -28,6 +28,7 @@ namespace Net
 
 	protected:
 		INT32			Send(const char * pBuf, UINT32 unSize);
+		INT32			SendTo(const char * pBuf, UINT32 unSize);
 		INT32			SendCommon(const char * pBuf, UINT32 unSize);
 		INT32			SendIOCP(const char * pBuf, UINT32 unSize);
 		CErrno			ParaseRecvMsg();     

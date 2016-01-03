@@ -10,6 +10,7 @@ namespace Net
 	NetReactorWES::NetReactorWES(UINT32 unMaxConnectionCount)
 		: m_unMaxConnectionCount(unMaxConnectionCount)
 		, m_nNumConnection(0)
+		, INetReactor(REACTOR_TYPE_WES)
 	{
 		m_nNumConnection = 0;
 		m_pEvents = new WSAEVENT[m_unMaxConnectionCount];

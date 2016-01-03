@@ -2,6 +2,7 @@
 #include "NetLib/inc/NetHelper.h"
 #include "NetLib/inc/ByteOrder.h"
 #include "NetLib/inc/ISession.h"
+#include "NetLib/inc/NetReactorUDP.h"
 #include "NetLib/inc/INetReactor.h"
 #include "Timer/inc/TimerHelp.h"
 
@@ -15,7 +16,12 @@ namespace Net
 		: INetHandler(pNetReactor , pSession)
 	{
 		m_objRecvBuf.Init(DEFAULT_CIRCLE_BUFFER_SIZE);
- 		m_objSendBuf.Init(DEFAULT_CIRCLE_BUFFER_SIZE); 
+ 		m_objSendBuf.Init(DEFAULT_CIRCLE_BUFFER_SIZE);
+
+		if (m_pSession && m_pNetReactor)
+		{
+			m_pSession->SetReactorType(m_pNetReactor->GetReactorType());
+		}
 	}
 
 	NetHandlerTransit::~NetHandlerTransit( void )
@@ -34,7 +40,19 @@ namespace Net
 
 		do
 		{
-			nBufSize = NetHelper::RecvMsg(socket , szBuf , sizeof(szBuf));
+			if (m_pSession->GetReactorType() == REACTOR_TYPE_UDP)
+			{
+				UDPContext * pContext = (UDPContext *)m_pSession->GetContext();
+				if (pContext)
+				{
+					INT32 nRecLen = sizeof(pContext->GetPeerAddr());
+					nBufSize = NetHelper::RecvMsg(socket, szBuf, sizeof(szBuf), (sockaddr*)&(pContext->GetPeerAddr()) , &nRecLen);
+				}
+			}
+			else
+			{
+				nBufSize = NetHelper::RecvMsg(socket, szBuf, sizeof(szBuf));
+			}
 			if( nBufSize <  0 && NetHelper::IsSocketEagain())
 				return CErrno::Success();
 			if( nBufSize <= 0 )
@@ -224,6 +242,10 @@ namespace Net
 				{
 					return SendIOCP(pBuf, unSize);
 				}break;
+				case REACTOR_TYPE_UDP:
+				{
+					return SendTo(pBuf , unSize);
+				}break;
 				default:
 				{
 					return SendCommon(pBuf, unSize);
@@ -252,6 +274,47 @@ namespace Net
 			int nSendBytes = ::send(m_pSession->GetSocket(), &pBuf[unTotalSendBytes], unSize - unTotalSendBytes, 0);
 #else
 			int nSendBytes = ::send(m_pSession->GetSocket(), &pBuf[unTotalSendBytes], unSize - unTotalSendBytes, MSG_DONTWAIT);
+#endif
+			if (nSendBytes > 0)
+			{
+				unTotalSendBytes += nSendBytes;
+			}
+			else if (nSendBytes < 0 && NetHelper::IsSocketEagain())
+			{
+				m_pSession->SetCanWrite(FALSE);
+				break;
+			}
+			else
+			{
+				gErrorStream("send error , close it.addr:" << m_pSession->GetAddress() << "=port:" << m_pSession->GetPort());
+				m_pSession->SetClosed(TRUE);
+				break;
+			}
+			Timer::TimerHelper::sleep(1);
+		}
+
+		return unTotalSendBytes;
+	}
+
+	INT32 NetHandlerTransit::SendTo(const char * pBuf, UINT32 unSize)
+	{
+		if (m_pSession && !m_pSession->IsCanWrite())
+		{
+			return -1;
+		}
+		UDPContext * pContext = (UDPContext *)m_pSession->GetContext();
+		if (!pContext)
+		{
+			return -1;
+		}
+
+		UINT32 unTotalSendBytes = 0;
+		while ((unSize > unTotalSendBytes))
+		{
+#ifdef WIN32
+			int nSendBytes = ::sendto(m_pSession->GetSocket(), &pBuf[unTotalSendBytes], unSize - unTotalSendBytes, 0 , (sockaddr*)&(pContext->GetPeerAddr()) , sizeof(pContext->GetPeerAddr()));
+#else
+			int nSendBytes = ::send(m_pSession->GetSocket(), &pBuf[unTotalSendBytes], unSize - unTotalSendBytes, MSG_DONTWAIT, (sockaddr*)&(pContext->GetPeerAddr()), sizeof(pContext->GetPeerAddr()));
 #endif
 			if (nSendBytes > 0)
 			{

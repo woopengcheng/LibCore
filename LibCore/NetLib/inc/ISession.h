@@ -12,16 +12,6 @@ namespace Net
 		NET_STATE_CONNECTED ,     
 	};
 
-	enum EReactorType
-	{
-		REACTOR_TYPE_VAILID,
-		REACTOR_TYPE_SELECT,
-		REACTOR_TYPE_EPOLL,
-		REACTOR_TYPE_WES,
-		REACTOR_TYPE_IOCP,
-		REACTOR_TYPE_ZMQ,
-	};
-
 	class DLL_EXPORT ISession
 	{
 	public:
