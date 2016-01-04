@@ -134,6 +134,13 @@ namespace Net
 		{
 			socket = NetHelper::CreateSocket(AF_INET, SOCK_DGRAM, 0);
 			m_pSession->SetSocket(socket);
+
+			if (NetHelper::IsUDPBroadCast(ip))
+			{
+				int valuetrue = 1;
+				setsockopt(socket, SOL_SOCKET, SO_BROADCAST, (char*)&valuetrue, sizeof(valuetrue));
+			}
+			NetHelper::SetDefaultSocket(socket);
 		}
 		
 		return 0;
@@ -257,7 +264,7 @@ namespace Net
 	{
 		if (IsZMQ())
 		{
-			SendMsgZMQ(pBuf, unSize);
+			return SendMsgZMQ(pBuf, unSize);
 		}
 
 		return NetHandlerTransit::SendMsg(pBuf, unSize);

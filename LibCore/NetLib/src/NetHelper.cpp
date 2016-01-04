@@ -83,6 +83,11 @@ namespace Net
 		SetIOCtrl(socket,FIOASYNC,&valuetrue);
 	}
 
+	BOOL NetHelper::IsUDPBroadCast(const std::string & strAddress)
+	{
+		return 0 == CUtil::stricmp(strAddress.c_str(), "255.255.255.255");
+	}
+
 	INT32 NetHelper::RecvMsg(NetSocket socket , char * pBuf , UINT32 unSize)
 	{
 #ifdef __linux
@@ -228,5 +233,6 @@ namespace Net
 	{
 		return ::socket(af , type , protocol);
 	}
+
 #endif
 }

@@ -84,9 +84,14 @@ namespace Net
 
 					if (FD_ISSET(socket , pFdSetReads))
 					{
-						UDPContext * pContext = new UDPContext;
+						UDPContext * pContext = (UDPContext *)(pNetHandler->GetSession()->GetContext());
+						if (!pContext)
+						{
+							pContext = new UDPContext;
+							pNetHandler->GetSession()->SetContext(pContext);
+						}
 
-						sockaddr_in addr = pContext->GetPeerAddr();
+						sockaddr_in addr;
 						int nRecLen = sizeof(addr);
 						char recv_buf[1024];
 						int nRecEcho = recvfrom(socket, recv_buf, sizeof(recv_buf), 0, (sockaddr*)&addr, &nRecLen);
@@ -97,7 +102,6 @@ namespace Net
 						}
 
 						pContext->SetPeerAddr(addr);
-						pNetHandler->GetSession()->SetContext(pContext);
 
 						bClosed = !pNetHandler->OnMsgRecving().IsSuccess() || bClosed;
 					}

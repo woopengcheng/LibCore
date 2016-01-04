@@ -14,7 +14,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	int nCount = ThreadPool::ThreadPoolInterface::GetInstance().GetThreadsCount(); 
 	Server server;
 //	server.Init();
-	server.InitUDP();
+//	server.InitUDP();
+	server.InitZMQ();
 
 	server.Update();
 

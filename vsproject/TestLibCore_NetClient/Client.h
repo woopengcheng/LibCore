@@ -23,6 +23,7 @@ public:
 public:
 	virtual CErrno  Init();
 	CErrno InitUDP();
+	CErrno InitZMQ();
 	virtual CErrno  Cleanup();
 	virtual CErrno  Update(); 
 

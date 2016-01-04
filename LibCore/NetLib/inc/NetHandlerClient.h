@@ -28,16 +28,16 @@ namespace Net
 		virtual CErrno	HandleMsg(ISession * pSession, UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
 
 	public: 
-		BOOL  Reconnect(void);
+		BOOL			Reconnect(void);
 	
 	protected:
-		BOOL		IsZMQ();
-		CErrno		InitZMQ();
-		INT32		Connect(const char* ip, int port);
-		INT32		ConnectUDP(const char* ip, int port);
-		INT32		ConnectZMQ(const char* ip, int port);
-		INT32		ConnectCommon(const char* ip, int port);
-		INT32		SendMsgZMQ(const char * pBuf, UINT32 unSize);
+		BOOL			IsZMQ();
+		CErrno			InitZMQ();
+		INT32			Connect(const char* ip, int port);
+		INT32			ConnectUDP(const char* ip, int port);
+		INT32			ConnectZMQ(const char* ip, int port);
+		INT32			ConnectCommon(const char* ip, int port);
+		INT32			SendMsgZMQ(const char * pBuf, UINT32 unSize);
 
 	protected: 
 		MsgProcess	*	m_pMsgProcess;

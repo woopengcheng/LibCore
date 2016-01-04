@@ -39,6 +39,30 @@ CErrno Client::InitUDP()
 
 	if (!m_pNetHandlerClient)
 	{
+		Net::ClientSession * pSession = new Net::ClientSession("255.255.255.255", 5555, "");
+		m_pNetHandlerClient = Net::NetHandlerClientPtr(new Net::NetHandlerClient(m_pNetReactor , pSession , m_pMsgProcess));
+	}
+
+	m_pNetHandlerClient->Init("255.255.255.255", 5555);
+	m_pNetReactor->AddNetHandler(m_pNetHandlerClient);
+
+	return CErrno::Success();
+}
+CErrno Client::InitZMQ()
+{
+	if (!m_pNetReactor)
+	{
+		m_pNetReactor = new Net::NetReactorZMQ;
+	}
+	m_pNetReactor->Init();
+
+	if (!m_pMsgProcess)
+	{
+		m_pMsgProcess = new TestMsgProcess();
+	}
+
+	if (!m_pNetHandlerClient)
+	{
 		Net::ClientSession * pSession = new Net::ClientSession("127.0.0.1", 5555, "");
 		m_pNetHandlerClient = Net::NetHandlerClientPtr(new Net::NetHandlerClient(m_pNetReactor , pSession , m_pMsgProcess));
 	}
@@ -62,14 +86,16 @@ CErrno Client::Update()
 	{
 		m_pNetReactor->Update();
 
+		const char * kSendMsg = "client sendmsg.\n";
+		UINT32 unLen = strlen(kSendMsg) + 1;
 		char pBuf[1024]; 
 		((Net::MsgHeader*)pBuf)->unMsgID = 0;
-		((Net::MsgHeader*)pBuf)->unMsgLength = 6+ sizeof(Net::MsgHeader);
-		memcpy(pBuf + sizeof(Net::MsgHeader) , "asdfa" , 6);
+		((Net::MsgHeader*)pBuf)->unMsgLength = unLen + sizeof(Net::MsgHeader);
+		memcpy(pBuf + sizeof(Net::MsgHeader) , kSendMsg , unLen);
 
 		if (m_pNetHandlerClient)
 		{
-			m_pNetHandlerClient->SendMsg(pBuf , 6 + sizeof(Net::MsgHeader));
+			m_pNetHandlerClient->SendMsg(pBuf , unLen + sizeof(Net::MsgHeader));
 		}
 		Timer::TimerHelper::sleep(1); 
 	}

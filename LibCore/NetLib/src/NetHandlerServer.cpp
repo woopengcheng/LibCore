@@ -40,7 +40,7 @@ namespace Net
 
 		memset(&address, 0, sizeof(address));
 		address.sin_family = AF_INET;
-		address.sin_addr.s_addr = inet_addr(m_pSession->GetAddress());
+		address.sin_addr.s_addr = INADDR_ANY;
 		address.sin_port = htons(m_pSession->GetPort());
 
 		Net::UDPContext * pContext = new Net::UDPContext;
@@ -53,6 +53,8 @@ namespace Net
 		{
 			socket = NetHelper::CreateSocket(AF_INET, SOCK_DGRAM, 0);
 			m_pSession->SetSocket(socket);
+
+			NetHelper::SetDefaultSocket(socket);
 
 			bind(socket , (struct sockaddr *)&address, sizeof(address));
 		}
@@ -121,7 +123,7 @@ namespace Net
 					printf("error in zmq_msg_close: %s\n", zmq_strerror(errno));
 					return  CErrno::Failure();
 				}
-				CErrno::Success();
+				return CErrno::Success();
 			}
 
 			printf("error in zmq_recvmsg: %s\n", zmq_strerror(errno));
@@ -173,13 +175,17 @@ namespace Net
 	{
 		printf("%s", pBuffer);
 
-		if (pSession->GetReactorType() != REACTOR_TYPE_UDP)
+		if (pSession->GetReactorType() != REACTOR_TYPE_UDP && pSession->GetReactorType() != REACTOR_TYPE_ZMQ)
 		{
 			char pBuf[1024];
+
+			const char * kSendMsg = "server sendmsg.\n";
+			UINT32 unLen = (UINT32)(strlen(kSendMsg) + 1);
+
 			((Net::MsgHeader*)pBuf)->unMsgID = 0;
-			((Net::MsgHeader*)pBuf)->unMsgLength = 6 + sizeof(Net::MsgHeader);
-			memcpy(pBuf + sizeof(Net::MsgHeader), "send server.", sizeof("send server."));
-			SendMsg(pBuf, 6 + sizeof(Net::MsgHeader));
+			((Net::MsgHeader*)pBuf)->unMsgLength = unLen + sizeof(Net::MsgHeader);
+			memcpy(pBuf + sizeof(Net::MsgHeader), kSendMsg , unLen);
+			SendMsg(pBuf, unLen + sizeof(Net::MsgHeader));
 		}
 
 		return CErrno::Success();

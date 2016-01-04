@@ -597,6 +597,9 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerServer.h">
       <Filter>NetLib\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerClient.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

@@ -25,6 +25,7 @@ namespace Net
 		static void			CloseSocket(NetSocket socket);
 		static void			CloseSocket(ISession * pSession);
 		static NetSocket	CreateSocket(INT32 af, INT32 type, INT32 protocol);
+		static BOOL			IsUDPBroadCast(const std::string & strAddress);
 		static std::string	GenerateRemoteName(const char * pNetType, const char * pAddress, UINT16 usPort);
 		static std::string	GenerateRemoteName(const char * pNetType, const char * pAddress, const char * pPort);
 		static std::string	GenerateRemoteName(const char * pNetType, const char * pAddress, UINT16 usPort, UINT16 usRemotePort);
