@@ -61,7 +61,7 @@ namespace Net
 			Net::NetHelper::GetAddressAndPortByAddrIn(addr , szAddress , usPort);
 			std::string strName = Net::NetHelper::GenerateRemoteName(NET_TYPE_TCP , szAddress , usPort);
 
-			ServerSession * pServerSession = new HttpSession(szAddress , usPort , strName.c_str() , 0 , -1 , socket);
+			ServerSession * pServerSession = new HttpSession(szAddress , usPort , strName.c_str(), -1, 0 , socket);
 			NetHandlerHttpServerPtr pServer( new NetHandlerHttpServer(this , m_pNetReactor , pServerSession) ); 
 			m_pNetReactor->AddNetHandler(pServer); 
 		} 
@@ -77,8 +77,15 @@ namespace Net
 			if(objRequest.Parse(&pBuf[unSize - remaineLen],remaineLen,&remaineLen))
 			{
 				HttpProtocol response;
-				if(!(m_pServer->HttpHandler((HttpSession *)m_pSession , objRequest , response).IsSuccess()))
+				CErrno result = m_pServer->HttpHandler((HttpSession *)m_pSession, objRequest, response);
+				if (!result.IsSuccess())
+				{
+					if (result.GetCode() == CErrno::ERR_INVALID_DATA)
+					{
+						return CErrno::Success();
+					}
 					return CErrno::Failure();
+				}
 				objRequest.Clear();
 				Send(response);
 			}

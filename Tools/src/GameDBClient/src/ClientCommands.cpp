@@ -16,6 +16,8 @@ namespace Client
 #define CHECK_ARGS_GREAT_COUNT(count) if( objParams.size() < count){ std::cout << "need " << count << " args." << std::endl; return ;}
 #define CHECK_ARGS_EQUAL_COUNT(count) if( objParams.size() != count){ std::cout << "need least " << count << " args." << std::endl; return ;}
 
+	Client::ClientCommands * g_pClientCommands = new Client::ClientCommands;
+
 	ClientCommands::ClientCommands()
 	{
 		InitCommands();

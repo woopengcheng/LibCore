@@ -139,6 +139,19 @@ namespace Net
 		
 		return CErrno::Success();
 	}
+
+	//////////////////////////////////////////////////////////////////////////UDS///
+
+	NetReactorUDS::NetReactorUDS(UINT32 unMaxConnectionCount)
+		: m_unMaxConnectionCount(unMaxConnectionCount)
+		, INetReactor(REACTOR_TYPE_UDS)
+	{
+	}
+
+	NetReactorUDS::~NetReactorUDS(void)
+	{
+	}
+
 }
 
 #endif

@@ -144,6 +144,7 @@ void PackParams( std::vector<std::string> & vecParams , INT32 argc , char ** arg
 		}
 	}
 } 
+
 int _tmain(int argc, _TCHAR* argv[])
 {  
 	CUtil::Init("DBClient"); 
@@ -165,8 +166,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		Client::DBClient::GetInstance().Update(); 
 		Timer::TimerHelper::sleep(1);
 	}
-	
-	Client::ClientCommands clientComands; 
+
+	Client::ClientCommands & clientComands = *Client::g_pClientCommands;
+
 	std::string strName = root.get("user" , "admin" ).asString();
 	std::string strPwd = root.get("pwd" , "admin").asString();
 	 

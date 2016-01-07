@@ -17,9 +17,19 @@ namespace Net
 		, m_pZmqMsg(NULL)
 		, m_pZmqSocket(NULL)
 	{
-		if (IsZMQ())
+		Assert(m_pSession);
+		switch (m_pSession->GetReactorType())
 		{
-			InitZMQ();
+			case REACTOR_TYPE_ZMQ:
+			{
+				InitZMQ();
+			}break;
+			case REACTOR_TYPE_UDS:
+			{
+				InitUDS();
+			}break;
+			default:
+				break;
 		}
 	}
 
@@ -48,6 +58,14 @@ namespace Net
 		zmq_setsockopt(m_pZmqSocket, ZMQ_RECONNECT_IVL, (void *)&nTime, sizeof(nTime));
 
 		m_pZmqMsg = new zmq_msg_t;
+
+		return CErrno::Success();
+	}
+
+	CErrno NetHandlerClient::InitUDS()
+	{
+		Net::UDSContext * pContext = new Net::UDSContext;
+		m_pSession->SetContext(pContext);
 
 		return CErrno::Success();
 	}
@@ -106,6 +124,10 @@ namespace Net
 		{
 			nResult = ConnectZMQ(ip, port);
 		}break;
+		case REACTOR_TYPE_UDS:
+		{
+			nResult = ConnectUDS(ip, port);
+		}break;
 		default:
 		{
 			nResult = ConnectCommon(ip, port);
@@ -113,6 +135,40 @@ namespace Net
 		}
 
 		return  nResult;
+	}
+
+	INT32 NetHandlerClient::ConnectUDS(const char* ip, int port)
+	{
+#ifdef _LINUX
+		struct sockaddr_un address;
+
+		memset(&address, 0, sizeof(address));
+		address.sin_family = AF_UNIX;
+		
+		std::string strFile = pAddress;
+		strFile += ".";
+		strFile += itoa(port);
+
+		if (判断文件是否存在)
+		{
+			创建文件
+		}
+
+		strncpy(addr->sun_path, strFile.c_str(), sizeof(addr->sun_path) - 1);
+		addr->sun_path[sizeof(addr->sun_path) - 1] = '\0';
+		
+		NetSocket socket = m_pSession->GetSocket();
+		if (socket == -1)
+		{
+			socket = NetHelper::CreateSocket(AF_UNIX, SOCK_STREAM, 0);
+			m_pSession->SetSocket(socket);
+			 
+			NetHelper::SetDefaultSocket(socket);
+		}
+
+		return 0;
+#endif
+		return -1;
 	}
 
 	INT32 NetHandlerClient::ConnectUDP(const char* ip, int port)
@@ -132,7 +188,7 @@ namespace Net
 		NetSocket socket = m_pSession->GetSocket();
 		if (socket == -1)
 		{
-			socket = NetHelper::CreateSocket(AF_INET, SOCK_DGRAM, 0);
+			socket = NetHelper::CreateSocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 			m_pSession->SetSocket(socket);
 
 			if (NetHelper::IsUDPBroadCast(ip))
@@ -145,7 +201,6 @@ namespace Net
 		
 		return 0;
 	}
-
 	INT32 NetHandlerClient::ConnectZMQ(const char* ip, int port)
 	{
 		std::string str = "tcp://";

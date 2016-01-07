@@ -33,6 +33,13 @@ namespace Net
 	}; 
 
 	typedef Net::NetReactorEpoll NetReactorDefault;
+
+	class DLL_EXPORT NetReactorUDS :public NetReactorEpoll
+	{
+	public:
+		NetReactorUDS(UINT32 unMaxConnectionCount);
+		virtual ~NetReactorUDS(void);
+	};
 }
 #endif
 

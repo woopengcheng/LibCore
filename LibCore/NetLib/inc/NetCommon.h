@@ -50,6 +50,7 @@ namespace Net
 		REACTOR_TYPE_IOCP,
 		REACTOR_TYPE_ZMQ,
 		REACTOR_TYPE_UDP,
+		REACTOR_TYPE_UDS,
 	};
 
 	struct MsgHeader 

@@ -10,6 +10,22 @@ namespace Net
 {
 	class ISession;
 
+	class UDSContext
+	{
+	public:
+		UDSContext()
+			: m_nTransferFD(0)
+		{}
+		virtual ~UDSContext() {}
+
+	public:
+		INT32 GetTransferFD() const { return m_nTransferFD; }
+		void SetTransferFD(INT32 val) { m_nTransferFD = val; }
+
+	private:
+		INT32		m_nTransferFD;
+	};
+
 	class DLL_EXPORT NetHelper
 	{
 	public: 
@@ -17,6 +33,7 @@ namespace Net
 		static INT32		SetDefaultSocket(NetSocket & socket , INT32 nSendBufSize = DEFAULT_SOCKET_BUFFER_SIZE , INT32 nRecvBufSize = DEFAULT_SOCKET_BUFFER_SIZE );
 		static INT32		SetIOCtrl(int s,long cmd,int *argp);
 		static INT32		RecvMsg(NetSocket socket, char * pBuf, UINT32 unSize);
+		static INT32		RecvMsg(NetSocket socket, char * pBuf, UINT32 unSize, INT32 & recv_fd);
 		static INT32		RecvMsg(NetSocket socket, char * pBuf, UINT32 unSize, struct sockaddr * from, int * fromlen);
 		static BOOL			IsSocketEagain();
 		static INT32		NetToN( const char *ip, struct in_addr *addr );

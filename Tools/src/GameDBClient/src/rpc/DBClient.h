@@ -19,7 +19,7 @@ namespace Client
 			return m_sRpcInterface;
 		} 
 		virtual CErrno  Init(Json::Value & conf)
-		{ 
+		{
 			return DBClientInterface::Init(conf);
 		}
 		virtual CErrno  Cleanup(void)

@@ -8,7 +8,7 @@ namespace Client
 	class ClientCommands;
 //	typedef void (* pfnClientCommand)(DBClient * pClient , INT32 argc , char ** argv);
 	typedef void (* pfnClientCommand)(DBClient * pClient , std::vector<std::string> & objParams);
-
+	
 	class ClientCommands
 	{
 	public:
@@ -21,6 +21,7 @@ namespace Client
 		void InitCommands(); 
 		void Execute(DBClient * pClient , std::vector<std::string> & objParams);
 		std::string GetNearestCommand(const std::string & strCommand , INT32 nCount) const;
+		CollectionClientCommandsT & GetClientCommand() { return m_mapCommands; }
 
 	public:
 		//5 ±¾µØ²Ù×÷
@@ -76,6 +77,8 @@ namespace Client
 	private:
 		CollectionClientCommandsT m_mapCommands;
 	};
+
+	extern ClientCommands * g_pClientCommands;
 }
 
 #endif

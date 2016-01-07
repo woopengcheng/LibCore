@@ -15,18 +15,18 @@ namespace Net
 		virtual ~NetHandlerListener( void ){}  
 
 	public:
-		virtual CErrno  OnMsgRecving( void );
-
-	public:
-		virtual CErrno  Init(const char * pAddress , INT32 nPort , BOOL bResueAddr = TRUE , INT32  nListenerCount = DEFAULT_LISTENER_COUNT);
-		virtual CErrno  Cleanup(); 
-		virtual void    OnAccept(NetSocket socket , sockaddr_in * addr);
+		virtual CErrno	Init(const char * pAddress , INT32 nPort , BOOL bResueAddr = TRUE , INT32  nListenerCount = DEFAULT_LISTENER_COUNT);
+		virtual CErrno	Cleanup(); 
+		virtual void	OnAccept(NetSocket socket, sockaddr_in * addr);
+		virtual CErrno	OnMsgRecving(void);
 
 	protected:
-		CErrno  OnMsgRecvingCommon(void);
-		CErrno  OnMsgRecvingIOCP(void);
-		INT32   Listen(INT32  nListenerCount = DEFAULT_LISTENER_COUNT);
-		INT32   Bind(const char * pAddress , INT32 nPort , BOOL bResueAddr = TRUE);
+		void			InitUDS();
+		void			InitCommon();
+		CErrno			OnMsgRecvingIOCP(void);
+		CErrno			OnMsgRecvingCommon(void);
+		INT32			Listen(INT32  nListenerCount = DEFAULT_LISTENER_COUNT);
+		INT32			Bind(const char * pAddress , INT32 nPort , BOOL bResueAddr = TRUE);
 	}; 
 	DECLARE_BOOST_POINTERS( NetHandlerListener ); 
 }

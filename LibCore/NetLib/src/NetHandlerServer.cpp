@@ -21,16 +21,20 @@ namespace Net
 		Assert(m_pSession);
 		switch (m_pSession->GetReactorType())
 		{
-		case REACTOR_TYPE_ZMQ:
-		{
-			InitZMQ();
-		}break;
-		case REACTOR_TYPE_UDP:
-		{
-			InitUDP();
-		}break;
-		default:
-			break;
+			case REACTOR_TYPE_ZMQ:
+			{
+				InitZMQ();
+			}break;
+			case REACTOR_TYPE_UDP:
+			{
+				InitUDP();
+			}break;
+			case REACTOR_TYPE_UDS:
+			{
+				InitUDS();
+			}break;
+			default:
+				break;
 		}
 	}
 
@@ -51,13 +55,21 @@ namespace Net
 		NetSocket socket = m_pSession->GetSocket();
 		if (socket == -1)
 		{
-			socket = NetHelper::CreateSocket(AF_INET, SOCK_DGRAM, 0);
+			socket = NetHelper::CreateSocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 			m_pSession->SetSocket(socket);
 
 			NetHelper::SetDefaultSocket(socket);
 
-			bind(socket , (struct sockaddr *)&address, sizeof(address));
+			bind(socket, (struct sockaddr *)&address, sizeof(address));
 		}
+
+		return CErrno::Success();
+	}
+
+	CErrno NetHandlerServer::InitUDS()
+	{
+		Net::UDSContext * pContext = new Net::UDSContext;
+		m_pSession->SetContext(pContext);
 
 		return CErrno::Success();
 	}
@@ -86,6 +98,11 @@ namespace Net
 		}
 
 		return NetHandlerTransit::OnMsgRecving();
+	}
+
+	INT32 NetHandlerServer::SendMsg(const char * pBuf, UINT32 unSize)
+	{
+		return NetHandlerTransit::SendMsg(pBuf, unSize);
 	}
 
 	CErrno NetHandlerServer::Init(const char* ip, int port)

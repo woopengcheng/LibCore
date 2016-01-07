@@ -467,9 +467,9 @@ namespace CUtil
 				BIO_set_flags(b64, BIO_FLAGS_BASE64_NO_NL);
 			}
 
-			BIO * pMemery = BIO_new_mem_buf((void*)strSrc.c_str(), strSrc.size());
+			BIO * pMemery = BIO_new_mem_buf((void*)strSrc.c_str(), (INT32)strSrc.size());
 			pMemery = BIO_push(b64, pMemery);
-			size_t lExpireSize = BIO_read(pMemery , (void*)pDst , strSrc.size());
+			size_t lExpireSize = BIO_read(pMemery , (void*)pDst , (INT32)(strSrc.size()));
 			BIO_free_all(pMemery);
 			if (lExpireSize > 0)
 			{

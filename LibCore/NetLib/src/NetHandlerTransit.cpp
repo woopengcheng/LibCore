@@ -40,19 +40,34 @@ namespace Net
 
 		do
 		{
-			if (m_pSession->GetReactorType() == REACTOR_TYPE_UDP)
+			switch (m_pSession->GetReactorType())
 			{
-				UDPContext * pContext = (UDPContext *)m_pSession->GetContext();
-				if (pContext)
+				case REACTOR_TYPE_UDP:
 				{
-					INT32 nRecLen = sizeof(pContext->GetPeerAddr());
-					nBufSize = NetHelper::RecvMsg(socket, szBuf, sizeof(szBuf), (sockaddr*)&(pContext->GetPeerAddr()) , &nRecLen);
-				}
+					UDPContext * pContext = (UDPContext *)m_pSession->GetContext();
+					if (pContext)
+					{
+						INT32 nRecLen = sizeof(pContext->GetPeerAddr());
+						nBufSize = NetHelper::RecvMsg(socket, szBuf, sizeof(szBuf), (sockaddr*)&(pContext->GetPeerAddr()), &nRecLen);
+					}
+				}break;
+				case REACTOR_TYPE_UDS:
+				{
+					UDSContext * pContext = (UDSContext *)m_pSession->GetContext();
+					if (pContext)
+					{
+						INT32 nRecvFD = 0;
+						nBufSize = NetHelper::RecvMsg(socket, szBuf, sizeof(szBuf), nRecvFD);
+						pContext->SetTransferFD(nRecvFD);
+					}
+				}break;
+				default:
+				{
+					nBufSize = NetHelper::RecvMsg(socket, szBuf, sizeof(szBuf));
+
+				}break;
 			}
-			else
-			{
-				nBufSize = NetHelper::RecvMsg(socket, szBuf, sizeof(szBuf));
-			}
+
 			if( nBufSize <  0 && NetHelper::IsSocketEagain())
 				return CErrno::Success();
 			if( nBufSize <= 0 )
@@ -71,7 +86,7 @@ namespace Net
 		return RecvToCircleBuffer( pBuf , unSize);
 	}
 
-	CErrno NetHandlerTransit::RecvToCircleBuffer(const char * pBuf , UINT32 unSize )
+	CErrno NetHandlerTransit::RecvToCircleBuffer(const char * pBuf, UINT32 unSize)
 	{
 		if(m_objRecvBuf.GetSpace() > unSize)
 		{
@@ -229,10 +244,49 @@ namespace Net
 		}
 
 		return Send(pBuf , unSize);
-
 	}
 
-	INT32 NetHandlerTransit::Send( const char * pBuf , UINT32 unSize)
+	INT32 NetHandlerTransit::SendUDS(const char * pBuf, UINT32 unSize)
+	{
+		UDSContext * pContext = (UDSContext *)(m_pSession->GetContext());
+		if (pContext == NULL)
+		{
+			return -1;
+		}
+		INT32 send_fd = send_fd = pContext->GetTransferFD();
+#ifdef _LINUX
+		int  ret;
+		struct  msghdr msg;
+		struct  cmsghdr *p_cmsg;
+		struct  iovec vec;
+		char  cmsgbuf[CMSG_SPACE(sizeof(send_fd))];
+		int  *p_fds;
+		char  sendchar = 0;
+		msg.msg_control = cmsgbuf;
+		msg.msg_controllen = sizeof(cmsgbuf);
+		p_cmsg = CMSG_FIRSTHDR(&msg);
+		p_cmsg->cmsg_level = SOL_SOCKET;
+		p_cmsg->cmsg_type = SCM_RIGHTS;
+		p_cmsg->cmsg_len = CMSG_LEN(sizeof(send_fd));
+		p_fds = (int  *)CMSG_DATA(p_cmsg);
+		*p_fds = send_fd;  // 通过传递辅助数据的方式传递文件描述符 
+
+		msg.msg_name = NULL;
+		msg.msg_namelen = 0;
+		msg.msg_iov = &vec;
+		msg.msg_iovlen = 1;  //主要目的不是传递数据，故只传1个字符 
+		msg.msg_flags = 0;
+
+		vec.iov_base = &sendchar;
+		vec.iov_len = sizeof(sendchar);
+		ret = sendmsg(sock_fd, &msg, 0);
+		if (ret != 1)
+			ERR_EXIT("sendmsg");
+#endif
+		return -1;
+	}
+
+	INT32 NetHandlerTransit::Send(const char * pBuf, UINT32 unSize)
 	{ 
 		if (m_pSession)
 		{
@@ -245,6 +299,10 @@ namespace Net
 				case REACTOR_TYPE_UDP:
 				{
 					return SendTo(pBuf , unSize);
+				}break;
+				case REACTOR_TYPE_UDS:
+				{
+					return SendUDS(pBuf, unSize);
 				}break;
 				default:
 				{

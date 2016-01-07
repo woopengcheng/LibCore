@@ -2,6 +2,7 @@
 #include "NetLib/inc/NetReactorSelect.h."
 #include "NetLib/inc/HttpProtocol.h"
 #include "DBClientHttpServer.h"
+#include "ClientCommands.h"
 
 namespace Client
 {
@@ -61,14 +62,53 @@ namespace Client
 
 		if (strURL == "index")
 		{
-			std::string result = "<HTML>\n				<HEAD>\n				<TITLE>MiniWeb</TITLE>\n				</HEAD>\n				</HTML>";
+			std::string result = "<html lang=\"en\">\
+				<head>\
+				<meta charset = \"utf-8\">\
+				<title>GameDBClient</title>\
+				</head>\
+				<body>\
+				<table border = \"1\" width = \"700\">\
+				<tr >\
+				<td width = \"100\">result</td>\
+				<td width = \"600\">resultresultresultresultresultresultresultresultresultresult</td>\
+				</tr>\
+				<tr>\
+				<br>\
+				</tr>\
+				</table>\
+				<br><form action=\"submit\" method=\"post\">\
+				<select name = \"commandName\" width = \"300\">";
+			
+			std::string strCommands = "<option value=\"None\">«Î—°‘Ò√¸¡Ó</option>";
+			if (g_pClientCommands)
+			{
+				Client::ClientCommands::CollectionClientCommandsT & mapCommands = g_pClientCommands->GetClientCommand();
+				Client::ClientCommands::CollectionClientCommandsT::iterator iter = mapCommands.begin();
+				for (;iter != mapCommands.end();++iter)
+				{
+					strCommands += "<option value=\"";
+					strCommands += iter->first;
+					strCommands += "\">";
+					strCommands += iter->first;
+					strCommands += "</option>\n";
+				}
+			}
 
+			std::string strResult = "<input type=\"text\" name=\"command\" width=\"300\">\
+				<input type = \"submit\" value = \"ok\" width = \"100\">\
+				</form>\
+				</body>\
+				</html>";
+			result += strCommands + strResult;
 			response.Reserve(result.length() + 512);
 			response.WriteResponseHeader(200,"OK");
-			response.WriteHeader(Net::HttpConsts::HEADER_CONNECTION,"close");
+			response.WriteHeader(Net::HttpConsts::HEADER_CONNECTION,"keep-alive");
 			response.WriteHeader(Net::HttpConsts::HEADER_CONTENT_TYPE,"text/html;charset=utf-8");
 			response.WriteHeader(Net::HttpConsts::HEADER_CONTENT_LENGTH,result.length());
 			response.WriteContent(result.c_str(), result.length());
+
+			return CErrno::Success();
 		}
 		else if(strURL == "pwd")
 		{
@@ -96,9 +136,14 @@ namespace Client
 				response.WriteHeader(Net::HttpConsts::HEADER_CONTENT_LENGTH, result.length());
 				response.WriteContent(result.c_str(), result.length());
 			}
+			return CErrno::Success();
+		}
+		else
+		{
+			return CErrno(CErrno::ERR_INVALID_DATA);
 		}
 
-		return CErrno::Success();
+		return CErrno::Failure();
 	}
 
 }

@@ -12,12 +12,36 @@ namespace Net
 	NetHandlerListener::NetHandlerListener( INetReactor * pNetReactor , ISession * pSession)
 		: INetHandler(pNetReactor , pSession)
 	{ 
-		Assert(m_pSession); 
-		NetSocket socket = NetHelper::CreateSocket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
+		switch (m_pSession->GetReactorType())
+		{
+		case REACTOR_TYPE_UDS:
+		{
+			InitUDS();
+		}break;
+		default:
+		{
+			InitCommon();
+		}break;
+		}
+	}
+
+	void NetHandlerListener::InitUDS()
+	{
+		Assert(m_pSession);
+		NetSocket socket = NetHelper::CreateSocket(AF_UNIX, SOCK_STREAM, 0);
+		NetHelper::SetDefaultSocket(socket);
+
+		m_pSession->SetSocket(socket);
+	}
+
+	void NetHandlerListener::InitCommon()
+	{
+		Assert(m_pSession);
+		NetSocket socket = NetHelper::CreateSocket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
 		int nValueTrue = 1;
-		NetHelper::SetIOCtrl(socket , FIOASYNC , &nValueTrue);
-		m_pSession->SetSocket(socket); 
+		NetHelper::SetIOCtrl(socket, FIOASYNC, &nValueTrue);
+		m_pSession->SetSocket(socket);
 	}
 
 	CErrno NetHandlerListener::Init( const char * pAddress , INT32 nPort , BOOL bResueAddr /*= TRUE */, INT32 nListenerCount /*= DEFAULT_LISTENER_COUNT*/ )
@@ -56,7 +80,7 @@ namespace Net
 		return CErrno::Failure();
 	}
 
-	CErrno NetHandlerListener::OnMsgRecvingCommon( void )
+	CErrno NetHandlerListener::OnMsgRecvingCommon(void)
 	{
 		sockaddr_in addr = {0};
 #ifdef __linux
@@ -88,16 +112,43 @@ namespace Net
 			setsockopt(m_pSession->GetSocket(), SOL_SOCKET , SO_REUSEADDR , (char *)&nValueTrue , sizeof(nValueTrue)); 
 		}
 
-		sockaddr_in addr = {0};
-		addr.sin_family = AF_INET;
-		addr.sin_port = htons(nPort);
-		addr.sin_addr.S_un.S_addr = INADDR_ANY;
-		if (pAddress != 0 && strlen(pAddress) > 0)
+		if (m_pSession->GetReactorType() == REACTOR_TYPE_UDS)
 		{
-			addr.sin_addr.S_un.S_addr = ::inet_addr(pAddress);
+#ifdef _LINUX
+			std::string strFile = pAddress;
+			strFile += ".";
+			strFile += itoa(port);
+
+			if (判断文件是否存在)
+			{
+				创建文件
+			}
+
+			sockaddr_un addr = { 0 };
+			memset(&addr, 0, sizeof(addr));
+			addr.sin_family = AF_UNIX;
+			strncpy(addr->sun_path, strFile.c_str(), sizeof(addr->sun_path) - 1);
+			addr->sun_path[sizeof(addr->sun_path) - 1] = '\0';
+			unlink(addr->sun_path);
+			
+			return ::bind(m_pSession->GetSocket(), (sockaddr*)&addr, sizeof(sockaddr_un));
+#endif
+		}
+		else
+		{
+			sockaddr_in addr = { 0 };
+			addr.sin_family = AF_INET;
+			addr.sin_port = htons(nPort);
+			addr.sin_addr.S_un.S_addr = INADDR_ANY;
+			if (pAddress != 0 && strlen(pAddress) > 0)
+			{
+				addr.sin_addr.S_un.S_addr = ::inet_addr(pAddress);
+			}
+
+			return ::bind(m_pSession->GetSocket(), (sockaddr*)&addr, sizeof(sockaddr_in));
 		}
 
-		return ::bind(m_pSession->GetSocket() , (sockaddr*)&addr , sizeof(sockaddr_in));
+		return -1;
 	}
 
 	void NetHandlerListener::OnAccept( NetSocket socket , sockaddr_in * addr )

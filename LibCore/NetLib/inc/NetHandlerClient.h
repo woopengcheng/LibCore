@@ -33,7 +33,9 @@ namespace Net
 	protected:
 		BOOL			IsZMQ();
 		CErrno			InitZMQ();
+		CErrno			InitUDS();
 		INT32			Connect(const char* ip, int port);
+		INT32			ConnectUDS(const char* ip, int port);
 		INT32			ConnectUDP(const char* ip, int port);
 		INT32			ConnectZMQ(const char* ip, int port);
 		INT32			ConnectCommon(const char* ip, int port);

@@ -106,6 +106,44 @@ namespace Net
 #endif
 	}
 
+	INT32 NetHelper::RecvMsg(NetSocket socket, char * pBuf, UINT32 unSize , INT32 & recv_fd)
+	{
+		INT32  ret; 
+#ifdef __linux
+		struct  msghdr msg;
+		char  recvchar;
+		struct  iovec vec;
+		char  cmsgbuf[CMSG_SPACE(sizeof(recv_fd))];
+		struct  cmsghdr *p_cmsg;
+		int  *p_fd;
+		vec.iov_base = pBuf;
+		vec.iov_len = unSize;
+		msg.msg_name = NULL;
+		msg.msg_namelen = 0;
+		msg.msg_iov = &vec;
+		msg.msg_iovlen = 1;
+		msg.msg_control = cmsgbuf;
+		msg.msg_controllen = sizeof(cmsgbuf);
+		msg.msg_flags = 0;
+
+		p_fd = (int  *)CMSG_DATA(CMSG_FIRSTHDR(&msg));
+		*p_fd = -1;
+		ret = recvmsg(sock_fd, &msg, 0);
+		if (ret < 1)
+			ERR_EXIT("recvmsg");
+
+		p_cmsg = CMSG_FIRSTHDR(&msg);
+		if (p_cmsg == NULL)
+			ERR_EXIT("no passed fd");
+
+		p_fd = (int  *)CMSG_DATA(p_cmsg);
+		recv_fd = *p_fd;
+		if (recv_fd == -1)
+			ERR_EXIT("no passed fd");
+#endif
+		return ret;
+	}
+
 	BOOL NetHelper::IsSocketEagain()
 	{ 
 #ifdef __linux

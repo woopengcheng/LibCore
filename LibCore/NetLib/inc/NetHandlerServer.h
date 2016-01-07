@@ -20,12 +20,14 @@ namespace Net
 
 	public:
 		virtual CErrno  OnMsgRecving(void);
+		virtual INT32	SendMsg(const char * pBuf, UINT32 unSize);
 		virtual CErrno	HandleMsg(ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
 
 	protected:
 		BOOL			IsZMQ();
 		CErrno			InitZMQ();
 		CErrno			InitUDP();
+		CErrno			InitUDS();
 		CErrno			Init(const char* ip, int port);
 		CErrno			OnMsgRecvingZMQ(void);
 
