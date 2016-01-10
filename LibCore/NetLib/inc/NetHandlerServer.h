@@ -28,6 +28,7 @@ namespace Net
 		CErrno			InitZMQ();
 		CErrno			InitUDP();
 		CErrno			InitUDS();
+		CErrno			InitRakNet();
 		CErrno			Init(const char* ip, int port);
 		CErrno			OnMsgRecvingZMQ(void);
 

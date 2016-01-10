@@ -1,8 +1,13 @@
+#include "RakPeerInterface.h"
+#include "BitStream.h"
+#include "RakNetTypes.h"
+#include "MessageIdentifiers.h"
 #include "NetLib/inc/NetHelper.h"
 #include "NetLib/inc/ISession.h"
 #include "NetLib/inc/INetHandler.h"
 #include "NetLib/inc/NetReactorIOCP.h"
 #include "CUtil/inc/CUtil.h"
+
 
 #ifdef _WIN32
 #include <windows.h>  
@@ -71,7 +76,21 @@ namespace Net
 		return str;
 	}
 
-	void NetHelper::SetSocket( NetSocket & socket )
+	UINT8 NetHelper::GetPacketIdentifier(RakNet::Packet * pPacket)
+	{
+		if (!pPacket)
+			return 255;
+
+		if ((unsigned char)pPacket->data[0] == ID_TIMESTAMP)
+		{
+			RakAssert(pPacket->length > sizeof(RakNet::MessageID) + sizeof(RakNet::Time));
+			return (unsigned char)pPacket->data[sizeof(RakNet::MessageID) + sizeof(RakNet::Time)];
+		}
+		else
+			return (unsigned char)pPacket->data[0];
+	}
+
+	void NetHelper::SetSocket(NetSocket & socket)
 	{
 		linger s = {0};
 		s.l_onoff = 1;
@@ -142,6 +161,23 @@ namespace Net
 			ERR_EXIT("no passed fd");
 #endif
 		return ret;
+	}
+
+	INT32 NetHelper::RecvMsg(RakNet::Packet * pPacket, char * pBuf, UINT32 unSize)
+	{
+		UINT32 unPacketSize = 0;
+		RakNet::BitStream bs(pPacket->data, pPacket->bitSize, false);
+		RakNet::MessageID objMsgID;
+		bs.Read(objMsgID);  //5 这里用不到,需要去掉.如果需要的话.需要特殊处理.
+		bs.Read(unPacketSize);
+		bs.Read(pBuf);
+
+		if (unPacketSize != pPacket->length - sizeof(RakNet::MessageID))
+		{
+			return -1;
+		}
+
+		return pPacket->length - sizeof(RakNet::MessageID);
 	}
 
 	BOOL NetHelper::IsSocketEagain()

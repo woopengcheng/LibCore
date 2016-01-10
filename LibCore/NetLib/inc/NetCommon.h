@@ -14,7 +14,6 @@
 
 namespace Net
 {    
-#define DEFAULT_MAX_INCOMING_CONNECTION 8   //5  设置的最大连接数.RakNet使用.
 #define ID_DEFAULT_RAKNET_USER_PACKET 	254
 
 
@@ -51,6 +50,7 @@ namespace Net
 		REACTOR_TYPE_ZMQ,
 		REACTOR_TYPE_UDP,
 		REACTOR_TYPE_UDS,
+		REACTOR_TYPE_RAKNET,
 	};
 
 	struct MsgHeader 

@@ -1,8 +1,15 @@
+#include "MessageIdentifiers.h"
+#include "RakPeerInterface.h"
+#include "BitStream.h"
+#include "RakNetTypes.h"
+#include "MessageIdentifiers.h"
 #include "NetLib/inc/NetHandlerListener.h" 
 #include "NetLib/inc/NetHandlerServer.h"
 #include "NetLib/inc/ServerSession.h"
 #include "NetLib/inc/INetReactor.h"
 #include "NetLib/inc/NetHelper.h"
+#include "NetLib/inc/NetReactorRakNet.h"
+
 #ifdef WIN32
 #include <WinSock.h>
 #endif
@@ -67,14 +74,18 @@ namespace Net
 		{
 			switch (m_pSession->GetReactorType())
 			{
-			case REACTOR_TYPE_IOCP:
-			{
-				return OnMsgRecvingIOCP();
-			}break;
-			default:
-			{
-				return OnMsgRecvingCommon();
-			}break;
+				case REACTOR_TYPE_IOCP:
+				{
+					return OnMsgRecvingIOCP();
+				}break;
+				case REACTOR_TYPE_RAKNET:
+				{
+					return OnMsgRecvingRakNet();
+				}break;
+				default:
+				{
+					return OnMsgRecvingCommon();
+				}break;
 			}
 		}
 		return CErrno::Failure();
@@ -95,8 +106,8 @@ namespace Net
 			this->OnAccept(socket , &addr);
 		}
 		return CErrno::Success();
-	}
-
+	}	
+		
 	INT32 NetHandlerListener::Listen( INT32 nListenerCount /*= DEFAULT_LISTENER_COUNT*/)
 	{
 		return ::listen(m_pSession->GetSocket() , nListenerCount);
@@ -150,8 +161,8 @@ namespace Net
 
 		return -1;
 	}
-
-	void NetHandlerListener::OnAccept( NetSocket socket , sockaddr_in * addr )
+	
+	void NetHandlerListener::OnAccept(NetSocket socket, sockaddr_in * addr)
 	{
 		if (m_pNetReactor)
 		{

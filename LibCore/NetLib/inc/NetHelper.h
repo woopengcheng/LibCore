@@ -6,6 +6,11 @@
 struct in_addr;
 struct sockaddr_in;
 
+namespace RakNet
+{
+	struct Packet;
+}
+
 namespace Net 
 {
 	class ISession;
@@ -34,6 +39,7 @@ namespace Net
 		static INT32		SetIOCtrl(int s,long cmd,int *argp);
 		static INT32		RecvMsg(NetSocket socket, char * pBuf, UINT32 unSize);
 		static INT32		RecvMsg(NetSocket socket, char * pBuf, UINT32 unSize, INT32 & recv_fd);
+		static INT32		RecvMsg(RakNet::Packet * pPacket , char * pBuf, UINT32 unSize);
 		static INT32		RecvMsg(NetSocket socket, char * pBuf, UINT32 unSize, struct sockaddr * from, int * fromlen);
 		static BOOL			IsSocketEagain();
 		static INT32		NetToN( const char *ip, struct in_addr *addr );
@@ -47,6 +53,7 @@ namespace Net
 		static std::string	GenerateRemoteName(const char * pNetType, const char * pAddress, const char * pPort);
 		static std::string	GenerateRemoteName(const char * pNetType, const char * pAddress, UINT16 usPort, UINT16 usRemotePort);
 		static std::string	GenerateRemoteName(const char * pNetType, const char * pAddress, const char * pPort, const char * pRemotePort);
+		static UINT8		GetPacketIdentifier(RakNet::Packet * pPacket);
 
 #ifdef _WIN32
 		static INT32		WSARecv(INetHandler * pNetHandler);

@@ -475,6 +475,7 @@
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorEpoll.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerHttpServer.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorIOCP.cpp" />
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorRakNet.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorSelect.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorUDP.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorWES.cpp" />

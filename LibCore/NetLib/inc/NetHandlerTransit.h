@@ -32,8 +32,10 @@ namespace Net
 		INT32			SendCommon(const char * pBuf, UINT32 unSize);
 		INT32			SendIOCP(const char * pBuf, UINT32 unSize);
 		INT32			SendUDS(const char * pBuf, UINT32 unSize);//5 用于传递套接字
+		INT32			RecvMsgRakNet(char * pBuf, UINT32 unSize);
+		INT32			SendRakNet(const char * pBuf, UINT32 unSize);
 		CErrno			ParaseRecvMsg();     
-		INT32			FlushSendBuffer( void );
+		INT32			FlushSendBuffer(void);
 		CErrno			RecvToCircleBuffer(const char * pBuf , UINT32 unSize);   //5 将消息扔给CircleBuffer 
 
 	protected:

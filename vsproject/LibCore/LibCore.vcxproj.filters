@@ -890,5 +890,8 @@
     <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerServer.cpp">
       <Filter>NetLib\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorRakNet.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

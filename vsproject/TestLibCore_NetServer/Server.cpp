@@ -46,6 +46,20 @@ INT32 Server::InitZMQ()
 	return TRUE;
 }
 
+INT32 Server::InitRakNet()
+{
+	if (!m_pNetReactor)
+	{
+		m_pNetReactor = new Net::NetReactorRakNet;
+	}
+	m_pNetReactor->Init();
+
+	Net::ServerSession * pServerSession = new Net::ServerSession("127.0.0.1", 5555, "", -1, 0);
+	Net::NetHandlerServerPtr pNetHandlerListener(new Net::NetHandlerServer(m_pNetReactor, pServerSession));
+	m_pNetReactor->AddNetHandler(pNetHandlerListener, Net::NET_FUNC_ACCEPT_DEFAULT);
+
+	return TRUE;
+}
 INT32 Server::Cleanup()
 {
 	if (m_pNetReactor)

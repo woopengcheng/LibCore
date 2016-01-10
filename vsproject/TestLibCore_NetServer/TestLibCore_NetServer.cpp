@@ -15,7 +15,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	Server server;
 //	server.Init();
 //	server.InitUDP();
-	server.InitZMQ();
+//	server.InitZMQ();
+	server.InitRakNet();
 
 	server.Update();
 

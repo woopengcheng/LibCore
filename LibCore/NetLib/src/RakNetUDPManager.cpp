@@ -26,7 +26,7 @@ namespace Net
 		
 		RakNet::SocketDescriptor socketDescriptor(0 , 0);
 		socketDescriptor.socketFamily = AF_INET;
-		RakNet::StartupResult  objResult = m_pRakPeerInstance->Startup(DEFAULT_MAX_INCOMING_CONNECTION , &socketDescriptor , 1);
+		RakNet::StartupResult  objResult = m_pRakPeerInstance->Startup(DEFAULT_LISTENER_COUNT , &socketDescriptor , 1);
 		
 		if (objResult != RakNet::RAKNET_STARTED)
 		{

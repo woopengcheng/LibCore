@@ -33,6 +33,10 @@ namespace Net
 			{
 				InitUDS();
 			}break;
+			case REACTOR_TYPE_RAKNET:
+			{
+				InitRakNet();
+			}break;
 			default:
 				break;
 		}

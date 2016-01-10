@@ -1,8 +1,13 @@
-﻿#include "NetLib/inc/NetHandlerTransit.h"
+﻿#include "RakPeerInterface.h"
+#include "BitStream.h"
+#include "RakNetTypes.h"
+#include "MessageIdentifiers.h"
+#include "NetLib/inc/NetHandlerTransit.h"
 #include "NetLib/inc/NetHelper.h"
 #include "NetLib/inc/ByteOrder.h"
 #include "NetLib/inc/ISession.h"
 #include "NetLib/inc/NetReactorUDP.h"
+#include "NetLib/inc/NetReactorRakNet.h"
 #include "NetLib/inc/INetReactor.h"
 #include "Timer/inc/TimerHelp.h"
 
@@ -29,7 +34,7 @@ namespace Net
 		m_objSendBuf.Cleanup();
 		m_objRecvBuf.Cleanup();
 	}
-	 
+
 	CErrno NetHandlerTransit::OnMsgRecving( void )
 	{
 		char szBuf[DEFAULT_CIRCLE_BUFFER_SIZE];  
@@ -61,10 +66,13 @@ namespace Net
 						pContext->SetTransferFD(nRecvFD);
 					}
 				}break;
+				case REACTOR_TYPE_RAKNET:
+				{
+					nBufSize = RecvMsgRakNet(szBuf, sizeof(szBuf));
+				}break;
 				default:
 				{
 					nBufSize = NetHelper::RecvMsg(socket, szBuf, sizeof(szBuf));
-
 				}break;
 			}
 
@@ -201,7 +209,7 @@ namespace Net
 		return nSendBytes;  
 	} 
 
-	INT32 NetHandlerTransit::SendMsg( const char * pBuf , UINT32 unSize )
+	INT32 NetHandlerTransit::SendMsg(const char * pBuf, UINT32 unSize)
 	{ 
 		if(m_objSendBuf.IsVaild() && m_objSendBuf.GetDataLength() >= 0)
 		{
@@ -286,6 +294,25 @@ namespace Net
 		return -1;
 	}
 
+	INT32 NetHandlerTransit::SendRakNet(const char * pBuf, UINT32 unSize)
+	{
+		RakNet::BitStream bs;
+		bs.Write((RakNet::MessageID)ID_DEFAULT_RAKNET_USER_PACKET);
+		bs.Write(unSize);
+		bs.Write(pBuf);
+		RakNet::RakPeerInterface * pRakPeerInstance = ((NetReactorRakNet *)(this->GetNetReactor()))->GetRakPeerInterface();
+		if (pRakPeerInstance)
+		{
+			UINT32 unResult = pRakPeerInstance->Send(&bs, HIGH_PRIORITY, RELIABLE_ORDERED, 0, pRakPeerInstance->GetSystemAddressFromIndex(0), false);
+			if (unResult == 0)
+				return -1;
+			
+			return unResult;
+		}
+
+		return -1;
+	}
+
 	INT32 NetHandlerTransit::Send(const char * pBuf, UINT32 unSize)
 	{ 
 		if (m_pSession)
@@ -303,6 +330,10 @@ namespace Net
 				case REACTOR_TYPE_UDS:
 				{
 					return SendUDS(pBuf, unSize);
+				}break;
+				case REACTOR_TYPE_RAKNET:
+				{
+					return SendRakNet(pBuf, unSize);
 				}break;
 				default:
 				{

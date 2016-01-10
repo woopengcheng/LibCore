@@ -2,11 +2,16 @@ extern "C"
 {
 #include "zmq.h" 
 }
+#include "RakPeerInterface.h"
+#include "BitStream.h"
+#include "RakNetTypes.h"
+#include "MessageIdentifiers.h"
 #include "NetLib/inc/NetHandlerClient.h"
 #include "NetLib/inc/NetHelper.h"
 #include "NetLib/inc/INetReactor.h" 
 #include "CUtil/inc/CUtil.h"
 #include "NetLib/inc/NetReactorUDP.h"
+#include "NetLib/inc/NetReactorRakNet.h"
 
 namespace Net
 {
@@ -27,6 +32,10 @@ namespace Net
 			case REACTOR_TYPE_UDS:
 			{
 				InitUDS();
+			}break;
+			case REACTOR_TYPE_RAKNET:
+			{
+				InitRakNet();
 			}break;
 			default:
 				break;
@@ -128,6 +137,10 @@ namespace Net
 		{
 			nResult = ConnectUDS(ip, port);
 		}break;
+		case REACTOR_TYPE_RAKNET:
+		{
+			nResult = ConnectRakNet(ip, port);
+		}break;
 		default:
 		{
 			nResult = ConnectCommon(ip, port);
@@ -201,6 +214,7 @@ namespace Net
 		
 		return 0;
 	}
+
 	INT32 NetHandlerClient::ConnectZMQ(const char* ip, int port)
 	{
 		std::string str = "tcp://";
@@ -217,7 +231,7 @@ namespace Net
 
 		return  nResult;
 	}
-
+	
 	INT32 NetHandlerClient::ConnectCommon(const char* ip, int port)
 	{
 		NetSocket socket = m_pSession->GetSocket();

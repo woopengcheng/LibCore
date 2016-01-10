@@ -4,6 +4,7 @@
 #include "NetLib/inc/NetReactorEpoll.h"
 #include "NetLib/inc/NetReactorIOCP.h"
 #include "NetLib/inc/NetReactorSelect.h"
+#include "NetLib/inc/NetReactorRakNet.h"
 #include "NetLib/inc/NetReactorWES.h"
 #include "NetLib/inc/NetReactorZMQ.h"
 #include "NetLib/inc/NetReactorUDP.h"

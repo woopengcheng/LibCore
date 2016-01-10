@@ -34,10 +34,12 @@ namespace Net
 		BOOL			IsZMQ();
 		CErrno			InitZMQ();
 		CErrno			InitUDS();
+		CErrno			InitRakNet();
 		INT32			Connect(const char* ip, int port);
 		INT32			ConnectUDS(const char* ip, int port);
 		INT32			ConnectUDP(const char* ip, int port);
 		INT32			ConnectZMQ(const char* ip, int port);
+		INT32			ConnectRakNet(const char* ip, int port);
 		INT32			ConnectCommon(const char* ip, int port);
 		INT32			SendMsgZMQ(const char * pBuf, UINT32 unSize);
 
