@@ -81,7 +81,7 @@ namespace Net
 		pk.publicKeyMode = RakNet::PKM_USE_KNOWN_PUBLIC_KEY;
 		RakNet::ConnectionAttemptResult car = pRakPeerInstance->Connect(ip, usPort, pPassword, 0, &pk);
 #else
-		RakNet::ConnectionAttemptResult car = pRakPeerInstance->Connect(ip, usPort , "Rumpelstiltskin", (int)strlen("Rumpelstiltskin"));
+		RakNet::ConnectionAttemptResult car = pRakPeerInstance->Connect(ip, usPort , pPassword, 0);
 #endif 
 		if (car != RakNet::CONNECTION_ATTEMPT_STARTED)
 		{
@@ -134,13 +134,13 @@ namespace Net
 		RakNetContext * pContext = new RakNetContext;
 		m_pSession->SetContext(pContext);
 
-		RakNet::SocketDescriptor socketDescriptor(m_pSession->GetPort() , 0);
+		RakNet::SocketDescriptor socketDescriptor(0 , 0);
 		socketDescriptor.socketFamily = AF_INET;
 		RakNet::RakPeerInterface * pInterface = ((NetReactorRakNet*)m_pNetReactor)->GetRakPeerInterface();
 		if (pInterface)
 		{
 			pInterface->AllowConnectionResponseIPMigration(false);
-			pInterface->Startup(8, &socketDescriptor, 1);
+			pInterface->Startup(DEFAULT_MAX_CONNECTION_COUNT, &socketDescriptor, 1);
 			pInterface->SetOccasionalPing(true);
 		}
 
@@ -211,7 +211,7 @@ namespace Net
 			m_pRakPeerInstance->AllowConnectionResponseIPMigration(false);
 			m_pRakPeerInstance->SetMaximumIncomingConnections(m_unMaxConnectionCount);
 			m_pRakPeerInstance->SetOccasionalPing(true);
-			m_pRakPeerInstance->SetIncomingPassword("Rumpelstiltskin", (int)strlen("Rumpelstiltskin"));
+// 			m_pRakPeerInstance->SetIncomingPassword(pPassword , 0);
 //			m_pRakPeerInstance->SetUnreliableTimeout(1000);
 
 			RakNet::SystemAddress address;
@@ -282,12 +282,19 @@ namespace Net
 			INetHandlerPtr pNetHandler;
 			if (ucPacketIdentifier == ID_NEW_INCOMING_CONNECTION)
 			{
-				INetHandlerPtr pNetHandler = GetListenerNetHandler();
+				pNetHandler = GetListenerNetHandler();
+				RakNetContext * pContext = (RakNetContext *)(pNetHandler->GetSession()->GetContext());
+				pContext->SetPacket(pPacket);
 				bClosed = !pNetHandler->OnMsgRecving().IsSuccess() || bClosed;
+				pContext->SetPacket(NULL);
 			}
 			else
 			{
 				pNetHandler = GetNetHandler(pPacket->systemAddress);
+			}
+			if (!pNetHandler || pNetHandler->GetSession())
+			{
+				continue;
 			}
 			ISession * pSession = pNetHandler->GetSession();
 
@@ -396,10 +403,15 @@ namespace Net
 		}
 
 		RakNetContext * pContext = (RakNetContext *)(pNetHandler->GetSession()->GetContext());
-		RakNet::SystemAddress address = (pContext->GetId());
-		m_mapNetHandlers.insert(std::make_pair(RakNet::SystemAddress::ToInteger(address) , pNetHandler));
+		if (pContext)
+		{
+			RakNet::SystemAddress address = (pContext->GetId());
+			m_mapNetHandlers.insert(std::make_pair(RakNet::SystemAddress::ToInteger(address), pNetHandler));
+		
+			return CErrno::Success();
+		}
 
-		return CErrno::Success();
+		return CErrno::Failure();
 	}
 
 	CErrno NetReactorRakNet::DelNetHandler( INetHandlerPtr  pNetHandler , BOOL bEraseHandler/* = TRUE */)
