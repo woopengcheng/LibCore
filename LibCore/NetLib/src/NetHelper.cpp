@@ -1,3 +1,7 @@
+extern "C"
+{
+#include "zmq.h" 
+}
 #include "RakPeerInterface.h"
 #include "BitStream.h"
 #include "RakNetTypes.h"
@@ -127,7 +131,7 @@ namespace Net
 
 	INT32 NetHelper::RecvMsg(NetSocket socket, char * pBuf, UINT32 unSize , INT32 & recv_fd)
 	{
-		INT32  ret; 
+		INT32  ret = 0; 
 #ifdef __linux
 		struct  msghdr msg;
 		char  recvchar;
@@ -178,6 +182,32 @@ namespace Net
 		}
 
 		return pPacket->length - sizeof(RakNet::MessageID);
+	}
+
+	INT32 NetHelper::RecvMsg(zmqSocketPtr pZmqSocket, zmq_msg_t * pZmqMsg, char * pBuf, UINT32 unSize)
+	{
+		INT32 nResult = zmq_recvmsg(pZmqSocket, pZmqMsg, ZMQ_DONTWAIT);
+		if (nResult < 0)
+		{
+			if (zmq_errno() == EAGAIN)
+			{
+				nResult = zmq_msg_close(pZmqMsg);
+				if (nResult != 0)
+				{
+					gErrorStream("error in zmq_msg_close: %s" << zmq_strerror(errno));
+					return  -1;
+				}
+				return 0;
+			}
+
+			gErrorStream("error in zmq_recvmsg: %s" << zmq_strerror(errno));
+			return 0;
+		}
+
+		pBuf = (char *)zmq_msg_data(pZmqMsg);
+		size_t usSize = zmq_msg_size(pZmqMsg);
+
+		return  usSize;
 	}
 
 	BOOL NetHelper::IsSocketEagain()

@@ -77,6 +77,11 @@ public:
 		return m_eCode == ERR_SUCCESS;
 	}
 
+	bool IsFailure()
+	{
+		return m_eCode != ERR_SUCCESS;
+	}
+
 	std::string ToString()
 	{
 		std::string strResult;

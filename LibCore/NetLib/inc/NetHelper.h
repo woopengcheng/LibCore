@@ -10,6 +10,8 @@ namespace RakNet
 {
 	struct Packet;
 }
+struct zmq_msg_t;
+typedef void * zmqSocketPtr;
 
 namespace Net 
 {
@@ -36,10 +38,11 @@ namespace Net
 	public: 
 		static void			SetSocket(NetSocket & socket);
 		static INT32		SetDefaultSocket(NetSocket & socket , INT32 nSendBufSize = DEFAULT_SOCKET_BUFFER_SIZE , INT32 nRecvBufSize = DEFAULT_SOCKET_BUFFER_SIZE );
-		static INT32		SetIOCtrl(int s,long cmd,int *argp);
+		static INT32		SetIOCtrl(int s, long cmd, int *argp);
 		static INT32		RecvMsg(NetSocket socket, char * pBuf, UINT32 unSize);
 		static INT32		RecvMsg(NetSocket socket, char * pBuf, UINT32 unSize, INT32 & recv_fd);
-		static INT32		RecvMsg(RakNet::Packet * pPacket , char * pBuf, UINT32 unSize);
+		static INT32		RecvMsg(RakNet::Packet * pPacket, char * pBuf, UINT32 unSize);
+		static INT32		RecvMsg(zmqSocketPtr pZmqSocket, zmq_msg_t * pZmqMsg, char * pBuf, UINT32 unSize);
 		static INT32		RecvMsg(NetSocket socket, char * pBuf, UINT32 unSize, struct sockaddr * from, int * fromlen);
 		static BOOL			IsSocketEagain();
 		static INT32		NetToN( const char *ip, struct in_addr *addr );

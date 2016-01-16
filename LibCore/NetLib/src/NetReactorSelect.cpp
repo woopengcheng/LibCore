@@ -8,8 +8,8 @@
 
 namespace Net
 { 
-	NetReactorSelect::NetReactorSelect(UINT32 unMaxConnectionCount)
-		: INetReactor(REACTOR_TYPE_SELECT)
+	NetReactorSelect::NetReactorSelect(UINT32 unMaxConnectionCount , BOOL bIsMutilThread/* = FALSE*/)
+		: INetReactor(REACTOR_TYPE_SELECT , bIsMutilThread)
 		, m_nNetHandlerCount(0)
 		, m_unMaxConnectionCount(unMaxConnectionCount) 
 		, m_pFdSetReads(NULL)
@@ -158,7 +158,7 @@ namespace Net
 
 		++m_nNetHandlerCount;
 
-		return CErrno::Success();
+		return INetReactor::AddNetHandler(pNetHandler , objMask);
 	}
 
 	CErrno NetReactorSelect::DelNetHandler( INetHandlerPtr  pNetHandler , BOOL bEraseHandler/* = TRUE */)
@@ -178,7 +178,7 @@ namespace Net
  			--m_nNetHandlerCount;
 		}
 
-		return CErrno::Success();
+		return INetReactor::DelNetHandler(pNetHandler , bEraseHandler);
 	}
 
 	CErrno NetReactorSelect::ModNetHandler( INetHandlerPtr  pNetHandler  , ENetHandlerFuncMask objMask )
@@ -193,8 +193,7 @@ namespace Net
 		else
 			return  CErrno::Failure();
 
-		return CErrno::Success();
+		return INetReactor::ModNetHandler(pNetHandler , objMask);
 	}
-
 
 }

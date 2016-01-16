@@ -247,8 +247,8 @@ namespace Net
 		return CErrno::Failure();
 	}
 
-	NetReactorIOCP::NetReactorIOCP()
-		: INetReactor(REACTOR_TYPE_IOCP)
+	NetReactorIOCP::NetReactorIOCP(BOOL bIsMutilThread/* = FALSE*/)
+		: INetReactor(REACTOR_TYPE_IOCP, bIsMutilThread)
 	{
 		m_hIocp = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, NULL, 1);
 		MsgAssert(m_hIocp != NULL && m_hIocp != INVALID_HANDLE_VALUE , "error iocp create.");
@@ -301,7 +301,8 @@ namespace Net
 			}
 
 			m_mapNetHandlers.insert(std::make_pair(pNetHandler->GetSession()->GetSessionID(), pNetHandler));
-			return CErrno::Success();
+
+			return INetReactor::AddNetHandler(pNetHandler, objMask);
 		}
 
 		return CErrno::Failure();
@@ -318,13 +319,13 @@ namespace Net
 			pNetHandler->GetSession()->SetContext(NULL);
 		}
 
-		return CErrno::Success();
+		return INetReactor::DelNetHandler(pNetHandler, bEraseHandler);
 	}
 
 	CErrno NetReactorIOCP::ModNetHandler(INetHandlerPtr  pNetHandler, ENetHandlerFuncMask objMask)
 	{
 
-		return CErrno::Success();
+		return INetReactor::ModNetHandler(pNetHandler, objMask);
 	}
 
 	CErrno NetReactorIOCP::Update( void )

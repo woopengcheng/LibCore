@@ -11,6 +11,7 @@
 #include "NetLib/inc/NetHandlerClient.h"
 #include "NetLib/inc/NetHandlerServer.h"
 #include "NetLib/inc/NetHandlerTransit.h"
+#include "NetLib/inc/NetHandlerListener.h"
 #include "NetLib/inc/NetHelper.h" 
 #include "NetLib/inc/ServerSession.h"
 #include "NetLib/inc/ClientSession.h"

@@ -16,7 +16,7 @@ namespace Net
 	class DLL_EXPORT NetReactorWES :public INetReactor
 	{
 	public:
-		NetReactorWES(UINT32 unMaxConnectionCount = DEFAULT_MAX_CONNECTION_COUNT);
+		explicit NetReactorWES(UINT32 unMaxConnectionCount = DEFAULT_MAX_CONNECTION_COUNT , BOOL bIsMutilThread = FALSE);
 		virtual ~NetReactorWES(void);
 
 	public:
@@ -25,11 +25,12 @@ namespace Net
 		virtual CErrno		Update( void );
 
 	public:
-		virtual CErrno		AddNetHandler(INetHandlerPtr  pNetHandler  , ENetHandlerFuncMask objMask = NET_FUNC_DEFAULT);
-		virtual CErrno		DelNetHandler(INetHandlerPtr  pNetHandler  , BOOL bEraseHandler = TRUE);
-		virtual CErrno		ModNetHandler(INetHandlerPtr  pNetHandler, ENetHandlerFuncMask objMask);
+		virtual CErrno		AddNetHandler(INetHandlerPtr  pNetHandler , ENetHandlerFuncMask objMask = NET_FUNC_DEFAULT);
+		virtual CErrno		DelNetHandler(INetHandlerPtr  pNetHandler , BOOL bEraseHandler = TRUE);
+		virtual CErrno		ModNetHandler(INetHandlerPtr  pNetHandler , ENetHandlerFuncMask objMask);
 
 	protected:
+		INetHandlerPtr		GetNetHandler(UINT32 unHandlerID) { return NULL; }
 		INT32				GetIndexByNetHandler(INetHandlerPtr	pNetHandler);
 		CErrno				iUpdate(INT32 start, INT32 end);
 
@@ -40,7 +41,7 @@ namespace Net
 		WSAEVENT		*	m_pEvents;
 	}; 
 
-	typedef Net::NetReactorWES NetReactorDefault;
+//	typedef Net::NetReactorWES NetReactorDefault;
 }
 #endif
 

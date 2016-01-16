@@ -13,7 +13,7 @@ namespace Net
 	class DLL_EXPORT NetReactorEpoll :public INetReactor
 	{
 	public:
-		NetReactorEpoll(UINT32 unMaxConnectionCount);
+		explicit NetReactorEpoll(UINT32 unMaxConnectionCount = DEFAULT_MAX_CONNECTION_COUNT , BOOL bIsMutilThread = FALSE);
 		virtual ~NetReactorEpoll(void);
 
 	public:

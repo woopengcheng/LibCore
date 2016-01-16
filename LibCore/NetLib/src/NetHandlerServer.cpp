@@ -80,33 +80,11 @@ namespace Net
 
 	NetHandlerServer::~NetHandlerServer()
 	{
-		if (IsZMQ())
-		{
-			MsgAssert(!zmq_close(m_pZmqSocket), zmq_strerror(errno) << "error in zmq_close");
-			MsgAssert(!zmq_term(m_pZmqContext), zmq_strerror(errno) << "error in zmq_term:");
-
-			SAFE_DELETE(m_pZmqMsg);
-		}
 	}
 
 	CErrno NetHandlerServer::OnClose( void )
 	{ 
 		return NetHandlerTransit::OnClose();
-	}
-
-	CErrno NetHandlerServer::OnMsgRecving(void)
-	{
-		if (IsZMQ())
-		{
-			return OnMsgRecvingZMQ();
-		}
-
-		return NetHandlerTransit::OnMsgRecving();
-	}
-
-	INT32 NetHandlerServer::SendMsg(const char * pBuf, UINT32 unSize)
-	{
-		return NetHandlerTransit::SendMsg(pBuf, unSize);
 	}
 
 	CErrno NetHandlerServer::Init(const char* ip, int port)
@@ -123,58 +101,7 @@ namespace Net
 
 		return NetHandlerTransit::Init();
 	}
-
-	CErrno NetHandlerServer::OnMsgRecvingZMQ(void)
-	{
-
-		int nResult = zmq_msg_init(m_pZmqMsg);
-		if (nResult != 0)
-		{
-			gErrorStream("error in zmq_msg_init: %s\n" << zmq_strerror(errno));
-			return CErrno::Failure();
-		}
-
-		nResult = zmq_recvmsg(m_pZmqSocket, m_pZmqMsg, ZMQ_DONTWAIT);
-		if (nResult < 0)
-		{
-			if (zmq_errno() == EAGAIN)
-			{
-				nResult = zmq_msg_close(m_pZmqMsg);
-				if (nResult != 0) {
-					printf("error in zmq_msg_close: %s\n", zmq_strerror(errno));
-					return  CErrno::Failure();
-				}
-				return CErrno::Success();
-			}
-
-			printf("error in zmq_recvmsg: %s\n", zmq_strerror(errno));
-			return CErrno::Failure();
-		}
-		void * pBuf = zmq_msg_data(m_pZmqMsg);
-		size_t usSize = zmq_msg_size(m_pZmqMsg);
-		MsgHeader * pHeader = (MsgHeader*)pBuf;
-
-		HandleMsg(m_pSession, pHeader->unMsgID, (char *)pBuf + sizeof(MsgHeader), (UINT32)(usSize - sizeof(MsgHeader)));
-
-		nResult = zmq_msg_close(m_pZmqMsg);
-		if (nResult != 0) {
-			printf("error in zmq_msg_close: %s\n", zmq_strerror(errno));
-			return CErrno::Failure();
-		}
-
-		return  CErrno::Success();
-	}
-
-	BOOL NetHandlerServer::IsZMQ()
-	{
-		if (m_pNetReactor && m_pNetReactor->GetReactorType() == REACTOR_TYPE_ZMQ)
-		{
-			return TRUE;
-		}
-
-		return FALSE;
-	}
-
+	
 	CErrno NetHandlerServer::InitZMQ()
 	{
 		void * pContext = zmq_init(1);

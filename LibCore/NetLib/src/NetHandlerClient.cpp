@@ -18,9 +18,6 @@ namespace Net
 	NetHandlerClient::NetHandlerClient(INetReactor * pNetReactor, ISession * pSession, MsgProcess * pMsgProcess /*= NULL*/)
 		: NetHandlerTransit(pNetReactor, pSession)
 		, m_pMsgProcess(pMsgProcess)
-		, m_pZmqContext(NULL)
-		, m_pZmqMsg(NULL)
-		, m_pZmqSocket(NULL)
 	{
 		Assert(m_pSession);
 		switch (m_pSession->GetReactorType())
@@ -44,14 +41,6 @@ namespace Net
 
 	NetHandlerClient::~NetHandlerClient()
 	{
-		if (IsZMQ())
-		{
-			MsgAssert(zmq_close(m_pZmqSocket), "error in zmq_close" << zmq_strerror(errno));
-
-			MsgAssert(zmq_term(m_pZmqContext), "error in zmq_term:" << zmq_strerror(errno));
-
-			SAFE_DELETE(m_pZmqMsg);
-		}
 	}
 
 	CErrno NetHandlerClient::InitZMQ()
@@ -79,16 +68,6 @@ namespace Net
 		return CErrno::Success();
 	}
 
-	BOOL NetHandlerClient::IsZMQ()
-	{
-		if (m_pNetReactor && m_pNetReactor->GetReactorType() == REACTOR_TYPE_ZMQ)
-		{
-			return TRUE;
-		}
-
-		return FALSE;
-	}
-
 	CErrno NetHandlerClient::Init(void)
 	{
 		if (m_pSession)
@@ -108,6 +87,7 @@ namespace Net
 		{
 			gDebugStream("Connect Init success" << m_pSession->GetRemoteName());
 			m_pSession->SetClosed(FALSE);
+			m_pSession->SetNetState(NET_STATE_CONNECTED);
 			return NetHandlerTransit::Init();
 		}
 		return CErrno::Failure();
@@ -262,32 +242,7 @@ namespace Net
 
 		return  nResult;
 	}
-
-	INT32 NetHandlerClient::SendMsgZMQ(const char * pBuf, UINT32 unSize)
-	{
-		int nResult = zmq_msg_init_data(m_pZmqMsg, (void *)pBuf, unSize, NULL, NULL);
-		if (nResult != 0)
-		{
-			gErrorStream("error in zmq_msg_init_size: %s\n" << zmq_strerror(errno));
-			return -1;
-		}
-
-		int nCount = zmq_sendmsg(m_pZmqSocket, m_pZmqMsg, 0);
-		if (nCount < 0)
-		{
-			gErrorStream("error in zmq_sendmsg: %s\n" << zmq_strerror(errno));
-			return -1;
-		}
-
-		nResult = zmq_msg_close(m_pZmqMsg);
-		if (nResult != 0) {
-			printf("error in zmq_msg_close: %s\n", zmq_strerror(errno));
-			return -1;
-		}
-
-		return nCount;
-	}
-
+	
 	CErrno NetHandlerClient::OnClose(void)
 	{
 		return NetHandlerTransit::OnClose();
@@ -328,17 +283,7 @@ namespace Net
 
 		return NetHandlerTransit::Update();
 	}
-
-	INT32 NetHandlerClient::SendMsg(const char * pBuf, UINT32 unSize)
-	{
-		if (IsZMQ())
-		{
-			return SendMsgZMQ(pBuf, unSize);
-		}
-
-		return NetHandlerTransit::SendMsg(pBuf, unSize);
-	}
-
+	
 	CErrno  NetHandlerClient::HandleMsg(ISession * pSession, UINT32 unMsgID, const char* pBuffer, UINT32 unLength)
 	{
 		if (m_pMsgProcess)

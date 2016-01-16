@@ -104,7 +104,6 @@ namespace Msg
 		return CErrno::Success(); 
 	}
 
-
 	CErrno RpcInterface::Cleanup( void )
 	{
 		if (m_pNetReactor)

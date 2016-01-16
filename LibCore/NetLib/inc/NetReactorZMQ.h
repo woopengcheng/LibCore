@@ -12,7 +12,7 @@ namespace Net
 		typedef std_unordered_map<UINT32 , INetHandlerPtr> MapNetHandlersT;
 
 	public:
-		NetReactorZMQ(  UINT32 unMaxConnectionCount = DEFAULT_MAX_CONNECTION_COUNT  ); 
+		explicit NetReactorZMQ(UINT32 unMaxConnectionCount = DEFAULT_MAX_CONNECTION_COUNT , BOOL bIsMutilThread = FALSE);
 		virtual ~NetReactorZMQ( void );
 
 	public:

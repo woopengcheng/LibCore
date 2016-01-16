@@ -3,8 +3,13 @@
 #include "NetLib/inc/INetHandler.h"
 #include "CUtil/inc/CircleBuffer.h"
 
+struct zmq_msg_t;
+
 namespace Net 
-{  
+{
+	typedef void * zmqSocketPtr;
+	typedef void * zmqContextPtr;
+
 	class INetReactor; 
 
 	class DLL_EXPORT NetHandlerTransit :public INetHandler
@@ -24,6 +29,7 @@ namespace Net
 		virtual CErrno  OnMsgRecving(const char * pBuf, UINT32 unSize);
 		virtual CErrno  OnMsgSending(void);
 		virtual INT32	SendMsg(const char * pBuf, UINT32 unSize);
+		virtual CErrno  HandleMsg(const char* pBuffer, UINT32 unLength);
 		virtual CErrno  HandleMsg(ISession * pSession, UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
 
 	protected:
@@ -32,6 +38,7 @@ namespace Net
 		INT32			SendCommon(const char * pBuf, UINT32 unSize);
 		INT32			SendIOCP(const char * pBuf, UINT32 unSize);
 		INT32			SendUDS(const char * pBuf, UINT32 unSize);//5 用于传递套接字
+		INT32			SendZMQ(const char * pBuf, UINT32 unSize);
 		INT32			RecvMsgRakNet(char * pBuf, UINT32 unSize);
 		INT32			SendRakNet(const char * pBuf, UINT32 unSize);
 		CErrno			ParaseRecvMsg();     
@@ -39,8 +46,11 @@ namespace Net
 		CErrno			RecvToCircleBuffer(const char * pBuf , UINT32 unSize);   //5 将消息扔给CircleBuffer 
 
 	protected:
-		CUtil::CircleBuffer    m_objSendBuf;
-		CUtil::CircleBuffer    m_objRecvBuf;
+		zmqSocketPtr			m_pZmqSocket;
+		zmqContextPtr			m_pZmqContext;
+		zmq_msg_t			*	m_pZmqMsg;
+		CUtil::CircleBuffer		m_objSendBuf;
+		CUtil::CircleBuffer		m_objRecvBuf;
 	}; 
 
 	DECLARE_BOOST_POINTERS(NetHandlerTransit);

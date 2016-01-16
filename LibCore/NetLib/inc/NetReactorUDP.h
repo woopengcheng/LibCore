@@ -31,7 +31,7 @@ namespace Net
 		typedef std_unordered_map<UINT32 , INetHandlerPtr> MapNetHandlersT;
 
 	public:
-		NetReactorUDP(  UINT32 unMaxConnectionCount = DEFAULT_MAX_CONNECTION_COUNT  ); 
+		NetReactorUDP(UINT32 unMaxConnectionCount = DEFAULT_MAX_CONNECTION_COUNT , BOOL bIsMutilThread = FALSE);
 		virtual ~NetReactorUDP( void );
 
 	public:

@@ -1,4 +1,8 @@
-﻿#include "RakPeerInterface.h"
+﻿extern "C"
+{
+#include "zmq.h" 
+}
+#include "RakPeerInterface.h"
 #include "BitStream.h"
 #include "RakNetTypes.h"
 #include "MessageIdentifiers.h"
@@ -9,6 +13,7 @@
 #include "NetLib/inc/NetReactorUDP.h"
 #include "NetLib/inc/NetReactorRakNet.h"
 #include "NetLib/inc/INetReactor.h"
+#include "NetLib/inc/NetThread.h"
 #include "Timer/inc/TimerHelp.h"
 
 #ifdef WIN32
@@ -18,7 +23,10 @@
 namespace Net
 {
 	NetHandlerTransit::NetHandlerTransit( INetReactor * pNetReactor , ISession * pSession )
-		: INetHandler(pNetReactor , pSession)
+		: INetHandler(pNetReactor, pSession)
+		, m_pZmqContext(NULL)
+		, m_pZmqMsg(NULL)
+		, m_pZmqSocket(NULL)
 	{
 		m_objRecvBuf.Init(DEFAULT_CIRCLE_BUFFER_SIZE);
  		m_objSendBuf.Init(DEFAULT_CIRCLE_BUFFER_SIZE);
@@ -33,6 +41,15 @@ namespace Net
 	{
 		m_objSendBuf.Cleanup();
 		m_objRecvBuf.Cleanup();
+
+		if (m_pNetReactor->GetReactorType() == REACTOR_TYPE_ZMQ)
+		{
+			MsgAssert(zmq_close(m_pZmqSocket), "error in zmq_close" << zmq_strerror(errno));
+
+			MsgAssert(zmq_term(m_pZmqContext), "error in zmq_term:" << zmq_strerror(errno));
+
+			SAFE_DELETE(m_pZmqMsg);
+		}
 	}
 
 	CErrno NetHandlerTransit::OnMsgRecving( void )
@@ -70,13 +87,24 @@ namespace Net
 				{
 					nBufSize = RecvMsgRakNet(szBuf, sizeof(szBuf));
 				}break;
+				case REACTOR_TYPE_ZMQ:
+				{
+					INT32 nResult = zmq_msg_init(m_pZmqMsg);
+					if (nResult != 0)
+					{
+						gErrorStream("error in zmq_msg_init: %s\n" << zmq_strerror(errno));
+						return CErrno::Failure();
+					}
+
+					nBufSize = NetHelper::RecvMsg(m_pZmqSocket , m_pZmqMsg , szBuf, sizeof(szBuf));
+				}break;
 				default:
 				{
 					nBufSize = NetHelper::RecvMsg(socket, szBuf, sizeof(szBuf));
 				}break;
 			}
 
-			if( nBufSize <  0 && NetHelper::IsSocketEagain())
+			if( nBufSize <  0 && NetHelper::IsSocketEagain() && m_pNetReactor->GetReactorType() != REACTOR_TYPE_ZMQ)
 				return CErrno::Success();
 			if( nBufSize <= 0 )
 				return CErrno::Failure();
@@ -84,6 +112,16 @@ namespace Net
 			CErrno result = OnMsgRecving(szBuf , nBufSize);
 			if( !result.IsSuccess() )
 				return result;
+
+			if (m_pNetReactor->GetReactorType() == REACTOR_TYPE_ZMQ)
+			{
+				INT32 nResult = zmq_msg_close(m_pZmqMsg);
+				if (nResult != 0)
+				{
+					gErrorStream("error in zmq_msg_close: %s" << zmq_strerror(errno));
+					return CErrno::Failure();
+				}
+			}
 		}while(0);
 
 		return CErrno::Success();
@@ -143,9 +181,7 @@ namespace Net
 			char szBuf[MAX_MESSAGE_LENGTH];
 			m_objRecvBuf.GetBuffer(szBuf , unMsgLength);
 			 
-			MsgHeader * pHeader = (MsgHeader*)szBuf;
-
-			HandleMsg(m_pSession , pHeader->unMsgID , szBuf + sizeof(MsgHeader) , pHeader->unMsgLength - sizeof(MsgHeader) );
+			HandleMsg(szBuf, unMsgLength);
 		}
 
 		return CErrno::Success();
@@ -313,6 +349,31 @@ namespace Net
 		return -1;
 	}
 
+	INT32 NetHandlerTransit::SendZMQ(const char * pBuf, UINT32 unSize)
+	{
+		int nResult = zmq_msg_init_data(m_pZmqMsg, (void *)pBuf, unSize, NULL, NULL);
+		if (nResult != 0)
+		{
+			gErrorStream("error in zmq_msg_init_size: %s\n" << zmq_strerror(errno));
+			return -1;
+		}
+
+		int nCount = zmq_sendmsg(m_pZmqSocket, m_pZmqMsg, 0);
+		if (nCount < 0)
+		{
+			gErrorStream("error in zmq_sendmsg: %s\n" << zmq_strerror(errno));
+			return -1;
+		}
+
+		nResult = zmq_msg_close(m_pZmqMsg);
+		if (nResult != 0) {
+			printf("error in zmq_msg_close: %s\n", zmq_strerror(errno));
+			return -1;
+		}
+
+		return nCount;
+	}
+
 	INT32 NetHandlerTransit::Send(const char * pBuf, UINT32 unSize)
 	{ 
 		if (m_pSession)
@@ -322,6 +383,10 @@ namespace Net
 				case REACTOR_TYPE_IOCP:
 				{
 					return SendIOCP(pBuf, unSize);
+				}break;
+				case REACTOR_TYPE_ZMQ:
+				{
+					return SendZMQ(pBuf, unSize);
 				}break;
 				case REACTOR_TYPE_UDP:
 				{
@@ -426,12 +491,19 @@ namespace Net
 		return unTotalSendBytes;
 	}
 
+	CErrno NetHandlerTransit::HandleMsg(const char* pBuffer, UINT32 unLength)
+	{
+		MsgHeader * pHeader = (MsgHeader*)pBuffer;
+
+		return HandleMsg(m_pSession, pHeader->unMsgID, pBuffer + sizeof(MsgHeader), pHeader->unMsgLength - sizeof(MsgHeader));
+	}
+
 	CErrno NetHandlerTransit::HandleMsg(ISession * pSession, UINT32 unMsgID, const char* pBuffer, UINT32 unLength)
 	{
 		return CErrno::Success();
 	}
 
-	CErrno NetHandlerTransit::OnClose( void )
+	CErrno NetHandlerTransit::OnClose(void)
 	{ 
 		if (m_pSession)
 		{

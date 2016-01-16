@@ -362,9 +362,11 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerServer.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerListener.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerTransit.h" />
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerUDP.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHelper.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetInterface.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetLib.h" />
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetMsgQueue.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorEpoll.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerHttpServer.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorIOCP.h" />
@@ -373,6 +375,7 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorUDP.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorWES.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorZMQ.h" />
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetThread.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\RakNetUDPManager.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\ServerSession.h" />
     <ClInclude Include="..\..\LibCore\ThreadPool\inc\ThreadCommon.h" />
@@ -464,6 +467,7 @@
     <ClCompile Include="..\..\LibCore\MsgLib\src\MsgHelper.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\RpcServerManager.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\HttpProtocol.cpp" />
+    <ClCompile Include="..\..\LibCore\NetLib\src\INetReactor.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\ISession.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\MsgHandler.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerClient.cpp" />
@@ -472,6 +476,7 @@
     <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerTransit.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetHelper.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetInterface.cpp" />
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetMsgQueue.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorEpoll.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerHttpServer.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorIOCP.cpp" />
@@ -480,6 +485,7 @@
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorUDP.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorWES.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorZMQ.cpp" />
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetThread.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\RakNetUDPManager.cpp" />
     <ClCompile Include="..\..\LibCore\Test\Chunk_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\CStream_Test.cpp" />

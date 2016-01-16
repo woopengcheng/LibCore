@@ -6,9 +6,9 @@
 namespace Net
 { 
 
-	NetReactorEpoll::NetReactorEpoll(UINT32 unMaxConnectionCount)
-		: m_unMaxConnectionCount(unMaxConnectionCount)
-		, INetReactor(REACTOR_TYPE_EPOLL)
+	NetReactorEpoll::NetReactorEpoll(UINT32 unMaxConnectionCount , BOOL bIsMutilThread/* = FALSE*/)
+		: INetReactor(REACTOR_TYPE_EPOLL, bIsMutilThread)
+		, m_unMaxConnectionCount(unMaxConnectionCount)
 	{
 		m_nEpoll = epoll_create(m_unMaxConnectionCount);  //5 生成一个epoll专用的文件描述符,其实是在内核申请一空间，用来存放你想关注的socket fd上是否发生以及发生了什么事件。
 		m_pEvents = (struct epoll_event*)malloc(sizeof(struct epoll_event) * m_unMaxConnectionCount);
@@ -56,7 +56,7 @@ namespace Net
 		if (epoll_ctl(m_nEpoll, EPOLL_CTL_ADD, pNetHandler->GetSession()->GetSocket(), &ev) == -1)
 			return CErrno::Failure();
 
-		return CErrno::Success();
+		return INetReactor::AddNetHandler(pNetHandler, objMask);
 	}
 
 	CErrno NetReactorEpoll::DelNetHandler(INetHandlerPtr  pNetHandler , BOOL bEraseHandler/* = TRUE*/)
@@ -69,7 +69,7 @@ namespace Net
 		if (epoll_ctl(m_nEpoll, EPOLL_CTL_DEL, pNetHandler->GetSession()->GetSocket(), &ev) == -1)
 			return CErrno::Failure();
 
-		return CErrno::Success();
+		return INetReactor::DelNetHandler(pNetHandler, bEraseHandler);
 	}
 
 	CErrno NetReactorEpoll::ModNetHandler(INetHandlerPtr  pNetHandler, ENetHandlerFuncMask objMask)
@@ -94,7 +94,7 @@ namespace Net
 		if (epoll_ctl(m_nEpoll, EPOLL_CTL_MOD, pNetHandler->GetSession()->GetSocket(), &ev) == -1)
 			return CErrno::Failure();
 
-		return CErrno::Success();
+		return INetReactor::ModNetHandler(pNetHandler, objMask);
 	}
 
 	CErrno NetReactorEpoll::Update( void )

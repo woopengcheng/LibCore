@@ -8,11 +8,11 @@
 
 namespace Net
 { 
-	NetReactorUDP::NetReactorUDP( UINT32 unMaxConnectionCount )
-		: m_unMaxConnectionCount(unMaxConnectionCount)
+	NetReactorUDP::NetReactorUDP(UINT32 unMaxConnectionCount, BOOL bIsMutilThread/* = FALSE*/)
+		: INetReactor(REACTOR_TYPE_UDP, bIsMutilThread)
+		, m_unMaxConnectionCount(unMaxConnectionCount)
 		, m_pFdSetReads(NULL)
 		, m_pFdSetExcepts(NULL)
-		, INetReactor(REACTOR_TYPE_UDP)
 	{  
 
 		size_t  size = unMaxConnectionCount * sizeof(INT32) + sizeof(fd_set);
@@ -141,7 +141,7 @@ namespace Net
 	
 		m_mapNetHandlers.insert(std::make_pair(pNetHandler->GetSession()->GetSessionID() , pNetHandler));
 
-		return CErrno::Success();
+		return INetReactor::AddNetHandler(pNetHandler, objMask);
 	}
 
 	CErrno NetReactorUDP::DelNetHandler( INetHandlerPtr  pNetHandler , BOOL bEraseHandler/* = TRUE */)
@@ -151,13 +151,13 @@ namespace Net
 			pNetHandler->OnClose();  
 		}
 
-		return CErrno::Success();
+		return INetReactor::DelNetHandler(pNetHandler, bEraseHandler);
 	}
 
 	CErrno NetReactorUDP::ModNetHandler( INetHandlerPtr  pNetHandler  , ENetHandlerFuncMask objMask )
 	{
 
-		return CErrno::Success();
+		return INetReactor::ModNetHandler(pNetHandler, objMask);
 	}
 
 

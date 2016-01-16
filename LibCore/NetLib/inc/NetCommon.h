@@ -24,7 +24,7 @@ namespace Net
 #define MAX_MESSAGE_LENGTH            (4 * 1024) 
 
 #define DEFAULT_SESSION_TIME_OUT      5 * 1000   //5 session的超时时间最大为5秒.
-#define DEFAULT_MAX_CONNECTION_COUNT  100000      //5 定义最大连接客户端的数量
+#define DEFAULT_MAX_CONNECTION_COUNT  20000      //5 定义最大连接客户端的数量
 #define DEFAULT_LISTENER_COUNT        10
 #define DEFAULT_SOCKET_BUFFER_SIZE    (40 * 1024)
 #define DEFAULT_CIRCLE_BUFFER_SIZE    (DEFAULT_SOCKET_BUFFER_SIZE * 10)

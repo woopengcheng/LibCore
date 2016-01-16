@@ -9,6 +9,7 @@
 #include "NetLib/inc/INetReactor.h"
 #include "NetLib/inc/NetHelper.h"
 #include "NetLib/inc/NetReactorRakNet.h"
+#include "NetLib/inc/NetThread.h"
 
 #ifdef WIN32
 #include <WinSock.h>
@@ -58,6 +59,7 @@ namespace Net
 		if (Listen(nListenerCount) == 0)
 		{
 			m_pSession->SetClosed(FALSE);
+			m_pSession->SetNetState(NET_STATE_CONNECTED);
 			return CErrno::Success();
 		}
 		return CErrno::Failure();
@@ -132,7 +134,7 @@ namespace Net
 
 			if (判断文件是否存在)
 			{
-				创建文件
+				cunzai.shanchu
 			}
 
 			sockaddr_un addr = { 0 };
@@ -174,6 +176,8 @@ namespace Net
 			ServerSession * pServerSession = new ServerSession(szAddress , usPort , strName.c_str() , 0 , -1 , socket);
 			NetHandlerServerPtr pServer( new NetHandlerServer(m_pNetReactor , pServerSession) ); 
 			m_pNetReactor->AddNetHandler(pServer); 
+
+			NetThread::GetInstance().AcceptSession(pServerSession->GetSessionID());
 		} 
 	}
 

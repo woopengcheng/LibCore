@@ -9,6 +9,7 @@
 #include "NetLib/inc/NetHandlerListener.h"
 #include "NetLib/inc/ServerSession.h"
 #include "Timer/inc/TimerHelp.h"
+#include "NetLib/inc/NetThread.h"
 
 #ifdef WIN32
 #include <windows.h>
@@ -126,6 +127,8 @@ namespace Net
 				pContext->SetId(*pAddress);
 			}
 			m_pNetReactor->AddNetHandler(pServer);
+
+			NetThread::GetInstance().AcceptSession(pServerSession->GetSessionID());
 		}
 	}
 
@@ -169,8 +172,8 @@ namespace Net
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	NetReactorRakNet::NetReactorRakNet(UINT32 unMaxConnectionCount)
-		: INetReactor(REACTOR_TYPE_RAKNET)
+	NetReactorRakNet::NetReactorRakNet(UINT32 unMaxConnectionCount , BOOL bIsMutilThread/* = FALSE*/)
+		: INetReactor(REACTOR_TYPE_RAKNET , bIsMutilThread)
 		, m_pRakPeerInstance(NULL)
 		, m_unMaxConnectionCount(unMaxConnectionCount)
 	{
@@ -407,8 +410,8 @@ namespace Net
 		{
 			RakNet::SystemAddress address = (pContext->GetId());
 			m_mapNetHandlers.insert(std::make_pair(RakNet::SystemAddress::ToInteger(address), pNetHandler));
-		
-			return CErrno::Success();
+
+			return INetReactor::AddNetHandler(pNetHandler, objMask);
 		}
 
 		return CErrno::Failure();
@@ -427,13 +430,14 @@ namespace Net
 
 		CloseConnection(address);
 		pNetHandler->OnClose();
-		return CErrno::Success();
+
+		return INetReactor::DelNetHandler(pNetHandler, bEraseHandler);
 	}
 
 	CErrno NetReactorRakNet::ModNetHandler( INetHandlerPtr  pNetHandler  , ENetHandlerFuncMask objMask )
 	{
 
-		return CErrno::Success();
+		return INetReactor::ModNetHandler(pNetHandler, objMask);
 	}
 
 

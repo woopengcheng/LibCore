@@ -8,10 +8,10 @@
 
 namespace Net
 {   
-	NetReactorZMQ::NetReactorZMQ( UINT32 unMaxConnectionCount )
-		: m_nNetHandlerCount(0)
+	NetReactorZMQ::NetReactorZMQ(UINT32 unMaxConnectionCount, BOOL bIsMutilThread/* = FALSE*/)
+		: INetReactor(REACTOR_TYPE_ZMQ, bIsMutilThread)
+		, m_nNetHandlerCount(0)
 		, m_unMaxConnectionCount(unMaxConnectionCount)
-		, INetReactor(REACTOR_TYPE_ZMQ)
 	{   
 	}
 
@@ -72,7 +72,8 @@ namespace Net
 		m_mapNetHandlers.insert(std::make_pair(pNetHandler->GetSession()->GetSessionID() , pNetHandler)); 
 
 		++m_nNetHandlerCount;
-		return CErrno::Success();
+
+		return INetReactor::AddNetHandler(pNetHandler, objMask);
 	}
 
 	CErrno NetReactorZMQ::DelNetHandler( INetHandlerPtr  pNetHandler , BOOL bEraseHandler/* = TRUE */)
@@ -84,13 +85,13 @@ namespace Net
 			--m_nNetHandlerCount;
 		}
 
-		return CErrno::Success();
+		return INetReactor::DelNetHandler(pNetHandler, bEraseHandler);
 	}
 
 	CErrno NetReactorZMQ::ModNetHandler( INetHandlerPtr  pNetHandler  , ENetHandlerFuncMask objMask )
 	{ 
 
-		return CErrno::Success();
+		return INetReactor::ModNetHandler(pNetHandler, objMask);
 	}
 
 	Net::INetHandlerPtr NetReactorZMQ::GetNetHandler( UINT32 unNetHandlerIndex )

@@ -390,9 +390,6 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\MasterSession.h">
       <Filter>GameDB\inc\DBMaster</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\NetNode.h">
-      <Filter>MsgLib\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\Marshal\inc\CommonMarshal.h">
       <Filter>Marshal\inc</Filter>
     </ClInclude>
@@ -588,9 +585,6 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorIOCP.h">
       <Filter>NetLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\NetLib\inc\NetLib.h">
-      <Filter>NetLib\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetReactorUDP.h">
       <Filter>NetLib\inc</Filter>
     </ClInclude>
@@ -598,6 +592,21 @@
       <Filter>NetLib\inc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerClient.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetThread.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\NetNode.h">
+      <Filter>MsgLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerUDP.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetLib.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetMsgQueue.h">
       <Filter>NetLib\inc</Filter>
     </ClInclude>
   </ItemGroup>
@@ -891,6 +900,15 @@
       <Filter>NetLib\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\NetLib\src\NetReactorRakNet.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetThread.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetMsgQueue.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\INetReactor.cpp">
       <Filter>NetLib\src</Filter>
     </ClCompile>
   </ItemGroup>

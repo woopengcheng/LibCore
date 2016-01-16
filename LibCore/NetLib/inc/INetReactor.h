@@ -27,8 +27,12 @@ namespace Net
 	class DLL_EXPORT INetReactor
 	{
 	public:
-		INetReactor(EReactorType objType = REACTOR_TYPE_VAILID)
+		typedef tbb::concurrent_hash_map<UINT32 , INetHandlerPtr> CollectNetHandlersT;
+
+	public:
+		INetReactor(EReactorType objType , BOOL bIsMutilThread = FALSE)
 			: m_objReactorType(objType)
+			, m_bIsMutilThread(bIsMutilThread)
 		{
 		}
 		virtual ~INetReactor( void )
@@ -36,22 +40,26 @@ namespace Net
 		}
 
 	public:
-		virtual CErrno   Init( void ) = 0;
-		virtual CErrno   Cleanup( void ) = 0;
-		virtual CErrno   Update( void ) = 0;
+		virtual CErrno			Init( void ) = 0;
+		virtual CErrno			Cleanup( void ) = 0;
+		virtual CErrno			Update( void ) = 0;
 	public:
-		virtual CErrno   AddNetHandler(INetHandlerPtr  pNetHandler , ENetHandlerFuncMask objMask = NET_FUNC_DEFAULT) = 0;
-		virtual CErrno   DelNetHandler(INetHandlerPtr  pNetHandler , BOOL bEraseHandler = TRUE) = 0;
-		virtual CErrno   ModNetHandler(INetHandlerPtr  pNetHandler , ENetHandlerFuncMask objMask) = 0;
+		virtual CErrno			AddNetHandler(INetHandlerPtr  pNetHandler , ENetHandlerFuncMask objMask = NET_FUNC_DEFAULT) = 0;
+		virtual CErrno			DelNetHandler(INetHandlerPtr  pNetHandler , BOOL bEraseHandler = TRUE) = 0;
+		virtual CErrno			ModNetHandler(INetHandlerPtr  pNetHandler, ENetHandlerFuncMask objMask) = 0;
 
 	public:
-		EReactorType	GetReactorType() const { return m_objReactorType; }
-		void			SetReactorType(EReactorType val) { m_objReactorType = val; }
+		INetHandlerPtr			GetNetHandlerByID(INT32 nSessionID);
+		const CollectNetHandlersT &	GetNetHandlers() const { return m_mapNetHandlersBySession; }
+		BOOL					IsMutilThread() const { return m_bIsMutilThread; }
+		void					SetReactorType(EReactorType val) { m_objReactorType = val; }
+		EReactorType			GetReactorType() const { return m_objReactorType; }
 
 	protected:
-		EReactorType m_objReactorType;
+		BOOL					m_bIsMutilThread;
+		EReactorType			m_objReactorType;
+		CollectNetHandlersT		m_mapNetHandlersBySession;
 	}; 
-	 
 }
 
 #endif

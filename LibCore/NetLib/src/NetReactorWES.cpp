@@ -7,10 +7,10 @@
 namespace Net
 { 
 
-	NetReactorWES::NetReactorWES(UINT32 unMaxConnectionCount)
-		: m_unMaxConnectionCount(unMaxConnectionCount)
+	NetReactorWES::NetReactorWES(UINT32 unMaxConnectionCount, BOOL bIsMutilThread/* = FALSE*/)
+		: INetReactor(REACTOR_TYPE_WES, bIsMutilThread)
+		, m_unMaxConnectionCount(unMaxConnectionCount)
 		, m_nNumConnection(0)
-		, INetReactor(REACTOR_TYPE_WES)
 	{
 		m_nNumConnection = 0;
 		m_pEvents = new WSAEVENT[m_unMaxConnectionCount];
@@ -71,7 +71,7 @@ namespace Net
 		m_pEvents[m_nNumConnection] = hEvent;
 		++m_nNumConnection;
 
-		return CErrno::Success();
+		return INetReactor::AddNetHandler(pNetHandler, objMask);
 	}
 
 	CErrno NetReactorWES::DelNetHandler(INetHandlerPtr  pNetHandler , BOOL bEraseHandler/* = TRUE*/)
@@ -88,7 +88,7 @@ namespace Net
 		m_pEvents[m_nNumConnection - 1] = NULL;
 		--m_nNumConnection;
 
-		return CErrno::Success();
+		return INetReactor::DelNetHandler(pNetHandler, bEraseHandler);
 	}
 
 	CErrno NetReactorWES::ModNetHandler(INetHandlerPtr  pNetHandler, ENetHandlerFuncMask objMask)
@@ -110,7 +110,7 @@ namespace Net
 		if (WSAEventSelect(m_pConnections[index]->GetSession()->GetSocket() , m_pEvents[index], nFDMask) != 0)
 			return CErrno::Failure();
 
-		return CErrno::Success();
+		return INetReactor::ModNetHandler(pNetHandler, objMask);
 	}
 
 	INT32 NetReactorWES::GetIndexByNetHandler(INetHandlerPtr pNetHandler)
