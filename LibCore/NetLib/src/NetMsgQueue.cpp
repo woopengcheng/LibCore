@@ -52,7 +52,7 @@ namespace Net
 
 		while (m_queSendMsgQueues.try_pop(objChunk))
 		{
-			nSize = SendMsg((const char *)(objChunk.Begin()), objChunk.GetDataLen());
+			nSize = NetHandlerTransit::SendMsg((const char *)(objChunk.Begin()), objChunk.GetDataLen());
 			if (nSize <= 0 && err.IsSuccess())
 			{
 				err = CErrno::Failure();

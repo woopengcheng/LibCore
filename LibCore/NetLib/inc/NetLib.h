@@ -15,7 +15,7 @@
 #include "NetLib/inc/NetHelper.h" 
 #include "NetLib/inc/ServerSession.h"
 #include "NetLib/inc/ClientSession.h"
-
+#include "NetLib/inc/NetThread.h"
 
 
 #endif

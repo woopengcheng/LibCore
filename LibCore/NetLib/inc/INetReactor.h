@@ -54,6 +54,7 @@ namespace Net
 		BOOL					IsMutilThread() const { return m_bIsMutilThread; }
 		void					SetReactorType(EReactorType val) { m_objReactorType = val; }
 		EReactorType			GetReactorType() const { return m_objReactorType; }
+		void					SetMutilThread(BOOL bMutil) { m_bIsMutilThread = bMutil; }
 
 	protected:
 		BOOL					m_bIsMutilThread;

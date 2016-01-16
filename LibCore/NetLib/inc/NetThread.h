@@ -10,7 +10,7 @@ namespace Net
 {
 	class IRpcListener;
 
-	class DLL_EXPORT  NetThread : public ThreadPool::ThreadNormalTask
+	class DLL_EXPORT  NetThread : public ThreadPool::ThreadSustainTask
 	{
 	public:
 		typedef tbb::concurrent_queue<INT32> CollectAcceptSessionT;
@@ -36,10 +36,10 @@ namespace Net
 		INetHandlerPtr		CreateClientHandler(const char * pName, const char * pAddress, UINT16 usPort , Net::NetSocket socket = 0, void * context = NULL);
 		INT32				SendMsg(INT32 nSessionID, const char * pBuffer, UINT32 unLength);
 		void				AcceptSession(INT32 nSessionID);
-		CErrno				FetchSession(CollectAcceptSessionT & queSessions);
+		CErrno				FetchSession(std::vector<INT32> & vecSessions);
+		CErrno				FetchMsgs(INT32 nSessionID, CollectMsgChunksT & queMsgs);
 
 	private:
-		CErrno				FetchMsgs(INT32 nSessionID, CollectMsgChunksT & queMsgs);
 		CErrno				DeliverMsg();
 
 	protected:

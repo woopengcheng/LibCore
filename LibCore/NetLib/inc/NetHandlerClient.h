@@ -1,12 +1,12 @@
 #ifndef __net_net_handler_common_client_h__
 #define __net_net_handler_common_client_h__ 
-#include "NetLib/inc/NetHandlerTransit.h"
+#include "NetLib/inc/NetMsgQueue.h"
 #include "NetLib/inc/MsgProcess.h"
 #include "NetLib/inc/ClientSession.h"
 
 namespace Net 
 {
-	class DLL_EXPORT NetHandlerClient :public NetHandlerTransit
+	class DLL_EXPORT NetHandlerClient :public NetMsgQueue
 	{
 	public:
 		NetHandlerClient(INetReactor * pNetReactor , ISession * pSession , MsgProcess * pMsgProcess = NULL);

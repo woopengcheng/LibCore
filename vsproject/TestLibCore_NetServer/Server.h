@@ -18,6 +18,7 @@ public:
 	virtual INT32  InitUDP();
 	virtual INT32  InitZMQ();
 	virtual INT32  InitRakNet();
+	virtual INT32  InitNetThread();
 	virtual INT32  Cleanup();
 	virtual INT32  Update();
 

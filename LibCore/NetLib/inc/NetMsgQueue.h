@@ -6,7 +6,7 @@
 
 namespace Net
 {
-	class NetMsgQueue : public NetHandlerTransit
+	class DLL_EXPORT NetMsgQueue : public NetHandlerTransit
 	{
 	public:
 		NetMsgQueue(INetReactor * pNetReactor, ISession * pSession)

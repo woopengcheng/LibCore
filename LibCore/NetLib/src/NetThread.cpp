@@ -6,7 +6,7 @@ namespace Net
 { 
 
 	NetThread::NetThread(void)
-		: ThreadPool::ThreadNormalTask(DEFAULT_THREAD_PRIORITY)
+		: ThreadPool::ThreadSustainTask(DEFAULT_THREAD_PRIORITY , "NetThread" , TRUE)
 		, m_usServerPort(0)
 		, m_pNetReactor(NULL)
 	{
@@ -30,7 +30,8 @@ namespace Net
 	{   
 		if (!m_pNetReactor)
 		{
-			m_pNetReactor = new Net::NetReactorDefault;
+			m_pNetReactor = new Net::NetReactorDefault();
+			m_pNetReactor->SetMutilThread(TRUE);
 
 			if(CErrno::Success() != m_pNetReactor->Init())
 			{
@@ -49,17 +50,6 @@ namespace Net
 
 		Json::Value clients = conf.get("clients" , Json::Value()); 
 		StartupClient(clients); 
-
-		std::map<UINT32, UINT32> mapThreads;
-		INT32 nCount = conf.size();
-		for (INT32 i = 0; i < nCount; ++i)
-		{
-			Json::Value objThread = conf[i];
-			UINT32 priority = objThread.get("priority", 0).asUInt();
-			UINT32 count = objThread.get("count", 1).asUInt();
-
-			mapThreads[priority] = count;
-		}
 
 		ThreadPool::ThreadPoolInterface::GetInstance().CreateThread(DEFAULT_THREAD_PRIORITY);
 		ThreadPool::ThreadPoolInterface::GetInstance().AddTask(this);
@@ -212,12 +202,12 @@ namespace Net
 		m_queAceeptSessions.push(nSessionID);
 	}
 
-	CErrno NetThread::FetchSession(CollectAcceptSessionT & queSessions)
+	CErrno NetThread::FetchSession(std::vector<INT32> & vecSessions)
 	{
 		INT32 nSessionID = 0;
 		while (m_queAceeptSessions.try_pop(nSessionID))
 		{
-			queSessions.push(nSessionID);
+			vecSessions.push_back(nSessionID);
 		}
 
 		return CErrno::Success();

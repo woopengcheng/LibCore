@@ -14,10 +14,10 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	int nCount = ThreadPool::ThreadPoolInterface::GetInstance().GetThreadsCount(); 	
 	Client client;
-// 	client.Init();
+ 	client.Init();
 //	client.InitUDP();
 // 	client.InitZMQ();
-	client.InitRakNet();
+//	client.InitRakNet();
 
 	client.Update();
 

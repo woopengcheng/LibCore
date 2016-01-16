@@ -1,6 +1,6 @@
 #ifndef __net_net_handler_common_server_h__
 #define __net_net_handler_common_server_h__ 
-#include "NetLib/inc/NetHandlerTransit.h"
+#include "NetLib/inc/NetMsgQueue.h"
 
 struct zmq_msg_t;
 
@@ -9,7 +9,7 @@ namespace Net
 	typedef void * zmqSocketPtr;
 	typedef void * zmqContextPtr;
 
-	class DLL_EXPORT NetHandlerServer :public NetHandlerTransit
+	class DLL_EXPORT NetHandlerServer :public NetMsgQueue
 	{
 	public:
 		NetHandlerServer(INetReactor * pNetReactor, ISession * pSession);

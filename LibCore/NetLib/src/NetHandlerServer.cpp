@@ -13,7 +13,7 @@ namespace Net
 {
 
 	NetHandlerServer::NetHandlerServer(INetReactor * pNetReactor, ISession * pSession)
-		: NetHandlerTransit(pNetReactor, pSession)
+		: NetMsgQueue(pNetReactor, pSession)
 		, m_pZmqContext(NULL)
 		, m_pZmqMsg(NULL)
 		, m_pZmqSocket(NULL)
@@ -84,7 +84,7 @@ namespace Net
 
 	CErrno NetHandlerServer::OnClose( void )
 	{ 
-		return NetHandlerTransit::OnClose();
+		return NetMsgQueue::OnClose();
 	}
 
 	CErrno NetHandlerServer::Init(const char* ip, int port)
@@ -99,7 +99,7 @@ namespace Net
 
 		MsgAssert_ReF(!zmq_bind(m_pZmqSocket, str.c_str()), zmq_strerror(errno));
 
-		return NetHandlerTransit::Init();
+		return NetMsgQueue::Init();
 	}
 	
 	CErrno NetHandlerServer::InitZMQ()
@@ -123,7 +123,7 @@ namespace Net
 	{
 		printf("%s", pBuffer);
 
-		if (pSession->GetReactorType() != REACTOR_TYPE_UDP && pSession->GetReactorType() != REACTOR_TYPE_ZMQ)
+		if (pSession->GetReactorType() != REACTOR_TYPE_UDP && pSession->GetReactorType() != REACTOR_TYPE_ZMQ && !m_pNetReactor->IsMutilThread())
 		{
 			char pBuf[1024];
 

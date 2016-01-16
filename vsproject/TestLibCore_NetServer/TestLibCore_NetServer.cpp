@@ -16,8 +16,8 @@ int _tmain(int argc, _TCHAR* argv[])
 //	server.Init();
 //	server.InitUDP();
 //	server.InitZMQ();
-	server.InitRakNet();
-
+//	server.InitRakNet();
+	server.InitNetThread();
 	server.Update();
 
 	CUtil::Cleanup(); 

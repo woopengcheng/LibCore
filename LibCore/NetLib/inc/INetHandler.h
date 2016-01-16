@@ -37,8 +37,8 @@ namespace Net
 		virtual CErrno  OnClose( void )			{ return CErrno::Success(); } 
 		virtual CErrno  OnMsgRecving( void )	{ return CErrno::Success(); }
 		virtual CErrno  OnMsgSending(void)		{ return CErrno::Success(); }
-		virtual CErrno	DeliverMsg() { return CErrno::Failure(); }
-		virtual CErrno	FetchMsgs(CollectMsgChunksT & queMsgs) { return CErrno::Failure(); }
+		virtual CErrno	DeliverMsg() { return CErrno::Success(); }
+		virtual CErrno	FetchMsgs(CollectMsgChunksT & queMsgs) { return CErrno::Success(); }
 		virtual INT32	SendMsg(const char * pBuf, UINT32 unSize) { return -1; }
 
 	public: 

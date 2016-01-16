@@ -16,7 +16,7 @@ extern "C"
 namespace Net
 {
 	NetHandlerClient::NetHandlerClient(INetReactor * pNetReactor, ISession * pSession, MsgProcess * pMsgProcess /*= NULL*/)
-		: NetHandlerTransit(pNetReactor, pSession)
+		: NetMsgQueue(pNetReactor, pSession)
 		, m_pMsgProcess(pMsgProcess)
 	{
 		Assert(m_pSession);
@@ -88,14 +88,15 @@ namespace Net
 			gDebugStream("Connect Init success" << m_pSession->GetRemoteName());
 			m_pSession->SetClosed(FALSE);
 			m_pSession->SetNetState(NET_STATE_CONNECTED);
-			return NetHandlerTransit::Init();
+
+			return NetMsgQueue::Init();
 		}
 		return CErrno::Failure();
 	}
 
 	CErrno NetHandlerClient::Cleanup(void)
 	{
-		return NetHandlerTransit::Cleanup();
+		return NetMsgQueue::Cleanup();
 	}
 
 	INT32 NetHandlerClient::Connect(const char* ip, int port)
@@ -245,7 +246,7 @@ namespace Net
 	
 	CErrno NetHandlerClient::OnClose(void)
 	{
-		return NetHandlerTransit::OnClose();
+		return NetMsgQueue::OnClose();
 	}
 
 	BOOL NetHandlerClient::Reconnect(void)
@@ -270,7 +271,7 @@ namespace Net
 				m_pSession->SetNetState(Net::NET_STATE_CONNECTED);
 				m_pSession->SetClosed(FALSE);
 
-				m_pNetReactor->AddNetHandler(NetHandlerTransitPtr(this));
+				m_pNetReactor->AddNetHandler(INetHandlerPtr(this));
 				result = CErrno::Success();
 			}
 		}
@@ -281,7 +282,7 @@ namespace Net
 	{
 		Reconnect();
 
-		return NetHandlerTransit::Update();
+		return NetMsgQueue::Update();
 	}
 	
 	CErrno  NetHandlerClient::HandleMsg(ISession * pSession, UINT32 unMsgID, const char* pBuffer, UINT32 unLength)
