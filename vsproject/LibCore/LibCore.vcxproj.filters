@@ -234,9 +234,6 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\MsgHandler.h">
       <Filter>NetLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\NetLib\inc\NetBase.h">
-      <Filter>NetLib\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerListener.h">
       <Filter>NetLib\inc</Filter>
     </ClInclude>

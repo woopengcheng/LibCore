@@ -7,8 +7,8 @@
 namespace Net
 { 
 
-	NetReactorWES::NetReactorWES(UINT32 unMaxConnectionCount, BOOL bIsMutilThread/* = FALSE*/)
-		: INetReactor(REACTOR_TYPE_WES, bIsMutilThread)
+	NetReactorWES::NetReactorWES(UINT32 unMaxConnectionCount, NetThread * pThread/* = NULL*/)
+		: INetReactor(REACTOR_TYPE_WES, pThread)
 		, m_unMaxConnectionCount(unMaxConnectionCount)
 		, m_nNumConnection(0)
 	{

@@ -177,7 +177,11 @@ namespace Net
 			NetHandlerServerPtr pServer( new NetHandlerServer(m_pNetReactor , pServerSession) ); 
 			m_pNetReactor->AddNetHandler(pServer); 
 
-			NetThread::GetInstance().AcceptSession(pServerSession->GetSessionID());
+			NetThread * pThread = m_pNetReactor->GetNetThread();
+			if (pThread)
+			{
+				pThread->AcceptSession(pServerSession->GetSessionID());
+			}
 		} 
 	}
 

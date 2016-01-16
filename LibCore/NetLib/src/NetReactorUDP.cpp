@@ -8,8 +8,8 @@
 
 namespace Net
 { 
-	NetReactorUDP::NetReactorUDP(UINT32 unMaxConnectionCount, BOOL bIsMutilThread/* = FALSE*/)
-		: INetReactor(REACTOR_TYPE_UDP, bIsMutilThread)
+	NetReactorUDP::NetReactorUDP(UINT32 unMaxConnectionCount, NetThread * pThread/* = NULL*/)
+		: INetReactor(REACTOR_TYPE_UDP, pThread)
 		, m_unMaxConnectionCount(unMaxConnectionCount)
 		, m_pFdSetReads(NULL)
 		, m_pFdSetExcepts(NULL)

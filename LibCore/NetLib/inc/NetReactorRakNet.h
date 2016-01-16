@@ -20,7 +20,7 @@ namespace Net
 		typedef std_unordered_map<unsigned long , INetHandlerPtr> MapNetHandlersT;
 
 	public:
-		explicit NetReactorRakNet(UINT32 unMaxConnectionCount = DEFAULT_MAX_CONNECTION_COUNT , BOOL bIsMutilThread = FALSE);
+		explicit NetReactorRakNet(UINT32 unMaxConnectionCount = DEFAULT_MAX_CONNECTION_COUNT , NetThread * pThread = NULL);
 		virtual ~NetReactorRakNet(void);
 
 	public:

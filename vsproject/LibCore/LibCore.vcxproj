@@ -356,7 +356,6 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\MsgHandler.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\MsgProcess.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\MsgWrapper.h" />
-    <ClInclude Include="..\..\LibCore\NetLib\inc\NetBase.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetCommon.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerClient.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerServer.h" />

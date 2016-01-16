@@ -13,7 +13,7 @@ namespace Net
 		typedef std_unordered_map<UINT32, INetHandlerPtr> MapNetHandlersT;
 
 	public:
-		explicit NetReactorIOCP(BOOL bIsMutilThread = FALSE);
+		explicit NetReactorIOCP(NetThread * pThread = NULL);
 		virtual ~NetReactorIOCP(void);
 
 	public:

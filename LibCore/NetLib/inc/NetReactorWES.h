@@ -16,7 +16,7 @@ namespace Net
 	class DLL_EXPORT NetReactorWES :public INetReactor
 	{
 	public:
-		explicit NetReactorWES(UINT32 unMaxConnectionCount = DEFAULT_MAX_CONNECTION_COUNT , BOOL bIsMutilThread = FALSE);
+		explicit NetReactorWES(UINT32 unMaxConnectionCount = DEFAULT_MAX_CONNECTION_COUNT , NetThread * pThread = NULL);
 		virtual ~NetReactorWES(void);
 
 	public:

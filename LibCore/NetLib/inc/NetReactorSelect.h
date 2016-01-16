@@ -12,7 +12,7 @@ namespace Net
 		typedef std_unordered_map<UINT32 , INetHandlerPtr> MapNetHandlersT;
 
 	public:
-		explicit NetReactorSelect(UINT32 unMaxConnectionCount = DEFAULT_MAX_CONNECTION_COUNT , BOOL bIsMutilThread = FALSE);
+		explicit NetReactorSelect(UINT32 unMaxConnectionCount = DEFAULT_MAX_CONNECTION_COUNT , NetThread * pThread = NULL);
 		virtual ~NetReactorSelect( void );
 
 	public:

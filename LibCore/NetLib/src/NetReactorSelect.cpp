@@ -8,8 +8,8 @@
 
 namespace Net
 { 
-	NetReactorSelect::NetReactorSelect(UINT32 unMaxConnectionCount , BOOL bIsMutilThread/* = FALSE*/)
-		: INetReactor(REACTOR_TYPE_SELECT , bIsMutilThread)
+	NetReactorSelect::NetReactorSelect(UINT32 unMaxConnectionCount , NetThread * pThread/* = NULL*/)
+		: INetReactor(REACTOR_TYPE_SELECT , pThread)
 		, m_nNetHandlerCount(0)
 		, m_unMaxConnectionCount(unMaxConnectionCount) 
 		, m_pFdSetReads(NULL)

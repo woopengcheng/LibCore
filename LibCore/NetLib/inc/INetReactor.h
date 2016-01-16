@@ -24,15 +24,17 @@ namespace Net
 		NET_FUNC_DEFAULT_AND_TIMEOUT = NET_FUNC_READ | NET_FUNC_WRITE | NET_FUNC_ACCEPT | NET_FUNC_EXCEPT ,
 	};
 
+	class NetThread;
+
 	class DLL_EXPORT INetReactor
 	{
 	public:
 		typedef tbb::concurrent_hash_map<UINT32 , INetHandlerPtr> CollectNetHandlersT;
 
 	public:
-		INetReactor(EReactorType objType , BOOL bIsMutilThread = FALSE)
+		INetReactor(EReactorType objType , NetThread * pThread = NULL)
 			: m_objReactorType(objType)
-			, m_bIsMutilThread(bIsMutilThread)
+			, m_pNetThread(pThread)
 		{
 		}
 		virtual ~INetReactor( void )
@@ -50,16 +52,17 @@ namespace Net
 
 	public:
 		INetHandlerPtr			GetNetHandlerByID(INT32 nSessionID);
-		const CollectNetHandlersT &	GetNetHandlers() const { return m_mapNetHandlersBySession; }
-		BOOL					IsMutilThread() const { return m_bIsMutilThread; }
+		BOOL					IsMutilThread() const { return m_pNetThread != NULL; }
 		void					SetReactorType(EReactorType val) { m_objReactorType = val; }
 		EReactorType			GetReactorType() const { return m_objReactorType; }
-		void					SetMutilThread(BOOL bMutil) { m_bIsMutilThread = bMutil; }
+		void					SetNetThread(NetThread * pThread) { m_pNetThread = pThread; }
+		const CollectNetHandlersT &	GetNetHandlers() const { return m_mapNetHandlersBySession; }
+		NetThread			*	GetNetThread() const { return m_pNetThread;  }
 
 	protected:
-		BOOL					m_bIsMutilThread;
 		EReactorType			m_objReactorType;
 		CollectNetHandlersT		m_mapNetHandlersBySession;
+		NetThread			*	m_pNetThread;
 	}; 
 }
 

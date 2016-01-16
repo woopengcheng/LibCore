@@ -6,8 +6,8 @@
 namespace Net
 { 
 
-	NetReactorEpoll::NetReactorEpoll(UINT32 unMaxConnectionCount , BOOL bIsMutilThread/* = FALSE*/)
-		: INetReactor(REACTOR_TYPE_EPOLL, bIsMutilThread)
+	NetReactorEpoll::NetReactorEpoll(UINT32 unMaxConnectionCount , NetThread * pThread/* = NULL*/)
+		: INetReactor(REACTOR_TYPE_EPOLL, pThread)
 		, m_unMaxConnectionCount(unMaxConnectionCount)
 	{
 		m_nEpoll = epoll_create(m_unMaxConnectionCount);  //5 生成一个epoll专用的文件描述符,其实是在内核申请一空间，用来存放你想关注的socket fd上是否发生以及发生了什么事件。

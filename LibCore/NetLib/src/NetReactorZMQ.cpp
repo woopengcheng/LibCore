@@ -8,8 +8,8 @@
 
 namespace Net
 {   
-	NetReactorZMQ::NetReactorZMQ(UINT32 unMaxConnectionCount, BOOL bIsMutilThread/* = FALSE*/)
-		: INetReactor(REACTOR_TYPE_ZMQ, bIsMutilThread)
+	NetReactorZMQ::NetReactorZMQ(UINT32 unMaxConnectionCount, NetThread * pThread/* = NULL*/)
+		: INetReactor(REACTOR_TYPE_ZMQ, pThread)
 		, m_nNetHandlerCount(0)
 		, m_unMaxConnectionCount(unMaxConnectionCount)
 	{   

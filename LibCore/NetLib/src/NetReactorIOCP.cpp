@@ -247,8 +247,8 @@ namespace Net
 		return CErrno::Failure();
 	}
 
-	NetReactorIOCP::NetReactorIOCP(BOOL bIsMutilThread/* = FALSE*/)
-		: INetReactor(REACTOR_TYPE_IOCP, bIsMutilThread)
+	NetReactorIOCP::NetReactorIOCP(NetThread * pThread/* = NULL*/)
+		: INetReactor(REACTOR_TYPE_IOCP, pThread)
 	{
 		m_hIocp = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, NULL, 1);
 		MsgAssert(m_hIocp != NULL && m_hIocp != INVALID_HANDLE_VALUE , "error iocp create.");

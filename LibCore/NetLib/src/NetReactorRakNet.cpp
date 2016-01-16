@@ -128,7 +128,11 @@ namespace Net
 			}
 			m_pNetReactor->AddNetHandler(pServer);
 
-			NetThread::GetInstance().AcceptSession(pServerSession->GetSessionID());
+			NetThread * pThread = m_pNetReactor->GetNetThread();
+			if (pThread)
+			{
+				pThread->AcceptSession(pServerSession->GetSessionID());
+			}
 		}
 	}
 
@@ -172,8 +176,8 @@ namespace Net
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	NetReactorRakNet::NetReactorRakNet(UINT32 unMaxConnectionCount , BOOL bIsMutilThread/* = FALSE*/)
-		: INetReactor(REACTOR_TYPE_RAKNET , bIsMutilThread)
+	NetReactorRakNet::NetReactorRakNet(UINT32 unMaxConnectionCount , NetThread * pThread/* = NULL*/)
+		: INetReactor(REACTOR_TYPE_RAKNET , pThread)
 		, m_pRakPeerInstance(NULL)
 		, m_unMaxConnectionCount(unMaxConnectionCount)
 	{
