@@ -10,6 +10,7 @@ namespace Net
 	class INetReactor;
 
 	typedef tbb::concurrent_queue<CUtil::Chunk> CollectMsgChunksT;
+	typedef std::vector<CUtil::Chunk> CollectMsgChunksVec;
 
 	class DLL_EXPORT INetHandler
 	{
@@ -38,7 +39,7 @@ namespace Net
 		virtual CErrno  OnMsgRecving( void )	{ return CErrno::Success(); }
 		virtual CErrno  OnMsgSending(void)		{ return CErrno::Success(); }
 		virtual CErrno	DeliverMsg() { return CErrno::Success(); }
-		virtual CErrno	FetchMsgs(CollectMsgChunksT & queMsgs) { return CErrno::Success(); }
+		virtual CErrno	FetchMsgs(CollectMsgChunksVec & vecMsgs) { return CErrno::Success(); }
 		virtual INT32	SendMsg(const char * pBuf, UINT32 unSize) { return -1; }
 
 	public: 

@@ -1,6 +1,6 @@
 #ifndef __gamedb_db_master_manager_h__
 #define __gamedb_db_master_manager_h__
-#include "MsgLib/inc/RpcServerManager.h" 
+#include "MsgLib/inc/RpcManager.h" 
 
 namespace Net
 {

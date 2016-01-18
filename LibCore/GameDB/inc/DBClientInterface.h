@@ -2,7 +2,6 @@
 #define __gamedb_db_client_interface_h__   
 #include "GameDB/inc/DBCommon.h" 
 #include "MsgLib/inc/RpcInterface.h" 
-#include "GameDB/inc/DBClientNetHandler.h"
 
 namespace GameDB
 {     
@@ -16,10 +15,7 @@ namespace GameDB
 		virtual CErrno  Init(Json::Value & conf); 
 		virtual CErrno  Cleanup(void);
 		virtual CErrno  Update(void);  
-		virtual void	StartupRPCClient(const Json::Value & client); 
 	};
-
-	DECLARE_BOOST_POINTERS(DBClientInterface); 
 }
 
 #endif

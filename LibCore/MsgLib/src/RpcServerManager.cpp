@@ -117,7 +117,7 @@ namespace Msg
 							RPCMsgCall * pReturnMsg = (RPCMsgCall *)(*iter);
 							if (pReturnMsg)
 							{ 
-								SendMsg(pMsg->GetSessionName(), pReturnMsg , FALSE , FALSE);
+								SendMsg(pMsg->GetSessionName(), pReturnMsg , FALSE);
 								SAFE_DELETE_NEW(pReturnMsg);
 							}
 						}  
@@ -197,7 +197,7 @@ namespace Msg
 			{
 				RPCMsgCall * pReturnMsg = (RPCMsgCall *)(*iter);
 
-				SendMsg(pMsg->GetSessionName() , pReturnMsg , FALSE , FALSE);
+				SendMsg(pMsg->GetSessionName() , pReturnMsg , FALSE);
 				SAFE_DELETE_NEW(pReturnMsg);
 			} 
 		}
@@ -223,7 +223,7 @@ namespace Msg
 		return CErrno::Success();
 	} 
 
-	CErrno RpcServerManager::Init( UINT32 unMsgThreadPriorityCount /*= 1*/ , UINT32 unMsgHandlerthreadPriorityCount /*= 1*/, UINT32 unMsgThreadPriority /*= DEFAULT_MSG_THREAD_ID*/ ,UINT32 unMsgHandlerthreadPriority /*= DEFAULT_MSG_HANDLE_THREAD_ID*/)
+	CErrno RpcServerManager::Init()
 	{ 
 
 		return RpcManager::Init();

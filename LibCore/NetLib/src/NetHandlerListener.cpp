@@ -180,7 +180,7 @@ namespace Net
 			NetThread * pThread = m_pNetReactor->GetNetThread();
 			if (pThread)
 			{
-				pThread->AcceptSession(pServerSession->GetSessionID());
+				pThread->AcceptSession(pServerSession);
 			}
 		} 
 	}

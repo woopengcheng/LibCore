@@ -17,7 +17,7 @@ namespace Net
 			return NetHandlerTransit::HandleMsg(pBuffer, unLength);
 		}
 	}
-
+	
 	INT32 NetMsgQueue::SendMsg(const char * pBuf, UINT32 unSize)
 	{
 		if (m_pNetReactor->IsMutilThread())
@@ -33,12 +33,12 @@ namespace Net
 		return unSize;
 	}
 
-	CErrno NetMsgQueue::FetchMsgs(CollectMsgChunksT & queMsgs)
+	CErrno NetMsgQueue::FetchMsgs(CollectMsgChunksVec & vecMsgs)
 	{
 		CUtil::Chunk objChunk;
 		while (m_queRecvMsgQueues.try_pop(objChunk))
 		{
-			queMsgs.push(objChunk);
+			vecMsgs.push_back(objChunk);
 		} 
 
 		return CErrno::Success();

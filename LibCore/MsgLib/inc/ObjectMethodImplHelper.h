@@ -23,43 +23,43 @@ namespace Msg
 
 	public:
 		template< typename ClassObject>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(Net::ISession *  , Object ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(INT32 nSessionID , Object ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
-			return (obj.*func)(pPMC->m_pSession , pPMC->m_pMsgCall->m_objSource);
+			return (obj.*func)(pPMC->m_nSessionID , pPMC->m_pMsgCall->m_objSource);
 		}
 
 		template< typename ClassObject , typename P1>
-		static ObjectMsgCall *  CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(Net::ISession *  , Object , P1 ))
+		static ObjectMsgCall *  CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(INT32 nSessionID , Object , P1 ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
-			return (obj.*func)(pPMC->m_pSession , pPMC->m_pMsgCall->m_objSource , CUtil::ParameterHelper<P1>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[0]));
+			return (obj.*func)(pPMC->m_nSessionID , pPMC->m_pMsgCall->m_objSource , CUtil::ParameterHelper<P1>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[0]));
 		}
 
 		template< typename ClassObject , typename P1 , typename P2>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(Net::ISession *  , Object , P1 , P2 ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(INT32 nSessionID , Object , P1 , P2 ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
-			return (obj.*func)(pPMC->m_pSession , pPMC->m_pMsgCall->m_objSource , 
+			return (obj.*func)(pPMC->m_nSessionID , pPMC->m_pMsgCall->m_objSource , 
 				CUtil::ParameterHelper<P1>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[0]) , 
 				CUtil::ParameterHelper<P2>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[1]));
 		}
 
 		template< typename ClassObject , typename P1 , typename P2 , typename P3>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(Net::ISession *  , Object , P1 , P2 , P3 ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(INT32 nSessionID , Object , P1 , P2 , P3 ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
-			return (obj.*func)(pPMC->m_pSession , pPMC->m_pMsgCall->m_objSource , 
+			return (obj.*func)(pPMC->m_nSessionID , pPMC->m_pMsgCall->m_objSource , 
 				CUtil::ParameterHelper<P1>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[0]) , 
 				CUtil::ParameterHelper<P2>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[1]) ,
 				CUtil::ParameterHelper<P3>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[2]));
 		}
 
 		template< typename ClassObject , typename P1 , typename P2 , typename P3 , typename P4>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(Net::ISession *  , Object , P1 , P2 , P3 , P4 ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(INT32 nSessionID , Object , P1 , P2 , P3 , P4 ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
-			return (obj.*func)(pPMC->m_pSession , pPMC->m_pMsgCall->m_objSource , 
+			return (obj.*func)(pPMC->m_nSessionID , pPMC->m_pMsgCall->m_objSource , 
 				CUtil::ParameterHelper<P1>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[0]) , 
 				CUtil::ParameterHelper<P2>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[1]) ,
 				CUtil::ParameterHelper<P3>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[2]) ,
@@ -67,10 +67,10 @@ namespace Msg
 		}
 
 		template< typename ClassObject , typename P1 , typename P2 , typename P3 , typename P4 , typename P5>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(Net::ISession *  , Object , P1 , P2 , P3 , P4 , P5 ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(INT32 nSessionID , Object , P1 , P2 , P3 , P4 , P5 ))
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
-			return (obj.*func)(pPMC->m_pSession , pPMC->m_pMsgCall->m_objSource , 
+			return (obj.*func)(pPMC->m_nSessionID , pPMC->m_pMsgCall->m_objSource , 
 				CUtil::ParameterHelper<P1>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[0]) , 
 				CUtil::ParameterHelper<P2>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[1]) ,
 				CUtil::ParameterHelper<P3>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[2]) ,
@@ -79,10 +79,10 @@ namespace Msg
 		}
 
 		template< typename ClassObject , typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 >
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(Net::ISession *  , Object , P1 , P2 , P3 , P4 , P5 , P6 ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(INT32 nSessionID , Object , P1 , P2 , P3 , P4 , P5 , P6 ))
 		{ 
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
-			return (obj.*func)(pPMC->m_pSession , pPMC->m_pMsgCall->m_objSource , 
+			return (obj.*func)(pPMC->m_nSessionID , pPMC->m_pMsgCall->m_objSource , 
 				CUtil::ParameterHelper<P1>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[0]) , 
 				CUtil::ParameterHelper<P2>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[1]) ,
 				CUtil::ParameterHelper<P3>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[2]) ,
@@ -92,10 +92,10 @@ namespace Msg
 		}
 
 		template< typename ClassObject , typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(Net::ISession *  , Object , P1 , P2 , P3 , P4 , P5 , P6 , P7 ))
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(INT32 nSessionID , Object , P1 , P2 , P3 , P4 , P5 , P6 , P7 ))
 		{ 
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
-			return (obj.*func)(pPMC->m_pSession , pPMC->m_pMsgCall->m_objSource , 
+			return (obj.*func)(pPMC->m_nSessionID , pPMC->m_pMsgCall->m_objSource , 
 				CUtil::ParameterHelper<P1>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[0]) , 
 				CUtil::ParameterHelper<P2>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[1]) ,
 				CUtil::ParameterHelper<P3>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[2]) ,
@@ -106,10 +106,10 @@ namespace Msg
 		}
 
 		template< typename ClassObject , typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8>
-		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(Net::ISession *  , Object , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 ))	
+		static ObjectMsgCall * CallFunc(ParaseMsgCall * pPMC,ClassObject & obj , ObjectMsgCall * (ClassObject::*func)(INT32 nSessionID , Object , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 ))	
 		{
 			Assert_Re0(pPMC && pPMC->m_pMsgCall);
-			return (obj.*func)(pPMC->m_pSession , pPMC->m_pMsgCall->m_objSource , 
+			return (obj.*func)(pPMC->m_nSessionID , pPMC->m_pMsgCall->m_objSource , 
 				CUtil::ParameterHelper<P1>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[0]) , 
 				CUtil::ParameterHelper<P2>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[1]) ,
 				CUtil::ParameterHelper<P3>::GetParameterValue(pPMC->m_pMsgCall->m_objParams.m_aParameter[2]) ,

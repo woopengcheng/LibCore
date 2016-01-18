@@ -18,9 +18,7 @@ namespace Msg
 #define tbb_priority_queue    tbb::concurrent_priority_queue
 
 #define DEFAULT_RPC_CALLABLE_ID          Object(0)    //5 默认RPC的callable ID
-#define DEFAULT_RPC_MSG_ID               1    //5 默认的RPC的消息ID
-#define DEFAULT_RPC_PING_ID              2    //5 默认的RPC的消息ID
-#define DEFAULT_RPC_PING_TIMEOUT         2
+#define DEFAULT_RPC_MSG_ID               2    //5 默认的RPC的消息ID
 
 #define DEFAULT_MSG_THREAD_ID            3
 #define DEFAULT_RPC_MSG_THREAD_ID        5

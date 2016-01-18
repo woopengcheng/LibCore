@@ -63,11 +63,11 @@ namespace Msg
 	class DLL_EXPORT  Rpc : public ICallableObject
 	{
 	public:
-		Rpc(RpcManager * pRpcManager , UINT64 unTimeout = 0 , Object nID = DEFAULT_RPC_CALLABLE_ID , RPCMsgCall *  pMsg = NULL , Net::ISession * pSession = NULL)
+		Rpc(RpcManager * pRpcManager , UINT64 unTimeout = 0 , Object nID = DEFAULT_RPC_CALLABLE_ID , RPCMsgCall *  pMsg = NULL , INT32 nSessionID = 0)
 			: ICallableObject(nID)  
 			, m_pRpcMsgCall(pMsg)
-			, m_pRpcManager(pRpcManager) 
-			, m_pSession(pSession) 
+			, m_pRpcManager(pRpcManager)
+			, m_nSessionID(nSessionID)
 		{ 
 			m_objTimeout.Start(unTimeout * 1000); 
 		} 
@@ -396,19 +396,20 @@ namespace Msg
 		} 
 
 	public: 
-		RPCMsgCall *	GetRpcMsgCall() { return  m_pRpcMsgCall; } 
-		void			SetRpcMsgCall(RPCMsgCall * pMsg){ Assert(pMsg); m_pRpcMsgCall = pMsg; }   
-		Net::ISession * GetSession() { return  m_pSession; } 
-		void			SetSession(Net::ISession * pSession){ Assert(pSession); m_pSession = pSession; }   
+		RPCMsgCall *			GetRpcMsgCall() { return  m_pRpcMsgCall; } 
+		void					SetRpcMsgCall(RPCMsgCall * pMsg) { Assert(pMsg); m_pRpcMsgCall = pMsg; }
+		INT32					GetSessionID() const { return m_nSessionID; }
+		void					SetSessionID(INT32 val) { m_nSessionID = val; }
 
 	private: 
-		BOOL			CallObjectFunc( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall); 
+		BOOL					CallObjectFunc( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall); 
 
 	protected: 
 		RPCMsgCall			 *  m_pRpcMsgCall;
 		RpcManager			 *  m_pRpcManager;
 		Timer::TimeCount        m_objTimeout;
-		Net::ISession        *  m_pSession; 
+		INT32					m_nSessionID;
+		Net::ISession        *  m_pSession;
 	}; 
 	 
 }

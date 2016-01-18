@@ -64,18 +64,6 @@
     <Filter Include="GameDB\src">
       <UniqueIdentifier>{4bad0acd-eca5-4d87-a4ef-1dbef43d0a02}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameDB\inc\DBSlave">
-      <UniqueIdentifier>{55c607f9-cc52-4387-8806-08bd40faf765}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameDB\inc\DBMaster">
-      <UniqueIdentifier>{44848668-79b4-4a47-8bf0-af1555ebcb67}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameDB\inc\DBServer">
-      <UniqueIdentifier>{fc7c1f43-162b-4b82-b793-b82d6cfa96eb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameDB\inc\DBClient">
-      <UniqueIdentifier>{b9191a33-9ba0-4225-afcc-b413be20348f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Marshal\inc">
       <UniqueIdentifier>{b2df1b43-0120-4675-83f1-3d3c5eea3b39}</UniqueIdentifier>
     </Filter>
@@ -153,9 +141,6 @@
     <ClInclude Include="..\..\LibCore\MsgLib\inc\InternalMsgTask.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\IRpcListener.h">
-      <Filter>MsgLib\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\MsgLib\inc\IRpcMsgCallableObject.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
@@ -174,9 +159,6 @@
     <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgTimerNode.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\NetHandlerRpcListener.h">
-      <Filter>MsgLib\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\MsgLib\inc\Object.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
@@ -192,16 +174,7 @@
     <ClInclude Include="..\..\LibCore\MsgLib\inc\Ping.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\RemoteRpcClient.h">
-      <Filter>MsgLib\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\RemoteRpcServer.h">
-      <Filter>MsgLib\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcBase.h">
-      <Filter>MsgLib\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcClientManager.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcInterface.h">
@@ -211,9 +184,6 @@
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\LibCore\MsgLib\inc\RPCMsgCall.h">
-      <Filter>MsgLib\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\RpcServerManager.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\LibCore\MsgLib\inc\StaticMethodImplHelper.h">
@@ -342,50 +312,8 @@
     <ClInclude Include="..\..\LibCore\MsgLib\inc\GenMsgParams.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgProxy.h">
-      <Filter>MsgLib\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBSlaveManager.h">
-      <Filter>GameDB\inc\DBSlave</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBSlaveInterface.h">
-      <Filter>GameDB\inc\DBSlave</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBSlaveNetHandler.h">
-      <Filter>GameDB\inc\DBSlave</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBMasterInterface.h">
-      <Filter>GameDB\inc\DBMaster</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerInterface.h">
-      <Filter>GameDB\inc\DBServer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerNetHandler.h">
-      <Filter>GameDB\inc\DBServer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerManager.h">
-      <Filter>GameDB\inc\DBServer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientInterface.h">
-      <Filter>GameDB\inc\DBClient</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientNetHandler.h">
-      <Filter>GameDB\inc\DBClient</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientManager.h">
-      <Filter>GameDB\inc\DBClient</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\SlaveSession.h">
-      <Filter>GameDB\inc\DBSlave</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\GameDB\inc\LevelDB.h">
       <Filter>GameDB\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\DBMasterManager.h">
-      <Filter>GameDB\inc\DBMaster</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\LibCore\GameDB\inc\MasterSession.h">
-      <Filter>GameDB\inc\DBMaster</Filter>
     </ClInclude>
     <ClInclude Include="..\..\LibCore\Marshal\inc\CommonMarshal.h">
       <Filter>Marshal\inc</Filter>
@@ -606,6 +534,24 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetMsgQueue.h">
       <Filter>NetLib\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerPing.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\NetLib\inc\Ping.h">
+      <Filter>NetLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBSlaveInterface.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerInterface.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBMasterInterface.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientInterface.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -638,22 +584,10 @@
     <ClCompile Include="..\..\LibCore\MsgLib\src\MsgQueue.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\LibCore\MsgLib\src\NetHandlerRpcListener.cpp">
-      <Filter>MsgLib\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\LibCore\MsgLib\src\ObjectMsgCall.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\LibCore\MsgLib\src\RemoteRpcClient.cpp">
-      <Filter>MsgLib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\MsgLib\src\RemoteRpcServer.cpp">
-      <Filter>MsgLib\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\LibCore\MsgLib\src\RpcBase.cpp">
-      <Filter>MsgLib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\MsgLib\src\RpcClientManager.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\MsgLib\src\RpcInterface.cpp">
@@ -663,9 +597,6 @@
       <Filter>MsgLib\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\MsgLib\src\RpcMsgCall.cpp">
-      <Filter>MsgLib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\MsgLib\src\RpcServerManager.cpp">
       <Filter>MsgLib\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\NetLib\src\MsgHandler.cpp">
@@ -734,19 +665,7 @@
     <ClCompile Include="..\..\LibCore\GameDB\src\OperateRecord.cpp">
       <Filter>GameDB\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\LibCore\GameDB\src\DBServerNetHandler.cpp">
-      <Filter>GameDB\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\GameDB\src\DBClientNetHandler.cpp">
-      <Filter>GameDB\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\GameDB\src\DBClientManager.cpp">
-      <Filter>GameDB\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\LibCore\GameDB\src\DBClientInterface.cpp">
-      <Filter>GameDB\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\GameDB\src\DBServerManager.cpp">
       <Filter>GameDB\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\GameDB\src\DBServerInterface.cpp">
@@ -758,16 +677,10 @@
     <ClCompile Include="..\..\LibCore\GameDB\src\DBSlaveInterface.cpp">
       <Filter>GameDB\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\LibCore\GameDB\inc\DBSlaveManager.cpp">
-      <Filter>GameDB\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\LibCore\GameDB\src\UserAuth.cpp">
       <Filter>GameDB\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\GameDB\src\SortedSet.cpp">
-      <Filter>GameDB\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\GameDB\src\DBMasterManager.cpp">
       <Filter>GameDB\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\MsgLib\src\NetNode.cpp">
@@ -906,6 +819,9 @@
       <Filter>NetLib\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\NetLib\src\INetReactor.cpp">
+      <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerPing.cpp">
       <Filter>NetLib\src</Filter>
     </ClCompile>
   </ItemGroup>

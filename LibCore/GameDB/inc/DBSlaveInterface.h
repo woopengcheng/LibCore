@@ -18,14 +18,11 @@ namespace GameDB
 		virtual CErrno  Init(Json::Value & conf); 
 		virtual CErrno  Cleanup(void);
 		virtual CErrno  Update(void);  
-		virtual void   OnCreateDatabase(const SDBSlaveInfo & objInfo){} 
+		virtual void	OnCreateDatabase(const SDBSlaveInfo & objInfo){} 
 
 	private: 
-		CErrno    InitDB(const Json::Value & conf);
-		CErrno    InitNet(const Json::Value & conf); 
+		CErrno			InitDB(const Json::Value & conf);
 	};
-
-	DECLARE_BOOST_POINTERS(DBSlaveInterface); 
 }
 
 #endif

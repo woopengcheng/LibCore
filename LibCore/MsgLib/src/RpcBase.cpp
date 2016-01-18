@@ -1,12 +1,10 @@
-#include "CUtil/inc/Parameters.h"
 #include "MsgLib/inc/RpcBase.h"
 #include "MsgLib/inc/RpcInterface.h"
-#include "MsgLib/inc/ICallableObject.h"
-#include "CUtil/inc/GenMsgHelper.h"
 #include "MsgLib/inc/RPCMsgCall.h"
-#include "MsgLib/inc/RpcServerManager.h"
+#include "MsgLib/inc/RpcManager.h"
 #include "MsgLib/inc/IRpcMsgCallableObject.h"
-#include "CUtil/inc/Chunk.h"
+#include "CUtil/inc/GenMsgHelper.h"
+#include "CUtil/inc/Parameters.h"
 
 namespace Msg
 {  
@@ -16,7 +14,7 @@ namespace Msg
 
 		RPCMsgCall * pRpcMsgCall = NULL;
 		m_pRpcMsgCall->Copy(pRpcMsgCall);
-		return m_pRpcManager->SendMsg(m_pRpcMsgCall->GetSessionName() , pRpcMsgCall);   
+		return m_pRpcManager->SendMsg(m_nSessionID , pRpcMsgCall);   
 	}  
 
 	BOOL Rpc::CallObjectFunc( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall)
@@ -51,7 +49,7 @@ namespace Msg
 		objParaseMsgCall.m_pMehtodImpl = pMethodImpl;
 		objParaseMsgCall.m_pMsgCall = pMsg;  
 		objParaseMsgCall.m_pObj = this;
-		objParaseMsgCall.m_pSession = m_pSession;
+		objParaseMsgCall.m_nSessionID = m_nSessionID;
 
 		IRpcMsgCallableObject * pICallableObject = NULL;
 
@@ -65,7 +63,7 @@ namespace Msg
 				MsgAssert_Re0(pICallableObject->IsHasFunc(pMsg->m_szMsgMethod) , "this object has no this func.");
 				if (pICallableObject)
 				{ 
-					pICallableObject->SetSession(m_pSession); 
+					pICallableObject->SetSessionID(m_nSessionID);
 					pICallableObject->SetRpcMsgCall(pMsg); 
 					objParaseMsgCall.m_pObj = pICallableObject;
 
@@ -115,10 +113,10 @@ namespace Msg
 
 	CUtil::Parameters * Rpc::GetInParams()
 	{
-		if (m_pRpcMsgCall && m_pRpcManager && m_pRpcManager->GetRpcInterface() && m_pRpcManager->GetRpcInterface()->GetRpcServerManager())
+		if (m_pRpcMsgCall && m_pRpcManager && m_pRpcManager->GetRpcInterface())
 		{
 			UINT64 ullMsgID = m_pRpcMsgCall->m_ullMsgID;
-			Rpc * pRpc = m_pRpcManager->GetRpcInterface()->GetRpcServerManager()->GetSendRpc(ullMsgID);
+			Rpc * pRpc = m_pRpcManager->GetSendRpc(ullMsgID);
 			if (pRpc)
 			{
 				return &(pRpc->GetRpcMsgCall()->m_objParams);

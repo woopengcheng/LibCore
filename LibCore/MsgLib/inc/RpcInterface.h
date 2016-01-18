@@ -1,24 +1,21 @@
 #ifndef __msg_rpc_interface_h__
 #define __msg_rpc_interface_h__  
 #include "MsgLib/inc/MsgCommon.h"
-#include "NetLib/inc/NetHandlerTransit.h"
 #include "json/json.h"
 
 #ifdef WIN32
 #pragma warning( disable :4996)
 #endif
 
-namespace XML
+namespace Net
 {
-	class XML;
+	class NetThread;
 }
 
 namespace Msg
 { 
 	class RPCMsgCall; 
-	class IRpcListener;
-	class RpcServerManager;  
-	class RpcClientManager;  
+	class RpcManager;  
 	 
 	class DLL_EXPORT  RpcInterface
 	{ 
@@ -27,47 +24,33 @@ namespace Msg
 		virtual ~RpcInterface(void);
 
 	public:
-		virtual CErrno  Init(std::string strFilePath);
-		virtual CErrno  Init(Json::Value & conf);
-		virtual CErrno  Cleanup(void);
-		virtual CErrno  Update(void); 
-		virtual void   OnRegisterRpcs(void){}
-		virtual void   StartupRPCServer(const std::string & strNetNodeName , const std::string & strType , const std::string & strAddress , const std::string & strPort);
-		virtual void   StartupRPCClient(XML::XML * pXML);
-		virtual void   StartupRPCClient(const Json::Value & clients);
+		virtual CErrno			Init(Json::Value & conf);
+		virtual CErrno			Cleanup(void);
+		virtual CErrno			Update(void); 
+		virtual void			OnRegisterRpcs(void){}
 
 	public:
-		virtual INT32  SendMsg(const std::string & strNetNodeName , RPCMsgCall * pMsg , BOOL bForce = FALSE , BOOL bAddRpc = TRUE);
-		virtual INT32  SendMsg(const char * pRpcServerName , RPCMsgCall * pMsg , BOOL bForce = FALSE , BOOL bAddRpc = TRUE);
-		virtual INT32  SendMsg(Net::NetHandlerTransitPtr pRemoteRpc , RPCMsgCall * pRpcMsg  , BOOL bForce = FALSE , BOOL bAddRpc = TRUE);
-		virtual INT32  SendMsg(INT32 nSessionID , RPCMsgCall * pMsg , BOOL bForce = FALSE , BOOL bAddRpc = TRUE); 
-		virtual INT32  SendMsg(Net::NetHandlerTransitPtr pRemoteRpc , UINT32 unMsgID, const char* pBuffer, UINT32 unLength , BOOL bForce = FALSE , BOOL bAddRpc = TRUE);
-
-	public:  
-		void   RegisterRpc(void);
-		CErrno  CloseNet(const char * pName);  
-		Net::INetReactor *  GetNetReactor(){ return m_pNetReactor; }
-		RpcServerManager  *  GetRpcServerManager(){ return m_pRpcServerManager; }
-		RpcClientManager  *  GetRpcClientManager(){ return m_pRpcClientManager; }
-		UINT16  GetServerPort(){ return m_usServerPort; }
-		char *  GetServerName(){ return m_szServerName; }
-		char *  GetNetNodeName(){ return m_szNetNodeName; }
-		char *  GetServerType(){ return m_szRpcType; }
-		void    SetRpcListener(IRpcListener * pRpcListener ){ m_pRpcListener = pRpcListener; }
-		IRpcListener * GetRpcListener( ){ return m_pRpcListener; } 
+		virtual INT32			SendMsg(INT32 nSessionID , RPCMsgCall * pMsg , BOOL bAddRpc = TRUE);	
+		virtual INT32			SendMsg(const std::string & strNodeName, RPCMsgCall * pMsg, BOOL bAddRpc = TRUE);
+	public:
+		RpcManager			*	GetRpcManager(){ return m_pRpcManager; }
+		UINT16					GetServerPort(){ return m_usServerPort; }
+		char				*	GetServerName(){ return m_szServerName; }
+		char				*	GetNetNodeName(){ return m_szNetNodeName; }
+		char				*	GetServerType(){ return m_szRpcType; }
+		Net::NetThread 		*	GetNetThread() { return m_pNetThread; }
+		void					RegisterRpc(void);
 
 	private:
-		void   TakeOverSync(RPCMsgCall * pMsg);
+		void					TakeOverSync(RPCMsgCall * pMsg);
 
 	protected: 
-		UINT16               m_usServerPort;
-		char                 m_szServerName[MAX_NAME_LENGTH];
-		char                 m_szNetNodeName[MAX_NAME_LENGTH];
-		char                 m_szRpcType[MAX_NAME_LENGTH]; 
-		IRpcListener      *  m_pRpcListener;
-		Net::INetReactor  *  m_pNetReactor;         //5 没有访问机会.不会加锁
-		RpcServerManager  *  m_pRpcServerManager;
-		RpcClientManager  *  m_pRpcClientManager;
+		UINT16					m_usServerPort;
+		char					m_szServerName[MAX_NAME_LENGTH];
+		char					m_szNetNodeName[MAX_NAME_LENGTH];
+		char					m_szRpcType[MAX_NAME_LENGTH]; 
+		RpcManager			*	m_pRpcManager;
+		Net::NetThread		*	m_pNetThread;
 	};  
 
 }

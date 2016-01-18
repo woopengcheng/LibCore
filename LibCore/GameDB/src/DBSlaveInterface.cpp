@@ -1,8 +1,8 @@
 #include "GameDB/inc/DBSlaveInterface.h"  
 #include "NetLib/inc/NetLib.h"
-#include "GameDB/inc/DBServerManager.h"
-#include "GameDB/inc/DBSlaveManager.h"
+#include "MsgLib/inc/RpcManager.h"
 #include "LogLib/inc/Log.h" 
+#include "Timer/inc/TimerHelp.h"
 #include "json/json.h"
 #include <algorithm>
 
@@ -17,11 +17,10 @@ namespace GameDB
 	}
 
 	CErrno DBSlaveInterface::Init(Json::Value & conf)
-	{   
-		InitNet(conf);
+	{
 		InitDB(conf);
 
-		return CErrno::Success(); 
+		return RpcInterface::Init(conf); 
 	}
 
 	CErrno DBSlaveInterface::InitDB(const Json::Value & conf)
@@ -68,50 +67,13 @@ namespace GameDB
 			objInfo.strDBName = strDBName;  
 			OnCreateDatabase(objInfo);
 
-			Net::NetHandlerTransitPtr pNetHandler(NULL);
-			pNetHandler = m_pRpcClientManager->GetHandlerByName(strRemoteRPCName.c_str());
-			if (!pNetHandler)
+			if (m_pNetThread)
 			{
-				m_pRpcClientManager->CreateNetHandler(strRemoteRPCName.c_str() , strAddress.c_str() , strPort.c_str() , 0 , &objInfo); 
-			}   
-		} 
-		return CErrno::Success();
-	}
-	 
-
-	CErrno DBSlaveInterface::InitNet(const Json::Value & conf)
-	{
-		if (!m_pNetReactor)
-		{
-			m_pNetReactor = new Net::NetReactorDefault;
-
-			if(CErrno::Success() != m_pNetReactor->Init())
-			{
-				SAFE_DELETE(m_pNetReactor);
-				MsgAssert_ReF(0, "init net fail."); 
+				m_pNetThread->InsertClientsQueue(strAddress.c_str() , atoi(strPort.c_str()));
 			}
-		}
-
-		if (!m_pRpcServerManager)
-		{
-			m_pRpcServerManager = new DBServerManager(this , m_pNetReactor); 
 		} 
-		if (!m_pRpcClientManager)
-		{
-			m_pRpcClientManager = new DBSlaveManager(this , m_pNetReactor); 
-		} 
-
-		std::string strType = conf.get("listen_type" , "tcp").asCString();
-		std::string strAddress = conf.get("listen_address" , "127.0.0.1").asCString();
-		std::string strPort = conf.get("listen_port" , "8003").asCString();
-		std::string strNodeName = conf.get("net_node_name" , "").asCString();
-
-		StartupRPCServer(strNodeName , strType,  strAddress , strPort); 
-		 
-		RegisterRpc(); 
-
 		return CErrno::Success();
-	}
+	} 
 
 	CErrno DBSlaveInterface::Cleanup(void)
 	{ 

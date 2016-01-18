@@ -9,18 +9,18 @@ namespace Msg
 	class DLL_EXPORT  RpcServerManager : public RpcManager
 	{ 
 	public:
-		typedef tbb_queue<RPCMsgCall *> CollectionMsgsQueT;
-		typedef tbb_unordered_map<std::string , CollectionMsgsQueT> CollectionPostMsgsT;
-		typedef std_unordered_map<std::string  , CollectionMsgsQueT> CollectionDelayMsgsT;
+		typedef tbb_queue<RPCMsgCall *>								CollectionMsgsQueT;
+		typedef tbb_unordered_map<std::string , CollectionMsgsQueT>	CollectionPostMsgsT;
+		typedef std_unordered_map<std::string , CollectionMsgsQueT>	CollectionDelayMsgsT;
 
 	public:
-		RpcServerManager(RpcInterface * pRpcInterface , Net::INetReactor * pNetReactor) 
-			: RpcManager(pRpcInterface , pNetReactor)
+		RpcServerManager(RpcInterface * pRpcInterface) 
+			: RpcManager(pRpcInterface)
 		{}
 		virtual ~RpcServerManager(void);
 
 	public:
-		virtual CErrno	Init(UINT32 unMsgThreadPriorityCount = 1 , UINT32 unMsgHandlerthreadPriorityCount = 1, UINT32 unMsgThreadPriority = DEFAULT_MSG_THREAD_ID ,UINT32 unMsgHandlerthreadPriority = DEFAULT_MSG_HANDLE_THREAD_ID);
+		virtual CErrno	Init();
 		virtual CErrno	Cleanup(void);
 		virtual CErrno	Update(void);
 		virtual void	CloseNet(const char * pName);
@@ -30,15 +30,8 @@ namespace Msg
 		virtual CErrno	PostMsg(const char * pRpcServerName , RPCMsgCall * pMsg);
 		virtual CErrno	PostDelayMsg(const char * pRpcServerName , RPCMsgCall * pMsg);
 
-		virtual INT32	SendMsg(const std::string & strNetNodeName , RPCMsgCall * pMsg , BOOL bForce = FALSE , BOOL bAddRpc = TRUE){ return m_pRpcInterface->SendMsg(strNetNodeName , pMsg , bForce , bAddRpc); }
-		virtual INT32	SendMsg(const char * pRpcServerName , RPCMsgCall * pMsg , BOOL bForce = FALSE , BOOL bAddRpc = TRUE){ return m_pRpcInterface->SendMsg(pRpcServerName , pMsg , bForce , bAddRpc); } 
-		virtual INT32	SendMsg(Net::NetHandlerTransitPtr pRemoteRpc , RPCMsgCall * pRpcMsg , BOOL bForce = FALSE , BOOL bAddRpc = TRUE ){ return m_pRpcInterface->SendMsg(pRemoteRpc , pRpcMsg , bForce , bAddRpc); }  
-		virtual INT32	SendMsg(Net::NetHandlerTransitPtr pRemoteRpc , UINT32 unMsgID, const char* pBuffer, UINT32 unLength , BOOL bForce = FALSE , BOOL bAddRpc = TRUE){ return m_pRpcInterface->SendMsg(pRemoteRpc , unMsgID , pBuffer , unLength , bForce , bAddRpc); }  
-		virtual INT32	SendMsg(INT32 nSessionID , RPCMsgCall * pMsg , BOOL bForce = FALSE , BOOL bAddRpc = TRUE){ return m_pRpcInterface->SendMsg(nSessionID , pMsg , bForce , bAddRpc); }
-		  
 	public:  
-		virtual CErrno	HandleMsg(Net::ISession * pSession , RPCMsgCall * pMsg);    
-		virtual CErrno	HandlePing( Net::ISession * pSession , SPing * pPing );
+		virtual CErrno	HandleMsg(Net::ISession * pSession , RPCMsgCall * pMsg);   
 
 	public: 
 		CErrno			UpdateCalls(void); 

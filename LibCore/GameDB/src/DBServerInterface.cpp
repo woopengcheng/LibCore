@@ -1,7 +1,6 @@
 #include "GameDB/inc/DBServerInterface.h"  
 #include "NetLib/inc/NetLib.h"
-#include "GameDB/inc/DBServerManager.h"
-#include "GameDB/inc/DBClientManager.h"
+#include "MsgLib/inc/RpcManager.h"
 #include "LogLib/inc/Log.h" 
 
 namespace GameDB
@@ -18,11 +17,10 @@ namespace GameDB
 	}
 
 	CErrno DBServerInterface::Init(Json::Value & conf)
-	{   
-		InitNet(conf);
+	{
 		InitDB(conf);
 
-		return CErrno::Success(); 
+		return RpcInterface::Init(conf); 
 	}
 
 	CErrno DBServerInterface::InitDB(const Json::Value & conf)
@@ -48,38 +46,6 @@ namespace GameDB
 
 	CErrno DBServerInterface::InitNet(const Json::Value & conf)
 	{
-		if (!m_pNetReactor)
-		{
-			m_pNetReactor = new Net::NetReactorDefault;
-
-			if(CErrno::Success() != m_pNetReactor->Init())
-			{
-				SAFE_DELETE(m_pNetReactor);
-				MsgAssert_ReF(0, "init net fail."); 
-			}
-		}
-
-		if (!m_pRpcServerManager)
-		{
-			m_pRpcServerManager = new DBServerManager(this , m_pNetReactor); 
-		} 
-		if (!m_pRpcClientManager)
-		{
-			m_pRpcClientManager = new DBClientManager(this , m_pNetReactor); 
-		} 
-		 
-		std::string strType = conf.get("listen_type" , "tcp").asCString();
-		std::string strAddress = conf.get("listen_address" , "127.0.0.1").asCString();
-		std::string strPort = conf.get("listen_port" , "8003").asCString();
-		std::string strNodeName = conf.get("net_node_name" , "").asCString();
-
-		StartupRPCServer(strNodeName , strType,  strAddress , strPort); 
-
-		Json::Value clients = conf.get("clients" , Json::Value());
-		StartupRPCClient(clients);
-
-		RegisterRpc(); 
-
 		return CErrno::Success();
 	}
 

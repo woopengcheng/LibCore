@@ -19,7 +19,7 @@ namespace Net
 		virtual INT32		SendMsg(const char * pBuf, UINT32 unSize);
 
 	public:
-		virtual CErrno		FetchMsgs(CollectMsgChunksT & queMsgs);
+		virtual CErrno		FetchMsgs(CollectMsgChunksVec & vecMsgs);
 		virtual CErrno		DeliverMsg();
 
 	private:
