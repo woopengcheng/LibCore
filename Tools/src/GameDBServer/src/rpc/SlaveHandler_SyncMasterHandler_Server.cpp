@@ -1,6 +1,6 @@
 #include "SlaveHandler.h"
 
-Msg::ObjectMsgCall * Server::SlaveHandler::SyncMasterHandler_RpcServer(Net::ISession * pSession, Msg::Object objSrc ,INT32 id/* = 0*/)
+Msg::ObjectMsgCall * Server::SlaveHandler::SyncMasterHandler_RpcServer(INT32 nSessionID , Msg::Object objSrc ,INT32 id/* = 0*/)
 {
 	INT32 res = 0;
 	

@@ -2,7 +2,7 @@
 
 
 
-Msg::ObjectMsgCall * Server::MasterHandler::MasterStartSync_RpcClient(Net::ISession * pSession, Msg::Object objSrc , INT32 res/* = 0*/)
+Msg::ObjectMsgCall * Server::MasterHandler::MasterStartSync_RpcClient(INT32 nSessionID , Msg::Object objSrc , INT32 res/* = 0*/)
 {
 
 
@@ -10,7 +10,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::MasterStartSync_RpcClient(Net::ISess
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Server::MasterHandler::MasterStartSync_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc ,std_string & filename/* = std::string()*/ , INT32 filesize/* = 0*/ , INT32 sendtype/* = 0*/ , CUtilChunk & value/* = CUtil::Chunk()*/)
+Msg::ObjectMsgCall * Server::MasterHandler::MasterStartSync_RpcTimeout(INT32 nSessionID , Msg::Object objSrc ,std_string & filename/* = std::string()*/ , INT32 filesize/* = 0*/ , INT32 sendtype/* = 0*/ , CUtilChunk & value/* = CUtil::Chunk()*/)
 {
 
 

@@ -59,8 +59,8 @@ namespace Server
 		}
 
 	public:
-		virtual CErrno OnConnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pClientSession , const std::string & strNetNodeName);
-		virtual CErrno OnDisconnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pServerSession , Net::ISession * pClientSession);
+		virtual CErrno OnConnected(Msg::RpcInterface * pRpcInterface , INT32 nSessionID, const std::string & strNetNodeName);
+		virtual CErrno OnDisconnected(Msg::RpcInterface * pRpcInterface , INT32 nSessionID, INT32 nPeerSessionID);
 
 	private:
 		DBMaster * m_pDBMaster;

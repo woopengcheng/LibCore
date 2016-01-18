@@ -1,6 +1,6 @@
 #include "ServerHandler.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiGet_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/ , CUtilChunk & keys/* = CUtil::Chunk()*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiGet_RpcServer(INT32 nSessionID , Msg::Object objSrc , std_string &table/* = std::string()*/ , CUtilChunk & keys/* = CUtil::Chunk()*/  )
 {
 	CUtilChunk res = 0;
 

@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleZDrop_RpcClient(Net::ISession * pSession, Msg::Object objSrc , INT32 res/* = 0*/) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleZDrop_RpcClient(INT32 nSessionID , Msg::Object objSrc , INT32 res/* = 0*/) 
 {
 	if (res >= 0)
 	{
@@ -16,7 +16,7 @@ Msg::ObjectMsgCall * Client::GlobalRpc::HandleZDrop_RpcClient(Net::ISession * pS
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleZDrop_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleZDrop_RpcTimeout(INT32 nSessionID , Msg::Object objSrc , std_string & table/* = std::string()*/) 
 {
 
 

@@ -2,7 +2,7 @@
 #define __gamedb_master_handler_h__
 
 #include "MsgLib/inc/IRpcMsgCallableObject.h"
-#include "MsgLib/inc/RpcServerManager.h"
+#include "MsgLib/inc/RpcManager.h"
 #include "MsgLib/inc/Object.h"
 #include "GameDB/inc/User.h"
 #include "RpcDefines.h" 
@@ -20,7 +20,7 @@ namespace Server
 
 	public:
 		MasterHandler(Msg::Object objID , INT32 nSessionID , DBMaster * pDBMaster)
-			: Msg::IRpcMsgCallableObject(objID , pDBMaster->GetRpcServerManager())
+			: Msg::IRpcMsgCallableObject(objID , pDBMaster->GetRpcManager())
 			, m_pDBMaster(pDBMaster)
 			, m_nSessionID(nSessionID)
 		{}

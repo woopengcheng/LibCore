@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleZDel_RpcClient(Net::ISession * pSession, Msg::Object objSrc , INT64 score/* = 0*/) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleZDel_RpcClient(INT32 nSessionID , Msg::Object objSrc , INT64 score/* = 0*/) 
 { 
 	if (score > -1)
 	{
@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Client::GlobalRpc::HandleZDel_RpcClient(Net::ISession * pSe
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleZDel_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/ , std_string & key/* = std::string()*/) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleZDel_RpcTimeout(INT32 nSessionID , Msg::Object objSrc , std_string & table/* = std::string()*/ , std_string & key/* = std::string()*/) 
 {
 
 

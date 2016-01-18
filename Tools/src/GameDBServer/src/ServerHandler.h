@@ -2,7 +2,7 @@
 #define __test_server_object_h__
 
 #include "MsgLib/inc/IRpcMsgCallableObject.h"
-#include "MsgLib/inc/RpcServerManager.h"
+#include "MsgLib/inc/RpcManager.h"
 #include "MsgLib/inc/Object.h"
 #include "RpcDefines.h" 
 #include "MsgNameDefine.h"  
@@ -17,7 +17,7 @@ namespace Server
 		RPC_DEFINE_ServerHandler;
 	public:
 		ServerHandler(DBServer * pDBServer)
-			: Msg::IRpcMsgCallableObject(Msg::Object(1) , pDBServer->GetRpcServerManager())
+			: Msg::IRpcMsgCallableObject(Msg::Object(1) , pDBServer->GetRpcManager())
 			, m_pDBServer(pDBServer)
 			, m_strDatabaseName("")
 		{}

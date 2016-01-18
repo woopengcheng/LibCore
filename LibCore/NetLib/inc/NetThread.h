@@ -10,8 +10,6 @@
 
 namespace Net
 {
-	class IRpcListener;
-
 	typedef std::pair<std::string, INT32>					PeerKey;
 	struct PeerKeyHashFunc
 	{

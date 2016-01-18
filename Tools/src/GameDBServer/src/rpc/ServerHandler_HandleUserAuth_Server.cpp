@@ -1,6 +1,6 @@
 #include "ServerHandler.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleUserAuth_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &name/* = std::string()*/ , std_string & pwd/* = std::string()*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleUserAuth_RpcServer(INT32 nSessionID , Msg::Object objSrc , std_string &name/* = std::string()*/ , std_string & pwd/* = std::string()*/  )
 {
 	INT32 res = -1;
 

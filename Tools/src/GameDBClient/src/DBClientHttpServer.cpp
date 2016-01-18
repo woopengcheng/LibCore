@@ -101,12 +101,12 @@ namespace Client
 				</body>\
 				</html>";
 			result += strCommands + strResult;
-			response.Reserve(result.length() + 512);
+			response.Reserve((INT32)(result.length()) + 512);
 			response.WriteResponseHeader(200,"OK");
 			response.WriteHeader(Net::HttpConsts::HEADER_CONNECTION,"keep-alive");
 			response.WriteHeader(Net::HttpConsts::HEADER_CONTENT_TYPE,"text/html;charset=utf-8");
-			response.WriteHeader(Net::HttpConsts::HEADER_CONTENT_LENGTH,result.length());
-			response.WriteContent(result.c_str(), result.length());
+			response.WriteHeader(Net::HttpConsts::HEADER_CONTENT_LENGTH, (INT32)(result.length()));
+			response.WriteContent(result.c_str(), (INT32)(result.length()));
 
 			return CErrno::Success();
 		}
@@ -129,12 +129,12 @@ namespace Client
 			{
 				std::string result = "<HTML>\n				<HEAD>\n				<TITLE>MiniWeb</TITLE>\n				</HEAD>\n				</HTML>";
 
-				response.Reserve(result.length() + 512);
+				response.Reserve((INT32)(result.length()) + 512);
 				response.WriteResponseHeader(200, "OK");
 				response.WriteHeader(Net::HttpConsts::HEADER_CONNECTION, "close");
 				response.WriteHeader(Net::HttpConsts::HEADER_CONTENT_TYPE, "text/html;charset=utf-8");
-				response.WriteHeader(Net::HttpConsts::HEADER_CONTENT_LENGTH, result.length());
-				response.WriteContent(result.c_str(), result.length());
+				response.WriteHeader(Net::HttpConsts::HEADER_CONTENT_LENGTH, (INT32)(result.length()));
+				response.WriteContent(result.c_str(), (INT32)(result.length()));
 			}
 			return CErrno::Success();
 		}

@@ -1,6 +1,6 @@
 #include "ServerHandler.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::testMulitServerNode_RpcServerProxy(Net::ISession * pSession , Msg::Object objSrc , std_string & dbname/* = std::string()*/ , CUtilChunk & value/* = CUtil::Chunk()*/ , int value2/* = 0*/ , unsigned int value22/* = 0*/ , char valChar/* = char(0)*/)
+Msg::ObjectMsgCall * Server::ServerHandler::testMulitServerNode_RpcServerProxy(INT32 nSessionID, Msg::Object objSrc , std_string & dbname/* = std::string()*/ , CUtilChunk & value/* = CUtil::Chunk()*/ , int value2/* = 0*/ , unsigned int value22/* = 0*/ , char valChar/* = char(0)*/)
 {
 	CUtilChunk res = CUtil::Chunk();
 
@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::testMulitServerNode_RpcServerProxy(N
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Server::ServerHandler::testMulitServerNode_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc  ,CUtilChunk & res/* = CUtil::Chunk()*/)
+Msg::ObjectMsgCall * Server::ServerHandler::testMulitServerNode_RpcClientProxy(INT32 nSessionID, Msg::Object objSrc  ,CUtilChunk & res/* = CUtil::Chunk()*/)
 {
 
 
@@ -25,7 +25,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::testMulitServerNode_RpcClientProxy(N
 	Return(res);
 }
 
-Msg::ObjectMsgCall * Server::ServerHandler::testMulitServerNode_RpcTimeoutProxy(Net::ISession * pSession , Msg::Object objSrc,std_string & dbname/* = std::string()*/ , CUtilChunk & value/* = CUtil::Chunk()*/ , int value2/* = 0*/ , unsigned int value22/* = 0*/ , char valChar/* = char(0)*/ )
+Msg::ObjectMsgCall * Server::ServerHandler::testMulitServerNode_RpcTimeoutProxy(INT32 nSessionID, Msg::Object objSrc,std_string & dbname/* = std::string()*/ , CUtilChunk & value/* = CUtil::Chunk()*/ , int value2/* = 0*/ , unsigned int value22/* = 0*/ , char valChar/* = char(0)*/ )
 {
 
 

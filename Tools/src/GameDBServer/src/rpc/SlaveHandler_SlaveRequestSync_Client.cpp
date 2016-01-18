@@ -2,7 +2,7 @@
 
 
 
-Msg::ObjectMsgCall * Server::SlaveHandler::SlaveRequestSync_RpcClient(Net::ISession * pSession, Msg::Object objSrc , std_string & newbackdir/* = std::string()*/ , INT32 res/* = 0*/)
+Msg::ObjectMsgCall * Server::SlaveHandler::SlaveRequestSync_RpcClient(INT32 nSessionID , Msg::Object objSrc , std_string & newbackdir/* = std::string()*/ , INT32 res/* = 0*/)
 {
 
 
@@ -10,7 +10,7 @@ Msg::ObjectMsgCall * Server::SlaveHandler::SlaveRequestSync_RpcClient(Net::ISess
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Server::SlaveHandler::SlaveRequestSync_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & dbname/* = std::string()*/)
+Msg::ObjectMsgCall * Server::SlaveHandler::SlaveRequestSync_RpcTimeout(INT32 nSessionID , Msg::Object objSrc , std_string & dbname/* = std::string()*/)
 {
 
 

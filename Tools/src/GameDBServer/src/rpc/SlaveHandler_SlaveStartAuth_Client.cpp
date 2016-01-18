@@ -2,7 +2,7 @@
 
 
 
-Msg::ObjectMsgCall * Server::SlaveHandler::SlaveStartAuth_RpcClient(Net::ISession * pSession, Msg::Object objSrc , std_string & value/* = std::string()*/)
+Msg::ObjectMsgCall * Server::SlaveHandler::SlaveStartAuth_RpcClient(INT32 nSessionID , Msg::Object objSrc , std_string & value/* = std::string()*/)
 {
 	if (value != "")
 	{
@@ -13,7 +13,7 @@ Msg::ObjectMsgCall * Server::SlaveHandler::SlaveStartAuth_RpcClient(Net::ISessio
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Server::SlaveHandler::SlaveStartAuth_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc ,std_string & name/* = std::string()*/ , std_string & pwd/* = std::string()*/)
+Msg::ObjectMsgCall * Server::SlaveHandler::SlaveStartAuth_RpcTimeout(INT32 nSessionID , Msg::Object objSrc ,std_string & name/* = std::string()*/ , std_string & pwd/* = std::string()*/)
 {
 
 

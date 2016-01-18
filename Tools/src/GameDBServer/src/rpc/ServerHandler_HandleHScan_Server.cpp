@@ -1,6 +1,6 @@
 #include "ServerHandler.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleHScan_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/ , std_string & start/* = std::string()*/ ,std_string & regexp/* = std::string()*/ , INT64 limit/* = 10*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleHScan_RpcServer(INT32 nSessionID , Msg::Object objSrc , std_string &table/* = std::string()*/ , std_string & start/* = std::string()*/ ,std_string & regexp/* = std::string()*/ , INT64 limit/* = 10*/  )
 {
 	CUtilChunk res = CUtil::Chunk();
 

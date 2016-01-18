@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleShowUsers_RpcClient(Net::ISession * pSession, Msg::Object objSrc , CUtilChunk & res/* = CUtil::Chunk()*/)
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleShowUsers_RpcClient(INT32 nSessionID , Msg::Object objSrc , CUtilChunk & res/* = CUtil::Chunk()*/)
 {
 	if (res.GetDataLen() != 0)
 	{
@@ -25,7 +25,7 @@ Msg::ObjectMsgCall * Client::GlobalRpc::HandleShowUsers_RpcClient(Net::ISession 
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleShowUsers_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc )
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleShowUsers_RpcTimeout(INT32 nSessionID , Msg::Object objSrc )
 {
 
 

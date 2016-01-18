@@ -93,19 +93,19 @@ namespace Server
 		return DBMasterInterface::Cleanup();
 	}
 
-	CErrno MasterListener::OnConnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pClientSession ,const std::string & strNetNodeName)
+	CErrno MasterListener::OnConnected(Msg::RpcInterface * pRpcInterface , INT32 nSessionID, const std::string & strNetNodeName)
 	{
 		if (m_pDBMaster)
 		{
 			if (strNetNodeName == g_netnodes[NETNODE_DBSLAVE])
 			{
-				INT32 nMasterHandlerID = m_pDBMaster->CreateMasterHandler(pClientSession->GetSessionID());
-				rpc_SyncMasterHandler(pClientSession->GetSessionID() , Msg::Object(1) , Msg::Object(nMasterHandlerID) , nMasterHandlerID);
+				INT32 nMasterHandlerID = m_pDBMaster->CreateMasterHandler(nSessionID);
+				rpc_SyncMasterHandler(nSessionID, Msg::Object(1) , Msg::Object(nMasterHandlerID) , nMasterHandlerID);
 			}
 
 			if (strNetNodeName == g_netnodes[NETNODE_DBSERVER])
 			{
-				INT32 nMasterHandlerID = m_pDBMaster->CreateMasterHandler(pClientSession->GetSessionID());
+				INT32 nMasterHandlerID = m_pDBMaster->CreateMasterHandler(nSessionID);
 
 				TestRpcData test1;        
 				test1.p1 = 11;
@@ -123,14 +123,14 @@ namespace Server
 				test1.p5.push_back(1);
 				test1.p5.push_back(2);
 				TestRpcData2 test2;
-				rpc_testParamsAndRpcDatas(pClientSession->GetSessionID() ,1 ,nMasterHandlerID , test1 , test2);
+				rpc_testParamsAndRpcDatas(nSessionID,1 ,nMasterHandlerID , test1 , test2);
 			}
 		}
 
 		return CErrno::Success();
 	}
 
-	CErrno MasterListener::OnDisconnected(Msg::RpcInterface * pRpcInterface , Net::ISession * pServerSession , Net::ISession * pClientSession)
+	CErrno MasterListener::OnDisconnected(Msg::RpcInterface * pRpcInterface, INT32 nSessionID, INT32 nPeerSessionID)
 	{
 
 		return CErrno::Success();

@@ -624,16 +624,16 @@ def GenerateRPCDefine(className , rpcs , fileRpc , serverName):
 		strReturnParams = GetSpecialParamsIncludeDefaultParam(rpc.returns.params) 
 		for targetIndex , target in rpc.targets.items():
 			if target.targetType == g_targetTypeClient and target.classes == className:
-				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcClient(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) " + strReturnParams + ");\\\n") 
-				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcTimeout(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) " + strParams + ");\\\n")
+				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcClient(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) " + strReturnParams + ");\\\n") 
+				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcTimeout(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) " + strParams + ");\\\n")
 				
 			if target.targetType == g_targetTypeProxy and target.classes == className:
-				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcServerProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) " + strParams + ");\\\n")
-				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcTimeoutProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) " + strParams + ");\\\n")
-				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) " + strReturnParams + ");\\\n") 
+				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcServerProxy(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) " + strParams + ");\\\n")
+				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcTimeoutProxy(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) " + strParams + ");\\\n")
+				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcClientProxy(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) " + strReturnParams + ");\\\n") 
 
 			if target.targetType == g_targetTypeServer and target.classes == className:
-				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcServer(Net::ISession * pSession , Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID)" + strParams + ");\\\n")				
+				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcServer(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID)" + strParams + ");\\\n")				
 								
 	GenerateObjectHaveCurFunc(fileRpc , className , rpcs)
 		
@@ -689,7 +689,7 @@ def GenerateGlableRpcHeaderNamespace(fileRpc , namespace):
 	fileRpc.write("#include \"CUtil/inc/Chunk.h\" \n") 
 	fileRpc.write("#include \"MsgLib/inc/Object.h\" \n") 
 	fileRpc.write("#include \"MsgLib/inc/RPCMsgCall.h\" \n") 
-	fileRpc.write("#include \"MsgLib/inc/RpcServerManager.h\" \n") 
+	fileRpc.write("#include \"MsgLib/inc/RpcManager.h\" \n") 
 	fileRpc.write("#include \"MsgLib/inc/IRpcMsgCallableObject.h\" \n") 
 	fileRpc.write("#include \"RpcDatas.h\" \n") 
 	fileRpc.write("#include \"RpcDefines.h\" \n") 
@@ -727,8 +727,8 @@ def GenerateRpcRegister():
 			
 		fileRpc.write(oneTab + "void " + rpcServerName.rpcInterface + "::OnRegisterRpcs( void )\n")
 		fileRpc.write(oneTab + "{\n")
-		fileRpc.write(twoTab + "Assert(m_pRpcServerManager && Msg::RpcCheckParams::GetInstance());	\n")
-		fileRpc.write(twoTab + "static " + rpcServerName.namespace + "::GlobalRpc g_pGlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcServerManager); \n\n") 
+		fileRpc.write(twoTab + "Assert(m_pRpcManager && Msg::RpcCheckParams::GetInstance());	\n")
+		fileRpc.write(twoTab + "static " + rpcServerName.namespace + "::GlobalRpc g_pGlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcManager); \n\n") 
 		
 		rpcRecords = collections.OrderedDict()
 		for index , rpc in g_rpcMsgs.rpcs.rpcs.items():  
@@ -781,7 +781,7 @@ def GenerateDefineStaticFunc(fileRpc , namespace):
 	
 def GenerateRpcRegisterHeader(fileRpc , rpcNamespace) :
 	WriteFileDescription(fileRpc , "RpcRegister.cpp" , "注册每个函数.以及检测网络传递的消息是否是正确的参数.") 
-	fileRpc.write("#include \"MsgLib/inc/RpcServerManager.h\"\n")
+	fileRpc.write("#include \"MsgLib/inc/RpcManager.h\"\n")
 	fileRpc.write("#include \"MsgLib/inc/RpcCheckParams.h\"\n") 
 	fileRpc.write("#include \"CUtil/inc/Chunk.h\"\n")  
 	fileRpc.write("#include \"MsgNameDefine.h\"\n")  
@@ -836,18 +836,18 @@ def GenerateRpcRegisterFuncs(rpc , fileRpc , serverName):
 		if target.targetType == g_targetTypeClient and serverName == target.name:
 		
 			fileRpc.write(threeTab + "\n") 
-			fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcClient , &" + className + "::" + rpc.name + "_RpcClient); \n") 
-			fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcTimeout ,&" + className + "::" + rpc.name + "_RpcTimeout); \n") 
+			fileRpc.write(threeTab + "m_pRpcManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcClient , &" + className + "::" + rpc.name + "_RpcClient); \n") 
+			fileRpc.write(threeTab + "m_pRpcManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcTimeout ,&" + className + "::" + rpc.name + "_RpcTimeout); \n") 
 				
 		elif target.targetType == g_targetTypeProxy and serverName == target.name:
 		
 			fileRpc.write(threeTab + "\n")
-			fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcServerProxy , &" + className + "::" + rpc.name + "_RpcServerProxy); \n") 
-			fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcClientProxy , &" + className + "::" + rpc.name + "_RpcClientProxy); \n") 
-			fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcTimeoutProxy ,&" + className + "::" + rpc.name + "_RpcTimeoutProxy); \n") 
+			fileRpc.write(threeTab + "m_pRpcManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcServerProxy , &" + className + "::" + rpc.name + "_RpcServerProxy); \n") 
+			fileRpc.write(threeTab + "m_pRpcManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcClientProxy , &" + className + "::" + rpc.name + "_RpcClientProxy); \n") 
+			fileRpc.write(threeTab + "m_pRpcManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcTimeoutProxy ,&" + className + "::" + rpc.name + "_RpcTimeoutProxy); \n") 
 				
 		elif target.targetType == g_targetTypeServer and serverName == target.name:
-			fileRpc.write(threeTab + "m_pRpcServerManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcServer , &" + className + "::" + rpc.name + "_RpcServer); \n") 
+			fileRpc.write(threeTab + "m_pRpcManager->RegisterFunc<"+ className + " >(Msg::g_sz" + rpc.name + "_RpcServer , &" + className + "::" + rpc.name + "_RpcServer); \n") 
 	
 def GenerateRpcHandlers():
 	#生成注册的头 
@@ -888,14 +888,14 @@ def GenerateRpcHandler(rpcs , serverName , old_namespace):
  				
 			if target.targetType == g_targetTypeClient and serverName == target.name:			
 			
-				fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" +  rpc.name + "_RpcClient(Net::ISession * pSession, Msg::Object objSrc ")
+				fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" +  rpc.name + "_RpcClient(INT32 nSessionID, Msg::Object objSrc ")
 				strParams = GetSpecialParamsExcludeDefaultParam(rpc.returns.params) 
 				fileRpc.write(strParams + ")\n{\n\n\n")
 
 				fileRpc.write(oneTab + "std::cout << \"" + rpc.name + "_RpcClient\" << std::endl;\n")
 				fileRpc.write(oneTab + "ReturnNULL;\n}\n\n")
 
-				fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc ") 
+				fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcTimeout(INT32 nSessionID, Msg::Object objSrc ") 
 				strParams = GetSpecialParamsExcludeDefaultParam(rpc.call.params) 
 				fileRpc.write(strParams + ")\n{\n\n\n")
 					
@@ -905,7 +905,7 @@ def GenerateRpcHandler(rpcs , serverName , old_namespace):
 				fileRpc.close()
 				
 			elif target.targetType == g_targetTypeProxy and serverName == target.name:
-				fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcServerProxy(Net::ISession * pSession , Msg::Object objSrc ")
+				fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcServerProxy(INT32 nSessionID, Msg::Object objSrc ")
 				strParams = GetSpecialParamsExcludeDefaultParam(rpc.call.params) 
 				fileRpc.write(strParams + ")\n{\n")
 				
@@ -929,7 +929,7 @@ def GenerateRpcHandler(rpcs , serverName , old_namespace):
 				fileRpc.write(oneTab + "std::cout << \"" + rpc.name + "_RpcServerProxy\" << std::endl;\n")
 				fileRpc.write(oneTab + "ReturnNULL;\n}\n\n")
 
-				fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc  ,") 
+				fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcClientProxy(INT32 nSessionID, Msg::Object objSrc  ,") 
 				strParams = GetParamsExcludeDefault(rpc.returns.params)
 				if len(strParams) != 0:
 					fileRpc.write(strParams + ")\n{\n\n\n")
@@ -944,7 +944,7 @@ def GenerateRpcHandler(rpcs , serverName , old_namespace):
 				fileRpc.write(oneTab + "Return(" + strParamsNoType + ");\n}\n\n")
 
 				strParams = GetParamsExcludeDefault(rpc.call.params)
-				fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcTimeoutProxy(Net::ISession * pSession , Msg::Object objSrc,")
+				fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcTimeoutProxy(INT32 nSessionID, Msg::Object objSrc,")
 				fileRpc.write(strParams + " )\n{\n\n\n ")
 				fileRpc.write(oneTab + "std::cout << \"" + rpc.name + "_RpcTimeoutProxy\" << std::endl;\n")
 				fileRpc.write(oneTab + "ReturnNULL;\n}\n\n")
@@ -952,7 +952,7 @@ def GenerateRpcHandler(rpcs , serverName , old_namespace):
 				fileRpc.close()
 			elif target.targetType == g_targetTypeServer and serverName == target.name:
 			
-				fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcServer(Net::ISession * pSession, Msg::Object objSrc ")
+				fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcServer(INT32 nSessionID, Msg::Object objSrc ")
 				strParams = GetSpecialParamsExcludeDefaultParam(rpc.call.params)
 				fileRpc.write(strParams + ")\n{\n")
 					

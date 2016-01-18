@@ -1,7 +1,7 @@
 #include "MasterHandler.h"
 #include "GameDB/inc/User.h"
 
-Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcServerProxy(Net::ISession * pSession , Msg::Object objSrc , std_string &name/* = std::string()*/ , std_string & pwd/* = std::string()*/)
+Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcServerProxy(INT32 nSessionID , Msg::Object objSrc , std_string &name/* = std::string()*/ , std_string & pwd/* = std::string()*/)
 {
 	std_string value = std::string();
 
@@ -17,7 +17,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcServerProxy(Net::I
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc  , std_string &value/* = std::string()*/)
+Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcClientProxy(INT32 nSessionID , Msg::Object objSrc  , std_string &value/* = std::string()*/)
 {
 	if (value != "")
 	{
@@ -35,7 +35,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcClientProxy(Net::I
 	Return(value);
 }
 
-Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcTimeoutProxy(Net::ISession * pSession , Msg::Object objSrc , std_string &name/* = std::string()*/ , std_string & pwd/* = std::string()*/)
+Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcTimeoutProxy(INT32 nSessionID , Msg::Object objSrc , std_string &name/* = std::string()*/ , std_string & pwd/* = std::string()*/)
 {
 
  	std::cout << "SlaveStartAuth_RpcTimeoutProxy" << std::endl;

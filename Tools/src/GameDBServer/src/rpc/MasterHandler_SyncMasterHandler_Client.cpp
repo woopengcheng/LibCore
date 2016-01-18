@@ -2,7 +2,7 @@
 
 
 
-Msg::ObjectMsgCall * Server::MasterHandler::SyncMasterHandler_RpcClient(Net::ISession * pSession, Msg::Object objSrc , INT32 res/* = 0*/)
+Msg::ObjectMsgCall * Server::MasterHandler::SyncMasterHandler_RpcClient(INT32 nSessionID , Msg::Object objSrc , INT32 res/* = 0*/)
 {
 
 
@@ -10,7 +10,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::SyncMasterHandler_RpcClient(Net::ISe
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Server::MasterHandler::SyncMasterHandler_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , INT32 id/* = 0*/)
+Msg::ObjectMsgCall * Server::MasterHandler::SyncMasterHandler_RpcTimeout(INT32 nSessionID , Msg::Object objSrc , INT32 id/* = 0*/)
 {
 
 

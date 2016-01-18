@@ -2,7 +2,7 @@
 
 
 
-Msg::ObjectMsgCall * Server::SlaveHandler::SlaveSelectDB_RpcClient(Net::ISession * pSession, Msg::Object objSrc , INT32 res/* = 0*/)
+Msg::ObjectMsgCall * Server::SlaveHandler::SlaveSelectDB_RpcClient(INT32 nSessionID , Msg::Object objSrc , INT32 res/* = 0*/)
 {
 	if (res == 0)
 	{
@@ -13,7 +13,7 @@ Msg::ObjectMsgCall * Server::SlaveHandler::SlaveSelectDB_RpcClient(Net::ISession
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Server::SlaveHandler::SlaveSelectDB_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc ,std_string & dbname/* = std::string()*/)
+Msg::ObjectMsgCall * Server::SlaveHandler::SlaveSelectDB_RpcTimeout(INT32 nSessionID , Msg::Object objSrc ,std_string & dbname/* = std::string()*/)
 {
 
 

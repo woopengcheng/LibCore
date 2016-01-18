@@ -6,7 +6,7 @@
 #include "GameDB/inc/User.h"
 #include "RPCCallFuncs.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleCreateUser_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &name/* = std::string()*/ , std_string & pwd/* = std::string()*/, SINT8 issys/* = 0*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleCreateUser_RpcServer(INT32 nSessionID , Msg::Object objSrc , std_string &name/* = std::string()*/ , std_string & pwd/* = std::string()*/, SINT8 issys/* = 0*/  )
 { 
 	INT32 res = -1;
 

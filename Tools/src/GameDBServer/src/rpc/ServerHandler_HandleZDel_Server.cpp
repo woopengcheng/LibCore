@@ -1,7 +1,7 @@
 #include "ServerHandler.h"
 #include "RPCCallFuncs.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleZDel_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/ , std_string & key/* = std::string()*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleZDel_RpcServer(INT32 nSessionID , Msg::Object objSrc , std_string &table/* = std::string()*/ , std_string & key/* = std::string()*/  )
 {
 	INT64 score = -1;
 

@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleHGetKeyVals_RpcClient(Net::ISession * pSession, Msg::Object objSrc , CUtilChunk & res/* = CUtil::Chunk()*/) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleHGetKeyVals_RpcClient(INT32 nSessionID , Msg::Object objSrc , CUtilChunk & res/* = CUtil::Chunk()*/) 
 { 
 	if (res.GetDataLen() != 0)
 	{
@@ -28,7 +28,7 @@ Msg::ObjectMsgCall * Client::GlobalRpc::HandleHGetKeyVals_RpcClient(Net::ISessio
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleHGetKeyVals_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleHGetKeyVals_RpcTimeout(INT32 nSessionID , Msg::Object objSrc , std_string & table/* = std::string()*/) 
 {
 
 

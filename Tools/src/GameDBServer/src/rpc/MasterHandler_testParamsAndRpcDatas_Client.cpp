@@ -1,6 +1,6 @@
 #include "MasterHandler.h"
 
-Msg::ObjectMsgCall * Server::MasterHandler::testParamsAndRpcDatas_RpcClient(Net::ISession * pSession, Msg::Object objSrc , INT32 res/* = 0*/)
+Msg::ObjectMsgCall * Server::MasterHandler::testParamsAndRpcDatas_RpcClient(INT32 nSessionID , Msg::Object objSrc , INT32 res/* = 0*/)
 {
 	CUtil::Parameters * pParams = GetInParams();
 	if (pParams)
@@ -21,7 +21,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::testParamsAndRpcDatas_RpcClient(Net:
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Server::MasterHandler::testParamsAndRpcDatas_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , TestRpcData & rpcData/* = TestRpcData()*/ , TestRpcData2 & rpcData2/* = TestRpcData2()*/ , std::vector<INT32> & Vec/* = std::vector<INT32>(1)*/)
+Msg::ObjectMsgCall * Server::MasterHandler::testParamsAndRpcDatas_RpcTimeout(INT32 nSessionID , Msg::Object objSrc , TestRpcData & rpcData/* = TestRpcData()*/ , TestRpcData2 & rpcData2/* = TestRpcData2()*/ , std::vector<INT32> & Vec/* = std::vector<INT32>(1)*/)
 {
 
 

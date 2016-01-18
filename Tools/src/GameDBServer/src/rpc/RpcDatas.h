@@ -4,7 +4,7 @@ Author		:	generate by tools
 HostName	:	DESKTOP-5AT4DK2
 IP			:	192.168.1.116
 Version		:	0.0.1
-Date		:	2015-09-27 22:01:06
+Date		:	2016-01-18 23:23:39
 Description	:	网络消息的数据域.
 ************************************/
 #ifndef __Server_rpc_datas_h__

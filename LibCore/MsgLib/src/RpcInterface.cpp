@@ -10,6 +10,7 @@ namespace Msg
 	RpcInterface::RpcInterface(void)
 		: m_usServerPort(0)
 		, m_pRpcManager(NULL)
+		, m_pRpcListener(NULL)
 	{
 		memset(m_szServerName , 0 , sizeof(m_szServerName));
 		memset(m_szNetNodeName , 0 , sizeof(m_szNetNodeName));

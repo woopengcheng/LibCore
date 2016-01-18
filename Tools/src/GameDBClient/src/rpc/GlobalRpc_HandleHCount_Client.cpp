@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleHCount_RpcClient(Net::ISession * pSession, Msg::Object objSrc , INT64 res/* = 0*/) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleHCount_RpcClient(INT32 nSessionID , Msg::Object objSrc , INT64 res/* = 0*/) 
 {
 	if (res >= 0)
 	{
@@ -16,7 +16,7 @@ Msg::ObjectMsgCall * Client::GlobalRpc::HandleHCount_RpcClient(Net::ISession * p
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleHCount_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleHCount_RpcTimeout(INT32 nSessionID , Msg::Object objSrc , std_string & table/* = std::string()*/) 
 {
 
 

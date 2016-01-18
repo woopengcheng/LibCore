@@ -2,7 +2,7 @@
 #include "GameDB/inc/OperateRecord.h"
 #include "GameDB/inc/DBCommon.h"
 
-Msg::ObjectMsgCall * Server::SlaveHandler::SyncDataToSlave_RpcServer(Net::ISession * pSession, Msg::Object objSrc ,std_string & dbname/* = std::string()*/ , CUtilChunk & value/* = CUtil::Chunk()*/)
+Msg::ObjectMsgCall * Server::SlaveHandler::SyncDataToSlave_RpcServer(INT32 nSessionID , Msg::Object objSrc ,std_string & dbname/* = std::string()*/ , CUtilChunk & value/* = CUtil::Chunk()*/)
 {
 	INT32 res = 0;
 	CUtil::CStream cs;

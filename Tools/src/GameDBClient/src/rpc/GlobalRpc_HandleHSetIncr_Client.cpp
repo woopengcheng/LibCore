@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleHSetIncr_RpcClient(Net::ISession * pSession, Msg::Object objSrc , INT64 res/* = 0*/) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleHSetIncr_RpcClient(INT32 nSessionID , Msg::Object objSrc , INT64 res/* = 0*/) 
 { 
 	if (res >= 0)
 	{
@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Client::GlobalRpc::HandleHSetIncr_RpcClient(Net::ISession *
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleHSetIncr_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/ , std_string & key/* = std::string()*/ , INT64 value/* = 0*/) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleHSetIncr_RpcTimeout(INT32 nSessionID , Msg::Object objSrc , std_string & table/* = std::string()*/ , std_string & key/* = std::string()*/ , INT64 value/* = 0*/) 
 {
 
 

@@ -2,7 +2,7 @@
 #include "GameDB/inc/HashTable.h"
 #include "RPCCallFuncs.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiDel_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/ , CUtilChunk & keys/* = CUtil::Chunk()*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiDel_RpcServer(INT32 nSessionID , Msg::Object objSrc , std_string &table/* = std::string()*/ , CUtilChunk & keys/* = CUtil::Chunk()*/  )
 {
 	INT32 res = -1;
 

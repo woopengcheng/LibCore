@@ -4,7 +4,7 @@
 #include "GameDB/inc/Database.h"
 #include "GameDB/inc/Operate.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleHGet_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/ , std_string & key/* = std::string()*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleHGet_RpcServer(INT32 nSessionID , Msg::Object objSrc , std_string &table/* = std::string()*/ , std_string & key/* = std::string()*/  )
 {
 	std_string value = std::string();
 

@@ -1,6 +1,6 @@
 #include "ServerHandler.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleHCount_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleHCount_RpcServer(INT32 nSessionID , Msg::Object objSrc , std_string &table/* = std::string()*/  )
 {
 	INT64 res = -1;
 

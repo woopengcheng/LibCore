@@ -1,6 +1,6 @@
 #include "ServerHandler.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::SlaveStartAuth_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &name/* = std::string()*/ , std_string & pwd/* = std::string()*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::SlaveStartAuth_RpcServer(INT32 nSessionID , Msg::Object objSrc , std_string &name/* = std::string()*/ , std_string & pwd/* = std::string()*/  )
 {
 	std_string value = std::string();
 

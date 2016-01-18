@@ -16,7 +16,7 @@
 #include "DBMaster.h"
 #include "DBSlave.h"
 #include "MasterHandler.h"
-#include "MsgLib/inc/RpcClientManager.h"
+#include "MsgLib/inc/RpcManager.h"
 #include "SlaveHandler.h" 
 #include "ThreadPool/inc/ThreadPoolInterface.h"
 
@@ -63,7 +63,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		gDebugStream("waiting slave connect master.");
 		while(1)
 		{
-			if (Server::DBSlave::GetInstance().GetRpcClientManager()->IsAllConnected() && Server::DBSlave::GetInstance().GetMasterSessionID() > 0)
+			if (Server::DBSlave::GetInstance().GetRpcManager()->IsAllConnected() && Server::DBSlave::GetInstance().GetMasterSessionID() > 0)
 			{
 				Server::DBSlave::GetInstance().StartAuth();
 				gDebugStream("slave connect success.");

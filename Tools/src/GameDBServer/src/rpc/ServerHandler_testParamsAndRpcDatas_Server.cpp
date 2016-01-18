@@ -2,7 +2,7 @@
 
 
 
-Msg::ObjectMsgCall * Server::ServerHandler::testParamsAndRpcDatas_RpcServer(Net::ISession * pSession, Msg::Object objSrc , TestRpcData & rpcData/* = TestRpcData()*/ , TestRpcData2 & rpcData2/* = TestRpcData2()*/ , std::vector<INT32> & Vec/* = std::vector<INT32>(1)*/)
+Msg::ObjectMsgCall * Server::ServerHandler::testParamsAndRpcDatas_RpcServer(INT32 nSessionID , Msg::Object objSrc , TestRpcData & rpcData/* = TestRpcData()*/ , TestRpcData2 & rpcData2/* = TestRpcData2()*/ , std::vector<INT32> & Vec/* = std::vector<INT32>(1)*/)
 {
 	INT32 res = 100;
 

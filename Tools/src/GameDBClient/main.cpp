@@ -9,8 +9,8 @@
 
 #include "CUtil/inc/CUtil.h" 
 #include "CUtil/inc/Chunk.h" 
-#include "MsgLib/inc/RpcClientManager.h"
 #include "MsgLib/inc/Object.h"
+#include "MsgLib/inc/RpcManager.h"
 #include "Timer/inc/TimerHelp.h" 
 #include "CUtil/inc/carg_parser.h"
 #include "json/json.h" 
@@ -161,7 +161,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	//5 连接服务器,并建立双连接..
 	Client::DBClient::GetInstance().Init(root);  
-	while (!Client::DBClient::GetInstance().GetRpcClientManager()->IsAllConnected())
+	while (!Client::DBClient::GetInstance().GetRpcManager()->IsAllConnected())
 	{
 		Client::DBClient::GetInstance().Update(); 
 		Timer::TimerHelper::sleep(1);
@@ -182,12 +182,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		Client::DBClient::GetInstance().Update(); 
 
-		if (!Client::DBClient::GetInstance().GetRpcClientManager()->IsAllConnected())
+		if (!Client::DBClient::GetInstance().GetRpcManager()->IsAllConnected())
 		{ 
 			continue;
 		}
 
-		if (Client::DBClient::GetInstance().GetRpcClientManager()->IsAllConnected())
+		if (Client::DBClient::GetInstance().GetRpcManager()->IsAllConnected())
 		{
 			char * pLine = ReadLine(clientComands); 
 			if (strlen(pLine) <= 1)

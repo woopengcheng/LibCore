@@ -1,6 +1,6 @@
 #include "ServerHandler.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleShowUsers_RpcServer(Net::ISession * pSession, Msg::Object objSrc )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleShowUsers_RpcServer(INT32 nSessionID , Msg::Object objSrc )
 {
 	CUtilChunk res = CUtil::Chunk();
 

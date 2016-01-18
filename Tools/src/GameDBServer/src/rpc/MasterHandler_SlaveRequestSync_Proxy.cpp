@@ -1,6 +1,6 @@
 #include "MasterHandler.h"
 
-Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcServerProxy(Net::ISession * pSession , Msg::Object objSrc , std_string & dbname/* = std::string()*/)
+Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcServerProxy(INT32 nSessionID , Msg::Object objSrc , std_string & dbname/* = std::string()*/)
 {
 	std_string newbackdir = std::string();
 	INT32 res = 0;
@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcServerProxy(Net:
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcClientProxy(Net::ISession * pSession , Msg::Object objSrc , std_string &newbackdir/* = std::string()*/ , INT32 res/* = 0*/)
+Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcClientProxy(INT32 nSessionID , Msg::Object objSrc , std_string &newbackdir/* = std::string()*/ , INT32 res/* = 0*/)
 {
 	if (res == 0)
 	{
@@ -26,7 +26,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcClientProxy(Net:
 	Return(newbackdir , res);
 }
 
-Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcTimeoutProxy(Net::ISession * pSession , Msg::Object objSrc , std_string & dbname/* = std::string()*/)
+Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcTimeoutProxy(INT32 nSessionID , Msg::Object objSrc , std_string & dbname/* = std::string()*/)
 {
 
 

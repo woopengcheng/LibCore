@@ -4,7 +4,7 @@
 #include "Timer/inc/TimerHelp.h"
 
 
-Msg::ObjectMsgCall * Server::ServerHandler::SlaveRequestSync_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string & dbname/* = std::string()*/)
+Msg::ObjectMsgCall * Server::ServerHandler::SlaveRequestSync_RpcServer(INT32 nSessionID , Msg::Object objSrc , std_string & dbname/* = std::string()*/)
 {
 	std_string newbackdir = std::string();
 	INT32 res = 1;

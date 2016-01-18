@@ -18,7 +18,7 @@ namespace Msg
 	}\
 	else\
 	{ \
-		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*vecTargets.size())Msg::RPCMsgCall;  \
+		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*(UINT32)(vecTargets.size()))Msg::RPCMsgCall;  \
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , pServerName , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
@@ -36,7 +36,7 @@ namespace Msg
 	}\
 	else\
 	{ \
-		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*vecTargets.size())Msg::RPCMsgCall;  \
+		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*(UINT32)(vecTargets.size()))Msg::RPCMsgCall;  \
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , pServerName , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
@@ -54,7 +54,7 @@ namespace Msg
 	}\
 	else\
 	{ \
-		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*vecTargets.size())Msg::RPCMsgCall;  \
+		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*(UINT32)(vecTargets.size()))Msg::RPCMsgCall;  \
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , pServerName , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
@@ -72,7 +72,7 @@ namespace Msg
 	}\
 	else\
 	{ \
-		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*vecTargets.size())Msg::RPCMsgCall;  \
+		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*(UINT32)(vecTargets.size()))Msg::RPCMsgCall;  \
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , pServerName , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
@@ -90,7 +90,7 @@ namespace Msg
 	}\
 	else\
 	{ \
-		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*vecTargets.size())Msg::RPCMsgCall;  \
+		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*(UINT32)(vecTargets.size()))Msg::RPCMsgCall;  \
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , pServerName , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
@@ -108,7 +108,7 @@ namespace Msg
 	}\
 	else\
 	{ \
-		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*vecTargets.size())Msg::RPCMsgCall;  \
+		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*(UINT32)(vecTargets.size()))Msg::RPCMsgCall;  \
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , pServerName , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
@@ -126,7 +126,7 @@ namespace Msg
 	}\
 	else\
 	{ \
-		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*vecTargets.size())Msg::RPCMsgCall;  \
+		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*(UINT32)(vecTargets.size()))Msg::RPCMsgCall;  \
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , pServerName , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
@@ -144,7 +144,7 @@ namespace Msg
 	}\
 	else\
 	{ \
-		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*vecTargets.size())Msg::RPCMsgCall;  \
+		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*(UINT32)(vecTargets.size()))Msg::RPCMsgCall;  \
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , pServerName , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
@@ -162,7 +162,7 @@ namespace Msg
 	}\
 	else\
 	{ \
-		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*vecTargets.size())Msg::RPCMsgCall;  \
+		Msg::RPCMsgCall * pMsg = new(sizeof(Msg::Object)*(UINT32)(vecTargets.size()))Msg::RPCMsgCall;  \
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , pServerName , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
@@ -181,7 +181,7 @@ namespace Msg
 	}\
 	else\
 	{ \
-		Msg::ObjectMsgCall * pMsg = new(sizeof(Msg::Object)*vecTargets.size())Msg::ObjectMsgCall;  \
+		Msg::ObjectMsgCall * pMsg = new(sizeof(Msg::Object)*(UINT32)(vecTargets.size()))Msg::ObjectMsgCall;  \
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7);\

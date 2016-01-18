@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleHMultiSet_RpcClient(Net::ISession * pSession, Msg::Object objSrc , INT32 res/* = 0*/) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleHMultiSet_RpcClient(INT32 nSessionID , Msg::Object objSrc , INT32 res/* = 0*/) 
 { 
 	if (res >= 0)
 	{
@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Client::GlobalRpc::HandleHMultiSet_RpcClient(Net::ISession 
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleHMultiSet_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc , std_string & table/* = std::string()*/ , CUtilChunk & keyvalues/* = CUtil::Chunk()*/) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleHMultiSet_RpcTimeout(INT32 nSessionID , Msg::Object objSrc , std_string & table/* = std::string()*/ , CUtilChunk & keyvalues/* = CUtil::Chunk()*/) 
 {
 
 

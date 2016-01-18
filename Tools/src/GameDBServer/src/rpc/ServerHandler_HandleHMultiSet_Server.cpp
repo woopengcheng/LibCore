@@ -3,7 +3,7 @@
 #include "leveldb/slice.h"
 #include "RPCCallFuncs.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiSet_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/ , CUtilChunk & keyvalues/* = CUtil::Chunk()*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiSet_RpcServer(INT32 nSessionID , Msg::Object objSrc , std_string &table/* = std::string()*/ , CUtilChunk & keyvalues/* = CUtil::Chunk()*/  )
 {
 	INT32 res = -1;
 

@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleDump_RpcClient(Net::ISession * pSession, Msg::Object objSrc , CUtilChunk & res/* = 0*/) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleDump_RpcClient(INT32 nSessionID , Msg::Object objSrc , CUtilChunk & res/* = 0*/) 
 {
 	std::string strKey, strVal;
 	 
@@ -26,7 +26,7 @@ Msg::ObjectMsgCall * Client::GlobalRpc::HandleDump_RpcClient(Net::ISession * pSe
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleDump_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleDump_RpcTimeout(INT32 nSessionID , Msg::Object objSrc) 
 {
 
 

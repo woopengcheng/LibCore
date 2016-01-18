@@ -1,7 +1,7 @@
 #include "ServerHandler.h"
 #include "RPCCallFuncs.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleHSetIncrFloat_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/ , std_string & key/* = std::string()*/ , double value/* = 0.0f*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleHSetIncrFloat_RpcServer(INT32 nSessionID , Msg::Object objSrc , std_string &table/* = std::string()*/ , std_string & key/* = std::string()*/ , double value/* = 0.0f*/  )
 {
 	double res = 0.0f;
 

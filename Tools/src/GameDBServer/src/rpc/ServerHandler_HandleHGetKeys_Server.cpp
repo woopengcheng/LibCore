@@ -1,6 +1,6 @@
 #include "ServerHandler.h"
 
-Msg::ObjectMsgCall * Server::ServerHandler::HandleHGetKeys_RpcServer(Net::ISession * pSession, Msg::Object objSrc , std_string &table/* = std::string()*/  )
+Msg::ObjectMsgCall * Server::ServerHandler::HandleHGetKeys_RpcServer(INT32 nSessionID , Msg::Object objSrc , std_string &table/* = std::string()*/  )
 {
 	CUtilChunk res = CUtil::Chunk();
 

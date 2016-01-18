@@ -1,6 +1,6 @@
 #include "GlobalRpc.h"
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleShowDatabases_RpcClient(Net::ISession * pSession, Msg::Object objSrc , CUtilChunk & res/* = CUtil::Chunk()*/) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleShowDatabases_RpcClient(INT32 nSessionID , Msg::Object objSrc , CUtilChunk & res/* = CUtil::Chunk()*/) 
 {
 	CUtil::CStream cs((const char*)res.Begin() , res.GetDataLen());
 
@@ -22,7 +22,7 @@ Msg::ObjectMsgCall * Client::GlobalRpc::HandleShowDatabases_RpcClient(Net::ISess
 	ReturnNULL;
 }
 
-Msg::ObjectMsgCall * Client::GlobalRpc::HandleShowDatabases_RpcTimeout(Net::ISession * pSession, Msg::Object objSrc) 
+Msg::ObjectMsgCall * Client::GlobalRpc::HandleShowDatabases_RpcTimeout(INT32 nSessionID , Msg::Object objSrc) 
 {
 
 

@@ -1,7 +1,7 @@
 #ifndef __server_slave_handler_h__
 #define __server_slave_handler_h__
 #include "MsgLib/inc/IRpcMsgCallableObject.h"
-#include "MsgLib/inc/RpcServerManager.h"
+#include "MsgLib/inc/RpcManager.h"
 #include "MsgLib/inc/Object.h"
 #include "GameDB/inc/SlaveSession.h"
 #include "GameDB/inc/Database.h"
@@ -20,7 +20,7 @@ namespace Server
 		CollectionObjectFuncsT m_stest;
 	public:
 		SlaveHandler(Msg::Object objID , DBSlave * pDBSlave)
-			: Msg::IRpcMsgCallableObject(objID , pDBSlave->GetRpcServerManager())
+			: Msg::IRpcMsgCallableObject(objID , pDBSlave->GetRpcManager())
 			, m_pDBSlave(pDBSlave)
 			, m_pDatabase(NULL)
 		{
