@@ -4,7 +4,6 @@ Author		:	generate by tools
 HostName	:	DESKTOP-5AT4DK2
 IP			:	192.168.1.116
 Version		:	0.0.1
-Date		:	2016-01-30 00:20:13
 Description	:	RPCº¯Êý¶¨Òå
 ************************************/
 #ifndef __msg_Client_rpc_defines_h__
@@ -17,6 +16,7 @@ namespace Client
 #define  RPC_DEFINE_GlobalRpc public:\
 	Msg::ObjectMsgCall * testMulitServerNode_RpcClient(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , CUtilChunk & res = CUtil::Chunk());\
 	Msg::ObjectMsgCall * testMulitServerNode_RpcTimeout(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0));\
+	Msg::ObjectMsgCall * SyncServerHandler_RpcServer(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 	Msg::ObjectMsgCall * HandleUserAuth_RpcClient(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);\
 	Msg::ObjectMsgCall * HandleUserAuth_RpcTimeout(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & name = std::string() , std_string & pwd = std::string());\
 	Msg::ObjectMsgCall * HandleSelectDatabase_RpcClient(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);\
@@ -92,6 +92,7 @@ public:\
 	static void InitObjectFuncs()\
 	{\
 		GlobalRpc::s_setFuncs.insert("testMulitServerNode");\
+		GlobalRpc::s_setFuncs.insert("SyncServerHandler");\
 		GlobalRpc::s_setFuncs.insert("HandleUserAuth");\
 		GlobalRpc::s_setFuncs.insert("HandleSelectDatabase");\
 		GlobalRpc::s_setFuncs.insert("HandleCreateDatabase");\

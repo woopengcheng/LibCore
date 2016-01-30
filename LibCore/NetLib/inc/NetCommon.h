@@ -33,7 +33,7 @@ namespace Net
 #define tbb_hash_map      tbb::concurrent_hash_map  
 	  
 #ifdef WIN32 
-	typedef UINT32 NetSocket;
+	typedef INT32 NetSocket;
 #endif
 
 #define NET_TYPE_TCP					"tcp"

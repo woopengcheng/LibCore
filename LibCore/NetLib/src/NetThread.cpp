@@ -40,10 +40,10 @@ namespace Net
 		Json::Value server = conf.get("server" , Json::Value()); 
 		std::string strType = server.get("listen_type" , "tcp").asCString();
 		std::string strAddress = server.get("listen_address" , "127.0.0.1").asCString();
-		std::string strPort = server.get("listen_port" , "8003").asCString();
+		INT32 nPort = server.get("listen_port" , 8003).asInt();
 		std::string strNodeName = server.get("net_node_name" , "").asCString();
 		  
-		StartupServer(strNodeName , strType,  strAddress , strPort);
+		StartupServer(strNodeName , strType,  strAddress , nPort);
 
 		Json::Value clients = conf.get("clients" , Json::Value()); 
 		StartupClient(clients); 
@@ -135,9 +135,9 @@ namespace Net
 		return CErrno::Failure();
 	}
 
-	CErrno NetThread::StartupServer(const std::string & strNetNodeName , const std::string & strType , const std::string & strAddress , const std::string & strPort)
+	CErrno NetThread::StartupServer(const std::string & strNetNodeName , const std::string & strType , const std::string & strAddress , INT32 nPort)
 	{
-		m_usServerPort = atoi(strPort.c_str());
+		m_usServerPort = nPort;
 		m_strNetNodeName = strNetNodeName;
 		m_strAddress = strAddress;
 		m_strRpcType = strType;
@@ -167,16 +167,28 @@ namespace Net
 		{     
 			Json::Value client = clients[i];
 
-//			std::string strNodeName = client.get("server_node_name", "").asCString();  //5 连接的服务端的名字.如果没有就随机一个,代表这个不重要.
+			INT32 bReconnect = client.get("reconnect", 1).asInt();
 			std::string strType = client.get("type" , "tcp").asCString();
 			std::string strAddress = client.get("address", "127.0.0.1").asCString();
-			std::string strPort = client.get("port", "8001").asCString();
+			INT32 nPort = client.get("port", 8001).asInt();
+			INT32 nSendBuf = client.get("send_buf", 40960).asInt();
+			INT32 nRecvBuf = client.get("recv_buf", 40960).asInt();
 			
-			INetHandlerPtr pNetHandler = CreateClientHandler(m_strNetNodeName, "" , strAddress.c_str(), atoi(strPort.c_str()));
+			INetHandlerPtr pNetHandler = CreateClientHandler(m_strNetNodeName, "" , strAddress.c_str(), nPort);
 			if (!pNetHandler)
 			{
 				return CErrno::Failure();
-			} 
+			}
+			ClientSession * pSession = dynamic_cast<ClientSession*>(pNetHandler->GetSession());
+			if (pSession)
+			{
+				pSession->SetReconnect(bReconnect);
+				NetSocket objSocket = pSession->GetSocket();
+				if (objSocket != -1)
+				{
+					NetHelper::SetDefaultSocket(objSocket, nSendBuf, nRecvBuf);
+				}
+			}
 		}
 		return CErrno::Success();
 	} 

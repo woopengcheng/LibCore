@@ -120,6 +120,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
       </ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="src\rpc\GlobalRpc_SyncServerHandler_Server.cpp" />
     <ClCompile Include="src\rpc\MasterHandler_MasterStartSync_Client.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
       </ExcludedFromBuild>
@@ -301,6 +302,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
       </ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="src\rpc\ServerHandler_SyncServerHandler_Client.cpp" />
     <ClCompile Include="src\rpc\ServerHandler_testMulitServerNode_Proxy.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
       </ExcludedFromBuild>

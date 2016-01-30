@@ -25,8 +25,6 @@ namespace Server
 			, m_nSessionID(nSessionID)
 		{}
 		~MasterHandler();
-	public:
-		virtual CErrno	Update(){ return CErrno::Success(); } 
 
 	public:
 		bool			SendFile(const std::string & strFilePath , std::string & strFileName);

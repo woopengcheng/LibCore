@@ -1,26 +1,28 @@
 #ifndef __msg_rpc_instance_h__
 #define __msg_rpc_instance_h__  
-#include "MsgLib/inc/RpcInterface.h"
-#include "GameDB/inc/DBServerInterface.h"
 #include "ThreadPool/inc/ThreadTask.h"
-#include "json/json.h"
-
-
+#include "MsgLib/inc/RpcInterface.h"
+#include "MsgLib/inc/IRpcListener.h"
+#include "GameDB/inc/DBServerInterface.h"
 #include "GameDB/inc/HashTable.h"
 #include "GameDB/inc/Environment.h"
 #include "GameDB/inc/Database.h"
 #include "GameDB/inc/Operate.h"
+#include "json/json.h"
+
 
 namespace Server
 {  
+	class ServerHandler;
+
 	class  DBServer : public GameDB::DBServerInterface , ThreadPool::ThreadSustainTask
 	{ 
 	public:
-		DBServer(void) 
-			: ThreadPool::ThreadSustainTask(1 , "DBServer" )
-		{ 
-		}
-		virtual ~DBServer(void){} 
+		typedef std::unordered_map<INT32, ServerHandler *> MapServerHandlersT;
+
+	public:
+		DBServer(void);
+		virtual ~DBServer(void);
 
 	public:
 		static DBServer & GetInstance()
@@ -30,11 +32,34 @@ namespace Server
 		} 
 
 	public:  
-		virtual void   OnRegisterRpcs(void); 
-		virtual CErrno  Update(void); 
+		virtual void		OnRegisterRpcs(void); 
+		virtual CErrno		Update(void); 
+
+	public:
+		INT32				CreateServerHandler(INT32 nSessionID);
+
+	private:
+		INT32				m_nHandlerCount;
+		MapServerHandlersT	m_mapServerHandlers;
 	};  
 	 
 
+	class ServerListener : public Msg::IRpcListener
+	{
+	public:
+		ServerListener(DBServer * pDBServer)
+			: m_pDBServer(pDBServer)
+		{
+
+		}
+
+	public:
+		virtual CErrno OnConnected(Msg::RpcInterface * pRpcInterface, INT32 nSessionID, const std::string & strNetNodeName);
+		virtual CErrno OnDisconnected(Msg::RpcInterface * pRpcInterface, INT32 nSessionID, INT32 nPeerSessionID);
+
+	private:
+		DBServer * m_pDBServer;
+	};
 }
 
 

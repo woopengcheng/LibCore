@@ -4,7 +4,6 @@ Author		:	generate by tools
 HostName	:	DESKTOP-5AT4DK2
 IP			:	192.168.1.116
 Version		:	0.0.1
-Date		:	2016-01-30 00:20:13
 Description	:	客户端调用的rpc.
 ************************************/
 #ifndef __msg_rpc_call_funcs_h__
@@ -20,6 +19,57 @@ Description	:	客户端调用的rpc.
 
 namespace Server
 {
+	static INT32  rpc_SyncServerHandler(const char * pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc  , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		GEN_RPC_CALL_0((&(Server::DBServer::GetInstance())) , pSessionName , Msg::g_szSyncServerHandler_RpcCall , vecTargets , objSrc , usPriority , Server::DBServer::GetInstance().GetServerName() , objSyncType , 10);
+	}
+
+	static INT32  rpc_SyncServerHandler(const char * pSessionName , Msg::Object objTarget, Msg::Object objSrc  , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		std::vector<Msg::Object> vecTargets;
+		vecTargets.push_back(objTarget);
+		return rpc_SyncServerHandler( pSessionName ,vecTargets , objSrc , usPriority , objSyncType);
+	}
+
+	static INT32  rpc_SyncServerHandler(const char * pSessionName , Msg::Object objSrc  , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		return rpc_SyncServerHandler( pSessionName , 0 , objSrc , usPriority , objSyncType);
+	}
+
+	static INT32  rpc_SyncServerHandler(const std::string & pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc  , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		GEN_RPC_CALL_0((&(Server::DBServer::GetInstance())) , pSessionName , Msg::g_szSyncServerHandler_RpcCall , vecTargets , objSrc , usPriority , Server::DBServer::GetInstance().GetServerName() , objSyncType , 10);
+	}
+
+	static INT32  rpc_SyncServerHandler(const std::string & pSessionName , Msg::Object objTarget, Msg::Object objSrc  , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		std::vector<Msg::Object> vecTargets;
+		vecTargets.push_back(objTarget);
+		return rpc_SyncServerHandler( pSessionName ,vecTargets , objSrc , usPriority , objSyncType);
+	}
+
+	static INT32  rpc_SyncServerHandler(const std::string & pSessionName , Msg::Object objSrc  , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		return rpc_SyncServerHandler( pSessionName , 0 , objSrc , usPriority , objSyncType);
+	}
+
+	static INT32  rpc_SyncServerHandler(INT32 nSessionID , Msg::VecObjects & vecTargets , Msg::Object objSrc  , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		GEN_RPC_CALL_0((&(Server::DBServer::GetInstance())) , nSessionID , Msg::g_szSyncServerHandler_RpcCall , vecTargets , objSrc , usPriority , Server::DBServer::GetInstance().GetServerName() , objSyncType , 10);
+	}
+
+	static INT32  rpc_SyncServerHandler(INT32 nSessionID , Msg::Object objTarget, Msg::Object objSrc  , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		std::vector<Msg::Object> vecTargets;
+		vecTargets.push_back(objTarget);
+		return rpc_SyncServerHandler( nSessionID ,vecTargets , objSrc , usPriority , objSyncType);
+	}
+
+	static INT32  rpc_SyncServerHandler(INT32 nSessionID , Msg::Object objSrc  , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		return rpc_SyncServerHandler( nSessionID , 0 , objSrc , usPriority , objSyncType);
+	}
+
 	static INT32  rpc_SyncDataToSlave(const char * pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
 	{
 		GEN_RPC_CALL_2((&(Server::DBServer::GetInstance())) , pSessionName , Msg::g_szSyncDataToSlave_RpcCall , dbname , value, vecTargets , objSrc , usPriority , Server::DBServer::GetInstance().GetServerName() , objSyncType , 10);

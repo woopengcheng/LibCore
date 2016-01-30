@@ -44,7 +44,6 @@ int _tmain(int argc, _TCHAR* argv[])
 		Json::Value objDBServer = root.get("server", Json::Value());
 		Server::DBServer::GetInstance().Init(objDBServer);
 
-		static Server::ServerHandler  ObjTestObject(&Server::DBServer::GetInstance()); 
 		static Server::MasterHandler  ObjMasterHandler(10000,0,&Server::DBMaster::GetInstance()); 
 	}
 	else if (strRunMode.compare("slave") == 0)
@@ -73,11 +72,27 @@ int _tmain(int argc, _TCHAR* argv[])
 			Server::DBSlave::GetInstance().Update();
 		}
 	}
+	else
+	{
+		gDebugStream("waiting master connect server.");
+		while (1)
+		{
+			if (Server::DBMaster::GetInstance().GetRpcManager()->IsConnected(g_strGameDBNodes[NETNODE_DBMASTER_TO_DBSERVER]) && 
+				Server::DBMaster::GetInstance().GetServerID() > 0)
+			{
+				gDebugStream("master connect server success.");
+				break;
+			}
+			Server::DBServer::GetInstance().Update();
+		}
+	}
 
 	while (1)
 	{
-		if (strRunMode.compare("slave") != 0) 
+		if (strRunMode.compare("slave") != 0)
+		{
 			Server::DBServer::GetInstance().Update();
+		}
 		else
 		{
 			Server::DBSlave::GetInstance().Update();

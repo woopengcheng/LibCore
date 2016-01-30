@@ -162,7 +162,8 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	//5 连接服务器,并建立双连接..
 	Client::DBClient::GetInstance().Init(root);  
-	while (!Client::DBClient::GetInstance().GetRpcManager()->IsConnected(g_strGameDBNodes[NETNODE_DBCLIENT_TO_DBSERVER]))
+	while (!Client::DBClient::GetInstance().GetRpcManager()->IsConnected(g_strGameDBNodes[NETNODE_DBCLIENT_TO_DBSERVER]) &&
+			Client::DBClient::GetInstance().GetServerID() > 0)
 	{
 		Client::DBClient::GetInstance().Update(); 
 		Timer::TimerHelper::sleep(1);
@@ -173,7 +174,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	std::string strName = root.get("user" , "admin" ).asString();
 	std::string strPwd = root.get("pwd" , "admin").asString();
 	 
-	Client::rpc_HandleUserAuth(g_strGameDBNodes[NETNODE_DBCLIENT_TO_DBSERVER], 1 , 0 , strName , strPwd, 0 , Msg::SYNC_TYPE_NONSYNC);
+	Client::rpc_HandleUserAuth(g_strGameDBNodes[NETNODE_DBCLIENT_TO_DBSERVER], Client::DBClient::GetInstance().GetServerID() , 0 , strName , strPwd, 0 , Msg::SYNC_TYPE_NONSYNC);
 
 	std::vector<std::string> vecParams;
 	int nargc = 0;
@@ -182,11 +183,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	while (1)
 	{
 		Client::DBClient::GetInstance().Update(); 
-
-		if (!Client::DBClient::GetInstance().GetRpcManager()->IsConnected(g_strGameDBNodes[NETNODE_DBCLIENT_TO_DBSERVER]))
-		{ 
-			continue;
-		}
 
 		if (Client::DBClient::GetInstance().GetRpcManager()->IsConnected(g_strGameDBNodes[NETNODE_DBCLIENT_TO_DBSERVER]))
 		{

@@ -10,6 +10,7 @@ namespace Server
 	DBMaster::DBMaster(void)
 		: ThreadPool::ThreadSustainTask(101 , "DBMaster" )
 		, m_nHandlerCount(0)
+		, m_llServerID(-1)
 	{
 		m_pRpcListener = new MasterListener(this);
 	}
@@ -18,7 +19,7 @@ namespace Server
 	{
 		SAFE_DELETE(m_pRpcListener);
 
-		CollectionMasterHandlersT::iterator iter = m_vecMasterHandlers.begin();
+		VecMasterHandlersT::iterator iter = m_vecMasterHandlers.begin();
 		for (;iter != m_vecMasterHandlers.end();++iter)
 		{
 			SAFE_DELETE(*iter);
@@ -36,7 +37,38 @@ namespace Server
 
 	CErrno DBMaster::Update(void)
 	{  
+		static bool bFirst = true;
+		if (bFirst)
+		{
+			VecMasterHandlersT::iterator iter = m_vecMasterHandlers.begin();
+			for (; iter != m_vecMasterHandlers.end(); ++iter)
+			{
+				MasterHandler * pHandler = *iter;
+				if (pHandler && m_llServerID > 0)
+				{
+					TestRpcData test1;
+					test1.p1 = 11;
+					test1.p2 = 12;
+					test1.p3 = 4;
+					test1.p4 = 5;
+					test1.p6 = 7;
+					test1.p7 = 8;
+					test1.p8 = 9;
+					test1.p9 = 10;
+					test1.p10 = 2;
+					test1.p11 = 5;
+					test1.p12 = 12;
+					test1.p13 = CUtilChunk("14", sizeof("14"));
+					test1.p5.push_back(1);
+					test1.p5.push_back(2);
+					TestRpcData2 test2;
 
+					rpc_testParamsAndRpcDatas(pHandler->GetSessionID(), GetServerID(), pHandler->GetObjectID(), test1, test2);
+
+					bFirst = false;
+				}
+			}
+		}
 		return DBMasterInterface::Update();
 	}
 	 
@@ -70,7 +102,7 @@ namespace Server
 
 	SlaveRecord * DBMaster::GetSlaveRecord(const std::string & strDBName)
 	{
-		CollectionMasterHandlersT::iterator iter = m_vecMasterHandlers.begin();
+		VecMasterHandlersT::iterator iter = m_vecMasterHandlers.begin();
 		for (;iter != m_vecMasterHandlers.end();++iter)
 		{
 			MasterHandler * pMasterHandler = *iter;
@@ -107,24 +139,6 @@ namespace Server
 			if (strNetNodeName == g_strGameDBNodes[NETNODE_DBMASTER_TO_DBSERVER])
 			{
 				INT32 nMasterHandlerID = m_pDBMaster->CreateMasterHandler(nSessionID);
-
-				TestRpcData test1;        
-				test1.p1 = 11;
-				test1.p2 = 12;
-				test1.p3 = 4;
-				test1.p4 = 5; 
-				test1.p6 = 7;
-				test1.p7 = 8;
-				test1.p8 = 9;
-				test1.p9 = 10;
-				test1.p10 = 2;
-				test1.p11 = 5;
-				test1.p12 = 12;
-				test1.p13 = CUtilChunk("14" , sizeof("14"));
-				test1.p5.push_back(1);
-				test1.p5.push_back(2);
-				TestRpcData2 test2;
-				rpc_testParamsAndRpcDatas(nSessionID,1 ,nMasterHandlerID , test1 , test2);
 			}
 		}
 

@@ -181,7 +181,7 @@ namespace Net
 			NetHandlerServerPtr pServer( new NetHandlerServer(m_pNetReactor , pServerSession) ); 
 			m_pNetReactor->AddNetHandler(pServer); 
 			
-			gDebugStream("accept client. address:" << szAddress << "=port:" << usPort);
+			gDebugStream("accept client. address:" << szAddress << ":port=" << usPort);
 		} 
 	}
 

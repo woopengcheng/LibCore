@@ -28,9 +28,12 @@ namespace Client
 	public:
 		INT32			GetServerSessionID() const { return m_nServerSessionID; }
 		void			SetServerSessionID(INT32 nSessionID) { m_nServerSessionID = nSessionID; }
+		INT64			GetServerID() const { return m_llServerID; }
+		void			SetServerID(INT64 nID) { m_llServerID = nID; }
 
 	private:
 		INT32			m_nServerSessionID;
+		INT64			m_llServerID;
 	};
 
 	class ClientListener : public Msg::IRpcListener

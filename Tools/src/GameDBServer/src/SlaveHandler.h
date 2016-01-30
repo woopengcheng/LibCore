@@ -36,13 +36,13 @@ namespace Server
 		virtual CErrno Update(){ return CErrno::Success(); } 
 
 	public:
-		void		StartAuth();
-		void		SelectDB();
-		void		RequestSyncData();
-		DBSlave *	GetDBSlave(){ return m_pDBSlave; }
-		bool		RecvFile(std::string strDir , std::string strFileName , std::string strDBName , INT32 nFileSize , INT32 nSendType , const CUtil::Chunk & objChunk);
-		bool		RecvFileEnd(std::string strDir , std::string strDBName );
-		void		SetSlaveInfo(const GameDB::SDBSlaveInfo & info);
+		void					StartAuth();
+		void					SelectDB();
+		void					RequestSyncData();
+		DBSlave				*	GetDBSlave(){ return m_pDBSlave; }
+		bool					RecvFile(std::string strDir , std::string strFileName , std::string strDBName , INT32 nFileSize , INT32 nSendType , const CUtil::Chunk & objChunk);
+		bool					RecvFileEnd(std::string strDir , std::string strDBName );
+		void					SetSlaveInfo(const GameDB::SDBSlaveInfo & info);
 		GameDB::SDBSlaveInfo	GetSlaveInfo(){ return m_objSlaveInfo;}
 		void					SetMasterSessionID(INT32 nSessionID) { m_nMasterSessionID = nSessionID;  }
 		INT32					GetMasterSessionID() { return m_nMasterSessionID; }

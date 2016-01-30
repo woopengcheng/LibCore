@@ -45,7 +45,7 @@ namespace GameDB
 
 		std::string strType = conf.get("type" , "tcp").asCString();
 		std::string strAddress = conf.get("master_addr" , "127.0.0.1").asCString();
-		std::string strPort = conf.get("master_port" , "8001").asCString(); 
+		INT32 nPort = conf.get("master_port" , 8001).asInt(); 
 
 		Json::Value databases = conf.get("databases","[]");
 		if(!databases.isArray())
@@ -68,7 +68,7 @@ namespace GameDB
 
 			if (m_pNetThread)
 			{
-				m_pNetThread->InsertClientsQueue(strDBName, strAddress , atoi(strPort.c_str()));
+				m_pNetThread->InsertClientsQueue(strDBName, strAddress , nPort);
 			}
 		} 
 		return CErrno::Success();

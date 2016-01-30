@@ -220,6 +220,20 @@
 		<!--		
 		databse处理rpc
 		-->
+		<Rpc name="SyncServerHandler" syncType="1" timeout="10">
+			<Targets> 
+				<Client name="Server" include="ServerHandler.h" class="ServerHandler"/> 
+				<Server name="Client"  /> 
+				<Server name="Master"  /> 
+			</Targets>
+			
+			<Call > 
+			</Call>
+
+			<Return>  
+				<Param name="res" type="INT32" /> 
+			</Return>
+		</Rpc>
 		<Rpc name="HandleUserAuth" syncType="0" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 

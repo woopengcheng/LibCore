@@ -576,7 +576,7 @@ def GenerateRPCParamDefineHeader(fileRpc , namespace):
 	
 
 def GenerateRPCParamDefine(rpc , fileRpc): 
-	fileRpc.write(oneTab + "//5 " + rpc.name + " declare here\n")
+	fileRpc.write(oneTab + "//tool " + rpc.name + " declare here\n")
 	fileRpc.write(oneTab + "RPC_DEFINE(" + rpc.name + ");\n\n")
 	
 def GenerateRPCDefines(): 
@@ -623,16 +623,16 @@ def GenerateRPCDefine(className , rpcs , fileRpc , serverName):
 		strParams = GetSpecialParamsIncludeDefaultParam(rpc.call.params)  
 		strReturnParams = GetSpecialParamsIncludeDefaultParam(rpc.returns.params) 
 		for targetIndex , target in rpc.targets.items():
-			if target.targetType == g_targetTypeClient and target.classes == className:
+			if target.targetType == g_targetTypeClient and target.classes == className and GetServerNamespaceByName(target.name ) == serverName:
 				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcClient(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) " + strReturnParams + ");\\\n") 
 				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcTimeout(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) " + strParams + ");\\\n")
 				
-			if target.targetType == g_targetTypeProxy and target.classes == className:
+			if target.targetType == g_targetTypeProxy and target.classes == className and GetServerNamespaceByName(target.name ) == serverName:
 				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcServerProxy(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) " + strParams + ");\\\n")
 				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcTimeoutProxy(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) " + strParams + ");\\\n")
 				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcClientProxy(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) " + strReturnParams + ");\\\n") 
 
-			if target.targetType == g_targetTypeServer and target.classes == className:
+			if target.targetType == g_targetTypeServer and target.classes == className and GetServerNamespaceByName(target.name ) == serverName:
 				fileRpc.write(oneTab + "Msg::ObjectMsgCall * " + rpc.name + "_RpcServer(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID)" + strParams + ");\\\n")				
 								
 	GenerateObjectHaveCurFunc(fileRpc , className , rpcs)
@@ -686,12 +686,12 @@ def GenerateGlableRpcHeaderNamespace(fileRpc , namespace):
 	WriteFileDescription(fileRpc , "GlableRpc.h" , "静态函数,无对象时通过这个类处理.") 
 	fileRpc.write("#ifndef __" + namespace + "_global_rpc_h__\n") 
 	fileRpc.write("#define __" + namespace + "_global_rpc_h__\n") 
-	fileRpc.write("#include \"CUtil/inc/Chunk.h\" \n") 
-	fileRpc.write("#include \"MsgLib/inc/Object.h\" \n") 
-	fileRpc.write("#include \"MsgLib/inc/RPCMsgCall.h\" \n") 
-	fileRpc.write("#include \"MsgLib/inc/RpcManager.h\" \n") 
+#	fileRpc.write("#include \"CUtil/inc/Chunk.h\" \n") 
+#	fileRpc.write("#include \"MsgLib/inc/Object.h\" \n") 
+#	fileRpc.write("#include \"MsgLib/inc/RPCMsgCall.h\" \n") 
+#	fileRpc.write("#include \"MsgLib/inc/RpcManager.h\" \n") 
 	fileRpc.write("#include \"MsgLib/inc/IRpcMsgCallableObject.h\" \n") 
-	fileRpc.write("#include \"RpcDatas.h\" \n") 
+#	fileRpc.write("#include \"RpcDatas.h\" \n") 
 	fileRpc.write("#include \"RpcDefines.h\" \n") 
 	fileRpc.write("\n") 
 	fileRpc.write("namespace " +  namespace  + "\n{\n") 
@@ -732,7 +732,7 @@ def GenerateRpcRegister():
 		
 		rpcRecords = collections.OrderedDict()
 		for index , rpc in g_rpcMsgs.rpcs.rpcs.items():  
-			fileRpc.write(twoTab + "//5 " + rpc.name + " generate default deliver and return check param here\n")
+			fileRpc.write(twoTab + "//tool " + rpc.name + " generate default deliver and return check param here\n")
 			fileRpc.write(twoTab + "{\n")
 			fileRpc.write(threeTab + "CUtil::Parameters objDeliverParams , objReturnParams;\n")
 			strDefaultParams = GetRpcSpecialParamsIncludeDefault(rpc.call)
@@ -799,7 +799,7 @@ def GenerateRpcRegisterHeader(fileRpc , rpcNamespace) :
 	fileRpc.write("\n") 
 
 	fileRpc.write("namespace " + rpcNamespace + "\n{\n")
-	fileRpc.write(oneTab + "//5 defaultParams define here.\n")
+	fileRpc.write(oneTab + "//tool defaultParams define here.\n")
 	WriteDefaultParams(fileRpc)
 	
 def WriteDefaultParams(fileRpc):
@@ -1336,7 +1336,7 @@ def WriteFileDescription(fileRpc , file , desc):
 	fileRpc.write("HostName	:	" + socket.gethostname() + "\n")
 	fileRpc.write("IP			:	" + socket.gethostbyname(socket.gethostname()) + "\n")
 	fileRpc.write("Version		:	0.0.1" + "\n")
-	fileRpc.write("Date		:	" + time.strftime('%Y-%m-%d %H:%M:%S') + "\n")
+#	fileRpc.write("Date		:	" + time.strftime('%Y-%m-%d %H:%M:%S') + "\n")
 	fileRpc.write("Description	:	" + desc + "\n")
 	fileRpc.write("************************************/" + "\n")
 

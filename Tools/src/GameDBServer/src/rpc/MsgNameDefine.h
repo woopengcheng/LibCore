@@ -4,7 +4,6 @@ Author		:	generate by tools
 HostName	:	DESKTOP-5AT4DK2
 IP			:	192.168.1.116
 Version		:	0.0.1
-Date		:	2016-01-30 00:20:13
 Description	:	用于定义消息的全局唯一名字
 ************************************/
 #ifndef __msg_Server_msg_name_define_h__
@@ -13,133 +12,136 @@ Description	:	用于定义消息的全局唯一名字
 
 namespace Msg
 {
-	//5 testMulitServerNode declare here
+	//tool testMulitServerNode declare here
 	RPC_DEFINE(testMulitServerNode);
 
-	//5 testParamsAndRpcDatas declare here
+	//tool testParamsAndRpcDatas declare here
 	RPC_DEFINE(testParamsAndRpcDatas);
 
-	//5 HandleUserAuth declare here
+	//tool SyncServerHandler declare here
+	RPC_DEFINE(SyncServerHandler);
+
+	//tool HandleUserAuth declare here
 	RPC_DEFINE(HandleUserAuth);
 
-	//5 HandleSelectDatabase declare here
+	//tool HandleSelectDatabase declare here
 	RPC_DEFINE(HandleSelectDatabase);
 
-	//5 HandleCreateDatabase declare here
+	//tool HandleCreateDatabase declare here
 	RPC_DEFINE(HandleCreateDatabase);
 
-	//5 HandleDeleteDatabase declare here
+	//tool HandleDeleteDatabase declare here
 	RPC_DEFINE(HandleDeleteDatabase);
 
-	//5 HandleShowDatabases declare here
+	//tool HandleShowDatabases declare here
 	RPC_DEFINE(HandleShowDatabases);
 
-	//5 HandleShowUsers declare here
+	//tool HandleShowUsers declare here
 	RPC_DEFINE(HandleShowUsers);
 
-	//5 HandleCreateUser declare here
+	//tool HandleCreateUser declare here
 	RPC_DEFINE(HandleCreateUser);
 
-	//5 HandleDeleteUser declare here
+	//tool HandleDeleteUser declare here
 	RPC_DEFINE(HandleDeleteUser);
 
-	//5 HandleModifyUser declare here
+	//tool HandleModifyUser declare here
 	RPC_DEFINE(HandleModifyUser);
 
-	//5 HandleHSet declare here
+	//tool HandleHSet declare here
 	RPC_DEFINE(HandleHSet);
 
-	//5 HandleHSetNX declare here
+	//tool HandleHSetNX declare here
 	RPC_DEFINE(HandleHSetNX);
 
-	//5 HandleHSetOW declare here
+	//tool HandleHSetOW declare here
 	RPC_DEFINE(HandleHSetOW);
 
-	//5 HandleHGet declare here
+	//tool HandleHGet declare here
 	RPC_DEFINE(HandleHGet);
 
-	//5 HandleHDel declare here
+	//tool HandleHDel declare here
 	RPC_DEFINE(HandleHDel);
 
-	//5 HandleHSetIncr declare here
+	//tool HandleHSetIncr declare here
 	RPC_DEFINE(HandleHSetIncr);
 
-	//5 HandleHSetIncrFloat declare here
+	//tool HandleHSetIncrFloat declare here
 	RPC_DEFINE(HandleHSetIncrFloat);
 
-	//5 HandleHGetKeys declare here
+	//tool HandleHGetKeys declare here
 	RPC_DEFINE(HandleHGetKeys);
 
-	//5 HandleHGetVals declare here
+	//tool HandleHGetVals declare here
 	RPC_DEFINE(HandleHGetVals);
 
-	//5 HandleHGetKeyVals declare here
+	//tool HandleHGetKeyVals declare here
 	RPC_DEFINE(HandleHGetKeyVals);
 
-	//5 HandleHScan declare here
+	//tool HandleHScan declare here
 	RPC_DEFINE(HandleHScan);
 
-	//5 HandleHCount declare here
+	//tool HandleHCount declare here
 	RPC_DEFINE(HandleHCount);
 
-	//5 HandleHDrop declare here
+	//tool HandleHDrop declare here
 	RPC_DEFINE(HandleHDrop);
 
-	//5 HandleHList declare here
+	//tool HandleHList declare here
 	RPC_DEFINE(HandleHList);
 
-	//5 HandleHMultiSet declare here
+	//tool HandleHMultiSet declare here
 	RPC_DEFINE(HandleHMultiSet);
 
-	//5 HandleHMultiGet declare here
+	//tool HandleHMultiGet declare here
 	RPC_DEFINE(HandleHMultiGet);
 
-	//5 HandleHMultiDel declare here
+	//tool HandleHMultiDel declare here
 	RPC_DEFINE(HandleHMultiDel);
 
-	//5 HandleZSet declare here
+	//tool HandleZSet declare here
 	RPC_DEFINE(HandleZSet);
 
-	//5 HandleZGet declare here
+	//tool HandleZGet declare here
 	RPC_DEFINE(HandleZGet);
 
-	//5 HandleZDel declare here
+	//tool HandleZDel declare here
 	RPC_DEFINE(HandleZDel);
 
-	//5 HandleZTop declare here
+	//tool HandleZTop declare here
 	RPC_DEFINE(HandleZTop);
 
-	//5 HandleZRTop declare here
+	//tool HandleZRTop declare here
 	RPC_DEFINE(HandleZRTop);
 
-	//5 HandleZDrop declare here
+	//tool HandleZDrop declare here
 	RPC_DEFINE(HandleZDrop);
 
-	//5 HandleZCount declare here
+	//tool HandleZCount declare here
 	RPC_DEFINE(HandleZCount);
 
-	//5 HandleZList declare here
+	//tool HandleZList declare here
 	RPC_DEFINE(HandleZList);
 
-	//5 HandleDump declare here
+	//tool HandleDump declare here
 	RPC_DEFINE(HandleDump);
 
-	//5 SyncMasterHandler declare here
+	//tool SyncMasterHandler declare here
 	RPC_DEFINE(SyncMasterHandler);
 
-	//5 SlaveStartAuth declare here
+	//tool SlaveStartAuth declare here
 	RPC_DEFINE(SlaveStartAuth);
 
-	//5 SlaveSelectDB declare here
+	//tool SlaveSelectDB declare here
 	RPC_DEFINE(SlaveSelectDB);
 
-	//5 SlaveRequestSync declare here
+	//tool SlaveRequestSync declare here
 	RPC_DEFINE(SlaveRequestSync);
 
-	//5 MasterStartSync declare here
+	//tool MasterStartSync declare here
 	RPC_DEFINE(MasterStartSync);
 
-	//5 SyncDataToSlave declare here
+	//tool SyncDataToSlave declare here
 	RPC_DEFINE(SyncDataToSlave);
 
 }

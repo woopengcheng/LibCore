@@ -188,6 +188,12 @@
     <ClCompile Include="src\rpc\ServerHandler_HandleShowUsers_Server.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
+    <ClCompile Include="src\rpc\ServerHandler_SyncServerHandler_Client.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\GlobalRpc_SyncServerHandler_Server.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">

@@ -252,6 +252,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
       </ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="src\rpc\GlobalRpc_SyncServerHandler_Server.cpp" />
     <ClCompile Include="src\rpc\GlobalRpc_testMulitServerNode_Client.cpp" />
     <ClCompile Include="src\rpc\RpcRegister.cpp" />
   </ItemGroup>

@@ -18,7 +18,8 @@ namespace Server
 	class  DBMaster : public GameDB::DBMasterInterface  , ThreadPool::ThreadSustainTask
 	{ 
 	public:
-		typedef std::vector<MasterHandler *> CollectionMasterHandlersT;
+		typedef std::vector<MasterHandler *> VecMasterHandlersT;
+
 	public:
 		DBMaster(void) ;
 		virtual ~DBMaster(void);
@@ -31,20 +32,24 @@ namespace Server
 		} 
 
 	public: 
-		virtual CErrno  Init(Json::Value & conf); 
-		virtual CErrno  Cleanup(void);
-		virtual void   OnRegisterRpcs(void); 
-		virtual CErrno  Update(void);
+		virtual CErrno			Init(Json::Value & conf); 
+		virtual CErrno			Cleanup(void);
+		virtual void			OnRegisterRpcs(void); 
+		virtual CErrno			Update(void);
 
 	public:
-		INT32			CreateMasterHandler(INT32 nSessionID); 
-		SlaveRecord *	GetSlaveRecord(const std::string & strDBName);
+		INT32					CreateMasterHandler(INT32 nSessionID); 
+		SlaveRecord			*	GetSlaveRecord(const std::string & strDBName);
+		INT64					GetServerID() const { return m_llServerID; }
+		void					SetServerID(INT64 nID) { m_llServerID = nID; }
 
 	private: 
-		CErrno   InitThread(Json::Value & conf);
+		CErrno					InitThread(Json::Value & conf);
+
 	private:
-		INT32 m_nHandlerCount;
-		CollectionMasterHandlersT m_vecMasterHandlers; 
+		INT64					m_llServerID;
+		INT32					m_nHandlerCount;
+		VecMasterHandlersT		m_vecMasterHandlers; 
 
 	};  
 	 

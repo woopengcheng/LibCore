@@ -162,48 +162,48 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(1);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));  
-		Client::rpc_HandleShowDatabases(pClient->GetServerSessionID() , targets , Msg::Object(0) , 1);
+		
+		
+		Client::rpc_HandleShowDatabases(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , 1);
 	}
 
 	void ClientCommands::pfnHandleSelectDatabase(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
 		CHECK_ARGS_EQUAL_COUNT(2);  
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));  
-		Client::rpc_HandleSelectDatabase(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , 1);
+		
+		
+		Client::rpc_HandleSelectDatabase(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1);
 	}
 
 	void ClientCommands::pfnHandleCreateDatabase(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
 		CHECK_ARGS_EQUAL_COUNT(2);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));  
+		
+		
 
 
-		Client::rpc_HandleCreateDatabase(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , 1);
+		Client::rpc_HandleCreateDatabase(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1);
 	}
 
 	void ClientCommands::pfnHandleDeleteDatabase(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
 		CHECK_ARGS_EQUAL_COUNT(2);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
+		
+		 
 
-		Client::rpc_HandleDeleteDatabase(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , 1);
+		Client::rpc_HandleDeleteDatabase(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1);
 	} 
 
 	void ClientCommands::pfnHandleShowUsers(DBClient * pClient , std::vector<std::string> & objParams)
 	{
 		CHECK_ARGS_EQUAL_COUNT(1);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));  
-		Client::rpc_HandleShowUsers(pClient->GetServerSessionID() , targets , Msg::Object(0) , 1);
+		
+		
+		Client::rpc_HandleShowUsers(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , 1);
 	}
 
 	void ClientCommands::pfnHandleCreateUser(DBClient * pClient ,  std::vector<std::string> & objParams)
@@ -211,10 +211,9 @@ namespace Client
 		CHECK_ARGS_EQUAL_COUNT(4);
 
 		SINT8 isSys = (SINT8)CUtil::atoi(objParams[3]);
-
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleCreateUser(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , objParams[2] , isSys , 1);
+				
+		 
+		Client::rpc_HandleCreateUser(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , isSys , 1);
 
 		gDebugStream( "pfnHandleCreateUser"); 
 	}
@@ -223,10 +222,10 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(2);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));  
+		
+		
 		 
-		Client::rpc_HandleDeleteUser(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , 1);
+		Client::rpc_HandleDeleteUser(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1);
 	}
 
 	void ClientCommands::pfnHandleModifyUser(DBClient * pClient ,  std::vector<std::string> & objParams)
@@ -235,18 +234,18 @@ namespace Client
 
 		SINT8 isSys = (SINT8)CUtil::atoi(objParams[3]);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleCreateUser(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , objParams[2] , isSys , 1);
+		
+		 
+		Client::rpc_HandleCreateUser(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , isSys , 1);
 	} 
 
 	void ClientCommands::pfnHandleHSet(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
 		CHECK_ARGS_EQUAL_COUNT(4);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHSet(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , objParams[2] , objParams[3] , 1);
+		
+		 
+		Client::rpc_HandleHSet(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , objParams[3] , 1);
 
 		gDebugStream( "pfnHandleHSet");
 	}
@@ -255,9 +254,9 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(3);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHGet(pClient->GetServerSessionID(), targets , Msg::Object(0) , objParams[1] , objParams[2] , 1);
+		
+		 
+		Client::rpc_HandleHGet(pClient->GetServerSessionID(), pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , 1);
 		
 		gDebugStream( "pfnHandleHGet");
 	}
@@ -267,9 +266,9 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(4);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHSetNX(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , objParams[2] , objParams[3] , 1);
+		
+		 
+		Client::rpc_HandleHSetNX(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , objParams[3] , 1);
 		
 	}
 
@@ -277,9 +276,9 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(4);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHSetOW(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , objParams[2] , objParams[3] , 1);
+		
+		 
+		Client::rpc_HandleHSetOW(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , objParams[3] , 1);
 
 	}
 
@@ -287,9 +286,9 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(3);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHDel(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , objParams[2] , 1);
+		
+		 
+		Client::rpc_HandleHDel(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , 1);
 
 	}
 
@@ -314,9 +313,9 @@ namespace Client
 
 		INT64 llCount = CUtil::atoi(objParams[3]);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHSetIncr(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , objParams[2] ,llCount , 1);
+		
+		 
+		Client::rpc_HandleHSetIncr(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] ,llCount , 1);
 
 	}
 
@@ -326,9 +325,9 @@ namespace Client
 
 		double llCount = CUtil::atof(objParams[3]);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHSetIncrFloat(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , objParams[2] ,llCount , 1);
+		
+		 
+		Client::rpc_HandleHSetIncrFloat(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] ,llCount , 1);
 
 	}
 
@@ -336,9 +335,9 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(2); 
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHGetKeys(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , 1);
+		
+		 
+		Client::rpc_HandleHGetKeys(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1);
 
 	}
 
@@ -346,9 +345,9 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(2); 
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHGetVals(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , 1);
+		
+		 
+		Client::rpc_HandleHGetVals(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1);
 
 	}
 
@@ -356,9 +355,9 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(2); 
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHGetKeyVals(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , 1); 
+		
+		 
+		Client::rpc_HandleHGetKeyVals(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1); 
 	}
 
 	void ClientCommands::pfnHandleHScan(DBClient * pClient ,  std::vector<std::string> & objParams)
@@ -366,9 +365,9 @@ namespace Client
 		CHECK_ARGS_EQUAL_COUNT(5); 
 		INT64 llLimit = CUtil::atoi(objParams[4]);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHScan(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , objParams[2] , objParams[3] , llLimit , 1); 
+		
+		 
+		Client::rpc_HandleHScan(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , objParams[3] , llLimit , 1); 
 
 	}
 
@@ -376,9 +375,9 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(2); 
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHCount(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , 1); 
+		
+		 
+		Client::rpc_HandleHCount(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1); 
 
 	}
 
@@ -386,17 +385,17 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(2); 
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHDrop(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , 1); 
+		
+		 
+		Client::rpc_HandleHDrop(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1); 
 
 	}
 
 	void ClientCommands::pfnHandleHList(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleHList(pClient->GetServerSessionID() , targets , Msg::Object(0) , 1); 
+		
+		 
+		Client::rpc_HandleHList(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , 1); 
 
 	}
 
@@ -404,9 +403,9 @@ namespace Client
 	{   
 		CHECK_ARGS_EQUAL_COUNT(1);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleDump(pClient->GetServerSessionID() , targets , Msg::Object(0) , 1);
+		
+		 
+		Client::rpc_HandleDump(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , 1);
 
 		gDebugStream( "pfnHandleDump"); 
 	}
@@ -416,9 +415,9 @@ namespace Client
 		CHECK_ARGS_EQUAL_COUNT(4);
 
 		INT64 llScore = CUtil::atoi(objParams[3]);
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleZSet(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , objParams[2] , llScore , 1);
+		
+		 
+		Client::rpc_HandleZSet(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , llScore , 1);
 
 		gDebugStream( "pfnHandleZSet");
 
@@ -428,9 +427,9 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(3);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleZGet(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , objParams[2] , 1);
+		
+		 
+		Client::rpc_HandleZGet(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , 1);
 
 		gDebugStream( "pfnHandleZGet");
 
@@ -450,10 +449,8 @@ namespace Client
 		{
 			llLimit = CUtil::atoi(objParams[2]);
 		}
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1)); 
-
-		Client::rpc_HandleZTop(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , llStart  , llEnd , llLimit , 1);
+		
+		Client::rpc_HandleZTop(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , llStart  , llEnd , llLimit , 1);
 		
 		gDebugStream( "pfnHandleZTop");
 
@@ -462,8 +459,8 @@ namespace Client
 	{
 		CHECK_ARGS_GREAT_COUNT(3);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));  
+		
+		
 
 		INT64 llStart = 0, llEnd = 0, llLimit = 0;
 		
@@ -478,7 +475,7 @@ namespace Client
 			llLimit = CUtil::atoi(objParams[2]);
 		} 
 		
-		Client::rpc_HandleZRTop(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , llStart , llEnd , llLimit , 1);
+		Client::rpc_HandleZRTop(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , llStart , llEnd , llLimit , 1);
 		 
 		gDebugStream("pfnHandleZRTop"); 
 	}
@@ -573,9 +570,9 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(3);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleZDel(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , objParams[2] , 1); 
+		
+		 
+		Client::rpc_HandleZDel(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , 1); 
 
 	}
 
@@ -583,18 +580,18 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(2);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleZDrop(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , 1); 
+		
+		 
+		Client::rpc_HandleZDrop(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1); 
 	}
 
 	void ClientCommands::pfnHandleZCount(DBClient * pClient ,  std::vector<std::string> & objParams)
 	{
 		CHECK_ARGS_EQUAL_COUNT(2);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleZCount(pClient->GetServerSessionID() , targets , Msg::Object(0) , objParams[1] , 1); 
+		
+		 
+		Client::rpc_HandleZCount(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1); 
 
 	}
 
@@ -602,9 +599,9 @@ namespace Client
 	{
 		CHECK_ARGS_EQUAL_COUNT(1);
 
-		std::vector<Msg::Object> targets;
-		targets.push_back(Msg::Object(1));   
-		Client::rpc_HandleZList(pClient->GetServerSessionID() , targets , Msg::Object(0) , 1);  
+		
+		 
+		Client::rpc_HandleZList(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , 1);  
 	}
 
 }

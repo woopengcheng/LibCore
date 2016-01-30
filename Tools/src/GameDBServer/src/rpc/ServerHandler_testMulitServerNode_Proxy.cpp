@@ -1,4 +1,3 @@
-#include "GameDB/inc/RemoteNodeDefine.h"
 #include "ServerHandler.h"
 
 Msg::ObjectMsgCall * Server::ServerHandler::testMulitServerNode_RpcServerProxy(INT32 nSessionID, Msg::Object objSrc , std_string & dbname/* = std::string()*/ , CUtilChunk & value/* = CUtil::Chunk()*/ , int value2/* = 0*/ , unsigned int value22/* = 0*/ , char valChar/* = char(0)*/)
@@ -6,7 +5,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::testMulitServerNode_RpcServerProxy(I
 	CUtilChunk res = CUtil::Chunk();
 
 
-	if(-1 == ProxySendMsg(g_strGameDBNodes[NETNODE_DBSERVER_TO_DBCLIENT], 0 , dbname , value , value2 , value22 , valChar))
+	if(-1 == ProxySendMsg("tcp://127.0.0.1:8002" , 0 , dbname , value , value2 , value22 , valChar))
 	{
 		Return(res);
 	}
