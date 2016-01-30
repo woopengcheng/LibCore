@@ -91,12 +91,12 @@ namespace Net
 
 			return NetHandlerPing::Init();
 		}
+		else
+		{
+			m_pSession->SetClosed(TRUE);
+			m_pSession->SetNetState(Net::NET_STATE_LOSTED);
+		}
 		return CErrno::Failure();
-	}
-
-	CErrno NetHandlerClient::Cleanup(void)
-	{
-		return NetHandlerPing::Cleanup();
 	}
 
 	INT32 NetHandlerClient::Connect(const char* ip, int port)
@@ -157,7 +157,7 @@ namespace Net
 			socket = NetHelper::CreateSocket(AF_UNIX, SOCK_STREAM, 0);
 			m_pSession->SetSocket(socket);
 			 
-			NetHelper::SetDefaultSocket(socket);
+			NetHelper::SetDefaultSocket(socket, m_pSession->GetSendBufSize(), m_pSession->GetRecvBufSize());
 		}
 
 		return 0;
@@ -190,7 +190,7 @@ namespace Net
 				int valuetrue = 1;
 				setsockopt(socket, SOL_SOCKET, SO_BROADCAST, (char*)&valuetrue, sizeof(valuetrue));
 			}
-			NetHelper::SetDefaultSocket(socket);
+			NetHelper::SetDefaultSocket(socket, m_pSession->GetSendBufSize(), m_pSession->GetRecvBufSize());
 		}
 		
 		return 0;
@@ -223,7 +223,7 @@ namespace Net
 		}
 		int aio = 0;
 		NetHelper::SetIOCtrl(socket, FIONBIO, &aio);
-		NetHelper::SetDefaultSocket(socket);
+		NetHelper::SetDefaultSocket(socket, m_pSession->GetSendBufSize(), m_pSession->GetRecvBufSize());
 
 		sockaddr_in addr = { 0 };
 		addr.sin_family = AF_INET;
@@ -245,11 +245,6 @@ namespace Net
 		}
 
 		return  nResult;
-	}
-	
-	CErrno NetHandlerClient::OnClose(void)
-	{
-		return NetHandlerPing::OnClose();
 	}
 
 	BOOL NetHandlerClient::Reconnect(void)
@@ -274,7 +269,8 @@ namespace Net
 				m_pSession->SetNetState(Net::NET_STATE_CONNECTED);
 				m_pSession->SetClosed(FALSE);
 
-				m_pNetReactor->AddNetHandler(INetHandlerPtr(this));
+				INetHandlerPtr pHandler = m_pNetReactor->GetNetHandlerByID(m_pSession->GetSessionID());
+				m_pNetReactor->AddNetHandler(pHandler);
 				result = CErrno::Success();
 			}
 		}

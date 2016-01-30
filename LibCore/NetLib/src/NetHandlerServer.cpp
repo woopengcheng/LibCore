@@ -62,7 +62,7 @@ namespace Net
 			socket = NetHelper::CreateSocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 			m_pSession->SetSocket(socket);
 
-			NetHelper::SetDefaultSocket(socket);
+			NetHelper::SetDefaultSocket(socket , m_pSession->GetSendBufSize() , m_pSession->GetRecvBufSize());
 
 			bind(socket, (struct sockaddr *)&address, sizeof(address));
 		}

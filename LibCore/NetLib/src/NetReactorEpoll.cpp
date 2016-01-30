@@ -31,7 +31,7 @@ namespace Net
 	CErrno NetReactorEpoll::Cleanup( void )
 	{
 
-		return CErrno::Success();
+		return INetReactor::Cleanup();
 	}
 
 	CErrno NetReactorEpoll::AddNetHandler(INetHandlerPtr  pNetHandler, ENetHandlerFuncMask objMask /*= NET_FUNC_DEFAULT*/)
@@ -132,7 +132,7 @@ namespace Net
 				if (closed)
 				{
 					gDebugStream("delete curNodeName=" << pHandler->GetSession()->GetCurNodeName() << ":remoteName=" << pHandler->GetSession()->GetRemoteName()<<":address=" << pHandler->GetSession()->GetAddress() << ":port=" << pHandler->GetSession()->GetPort());
-					DelNetHandler(INetHandlerPtr(pHandler));
+					DelNetHandler(pHandler);
 				}
 			}
 		}

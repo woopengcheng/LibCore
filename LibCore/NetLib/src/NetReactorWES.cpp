@@ -43,7 +43,7 @@ namespace Net
 		}
 		m_nNumConnection = 0;
 
-		return CErrno::Success();
+		return INetReactor::Cleanup();
 	}
 
 	CErrno NetReactorWES::AddNetHandler(INetHandlerPtr  pNetHandler, ENetHandlerFuncMask objMask /*= NET_FUNC_DEFAULT*/)

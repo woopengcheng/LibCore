@@ -270,7 +270,7 @@ namespace Net
 	{
 		m_pRakPeerInstance->Shutdown(300);
 
-		return CErrno::Success();
+		return INetReactor::Cleanup();
 	}
 
 	CErrno NetReactorRakNet::Update( void )

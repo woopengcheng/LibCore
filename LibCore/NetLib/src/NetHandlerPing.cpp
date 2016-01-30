@@ -126,8 +126,27 @@ namespace Net
 						peerInfo.usPeerPort = pPing->usPeerPort;
 						peerInfo.strAddress = pPing->szAddress;
 						peerInfo.strRemoteNodeName = pPing->szNodeName;
+						peerInfo.bReconect = false;
 
 						pSession->SetRemoteName(pPing->szNodeName );
+						pThread->AddPeerSession(objInfo, peerInfo);
+					}
+				}
+				else
+				{
+					if (peerInfo.nPeerSessionID != pSession->GetSessionID())
+					{
+						peerInfo.Clear();
+
+						peerInfo.nPeerSessionID = pSession->GetSessionID();
+						peerInfo.nSessionID = -1;
+						peerInfo.nState = PING_STATE_PINGING;
+						peerInfo.usPeerPort = pPing->usPeerPort;
+						peerInfo.strAddress = pPing->szAddress;
+						peerInfo.strRemoteNodeName = pPing->szNodeName;
+						peerInfo.bReconect = true;
+
+						pSession->SetRemoteName(pPing->szNodeName);
 						pThread->AddPeerSession(objInfo, peerInfo);
 					}
 				}

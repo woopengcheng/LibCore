@@ -74,7 +74,7 @@ namespace Net
 	{
 		FetchClientsQueue();
 
-		UpdatePing();
+		UpdateHandlers();
 
 		CErrno err = DeliverMsg();
 
@@ -89,16 +89,18 @@ namespace Net
 		return err;
 	}
 
-	CErrno NetThread::UpdatePing(void)
+	CErrno NetThread::UpdateHandlers(void)
 	{
-		MapPeerSessionT::iterator iter = m_mapPeerSessions.begin();
-		for (;iter != m_mapPeerSessions.end();++iter)
+		if (m_pNetReactor)
 		{
-			INT32 nSessionID = iter->second.nSessionID;
-			INetHandlerPtr pHandler = m_pNetReactor->GetNetHandlerByID(nSessionID);
-			if (pHandler)
+			INetReactor::CollectNetHandlersT::const_iterator iter = m_pNetReactor->GetNetHandlers().begin();
+			for (; iter != m_pNetReactor->GetNetHandlers().end(); ++iter)
 			{
-				pHandler->Update();
+				INetHandlerPtr pHandler = iter->second;
+				if (pHandler)
+				{
+					pHandler->Update();
+				}
 			}
 		}
 
@@ -170,9 +172,9 @@ namespace Net
 			INT32 bReconnect = client.get("reconnect", 1).asInt();
 			std::string strType = client.get("type" , "tcp").asCString();
 			std::string strAddress = client.get("address", "127.0.0.1").asCString();
-			INT32 nPort = client.get("port", 8001).asInt();
-			INT32 nSendBuf = client.get("send_buf", 40960).asInt();
-			INT32 nRecvBuf = client.get("recv_buf", 40960).asInt();
+			INT32 nPort = client.get("port", 0000).asInt();
+			INT32 nSendBuf = client.get("send_buf", DEFAULT_SOCKET_BUFFER_SIZE).asInt();
+			INT32 nRecvBuf = client.get("recv_buf", DEFAULT_SOCKET_BUFFER_SIZE).asInt();
 			
 			INetHandlerPtr pNetHandler = CreateClientHandler(m_strNetNodeName, "" , strAddress.c_str(), nPort);
 			if (!pNetHandler)
@@ -187,6 +189,8 @@ namespace Net
 				if (objSocket != -1)
 				{
 					NetHelper::SetDefaultSocket(objSocket, nSendBuf, nRecvBuf);
+					pSession->SetSendBufSize(nSendBuf);
+					pSession->SetSendBufSize(nRecvBuf);
 				}
 			}
 		}
@@ -216,11 +220,6 @@ namespace Net
 		{
 			m_pNetReactor->AddNetHandler(pNetHandler);
 		}
-		else
-		{
-			pSession->SetClosed(TRUE);
-			pSession->SetNetState(Net::NET_STATE_LOSTED);
-		}
 
 		SPeerKeey objCreateInfo;
 		objCreateInfo.strAddress = pAddress;
@@ -235,6 +234,7 @@ namespace Net
 		objPeer.nState = PING_STATE_PINGING;
 		objPeer.strAddress = pAddress;
 		objPeer.strCurNodeName = strNodeName;
+		objPeer.bReconect = false;
 
 		AddPeerSession(objCreateInfo , objPeer);
 		return pNetHandler;
@@ -267,7 +267,7 @@ namespace Net
 		MapPeerSessionT::iterator iter = m_mapPeerSessions.find(objKey);
 		if (iter != m_mapPeerSessions.end())
 		{
-			if (iter->second.nState == PING_STATE_PINGING)
+			if (iter->second.nState != PING_STATE_VALID)
 			{
 				if (objPeerInfo.nSessionID == -1)
 				{
@@ -279,6 +279,7 @@ namespace Net
 				}
 				iter->second.strRemoteNodeName = objPeerInfo.strRemoteNodeName;
 				iter->second.nState = PING_STATE_PINGED;
+				iter->second.bReconect = objPeerInfo.bReconect;
 				m_queAceeptSessions.push(iter->second);
 			}
 		}

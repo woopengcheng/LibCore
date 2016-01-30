@@ -272,7 +272,7 @@ namespace Net
 	CErrno NetReactorIOCP::Cleanup( void )
 	{
 
-		return CErrno::Success();
+		return INetReactor::Cleanup();
 	}
 
 	CErrno NetReactorIOCP::AddNetHandler(INetHandlerPtr  pNetHandler, ENetHandlerFuncMask objMask /*= NET_FUNC_DEFAULT*/)
@@ -383,7 +383,7 @@ namespace Net
 				if (bClosed)
 				{
 					gDebugStream("delete curNodeName=" << pNetHandler->GetSession()->GetCurNodeName() << ":remoteName=" << pNetHandler->GetSession()->GetRemoteName() << ":address=" << pNetHandler->GetSession()->GetAddress() << ":port=" << pNetHandler->GetSession()->GetPort());
-					DelNetHandler(INetHandlerPtr(pNetHandler));
+					DelNetHandler(INetHandlerPtr(pNetHandler));  //5 这么用智能指针,相当于是新建立的一个.刚好.这里没有对这个指针的删除.所以不会有问题.但是
 				}
 			}
 			else

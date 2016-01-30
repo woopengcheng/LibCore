@@ -24,6 +24,7 @@ namespace Net
 		std::string strAddress;
 		std::string strCurNodeName;
 		std::string strRemoteNodeName;
+		bool		bReconect;
 
 		SPeerInfo()
 		{
@@ -32,6 +33,7 @@ namespace Net
 
 		void Clear()
 		{
+			bReconect = false;
 			usPeerPort = 0;
 			nSessionID = -1;
 			nPeerSessionID = -1;

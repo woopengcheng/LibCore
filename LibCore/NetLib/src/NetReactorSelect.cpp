@@ -45,7 +45,7 @@ namespace Net
 		m_mapNetHandlers.clear();
 		m_mapNetEvents.clear();
 
-		return CErrno::Success();
+		return INetReactor::Cleanup();
 	}
 
 	CErrno NetReactorSelect::Update( void )

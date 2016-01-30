@@ -17,6 +17,8 @@ namespace Net
 		, m_bClosed(TRUE)
 		, m_nSessionID(nSessionID)
 		, m_socket(socket)
+		, m_nSendBufSize(DEFAULT_SOCKET_BUFFER_SIZE)
+		, m_nRecvBufSize(DEFAULT_SOCKET_BUFFER_SIZE)
 	{
 		m_objTimeout.Start(llTimeout);
 
@@ -26,7 +28,17 @@ namespace Net
 		}
 	}  
 
-	CErrno ISession::OnRecvMsg( void )
+	ISession::~ISession(void)
+	{
+		Cleanup();
+
+		if (m_pContext)
+		{
+			SAFE_DELETE(m_pContext);
+		}
+	}
+
+	CErrno ISession::OnRecvMsg(void)
 	{
 		m_objTimeout.ResetTime();
 		return CErrno::Success();
@@ -40,7 +52,9 @@ namespace Net
 	}
 
 	CErrno ISession::OnClose( void )
-	{ 
+	{
+		Cleanup();
+
 		return CErrno::Success();
 	}
 
@@ -61,10 +75,6 @@ namespace Net
 			m_socket = -1; 
 		}
 
-		if (m_pContext)
-		{
-			SAFE_DELETE(m_pContext);
-		}
 		return CErrno::Success();
 	}
 	 

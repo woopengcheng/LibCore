@@ -110,7 +110,7 @@ namespace Server
 		}
 	}
 
-	CErrno SlaveListener::OnConnected(Msg::RpcInterface * pRpcInterface, INT32 nSessionID, const std::string & strNetNodeName)
+	CErrno SlaveListener::OnConnected(Msg::RpcInterface * pRpcInterface, INT32 nSessionID, const std::string & strNetNodeName, bool bReconnect/* = false*/)
 	{
 		if (m_pDBSlave)
 		{

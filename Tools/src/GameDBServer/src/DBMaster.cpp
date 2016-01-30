@@ -126,7 +126,7 @@ namespace Server
 		return DBMasterInterface::Cleanup();
 	}
 
-	CErrno MasterListener::OnConnected(Msg::RpcInterface * pRpcInterface , INT32 nSessionID, const std::string & strNetNodeName)
+	CErrno MasterListener::OnConnected(Msg::RpcInterface * pRpcInterface , INT32 nSessionID, const std::string & strNetNodeName, bool bReconnect/* = false*/)
 	{
 		if (m_pDBMaster)
 		{

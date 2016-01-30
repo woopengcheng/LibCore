@@ -20,7 +20,7 @@ namespace Msg
 
 		}
 	public:
-		virtual CErrno OnConnected(Msg::RpcInterface * pRpcInterface , INT32 nSessionID , const std::string & strNetNodeName){ return CErrno::Success();} 
+		virtual CErrno OnConnected(Msg::RpcInterface * pRpcInterface , INT32 nSessionID , const std::string & strNetNodeName , bool bReconnect = false){ return CErrno::Success();} 
 		virtual CErrno OnDisconnected(RpcInterface * pRpcInterface, INT32 nSessionID, INT32 nPeerSessionID){ return CErrno::Success();}
 	};
 

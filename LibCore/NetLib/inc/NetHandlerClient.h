@@ -15,8 +15,6 @@ namespace Net
 	public:
 		virtual CErrno	Init( void ); 
 		virtual CErrno	Init(const std::string & ip,int port );
-		virtual CErrno	Cleanup( void );
-		virtual CErrno	OnClose( void );
 		virtual CErrno	Update( void );
 		virtual CErrno	OnReconnect(void);
 		virtual CErrno	HandleMsg(ISession * pSession, UINT32 unMsgID, const char* pBuffer, UINT32 unLength);

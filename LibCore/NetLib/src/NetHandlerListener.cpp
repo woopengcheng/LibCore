@@ -37,7 +37,7 @@ namespace Net
 	{
 		Assert(m_pSession);
 		NetSocket socket = NetHelper::CreateSocket(AF_UNIX, SOCK_STREAM, 0);
-		NetHelper::SetDefaultSocket(socket);
+		NetHelper::SetDefaultSocket(socket, m_pSession->GetSendBufSize(), m_pSession->GetRecvBufSize());
 
 		m_pSession->SetSocket(socket);
 	}
@@ -177,7 +177,6 @@ namespace Net
 				strName = m_pNetReactor->GetNetThread()->GetNetNodeName();
 			}
 			ServerSession * pServerSession = new ServerSession(szAddress , usPort , strName , "" , -1, NET_STATE_CONNECTED , socket);
-			pServerSession->SetNetState(NET_STATE_CONNECTED);
 			NetHandlerServerPtr pServer( new NetHandlerServer(m_pNetReactor , pServerSession) ); 
 			m_pNetReactor->AddNetHandler(pServer); 
 			

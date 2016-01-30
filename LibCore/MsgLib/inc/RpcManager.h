@@ -70,6 +70,7 @@ namespace Msg
 		MapRpcsT			&		GetSendRpcs(void) { return m_mapSendRpcs; }
 
 	protected:
+		void						EraseAndInsertPeerSession(const SPeerInfo & objInfo);
 		void						InsertPostMsg(INT32 nSessionID, RPCMsgCall * pMsg);
 		void						InsertDelayMsg(INT32 nSessionID, RPCMsgCall * pMsg);
 		std::string					GeneratePeerInfoKey(const std::string & strCurNodeName , const std::string & strRemoteNodeName);

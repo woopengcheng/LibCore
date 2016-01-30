@@ -79,7 +79,7 @@ namespace Net
 		INetReactor		*	GetNetReactor() { return m_pNetReactor; }
 
 	public:
-		CErrno				UpdatePing(void);
+		CErrno				UpdateHandlers(void);
 		INetHandlerPtr		CreateClientHandler(std::string strNodeName, std::string strUUID , const char * pAddress, UINT16 usPort , Net::NetSocket socket = 0, void * context = NULL);
 		INT32				SendMsg(INT32 nSessionID, const char * pBuffer, UINT32 unLength);
 		CErrno				FetchSession(std::vector<SPeerInfo> & vecSessions);

@@ -39,7 +39,7 @@ namespace Net
 	{  
 		m_mapNetHandlers.clear();
 
-		return CErrno::Success();
+		return INetReactor::Cleanup();
 	}
 
 	CErrno NetReactorUDP::Update( void )

@@ -13,28 +13,51 @@ namespace Msg
 			Net::NetThread * pNet = m_pRpcInterface->GetNetThread();
 			if (pNet)
 			{
-				std::vector<Net::SPeerInfo> vecSessions;
+				std::vector<SPeerInfo> vecSessions;
 				pNet->FetchSession(vecSessions);
-				std::vector<Net::SPeerInfo>::iterator iter = vecSessions.begin();
+				std::vector<SPeerInfo>::iterator iter = vecSessions.begin();
 				for (;iter != vecSessions.end();++iter)
 				{
-					Net::SPeerInfo & objInfo = *iter;
-					m_mapSessions.insert(std::make_pair(objInfo.nSessionID , objInfo));
-					m_mapPeerSessions.insert(std::make_pair(objInfo.nPeerSessionID, objInfo));
+					SPeerInfo & objInfo = *iter;
+					EraseAndInsertPeerSession(objInfo);
 
-					std::string strName = GeneratePeerInfoKey(objInfo.strCurNodeName , objInfo.strRemoteNodeName);
-					m_mapSessionNodes.insert(std::make_pair(strName, objInfo));
-
+					std::string strName = GeneratePeerInfoKey(objInfo.strCurNodeName, objInfo.strRemoteNodeName);
 					IRpcListener * pListener = m_pRpcInterface->GetRpcListener();
 					if (pListener)
 					{
 						pListener->OnConnected(m_pRpcInterface, objInfo.nSessionID, strName);
 					}
+					gDebugStream("rpcmanager recv new session.NodeName=" << strName << ":address=" << objInfo.strAddress << ":port=" << objInfo.usPeerPort << ":bReconnect=" << objInfo.bReconect << ":clientSessionID=" << objInfo.nSessionID << ":PeerSessionID=" << objInfo.nPeerSessionID);
 				}
 			}
 		}
 
 		return CErrno::Success();
+	}
+
+	void RpcManager::EraseAndInsertPeerSession(const SPeerInfo & objInfo)
+	{
+		CollectSessionsIDT::iterator iter = m_mapSessions.find(objInfo.nSessionID);
+		if (iter != m_mapSessions.end())
+		{
+			m_mapSessions.erase(iter);
+		}
+		m_mapSessions.insert(std::make_pair(objInfo.nSessionID, objInfo));
+
+		iter = m_mapPeerSessions.find(objInfo.nPeerSessionID);
+		if (iter != m_mapPeerSessions.end())
+		{
+			m_mapPeerSessions.erase(iter);
+		}
+		m_mapPeerSessions.insert(std::make_pair(objInfo.nPeerSessionID, objInfo));
+
+		std::string strName = GeneratePeerInfoKey(objInfo.strCurNodeName, objInfo.strRemoteNodeName);
+		CollectSessionsStringT::iterator iter2 = m_mapSessionNodes.find(strName);
+		if (iter2 != m_mapSessionNodes.end())
+		{
+			m_mapSessionNodes.erase(iter2);
+		}
+		m_mapSessionNodes.insert(std::make_pair(strName, objInfo));
 	}
 
 	CErrno RpcManager::FetchMsgs()

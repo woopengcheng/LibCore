@@ -62,7 +62,7 @@ namespace Server
 		return m_nHandlerCount;
 	}
 		
-	CErrno ServerListener::OnConnected(Msg::RpcInterface * pRpcInterface, INT32 nSessionID, const std::string & strNetNodeName)
+	CErrno ServerListener::OnConnected(Msg::RpcInterface * pRpcInterface, INT32 nSessionID, const std::string & strNetNodeName, bool bReconnect/* = false*/)
 	{
 		if (m_pDBServer)
 		{

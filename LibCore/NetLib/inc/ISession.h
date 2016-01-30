@@ -16,10 +16,7 @@ namespace Net
 	{
 	public:
 		ISession(const std::string & strAddress ,INT16 usSocktPort, const std::string & strCurNodeName , const std::string & strRemoteName = "" , INT32 nSessionID = -1 , INT32 nNetState = 0 , NetSocket socket = -1 , INT64 llTimeout = 0);
-		virtual ~ISession( void )
-		{
-			Cleanup();
-		}
+		virtual ~ISession(void);
 
 	public:
 		virtual CErrno		Init();
@@ -55,6 +52,10 @@ namespace Net
 		void * GetContext(void) { return m_pContext; }
 		Net::EReactorType GetReactorType() const { return m_objReactorType; }
 		void SetReactorType(Net::EReactorType val) { m_objReactorType = val; }
+		INT32 GetSendBufSize() const { return m_nSendBufSize; }
+		void SetSendBufSize(INT32 val) { m_nSendBufSize = val; }
+		INT32 GetRecvBufSize() const { return m_nRecvBufSize; }
+		void SetRecvBufSize(INT32 val) { m_nRecvBufSize = val; }
 		BOOL IsTimeout(void)
 		{ 
 			if (m_objTimeout.IsStarted())
@@ -79,6 +80,8 @@ namespace Net
 		std::string			m_strPeerUUID;
 		EReactorType		m_objReactorType;
 		void			*	m_pContext;
+		INT32				m_nSendBufSize;
+		INT32				m_nRecvBufSize;
 	private:
 		BOOL				m_bCanWrite;
 		Timer::TimeCount	m_objTimeout; 
