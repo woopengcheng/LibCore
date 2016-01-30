@@ -1,6 +1,6 @@
+#include "GameDB/inc/RemoteNodeDefine.h"
 #include "DBServer.h"
 #include "RPCCallFuncs.h"
-#include "CUtil/inc/RemoteNodeDefine.h"
 
 namespace Server
 {   
@@ -14,7 +14,7 @@ namespace Server
 			Msg::VecObjects objTargets;
 			objTargets.push_back(0);
 			unCount = maxCount;
-//			rpc_testTheSameNode(g_netnodes[NETNODE_DBMASTER] , objTargets , 1 , strDB , CUtil::Chunk());
+//			rpc_testTheSameNode(g_strGameDBNodes[NETNODE_DBCLIENT_TO_DBSERVER] , objTargets , 1 , strDB , CUtil::Chunk());
 		}
 		unCount--;
 

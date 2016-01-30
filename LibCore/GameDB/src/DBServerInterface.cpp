@@ -18,9 +18,12 @@ namespace GameDB
 
 	CErrno DBServerInterface::Init(Json::Value & conf)
 	{
-		InitDB(conf);
-
-		return RpcInterface::Init(conf); 
+		if (RpcInterface::Init(conf).IsFailure())
+		{
+			return CErrno::Failure();
+		}
+		
+		return InitDB(conf);
 	}
 
 	CErrno DBServerInterface::InitDB(const Json::Value & conf)
@@ -39,7 +42,7 @@ namespace GameDB
 		{
 			m_pEnvironment = new Environment(strDir , dbConfig); 
 		}
-		leveldb::Env::Default()->CreateDir(m_strBackupDir);
+		Env::Default()->CreateDir(m_strBackupDir);
 
 		return CErrno::Success();
 	}

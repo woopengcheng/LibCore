@@ -50,7 +50,7 @@ namespace Msg
 		virtual CErrno				HandleMsg(INT32 nSessionID, RPCMsgCall * pMsg);
 
 	public:
-		BOOL						IsAllConnected();
+		BOOL						IsConnected(const std::string & strNodeName);
 		CErrno						FetchSessions();
 		CErrno						FetchMsgs();
 		CErrno						UpdateCalls(void);
@@ -58,8 +58,9 @@ namespace Msg
 		CErrno						UpdateDelayMsgs(void);
 		CErrno						HandleServerMsg(INT32 nSessionID, RPCMsgCall * pMsg);
 		CErrno						HandleClientMsg(INT32 nSessionID, RPCMsgCall * pMsg);
-		SPeerInfo					GetPeerSessions(INT32 nSessionID);
+		SPeerInfo					GetPeerSessionInfo(INT32 nSessionID);
 		INT32						GetPeerSessionIDByNode(const std::string & strNode);
+		INT32						GetSessionIDByNode(const std::string & strNode);
 
 	public:
 		void						InsertSendRpc(UINT64 ullRpcMsgID, Rpc * pRpc);
@@ -71,6 +72,7 @@ namespace Msg
 	protected:
 		void						InsertPostMsg(INT32 nSessionID, RPCMsgCall * pMsg);
 		void						InsertDelayMsg(INT32 nSessionID, RPCMsgCall * pMsg);
+		std::string					GeneratePeerInfoKey(const std::string & strCurNodeName , const std::string & strRemoteNodeName);
 
 	protected:  
 		MapRpcsT					m_mapSendRpcs;   

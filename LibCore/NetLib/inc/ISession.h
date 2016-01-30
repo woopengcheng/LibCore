@@ -15,40 +15,42 @@ namespace Net
 	class DLL_EXPORT ISession
 	{
 	public:
-		ISession( const char * pAddress ,INT16 usSocktPort , const char * pRemoteName , INT32 nSessionID = -1 , INT32 nNetState = 0 , NetSocket socket = -1 , INT64 llTimeout = 0);
+		ISession(const std::string & strAddress ,INT16 usSocktPort, const std::string & strCurNodeName , const std::string & strRemoteName = "" , INT32 nSessionID = -1 , INT32 nNetState = 0 , NetSocket socket = -1 , INT64 llTimeout = 0);
 		virtual ~ISession( void )
 		{
 			Cleanup();
 		}
 
 	public:
-		virtual	CErrno		Init( const char * pAddress ,INT16 usSocktPort , const char * pRemoteName , INT32 nSessionID , NetSocket socket , INT64 llTimeout = 0);
+		virtual CErrno		Init();
 		virtual	CErrno		Cleanup( void ); 
 		virtual	CErrno		OnRecvMsg( void );
 		virtual	CErrno		OnSendMsg( void );
 		virtual	CErrno		OnClose( void ); 
-		 
+
 	public:
 		INT32 GetSessionID() const { return m_nSessionID; }
 		void SetSessionID(INT32 val) { m_nSessionID = val; }
 		void  AutoSetSessionID( void );
 		UINT16 GetPort() const { return m_usSocktPort; }
 		void SetSocktPort(UINT16 val) { m_usSocktPort = val; }
-		const char * GetAddress() { return m_szAddress; }
-		void SetAddress(const char * val) { memcpy(m_szAddress , val ,strlen(val) + 1); }
+		std::string GetAddress() { return m_strAddress; }
+		void SetAddress(const std::string & val) { m_strAddress = val; }
 		Timer::TimeCount GetObjTimeout() const { return m_objTimeout; } 
 		BOOL IsClosed(void) const { return m_bClosed; }
 		void SetClosed(BOOL val) { m_bClosed = val; }
-		const char * GetRemoteName() { return m_szRemoteName; }
-		void SetRemoteName(const char * pRemoteName) { memcpy(m_szRemoteName , pRemoteName , strlen(pRemoteName) + 1); }
+		std::string GetPeerUUID() const { return m_strPeerUUID; }
+		void SetPeerUUID(const std::string & val) { m_strPeerUUID = val; }
+		std::string GetCurNodeName() { return m_strCurNodeName; }
+		void SetCurNodeName(const std::string & val) { m_strCurNodeName = val;  }
+		std::string GetRemoteName() { return m_strRemoteName; }
+		void SetRemoteName(const std::string & val) { m_strRemoteName = val; }
 		INT32 GetNetState() const { return m_nNetState; }
 		void SetNetState(INT32 val) { m_nNetState = val; }
 		NetSocket GetSocket() const { return m_socket; }
 		void SetSocket(NetSocket val) { m_socket = val; }  
 		BOOL IsCanWrite() const { return m_bCanWrite; }
 		void SetCanWrite(BOOL val) { m_bCanWrite = val; }
-		ISession * GetOtherSession() const { return m_pOtherSession; }
-		void SetOtherSession(ISession * val) { m_pOtherSession = val; }
 		void SetContext(void * val);
 		void * GetContext(void) { return m_pContext; }
 		Net::EReactorType GetReactorType() const { return m_objReactorType; }
@@ -71,11 +73,12 @@ namespace Net
 		BOOL				m_bClosed;
 		INT32				m_nSessionID;
 		UINT16				m_usSocktPort;
-		char				m_szAddress[MAX_NAME_LENGTH];
-		char				m_szRemoteName[MAX_NAME_LENGTH]; 
-		ISession	*		m_pOtherSession;
-		void		*		m_pContext;
+		std::string			m_strAddress;
+		std::string			m_strRemoteName;
+		std::string			m_strCurNodeName;
+		std::string			m_strPeerUUID;
 		EReactorType		m_objReactorType;
+		void			*	m_pContext;
 	private:
 		BOOL				m_bCanWrite;
 		Timer::TimeCount	m_objTimeout; 

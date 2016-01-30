@@ -40,6 +40,7 @@ namespace Msg
 		char				*	GetNetNodeName() { return m_szNetNodeName; }
 		char				*	GetServerType() { return m_szRpcType; }
 		Net::NetThread 		*	GetNetThread() { return m_pNetThread; }
+		IRpcListener		*	GetRpcListener() { return m_pRpcListener; }
 		void					RegisterRpc(void);
 
 	private:

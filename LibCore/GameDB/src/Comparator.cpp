@@ -6,7 +6,7 @@ namespace GameDB
 
 	INT32 Comparator::Compare(const Slice& a, const Slice& b) const
 	{
-		const leveldb::Comparator * pBaseComparator = leveldb::BytewiseComparator();
+		const DBComparator * pBaseComparator = BytewiseComparator();
 
 		const char* abuf = a.data();
 		const char* bbuf = b.data();
@@ -54,14 +54,14 @@ namespace GameDB
 
 	void Comparator::FindShortestSeparator(std::string* start,const Slice& limit) const
 	{
-		const leveldb::Comparator * pBaseComparator = leveldb::BytewiseComparator();
+		const DBComparator * pBaseComparator = BytewiseComparator();
 
 		pBaseComparator->FindShortestSeparator(start , limit );
 	}
 
 	void Comparator::FindShortSuccessor(std::string* key) const
 	{ 
-		const leveldb::Comparator * pBaseComparator = leveldb::BytewiseComparator();
+		const DBComparator * pBaseComparator = BytewiseComparator();
 
 		pBaseComparator->FindShortSuccessor(key);
 	}

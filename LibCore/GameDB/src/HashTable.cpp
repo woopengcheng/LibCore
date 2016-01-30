@@ -93,7 +93,7 @@ namespace GameDB
 	HashTable::CHECK_RESULT HashTable::CheckExists(Database &db,const Slice& dbKey,const Slice& newValue)
 	{
 		std::string strOldValue;
-		leveldb::Status status = db.QuickGet(dbKey,strOldValue);
+		Status status = db.QuickGet(dbKey,strOldValue);
 		if(status.IsNotFound())
 			return CHECK_RESULT_NOTEXISTS;
 		if(!status.ok())
@@ -109,7 +109,7 @@ namespace GameDB
 	{
 		DEFAULT_STACKCHUNK sc , scSizeKey;
 		Slice encodedKey; 
-		leveldb::Status status;
+		Status status;
 		 
 		EncodeKey(table,key,encodedKey , sc);
 
@@ -150,7 +150,7 @@ namespace GameDB
 	{
 		DEFAULT_STACKCHUNK sc , scSizeKey;
 		Slice	encodedKey; 
-		leveldb::Status status;
+		Status status;
 
 		EncodeKey(table,key,encodedKey , sc);
 
@@ -166,7 +166,7 @@ namespace GameDB
 			}
 		}
 
-		leveldb::WriteBatch batch;
+		WriteBatch batch;
 		batch.Put(encodedKey,val);
 		HCount_SaveToDB(sizeKey,sizeVal,batch,oper);
 
@@ -181,7 +181,7 @@ namespace GameDB
 	{
 		DEFAULT_STACKCHUNK sc;
 		Slice	encodedKey; 
-		leveldb::Status status;
+		Status status;
 
 		EncodeKey(table,key,encodedKey , sc);
 
@@ -204,7 +204,7 @@ namespace GameDB
 	{
 		DEFAULT_STACKCHUNK sc;
 		Slice	encodedKey;
-		leveldb::Status status;
+		Status status;
 
 		EncodeKey(table , key , encodedKey , sc);
 
@@ -219,7 +219,7 @@ namespace GameDB
 	{
 		DEFAULT_STACKCHUNK sc , scSizeKey;
 		Slice	encodedKey; 
-		leveldb::Status status;
+		Status status;
 
 		EncodeKey(table,key,encodedKey , sc);
 
@@ -235,7 +235,7 @@ namespace GameDB
 			}
 		}
 
-		leveldb::WriteBatch batch;
+		WriteBatch batch;
 		batch.Delete(encodedKey);
 		HCount_SaveToDB(sizeKey,sizeVal,batch,oper);
 
@@ -250,13 +250,13 @@ namespace GameDB
 		DEFAULT_STACKCHUNK sc , scSizeKey;
 		Slice	encodedKey; 
 		std::string minkey = "\0";
-		leveldb::Status status;
+		Status status;
 
 		EncodeKey(table,minkey,encodedKey , sc);
 		
-		leveldb::WriteBatch batch;
+		WriteBatch batch;
 
-		leveldb::Iterator* iter = db.GetLevelDB()->NewIterator(leveldb::ReadOptions());
+		Iterator* iter = db.GetLevelDB()->NewIterator(ReadOptions());
 		iter->Seek(encodedKey);
 
 		INT64 llCount = 0;
@@ -295,13 +295,13 @@ namespace GameDB
 		DEFAULT_STACKCHUNK sc;
 		Slice	encodedKey; 
 		std::string minkey = "\0";
-		leveldb::Status status;
+		Status status;
 
 		EncodeKey(table,minkey,encodedKey , sc);
 
-		leveldb::WriteBatch batch;
+		WriteBatch batch;
 
-		leveldb::Iterator* iter = db.GetLevelDB()->NewIterator(leveldb::ReadOptions());
+		Iterator* iter = db.GetLevelDB()->NewIterator(ReadOptions());
 		iter->Seek(encodedKey);
 
 		INT32 nCount[GET_ALL_TYPE_NUM] = {0};
@@ -370,7 +370,7 @@ namespace GameDB
 	{
 		DEFAULT_STACKCHUNK sc , scSizeKey;
 		Slice encodedKey; 
-		leveldb::Status status;
+		Status status;
 		 
 		INT64 sizeVal = -1;
 		Slice sizeKey;
@@ -415,7 +415,7 @@ namespace GameDB
 	{
 		DEFAULT_STACKCHUNK sc;
 		Slice encodedKey; 
-		leveldb::Status status;
+		Status status;
 		  
 		INT64 llCount = 0;
 		CUtil::CStream cs;
@@ -444,7 +444,7 @@ namespace GameDB
 	{ 
 		DEFAULT_STACKCHUNK sc , scSizeKey;
 		Slice encodedKey; 
-		leveldb::Status status;
+		Status status;
 
 		INT64 sizeVal = -1;
 		Slice sizeKey;
@@ -482,7 +482,7 @@ namespace GameDB
 	{
 		DEFAULT_STACKCHUNK sc , scSizeKey;
 		Slice encodedKey; 
-		leveldb::Status status;
+		Status status;
 
 		EncodeKey(table,key,encodedKey , sc);
 
@@ -515,7 +515,7 @@ namespace GameDB
 		}
 		llValue += val;
 
-		leveldb::Slice value((const char*)&llValue , sizeof(llValue));
+		Slice value((const char*)&llValue , sizeof(llValue));
 
 		batch.Put(encodedKey,value);
 		oper.GetOperateRecord().Insert(encodedKey,value); 
@@ -530,7 +530,7 @@ namespace GameDB
 	{
 		DEFAULT_STACKCHUNK sc , scSizeKey;
 		Slice encodedKey; 
-		leveldb::Status status;
+		Status status;
 
 		EncodeKey(table,key,encodedKey , sc);
 
@@ -563,7 +563,7 @@ namespace GameDB
 		}
 		dValue += val;
 
-		leveldb::Slice value((const char*)&dValue , sizeof(dValue));
+		Slice value((const char*)&dValue , sizeof(dValue));
 
 		batch.Put(encodedKey,value);
 		oper.GetOperateRecord().Insert(encodedKey,value); 
@@ -585,7 +585,7 @@ namespace GameDB
 		DEFAULT_STACKCHUNK sc;
 		Slice	encodedKey; 
 		std::string minkey = "\0";
-		leveldb::Status status;
+		Status status;
 		
 		if (start.size() == 0)
 		{
@@ -596,7 +596,7 @@ namespace GameDB
 			EncodeKey(table,start,encodedKey , sc);
 		}
 
-		leveldb::Iterator* iter = db.GetLevelDB()->NewIterator(leveldb::ReadOptions());
+		Iterator* iter = db.GetLevelDB()->NewIterator(ReadOptions());
 		iter->Seek(encodedKey);
 
 		CRegexpT<char> regexp(pattern.data());
@@ -652,7 +652,7 @@ namespace GameDB
 	void HashTable::HCount(Database &db,Operate & oper,const Slice& table)
 	{
 		DEFAULT_STACKCHUNK sc , scSizeKey;
-		leveldb::Status status;
+		Status status;
 
 		INT64 sizeVal = -1;
 		Slice sizeKey;
@@ -668,7 +668,7 @@ namespace GameDB
 	void HashTable::HList(Database &db,Operate & oper)
 	{
 		DEFAULT_STACKCHUNK sc , scSizeKey;
-		leveldb::Status status;
+		Status status;
 
 		std::string minkey("\0");  
 		Slice sizeKey;
@@ -678,7 +678,7 @@ namespace GameDB
 
 		INT64 llCount = 0;
 		CUtil::CStream cs;
-		leveldb::Iterator* iter = db.GetLevelDB()->NewIterator(leveldb::ReadOptions());
+		Iterator* iter = db.GetLevelDB()->NewIterator(ReadOptions());
 		iter->Seek(sizeKey);
 		while (iter->Valid())
 		{

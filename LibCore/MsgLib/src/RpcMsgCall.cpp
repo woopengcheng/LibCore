@@ -50,12 +50,13 @@ namespace Msg
 	{
 		pMsg = new(sizeof(Object) * GetTargetsCount())RPCMsgCall;  
 
-		pMsg->m_objProxySrcID  = m_objProxySrcID;
-		pMsg->m_ullTimeout     = m_ullTimeout;
-		pMsg->m_bClientRequest = m_bClientRequest;   
-		pMsg->m_ullMsgID       = m_ullMsgID; 
-		pMsg->m_objSource      = m_objSource;
-		pMsg->m_usPriority     = m_usPriority;
+		pMsg->m_objProxySrcID	= m_objProxySrcID;
+		pMsg->m_ullTimeout		= m_ullTimeout;
+		pMsg->m_bClientRequest	= m_bClientRequest;   
+		pMsg->m_ullMsgID		= m_ullMsgID; 
+		pMsg->m_objSource		= m_objSource;
+		pMsg->m_usPriority		= m_usPriority;
+		pMsg->m_nProxySessionID = m_nProxySessionID;
 		memcpy(pMsg->m_szSessionName , m_szSessionName , sizeof(m_szSessionName)); 
 		memcpy(pMsg->m_szMsgMethod , m_szMsgMethod , sizeof(m_szMsgMethod)); 
 		memcpy(pMsg->m_szRemoteName , m_szRemoteName , sizeof(m_szRemoteName)); 
@@ -74,12 +75,13 @@ namespace Msg
 	{
 		pMsg = new(sizeof(Object) * GetTargetsCount())RPCMsgCall;  
 
-		pMsg->m_objProxySrcID  = m_objProxySrcID;
-		pMsg->m_ullTimeout     = m_ullTimeout;
-		pMsg->m_bClientRequest = m_bClientRequest;   
-		pMsg->m_ullMsgID       = m_ullMsgID; 
-		pMsg->m_objSource      = m_objSource;
-		pMsg->m_usPriority     = m_usPriority;
+		pMsg->m_objProxySrcID	= m_objProxySrcID;
+		pMsg->m_ullTimeout		= m_ullTimeout;
+		pMsg->m_bClientRequest	= m_bClientRequest;   
+		pMsg->m_ullMsgID		= m_ullMsgID; 
+		pMsg->m_objSource		= m_objSource;
+		pMsg->m_usPriority		= m_usPriority;
+		pMsg->m_nProxySessionID = m_nProxySessionID;
 		memcpy(pMsg->m_szSessionName , m_szSessionName , sizeof(m_szSessionName)); 
 		memcpy(pMsg->m_szMsgMethod , m_szMsgMethod , sizeof(m_szMsgMethod)); 
 		memcpy(pMsg->m_szRemoteName , m_szRemoteName , sizeof(m_szRemoteName));  
@@ -96,14 +98,15 @@ namespace Msg
 
 	CErrno RPCMsgCall::CopyExcludeParamsAndTargets(RPCMsgCall *& pMsg ,const std::vector<Msg::Object> & vecTargets , Msg::Object objSrc)
 	{
-		pMsg = new(sizeof(Object) * vecTargets.size())RPCMsgCall;  
+		pMsg = new(sizeof(Object) *(UINT32)(vecTargets.size()))RPCMsgCall;
 
-		pMsg->m_objProxySrcID  = m_objProxySrcID;
-		pMsg->m_ullTimeout     = m_ullTimeout;
-		pMsg->m_bClientRequest = m_bClientRequest;   
-		pMsg->m_ullMsgID       = m_ullMsgID; 
-		pMsg->m_objSource      = objSrc;
-		pMsg->m_usPriority     = m_usPriority;
+		pMsg->m_objProxySrcID	= m_objProxySrcID;
+		pMsg->m_ullTimeout		= m_ullTimeout;
+		pMsg->m_bClientRequest	= m_bClientRequest;   
+		pMsg->m_ullMsgID		= m_ullMsgID; 
+		pMsg->m_objSource		= objSrc;
+		pMsg->m_usPriority		= m_usPriority;
+		pMsg->m_nProxySessionID = m_nProxySessionID;
 		memcpy(pMsg->m_szSessionName , m_szSessionName , sizeof(m_szSessionName)); 
 		memcpy(pMsg->m_szMsgMethod , m_szMsgMethod , sizeof(m_szMsgMethod)); 
 		memcpy(pMsg->m_szRemoteName , m_szRemoteName , sizeof(m_szRemoteName));  
@@ -119,11 +122,12 @@ namespace Msg
 
 	CErrno RPCMsgCall::CopyExcludeNetDatas(RPCMsgCall *& pMsg)
 	{
-		pMsg->m_objProxySrcID  = m_objProxySrcID;
-		pMsg->m_objSyncType    = m_objSyncType;
-		pMsg->m_nReturnType  = m_nReturnType;
-		pMsg->m_objSyncResult  = m_objSyncResult;
-		pMsg->m_nRpcMsgCallType  = m_nRpcMsgCallType;
+		pMsg->m_objProxySrcID	= m_objProxySrcID;
+		pMsg->m_objSyncType		= m_objSyncType;
+		pMsg->m_nReturnType		= m_nReturnType;
+		pMsg->m_objSyncResult	= m_objSyncResult;
+		pMsg->m_nRpcMsgCallType	= m_nRpcMsgCallType;
+		pMsg->m_nProxySessionID = m_nProxySessionID;
 		memcpy(pMsg->m_szSessionName , m_szSessionName , sizeof(m_szSessionName));    
 
 		return CErrno::Success(); 

@@ -181,8 +181,8 @@ namespace GameDB
 			ZCount_Initial(db,sizeKey,sizeVal);
 		}
 
-		leveldb::Status objStatus;
-		leveldb::WriteBatch batch;
+		Status objStatus;
+		WriteBatch batch;
 		{
 			std::string val;
 			objStatus = db.QuickGet(encodedKey,val);
@@ -243,7 +243,7 @@ namespace GameDB
 	{ 
 		DEFAULT_STACKCHUNK sc;
 		Slice encodedKey , scoreKey,scoreKeyR;
-		leveldb::Status status;
+		Status status;
 
 		EncodeKey(table,key,encodedKey , sc);
 
@@ -271,7 +271,7 @@ namespace GameDB
 	{
 		DEFAULT_STACKCHUNK sc;
 		Slice scoreKey;  
-		leveldb::Status status;
+		Status status;
 
 		EncodeRScoreKey(table,"",std::numeric_limits<INT64>::max(),scoreKey , sc);
 
@@ -289,7 +289,7 @@ namespace GameDB
 
 		CUtil::CStream cs;
 		INT64 llCount = 0 , llCSCount = 0;
-		leveldb::Iterator* iter = db.GetLevelDB()->NewIterator(leveldb::ReadOptions());
+		Iterator* iter = db.GetLevelDB()->NewIterator(ReadOptions());
 		iter->Seek(scoreKey);
 		while(iter->Valid() && llLimit > 0)
 		{
@@ -325,7 +325,7 @@ namespace GameDB
 	{
 		DEFAULT_STACKCHUNK sc;
 		Slice scoreKey;  
-		leveldb::Status status;
+		Status status;
 
 		EncodeScoreKey(table,"",std::numeric_limits<INT64>::min(),scoreKey , sc);
 
@@ -343,7 +343,7 @@ namespace GameDB
 
 		CUtil::CStream cs;
 		INT64 llCount = 0 , llCSCount = 0;
-		leveldb::Iterator* iter = db.GetLevelDB()->NewIterator(leveldb::ReadOptions());
+		Iterator* iter = db.GetLevelDB()->NewIterator(ReadOptions());
 		iter->Seek(scoreKey);
 		while(iter->Valid() && llLimit > 0)
 		{
@@ -395,8 +395,8 @@ namespace GameDB
 		DEFAULT_STACKCHUNK sc_coreR;
 		Slice scoreKey,scoreKeyR;
 
-		leveldb::Status objStatus;
-		leveldb::WriteBatch batch;
+		Status objStatus;
+		WriteBatch batch;
 		{
 			std::string val;
 			objStatus = db.QuickGet(encodedKey,val);
@@ -453,9 +453,9 @@ namespace GameDB
 		EncodeKey(table,minkey,encodedKey , sc);   
 
 		INT32 nCount = 0; 
-		leveldb::Status objStatus;
-		leveldb::WriteBatch batch;
-		leveldb::Iterator * iter = db.GetLevelDB()->NewIterator(leveldb::ReadOptions());
+		Status objStatus;
+		WriteBatch batch;
+		Iterator * iter = db.GetLevelDB()->NewIterator(ReadOptions());
 		iter->Seek(encodedKey);
 		while(iter->Valid())
 		{   
@@ -531,8 +531,8 @@ namespace GameDB
 
 		INT32 nCount = 0;
 		CUtil::CStream cs;
-		leveldb::Status objStatus;
-		leveldb::Iterator * iter = db.GetLevelDB()->NewIterator(leveldb::ReadOptions());
+		Status objStatus;
+		Iterator * iter = db.GetLevelDB()->NewIterator(ReadOptions());
 		iter->Seek(sizeKey);
 		while(iter->Valid())
 		{   

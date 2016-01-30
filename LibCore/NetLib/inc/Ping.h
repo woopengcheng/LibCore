@@ -5,10 +5,11 @@
 namespace Net
 { 
 #define DEFAULT_MSG_PING_ID					1
-#define DEFAULT_PING_TIME_OUT_MICROSECOND	5
+#define DEFAULT_PING_TIME_OUT_MICROSECOND	5000
 
 	enum EPingState
 	{
+		PING_STATE_VALID,
 		PING_STATE_PINGING,
 		PING_STATE_LOST,
 		PING_STATE_PINGED,
@@ -17,15 +18,28 @@ namespace Net
 	struct SPeerInfo
 	{
 		UINT16		usPeerPort;
-		char		szAddress[MAX_ADDRESS_LENGTH];
-		char		szNodeName[MAX_NAME_LENGTH];
 		INT32		nSessionID;
 		INT32		nPeerSessionID;
 		EPingState	nState;
+		std::string strAddress;
+		std::string strCurNodeName;
+		std::string strRemoteNodeName;
 
 		SPeerInfo()
 		{
-			memset(this, 0, sizeof(SPeerInfo));
+			Clear();
+		}
+
+		void Clear()
+		{
+			usPeerPort = 0;
+			nSessionID = -1;
+			nPeerSessionID = -1;
+			nState = (PING_STATE_VALID);
+			strAddress = ("");
+			strCurNodeName = ("");
+			strRemoteNodeName = ("");
+
 		}
 	};
 
@@ -34,6 +48,7 @@ namespace Net
 		UINT16  usPeerPort;
 		char    szAddress[MAX_ADDRESS_LENGTH];
 		char	szNodeName[MAX_NAME_LENGTH];
+		char	szUUID[MAX_NAME_LENGTH];
 
 		SPing()
 		{

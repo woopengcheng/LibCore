@@ -23,6 +23,7 @@ namespace Server
 			: Msg::IRpcMsgCallableObject(objID , pDBSlave->GetRpcManager())
 			, m_pDBSlave(pDBSlave)
 			, m_pDatabase(NULL)
+			, m_nMasterSessionID(-1)
 		{
 		}
 
@@ -42,12 +43,14 @@ namespace Server
 		bool		RecvFile(std::string strDir , std::string strFileName , std::string strDBName , INT32 nFileSize , INT32 nSendType , const CUtil::Chunk & objChunk);
 		bool		RecvFileEnd(std::string strDir , std::string strDBName );
 		void		SetSlaveInfo(const GameDB::SDBSlaveInfo & info);
-		GameDB::SDBSlaveInfo  GetSlaveInfo(){ return m_objSlaveInfo;}
+		GameDB::SDBSlaveInfo	GetSlaveInfo(){ return m_objSlaveInfo;}
+		void					SetMasterSessionID(INT32 nSessionID) { m_nMasterSessionID = nSessionID;  }
+		INT32					GetMasterSessionID() { return m_nMasterSessionID; }
 	private:
 		DBSlave				*	m_pDBSlave;
 		GameDB::Database	*	m_pDatabase; 
 		GameDB::SDBSlaveInfo	m_objSlaveInfo;
-
+		INT32					m_nMasterSessionID;
 	}; 
 }
 

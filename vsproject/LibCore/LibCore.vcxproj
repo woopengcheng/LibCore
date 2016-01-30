@@ -269,7 +269,6 @@
     <ClInclude Include="..\..\LibCore\CUtil\inc\Random.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\Refcounted.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\ReferCount.h" />
-    <ClInclude Include="..\..\LibCore\CUtil\inc\RemoteNodeDefine.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\SafeVariable.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\StringEx.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\ThreadSpecific.h" />
@@ -283,6 +282,7 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBMasterInterface.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBServerInterface.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBSlaveInterface.h" />
+    <ClInclude Include="..\..\LibCore\GameDB\inc\db_port.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\LevelDB.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\OperateReturns.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\Environment.h" />
@@ -292,6 +292,7 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\Orm.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\OrmCollection.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\OrmVector.h" />
+    <ClInclude Include="..\..\LibCore\GameDB\inc\RemoteNodeDefine.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\SortedSet.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\User.h" />
     <ClInclude Include="..\..\LibCore\GameDB\inc\UserAuth.h" />
@@ -346,7 +347,6 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerServer.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerListener.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerTransit.h" />
-    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerUDP.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetHelper.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetInterface.h" />
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetLib.h" />
@@ -417,6 +417,7 @@
     <ClCompile Include="..\..\LibCore\GameDB\src\DBSlaveInterface.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\Environment.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\HashTable.cpp" />
+    <ClCompile Include="..\..\LibCore\GameDB\src\LevelDB.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\OperateRecord.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\SortedSet.cpp" />
     <ClCompile Include="..\..\LibCore\GameDB\src\User.cpp" />

@@ -9,6 +9,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::testParamsAndRpcDatas_RpcServer(INT3
 	static INT32 nCount = 100;
 	while(nCount--)
 	{
+		gDebugStream("testParamsAndRpcDatas_RpcServer:count=" << nCount);
 		ReturnDelay;
 	}
 

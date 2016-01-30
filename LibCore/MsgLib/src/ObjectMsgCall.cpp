@@ -55,7 +55,7 @@ namespace Msg
 
 	CErrno ObjectMsgCall::CopyExcludeParamsAndTargets(ObjectMsgCall *& pMsg ,const std::vector<Msg::Object> & vecTargets , Msg::Object objSrc)
 	{
-		pMsg = new(sizeof(Object)*vecTargets.size())ObjectMsgCall;
+		pMsg = new(sizeof(Object)*(UINT32)(vecTargets.size()))ObjectMsgCall;
 
 		pMsg->m_ullMsgID       = m_ullMsgID;
 		pMsg->m_objSource      = objSrc;

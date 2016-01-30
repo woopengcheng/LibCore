@@ -10,19 +10,41 @@
 
 namespace Net
 {
-	typedef std::pair<std::string, INT32>					PeerKey;
-	struct PeerKeyHashFunc
+	struct SPeerKeey
 	{
-		size_t operator()(const PeerKey & key) const
+		std::string strUUID;
+		std::string strNodeName;
+		std::string strAddress;
+		UINT16		usPort;
+
+		SPeerKeey()
+			: strAddress("")
+			, strUUID("")
+			, strNodeName("")
+			, usPort(0)
 		{
-			return CUtil::BKDRHash(key.first.c_str()) + key.second;
+		}
+		SPeerKeey(const std::string & nodeName , const std::string & uuid , const std::string & address , UINT16 port)
+			: strAddress(address)
+			, strUUID(uuid)
+			, strNodeName(nodeName)
+			, usPort(port)
+		{
 		}
 	};
-	struct PeerKeyCmpFunc //比较函数 ==  
+
+	struct PeerCreateInfoHashFunc
 	{
-		bool operator()(const PeerKey & key1, const PeerKey & key2) const
+		size_t operator()(const SPeerKeey & key) const
 		{
-			if (key1.first == key2.first && key2.second == key1.second)
+			return /*CUtil::BKDRHash(key.strNodeName.c_str()) + key.usPort + CUtil::BKDRHash(key.strAddress.c_str() +*/CUtil::BKDRHash(key.strUUID.c_str());
+		}
+	};
+	struct PeerCreateInfoCmpFunc //比较函数 ==  
+	{
+		bool operator()(const SPeerKeey & key1, const SPeerKeey & key2) const
+		{
+			if (key1.strUUID == key2.strUUID/*key1.strNodeName == key2.strNodeName && key2.usPort == key1.usPort && key1.strAddress == key2.strAddress*/)
 			{
 				return true;
 			}
@@ -34,8 +56,8 @@ namespace Net
 	{
 	public:
 		typedef tbb::concurrent_queue<SPeerInfo>				QueAcceptSessionT;
-		typedef tbb::concurrent_queue<PeerKey>					QueCreateClientsT;
-		typedef std::unordered_map<PeerKey, SPeerInfo , PeerKeyHashFunc , PeerKeyCmpFunc>			MapPeerSessionT;
+		typedef tbb::concurrent_queue<SPeerKeey>				QueCreateClientsT;
+		typedef std::unordered_map<SPeerKeey, SPeerInfo, PeerCreateInfoHashFunc, PeerCreateInfoCmpFunc>			MapPeerSessionT;
 
 	public:
 		NetThread(void);
@@ -50,30 +72,30 @@ namespace Net
 		virtual CErrno		StartupClient(const Json::Value & clients);
 
 	public:
-		char			*	GetServerAddress() { return m_szAddress; }
-		char			*	GetNetNodeName(){ return m_szNetNodeName; }
-		char			*	GetServerType() { return m_szRpcType; }
+		const std::string	GetServerAddress()	const { return m_strAddress; }
+		const std::string	GetNetNodeName()	const { return m_strNetNodeName; }
+		const std::string	GetServerType()		const { return m_strRpcType; }
 		UINT16				GetServerPort() { return m_usServerPort; }
 		INetReactor		*	GetNetReactor() { return m_pNetReactor; }
 
 	public:
 		CErrno				UpdatePing(void);
-		INetHandlerPtr		CreateClientHandler(const char * pName, const char * pAddress, UINT16 usPort , Net::NetSocket socket = 0, void * context = NULL);
+		INetHandlerPtr		CreateClientHandler(std::string strNodeName, std::string strUUID , const char * pAddress, UINT16 usPort , Net::NetSocket socket = 0, void * context = NULL);
 		INT32				SendMsg(INT32 nSessionID, const char * pBuffer, UINT32 unLength);
-		void				AcceptSession(ISession * pSession);
 		CErrno				FetchSession(std::vector<SPeerInfo> & vecSessions);
-		CErrno				FetchMsgs(INT32 nSessionID , CollectMsgChunksVec & queMsgs);
-		CErrno				AddPeerSession(PeerKey objKey, SPeerInfo & objPeerInfo);
-		CErrno				InsertClientsQueue(const char * pAddress, UINT16 usPort);
+		CErrno				FetchMsgs(INT32 nSessionID, CollectMsgChunksVec & queMsgs);
+		SPeerInfo			GetPeerInfo(const SPeerKeey & objInfo);
+		CErrno				AddPeerSession(const SPeerKeey & objKey, const SPeerInfo & objPeerInfo);
+		CErrno				InsertClientsQueue(const std::string & strNodeName , const std::string & strAddress, UINT16 usPort);
 
 	private:
 		CErrno				DeliverMsg();
 		CErrno				FetchClientsQueue();
 
 	protected:
-		char				m_szAddress[MAX_ADDRESS_LENGTH];
-		char				m_szNetNodeName[MAX_NAME_LENGTH];
-		char				m_szRpcType[MAX_NAME_LENGTH];
+		std::string			m_strAddress;
+		std::string			m_strNetNodeName;
+		std::string			m_strRpcType;
 		UINT16				m_usServerPort;
 		INetReactor		*	m_pNetReactor;         //5 没有访问机会.不会加锁
 		MapPeerSessionT		m_mapPeerSessions;

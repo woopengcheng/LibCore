@@ -1,11 +1,12 @@
 #include "MasterHandler.h"
+#include "GameDB/inc/RemoteNodeDefine.h"
 
 Msg::ObjectMsgCall * Server::MasterHandler::SlaveRequestSync_RpcServerProxy(INT32 nSessionID , Msg::Object objSrc , std_string & dbname/* = std::string()*/)
 {
 	std_string newbackdir = std::string();
 	INT32 res = 0;
 	 
-	if(-1 == ProxySendMsg("tcp://127.0.0.1:8001" , 1 , dbname))
+	if(-1 == ProxySendMsg(g_strGameDBNodes[NETNODE_DBMASTER_TO_DBSERVER], 1 , dbname))
 	{
 		Return(newbackdir , res);
 	}

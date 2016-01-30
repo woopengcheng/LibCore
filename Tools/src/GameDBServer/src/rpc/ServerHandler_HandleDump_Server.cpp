@@ -12,7 +12,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::HandleDump_RpcServer(INT32 nSessionI
 
 	int nCount = 0;
 	GameDB::Operate oper;
-	leveldb::Iterator * iter = pDB->GetLevelDB()->NewIterator(leveldb::ReadOptions());
+	GameDB::Iterator * iter = pDB->GetLevelDB()->NewIterator(GameDB::ReadOptions());
 	iter->SeekToFirst();
 	while(iter->Valid())
 	{

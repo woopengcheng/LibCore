@@ -382,7 +382,7 @@ namespace Net
 
 				if (bClosed)
 				{
-					gDebugStream("delete " << pNetHandler->GetSession()->GetRemoteName() << ":addr=" << pNetHandler->GetSession()->GetAddress() << ":port=" << pNetHandler->GetSession()->GetPort());
+					gDebugStream("delete curNodeName=" << pNetHandler->GetSession()->GetCurNodeName() << ":remoteName=" << pNetHandler->GetSession()->GetRemoteName() << ":address=" << pNetHandler->GetSession()->GetAddress() << ":port=" << pNetHandler->GetSession()->GetPort());
 					DelNetHandler(INetHandlerPtr(pNetHandler));
 				}
 			}

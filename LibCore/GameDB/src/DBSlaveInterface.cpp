@@ -18,9 +18,10 @@ namespace GameDB
 
 	CErrno DBSlaveInterface::Init(Json::Value & conf)
 	{
-		InitDB(conf);
+		if (RpcInterface::Init(conf).IsFailure())
+			return CErrno::Failure();
 
-		return RpcInterface::Init(conf); 
+		return  InitDB(conf);
 	}
 
 	CErrno DBSlaveInterface::InitDB(const Json::Value & conf)
@@ -61,15 +62,13 @@ namespace GameDB
 
 		for(size_t i = 0; i < databases.size(); ++i)
 		{     
-			std::string strRemoteRPCName = Net::NetHelper::GenerateRemoteName(strType.c_str() , strAddress.c_str() , strPort.c_str());
-
 			std::string strDBName = databases[(INT32)i].asString(); 
 			objInfo.strDBName = strDBName;  
 			OnCreateDatabase(objInfo);
 
 			if (m_pNetThread)
 			{
-				m_pNetThread->InsertClientsQueue(strAddress.c_str() , atoi(strPort.c_str()));
+				m_pNetThread->InsertClientsQueue(strDBName, strAddress , atoi(strPort.c_str()));
 			}
 		} 
 		return CErrno::Success();

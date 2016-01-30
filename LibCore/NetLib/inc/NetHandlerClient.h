@@ -1,12 +1,12 @@
 #ifndef __net_net_handler_common_client_h__
 #define __net_net_handler_common_client_h__ 
-#include "NetLib/inc/NetMsgQueue.h"
+#include "NetLib/inc/NetHandlerPing.h"
 #include "NetLib/inc/MsgProcess.h"
 #include "NetLib/inc/ClientSession.h"
 
 namespace Net 
 {
-	class DLL_EXPORT NetHandlerClient :public NetMsgQueue
+	class DLL_EXPORT NetHandlerClient :public NetHandlerPing
 	{
 	public:
 		NetHandlerClient(INetReactor * pNetReactor , ISession * pSession , MsgProcess * pMsgProcess = NULL);
@@ -14,7 +14,7 @@ namespace Net
 
 	public:
 		virtual CErrno	Init( void ); 
-		virtual CErrno	Init( const char* ip,int port );
+		virtual CErrno	Init(const std::string & ip,int port );
 		virtual CErrno	Cleanup( void );
 		virtual CErrno	OnClose( void );
 		virtual CErrno	Update( void );

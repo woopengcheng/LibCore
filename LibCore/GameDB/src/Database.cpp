@@ -1,13 +1,11 @@
 #include "GameDB/inc/Database.h"
 #include "GameDB/inc/CustomDefinedCacheHandler.h"
 #include "GameDB/inc/BackupEnvironment.h"
-#include "leveldb/env.h"
-#include "leveldb/cache.h"
 
 namespace GameDB
 {  
 	 
-	Database::Database(const std::string& strName,const std::string& strDirectory,const leveldb::Options& objOptions , BackupEnvironment * pBackupEnv)
+	Database::Database(const std::string& strName,const std::string& strDirectory,const Options& objOptions , BackupEnvironment * pBackupEnv)
 		: m_strName(strName)
 		, m_strDirectory(strDirectory)
 		, m_objOptions(objOptions)
@@ -36,7 +34,7 @@ namespace GameDB
 	{
 		if (m_pCustomCache)
 		{
-			leveldb::Cache::Handle * pHandle = m_pCustomCache->Lookup(objKey);
+			Cache::Handle * pHandle = m_pCustomCache->Lookup(objKey);
 			if (pHandle)
 			{
 				std::string * pOldValue = (std::string *)m_pCustomCache->Value(pHandle);
@@ -48,12 +46,12 @@ namespace GameDB
 		}
 
 		//5 如果用户自定义缓存没有或者没有自定义缓存.就去数据库中查找.
-		return	m_pLevelDB->Get(leveldb::ReadOptions() , objKey , &strVal); 
+		return	m_pLevelDB->Get(ReadOptions() , objKey , &strVal); 
 	}
 
 	Status Database::QuickWrite(const Slice & objKey , const Slice & objVal)
 	{
-		Status objStatus = m_pLevelDB->Put(leveldb::WriteOptions() , objKey , objVal);
+		Status objStatus = m_pLevelDB->Put(WriteOptions() , objKey , objVal);
 
 		if (objStatus.ok() && m_pCustomCache)
 		{ 
@@ -64,9 +62,9 @@ namespace GameDB
 
 	}
 
-	Status Database::QuickWrite(leveldb::WriteBatch * pBatch)
+	Status Database::QuickWrite(WriteBatch * pBatch)
 	{ 
-		Status objStatus = m_pLevelDB->Write(leveldb::WriteOptions() , pBatch);
+		Status objStatus = m_pLevelDB->Write(WriteOptions() , pBatch);
 
 		if (objStatus.ok() && m_pCustomCache)
 		{ 
@@ -79,7 +77,7 @@ namespace GameDB
 
 	Status Database::QuickDel(const Slice & objKey)
 	{
-		leveldb::Status objStatus = m_pLevelDB->Delete(leveldb::WriteOptions() , objKey);
+		Status objStatus = m_pLevelDB->Delete(WriteOptions() , objKey);
 		if (objStatus.ok() && m_pCustomCache)
 		{
 			m_pCustomCache->Erase(objKey);
@@ -90,7 +88,7 @@ namespace GameDB
 
 	void Database::UpdateCache(const Slice & objKey , const Slice & objVal)
 	{
-		leveldb::Cache::Handle * pHandle = m_pCustomCache->Lookup(objKey);
+		Cache::Handle * pHandle = m_pCustomCache->Lookup(objKey);
 		if (pHandle)
 		{
 			std::string * pOldValue = (std::string *)m_pCustomCache->Value(pHandle);
@@ -110,11 +108,11 @@ namespace GameDB
 	{
 		Assert_Re0(0 == m_pLevelDB);
 
-		leveldb::Options objOptions(m_objOptions);
+		Options objOptions(m_objOptions);
 		objOptions.create_if_missing = false;
 		objOptions.error_if_exists = false;
 
-		Status objStatus = leveldb::DB::Open(objOptions , m_strDirectory , &m_pLevelDB);
+		Status objStatus = DB::Open(objOptions , m_strDirectory , &m_pLevelDB);
 		if (!objStatus.ok())
 		{
 			MsgAssert_Re0(objStatus.ok() , objStatus.ToString())
@@ -127,11 +125,11 @@ namespace GameDB
 	{
 		Assert_Re0(0 == m_pLevelDB);
 
-		leveldb::Options objOptions(m_objOptions);
+		Options objOptions(m_objOptions);
 		objOptions.create_if_missing = true;
 		objOptions.error_if_exists = true;
 
-		Status objStatus = leveldb::DB::Open(objOptions , m_strDirectory , &m_pLevelDB);
+		Status objStatus = DB::Open(objOptions , m_strDirectory , &m_pLevelDB);
 		if (!objStatus.ok())
 		{
 			MsgAssert_Re0(objStatus.ok() , objStatus.ToString())
@@ -144,7 +142,7 @@ namespace GameDB
 	{
 		Assert_Re0(m_pLevelDB);
 
-		Status objStatus = leveldb::DestroyDB(m_strDirectory,leveldb::Options());
+		Status objStatus = GameDB::DestroyDB(m_strDirectory,Options());
 		if (!objStatus.ok())
 		{
 			MsgAssert_Re0(objStatus.ok() , objStatus.ToString())
@@ -168,9 +166,9 @@ namespace GameDB
 		objContext.strDstDir = strDir;
 		objContext.strDBName = m_strName;
 
-		leveldb::Env::Default()->CreateDir(objContext.strDstDir);
-		leveldb::Env::Default()->CreateDir(objContext.strDstDir + strBackupName);
-		leveldb::Env::Default()->CreateDir(objContext.strDstDir + strBackupName + "/" + m_strName);
+		Env::Default()->CreateDir(objContext.strDstDir);
+		Env::Default()->CreateDir(objContext.strDstDir + strBackupName);
+		Env::Default()->CreateDir(objContext.strDstDir + strBackupName + "/" + m_strName);
 		if (m_pBackupEnv)
 		{
 			m_pBackupEnv->Backup(m_strDirectory , &objContext);

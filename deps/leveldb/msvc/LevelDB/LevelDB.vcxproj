@@ -156,7 +156,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>HAVE_SNPRINTF;LEVELDB_PLATFORM_WINDOWS;OS_WIN;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_GLOBAL_USING;HAVE_SNPRINTF;LEVELDB_PLATFORM_WINDOWS;OS_WIN;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir)../../;$(ProjectDir)../../db;$(ProjectDir)../../include/;$(ProjectDir)../../table;$(ProjectDir)../../util;$(ProjectDir)../../port/win;$(SolutionDir)../deps/boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <StringPooling>false</StringPooling>
@@ -333,7 +333,10 @@
     <ClInclude Include="..\..\port\port_example.h" />
     <ClInclude Include="..\..\port\port_posix.h" />
     <ClInclude Include="..\..\port\port_win.h" />
-    <ClInclude Include="..\..\port\win\stdint.h" />
+    <ClInclude Include="..\..\port\win\stdint.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
+      </ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\..\table\block.h" />
     <ClInclude Include="..\..\table\block_builder.h" />
     <ClInclude Include="..\..\table\format.h" />

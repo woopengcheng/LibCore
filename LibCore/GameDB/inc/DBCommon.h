@@ -1,12 +1,10 @@
 #ifndef __database_common_h__ 
 #define __database_common_h__
 #include "CUtil/inc/Parameters.h" 
-#include "leveldb/db.h"
-#include "leveldb/iterator.h"
-#include "leveldb/comparator.h"
 #include "CUtil/inc/CUtil.h"
 #include "CUtil/inc/Chunk.h"
 #include "CUtil/inc/StringEx.h"
+#include "GameDB/inc/db_port.h"
 
 const size_t MAX_DB_TEMP_BUFFER_LENGTH = (64*1024*1024);
 #pragma warning(disable:4275)
@@ -19,19 +17,8 @@ namespace GameDB
 //	extern DLL_IMPORT const char *  g_szSystemDatabase;
 //	extern DLL_IMPORT const char *  g_szSystemUserTable;
 
-	typedef leveldb::Slice			 Slice;
-	typedef leveldb::Status			 Status;
-	typedef leveldb::WriteBatch		 WriteBatch;  
 	typedef CUtil::Parameters			 Parameters; 
-	class DLL_EXPORT Options : public leveldb::Options{};
 	 
-	extern DLL_EXPORT CUtil::CStream & operator << (CUtil::CStream& cs,const leveldb::Slice& c); 
-
-	typedef CUtil::Chunk  Chunk; 
-
-	typedef std::vector<leveldb::Slice> CollectionSlicesT;
-	typedef std::map<std::string , leveldb::Slice> CollectionKeyValsT;
-	typedef std::vector<std::string>	CollectionBuffersT;
 
 	//5 ***************************请不要轻易改动,否则数据库无效************************************
 	const UINT32   MAX_KEY_LENGTH = 1024;    //5 key的最大长度为1024

@@ -1,6 +1,5 @@
 #include "ServerHandler.h"
 #include "GameDB/inc/DBCommon.h"
-#include "leveldb/slice.h"
 #include "RPCCallFuncs.h"
 
 Msg::ObjectMsgCall * Server::ServerHandler::HandleHMultiSet_RpcServer(INT32 nSessionID , Msg::Object objSrc , std_string &table/* = std::string()*/ , CUtilChunk & keyvalues/* = CUtil::Chunk()*/  )

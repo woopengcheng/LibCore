@@ -1,9 +1,8 @@
-#ifdef WIN32
-#include <Windows.h>
-#endif
-
 #include "GameDB/inc/BackupEnvironment.h"
-#include "filename.h"
+#include "GameDB/inc/LevelDB.h"
+#ifdef WIN32
+#include <windows.h>
+#endif
 
 namespace GameDB
 { 
@@ -19,7 +18,12 @@ namespace GameDB
 		}
 		else
 		{
-			s = target()->DeleteFile(strFile);
+			Env* pEnv = target();
+
+#ifdef DeleteFile
+#undef DeleteFile
+			s = pEnv->DeleteFile(strFile);
+#endif // DeleteFile
 		}
 
 		m_objMutex.Unlock();
@@ -30,10 +34,10 @@ namespace GameDB
 	bool BackupEnvironment::CheckCopyFile(const std::string& strName)
 	{
 		uint64_t llNumber = 0;
-		leveldb::FileType objType;
-		leveldb::ParseFileName(strName , &llNumber , &objType);
+		FileType objType;
+		GameDB::ParseFileName(strName , &llNumber , &objType);
 	
-		if (objType != leveldb::kTableFile && objType != leveldb::kDBLockFile)
+		if (objType != kTableFile && objType != kDBLockFile)
 		{
 			return true;
 		}
@@ -44,16 +48,16 @@ namespace GameDB
 	bool BackupEnvironment::CanCopyFile(const std::string& strName)
 	{
 		uint64_t llNumber = 0;
-		leveldb::FileType objType;
-		leveldb::ParseFileName(strName , &llNumber , &objType);
+		FileType objType;
+		GameDB::ParseFileName(strName , &llNumber , &objType);
 
 		switch(objType)
 		{
-		case leveldb::kCurrentFile:
-		case leveldb::kDescriptorFile:
-		case leveldb::kInfoLogFile:
-		case leveldb::kLogFile:
-		case leveldb::kTableFile: 
+		case kCurrentFile:
+		case kDescriptorFile:
+		case kInfoLogFile:
+		case kLogFile:
+		case kTableFile: 
 			return true;
 		}
 
@@ -64,12 +68,12 @@ namespace GameDB
 	{  
 #ifdef WIN32 
 		if(CreateHardLinkA(strDst.c_str(),strSrc.c_str(),NULL))
-			return leveldb::Status::OK();
-		return leveldb::Status::IOError("CreateHardLinkA");
+			return Status::OK();
+		return Status::IOError("CreateHardLinkA");
 #else
 		if(link(strSrc.c_str(),strDst.c_str()) == 0)
-			return leveldb::Status::OK();
-		return leveldb::Status::IOError("link");
+			return Status::OK();
+		return Status::IOError("link");
 #endif
 	}
 
@@ -161,8 +165,8 @@ namespace GameDB
 
 	Status BackupEnvironment::CloneFile( const std::string& strSrc,const std::string& strDst,int64_t llFileLength )
 	{
-		leveldb::WritableFile * pWriteFile = NULL;
-		leveldb::SequentialFile * pReadFile = NULL;
+		WritableFile * pWriteFile = NULL;
+		SequentialFile * pReadFile = NULL;
 		Status objStatus;
 
 		objStatus = target()->NewSequentialFile(strSrc , &pReadFile);
@@ -188,7 +192,7 @@ namespace GameDB
 				bytes = __min(llFileLength , MAX_DB_TEMP_BUFFER_LENGTH);
 			}
 
-			leveldb::Slice slice;
+			Slice slice;
 			objStatus = pReadFile->Read(bytes , &slice , pTmpBuf);
 			if(!objStatus.ok())
 				break;
@@ -216,8 +220,8 @@ namespace GameDB
 
 	Status BackupEnvironment::TouchFile(const std::string & strDir)
 	{
-		leveldb::WritableFile* pWriteFile = NULL;
-		leveldb::Status objStatus = target()->NewWritableFile(strDir , &pWriteFile);
+		WritableFile* pWriteFile = NULL;
+		Status objStatus = target()->NewWritableFile(strDir , &pWriteFile);
 		if(!objStatus.ok())
 			return objStatus;
 
@@ -226,4 +230,9 @@ namespace GameDB
 		return objStatus;
 	} 
 
+#ifdef UNICODE
+#define DeleteFile  DeleteFileW
+#else
+#define DeleteFile  DeleteFileA
+#endif // !UNICODE
 }

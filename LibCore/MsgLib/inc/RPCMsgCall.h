@@ -40,8 +40,7 @@ namespace Msg
 		typedef std::set<Msg::Object> CollectionTargetsT;
 
 	public:
-		RPCMsgCall(/*const CUtil::Parameters & objParams*/)   
-//			: ObjectMsgCall(objParams)
+		RPCMsgCall()
 			: m_bClientRequest(FALSE)
 			, m_ullTimeout(MAX_MSG_TIME_OUT)  
 			, m_objProxySrcID(DEFAULT_RPC_CALLABLE_ID)
@@ -49,6 +48,7 @@ namespace Msg
 			, m_objSyncType(SYNC_TYPE_NONSYNC)
 			, m_objSyncResult(SYNC_RESULT_START_RETURN)
 			, m_nReturnType(RETURN_TYPE_DONE)  //5 默认完成.
+			, m_nProxySessionID(0)
 		{  
 			memset(m_szSessionName , 0 , sizeof(m_szSessionName));
 			memset(m_szRemoteName , 0 , sizeof(m_szRemoteName));
@@ -59,7 +59,7 @@ namespace Msg
 			m_setDelayTargets.clear();
 		}
 
-	public: 
+	public:
 		static void * operator new(size_t size , UINT32 unExtra)throw()
 		{
 			return malloc(size + unExtra); 
@@ -73,8 +73,6 @@ namespace Msg
 	public:   
 		virtual UINT32 RefreshSize(); 
 		virtual void   RefreshTargets();
-// 		virtual UINT32 Serialization(char * pMsg);
-// 		virtual UINT32 UnSerialization(const char * pMsg);
 		virtual UINT32 GetPacketSize( void );
 
 	public:
@@ -93,21 +91,23 @@ namespace Msg
 
 
 	public:
-		void   SetSessionName(const char * pName){ memcpy(m_szSessionName , pName , strlen(pName) + 1); }
-		char * GetSessionName(){ return m_szSessionName; }
-		void   SetProxySrcID(Object objProxySrcID){ m_objProxySrcID = objProxySrcID; }
-		Object GetProxySrcID(){ return m_objProxySrcID; }
-		INT32  GetRpcMsgCallType() const { return m_nRpcMsgCallType; }
-		void   SetRpcMsgCallType(INT32 val) { m_nRpcMsgCallType = val; }
-		void   SetSyncType(EMSG_SYNC_TYPE val) { m_objSyncType = val; }
+		INT32	GetProxySessionID() const { return m_nProxySessionID; }
+		void	SetProxySessionID(INT32 val) { m_nProxySessionID = val; }
+		void	SetSessionName(const char * pName){ memcpy(m_szSessionName , pName , strlen(pName) + 1); }
+		char *	GetSessionName(){ return m_szSessionName; }
+		void	SetProxySrcID(Object objProxySrcID){ m_objProxySrcID = objProxySrcID; }
+		Object	GetProxySrcID(){ return m_objProxySrcID; }
+		INT32	GetRpcMsgCallType() const { return m_nRpcMsgCallType; }
+		void	SetRpcMsgCallType(INT32 val) { m_nRpcMsgCallType = val; }
+		void	SetSyncType(EMSG_SYNC_TYPE val) { m_objSyncType = val; }
 		EMSG_SYNC_TYPE GetSyncType( void ){ return m_objSyncType; }
-		void   SetSyncResult(EMSG_SYNC_RESULT val) { m_objSyncResult = val; }
+		void	SetSyncResult(EMSG_SYNC_RESULT val) { m_objSyncResult = val; }
 		EMSG_SYNC_RESULT GetSyncResult( void ){ return m_objSyncResult; }
-		INT32 GetReturnType() const { return m_nReturnType; }
-		void AddReturnType(Msg::ERPCRETURN_TYPE val) { m_nReturnType = m_nReturnType | val; }
-		void ResetReturnType() { m_nReturnType = RETURN_TYPE_DONE; }
-		void AddDelayTarget(Msg::Object obj);
-		void ReplaceDelayTarget();
+		INT32	GetReturnType() const { return m_nReturnType; }
+		void	AddReturnType(Msg::ERPCRETURN_TYPE val) { m_nReturnType = m_nReturnType | val; }
+		void	ResetReturnType() { m_nReturnType = RETURN_TYPE_DONE; }
+		void	AddDelayTarget(Msg::Object obj);
+		void	ReplaceDelayTarget();
 
 	public: 
 		virtual CUtil::CStream & marshal(CUtil::CStream & cs);
@@ -119,6 +119,7 @@ namespace Msg
 
 		//5 下面的参数是不参与网络传输的.
 	protected:
+		INT32				m_nProxySessionID;
 		char				m_szSessionName[MAX_NAME_LENGTH];
 		Object				m_objProxySrcID;
 		INT32				m_nRpcMsgCallType;

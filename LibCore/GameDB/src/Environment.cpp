@@ -2,7 +2,6 @@
 #include "GameDB/inc/Comparator.h"
 #include "GameDB/inc/Database.h" 
 #include "GameDB/inc/BackupEnvironment.h" 
-#include "leveldb/cache.h"
 #include "LogLib/inc/Log.h"
 #include "CUtil/inc/CUtil.h"
 #include "GameDB/inc/User.h"
@@ -16,11 +15,11 @@ namespace GameDB
 		, m_objDefaultOptions(objValue) 
 	{
 		m_pComparator = new Comparator;
-		m_pBackupEnv = new BackupEnvironment(leveldb::Env::Default()); 
+		m_pBackupEnv = new BackupEnvironment(Env::Default()); 
 	
 		std::vector<std::string> vecDatabases;
-		leveldb::Env::Default()->CreateDir(m_strDirectory);
-		leveldb::Env::Default()->GetChildren(m_strDirectory , &vecDatabases);
+		Env::Default()->CreateDir(m_strDirectory);
+		Env::Default()->GetChildren(m_strDirectory , &vecDatabases);
 
 		std::vector<std::string>::iterator iter = vecDatabases.begin();
 		for (;iter != vecDatabases.end();++iter)
@@ -77,7 +76,7 @@ namespace GameDB
 			return pDatabase;
 		}
 
-		leveldb::Options objOptions;
+		Options objOptions;
 		MakeOptions(objOptions); 
 		objOptions.create_if_missing = true;
 		objOptions.error_if_exists = true;
@@ -123,7 +122,7 @@ namespace GameDB
 			return NULL;
 		}
 
-		leveldb::Options objOptions;
+		Options objOptions;
 		MakeOptions(objOptions); 
 		objOptions.create_if_missing = true;
  		objOptions.error_if_exists = false;
@@ -167,7 +166,7 @@ namespace GameDB
 	{
 		std::string strDatabaseDir = m_strDirectory + strName;
 		
-		Status objStatus = leveldb::RepairDB(strDatabaseDir , leveldb::Options());
+		Status objStatus = GameDB::RepairDB(strDatabaseDir , Options());
 		if (!objStatus.ok())
 		{
 			gErrorStream("repair db fail." << objStatus.ToString());
@@ -196,7 +195,7 @@ namespace GameDB
 		}		
 	} 
 
-	void Environment::MakeOptions(leveldb::Options & objOptions)
+	void Environment::MakeOptions(Options & objOptions)
 	{
 		std::string  strCompress = "none";
 		INT64        llCacheSize = -1;
@@ -218,16 +217,16 @@ namespace GameDB
 		if (llWriteBufferSize > 0) 
 			objOptions.write_buffer_size = llWriteBufferSize;
 		if (llCacheSize > 0) 
-			objOptions.block_cache = leveldb::NewLRUCache(llCacheSize);;
+			objOptions.block_cache = NewLRUCache(llCacheSize);;
 		if (strCompress == "snappy") 
-			objOptions.compression = leveldb::kSnappyCompression;
+			objOptions.compression = kSnappyCompression;
 
 		objOptions.env = m_pBackupEnv;
 	}
 
-	leveldb::Env * GetDefaultEnv()
+	Env * GetDefaultEnv()
 	{ 
-		return leveldb::Env::Default();
+		return Env::Default();
 	}
 
 }

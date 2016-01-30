@@ -16,7 +16,7 @@ extern "C"
 namespace Net
 {
 	NetHandlerClient::NetHandlerClient(INetReactor * pNetReactor, ISession * pSession, MsgProcess * pMsgProcess /*= NULL*/)
-		: NetMsgQueue(pNetReactor, pSession)
+		: NetHandlerPing(pNetReactor, pSession)
 		, m_pMsgProcess(pMsgProcess)
 	{
 		Assert(m_pSession);
@@ -78,30 +78,30 @@ namespace Net
 		return CErrno::Failure();
 	}
 
-	CErrno NetHandlerClient::Init(const char* ip, int port)
+	CErrno NetHandlerClient::Init(const std::string & ip, int port)
 	{
 		m_pSession->SetAddress(ip);
 		m_pSession->SetSocktPort(port);
 
-		if (m_pSession->IsClosed() && !Connect(ip, port))
+		if (m_pSession->IsClosed() && !Connect(ip.c_str(), port))
 		{
-			gDebugStream("Connect Init success" << m_pSession->GetRemoteName());
+			gDebugStream("Connect success:nodeName=" << m_pSession->GetCurNodeName() << ":ip=" << ip << ":port=" << port);
 			m_pSession->SetClosed(FALSE);
 			m_pSession->SetNetState(NET_STATE_CONNECTED);
 
-			return NetMsgQueue::Init();
+			return NetHandlerPing::Init();
 		}
 		return CErrno::Failure();
 	}
 
 	CErrno NetHandlerClient::Cleanup(void)
 	{
-		return NetMsgQueue::Cleanup();
+		return NetHandlerPing::Cleanup();
 	}
 
 	INT32 NetHandlerClient::Connect(const char* ip, int port)
 	{
-		Assert_ReF1(m_pSession && ip);
+		Assert_ReF1(m_pSession);
 		INT32 nResult = -1;
 
 		switch (m_pSession->GetReactorType())
@@ -236,17 +236,20 @@ namespace Net
 			NetHelper::CloseSocket(socket);
 			m_pSession->SetSocket(-1);
 
-			gErrorStream("Connect failure ip:" << m_pSession->GetRemoteName() << "socket:" << socket);
+			gErrorStream("Connect failure :nodeName=" << m_pSession->GetCurNodeName() << ":socket=" << socket);
 		}
 		else
-			gDebugStream("Connect success ip:" << m_pSession->GetRemoteName() << "socket:" << socket);
+		{
+			aio = 1;
+			NetHelper::SetIOCtrl(socket, FIONBIO, &aio);
+		}
 
 		return  nResult;
 	}
 	
 	CErrno NetHandlerClient::OnClose(void)
 	{
-		return NetMsgQueue::OnClose();
+		return NetHandlerPing::OnClose();
 	}
 
 	BOOL NetHandlerClient::Reconnect(void)
@@ -265,7 +268,7 @@ namespace Net
 		CErrno result(CErrno::ERR_FAILURE);
 		if (m_pSession)
 		{
-			nResult = Connect(m_pSession->GetAddress(), m_pSession->GetPort());
+			nResult = Connect(m_pSession->GetAddress().c_str(), m_pSession->GetPort());
 			if (!nResult)
 			{
 				m_pSession->SetNetState(Net::NET_STATE_CONNECTED);
@@ -282,7 +285,7 @@ namespace Net
 	{
 		Reconnect();
 
-		return NetMsgQueue::Update();
+		return NetHandlerPing::Update();
 	}
 	
 	CErrno  NetHandlerClient::HandleMsg(ISession * pSession, UINT32 unMsgID, const char* pBuffer, UINT32 unLength)

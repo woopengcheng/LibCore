@@ -1,8 +1,6 @@
 #ifndef __gamedb_backup_environment_h__ 
 #define __gamedb_backup_environment_h__
 #include "GameDB/inc/DBCommon.h"
-#include "leveldb/env.h"
-#include "port/port.h"
 
 namespace GameDB
 {
@@ -14,19 +12,19 @@ namespace GameDB
 		std::string strDstDir;
 	};
 
-	class BackupEnvironment : public leveldb::EnvWrapper
+	class BackupEnvironment : public EnvWrapper
 	{
 	public:
 		typedef std::vector<std::string> CollectionWillDeleteFilesT;
 
 	public:
 		BackupEnvironment()
-			: EnvWrapper(leveldb::Env::Default())
+			: EnvWrapper(Env::Default())
 			, m_bBackuping(FALSE)
 		{
 
 		}
-		explicit BackupEnvironment(leveldb::Env * pEnv)
+		explicit BackupEnvironment(Env * pEnv)
 			: EnvWrapper(pEnv)
 			, m_bBackuping(FALSE)
 		{
@@ -49,7 +47,7 @@ namespace GameDB
 
 	protected:
 		BOOL						 m_bBackuping;		//5 是否正在备份,用于删除文件之用
-		leveldb::port::Mutex		 m_objMutex;
+		DBMutex						 m_objMutex;
 		CollectionWillDeleteFilesT	 m_vecWillDeleteFiles;
 	}; 
 }

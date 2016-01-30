@@ -13,6 +13,7 @@
 #include "MsgLib/inc/RpcManager.h"
 #include "Timer/inc/TimerHelp.h" 
 #include "CUtil/inc/carg_parser.h"
+#include "GameDB/inc/RemoteNodeDefine.h"
 #include "json/json.h" 
 #include "MsgNameDefine.h"  
 #include "RPCCallFuncs.h"
@@ -161,7 +162,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	//5 连接服务器,并建立双连接..
 	Client::DBClient::GetInstance().Init(root);  
-	while (!Client::DBClient::GetInstance().GetRpcManager()->IsAllConnected())
+	while (!Client::DBClient::GetInstance().GetRpcManager()->IsConnected(g_strGameDBNodes[NETNODE_DBCLIENT_TO_DBSERVER]))
 	{
 		Client::DBClient::GetInstance().Update(); 
 		Timer::TimerHelper::sleep(1);
@@ -172,7 +173,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	std::string strName = root.get("user" , "admin" ).asString();
 	std::string strPwd = root.get("pwd" , "admin").asString();
 	 
-	Client::rpc_HandleUserAuth("tcp://127.0.0.1:8001" , 1 , 0 , strName , strPwd, 0 , Msg::SYNC_TYPE_NONSYNC);
+	Client::rpc_HandleUserAuth(g_strGameDBNodes[NETNODE_DBCLIENT_TO_DBSERVER], 1 , 0 , strName , strPwd, 0 , Msg::SYNC_TYPE_NONSYNC);
 
 	std::vector<std::string> vecParams;
 	int nargc = 0;
@@ -182,12 +183,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		Client::DBClient::GetInstance().Update(); 
 
-		if (!Client::DBClient::GetInstance().GetRpcManager()->IsAllConnected())
+		if (!Client::DBClient::GetInstance().GetRpcManager()->IsConnected(g_strGameDBNodes[NETNODE_DBCLIENT_TO_DBSERVER]))
 		{ 
 			continue;
 		}
 
-		if (Client::DBClient::GetInstance().GetRpcManager()->IsAllConnected())
+		if (Client::DBClient::GetInstance().GetRpcManager()->IsConnected(g_strGameDBNodes[NETNODE_DBCLIENT_TO_DBSERVER]))
 		{
 			char * pLine = ReadLine(clientComands); 
 			if (strlen(pLine) <= 1)

@@ -3,6 +3,7 @@
 #include "Timer/inc/TimerHelp.h"
 #include "ThreadPool/inc/ThreadContext.h"
 #include "ThreadPool/inc/ThreadState.h"
+#include "LogLib/inc/Log.h"
 #include <signal.h> 
 
 namespace ThreadPool
@@ -267,6 +268,7 @@ namespace ThreadPool
 	{
 		if (HasPriorityThread(unPriority))
 		{
+			gErrorStream("create thread failed. repeat priority , priorityID=" << unPriority);
 			return CErrno::Failure();
 		}
 		else

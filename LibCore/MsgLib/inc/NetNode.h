@@ -2,7 +2,6 @@
 #define __msg_net_node_h__
 #include "MsgLib/inc/MsgCommon.h"
 #include "NetLib/inc/ISession.h"
-#include "CUtil/inc/RemoteNodeDefine.h"
 
 namespace Msg
 {

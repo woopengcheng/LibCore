@@ -1,5 +1,5 @@
 #include "ThreadPool/inc/ThreadPoolInterface.h"
-#include "CUtil/inc/RemoteNodeDefine.h"
+#include "GameDB/inc/RemoteNodeDefine.h"
 #include "DBMaster.h"
 #include "MasterHandler.h"
 #include "RPCCallFuncs.h"
@@ -8,7 +8,7 @@
 namespace Server
 {
 	DBMaster::DBMaster(void)
-		: ThreadPool::ThreadSustainTask(0 , "DBMaster" )
+		: ThreadPool::ThreadSustainTask(101 , "DBMaster" )
 		, m_nHandlerCount(0)
 	{
 		m_pRpcListener = new MasterListener(this);
@@ -48,6 +48,7 @@ namespace Server
 		{     
 			Json::Value objThread = conf[i]; 
 			UINT32 priority = objThread.get("priority" , 0).asUInt();
+			SetThreadPriority(priority);
 			UINT32 count = objThread.get("count" , 1).asUInt(); 
 
 			mapThreads[priority] = count;    
@@ -97,13 +98,13 @@ namespace Server
 	{
 		if (m_pDBMaster)
 		{
-			if (strNetNodeName == g_netnodes[NETNODE_DBSLAVE])
+			if (strNetNodeName == g_strGameDBNodes[NETNODE_DBMASTER_TO_DBSLAVE])
 			{
 				INT32 nMasterHandlerID = m_pDBMaster->CreateMasterHandler(nSessionID);
 				rpc_SyncMasterHandler(nSessionID, Msg::Object(1) , Msg::Object(nMasterHandlerID) , nMasterHandlerID);
 			}
 
-			if (strNetNodeName == g_netnodes[NETNODE_DBSERVER])
+			if (strNetNodeName == g_strGameDBNodes[NETNODE_DBMASTER_TO_DBSERVER])
 			{
 				INT32 nMasterHandlerID = m_pDBMaster->CreateMasterHandler(nSessionID);
 

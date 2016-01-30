@@ -1,5 +1,6 @@
 #include "MasterHandler.h"
 #include "GameDB/inc/User.h"
+#include "GameDB/inc/RemoteNodeDefine.h"
 
 Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcServerProxy(INT32 nSessionID , Msg::Object objSrc , std_string &name/* = std::string()*/ , std_string & pwd/* = std::string()*/)
 {
@@ -7,7 +8,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::SlaveStartAuth_RpcServerProxy(INT32 
 
 	CreateSlaveRecord(objSrc);
 
-	if(-1 == ProxySendMsg("tcp://127.0.0.1:8001" , 1 , name , pwd))
+	if(-1 == ProxySendMsg(g_strGameDBNodes[NETNODE_DBMASTER_TO_DBSERVER], 1 , name , pwd))
 	{
 		Return(value);
 	}

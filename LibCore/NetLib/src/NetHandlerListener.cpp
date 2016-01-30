@@ -171,17 +171,17 @@ namespace Net
 			char szAddress[MAX_NAME_LENGTH];
 			UINT16 usPort = 0;
 			Net::NetHelper::GetAddressAndPortByAddrIn(addr , szAddress , usPort);
-			std::string strName = Net::NetHelper::GenerateRemoteName(NET_TYPE_TCP , szAddress , usPort);
-
-			ServerSession * pServerSession = new ServerSession(szAddress , usPort , strName.c_str() , 0 , -1 , socket);
+			std::string strName = "";
+			if (m_pNetReactor && m_pNetReactor->GetNetThread())
+			{
+				strName = m_pNetReactor->GetNetThread()->GetNetNodeName();
+			}
+			ServerSession * pServerSession = new ServerSession(szAddress , usPort , strName , "" , -1, NET_STATE_CONNECTED , socket);
+			pServerSession->SetNetState(NET_STATE_CONNECTED);
 			NetHandlerServerPtr pServer( new NetHandlerServer(m_pNetReactor , pServerSession) ); 
 			m_pNetReactor->AddNetHandler(pServer); 
-
-			NetThread * pThread = m_pNetReactor->GetNetThread();
-			if (pThread)
-			{
-				pThread->AcceptSession(pServerSession);
-			}
+			
+			gDebugStream("accept client. address:" << szAddress << "=port:" << usPort);
 		} 
 	}
 

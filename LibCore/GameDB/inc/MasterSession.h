@@ -16,7 +16,7 @@ namespace GameDB
 
 		}
 	};
-
+/*
 	class DLL_EXPORT MasterSession : public Net::ClientSession
 	{
 	public:
@@ -42,7 +42,7 @@ namespace GameDB
 
 	private:
 		SDBMasterInfo m_objMasterInfo;
-	}; 
+	}; */
 
 }
 

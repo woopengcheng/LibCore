@@ -19,6 +19,7 @@
 #include "MsgLib/inc/RpcManager.h"
 #include "SlaveHandler.h" 
 #include "ThreadPool/inc/ThreadPoolInterface.h"
+#include "GameDB/inc/RemoteNodeDefine.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {  
@@ -37,11 +38,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	gDebugStream("run mode in " << strRunMode);
 	if (strRunMode.compare("master") == 0)
 	{
-		Json::Value objMaster = root.get("master" , Json::Value());
+		Json::Value objMaster = root.get("master", Json::Value());
 		Server::DBMaster::GetInstance().Init(objMaster);
 
-		Json::Value objDBServer = root.get("server" , Json::Value());
-		Server::DBServer::GetInstance().Init(objDBServer);  
+		Json::Value objDBServer = root.get("server", Json::Value());
+		Server::DBServer::GetInstance().Init(objDBServer);
 
 		static Server::ServerHandler  ObjTestObject(&Server::DBServer::GetInstance()); 
 		static Server::MasterHandler  ObjMasterHandler(10000,0,&Server::DBMaster::GetInstance()); 
@@ -63,12 +64,13 @@ int _tmain(int argc, _TCHAR* argv[])
 		gDebugStream("waiting slave connect master.");
 		while(1)
 		{
-			if (Server::DBSlave::GetInstance().GetRpcManager()->IsAllConnected() && Server::DBSlave::GetInstance().GetMasterSessionID() > 0)
+			if (Server::DBSlave::GetInstance().GetRpcManager()->IsConnected(g_strGameDBNodes[NETNODE_DBSLAVE_TO_DBMASTER]) && Server::DBSlave::GetInstance().GetMasterID() > 0)
 			{
 				Server::DBSlave::GetInstance().StartAuth();
 				gDebugStream("slave connect success.");
 				break;
 			}
+			Server::DBSlave::GetInstance().Update();
 		}
 	}
 
@@ -76,6 +78,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		if (strRunMode.compare("slave") != 0) 
 			Server::DBServer::GetInstance().Update();
+		else
+		{
+			Server::DBSlave::GetInstance().Update();
+		}
 
 		if(remove("./quit") == 0)
 		{

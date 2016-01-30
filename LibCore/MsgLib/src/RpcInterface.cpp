@@ -3,6 +3,7 @@
 #include "MsgLib/inc/NetNode.h"
 #include "MsgLib/inc/RPCMsgCall.h"
 #include "Timer/inc/TimerHelp.h"
+#include "NetLib/inc/NetThread.h"
 
 namespace Msg
 { 
@@ -29,9 +30,15 @@ namespace Msg
 	
 	CErrno RpcInterface::Init(Json::Value & conf)
 	{   
-		if (m_pRpcManager)
+		if (!m_pRpcManager)
 		{
 			m_pRpcManager = new RpcManager(this);
+			m_pRpcManager->Init();
+		}
+		if (!m_pNetThread)
+		{
+			m_pNetThread = new Net::NetThread;  //5 作为一个Task线程会自动释放.以及调用cleanup.
+			m_pNetThread->Init(conf);
 		}
 
 		RegisterRpc();
@@ -46,7 +53,7 @@ namespace Msg
 			m_pRpcManager->Cleanup();
 			SAFE_DELETE(m_pRpcManager);
 		}
-		
+				
 		return CErrno::Success();
 	} 
 	
@@ -66,10 +73,8 @@ namespace Msg
 		if (m_pRpcManager)
 		{  
 			INT32 nResult = m_pRpcManager->SendMsg(nSessionID , pMsg , bAddRpc);
-			if (nResult >= 0 && bAddRpc)
+			if (nResult >= 0)
 			{
-				m_pRpcManager->InsertSendRpc(pMsg); 
-
 				TakeOverSync(pMsg);
 			}
 			return nResult;

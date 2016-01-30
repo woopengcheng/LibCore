@@ -785,6 +785,7 @@ def GenerateRpcRegisterHeader(fileRpc , rpcNamespace) :
 	fileRpc.write("#include \"MsgLib/inc/RpcCheckParams.h\"\n") 
 	fileRpc.write("#include \"CUtil/inc/Chunk.h\"\n")  
 	fileRpc.write("#include \"MsgNameDefine.h\"\n")  
+	fileRpc.write("#include \"GlobalRpc.h\"\n") 
 	GenerateRpcRegisterHeaderInclude(fileRpc , rpcNamespace)
 
 	sameNamespace = collections.OrderedDict()

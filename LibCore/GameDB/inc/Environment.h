@@ -1,8 +1,6 @@
 #ifndef __gamedb_environment_h__ 
 #define __gamedb_environment_h__
 #include "GameDB/inc/DBCommon.h"
-#include "leveldb/options.h"
-#include "leveldb/env.h"
 #include "json/value.h"
 
 namespace GameDB
@@ -11,12 +9,12 @@ namespace GameDB
 	class Comparator;
 	class BackupEnvironment;
 
-// 	class DLL_EXPORT GameDBEnv : public leveldb::Env
+// 	class DLL_EXPORT GameDBEnv : public Env
 // 	{
 // 
 // 	};
 
-	extern DLL_EXPORT leveldb::Env * GetDefaultEnv();
+	extern DLL_EXPORT Env * GetDefaultEnv();
 
 	class DLL_EXPORT Environment 
 	{
@@ -40,7 +38,7 @@ namespace GameDB
 		BackupEnvironment * GetBackupEnv() const { return m_pBackupEnv; } 
 
 	protected:
-		void       MakeOptions(leveldb::Options & objOptions);
+		void       MakeOptions(Options & objOptions);
 
 	protected:
 		std::string		  	  m_strDirectory; 

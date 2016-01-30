@@ -16,7 +16,7 @@ namespace GameDB
 	}
 
 	CErrno DBClientInterface::Init(Json::Value & conf)
-	{    
+	{
 		return RpcInterface::Init(conf);
 	}
 

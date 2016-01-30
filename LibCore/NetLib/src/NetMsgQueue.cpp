@@ -1,11 +1,14 @@
 #include "NetLib/inc/NetMsgQueue.h"
 #include "NetLib/inc/INetReactor.h"
+#include "NetLib/inc/Ping.h"
 
 namespace Net
 { 	
 	CErrno NetMsgQueue::HandleMsg(const char* pBuffer, UINT32 unLength)
 	{
-		if (m_pNetReactor->IsMutilThread())
+		MsgHeader * pHeader = (MsgHeader*)pBuffer;
+
+		if (m_pNetReactor->IsMutilThread() && pHeader && pHeader->unMsgID != DEFAULT_MSG_PING_ID)
 		{
 			CUtil::Chunk objChunk(pBuffer, unLength);
 			m_queRecvMsgQueues.push(objChunk);

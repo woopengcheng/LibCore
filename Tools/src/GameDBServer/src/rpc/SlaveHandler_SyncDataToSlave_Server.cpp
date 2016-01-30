@@ -25,7 +25,7 @@ Msg::ObjectMsgCall * Server::SlaveHandler::SyncDataToSlave_RpcServer(INT32 nSess
 				std::string dbKey , value;
 				cs >> dbKey >> value;
 
-				leveldb::Status status = m_pDatabase->QuickWrite(GameDB::Slice(dbKey),GameDB::Slice(value));
+				GameDB::Status status = m_pDatabase->QuickWrite(GameDB::Slice(dbKey),GameDB::Slice(value));
 				MsgAssert_Re0(status.ok() , "slave write error.");
 			}
 			break;
@@ -35,7 +35,7 @@ Msg::ObjectMsgCall * Server::SlaveHandler::SyncDataToSlave_RpcServer(INT32 nSess
 				std::string dbKey;
 				cs >> dbKey;
 
-				leveldb::Status status = m_pDatabase->QuickDel(GameDB::Slice(dbKey));
+				GameDB::Status status = m_pDatabase->QuickDel(GameDB::Slice(dbKey));
 				MsgAssert_Re0(status.ok() , "slave delete error.");
 			}
 			break;

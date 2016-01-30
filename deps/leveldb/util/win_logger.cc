@@ -4,8 +4,6 @@
 
 #include "util/win_logger.h"
 
-#include <math.h>
-#include <cmath>
 #include <windows.h>
 
 namespace leveldb {

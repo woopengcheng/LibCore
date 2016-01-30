@@ -35,7 +35,7 @@ namespace Net
 		CErrno err;
 		if (m_pListener == NULL)
 		{
-			m_pListener = HttpServerListenerPtr(new HttpServerListener(this , m_pNetReactor , new ServerSession(pAddress , nPort , Net::NetHelper::GenerateRemoteName(NET_TYPE_TCP , pAddress , nPort).c_str())));
+			m_pListener = HttpServerListenerPtr(new HttpServerListener(this , m_pNetReactor , new ServerSession(pAddress , nPort , "")));
 			err = m_pListener->Init(pAddress , nPort , bResueAddr , nListenerCount);
 
 			if (err.IsSuccess())
@@ -59,9 +59,8 @@ namespace Net
 			char szAddress[MAX_NAME_LENGTH];
 			UINT16 usPort = 0;
 			Net::NetHelper::GetAddressAndPortByAddrIn(addr , szAddress , usPort);
-			std::string strName = Net::NetHelper::GenerateRemoteName(NET_TYPE_TCP , szAddress , usPort);
 
-			ServerSession * pServerSession = new HttpSession(szAddress , usPort , strName.c_str(), -1, 0 , socket);
+			ServerSession * pServerSession = new HttpSession(szAddress , usPort , "" , "", NET_STATE_CONNECTED , 0 , socket);
 			NetHandlerHttpServerPtr pServer( new NetHandlerHttpServer(this , m_pNetReactor , pServerSession) ); 
 			m_pNetReactor->AddNetHandler(pServer); 
 		} 

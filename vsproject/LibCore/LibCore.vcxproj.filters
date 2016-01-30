@@ -402,9 +402,6 @@
     <ClInclude Include="..\..\LibCore\CUtil\inc\Refcounted.h">
       <Filter>CUtil\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\CUtil\inc\RemoteNodeDefine.h">
-      <Filter>CUtil\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\CUtil\inc\SafeVariable.h">
       <Filter>CUtil\inc</Filter>
     </ClInclude>
@@ -525,9 +522,6 @@
     <ClInclude Include="..\..\LibCore\MsgLib\inc\NetNode.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\NetLib\inc\NetHandlerUDP.h">
-      <Filter>NetLib\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetLib.h">
       <Filter>NetLib\inc</Filter>
     </ClInclude>
@@ -550,6 +544,12 @@
       <Filter>GameDB\inc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\LibCore\GameDB\inc\DBClientInterface.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\db_port.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\RemoteNodeDefine.h">
       <Filter>GameDB\inc</Filter>
     </ClInclude>
   </ItemGroup>
@@ -823,6 +823,9 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\NetLib\src\NetHandlerPing.cpp">
       <Filter>NetLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\GameDB\src\LevelDB.cpp">
+      <Filter>GameDB\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

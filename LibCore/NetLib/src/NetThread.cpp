@@ -9,11 +9,7 @@ namespace Net
 		: ThreadPool::ThreadSustainTask(DEFAULT_THREAD_PRIORITY , "NetThread" , TRUE)
 		, m_usServerPort(0)
 		, m_pNetReactor(NULL)
-	{
-		memset(m_szAddress , 0 , sizeof(m_szAddress));
-		memset(m_szNetNodeName , 0 , sizeof(m_szNetNodeName));
-		memset(m_szRpcType , 0 , sizeof(m_szRpcType));
-
+	{ 
 	} 
 
 	NetThread::~NetThread(void)
@@ -52,7 +48,11 @@ namespace Net
 		Json::Value clients = conf.get("clients" , Json::Value()); 
 		StartupClient(clients); 
 
-		ThreadPool::ThreadPoolInterface::GetInstance().CreateThread(DEFAULT_THREAD_PRIORITY);
+		Json::Value netThead = conf.get("net_thread", Json::Value());
+		INT32 nPriority = netThead.get("priority", DEFAULT_THREAD_PRIORITY).asInt();
+
+		SetThreadPriority(nPriority);
+		ThreadPool::ThreadPoolInterface::GetInstance().CreateThread(nPriority);
 		ThreadPool::ThreadPoolInterface::GetInstance().AddTask(this);
 
 		return CErrno::Success(); 
@@ -137,28 +137,26 @@ namespace Net
 
 	CErrno NetThread::StartupServer(const std::string & strNetNodeName , const std::string & strType , const std::string & strAddress , const std::string & strPort)
 	{
-		std::string str = Net::NetHelper::GenerateRemoteName(strType.c_str() , strAddress.c_str() , strPort.c_str());
-
 		m_usServerPort = atoi(strPort.c_str());
-		memcpy(m_szAddress , strAddress.c_str() , strAddress.length());
-		memcpy(m_szNetNodeName , strNetNodeName.c_str() , strNetNodeName.length());
-		memcpy(m_szRpcType , strType.c_str() , strType.length()); 
+		m_strNetNodeName = strNetNodeName;
+		m_strAddress = strAddress;
+		m_strRpcType = strType;
 
-		Net::ISession * pSeesion = new Net::ServerSession(strAddress.c_str() , m_usServerPort , str.c_str());
+		Net::ISession * pSeesion = new Net::ServerSession(strAddress.c_str() , m_usServerPort , m_strNetNodeName);
 		NetHandlerListenerPtr pListener(new NetHandlerListener(m_pNetReactor , pSeesion));
 		if (CErrno::Failure() == pListener->Init(strAddress.c_str(), m_usServerPort))
 		{
-			gErrorStream("NetHandlerListener init failure:" << str << ":address=" << strAddress << ":port=" << m_usServerPort);
+			gErrorStream("NetHandlerListener init failure:" << m_strNetNodeName << ":address=" << strAddress << ":port=" << m_usServerPort);
 			return CErrno::Failure();
 		}
 
 		if (!(m_pNetReactor->AddNetHandler(pListener, Net::NET_FUNC_ACCEPT_DEFAULT)).IsSuccess())
 		{
-			gDebugStream("StartupRPCServer AddNetHandler failure:" << str);
+			gErrorStream("StartupRPCServer AddNetHandler failure:" << strNetNodeName << ":address=" << strAddress << ":port=" << m_usServerPort);
 			return CErrno::Failure();
 		}
 
-		gDebugStream("StartupRPCServer success:" << str);
+		gDebugStream("StartupRPCServer success:" << strNetNodeName << ":address=" << strAddress << ":port=" << m_usServerPort);
 		return CErrno::Success();
 	}
 	
@@ -169,11 +167,12 @@ namespace Net
 		{     
 			Json::Value client = clients[i];
 
+//			std::string strNodeName = client.get("server_node_name", "").asCString();  //5 连接的服务端的名字.如果没有就随机一个,代表这个不重要.
 			std::string strType = client.get("type" , "tcp").asCString();
 			std::string strAddress = client.get("address", "127.0.0.1").asCString();
 			std::string strPort = client.get("port", "8001").asCString();
-
-			INetHandlerPtr pNetHandler = CreateClientHandler("", strAddress.c_str(), atoi(strPort.c_str()));
+			
+			INetHandlerPtr pNetHandler = CreateClientHandler(m_strNetNodeName, "" , strAddress.c_str(), atoi(strPort.c_str()));
 			if (!pNetHandler)
 			{
 				return CErrno::Failure();
@@ -182,15 +181,23 @@ namespace Net
 		return CErrno::Success();
 	} 
 
-	INetHandlerPtr NetThread::CreateClientHandler(const char * pName, const char * pAddress, UINT16 usPort, Net::NetSocket socket /*= 0*/, void * context/* = NULL*/)
+	INetHandlerPtr NetThread::CreateClientHandler(std::string strNodeName, std::string  strUUID, const char * pAddress, UINT16 usPort, Net::NetSocket socket /*= 0*/, void * context/* = NULL*/)
 	{
-		if (!pName || !pAddress)
+		if (!pAddress)
 		{
+			gErrorStream("createClientHandler error.");
 			return NULL;
 		}
-
-		Net::ClientSession * pSession = new Net::ClientSession(pAddress, usPort, pName);
+		
+		if (strUUID == "")
+		{
+			char buf[256] = { 0 };
+			CUtil::GenerateUUIDBySys(buf);
+			strUUID = buf;
+		}
+		Net::ClientSession * pSession = new Net::ClientSession(pAddress, usPort, strNodeName.c_str());
 		NetHandlerClientPtr pNetHandler(new NetHandlerClient(m_pNetReactor, pSession));
+		pSession->SetPeerUUID(strUUID.c_str());
 
 		CErrno nResult = pNetHandler->Init();
 		if (nResult.IsSuccess())
@@ -203,13 +210,21 @@ namespace Net
 			pSession->SetNetState(Net::NET_STATE_LOSTED);
 		}
 
+		SPeerKeey objCreateInfo;
+		objCreateInfo.strAddress = pAddress;
+		objCreateInfo.strNodeName = strNodeName;
+		objCreateInfo.strUUID = strUUID;
+		objCreateInfo.usPort = usPort;
+
 		SPeerInfo objPeer;
 		objPeer.nSessionID = pSession->GetSessionID();
+		objPeer.nPeerSessionID = -1;
 		objPeer.usPeerPort = usPort;
-		objPeer.nPeerSessionID = 0;		
-		memcpy(objPeer.szNodeName, pName, strlen(pName) + 1);
-		memcpy(objPeer.szAddress, pAddress, strlen(pAddress) + 1);
-		AddPeerSession(PeerKey(pAddress , usPort), objPeer);
+		objPeer.nState = PING_STATE_PINGING;
+		objPeer.strAddress = pAddress;
+		objPeer.strCurNodeName = strNodeName;
+
+		AddPeerSession(objCreateInfo , objPeer);
 		return pNetHandler;
 	}
 
@@ -223,22 +238,7 @@ namespace Net
 
 		return -1;
 	}
-
-	void NetThread::AcceptSession(ISession * pSession)
-	{
-		if (pSession)
-		{
-			PeerKey peerKey(pSession->GetAddress(), pSession->GetPort());
-
-			SPeerInfo objPeer;
-			objPeer.nSessionID = 0;
-			objPeer.usPeerPort = pSession->GetPort();
-			objPeer.nPeerSessionID = pSession->GetSessionID();
-			memcpy(objPeer.szAddress, pSession->GetAddress(), sizeof(objPeer.szAddress));
-			AddPeerSession(peerKey, objPeer);
-		}
-	}
-
+	
 	CErrno NetThread::FetchSession(std::vector<SPeerInfo> & vecSessions)
 	{
 		SPeerInfo sessions;
@@ -250,21 +250,22 @@ namespace Net
 		return CErrno::Success();
 	}
 
-	CErrno NetThread::AddPeerSession(PeerKey objKey, SPeerInfo & objPeerInfo)
+	CErrno NetThread::AddPeerSession(const SPeerKeey & objKey,const SPeerInfo & objPeerInfo)
 	{
 		MapPeerSessionT::iterator iter = m_mapPeerSessions.find(objKey);
 		if (iter != m_mapPeerSessions.end())
 		{
 			if (iter->second.nState == PING_STATE_PINGING)
 			{
-				if (objPeerInfo.nSessionID == 0)
-				{
-					iter->second.nSessionID = objPeerInfo.nSessionID;
-				}
-				if (objPeerInfo.nPeerSessionID == 0)
+				if (objPeerInfo.nSessionID == -1)
 				{
 					iter->second.nPeerSessionID = objPeerInfo.nPeerSessionID;
 				}
+				if (objPeerInfo.nPeerSessionID == -1)
+				{
+					iter->second.nSessionID = objPeerInfo.nSessionID;
+				}
+				iter->second.strRemoteNodeName = objPeerInfo.strRemoteNodeName;
 				iter->second.nState = PING_STATE_PINGED;
 				m_queAceeptSessions.push(iter->second);
 			}
@@ -279,10 +280,10 @@ namespace Net
 
 	CErrno NetThread::FetchClientsQueue()
 	{
-		PeerKey key;
+		SPeerKeey key;
 		while (m_queCreateClients.try_pop(key))
 		{
-			INetHandlerPtr pNetHandler = CreateClientHandler("", key.first.c_str(), key.second);
+			INetHandlerPtr pNetHandler = CreateClientHandler(key.strNodeName, key.strUUID ,key.strAddress.c_str(), key.usPort);
 			if (!pNetHandler)
 			{
 				continue;
@@ -292,11 +293,25 @@ namespace Net
 		return CErrno::Success();
 	}
 
-	CErrno NetThread::InsertClientsQueue(const char * pAddress , UINT16 usPort)
+	CErrno NetThread::InsertClientsQueue(const std::string & strNodeName, const std::string & strAddress, UINT16 usPort)
 	{
-		m_queCreateClients.push(std::make_pair(pAddress, usPort));
+		char buf[256] = { 0 };
+		CUtil::GenerateUUIDBySys(buf);
+		std::string strUUID = buf;
+		m_queCreateClients.push(SPeerKeey(strNodeName , strUUID , strAddress , usPort));
 
 		return CErrno::Success();
+	}
+
+	SPeerInfo		NetThread::GetPeerInfo(const SPeerKeey & objInfo)
+	{
+		MapPeerSessionT::iterator iter = m_mapPeerSessions.find(objInfo);
+		if (iter != m_mapPeerSessions.end())
+		{
+			return iter->second;
+		}
+
+		return SPeerInfo();
 	}
 
 }

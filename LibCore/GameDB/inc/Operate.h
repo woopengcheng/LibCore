@@ -21,7 +21,7 @@ namespace GameDB
 		bool		IsSuccess(){ return m_nErrorCode == CErrno::Success(); }
 		bool		IsNotFound(){ return m_nErrorCode == CErrno::NotFound(); }
 		void		SetErrorCode(CErrno code){ m_nErrorCode = code; }
-		void		SetErrorCode(const leveldb::Status& status)
+		void		SetErrorCode(const Status& status)
 		{
 			if(status.ok())
 				m_nErrorCode = CErrno::Success();

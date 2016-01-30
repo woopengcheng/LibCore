@@ -119,6 +119,9 @@
     <ClCompile Include="src\DBClientHttpServer.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\DBClient.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">

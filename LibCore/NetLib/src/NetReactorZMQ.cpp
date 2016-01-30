@@ -50,9 +50,9 @@ namespace Net
 				}
 
 				if (bClosed)
-				{ 
-					gDebugStream("delete " << pNetHandler->GetSession()->GetRemoteName());
-					DelNetHandler(pNetHandler , FALSE); 
+				{
+					gDebugStream("delete curNodeName=" << pNetHandler->GetSession()->GetCurNodeName() << ":remoteName=" << pNetHandler->GetSession()->GetRemoteName() << ":address=" << pNetHandler->GetSession()->GetAddress() << ":port=" << pNetHandler->GetSession()->GetPort());
+					DelNetHandler(pNetHandler , FALSE);
 					m_mapNetHandlers.erase(iterHandlers++); 
 				}  
 				else

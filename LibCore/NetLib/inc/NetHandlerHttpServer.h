@@ -13,8 +13,8 @@ namespace Net
 	class DLL_EXPORT HttpSession : public ServerSession
 	{
 	public:
-		HttpSession(const char * pAddress ,INT16 usSocktPort , const char * pRemoteName , INT32 nSessionID = -1 , INT32 nNetState = 0 , NetSocket socket = -1 ,INT64 llTimeout = 0)
-			: ServerSession(pAddress , usSocktPort , pRemoteName , nSessionID , nNetState , socket , llTimeout)
+		HttpSession(const std::string & strAddress, INT16 usSocktPort, const std::string & strCurNodeName, const std::string & strRemoteName = "", INT32 nSessionID = -1 , INT32 nNetState = 0 , NetSocket socket = -1 ,INT64 llTimeout = 0)
+			: ServerSession(strAddress, usSocktPort , strCurNodeName ,strRemoteName, nSessionID , nNetState , socket , llTimeout)
 		{
 
 		}

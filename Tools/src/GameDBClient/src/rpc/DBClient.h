@@ -1,16 +1,19 @@
 #ifndef __client_dbclient_h__
 #define __client_dbclient_h__   
 #include "GameDB/inc/DBClientInterface.h"
+#include "MsgLib/inc/IRpcListener.h"
+#include "GameDB/inc/RemoteNodeDefine.h"
 
 namespace Client
-{  
+{	
 	class  DBClient : public GameDB::DBClientInterface
 	{ 
 	public:
-		DBClient(void)
-		{ 
-		}
-		virtual ~DBClient(void){} 
+		DBClient(void);
+		virtual ~DBClient(void)
+		{
+			SAFE_DELETE(m_pRpcListener);
+		} 
 
 	public:
 		static DBClient & GetInstance()
@@ -18,19 +21,35 @@ namespace Client
 			static DBClient m_sRpcInterface;
 			return m_sRpcInterface;
 		} 
-		virtual CErrno  Init(Json::Value & conf)
-		{
-			return DBClientInterface::Init(conf);
-		}
-		virtual CErrno  Cleanup(void)
-		{
-			return DBClientInterface::Cleanup();
-		}
 
 	public: 
-		virtual void OnRegisterRpcs(void); 
-	};  
-	 
-} 
+		virtual void	OnRegisterRpcs(void); 
+
+	public:
+		INT32			GetServerSessionID() const { return m_nServerSessionID; }
+		void			SetServerSessionID(INT32 nSessionID) { m_nServerSessionID = nSessionID; }
+
+	private:
+		INT32			m_nServerSessionID;
+	};
+
+	class ClientListener : public Msg::IRpcListener
+	{
+	public:
+		ClientListener(DBClient * pClient)
+			: m_pDBClient(pClient)
+		{
+
+		}
+
+	public:
+		virtual CErrno OnConnected(Msg::RpcInterface * pRpcInterface, INT32 nSessionID, const std::string & strNetNodeName);
+		virtual CErrno OnDisconnected(Msg::RpcInterface * pRpcInterface, INT32 nSessionID, INT32 nPeerSessionID);
+
+	private:
+		DBClient * m_pDBClient;
+	};
+
+}
 
 #endif

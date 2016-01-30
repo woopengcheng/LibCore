@@ -1,5 +1,4 @@
 #include "MasterHandler.h"
-#include "leveldb/env.h"
 #include <fstream>
 #include "RPCCallFuncs.h"
 #include "SlaveRecord.h"

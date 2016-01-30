@@ -19,6 +19,7 @@ namespace Net
 	public:
 		virtual CErrno		Update(void);
 		virtual CErrno		HandlePing(ISession * pSession, SPing * pPing);
+		virtual	CErrno		HandleMsg(const char* pBuffer, UINT32 unLength) final;
 		virtual CErrno		HandleMsg(ISession * pSession, UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
 		virtual CErrno		UpdatePing(void);
 

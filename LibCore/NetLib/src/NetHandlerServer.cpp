@@ -13,7 +13,7 @@ namespace Net
 {
 
 	NetHandlerServer::NetHandlerServer(INetReactor * pNetReactor, ISession * pSession)
-		: NetMsgQueue(pNetReactor, pSession)
+		: NetHandlerPing(pNetReactor, pSession)
 		, m_pZmqContext(NULL)
 		, m_pZmqMsg(NULL)
 		, m_pZmqSocket(NULL)
@@ -84,10 +84,15 @@ namespace Net
 
 	CErrno NetHandlerServer::OnClose( void )
 	{ 
-		return NetMsgQueue::OnClose();
+		return NetHandlerPing::OnClose();
 	}
 
-	CErrno NetHandlerServer::Init(const char* ip, int port)
+	CErrno NetHandlerServer::Update(void)
+	{
+		return NetMsgQueue::Update();		//5 这里是不需要Ping
+	}
+
+	CErrno NetHandlerServer::Init(const std::string & ip, int port)
 	{
 		m_pSession->SetAddress(ip);
 		m_pSession->SetSocktPort(port);
@@ -99,7 +104,7 @@ namespace Net
 
 		MsgAssert_ReF(!zmq_bind(m_pZmqSocket, str.c_str()), zmq_strerror(errno));
 
-		return NetMsgQueue::Init();
+		return NetHandlerPing::Init();
 	}
 	
 	CErrno NetHandlerServer::InitZMQ()

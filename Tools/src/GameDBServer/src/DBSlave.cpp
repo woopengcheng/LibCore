@@ -1,16 +1,30 @@
 #include "ThreadPool/inc/ThreadPoolInterface.h"
 #include "Timer/inc/TimerHelp.h"
+#include "GameDB/inc/RemoteNodeDefine.h"
 #include "DBSlave.h" 
 #include "SlaveHandler.h"
 
 namespace Server
 {
 	DBSlave::DBSlave(void)
-		: ThreadPool::ThreadSustainTask(0 , "DBSlave" )
-		, m_objMasterSessionID(0)
+		: ThreadPool::ThreadSustainTask(102 , "DBSlave" )
+		, m_objMasterID(0)
 		, m_nSlaveCount(0)
 	{
+		m_pRpcListener = new SlaveListener(this);
+	}
 
+	DBSlave::~DBSlave(void)
+	{
+		SAFE_DELETE(m_pRpcListener);
+
+		CollectionSlavesT::iterator iter = m_mapSalves.begin();
+		for (; iter != m_mapSalves.end(); ++iter)
+		{
+			SAFE_DELETE(iter->second);
+		}
+
+		m_mapSalves.clear();
 	}
 
 	CErrno DBSlave::Init(Json::Value & conf)
@@ -33,7 +47,8 @@ namespace Server
 		for (INT32 i = 0 ;i < nCount; ++ i)
 		{     
 			Json::Value objThread = conf[i]; 
-			UINT32 priority = objThread.get("priority" , 0).asUInt();
+			UINT32 priority = objThread.get("priority", 0).asUInt();
+			SetThreadPriority(priority);
 			UINT32 count = objThread.get("count" , 1).asUInt(); 
 
 			mapThreads[priority] = count;    
@@ -58,16 +73,16 @@ namespace Server
 		if (pHandler)
 		{
 			pHandler->SetSlaveInfo(objInfo);
-			m_mapSalves.insert(std::make_pair(m_nSlaveCount , pHandler));
+			m_mapSalves.insert(std::make_pair(objInfo.strDBName , pHandler));
 		}
 	}
 
-	GameDB::SDBSlaveInfo * DBSlave::GetDBSlaveInfo(INT32 nID)
+	SlaveHandler *  DBSlave::GetSlaveHandler(const std::string & strDBName)
 	{
-		CollectionSlavesT::iterator iter = m_mapSalves.find(nID);
+		CollectionSlavesT::iterator iter = m_mapSalves.find(strDBName);
 		if (iter != m_mapSalves.end())
 		{
-			return &iter->second->GetSlaveInfo();
+			return iter->second;
 		}
 
 		return NULL;
@@ -86,16 +101,37 @@ namespace Server
 		}
 	}
 
-	DBSlave::~DBSlave(void)
+	void DBSlave::SetSlaveSessionID(const std::string & strDBName, INT32 nSessionID)
 	{
-		CollectionSlavesT::iterator iter = m_mapSalves.begin();
-		for (;iter != m_mapSalves.end();++iter)
+		SlaveHandler * pHandler = GetSlaveHandler(strDBName);
+		if (pHandler)
 		{
-			SAFE_DELETE(iter->second);
+			pHandler->SetMasterSessionID(nSessionID);
 		}
-
-		m_mapSalves.clear();
 	}
 
+	CErrno SlaveListener::OnConnected(Msg::RpcInterface * pRpcInterface, INT32 nSessionID, const std::string & strNetNodeName)
+	{
+		if (m_pDBSlave)
+		{
+			if (strNetNodeName == g_strGameDBNodes[NETNODE_SYSDB_TO_DBMASTER])
+			{
+				m_pDBSlave->SetSlaveSessionID(g_szSystemDatabase , nSessionID);
+			}
+			else if (strNetNodeName == g_strGameDBNodes[NETNODE_TEST_TO_DBMASTER])
+			{
+				m_pDBSlave->SetSlaveSessionID("testdb", nSessionID);
+			}
+		}
+
+		return CErrno::Success();
+
+	}
+
+	CErrno SlaveListener::OnDisconnected(Msg::RpcInterface * pRpcInterface, INT32 nSessionID, INT32 nPeerSessionID)
+	{
+
+		return CErrno::Success();
+	}
 
 }

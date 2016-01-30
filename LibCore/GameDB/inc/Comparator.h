@@ -1,16 +1,15 @@
 #ifndef __gamedb_comparator_h__ 
 #define __gamedb_comparator_h__
 #include "GameDB/inc/DBCommon.h"
-#include "leveldb/comparator.h"
 
 namespace GameDB
 {
 	//5 用于levelDB排序用的.
-	class DLL_EXPORT Comparator :public leveldb::Comparator
+	class DLL_EXPORT Comparator :public DBComparator
 	{
 	public:
 		Comparator(){}
-		~Comparator(){}
+		virtual ~Comparator(){}
 		
 	public:
 		// Three-way comparison.  Returns value:

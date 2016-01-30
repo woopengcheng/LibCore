@@ -1,9 +1,8 @@
+#include "GameDB/inc/RemoteNodeDefine.h"
 #include "GameDB/inc/Comparator.h"
 #include "GameDB/inc/DBCommon.h"
 #include "Timer/inc/TimerHelp.h"
 #include "SlaveHandler.h"
-#include "leveldb/db.h"
-#include "leveldb/env.h"
 #include "RPCCallFuncs.h"
 #include <fstream> 
 
@@ -37,7 +36,16 @@ namespace Server
 				if(filename == "." || filename == "..")
 					continue;
 
+#ifdef DeleteFile
+#undef DeleteFile
 				GameDB::GetDefaultEnv()->DeleteFile(strDir + strDBName + "/" + filename);
+#endif // DeleteFile
+
+#ifdef UNICODE
+#define DeleteFile  DeleteFileW
+#else
+#define DeleteFile  DeleteFileA
+#endif // !UNICODE
 			} 
 		}
 		else if (nSendType == 2)  //5 代表发送完成.
@@ -54,7 +62,7 @@ namespace Server
 		objOp.error_if_exists = true;
 		objOp.create_if_missing = false;
 		objOp.comparator = new GameDB::Comparator();
-		objOp.compression = leveldb::kSnappyCompression;
+		objOp.compression = kSnappyCompression;
 
 		m_pDatabase = new GameDB::Database(strDBName,strDir,objOp);
 		if(!m_pDatabase->Open() || !m_pDatabase->GetLevelDB())
@@ -79,7 +87,7 @@ namespace Server
 	{
 		if (m_pDBSlave)
 		{
-			Server::rpc_SlaveStartAuth("tcp://127.0.0.1:9001" , m_pDBSlave->GetMasterSessionID() , m_objID  , m_objSlaveInfo.strUser , m_objSlaveInfo.strPswd);
+			Server::rpc_SlaveStartAuth(m_nMasterSessionID, m_pDBSlave->GetMasterID() , m_objID  , m_objSlaveInfo.strUser , m_objSlaveInfo.strPswd);
 		}
 	}
 
@@ -87,7 +95,7 @@ namespace Server
 	{ 
 		if (m_pDBSlave)
 		{
-			Server::rpc_SlaveRequestSync("tcp://127.0.0.1:9001" , m_pDBSlave->GetMasterSessionID() , m_objID , m_objSlaveInfo.strDBName); 
+			Server::rpc_SlaveRequestSync(m_nMasterSessionID, m_pDBSlave->GetMasterID() , m_objID , m_objSlaveInfo.strDBName);
 		}
 	}
 
@@ -95,7 +103,7 @@ namespace Server
 	{ 
 		if (m_pDBSlave)
 		{
-			Server::rpc_SlaveSelectDB("tcp://127.0.0.1:9001" , m_pDBSlave->GetMasterSessionID() , m_objID , m_objSlaveInfo.strDBName , 1);
+			Server::rpc_SlaveSelectDB(m_nMasterSessionID, m_pDBSlave->GetMasterID() , m_objID , m_objSlaveInfo.strDBName , 1);
 		}
 
 	}

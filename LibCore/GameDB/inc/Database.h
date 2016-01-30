@@ -1,8 +1,6 @@
 #ifndef __gamedb_database_h__ 
 #define __gamedb_database_h__
 #include "DBCommon.h"
-#include "leveldb/db.h"
-#include "leveldb/write_batch.h"
 
 namespace GameDB
 {
@@ -11,13 +9,13 @@ namespace GameDB
 	class DLL_EXPORT Database
 	{
 	public:
-		Database(const std::string& strName,const std::string& strDirectory,const leveldb::Options& objOptions , BackupEnvironment * pBackupEnv = NULL);
+		Database(const std::string& strName,const std::string& strDirectory,const Options& objOptions , BackupEnvironment * pBackupEnv = NULL);
 		~Database();
 
 	public:
 		Status   QuickGet(const Slice & objKey , std::string & strVal);
 		Status   QuickWrite(const Slice & objKey , const Slice & objVal);
-		Status   QuickWrite(leveldb::WriteBatch * pBatch);
+		Status   QuickWrite(WriteBatch * pBatch);
 		Status   QuickDel(const Slice & objKey);
 
 	public:
@@ -41,15 +39,15 @@ namespace GameDB
 	public:
 		std::string		 GetName() const { return m_strName; } 
 		std::string		 GetDirectory() const { return m_strDirectory; }
-		leveldb::DB	   * GetLevelDB() const { return m_pLevelDB; } 
-		leveldb::Options GetObjOptions() const { return m_objOptions; } 
+		DB	   * GetLevelDB() const { return m_pLevelDB; } 
+		Options GetObjOptions() const { return m_objOptions; } 
 		   
 	private:
 		std::string			m_strName;
 		std::string			m_strDirectory; 
-		leveldb::DB		  * m_pLevelDB;
-		leveldb::Options	m_objOptions;
-		leveldb::Cache	  * m_pCustomCache;   //5 用户自定义缓存
+		DB		  * m_pLevelDB;
+		Options	m_objOptions;
+		Cache			  * m_pCustomCache;   //5 用户自定义缓存
 		BackupEnvironment * m_pBackupEnv;
 	};
 }

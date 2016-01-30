@@ -114,10 +114,14 @@ namespace Net
 			char szAddress[MAX_NAME_LENGTH];
 			UINT16 usPort = 0;
 			Net::NetHelper::GetAddressAndPortByAddrIn(addr, szAddress, usPort);
-			std::string strName = Net::NetHelper::GenerateRemoteName(NET_TYPE_TCP, szAddress, usPort);
+			std::string strName = "";
+			if (m_pNetReactor && m_pNetReactor->GetNetThread())
+			{
+				strName = m_pNetReactor->GetNetThread()->GetNetNodeName();
+			}
 			NetSocket socket = 1;  //5 raknet这里用不到socket
 
-			ServerSession * pServerSession = new ServerSession(szAddress, usPort, strName.c_str(), 0, -1, socket);
+			ServerSession * pServerSession = new ServerSession(szAddress, usPort, strName, "", -1, NET_STATE_CONNECTED, socket);
 			NetHandlerServerPtr pServer(new NetHandlerServer(m_pNetReactor, pServerSession));
 
 			RakNetContext * pContext = (RakNetContext *)(GetSession()->GetContext());
@@ -127,12 +131,6 @@ namespace Net
 				pContext->SetId(*pAddress);
 			}
 			m_pNetReactor->AddNetHandler(pServer);
-
-			NetThread * pThread = m_pNetReactor->GetNetThread();
-			if (pThread)
-			{
-				pThread->AcceptSession(pServerSession);
-			}
 		}
 	}
 
@@ -386,8 +384,7 @@ namespace Net
 
 				if (bClosed)
 				{
-					//++ iterHandlers;
-					gDebugStream("delete " << pNetHandler->GetSession()->GetRemoteName() << ":addr=" << pNetHandler->GetSession()->GetAddress() << ":port=" << pNetHandler->GetSession()->GetPort());
+					gDebugStream("delete curNodeName=" << pNetHandler->GetSession()->GetCurNodeName() << ":remoteName=" << pNetHandler->GetSession()->GetRemoteName() << ":address=" << pNetHandler->GetSession()->GetAddress() << ":port=" << pNetHandler->GetSession()->GetPort());
 					DelNetHandler(pNetHandler, FALSE);
 				}
 			}

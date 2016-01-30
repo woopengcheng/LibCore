@@ -1,13 +1,12 @@
 #ifndef __database_custom_defined_cache_handler_h__
 #define __database_custom_defined_cache_handler_h__ 
 #include "GameDB/inc/DBCommon.h"
-#include "leveldb/write_batch.h"
  
 namespace GameDB
 {
 	class Database;
 
-	class CustomDefinedCacheHandler : public leveldb::WriteBatch::Handler
+	class CustomDefinedCacheHandler : public Handler
 	{
 	public:
 		CustomDefinedCacheHandler(Database * pDatabase)

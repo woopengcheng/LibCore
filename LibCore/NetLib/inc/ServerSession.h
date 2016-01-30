@@ -7,15 +7,12 @@ namespace Net
 	class DLL_EXPORT ServerSession : public ISession
 	{
 	public:
-		ServerSession( const char * pAddress ,INT16 usSocktPort , const char * pRemoteName , INT32 nSessionID = -1 , INT32 nNetState = 0 , NetSocket socket = -1 ,INT64 llTimeout = 0)
-			: ISession(pAddress , usSocktPort , pRemoteName , nSessionID , nNetState , socket , llTimeout)
+		ServerSession(const std::string & strAddress, INT16 usSocktPort, const std::string & strCurNodeName, const std::string & strRemoteName = "", INT32 nSessionID = -1 , INT32 nNetState = NET_STATE_CONNECTED, NetSocket socket = -1 ,INT64 llTimeout = 0)
+			: ISession(strAddress, usSocktPort , strCurNodeName , strRemoteName , nSessionID , nNetState , socket , llTimeout)
 		{
 			SetClosed(FALSE);
 		}
 		virtual ~ServerSession(){}
-
-	public:
-		virtual    CErrno    Cleanup() { return ISession::Cleanup();	} 
 	};  
 
 }

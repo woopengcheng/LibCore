@@ -1,6 +1,6 @@
 #ifndef __net_net_handler_common_server_h__
 #define __net_net_handler_common_server_h__ 
-#include "NetLib/inc/NetMsgQueue.h"
+#include "NetLib/inc/NetHandlerPing.h"
 
 struct zmq_msg_t;
 
@@ -9,7 +9,7 @@ namespace Net
 	typedef void * zmqSocketPtr;
 	typedef void * zmqContextPtr;
 
-	class DLL_EXPORT NetHandlerServer :public NetMsgQueue
+	class DLL_EXPORT NetHandlerServer :public NetHandlerPing
 	{
 	public:
 		NetHandlerServer(INetReactor * pNetReactor, ISession * pSession);
@@ -17,14 +17,15 @@ namespace Net
 
 	public:
 		virtual CErrno  OnClose(void);
-		virtual CErrno	HandleMsg(ISession * pSession , UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
+		virtual	CErrno	Update(void);
+		virtual CErrno	HandleMsg(ISession * pSession, UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
 
 	protected:
 		CErrno			InitZMQ();
 		CErrno			InitUDP();
 		CErrno			InitUDS();
 		CErrno			InitRakNet();
-		CErrno			Init(const char* ip, int port);
+		CErrno			Init(const std::string & ip, int port);
 
 	protected:
 		zmqSocketPtr   m_pZmqSocket;
