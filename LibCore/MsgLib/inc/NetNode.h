@@ -21,11 +21,11 @@ namespace Msg
 		static NetNode & GetInstance();
 
 	public:
-		void		InsertMyselfNodes(const std::string & strName , RpcInterface * pInterface);
-		void		InsertRemoteNodes(const std::string & strName , Net::ISession * pSession);
-		BOOL		IsInMyselfNodes(const std::string & strName);
-		RpcInterface  * GetMyselfNode(const std::string & strName);
-		Net::ISession *	GetRemoteNode(const std::string & strName);
+		void						InsertMyselfNodes(const std::string & strName , RpcInterface * pInterface);
+		void						InsertRemoteNodes(const std::string & strName , Net::ISession * pSession);
+		BOOL						IsInMyselfNodes(const std::string & strName);
+		RpcInterface			*	GetMyselfNode(const std::string & strName);
+		Net::ISession			*	GetRemoteNode(const std::string & strName);
 
 	private:
 		CollectionMyselfNodesT		m_mapMyselfNodes;

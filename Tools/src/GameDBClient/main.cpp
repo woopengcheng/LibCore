@@ -21,80 +21,131 @@
 #include "ClientCommands.h"
 #include "DBClientHttpServer.h"
 
-enum ClientError
+#ifdef WIN32
+#include <windows.h>
+#include <process.h>
+#include <stdio.h>
+
+#define BUFFER_MAX 1024
+
+char g_nbstdin_buffer[2][BUFFER_MAX];
+HANDLE g_input[2];
+HANDLE g_process[2];
+
+DWORD WINAPI console_input(LPVOID lpParameter)
 {
-	ERROR_ARGS = 0,
-};
+	for (;;) {
+		int i;
+		for (i = 0; i < 2; i++) {
+			fgets(g_nbstdin_buffer[i], BUFFER_MAX, stdin);
+			SetEvent(g_input[i]);
+			WaitForSingleObject(g_process[i], INFINITE);
+		}
+	}
+	return 0;
+}
+
+void create_nbstdin()
+{
+	int i;
+	DWORD tid;
+	CreateThread(NULL, 1024, &console_input, 0, 0, &tid);
+	for (i = 0; i < 2; i++) {
+		g_input[i] = CreateEvent(NULL, FALSE, FALSE, NULL);
+		g_process[i] = CreateEvent(NULL, FALSE, FALSE, NULL);
+		g_nbstdin_buffer[i][0] = '\0';
+	}
+}
+
+char* nbstdin()
+{
+	DWORD n = WaitForMultipleObjects(2, g_input, FALSE, 0);
+	if (n == WAIT_OBJECT_0 || n == WAIT_OBJECT_0 + 1) {
+		n = n - WAIT_OBJECT_0;
+		SetEvent(g_process[n]);
+		return g_nbstdin_buffer[n];
+	}
+	else {
+		return 0;
+	}
+}
 
 char * ReadLine(const Client::ClientCommands & cc)
 {
-	static char line[1024] = "";
-	memset(line , 0 , sizeof(line));
-
-	std::cout << "GameDBClient>";
-	Timer::TimerHelper::sleep(10);
-	
-	std::string strTab , strLastTab;
-	char ch = 1;
-	size_t i = 0;
-	INT32 nTabCount = 0;
-	while (ch != '\n')
-	{ 
-		ch = getch();
-#ifdef WIN32
-		if (ch != '\r')
-#else
-		if (ch != '\n')
-#endif
-		{
-			if (ch == '\t')
-			{
-				strTab = cc.GetNearestCommand(strLastTab , nTabCount);
-				fflush(stdout);
-				memset(line , 0 , sizeof(line));
-				memcpy(line , strTab.c_str() , strTab.length() + 1);
-				for (size_t j = i;j > 0;--j)
-				{
-					std::cout << '\b' << ' '<< '\b';
-				}
-				std::cout << strTab;
-				i = strTab.length();
-				++nTabCount;
-				continue;
-			}
-			else if (ch == '\b')
-			{
-				if (i > 0)
-				{
-					std::cout << '\b' << ' ' << '\b';
-					--i;
-				}
-				continue;
-			}
-			else
-			{
-				std::cout << ch;
-			}
-			line[i] = ch;
-			strLastTab = line;
-		}
-		else
-		{
-			break;
-		}
-		++i;
+	char *line = nbstdin();
+	if (line && strlen(line) > 1) {
+		line[strlen(line)-1] = 0;
 	}
-	std::cout << std::endl;
-
-// 	while (!std::cin.good())
-// 	{
-// 		return NULL;
-// 	}
-//
-//	std::cin.getline(line , sizeof(line));
+	else {
+		Sleep(0);
+	}
 
 	return line;
 }
+#endif
+// 
+// char * ReadLine(const Client::ClientCommands & cc)
+// {
+// 	static char line[1024] = "";
+// 	memset(line , 0 , sizeof(line));
+// 
+// 	std::cout << "GameDBClient>";
+// 	Timer::TimerHelper::sleep(10);
+// 	
+// 	std::string strTab , strLastTab;
+// 	char ch = 1;
+// 	size_t i = 0;
+// 	INT32 nTabCount = 0;
+// 	while (ch != '\n')
+// 	{ 
+// 		ch = getch();
+// #ifdef WIN32
+// 		if (ch != '\r')
+// #else
+// 		if (ch != '\n')
+// #endif
+// 		{
+// 			if (ch == '\t')
+// 			{
+// 				strTab = cc.GetNearestCommand(strLastTab , nTabCount);
+// 				fflush(stdout);
+// 				memset(line , 0 , sizeof(line));
+// 				memcpy(line , strTab.c_str() , strTab.length() + 1);
+// 				for (size_t j = i;j > 0;--j)
+// 				{
+// 					std::cout << '\b' << ' '<< '\b';
+// 				}
+// 				std::cout << strTab;
+// 				i = strTab.length();
+// 				++nTabCount;
+// 				continue;
+// 			}
+// 			else if (ch == '\b')
+// 			{
+// 				if (i > 0)
+// 				{
+// 					std::cout << '\b' << ' ' << '\b';
+// 					--i;
+// 				}
+// 				continue;
+// 			}
+// 			else
+// 			{
+// 				std::cout << ch;
+// 			}
+// 			line[i] = ch;
+// 			strLastTab = line;
+// 		}
+// 		else
+// 		{
+// 			break;
+// 		}
+// 		++i;
+// 	}
+// 	std::cout << std::endl;
+// 	 
+// 	return line;
+// }
 
 void ParseLine(char * line , INT32 & argc , char ** argv)
 { 
@@ -148,6 +199,9 @@ void PackParams( std::vector<std::string> & vecParams , INT32 argc , char ** arg
 
 int _tmain(int argc, _TCHAR* argv[])
 {  
+#ifdef WIN32
+	create_nbstdin();
+#endif
 	CUtil::Init("DBClient"); 
 
 	std::string defaultConf = "./gdbClient.conf";
@@ -186,8 +240,8 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		if (Client::DBClient::GetInstance().GetRpcManager()->IsConnected(g_strGameDBNodes[NETNODE_DBCLIENT_TO_DBSERVER]))
 		{
-			char * pLine = ReadLine(clientComands); 
-			if (strlen(pLine) <= 1)
+			char * pLine = ReadLine(clientComands);
+			if (!pLine)
 			{
 				continue;
 			}
@@ -201,7 +255,8 @@ int _tmain(int argc, _TCHAR* argv[])
 			ParseLine(pLine , nargc , parg);
 			PackParams(vecParams , nargc , parg);
 			 
-			clientComands.Execute(&Client::DBClient::GetInstance() , vecParams);
+			clientComands.Execute(&Client::DBClient::GetInstance(), vecParams);
+			printf("GameDBClient>");
 		}
 	}
 

@@ -7,7 +7,7 @@ namespace Net
 	class DLL_EXPORT ClientSession : public ISession
 	{
 	public:
-		ClientSession(const std::string & strAddress, INT16 usSocktPort, const std::string & strCurNodeName, const std::string & strRemoteName = "", INT32 nSessionID = -1 , INT32 nNetState = 0 , NetSocket socket = -1 , INT64 llTimeout = 0 , BOOL bReconnect = TRUE )
+		ClientSession(const std::string & strAddress, INT16 usSocktPort, const std::string & strCurNodeName, const std::string & strRemoteName = "", INT32 nSessionID = -1 , INT32 nNetState = 0 , NetSocket socket = -1 , INT64 llTimeout = 0 , BOOL bReconnect = FALSE )
 			: ISession(strAddress, usSocktPort , strCurNodeName , strRemoteName, nSessionID , nNetState , socket , llTimeout)
 			, m_bReconnect(bReconnect)
 		{}

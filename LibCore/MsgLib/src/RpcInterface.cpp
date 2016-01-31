@@ -30,6 +30,8 @@ namespace Msg
 	
 	CErrno RpcInterface::Init(Json::Value & conf)
 	{   
+		HandlerMySelfNode(conf);
+
 		if (!m_pRpcManager)
 		{
 			m_pRpcManager = new RpcManager(this);
@@ -44,6 +46,15 @@ namespace Msg
 		RegisterRpc();
 
 		return CErrno::Success(); 
+	}
+
+	void RpcInterface::HandlerMySelfNode(Json::Value & conf)
+	{
+		Json::Value server = conf.get("server", Json::Value());
+		std::string strNodeName = server.get("net_node_name", "").asCString();
+
+		NetNode::GetInstance().InsertMyselfNodes(strNodeName , this);
+
 	}
 
 	CErrno RpcInterface::Cleanup( void )

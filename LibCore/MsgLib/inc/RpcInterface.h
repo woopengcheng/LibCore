@@ -33,6 +33,7 @@ namespace Msg
 	public:
 		virtual INT32			SendMsg(INT32 nSessionID, RPCMsgCall * pMsg, BOOL bAddRpc = TRUE);
 		virtual INT32			SendMsg(const std::string & strNodeName, RPCMsgCall * pMsg, BOOL bAddRpc = TRUE);
+
 	public:
 		RpcManager			*	GetRpcManager() { return m_pRpcManager; }
 		UINT16					GetServerPort() { return m_usServerPort; }
@@ -45,6 +46,7 @@ namespace Msg
 
 	private:
 		void					TakeOverSync(RPCMsgCall * pMsg);
+		void					HandlerMySelfNode(Json::Value & conf);
 
 	protected:
 		UINT16					m_usServerPort;
