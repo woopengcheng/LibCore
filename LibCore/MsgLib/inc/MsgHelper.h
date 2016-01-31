@@ -194,9 +194,15 @@ namespace Msg
 	class DLL_EXPORT MsgHelper
 	{
 	public: 		
-		static BOOL GenMsgCall(RPCMsgCall & objMsgCall , BOOL bRecvRequest = FALSE , UINT64 ullTimeout = MAX_MSG_TIME_OUT , UINT64 ullMsgID = 0 , const char * pRemoteName = "" , EMSG_SYNC_TYPE objSyncType = SYNC_TYPE_NONSYNC);
-		static BOOL GenMsgCall(ObjectMsgCall & objMsgCall , const char * pMsgCallName , UINT16 usPriority = 0);
-		static BOOL GenMsgCall(ObjectMsgCall & objMsgCall , const char * pMsgCallName , std::vector<Object> & vtTargets , Object objSrc , UINT16 usPriority = 0);
+		static BOOL			GenMsgCall(RPCMsgCall & objMsgCall , BOOL bRecvRequest = FALSE , UINT64 ullTimeout = MAX_MSG_TIME_OUT , UINT64 ullMsgID = 0 , const char * pRemoteName = "" , EMSG_SYNC_TYPE objSyncType = SYNC_TYPE_NONSYNC);
+		static BOOL			GenMsgCall(ObjectMsgCall & objMsgCall , const char * pMsgCallName , UINT16 usPriority = 0);
+		static BOOL			GenMsgCall(ObjectMsgCall & objMsgCall , const char * pMsgCallName , std::vector<Object> & vtTargets , Object objSrc , UINT16 usPriority = 0);
+
+		static std::string	GenerateSuffixNodeName(const std::string & strNodeName);
+		static BOOL			IsSimilarWithNodeName(const std::string & strNodeName, const std::string & strSuffixNodeName);
+		static std::string	GetSuffixNodeName(const std::string & strNodeName);
+		static std::string	ExchangeNodeName(const std::string & strNodeName);
+		static std::string	GeneratePeerInfoKey(const std::string & strCurNodeName, const std::string & strRemoteNodeName);
 
 	};
 

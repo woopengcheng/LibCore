@@ -129,7 +129,7 @@ namespace Net
 	CErrno NetThread::FetchMsgs(INT32 nSessionID , CollectMsgChunksVec & vecMsgs)
 	{
 		INetHandlerPtr pHandler = m_pNetReactor->GetNetHandlerByID(nSessionID);
-		if (pHandler)
+		if (pHandler && pHandler->GetSession() && !pHandler->GetSession()->IsClosed())
 		{
 			return pHandler->FetchMsgs(vecMsgs);
 		}
@@ -216,7 +216,7 @@ namespace Net
 		pSession->SetPeerUUID(strUUID.c_str());
 
 		CErrno nResult = pNetHandler->Init();
-		if (nResult.IsSuccess())
+//		if (nResult.IsSuccess())
 		{
 			m_pNetReactor->AddNetHandler(pNetHandler);
 		}

@@ -37,7 +37,7 @@ namespace Msg
 		virtual CErrno				Update(void);
 
 	public:
-		virtual INT32				SendMsg(INT32 nSessionID, RPCMsgCall * pMsg, BOOL bAddRpc = TRUE);
+		virtual INT32				SendMsg(INT32 nSessionID, RPCMsgCall * pMsg, BOOL bAddRpc = TRUE , BOOL bCheck = TRUE);
 		virtual INT32				SendMsg(const std::string & strNodeName, RPCMsgCall * pMsg, BOOL bAddRpc = TRUE);
 		virtual CErrno				ProxySendMsg(INT32 nSessionID, RPCMsgCall * pMsg) { return CErrno::Failure(); }
 		virtual CErrno				PostMsg(INT32 nSessionID, RPCMsgCall * pMsg);
@@ -61,6 +61,8 @@ namespace Msg
 		SPeerInfo					GetPeerSessionInfo(INT32 nSessionID);
 		INT32						GetPeerSessionIDByNode(const std::string & strNode);
 		INT32						GetSessionIDByNode(const std::string & strNode);
+		std::string					GetNodeNameByID(INT32 nSessionID);
+		INT32						CheckAndHandlePostMsg(const std::string & strNodeName, RPCMsgCall * pMsg, BOOL bAddRpc);
 
 	public:
 		void						InsertSendRpc(UINT64 ullRpcMsgID, Rpc * pRpc);
@@ -73,7 +75,6 @@ namespace Msg
 		void						EraseAndInsertPeerSession(const SPeerInfo & objInfo);
 		void						InsertPostMsg(INT32 nSessionID, RPCMsgCall * pMsg);
 		void						InsertDelayMsg(INT32 nSessionID, RPCMsgCall * pMsg);
-		std::string					GeneratePeerInfoKey(const std::string & strCurNodeName , const std::string & strRemoteNodeName);
 
 	protected:  
 		MapRpcsT					m_mapSendRpcs;   

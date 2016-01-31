@@ -2,6 +2,8 @@
 #include "MsgLib/inc/RpcBase.h"
 #include "MsgLib/inc/RpcInterface.h"
 #include "MsgLib/inc/IRpcListener.h"
+#include "MsgLib/inc/MsgHelper.h"
+#include "MsgLib/inc/NetNode.h"
 #include "Marshal/inc/CStream.h"
 
 namespace Msg
@@ -21,7 +23,7 @@ namespace Msg
 					SPeerInfo & objInfo = *iter;
 					EraseAndInsertPeerSession(objInfo);
 
-					std::string strName = GeneratePeerInfoKey(objInfo.strCurNodeName, objInfo.strRemoteNodeName);
+					std::string strName = MsgHelper::GeneratePeerInfoKey(objInfo.strCurNodeName, objInfo.strRemoteNodeName);
 					IRpcListener * pListener = m_pRpcInterface->GetRpcListener();
 					if (pListener)
 					{
@@ -51,7 +53,7 @@ namespace Msg
 		}
 		m_mapPeerSessions.insert(std::make_pair(objInfo.nPeerSessionID, objInfo));
 
-		std::string strName = GeneratePeerInfoKey(objInfo.strCurNodeName, objInfo.strRemoteNodeName);
+		std::string strName = MsgHelper::GeneratePeerInfoKey(objInfo.strCurNodeName, objInfo.strRemoteNodeName);
 		CollectSessionsStringT::iterator iter2 = m_mapSessionNodes.find(strName);
 		if (iter2 != m_mapSessionNodes.end())
 		{
@@ -80,7 +82,7 @@ namespace Msg
 							pListener->OnDisconnected(m_pRpcInterface, objInfo.nSessionID, objInfo.nPeerSessionID);
 						}
 
-						std::string strName = GeneratePeerInfoKey(iter->second.strCurNodeName, iter->second.strRemoteNodeName);
+						std::string strName = MsgHelper::GeneratePeerInfoKey(iter->second.strCurNodeName, iter->second.strRemoteNodeName);
 						m_mapSessionNodes.erase(strName);
 						m_mapSessions.erase(iter->second.nSessionID);
 						iter = m_mapPeerSessions.erase(iter);
@@ -137,11 +139,8 @@ namespace Msg
 
 				SPeerInfo peerInfo = GetPeerSessionInfo(nSessionID);
 				pMsg->SetProxySessionID(peerInfo.nSessionID);
-// 
-// 				pMsg->SetSessionName(pMsg->m_szRemoteName);
-// 				memcpy(pMsg->m_szRemoteName, GetRpcInterface()->GetServerName(), strlen(GetRpcInterface()->GetServerName()) + 1);
 
-				return HandleMsg(nSessionID , pMsg);
+				return HandleMsg(peerInfo.nSessionID, pMsg);
 			}
 			default:
 				break;
@@ -181,10 +180,8 @@ namespace Msg
 	CErrno RpcManager::HandleServerMsg(INT32 nSessionID, RPCMsgCall * pMsg)
 	{
 		Rpc::VecObjectMsgCallT vecObjectMsgCall;
-		SPeerInfo peerInfo = GetPeerSessionInfo(nSessionID);
-		Assert_ReF(peerInfo.nSessionID > 0);
 
-		Rpc objRpc(this, pMsg->m_ullTimeout, DEFAULT_RPC_CALLABLE_ID, pMsg, peerInfo.nSessionID);
+		Rpc objRpc(this, pMsg->m_ullTimeout, DEFAULT_RPC_CALLABLE_ID, pMsg, nSessionID);
 
 		if (HasSimilarRegisterFunc(pMsg->m_szMsgMethod, RPCServer))
 		{
@@ -197,7 +194,7 @@ namespace Msg
 				RPCMsgCall * pReturnMsg = (RPCMsgCall *)(*iter);
 				if (pReturnMsg)
 				{
-					SendMsg(peerInfo.nSessionID, pReturnMsg, FALSE);
+					SendMsg(nSessionID, pReturnMsg, FALSE);
 					SAFE_DELETE_NEW(pReturnMsg);
 				}
 			}
@@ -230,10 +227,7 @@ namespace Msg
 	CErrno RpcManager::HandleClientMsg(INT32 nSessionID, RPCMsgCall * pMsg)
 	{
 		Assert_ReF(pMsg && strcmp(pMsg->m_szMsgMethod, "") != 0);
-
-		SPeerInfo peerInfo = GetPeerSessionInfo(nSessionID);
-		Assert_ReF(peerInfo.nSessionID > 0);
-
+		
 		MapRpcsT::iterator result = m_mapSendRpcs.find(pMsg->m_ullMsgID);
 		if (result != m_mapSendRpcs.end())
 		{
@@ -243,7 +237,7 @@ namespace Msg
 			RPCMsgCall * pTemp = objRpc->GetRpcMsgCall();
 			pTemp->CopyExcludeNetDatas(pMsg);
 
-			objRpc->SetSessionID(peerInfo.nSessionID);
+			objRpc->SetSessionID(nSessionID);
 			if (pMsg->m_bClientRequest)
 			{
 				if (pTemp->GetSyncType() == SYNC_TYPE_NONSYNC)
@@ -413,15 +407,6 @@ namespace Msg
 		}
 	}
 
-	std::string RpcManager::GeneratePeerInfoKey(const std::string & strCurNodeName, const std::string & strRemoteNodeName)
-	{
-		std::string strName = strCurNodeName;
-		strName += "_To_";
-		strName += strRemoteNodeName;
-
-		return strName;
-	}
-
 	void RpcManager::InsertPostMsg(INT32 nSessionID, RPCMsgCall * pMsg)
 	{
 		CollectionPostMsgsT::iterator iter = m_mapPostMsgs.find(nSessionID);
@@ -441,11 +426,7 @@ namespace Msg
 
 	CErrno RpcManager::PostMsg(INT32 nSessionID, RPCMsgCall * pMsg)
 	{
-		SPeerInfo peerInfo = GetPeerSessionInfo(nSessionID);
-		pMsg->SetProxySessionID(peerInfo.nSessionID);
-
-// 		pMsg->SetSessionName(pMsg->m_szRemoteName);
-// 		memcpy(pMsg->m_szRemoteName, GetRpcInterface()->GetServerName(), strlen(GetRpcInterface()->GetServerName()) + 1);
+		pMsg->SetProxySessionID(nSessionID);
 
 		RPCMsgCall * pCopyMsg = NULL;
 		pMsg->Copy(pCopyMsg);
@@ -456,10 +437,10 @@ namespace Msg
 
 	CErrno RpcManager::PostMsg(const std::string & strNodeName, RPCMsgCall * pMsg)
 	{
-		INT32 nPeerSessionID = GetPeerSessionIDByNode(strNodeName);
-		if (nPeerSessionID > 0)
+		INT32 nSessionID = GetSessionIDByNode(strNodeName);
+		if (nSessionID > 0)
 		{
-			return PostMsg(nPeerSessionID, pMsg);
+			return PostMsg(nSessionID, pMsg);
 		}
 
 		return CErrno::Failure();
@@ -475,7 +456,11 @@ namespace Msg
 	SPeerInfo  RpcManager::GetPeerSessionInfo(INT32 nSessionID)
 	{
 		CollectSessionsIDT::iterator iter = m_mapSessions.find(nSessionID);
-		if (iter == m_mapSessions.end())
+		if (iter != m_mapSessions.end())
+		{
+			return iter->second;
+		}
+		else
 		{
 			CollectSessionsIDT::iterator iter2 = m_mapPeerSessions.find(nSessionID);
 			if (iter2 == m_mapPeerSessions.end())
@@ -510,6 +495,17 @@ namespace Msg
 		return -1;
 	}
 
+	std::string RpcManager::GetNodeNameByID(INT32 nSessionID)
+	{
+		CollectSessionsIDT::iterator iter = m_mapSessions.find(nSessionID);
+		if (iter != m_mapSessions.end())
+		{
+			return iter->second.strRemoteNodeName;
+		}
+
+		return std::string();
+	}
+
 	void RpcManager::InsertSendRpc(UINT64 ullRpcMsgID, Rpc * pRpc)
 	{ 
 		Assert(pRpc);
@@ -529,8 +525,19 @@ namespace Msg
 		InsertSendRpc(pMsg->m_ullMsgID , pRpc);
 	} 
 
-	INT32 RpcManager::SendMsg( INT32 nSessionID , RPCMsgCall * pRpcMsg, BOOL bAddRpc/* = TRUE*/)
+	INT32 RpcManager::SendMsg( INT32 nSessionID , RPCMsgCall * pRpcMsg, BOOL bAddRpc/* = TRUE*/, BOOL bCheck/* = TRUE*/)
 	{
+		if (bCheck)
+		{
+			SPeerInfo objInfo = GetPeerSessionInfo(nSessionID);
+			std::string strNodeName = MsgHelper::GeneratePeerInfoKey(objInfo.strCurNodeName, objInfo.strRemoteNodeName);
+			INT32 nRes = CheckAndHandlePostMsg(strNodeName, pRpcMsg, bAddRpc);
+			if (nRes > 0)
+			{
+				return nRes;
+			}
+		}
+
 		if (m_pRpcInterface && m_pRpcInterface->GetNetThread())
 		{
 			Net::NetThread * pNetThread = m_pRpcInterface->GetNetThread();
@@ -557,13 +564,43 @@ namespace Msg
 
 	INT32 RpcManager::SendMsg(const std::string & strNodeName, RPCMsgCall * pMsg, BOOL bAddRpc /*= TRUE*/)
 	{
-		INT32 nSessionID = GetSessionIDByNode(strNodeName);
-		if (nSessionID > 0)
+		INT32 nRes = CheckAndHandlePostMsg(strNodeName, pMsg, bAddRpc);
+		if (nRes <= 0)
 		{
-			return SendMsg(nSessionID, pMsg , bAddRpc);
+			INT32 nSessionID = GetSessionIDByNode(strNodeName);
+			if (nSessionID > 0)
+			{
+				return SendMsg(nSessionID, pMsg, bAddRpc , FALSE);
+			}
 		}
 
 		return -1;
+	}
+
+	INT32 RpcManager::CheckAndHandlePostMsg(const std::string & strNodeName, RPCMsgCall * pMsg , BOOL bAddRpc)
+	{
+		std::string strName = MsgHelper::GetSuffixNodeName(strNodeName);
+		if (NetNode::GetInstance().IsInMyselfNodes(strName))
+		{
+			RpcInterface * pInterface = NetNode::GetInstance().GetMyselfNode(strName);
+			if (pInterface != NULL)
+			{
+				strName = MsgHelper::ExchangeNodeName(strNodeName);
+				if (pInterface->GetRpcManager()->PostMsg(strName, pMsg).IsFailure())
+				{
+					return 0;
+				}
+
+				if (bAddRpc)
+				{
+					InsertSendRpc(pMsg);
+				}
+
+				return 100;
+			}
+		}
+
+		return 0;
 	}
 
 	CErrno RpcManager::Update(void)

@@ -97,6 +97,9 @@
     <Filter Include="Timer\src">
       <UniqueIdentifier>{cc00d386-6638-4b74-aec4-58ba5d8432c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Coroutine">
+      <UniqueIdentifier>{f65d27df-a94d-41f7-9eed-34cb4d2b6cc4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -519,9 +522,6 @@
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetThread.h">
       <Filter>NetLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\NetNode.h">
-      <Filter>MsgLib\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\NetLib\inc\NetLib.h">
       <Filter>NetLib\inc</Filter>
     </ClInclude>
@@ -551,6 +551,9 @@
     </ClInclude>
     <ClInclude Include="..\..\LibCore\GameDB\inc\RemoteNodeDefine.h">
       <Filter>GameDB\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\NetNode.h">
+      <Filter>MsgLib\inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -682,9 +685,6 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\GameDB\src\SortedSet.cpp">
       <Filter>GameDB\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\MsgLib\src\NetNode.cpp">
-      <Filter>MsgLib\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\MsgLib\src\MsgHelper.cpp">
       <Filter>MsgLib\src</Filter>
@@ -826,6 +826,9 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\GameDB\src\LevelDB.cpp">
       <Filter>GameDB\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\MsgLib\src\NetNode.cpp">
+      <Filter>MsgLib\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

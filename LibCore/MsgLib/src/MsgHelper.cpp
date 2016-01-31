@@ -52,4 +52,61 @@ namespace Msg
 		memcpy(objMsgCall.m_szRemoteName , pRemoteName , strlen(pRemoteName) + 1);
 		return TRUE;
 	} 
+
+	std::string MsgHelper::GenerateSuffixNodeName(const std::string & strNodeName)
+	{
+		std::string strName = "_To_" + strNodeName;
+		return strName;
+	}
+
+	BOOL MsgHelper::IsSimilarWithNodeName(const std::string & strNodeName , const std::string & strSuffixNodeName)
+	{
+		std::string strName = MsgHelper::GenerateSuffixNodeName(strSuffixNodeName);
+		if (strNodeName.find(strName))
+		{
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+
+	std::string MsgHelper::GetSuffixNodeName(const std::string & strNodeName)
+	{
+		size_t nPos = strNodeName.find("_To_")+sizeof("_To_")-1;
+		if (std::string::npos == nPos)
+		{
+			return std::string();
+		}
+		size_t nLength = strNodeName.length();
+		std::string strName = strNodeName.substr(nPos , nLength - nPos);
+
+		return strName;
+	}
+
+	std::string MsgHelper::ExchangeNodeName(const std::string & strNodeName)
+	{
+		INT32 nExtraSize = sizeof("_To_") - 1;
+		size_t nPos = strNodeName.find("_To_");
+		if (std::string::npos == nPos)
+		{
+			return std::string();
+		}
+		size_t nLength = strNodeName.length();
+		std::string strName = strNodeName.substr(nPos + nExtraSize, nLength);
+		strName += "_To_";
+		strName += strNodeName.substr(0, nPos);
+
+		return strName;
+
+	}
+
+	std::string MsgHelper::GeneratePeerInfoKey(const std::string & strCurNodeName, const std::string & strRemoteNodeName)
+	{
+		std::string strName = strCurNodeName;
+		strName += "_To_";
+		strName += strRemoteNodeName;
+
+		return strName;
+	}
+
 }

@@ -27,7 +27,7 @@ namespace CUtil
 
 		for (UINT32 i = 0;i < m_unParamCount;++i)
 		{
-			m_aParameter[i].Copy(pParam.m_aParameter[i]); 
+			pParam.m_aParameter[i].Copy(m_aParameter[i]);
 		} 
 
 		return CErrno::Success();

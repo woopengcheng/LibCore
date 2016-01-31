@@ -1,5 +1,4 @@
 #include "Msglib/inc/NetNode.h"
-#include "MsgLib/inc/RpcManager.h"
 
 namespace Msg
 {
@@ -17,15 +16,6 @@ namespace Msg
 	{
 		static NetNode sInstance;
 		return sInstance;
-	}
-
-	void NetNode::InsertRemoteNodes(const std::string & strName , Net::ISession * pSession)
-	{
-		CollectionRemoteNodesT::iterator iter = m_mapRemoteNodes.find(strName);
-		if (iter == m_mapRemoteNodes.end())
-		{
-			m_mapRemoteNodes.insert(std::make_pair(strName , pSession));
-		}
 	}
 
 	void NetNode::InsertMyselfNodes(const std::string & strName , RpcInterface * pInterface)
@@ -56,17 +46,6 @@ namespace Msg
 		}
 
 		return NULL; 
-	}
-
-	Net::ISession * NetNode::GetRemoteNode(const std::string & strName)
-	{
-		CollectionRemoteNodesT::iterator iter = m_mapRemoteNodes.find(strName);
-		if (iter != m_mapRemoteNodes.end())
-		{
-			return iter->second;
-		}
-
-		return NULL;
 	}
 
 }

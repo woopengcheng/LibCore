@@ -96,21 +96,17 @@ namespace Msg
 	
 	INT32 RpcInterface::SendMsg(const std::string & strNodeName , RPCMsgCall * pMsg , BOOL bAddRpc /*= TRUE*/)
 	{
-		if (NetNode::GetInstance().IsInMyselfNodes(strNodeName))
+		if (m_pRpcManager)
 		{
-			RpcInterface * pInterface = NetNode::GetInstance().GetMyselfNode(strNodeName);
-			if (pInterface != NULL)
+			INT32 nResult = m_pRpcManager->SendMsg(strNodeName, pMsg, bAddRpc);
+			if (nResult >= 0)
 			{
-				m_pRpcManager->InsertSendRpc(pMsg);
-				m_pRpcManager->PostMsg(strNodeName, pMsg);
+				TakeOverSync(pMsg);
 			}
-			return 0;
+			return nResult;
 		}
-		else
-		{
-			return m_pRpcManager->SendMsg(strNodeName, pMsg, bAddRpc);
-		}
-		return -1;
+
+		return -1; 
 	}
 
 	void RpcInterface::TakeOverSync(RPCMsgCall * pMsg)
