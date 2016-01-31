@@ -45,9 +45,12 @@ namespace Net
 		INT32 GetLen() const { return m_nLenUsed; }
 		char* GetContent() const { return &m_pBuf[m_nLenUsed - m_nContentLength]; }
 		INT32 GetContentLength() const { return m_nContentLength; } 
+		BOOL	GetContent(std::map<std::string, std::string> & mapContent);
+
 	public:
 		virtual void Clear();
 		virtual bool Parse(const char* buf = NULL,INT32 len = 0, INT32* remainLen = NULL);
+
 	public:
 		virtual void Reserve(INT32 len);
 	public:

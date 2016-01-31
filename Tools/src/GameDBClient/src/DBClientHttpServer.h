@@ -6,6 +6,8 @@
 
 namespace Client
 {  
+	extern std::string g_strHtmlResult;
+
 	class  DBClientHttpServer : public Net::HttpServer , ThreadPool::ThreadSustainTask
 	{ 
 	public:
@@ -24,6 +26,9 @@ namespace Client
 		virtual CErrno		Cleanup(); 
 		virtual CErrno		Update(void);
 		virtual	CErrno		HttpHandler(Net::HttpSession * pSession , Net::HttpProtocol& request,Net::HttpProtocol& response);
+
+	protected:
+		std::string			GetHtmlResult(std::string strContent);
 	};  
 
 } 

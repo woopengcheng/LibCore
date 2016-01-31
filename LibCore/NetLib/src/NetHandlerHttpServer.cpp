@@ -60,7 +60,7 @@ namespace Net
 			UINT16 usPort = 0;
 			Net::NetHelper::GetAddressAndPortByAddrIn(addr , szAddress , usPort);
 
-			ServerSession * pServerSession = new HttpSession(szAddress , usPort , "" , "", NET_STATE_CONNECTED , 0 , socket);
+			ServerSession * pServerSession = new HttpSession(szAddress , usPort , "" , "", -1 , NET_STATE_CONNECTED , socket);
 			NetHandlerHttpServerPtr pServer( new NetHandlerHttpServer(this , m_pNetReactor , pServerSession) ); 
 			m_pNetReactor->AddNetHandler(pServer); 
 		} 

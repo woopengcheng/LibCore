@@ -207,6 +207,38 @@ namespace Net
 #undef adjust_buffer
 	}
 	
+	BOOL HttpProtocol::GetContent(std::map<std::string , std::string> & mapContent)
+	{
+		INT32 nLength = GetContentLength();
+		std::string strContent = GetContent();
+		while (strContent.size() > 0)
+		{
+			size_t pos = strContent.find('=');
+			size_t posNext = strContent.find('&');
+			if (std::string::npos != pos)
+			{
+				std::string strKey = strContent.substr(0, pos);
+				std::string strVal = "";
+				if (posNext != std::string::npos)
+				{
+					strVal = strContent.substr(pos + 1, posNext - pos - 1);
+					strContent = strContent.substr(posNext + 1, nLength - posNext - 1);
+				}
+				else
+				{
+					strContent = "";
+				}
+				mapContent.insert(std::make_pair(strKey , strVal));
+			}
+			else
+			{
+				strContent = "";
+			}
+		}
+
+		return TRUE;
+	}
+
 	void HttpProtocol::Clear()
 	{
 		m_nLastParsePosition = 0;
