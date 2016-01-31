@@ -68,7 +68,7 @@ namespace CUtil
 		void	*	GetValue( void );
 		UINT32		GetDataLen( void ) const { return m_objParamStream.GetDataLen(); }
 		void	*	GetStreamData( void );
-		CErrno		Copy(const Parameter & objParam);
+		CErrno		CopyTo(Parameter & objParam);
 		CUtil::CStream & GetParamStream() { return m_objParamStream; } 
 		const CUtil::CStream & GetParamStream() const { return m_objParamStream; } 
 

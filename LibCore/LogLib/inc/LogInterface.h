@@ -18,7 +18,7 @@ namespace Log
 		virtual  CErrno  Cleanup(); 
 
 	public:
-		static LogInterface & GetInstance(){ static LogInterface m_sLogInterface; return m_sLogInterface; }
+		static LogInterface & GetInstance();
 
 	public:
 		LogAdapter  * GetLogAdapter()

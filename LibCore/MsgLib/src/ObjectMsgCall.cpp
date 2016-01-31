@@ -16,14 +16,14 @@ namespace Msg
 		m_aTargets = (Object *)((const char * )this + sizeof(ObjectMsgCall));
 	}
 
-	CErrno ObjectMsgCall::Copy(ObjectMsgCall *& pMsg)
+	CErrno ObjectMsgCall::CopyTo(ObjectMsgCall *& pMsg)
 	{  
 		pMsg = new(sizeof(Object)*m_unTargetsCount)ObjectMsgCall;
 
 		pMsg->m_ullMsgID       = m_ullMsgID;
 		pMsg->m_objSource      = m_objSource;
 		pMsg->m_usPriority     = m_usPriority;
-		m_objParams.Copy(pMsg->m_objParams);  
+		m_objParams.CopyTo(pMsg->m_objParams);  
 		memcpy(pMsg->m_szMsgMethod , m_szMsgMethod , MAX_MSG_METHOD_NAME_LENGTH); 
 
 		pMsg->SetTargetsCount(m_unTargetsCount); 

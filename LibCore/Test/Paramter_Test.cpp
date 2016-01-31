@@ -49,7 +49,7 @@ TEST(Parameter)
 	CUtil::Parameter objPramCopy = objParam;
 	CUtil::Parameter objPramCopy2 = objPramCopy;
 	CUtil::Parameter objPramCopy3;
-	objPramCopy3.Copy(objPramCopy2);
+	objPramCopy2.CopyTo(objPramCopy3);
 	CHECK_EQUAL(objPramCopy , objParam);
 	CHECK_EQUAL(objPramCopy2 , objParam);
 	CHECK_EQUAL(objPramCopy3 , objParam);

@@ -78,7 +78,7 @@ namespace CUtil
 	public:  
 		UINT32		GetParamCount() const{ return m_unParamCount;}
 		UINT32		GetSize();
-		CErrno		Copy(Parameters & pParam); 
+		CErrno		CopyTo(Parameters & pParam); 
 		void		Clear(void);
 
 	public:

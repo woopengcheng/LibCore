@@ -35,10 +35,10 @@ namespace CUtil
 		return *this;
 	} 
 
-	CErrno Parameter::Copy(const Parameter & objParameter )
+	CErrno Parameter::CopyTo(Parameter & objParameter )
 	{ 
-		m_unSize = objParameter.m_unSize;
-		m_objParamStream.Copy(objParameter.m_objParamStream);
+		objParameter.m_unSize = m_unSize;
+		objParameter.m_objParamStream.Copy(m_objParamStream);  //5 这里拷贝是反过来的.需要注意
 
 		return CErrno::Success();
 	}

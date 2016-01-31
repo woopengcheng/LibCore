@@ -46,7 +46,7 @@ namespace Msg
 		return unMsgLength;
 	}
 	
-	CErrno RPCMsgCall::Copy( RPCMsgCall *& pMsg )
+	CErrno RPCMsgCall::CopyTo( RPCMsgCall *& pMsg )
 	{
 		pMsg = new(sizeof(Object) * GetTargetsCount())RPCMsgCall;  
 
@@ -60,7 +60,7 @@ namespace Msg
 		memcpy(pMsg->m_szSessionName , m_szSessionName , sizeof(m_szSessionName)); 
 		memcpy(pMsg->m_szMsgMethod , m_szMsgMethod , sizeof(m_szMsgMethod)); 
 		memcpy(pMsg->m_szRemoteName , m_szRemoteName , sizeof(m_szRemoteName)); 
-		m_objParams.Copy(pMsg->m_objParams);  
+		m_objParams.CopyTo(pMsg->m_objParams);  
 
 		UINT32 unTargetsCount = GetTargetsCount();
 		pMsg->SetTargetsCount(unTargetsCount);    //5 这个必须放在最后刷新内存.

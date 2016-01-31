@@ -13,7 +13,7 @@ namespace Msg
 		MsgAssert_ReF(m_pRpcMsgCall , "rpc packet is null."); 
 
 		RPCMsgCall * pRpcMsgCall = NULL;
-		m_pRpcMsgCall->Copy(pRpcMsgCall);
+		m_pRpcMsgCall->CopyTo(pRpcMsgCall);
 		return m_pRpcManager->SendMsg(m_nSessionID , pRpcMsgCall);   
 	}  
 

@@ -77,14 +77,14 @@ namespace Msg
 
 	public:
 		//************************************
-		// Method:    Copy
-		// FullName:  RpcMsgCall::Copy
+		// Method:    CopyTo
+		// FullName:  RpcMsgCall::CopyTo
 		// Access:    virtual public 
 		// Returns:   UINT32
 		// Qualifier: 将当前对象拷贝给pMsg使用
 		// Parameter: RpcMsgCall * pMsg
 		//************************************
-		CErrno Copy(RPCMsgCall *& pMsg);
+		CErrno CopyTo(RPCMsgCall *& pMsg);
 		CErrno CopyExcludeNetDatas(RPCMsgCall *& pMsg);
 		CErrno CopyExcludeParams(RPCMsgCall *& pMsg);
 		CErrno CopyExcludeParamsAndTargets(RPCMsgCall *& pMsg ,const std::vector<Msg::Object> & vecTargets , Msg::Object objSrc);

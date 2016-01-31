@@ -60,7 +60,7 @@ namespace Msg
 		void    SetMethodName(const char * pName){ memcpy(m_szMsgMethod , pName , strlen(pName) + 1);}
 		void    SetMethodNameByAddSuffix(const char * pName){ memcpy(m_szMsgMethod + strlen(m_szMsgMethod), pName , strlen(pName) + 1);}
 		void    SetMethodNameBySubSuffix(const char * pName){ Assert((strlen(m_szMsgMethod) - strlen(pName)) > 0);	m_szMsgMethod[strlen(m_szMsgMethod) - strlen(pName)] = '\0'; }
-		CErrno  Copy(ObjectMsgCall *& pMsg);
+		CErrno  CopyTo(ObjectMsgCall *& pMsg);
 		CErrno  CopyExcludeParams(ObjectMsgCall *& pMsg);
 		CErrno  CopyExcludeParamsAndTargets(ObjectMsgCall *& pMsg ,const std::vector<Msg::Object> & vecTargets , Msg::Object objSrc);
 		UINT32  GetTargetsCount(){ return m_unTargetsCount; }

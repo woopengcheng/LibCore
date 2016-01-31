@@ -429,7 +429,7 @@ namespace Msg
 		pMsg->SetProxySessionID(nSessionID);
 
 		RPCMsgCall * pCopyMsg = NULL;
-		pMsg->Copy(pCopyMsg);
+		pMsg->CopyTo(pCopyMsg);
 		InsertPostMsg(nSessionID, pCopyMsg);
 
 		return CErrno::Success();

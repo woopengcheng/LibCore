@@ -47,9 +47,15 @@ namespace Log
 		return  CErrno::Failure();
 	} 
 
+	LogInterface & LogInterface::GetInstance() 
+	{
+		static LogInterface sLogInterface;
+		return sLogInterface; 
+	}
+
 	CErrno  Init(const char * pLogName , const char * pLayoutConfig  , BOOL bMultCategory ) 
 	{ 
-		return LogInterface::GetInstance().Init(pLogName , pLayoutConfig , bMultCategory);
+		return LogInterface::GetInstance().Init(pLogName, pLayoutConfig, bMultCategory);
 	}
 
 	CErrno  Cleanup()

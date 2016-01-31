@@ -21,13 +21,13 @@ namespace CUtil
 		return unResult;
 	}
 
-	CErrno Parameters::Copy( Parameters & pParam )
+	CErrno Parameters::CopyTo( Parameters & pParam )
 	{
 		pParam.m_unParamCount = m_unParamCount;
 
 		for (UINT32 i = 0;i < m_unParamCount;++i)
 		{
-			pParam.m_aParameter[i].Copy(m_aParameter[i]);
+			m_aParameter[i].CopyTo(pParam.m_aParameter[i]); 
 		} 
 
 		return CErrno::Success();
