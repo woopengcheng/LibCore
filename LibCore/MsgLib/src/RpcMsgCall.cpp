@@ -42,7 +42,7 @@ namespace Msg
 
 	UINT32 RPCMsgCall::RefreshSize()
 	{ 
-		UINT32 unMsgLength = ObjectMsgCall::RefreshSize() + sizeof(m_ullTimeout) + sizeof(m_bClientRequest) + sizeof(m_szRemoteName); 
+		UINT32 unMsgLength = ObjectMsgCall::RefreshSize() + sizeof(m_ullTimeout) + sizeof(m_bClientRequest); 
 		return unMsgLength;
 	}
 	
@@ -57,9 +57,7 @@ namespace Msg
 		pMsg->m_objSource		= m_objSource;
 		pMsg->m_usPriority		= m_usPriority;
 		pMsg->m_nProxySessionID = m_nProxySessionID;
-		memcpy(pMsg->m_szSessionName , m_szSessionName , sizeof(m_szSessionName)); 
 		memcpy(pMsg->m_szMsgMethod , m_szMsgMethod , sizeof(m_szMsgMethod)); 
-		memcpy(pMsg->m_szRemoteName , m_szRemoteName , sizeof(m_szRemoteName)); 
 		m_objParams.CopyTo(pMsg->m_objParams);  
 
 		UINT32 unTargetsCount = GetTargetsCount();
@@ -82,9 +80,7 @@ namespace Msg
 		pMsg->m_objSource		= m_objSource;
 		pMsg->m_usPriority		= m_usPriority;
 		pMsg->m_nProxySessionID = m_nProxySessionID;
-		memcpy(pMsg->m_szSessionName , m_szSessionName , sizeof(m_szSessionName)); 
 		memcpy(pMsg->m_szMsgMethod , m_szMsgMethod , sizeof(m_szMsgMethod)); 
-		memcpy(pMsg->m_szRemoteName , m_szRemoteName , sizeof(m_szRemoteName));  
 
 		UINT32 unTargetsCount = GetTargetsCount();
 		pMsg->SetTargetsCount(unTargetsCount);    //5 这个必须放在最后刷新内存.
@@ -107,9 +103,7 @@ namespace Msg
 		pMsg->m_objSource		= objSrc;
 		pMsg->m_usPriority		= m_usPriority;
 		pMsg->m_nProxySessionID = m_nProxySessionID;
-		memcpy(pMsg->m_szSessionName , m_szSessionName , sizeof(m_szSessionName)); 
 		memcpy(pMsg->m_szMsgMethod , m_szMsgMethod , sizeof(m_szMsgMethod)); 
-		memcpy(pMsg->m_szRemoteName , m_szRemoteName , sizeof(m_szRemoteName));  
 
 		UINT32 unTargetsCount = GetTargetsCount();
 		pMsg->SetTargetsCount((UINT32)vecTargets.size());    //5 这个必须放在最后刷新内存.
@@ -127,8 +121,7 @@ namespace Msg
 		pMsg->m_nReturnType		= m_nReturnType;
 		pMsg->m_objSyncResult	= m_objSyncResult;
 		pMsg->m_nRpcMsgCallType	= m_nRpcMsgCallType;
-		pMsg->m_nProxySessionID = m_nProxySessionID;
-		memcpy(pMsg->m_szSessionName , m_szSessionName , sizeof(m_szSessionName));    
+		pMsg->m_nProxySessionID = m_nProxySessionID;  
 
 		return CErrno::Success(); 
 
@@ -138,7 +131,6 @@ namespace Msg
 	{  
 		ObjectMsgCall::marshal(cs);
 		cs << m_ullTimeout << m_bClientRequest;
-		cs.Pushback(m_szRemoteName , sizeof(m_szRemoteName));
 		 
 		return cs;
 	}
@@ -148,9 +140,6 @@ namespace Msg
 		ObjectMsgCall::unMarshal(cs);
 
 		cs >> m_ullTimeout >> m_bClientRequest;
-		void * pBuf = NULL;
-		cs.Pop(pBuf , sizeof(m_szRemoteName)); 
-		memcpy(m_szRemoteName , pBuf , sizeof(m_szRemoteName));
 		 
 		return cs;
 	}

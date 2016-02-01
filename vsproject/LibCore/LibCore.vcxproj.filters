@@ -555,6 +555,9 @@
     <ClInclude Include="..\..\LibCore\MsgLib\inc\NetNode.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\Coroutine\Coroutine.h">
+      <Filter>Coroutine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -829,6 +832,12 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\MsgLib\src\NetNode.cpp">
       <Filter>MsgLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Test\Coroutine_Test.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Coroutine\Coroutine.cpp">
+      <Filter>Coroutine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

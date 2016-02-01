@@ -1,9 +1,10 @@
 #include "NetLib/inc/ISession.h"
 #include "NetLib/inc/NetHelper.h"
+#include "CUtil/inc/ThreadSpecific.h"
 
 namespace Net
 { 
-	static   INT32   g_nSessionCount = 0; 
+	CUtil::ThreadSpecific<INT32> g_nSessionCount;
 
 	ISession::ISession(const std::string & strAddress, INT16 usSocktPort, const std::string & strCurNodeName , const std::string & strRemoteName /*= ""*/, INT32 nSessionID/* = -1*/, INT32 nNetState/* = 0*/, NetSocket socket /*= -1*/, INT64 llTimeout /*= 0*/)
 		: m_strAddress(strAddress)
@@ -80,7 +81,16 @@ namespace Net
 	 
 	void ISession::AutoSetSessionID( void )
 	{
-		 m_nSessionID = ++Net::g_nSessionCount;
+		INT32 * pSessionID = g_nSessionCount.get();
+		if (pSessionID == NULL)
+		{
+			pSessionID = new INT32();
+			*pSessionID = 0;
+			g_nSessionCount.set(pSessionID);
+		}
+		*pSessionID = *pSessionID + 1;
+
+		 m_nSessionID = *pSessionID;
 	}
 
 	void ISession::SetContext(void * val)

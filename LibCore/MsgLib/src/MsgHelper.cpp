@@ -34,7 +34,7 @@ namespace Msg
 	} 
 
 
-	BOOL MsgHelper::GenMsgCall( RPCMsgCall & objMsgCall , BOOL bRecvRequest/* = FALSE*/ , UINT64 ullTimeout/* = 10*/ , UINT64 ullMsgID/* = -1*/ , const char * pRemoteName/* = ""*/ , EMSG_SYNC_TYPE objSyncType /*= SYNC_TYPE_NONSYNC*/)
+	BOOL MsgHelper::GenMsgCall( RPCMsgCall & objMsgCall , BOOL bRecvRequest/* = FALSE*/ , UINT64 ullTimeout/* = 10*/ , UINT64 ullMsgID/* = -1*/ , EMSG_SYNC_TYPE objSyncType /*= SYNC_TYPE_NONSYNC*/)
 	{
 		objMsgCall.SetSyncType(objSyncType);
 		objMsgCall.m_bClientRequest = bRecvRequest;
@@ -49,7 +49,6 @@ namespace Msg
 			objMsgCall.m_ullMsgID = ullMsgID;
 		}
 
-		memcpy(objMsgCall.m_szRemoteName , pRemoteName , strlen(pRemoteName) + 1);
 		return TRUE;
 	} 
 

@@ -17,9 +17,25 @@ namespace Msg
 	class IRpcListener;
 	class RPCMsgCall;
 	class RpcManager;
+	class RpcInterface;
+
+	struct SRpcCoTask
+	{
+		void		*	pCoID;
+		RPCMsgCall	*	pMsg;
+		RpcInterface*	pInterface;
+		SRpcCoTask()
+			: pCoID(NULL)
+			, pMsg(NULL)
+			, pInterface(NULL)
+		{}
+	};
 
 	class DLL_EXPORT  RpcInterface
 	{
+	public:
+		typedef std::map<UINT64, SRpcCoTask*>		MapRpcCoTasksT;
+
 	public:
 		RpcInterface(void);
 		virtual ~RpcInterface(void);
@@ -36,26 +52,26 @@ namespace Msg
 
 	public:
 		RpcManager			*	GetRpcManager() { return m_pRpcManager; }
-		UINT16					GetServerPort() { return m_usServerPort; }
-		char				*	GetServerName() { return m_szServerName; }
-		char				*	GetNetNodeName() { return m_szNetNodeName; }
-		char				*	GetServerType() { return m_szRpcType; }
 		Net::NetThread 		*	GetNetThread() { return m_pNetThread; }
 		IRpcListener		*	GetRpcListener() { return m_pRpcListener; }
 		void					RegisterRpc(void);
+		BOOL					DeleteRpcCoTask(UINT64 ullMsgID);
+		BOOL					AddRpcCoTask(SRpcCoTask * pTask);
+		BOOL					ResumeRpcCoTask(UINT64 ullMsgID);
 
 	private:
 		void					TakeOverSync(RPCMsgCall * pMsg);
 		void					HandlerMySelfNode(Json::Value & conf);
 
 	protected:
-		UINT16					m_usServerPort;
-		char					m_szServerName[MAX_NAME_LENGTH];
-		char					m_szNetNodeName[MAX_NAME_LENGTH];
-		char					m_szRpcType[MAX_NAME_LENGTH];
 		RpcManager			*	m_pRpcManager;
 		Net::NetThread		*	m_pNetThread;
 		IRpcListener		*	m_pRpcListener;
+
+		//5 以下是协程相关处理同步的.
+	protected:
+		MapRpcCoTasksT			m_mapRpcCoTasks;
+		BOOL					m_bFirstUpdated;
 	};
 
 }

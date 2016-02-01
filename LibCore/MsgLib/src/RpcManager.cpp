@@ -217,7 +217,7 @@ namespace Msg
 		}
 		else
 		{
-			MsgAssert_ReF(0, "recv wrong rpc.may not register.name:" << pMsg->m_szMsgMethod << ",from:" << pMsg->GetSessionName());
+			MsgAssert_ReF(0, "recv wrong rpc.may not register.name:" << pMsg->m_szMsgMethod);
 		}
 
 		vecObjectMsgCall.clear();
@@ -298,6 +298,11 @@ namespace Msg
 						MsgAssert_ReF(0, "error sync rpc packet.");
 						pTemp->SetSyncResult(SYNC_RESULT_FALSE);
 					}
+
+					if (m_pRpcInterface)
+					{
+						m_pRpcInterface->ResumeRpcCoTask(pTemp->m_ullMsgID);
+					}
 				}
 				else
 				{
@@ -338,7 +343,7 @@ namespace Msg
 				pRpcMsgCall->m_bClientRequest = TRUE;
 				pRpcMsgCall->SetRpcMsgCallType(RPCTYPE_TIMEOUT);
 
-				objRpc->OnTimeout(pRpcMsgCall, vecObjectMsgCall);
+				objRpc->OnTimeout(pRpcMsgCall, vecObjectMsgCall); //5 todo.这里也需要触发同步的协程resume
 
 				SAFE_DELETE_NEW(pRpcMsgCall);
 				vecObjectMsgCall.clear();

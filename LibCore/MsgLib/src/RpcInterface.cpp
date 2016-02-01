@@ -2,6 +2,7 @@
 #include "MsgLib/inc/RpcManager.h"
 #include "MsgLib/inc/NetNode.h"
 #include "MsgLib/inc/RPCMsgCall.h"
+#include "Coroutine/Coroutine.h"
 #include "Timer/inc/TimerHelp.h"
 #include "NetLib/inc/NetThread.h"
 
@@ -9,14 +10,10 @@ namespace Msg
 { 
 
 	RpcInterface::RpcInterface(void)
-		: m_usServerPort(0)
-		, m_pRpcManager(NULL)
+		: m_pRpcManager(NULL)
 		, m_pRpcListener(NULL)
+		, m_bFirstUpdated(FALSE)
 	{
-		memset(m_szServerName , 0 , sizeof(m_szServerName));
-		memset(m_szNetNodeName , 0 , sizeof(m_szNetNodeName));
-		memset(m_szRpcType , 0 , sizeof(m_szRpcType));
-
 	} 
 
 	RpcInterface::~RpcInterface(void)
@@ -28,6 +25,66 @@ namespace Msg
 		OnRegisterRpcs();
 	}
 	
+	BOOL RpcInterface::DeleteRpcCoTask(UINT64 ullMsgID)
+	{
+		MapRpcCoTasksT::iterator iter = m_mapRpcCoTasks.find(ullMsgID);
+		if (iter != m_mapRpcCoTasks.end())
+		{
+			m_mapRpcCoTasks.erase(iter);
+
+			return TRUE;
+		}
+		else
+		{
+			gErrorStream("DeleteRpcCoTask error. no this msgid.ID=" << ullMsgID);
+		}
+
+		return FALSE;
+	}
+
+	BOOL RpcInterface::AddRpcCoTask(SRpcCoTask * pTask)
+	{
+		if (pTask && pTask->pMsg)
+		{
+			MapRpcCoTasksT::iterator iter = m_mapRpcCoTasks.find(pTask->pMsg->m_ullMsgID);
+			if (iter == m_mapRpcCoTasks.end())
+			{
+				m_mapRpcCoTasks.insert(std::make_pair(pTask->pMsg->m_ullMsgID, pTask));
+
+				return TRUE;
+			}
+		}		
+		if (pTask->pMsg)
+		{
+			gErrorStream("AddRpcCoTask error. no this msgid.ID=" << pTask->pMsg->m_ullMsgID << ":msgMethod=" << pTask->pMsg->m_szMsgMethod);
+		}
+
+		return FALSE;
+
+	}
+
+	BOOL RpcInterface::ResumeRpcCoTask(UINT64 ullMsgID)
+	{
+		MapRpcCoTasksT::iterator iter = m_mapRpcCoTasks.find(ullMsgID);
+		if (iter != m_mapRpcCoTasks.end())
+		{
+			SRpcCoTask * pTask = iter->second;
+			if (pTask)
+			{
+				Coroutine::CoResume(pTask->pCoID);
+			}
+
+			return TRUE;
+		}
+		else
+		{
+			gErrorStream("ResumeRpcCoTask error. no this msgid.ID=" << ullMsgID);
+		}
+
+		return FALSE;
+
+	}
+
 	CErrno RpcInterface::Init(Json::Value & conf)
 	{   
 		HandlerMySelfNode(conf);
@@ -54,7 +111,6 @@ namespace Msg
 		std::string strNodeName = server.get("net_node_name", "").asCString();
 
 		NetNode::GetInstance().InsertMyselfNodes(strNodeName , this);
-
 	}
 
 	CErrno RpcInterface::Cleanup( void )
@@ -64,12 +120,19 @@ namespace Msg
 			m_pRpcManager->Cleanup();
 			SAFE_DELETE(m_pRpcManager);
 		}
-				
+
+		Coroutine::CoCleanup();
 		return CErrno::Success();
 	} 
 	
 	CErrno RpcInterface::Update( void )
 	{ 
+		if (!m_bFirstUpdated)
+		{
+//			Coroutine::CoInit();
+			m_bFirstUpdated = TRUE;
+		}
+
 		if (m_pRpcManager)
 		{
 			m_pRpcManager->Update();
@@ -109,15 +172,44 @@ namespace Msg
 		return -1; 
 	}
 
+	static void fiberProc(void * pArg)
+	{
+		SRpcCoTask * pTask = (SRpcCoTask *)pArg;
+		if(pTask && pTask->pMsg)
+		{
+			RPCMsgCall * pMsg = pTask->pMsg;
+			while (pMsg->GetSyncResult() == SYNC_RESULT_START_RETURN)
+			{
+				gErrorStream("MsgName=" << pMsg->m_szMsgMethod);
+				Coroutine::CoYieldCur();
+			}
+			
+			if (pTask->pInterface)
+			{
+				pTask->pInterface->DeleteRpcCoTask(pMsg->m_ullMsgID);
+			}
+
+			Coroutine::CoRelease(pTask->pCoID);
+			SAFE_DELETE(pTask);
+			SAFE_DELETE_NEW(pMsg);
+		}
+	}
+
 	void RpcInterface::TakeOverSync(RPCMsgCall * pMsg)
 	{
 		if (pMsg->GetSyncType() == SYNC_TYPE_SYNC)
 		{ 
-			while (pMsg->GetSyncResult() == SYNC_RESULT_START_RETURN)
-			{
-				Update();
-			}
-			SAFE_DELETE_NEW(pMsg);
+			SRpcCoTask * pTask = new SRpcCoTask;
+			pTask->pMsg = pMsg;
+			pTask->pInterface = this;
+
+			Coroutine::CoCreate(&(pTask->pCoID), fiberProc, pTask);
+			AddRpcCoTask(pTask);
+// 			while (pMsg->GetSyncResult() == SYNC_RESULT_START_RETURN)
+// 			{
+// 				Update();
+// 			}
+//			SAFE_DELETE_NEW(pMsg);
 		}
 	}
 

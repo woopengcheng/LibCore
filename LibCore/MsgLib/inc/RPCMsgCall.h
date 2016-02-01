@@ -50,8 +50,6 @@ namespace Msg
 			, m_nReturnType(RETURN_TYPE_DONE)  //5 默认完成.
 			, m_nProxySessionID(0)
 		{  
-			memset(m_szSessionName , 0 , sizeof(m_szSessionName));
-			memset(m_szRemoteName , 0 , sizeof(m_szRemoteName));
 			RefreshTargets();
 		}
 		~RPCMsgCall()
@@ -93,8 +91,6 @@ namespace Msg
 	public:
 		INT32	GetProxySessionID() const { return m_nProxySessionID; }
 		void	SetProxySessionID(INT32 val) { m_nProxySessionID = val; }
-		void	SetSessionName(const char * pName){ memcpy(m_szSessionName , pName , strlen(pName) + 1); }
-		char *	GetSessionName(){ return m_szSessionName; }
 		void	SetProxySrcID(Object objProxySrcID){ m_objProxySrcID = objProxySrcID; }
 		Object	GetProxySrcID(){ return m_objProxySrcID; }
 		INT32	GetRpcMsgCallType() const { return m_nRpcMsgCallType; }
@@ -115,12 +111,10 @@ namespace Msg
 	public:    
 		BOOL           m_bClientRequest;
 		UINT64         m_ullTimeout;   
-		char           m_szRemoteName[MAX_NAME_LENGTH];
 
 		//5 下面的参数是不参与网络传输的.
 	protected:
 		INT32				m_nProxySessionID;
-		char				m_szSessionName[MAX_NAME_LENGTH];
 		Object				m_objProxySrcID;
 		INT32				m_nRpcMsgCallType;
 		INT32				m_nReturnType;
