@@ -8,6 +8,7 @@
 
 namespace CUtil
 {
+	//5 注意.在多线程中,每一个值都是唯一,例如初始化这种.可能是由主线程初始化.那么调用新建的线程可能就会有问题.即.只能在当前线程使用.
 	template<typename T> 
 	class ThreadSpecific
 	{

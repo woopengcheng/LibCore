@@ -22,6 +22,7 @@ enum ENET_NODES
 };
 
 //5 这里每个文件都有一份.网络类型节点.需要先宏定义,然后和json中的net_node_name相对应,不然可能不会生效
+//5 node节点只有一一对应的功能,不存在一对多和多对多.这个相当于取巧.一个简便方法.
  static std::string g_strGameDBNodes[NETNODE_NUM] = 
 {
 	"" ,									//5 NETNODE_INVALID

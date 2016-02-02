@@ -129,7 +129,7 @@ namespace Msg
 	{ 
 		if (!m_bFirstUpdated)
 		{
-//			Coroutine::CoInit();
+			Coroutine::CoInit();
 			m_bFirstUpdated = TRUE;
 		}
 
@@ -180,7 +180,7 @@ namespace Msg
 			RPCMsgCall * pMsg = pTask->pMsg;
 			while (pMsg->GetSyncResult() == SYNC_RESULT_START_RETURN)
 			{
-				gErrorStream("MsgName=" << pMsg->m_szMsgMethod);
+				gErrorStream("MsgName=" << pMsg->m_szMsgMethod << "sync error. state is wrong.state=" << SYNC_RESULT_START_RETURN);
 				Coroutine::CoYieldCur();
 			}
 			
@@ -189,9 +189,10 @@ namespace Msg
 				pTask->pInterface->DeleteRpcCoTask(pMsg->m_ullMsgID);
 			}
 
-			Coroutine::CoRelease(pTask->pCoID);
+			void * pCoID = pTask->pCoID;
 			SAFE_DELETE(pTask);
 			SAFE_DELETE_NEW(pMsg);
+			Coroutine::CoRelease(pCoID);
 		}
 	}
 
@@ -204,7 +205,11 @@ namespace Msg
 			pTask->pInterface = this;
 
 			Coroutine::CoCreate(&(pTask->pCoID), fiberProc, pTask);
-			AddRpcCoTask(pTask);
+			if (pTask->pCoID)
+			{
+				AddRpcCoTask(pTask);
+				Coroutine::CoResume(pTask->pCoID);
+			}
 // 			while (pMsg->GetSyncResult() == SYNC_RESULT_START_RETURN)
 // 			{
 // 				Update();

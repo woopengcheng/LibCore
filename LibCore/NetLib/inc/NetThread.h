@@ -101,6 +101,8 @@ namespace Net
 		MapPeerSessionT		m_mapPeerSessions;
 		QueCreateClientsT	m_queCreateClients;
 		QueAcceptSessionT	m_queAceeptSessions;
+		BOOL				m_bInitFirst;
+		Json::Value			m_objInitConf;
 	};
 
 }

@@ -9,6 +9,7 @@ namespace Net
 		: ThreadPool::ThreadSustainTask(DEFAULT_THREAD_PRIORITY , "NetThread" , TRUE)
 		, m_usServerPort(0)
 		, m_pNetReactor(NULL)
+		, m_bInitFirst(FALSE)
 	{ 
 	} 
 
@@ -25,36 +26,43 @@ namespace Net
 
 	CErrno NetThread::Init(Json::Value & conf)
 	{   
-		if (!m_pNetReactor)
+		if (!m_bInitFirst)
 		{
-			m_pNetReactor = new Net::NetReactorDefault();
-			m_pNetReactor->SetNetThread(this);
+			m_objInitConf = conf;
 
-			if(CErrno::Success() != m_pNetReactor->Init())
+			if (!m_pNetReactor)
 			{
-				SAFE_DELETE(m_pNetReactor);
-				MsgAssert_ReF(0, "NetReactor fail."); 
+				m_pNetReactor = new Net::NetReactorDefault();
+				m_pNetReactor->SetNetThread(this);
+
+				if (CErrno::Success() != m_pNetReactor->Init())
+				{
+					SAFE_DELETE(m_pNetReactor);
+					MsgAssert_ReF(0, "NetReactor fail.");
+				}
 			}
+
+			Json::Value netThead = conf.get("net_thread", Json::Value());
+			INT32 nPriority = netThead.get("priority", DEFAULT_THREAD_PRIORITY).asInt();
+
+			SetThreadPriority(nPriority);
+			ThreadPool::ThreadPoolInterface::GetInstance().CreateThread(nPriority);
+			ThreadPool::ThreadPoolInterface::GetInstance().AddTask(this);
+
 		}
-		
-		Json::Value server = conf.get("server" , Json::Value()); 
-		std::string strType = server.get("listen_type" , "tcp").asCString();
-		std::string strAddress = server.get("listen_address" , "127.0.0.1").asCString();
-		INT32 nPort = server.get("listen_port" , 8003).asInt();
-		std::string strNodeName = server.get("net_node_name" , "").asCString();
-		  
-		StartupServer(strNodeName , strType,  strAddress , nPort);
+		else
+		{
+			Json::Value server = conf.get("server", Json::Value());
+			std::string strType = server.get("listen_type", "tcp").asCString();
+			std::string strAddress = server.get("listen_address", "127.0.0.1").asCString();
+			INT32 nPort = server.get("listen_port", 8003).asInt();
+			std::string strNodeName = server.get("net_node_name", "").asCString();
 
-		Json::Value clients = conf.get("clients" , Json::Value()); 
-		StartupClient(clients); 
+			StartupServer(strNodeName, strType, strAddress, nPort);
 
-		Json::Value netThead = conf.get("net_thread", Json::Value());
-		INT32 nPriority = netThead.get("priority", DEFAULT_THREAD_PRIORITY).asInt();
-
-		SetThreadPriority(nPriority);
-		ThreadPool::ThreadPoolInterface::GetInstance().CreateThread(nPriority);
-		ThreadPool::ThreadPoolInterface::GetInstance().AddTask(this);
-
+			Json::Value clients = conf.get("clients", Json::Value());
+			StartupClient(clients);
+		}
 		return CErrno::Success(); 
 	}
 
@@ -72,6 +80,12 @@ namespace Net
 
 	CErrno NetThread::Update( void )
 	{
+		if (!m_bInitFirst)
+		{
+			m_bInitFirst = TRUE;
+			Init(m_objInitConf);
+		}
+
 		FetchClientsQueue();
 
 		UpdateHandlers();

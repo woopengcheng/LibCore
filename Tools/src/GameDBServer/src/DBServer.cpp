@@ -74,7 +74,7 @@ namespace Server
 			if (strNetNodeName == g_strGameDBNodes[NETNODE_DBSERVER_TO_DBMASTER])
 			{
 				INT32 nHandlerID = m_pDBServer->CreateServerHandler(nSessionID);
-				rpc_SyncServerHandler(nSessionID, Msg::Object(0), Msg::Object(nHandlerID));
+				rpc_SyncServerHandler(nSessionID, Msg::Object(0),0 ,Msg::SYNC_TYPE_SYNC);
 			}
 		}
 		return CErrno::Success();
