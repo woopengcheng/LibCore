@@ -7,7 +7,7 @@
 
 namespace CUtil
 {
-	extern void DLL_EXPORT BsonToCpp(UINT8 & var,mongo::BSONElement& be);
+	extern void DLL_EXPORT	BsonToCpp(UINT8 & var,mongo::BSONElement& be);
 	extern void DLL_EXPORT  BsonToCpp(INT16& var,mongo::BSONElement& be);
 	extern void DLL_EXPORT  BsonToCpp(INT32& var,mongo::BSONElement& be);
 	extern void DLL_EXPORT  BsonToCpp(UINT32& var,mongo::BSONElement& be);

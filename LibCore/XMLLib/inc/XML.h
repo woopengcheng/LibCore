@@ -8,7 +8,7 @@ namespace XML
 	{
 	public:
 		XML(){}
-		virtual ~XML(){}  
+		~XML(){}  
 
 	public:
 		static void StartElement(void * pUserData , const char * pName , const char ** pAttr);

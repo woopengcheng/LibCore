@@ -132,9 +132,6 @@
     <ClInclude Include="..\..\LibCore\LogLib\inc\LogInterface.h">
       <Filter>Log\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\GenMsgHelper.h">
-      <Filter>MsgLib\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\MsgLib\inc\ICallableObject.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
@@ -366,9 +363,6 @@
     <ClInclude Include="..\..\LibCore\CUtil\inc\DeelxRegexp.h">
       <Filter>CUtil\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\CUtil\inc\GenMsgHelper.h">
-      <Filter>CUtil\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\CUtil\inc\Heap.h">
       <Filter>CUtil\inc</Filter>
     </ClInclude>
@@ -558,6 +552,12 @@
     <ClInclude Include="..\..\LibCore\Coroutine\Coroutine.h">
       <Filter>Coroutine</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\GenParamHelper.h">
+      <Filter>MsgLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\CUtil\inc\GenParamHelper.h">
+      <Filter>CUtil\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -716,9 +716,6 @@
     <ClCompile Include="..\..\LibCore\CUtil\src\CUtil.cpp">
       <Filter>CUtil\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\LibCore\CUtil\src\GenMsgHelper.cpp">
-      <Filter>CUtil\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\LibCore\CUtil\src\Parameter.cpp">
       <Filter>CUtil\src</Filter>
     </ClCompile>
@@ -838,6 +835,9 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\Coroutine\Coroutine.cpp">
       <Filter>Coroutine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\CUtil\src\GenParamHelper.cpp">
+      <Filter>CUtil\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

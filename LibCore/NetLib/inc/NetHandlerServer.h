@@ -16,9 +16,9 @@ namespace Net
 		virtual ~NetHandlerServer();
 
 	public:
-		virtual CErrno  OnClose(void);
-		virtual	CErrno	Update(void);
-		virtual CErrno	HandleMsg(ISession * pSession, UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
+		virtual CErrno  OnClose(void) override;
+		virtual	CErrno	Update(void) override;
+		virtual CErrno	HandleMsg(ISession * pSession, UINT32 unMsgID, const char* pBuffer, UINT32 unLength) override;
 
 	protected:
 		CErrno			InitZMQ();
@@ -28,9 +28,9 @@ namespace Net
 		CErrno			Init(const std::string & ip, int port);
 
 	protected:
-		zmqSocketPtr   m_pZmqSocket;
-		zmqContextPtr  m_pZmqContext;
-		zmq_msg_t    * m_pZmqMsg;
+		zmqSocketPtr	m_pZmqSocket;
+		zmqContextPtr	m_pZmqContext;
+		zmq_msg_t	*	m_pZmqMsg;
 	}; 
 
 	DECLARE_BOOST_POINTERS(NetHandlerServer);

@@ -1,6 +1,6 @@
 #ifndef __msg_rpc_h__
 #define __msg_rpc_h__ 
-#include "CUtil/inc/GenMsgHelper.h"
+#include "CUtil/inc/GenParamHelper.h"
 #include "MsgLib/inc/MsgCommon.h" 
 #include "MsgLib/inc/ICallableObject.h"
 #include "MsgLib/inc/RPCMsgCall.h"
@@ -77,15 +77,15 @@ namespace Msg
 		typedef std::vector<ObjectMsgCall*> VecObjectMsgCallT;
 
 	public:
-		virtual BOOL	OnTimeout( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall );
-		virtual BOOL	OnServer( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall ); 
-		virtual BOOL	OnProxy( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall ); 
-		virtual BOOL	OnClient( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall );  
+		virtual BOOL			OnTimeout( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall );
+		virtual BOOL			OnServer( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall ); 
+		virtual BOOL			OnProxy( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall ); 
+		virtual BOOL			OnClient( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall );  
 
 	public:
-		BOOL			IsTimeout();
-		void			SetTimeout(UINT64 unTimeout); 
-		INT32			ProxySendBack();   
+		BOOL					IsTimeout();
+		void					SetTimeout(UINT64 unTimeout); 
+		INT32					ProxySendBack();   
 		CUtil::Parameters	*	GetInParams();
 		 
 	public:   
@@ -96,7 +96,7 @@ namespace Msg
 
 			RPC_GEN_PROXY_MSG(vecTargets);
 
-			CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams); 
+			CUtil::GenParamHelper::GenParams(pMsg->m_objParams); 
 
 			return  m_pRpcManager->SendMsg(pName , pMsg); 
 		} 
@@ -108,7 +108,7 @@ namespace Msg
 
 			RPC_GEN_PROXY_MSG(vecTargets);
 
-			CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1); 
+			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1); 
 
 			return  m_pRpcManager->SendMsg(pName , pMsg); 
 		}
@@ -120,7 +120,7 @@ namespace Msg
 
 			RPC_GEN_PROXY_MSG(vecTargets);
 
-			CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2); 
+			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2); 
 
 			return  m_pRpcManager->SendMsg(pName , pMsg); 
 		}
@@ -132,7 +132,7 @@ namespace Msg
 
 			RPC_GEN_PROXY_MSG(vecTargets);
 
-			CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 ); 
+			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 ); 
 
 			return  m_pRpcManager->SendMsg(pName , pMsg); 
 		}
@@ -144,7 +144,7 @@ namespace Msg
 
 			RPC_GEN_PROXY_MSG(vecTargets); 
 
-			CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4); 
+			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4); 
 
 			return  m_pRpcManager->SendMsg(pName , pMsg); 
 		}
@@ -156,7 +156,7 @@ namespace Msg
 
 			RPC_GEN_PROXY_MSG(vecTargets);
 
-			CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 ); 
+			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 ); 
 
 			return  m_pRpcManager->SendMsg(pName , pMsg); 
 		}
@@ -168,7 +168,7 @@ namespace Msg
 
 			RPC_GEN_PROXY_MSG(vecTargets);
 
-			CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6); 
+			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6); 
 
 			return  m_pRpcManager->SendMsg(pName , pMsg); 
 		}
@@ -180,7 +180,7 @@ namespace Msg
 
 			RPC_GEN_PROXY_MSG(vecTargets);
 
-			CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7); 
+			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7); 
 
 			return  m_pRpcManager->SendMsg(pName , pMsg); 
 		}
@@ -192,7 +192,7 @@ namespace Msg
 
 			RPC_GEN_PROXY_MSG(vecTargets);
 
-			CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7 , p8); 
+			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7 , p8); 
 			 
 			return  m_pRpcManager->SendMsg(pName , pMsg); 
 		}
@@ -286,7 +286,7 @@ namespace Msg
 
 			RPC_GEN_RETURN_MSG;
 
-			CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams);
+			CUtil::GenParamHelper::GenParams(pMsg->m_objParams);
 
 			return pMsg;
 		}
@@ -299,7 +299,7 @@ namespace Msg
 
 			RPC_GEN_RETURN_MSG;
 
-			CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1);
+			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1);
 
 			return pMsg;
 		} 
@@ -312,7 +312,7 @@ namespace Msg
 
 			RPC_GEN_RETURN_MSG;
 
-			CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2);
+			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2);
 
 			return pMsg;
 		}
@@ -325,7 +325,7 @@ namespace Msg
 
 			RPC_GEN_RETURN_MSG;
 
-			CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 );
+			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 );
 
 			return pMsg;
 		}
@@ -338,7 +338,7 @@ namespace Msg
 
 			RPC_GEN_RETURN_MSG;
 
-			CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4 );
+			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4 );
 
 			return pMsg;
 		}
@@ -351,7 +351,7 @@ namespace Msg
 
 			RPC_GEN_RETURN_MSG;
 
-			CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 ,p4 , p5);
+			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 ,p4 , p5);
 
 			return pMsg;
 		}
@@ -364,7 +364,7 @@ namespace Msg
 
 			RPC_GEN_RETURN_MSG;
 
-			CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 ,p4 , p5 , p6); 
+			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 ,p4 , p5 , p6); 
 
 			return pMsg;
 		}
@@ -377,7 +377,7 @@ namespace Msg
 
 			RPC_GEN_RETURN_MSG;
 
-			CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 ,p4 , p5 , p6 , p7);
+			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 ,p4 , p5 , p6 , p7);
 
 			return pMsg;
 		}
@@ -390,7 +390,7 @@ namespace Msg
 
 			RPC_GEN_RETURN_MSG;
 
-			CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 ,p4 , p5 , p6 , p7 , p8);
+			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 ,p4 , p5 , p6 , p7 , p8);
 
 			return pMsg;	
 		} 

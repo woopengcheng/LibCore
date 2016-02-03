@@ -27,7 +27,7 @@ public:
 		}
 		return *this;
 	}
-	~TestChunk()
+	virtual ~TestChunk()
 	{
 	}
 	char * GetData()
@@ -36,7 +36,7 @@ public:
 	}
 
 public:
-	virtual BOOL Release()
+	virtual BOOL Release() override
 	{
 		delete pData;
 		pData = NULL;

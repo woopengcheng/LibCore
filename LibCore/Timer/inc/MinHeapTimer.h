@@ -13,9 +13,9 @@ namespace Timer
 		virtual ~MinHeapTimer( void ){} 
 
 	public:
-		virtual CErrno		Init( void ){ return CErrno::Success(); }
-		virtual CErrno		Cleanup( void ){ return CErrno::Success(); } 
-		virtual TimerNode * Update(void)
+		virtual CErrno		Init( void )override { return CErrno::Success(); }
+		virtual CErrno		Cleanup( void ) override { return CErrno::Success(); }
+		virtual TimerNode * Update(void) override
 		{ 
 			TimerNode * pTimerNode = NULL;
 			CUtil::Node<TimerType> * pNode = CUtil::MinHeap<TimerType>::Update();
@@ -30,15 +30,15 @@ namespace Timer
  		virtual CErrno		SetTimer(UINT32 unTimeInterval , UINT32 unStartTime , UINT32 unTimes , void * pObj = NULL , TimerCallBackFunc pFunc = NULL){ return CErrno::Success(); }
 
 	public:
-		virtual CErrno		InsertNode(UINT32 unNodeID ,TimerNode * pNode)
+		virtual CErrno		InsertNode(UINT32 unNodeID ,TimerNode * pNode) override
 		{
 			return CUtil::MinHeap<TimerType>::InsertNode(unNodeID , pNode);
 		}
-		virtual CErrno		RemoveNode(UINT32 unNodeID)
+		virtual CErrno		RemoveNode(UINT32 unNodeID) override
 		{
 			return CUtil::MinHeap<TimerType>::RemoveNode(unNodeID); 
 		}
-		virtual TimerNode * GetNode(UINT32 unNodeID)
+		virtual TimerNode * GetNode(UINT32 unNodeID) override
 		{ 
 			TimerNode * pTimerNode = NULL;
 			CUtil::Node<TimerType> * pNode = CUtil::MinHeap<TimerType>::GetNode(unNodeID);

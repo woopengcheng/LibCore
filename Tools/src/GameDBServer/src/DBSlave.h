@@ -31,18 +31,18 @@ namespace Server
 		} 
 
 	public: 
-		virtual CErrno			Init(Json::Value & conf); 
-		virtual	CErrno			Cleanup(void);
-		virtual void			OnRegisterRpcs(void); 
-		virtual CErrno			Update(void);
-		virtual void			OnCreateDatabase(const GameDB::SDBSlaveInfo & objInfo);
-		SlaveHandler		* 	GetSlaveHandler(const std::string & strDBName);
+		virtual CErrno			Init(Json::Value & conf) override;
+		virtual	CErrno			Cleanup(void) override;
+		virtual void			OnRegisterRpcs(void) override;
+		virtual CErrno			Update(void) override;
+		virtual void			OnCreateDatabase(const GameDB::SDBSlaveInfo & objInfo) override;
 
 	public: 
 		void					StartAuth();
 		void					SetMasterID(Msg::Object nMasterID){ m_objMasterID = nMasterID; }
 		Msg::Object				GetMasterID( ){ return m_objMasterID; }
-		void					SetSlaveSessionID(const std::string & strDBName , INT32 nSessionID);
+		void					SetSlaveSessionID(const std::string & strDBName, INT32 nSessionID);
+		SlaveHandler		* 	GetSlaveHandler(const std::string & strDBName);
 
 	private: 
 		CErrno					InitThread(Json::Value & conf); 
@@ -64,8 +64,8 @@ namespace Server
 		}
 
 	public:
-		virtual CErrno OnConnected(Msg::RpcInterface * pRpcInterface, INT32 nSessionID, const std::string & strNetNodeName, bool bReconnect = false);
-		virtual CErrno OnDisconnected(Msg::RpcInterface * pRpcInterface, INT32 nSessionID, INT32 nPeerSessionID);
+		virtual CErrno OnConnected(Msg::RpcInterface * pRpcInterface, INT32 nSessionID, const std::string & strNetNodeName, bool bReconnect = false) override;
+		virtual CErrno OnDisconnected(Msg::RpcInterface * pRpcInterface, INT32 nSessionID, INT32 nPeerSessionID) override;
 
 	private:
 		DBSlave * m_pDBSlave;

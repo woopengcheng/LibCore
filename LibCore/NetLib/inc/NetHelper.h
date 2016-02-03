@@ -23,14 +23,14 @@ namespace Net
 		UDSContext()
 			: m_nTransferFD(0)
 		{}
-		virtual ~UDSContext() {}
+		~UDSContext() {}
 
 	public:
-		INT32 GetTransferFD() const { return m_nTransferFD; }
-		void SetTransferFD(INT32 val) { m_nTransferFD = val; }
+		INT32			GetTransferFD() const { return m_nTransferFD; }
+		void			SetTransferFD(INT32 val) { m_nTransferFD = val; }
 
 	private:
-		INT32		m_nTransferFD;
+		INT32			m_nTransferFD;
 	};
 
 	class DLL_EXPORT NetHelper

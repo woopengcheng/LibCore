@@ -49,11 +49,11 @@ namespace Timer
 		
 		} 
 	public:
-		virtual CErrno  Init(void){ return CErrno::Success(); }
-		virtual CErrno  Cleanup(void){ return CErrno::Success(); }
+		virtual CErrno  Init(void) override { return CErrno::Success(); }
+		virtual CErrno  Cleanup(void) override { return CErrno::Success(); }
 
 	public: 
-		virtual CErrno  RemoveNode(UINT32 unNodeID) 
+		virtual CErrno  RemoveNode(UINT32 unNodeID)  override
 		{
 			MapNodesT::accessor result; 
 			if (m_mapNodes.find(result , unNodeID))
@@ -89,7 +89,7 @@ namespace Timer
 
 			return CErrno::Success(); 
 		}
-		virtual TimerNode * GetNode(UINT32 unNodeID) 
+		virtual TimerNode * GetNode(UINT32 unNodeID)  override
 		{
 			MapNodesT::accessor result; 
 			if (m_mapNodes.find(result , unNodeID))
@@ -101,7 +101,7 @@ namespace Timer
 		}
 
 	public:
-		virtual CErrno  InsertNode(UINT32 unNodeID , TimerNode * pNode)
+		virtual CErrno  InsertNode(UINT32 unNodeID , TimerNode * pNode) override
 		{
 			INT32 nFutureTime = m_nCurTime + pNode->GetTimeInterval();
 					
@@ -129,7 +129,7 @@ namespace Timer
 			return CErrno::Success();
 		}
 
-		virtual TimerNode * Update(void)
+		virtual TimerNode * Update(void) override
 		{
 			TimerList * pCurList = NULL;
 			m_nCurTime += 1;

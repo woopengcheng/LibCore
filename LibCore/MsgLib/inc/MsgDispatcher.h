@@ -20,15 +20,15 @@ namespace Msg
 		typedef  std_unordered_map<Object , ICallableObject * , ObjectHashFunc> MapCallableObjectsT; 
 
 	public:
-		CErrno   AddCallableObject(ICallableObject * pCallableObject);
-		CErrno   DelCallableObject(ICallableObject * pCallableObject);
+		CErrno				AddCallableObject(ICallableObject * pCallableObject);
+		CErrno				DelCallableObject(ICallableObject * pCallableObject);
 
-		MethodImpl *   GetMethodImpl(std::string strFuncName); 
-		ICallableObject * GetCallableObject(Object obj);
+		MethodImpl *		GetMethodImpl(std::string strFuncName); 
+		ICallableObject *	GetCallableObject(Object obj);
 
 	public:
-		BOOL    HasSimilarRegisterFunc(std::string strFuncName ,  std::string strFuncType);
-		CErrno   Dispatcher(ObjectMsgCall * pObjectMsgCall ,Object obj);
+		BOOL				HasSimilarRegisterFunc(std::string strFuncName ,  std::string strFuncType);
+		CErrno				Dispatcher(ObjectMsgCall * pObjectMsgCall ,Object obj);
 
 	public: 
 		//5 ×¢²á¾²Ì¬ÀàµÄº¯Êý 

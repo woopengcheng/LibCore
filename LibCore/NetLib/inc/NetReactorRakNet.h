@@ -24,14 +24,14 @@ namespace Net
 		virtual ~NetReactorRakNet(void);
 
 	public:
-		virtual CErrno   Init(void);
-		virtual CErrno   Cleanup(void);
-		virtual CErrno   Update(void);
+		virtual CErrno   Init(void) override;
+		virtual CErrno   Cleanup(void) override;
+		virtual CErrno   Update(void) override;
 
 	public:
-		virtual CErrno   AddNetHandler(INetHandlerPtr  pNetHandler, ENetHandlerFuncMask objMask = NET_FUNC_DEFAULT);
-		virtual CErrno   DelNetHandler(INetHandlerPtr  pNetHandler, BOOL bEraseHandler = TRUE);
-		virtual CErrno   ModNetHandler(INetHandlerPtr  pNetHandler, ENetHandlerFuncMask objMask);
+		virtual CErrno   AddNetHandler(INetHandlerPtr  pNetHandler, ENetHandlerFuncMask objMask = NET_FUNC_DEFAULT) override;
+		virtual CErrno   DelNetHandler(INetHandlerPtr  pNetHandler, BOOL bEraseHandler = TRUE) override;
+		virtual CErrno   ModNetHandler(INetHandlerPtr  pNetHandler, ENetHandlerFuncMask objMask) override;
 
 	public:
 		RakNet::RakPeerInterface * GetRakPeerInterface() { return m_pRakPeerInstance; }

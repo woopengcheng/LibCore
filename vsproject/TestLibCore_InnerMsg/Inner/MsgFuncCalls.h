@@ -1,7 +1,7 @@
 #ifndef __msg_msg_proxy_h__
 #define __msg_msg_proxy_h__ 
 #include "MsgLib/inc/MsgCommon.h"
-#include "CUtil/inc/GenMsgHelper.h"
+#include "CUtil/inc/GenParamHelper.h"
 #include "MsgLib/inc/ObjectMsgCall.h"
 #include "MsgLib/inc/Object.h"
 #include "MsgLib/inc/MsgHelper.h"

@@ -15,8 +15,8 @@ namespace Net
 		~NetMsgQueue() {}
 
 	public:
-		virtual CErrno		HandleMsg(const char* pBuffer, UINT32 unLength);
-		virtual INT32		SendMsg(const char * pBuf, UINT32 unSize);
+		virtual CErrno		HandleMsg(const char* pBuffer, UINT32 unLength) override;
+		virtual INT32		SendMsg(const char * pBuf, UINT32 unSize) override;
 
 	public:
 		virtual CErrno		FetchMsgs(CollectMsgChunksVec & vecMsgs);

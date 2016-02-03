@@ -15,7 +15,7 @@ namespace Msg
 		virtual ~InternalMsgTask();
 
 	public:
-		virtual CErrno Update( void );
+		virtual CErrno	Update( void ) override;
 
 	protected: 
 		ObjectMsgCall * m_pMsg;

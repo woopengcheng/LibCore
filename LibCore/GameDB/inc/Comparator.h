@@ -16,10 +16,10 @@ namespace GameDB
 		//   < 0 iff "a" < "b",
 		//   == 0 iff "a" == "b",
 		//   > 0 iff "a" > "b"
-		virtual INT32		Compare(const Slice& a, const Slice& b) const; 
-		virtual void		FindShortestSeparator(std::string* start,const Slice& limit) const;
-		virtual void		FindShortSuccessor(std::string* key) const;
-		virtual const char* Name() const { return "GameDBComparator"; }
+		virtual INT32		Compare(const Slice& a, const Slice& b) const override; 
+		virtual void		FindShortestSeparator(std::string* start,const Slice& limit) const override;
+		virtual void		FindShortSuccessor(std::string* key) const override;
+		virtual const char* Name() const override { return "GameDBComparator"; }
 	};
 }
 

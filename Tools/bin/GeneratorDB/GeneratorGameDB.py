@@ -528,10 +528,10 @@ def GenerateOrmsHeadFile():
 		fileOrm.write(twoTab + "\n")
 		
 		fileOrm.write(twoTab + "public:\n")		
-		fileOrm.write(threeTab + "virtual std::string GetKey();\n")
-		fileOrm.write(threeTab + "virtual std::string GetRawKey();\n")
-		fileOrm.write(threeTab + "virtual std::string GetTableName();\n")
-#		fileOrm.write(threeTab + "virtual bool        IsDefaultValue();\n") 
+		fileOrm.write(threeTab + "virtual std::string GetKey() override;\n")
+		fileOrm.write(threeTab + "virtual std::string GetRawKey() override;\n")
+		fileOrm.write(threeTab + "virtual std::string GetTableName() override;\n")
+#		fileOrm.write(threeTab + "virtual bool        IsDefaultValue() override;\n") 
 		fileOrm.write(twoTab + "\n")
 		
 		fileOrm.write(twoTab + "public:\n")		
@@ -541,27 +541,27 @@ def GenerateOrmsHeadFile():
 		fileOrm.write(twoTab + "\n")
 		
 		fileOrm.write(twoTab + "public:\n")
-		fileOrm.write(threeTab + "virtual void		ToBson(std::string & strBuf);\n")
-		fileOrm.write(threeTab + "virtual void		ToBson(mongo::BSONObj  & objBson);\n")
-		fileOrm.write(threeTab + "virtual void		FromBson(const char * pData , INT32 nSize);\n")
-		fileOrm.write(threeTab + "virtual void		FromBson(const mongo::BSONObj  & objBson);\n")
+		fileOrm.write(threeTab + "virtual void		ToBson(std::string & strBuf) override;\n")
+		fileOrm.write(threeTab + "virtual void		ToBson(mongo::BSONObj  & objBson) override;\n")
+		fileOrm.write(threeTab + "virtual void		FromBson(const char * pData , INT32 nSize) override;\n")
+		fileOrm.write(threeTab + "virtual void		FromBson(const mongo::BSONObj  & objBson) override;\n")
 		fileOrm.write(threeTab + "virtual void		ToCompress(std::string & strBuf); \n")
-		fileOrm.write(threeTab + "virtual void		FromCompress(const char* data,INT32 size);\n")
-		fileOrm.write(threeTab + "virtual void		FromCompress(const std::string & strBuf);\n")		
+		fileOrm.write(threeTab + "virtual void		FromCompress(const char* data,INT32 size) override;\n")
+		fileOrm.write(threeTab + "virtual void		FromCompress(const std::string & strBuf) override;\n")		
 		fileOrm.write(twoTab + "\n")
 		
 		fileOrm.write(twoTab + "public:\n")
-		fileOrm.write(threeTab + "virtual INT64		HashMake(INT64 llSeed = DEFAULT_HASH_SEED);\n")
-		fileOrm.write(threeTab + "virtual INT64		CurHash(){ return __hash; }\n")
-		fileOrm.write(threeTab + "virtual void		HashUpdate(INT64 llHash){ __hash = llHash; }\n")	
+		fileOrm.write(threeTab + "virtual INT64		HashMake(INT64 llSeed = DEFAULT_HASH_SEED) override;\n")
+		fileOrm.write(threeTab + "virtual INT64		CurHash() override { return __hash; }\n")
+		fileOrm.write(threeTab + "virtual void		HashUpdate(INT64 llHash) override { __hash = llHash; }\n")	
 		fileOrm.write(twoTab + "\n")
 		
 		fileOrm.write(twoTab + "public:\n")
-		fileOrm.write(threeTab + "virtual void		AutoIncrease(INT64 llKey); \n")
-		fileOrm.write(threeTab + "virtual void		SetMasterID(INT64 llID){" + GetMasterIDFieldNameINT64(table , 0) + " }\n")
-		fileOrm.write(threeTab + "virtual void		SetMasterID(const char* pID){" + GetMasterIDFieldNameString(table , 0) + " }\n")
-		fileOrm.write(threeTab + "virtual INT64		GetMasterID(){ " + GetMasterIDFieldNameINT64(table , 1) + "}\n")
-		fileOrm.write(threeTab + "virtual const char*	GetMasterStrID(){ " + GetMasterIDFieldNameString(table , 1) + "}\n")
+		fileOrm.write(threeTab + "virtual void		AutoIncrease(INT64 llKey) override ; \n")
+		fileOrm.write(threeTab + "virtual void		SetMasterID(INT64 llID){" + GetMasterIDFieldNameINT64(table , 0) + " } override \n")
+		fileOrm.write(threeTab + "virtual void		SetMasterID(const char* pID){" + GetMasterIDFieldNameString(table , 0) + " } override \n")
+		fileOrm.write(threeTab + "virtual INT64		GetMasterID(){ " + GetMasterIDFieldNameINT64(table , 1) + "} override \n")
+		fileOrm.write(threeTab + "virtual const char*	GetMasterStrID(){ " + GetMasterIDFieldNameString(table , 1) + "} override \n")
 		fileOrm.write(twoTab + "\n")
 		
 		fileOrm.write(twoTab + "public:\n")
@@ -975,10 +975,10 @@ def GenerateOrmsCollectionHeadFile():
 		fileOrm.write(twoTab + "\n")
 		
 		fileOrm.write(twoTab + "public:\n")  
-		fileOrm.write(threeTab + "virtual void		ToBson(std::string & strBuf);\n")
-		fileOrm.write(threeTab + "virtual void		ToBson(mongo::BSONObj  & objBson);\n")
-		fileOrm.write(threeTab + "virtual void		FromBson(std::string & compressedBuf);\n")
-		fileOrm.write(threeTab + "virtual void		FromBson(const char * pData , UINT32 nSize);\n")
+		fileOrm.write(threeTab + "virtual void		ToBson(std::string & strBuf) override;\n")
+		fileOrm.write(threeTab + "virtual void		ToBson(mongo::BSONObj  & objBson) override;\n")
+		fileOrm.write(threeTab + "virtual void		FromBson(std::string & compressedBuf) override;\n")
+		fileOrm.write(threeTab + "virtual void		FromBson(const char * pData , UINT32 nSize) override;\n")
 		fileOrm.write(twoTab + "\n")
 				
 		fileOrm.write(twoTab + "public:\n")
@@ -1543,7 +1543,7 @@ def WriteOrmStructOperatorEqualAndNotEqual(fileOrm , ormStruct):
 	fileOrm.write(twoTab + "} \n\n")	
 	
 def WriteOrmStructMarshal(fileOrm , ormStruct):
-	fileOrm.write(twoTab + "virtual CUtil::CStream & marshal(CUtil::CStream & cs) const\n" )
+	fileOrm.write(twoTab + "virtual CUtil::CStream & marshal(CUtil::CStream & cs) const override\n" )
 	fileOrm.write(twoTab + "{ \n")
 	strParam = threeTab + "cs"
 	for index , param in ormStruct.params.items():  
@@ -1554,7 +1554,7 @@ def WriteOrmStructMarshal(fileOrm , ormStruct):
 	fileOrm.write(twoTab + "} \n\n")
 	
 def WriteOrmStructunMarshal(fileOrm , ormStruct):
-	fileOrm.write(twoTab + "virtual CUtil::CStream & unMarshal(CUtil::CStream & cs)\n" )
+	fileOrm.write(twoTab + "virtual CUtil::CStream & unMarshal(CUtil::CStream & cs) override\n" )
 	fileOrm.write(twoTab + "{ \n")
 	strParam = threeTab + "cs"
 	for index , param in ormStruct.params.items():  

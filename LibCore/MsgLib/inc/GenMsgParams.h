@@ -8,20 +8,20 @@
 // {
 // 	namespace GenMsgHelper
 // 	{ 	
-// 		static void GenMsgParams(CUtil::Parameters & objParams)
+// 		static void GenParams(CUtil::Parameters & objParams)
 // 		{
 // 			objParams.m_unParamCount = 0; 
 // 		}
 // 
 // 		template<typename P1>
-// 		static void GenMsgParams(Parameters & objParams , P1 &p1)
+// 		static void GenParams(Parameters & objParams , P1 &p1)
 // 		{
 // 			objParams.m_unParamCount = 1; 
 // 			ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
 // 		}
 // 
 // 		template<typename P1 , typename P2>
-// 		static void GenMsgParams(Parameters & objParams , P1 &p1 , P2 &p2)
+// 		static void GenParams(Parameters & objParams , P1 &p1 , P2 &p2)
 // 		{
 // 			objParams.m_unParamCount = 2; 
 // 			ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
@@ -29,7 +29,7 @@
 // 		}
 // 
 // 		template<typename P1 , typename P2 , typename P3>
-// 		static void GenMsgParams(Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3)
+// 		static void GenParams(Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3)
 // 		{
 // 			objParams.m_unParamCount = 3; 
 // 			ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
@@ -38,7 +38,7 @@
 // 		}
 // 
 // 		template<typename P1 , typename P2 , typename P3 , typename P4>
-// 		static void GenMsgParams(Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4)
+// 		static void GenParams(Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4)
 // 		{
 // 			objParams.m_unParamCount = 4; 
 // 			ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
@@ -48,7 +48,7 @@
 // 		} 
 // 
 // 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5>
-// 		static void GenMsgParams(Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5)
+// 		static void GenParams(Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5)
 // 		{
 // 			objParams.m_unParamCount = 5; 
 // 			ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
@@ -59,7 +59,7 @@
 // 		} 
 // 
 // 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6>
-// 		static void GenMsgParams(Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6)
+// 		static void GenParams(Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6)
 // 		{
 // 			objParams.m_unParamCount = 6; 
 // 			ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
@@ -71,7 +71,7 @@
 // 		}
 // 
 // 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7>
-// 		static void GenMsgParams(Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7)
+// 		static void GenParams(Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7)
 // 		{
 // 			objParams.m_unParamCount = 7; 
 // 			ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);
@@ -84,7 +84,7 @@
 // 		}
 // 
 // 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8>
-// 		static void GenMsgParams(Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7 , P8 &p8)
+// 		static void GenParams(Parameters & objParams , P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7 , P8 &p8)
 // 		{
 // 			objParams.m_unParamCount = 8;
 // 			ParameterHelper<P1>::MakeParameter(objParams.m_aParameter[0] , p1);

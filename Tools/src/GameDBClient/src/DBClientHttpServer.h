@@ -11,7 +11,7 @@ namespace Client
 	class  DBClientHttpServer : public Net::HttpServer , ThreadPool::ThreadSustainTask
 	{ 
 	public:
-		DBClientHttpServer(Net::INetReactor * pNetReactor = NULL);
+		explicit DBClientHttpServer(Net::INetReactor * pNetReactor = NULL);
 		virtual ~DBClientHttpServer(void){} 
 
 	public:
@@ -22,10 +22,10 @@ namespace Client
 		} 
 	public:    
 		CErrno				Init(Json::Value & conf);	
-		virtual CErrno		Init(const char * pAddress , INT32 nPort , BOOL bResueAddr = TRUE , INT32  nListenerCount = DEFAULT_LISTENER_COUNT);
-		virtual CErrno		Cleanup(); 
-		virtual CErrno		Update(void);
-		virtual	CErrno		HttpHandler(Net::HttpSession * pSession , Net::HttpProtocol& request,Net::HttpProtocol& response);
+		virtual CErrno		Init(const char * pAddress , INT32 nPort , BOOL bResueAddr = TRUE , INT32  nListenerCount = DEFAULT_LISTENER_COUNT) override;
+		virtual CErrno		Cleanup() override;
+		virtual CErrno		Update(void) override;
+		virtual	CErrno		HttpHandler(Net::HttpSession * pSession , Net::HttpProtocol& request,Net::HttpProtocol& response) override;
 
 	protected:
 		std::string			GetHtmlResult(std::string strContent);

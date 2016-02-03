@@ -28,8 +28,8 @@ namespace Client
 	static time_t g_rpcDefaultParam_time_t = 0;
 	static UINT8 g_rpcDefaultParam_UINT8 = 0;
 	static SINT8 g_rpcDefaultParam_SINT8 = 0;
-	static UINT16 g_rpcDefaultParam_UINT16 = 0;
 	static INT16 g_rpcDefaultParam_INT16 = 0;
+	static UINT16 g_rpcDefaultParam_UINT16 = 0;
 	static INT32 g_rpcDefaultParam_INT32 = 0;
 	static UINT32 g_rpcDefaultParam_UINT32 = 0;
 	static UINT64 g_rpcDefaultParam_UINT64 = 0;
@@ -50,8 +50,8 @@ namespace Client
 		//tool testMulitServerNode generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk , g_rpcDefaultParam_int , g_rpcDefaultParam_unsigned_int , g_rpcDefaultParam_char);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk , g_rpcDefaultParam_int , g_rpcDefaultParam_unsigned_int , g_rpcDefaultParam_char);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("testMulitServerNode", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("testMulitServerNode", objReturnParams);
 			
@@ -62,8 +62,8 @@ namespace Client
 		//tool testParamsAndRpcDatas generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_TestRpcData , g_rpcDefaultParam_TestRpcData2 , g_rpcDefaultParam_std__vector_INT32_);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_TestRpcData , g_rpcDefaultParam_TestRpcData2 , g_rpcDefaultParam_std__vector_INT32_);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("testParamsAndRpcDatas", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("testParamsAndRpcDatas", objReturnParams);
 		}
@@ -71,8 +71,8 @@ namespace Client
 		//tool SyncServerHandler generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams );
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams );
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("SyncServerHandler", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("SyncServerHandler", objReturnParams);
 			m_pRpcManager->RegisterFunc<GlobalRpc >(Msg::g_szSyncServerHandler_RpcServer , &GlobalRpc::SyncServerHandler_RpcServer); 
@@ -81,8 +81,8 @@ namespace Client
 		//tool HandleUserAuth generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleUserAuth", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleUserAuth", objReturnParams);
 			
@@ -93,8 +93,8 @@ namespace Client
 		//tool HandleSelectDatabase generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleSelectDatabase", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleSelectDatabase", objReturnParams);
 			
@@ -105,8 +105,8 @@ namespace Client
 		//tool HandleCreateDatabase generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleCreateDatabase", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleCreateDatabase", objReturnParams);
 			
@@ -117,8 +117,8 @@ namespace Client
 		//tool HandleDeleteDatabase generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleDeleteDatabase", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleDeleteDatabase", objReturnParams);
 			
@@ -129,8 +129,8 @@ namespace Client
 		//tool HandleShowDatabases generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams );
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
+			CUtil::GenParamHelper::GenParams(objDeliverParams );
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleShowDatabases", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleShowDatabases", objReturnParams);
 			
@@ -141,8 +141,8 @@ namespace Client
 		//tool HandleShowUsers generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams );
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
+			CUtil::GenParamHelper::GenParams(objDeliverParams );
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleShowUsers", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleShowUsers", objReturnParams);
 			
@@ -153,8 +153,8 @@ namespace Client
 		//tool HandleCreateUser generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_SINT8);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_SINT8);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleCreateUser", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleCreateUser", objReturnParams);
 			
@@ -165,8 +165,8 @@ namespace Client
 		//tool HandleDeleteUser generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleDeleteUser", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleDeleteUser", objReturnParams);
 			
@@ -177,8 +177,8 @@ namespace Client
 		//tool HandleModifyUser generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_SINT8);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_SINT8);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleModifyUser", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleModifyUser", objReturnParams);
 			
@@ -189,8 +189,8 @@ namespace Client
 		//tool HandleHSet generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleHSet", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleHSet", objReturnParams);
 			
@@ -201,8 +201,8 @@ namespace Client
 		//tool HandleHSetNX generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleHSetNX", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleHSetNX", objReturnParams);
 			
@@ -213,8 +213,8 @@ namespace Client
 		//tool HandleHSetOW generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleHSetOW", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleHSetOW", objReturnParams);
 			
@@ -225,8 +225,8 @@ namespace Client
 		//tool HandleHGet generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_std_string);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleHGet", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleHGet", objReturnParams);
 			
@@ -237,8 +237,8 @@ namespace Client
 		//tool HandleHDel generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleHDel", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleHDel", objReturnParams);
 			
@@ -249,8 +249,8 @@ namespace Client
 		//tool HandleHSetIncr generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT64);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT64);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleHSetIncr", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleHSetIncr", objReturnParams);
 			
@@ -261,8 +261,8 @@ namespace Client
 		//tool HandleHSetIncrFloat generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_double);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_double);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_double);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_double);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleHSetIncrFloat", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleHSetIncrFloat", objReturnParams);
 			
@@ -273,8 +273,8 @@ namespace Client
 		//tool HandleHGetKeys generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleHGetKeys", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleHGetKeys", objReturnParams);
 			
@@ -285,8 +285,8 @@ namespace Client
 		//tool HandleHGetVals generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleHGetVals", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleHGetVals", objReturnParams);
 			
@@ -297,8 +297,8 @@ namespace Client
 		//tool HandleHGetKeyVals generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleHGetKeyVals", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleHGetKeyVals", objReturnParams);
 			
@@ -309,8 +309,8 @@ namespace Client
 		//tool HandleHScan generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleHScan", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleHScan", objReturnParams);
 			
@@ -321,8 +321,8 @@ namespace Client
 		//tool HandleHCount generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT64);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT64);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleHCount", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleHCount", objReturnParams);
 			
@@ -333,8 +333,8 @@ namespace Client
 		//tool HandleHDrop generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT64);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT64);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleHDrop", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleHDrop", objReturnParams);
 			
@@ -345,8 +345,8 @@ namespace Client
 		//tool HandleHList generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams );
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
+			CUtil::GenParamHelper::GenParams(objDeliverParams );
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleHList", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleHList", objReturnParams);
 			
@@ -357,8 +357,8 @@ namespace Client
 		//tool HandleHMultiSet generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleHMultiSet", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleHMultiSet", objReturnParams);
 			
@@ -369,8 +369,8 @@ namespace Client
 		//tool HandleHMultiGet generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleHMultiGet", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleHMultiGet", objReturnParams);
 			
@@ -381,8 +381,8 @@ namespace Client
 		//tool HandleHMultiDel generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleHMultiDel", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleHMultiDel", objReturnParams);
 			
@@ -393,8 +393,8 @@ namespace Client
 		//tool HandleZSet generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleZSet", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleZSet", objReturnParams);
 			
@@ -405,8 +405,8 @@ namespace Client
 		//tool HandleZGet generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT64);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT64);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleZGet", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleZGet", objReturnParams);
 			
@@ -417,8 +417,8 @@ namespace Client
 		//tool HandleZDel generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT64);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT64);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleZDel", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleZDel", objReturnParams);
 			
@@ -429,8 +429,8 @@ namespace Client
 		//tool HandleZTop generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleZTop", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleZTop", objReturnParams);
 			
@@ -441,8 +441,8 @@ namespace Client
 		//tool HandleZRTop generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64 , g_rpcDefaultParam_INT64);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleZRTop", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleZRTop", objReturnParams);
 			
@@ -453,8 +453,8 @@ namespace Client
 		//tool HandleZDrop generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleZDrop", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleZDrop", objReturnParams);
 			
@@ -465,8 +465,8 @@ namespace Client
 		//tool HandleZCount generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT64);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT64);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleZCount", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleZCount", objReturnParams);
 			
@@ -477,8 +477,8 @@ namespace Client
 		//tool HandleZList generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams );
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
+			CUtil::GenParamHelper::GenParams(objDeliverParams );
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleZList", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleZList", objReturnParams);
 			
@@ -489,8 +489,8 @@ namespace Client
 		//tool HandleDump generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams );
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
+			CUtil::GenParamHelper::GenParams(objDeliverParams );
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("HandleDump", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("HandleDump", objReturnParams);
 			
@@ -501,8 +501,8 @@ namespace Client
 		//tool SyncMasterHandler generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_INT32);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("SyncMasterHandler", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("SyncMasterHandler", objReturnParams);
 		}
@@ -510,8 +510,8 @@ namespace Client
 		//tool SlaveStartAuth generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_std_string);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("SlaveStartAuth", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("SlaveStartAuth", objReturnParams);
 		}
@@ -519,8 +519,8 @@ namespace Client
 		//tool SlaveSelectDB generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("SlaveSelectDB", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("SlaveSelectDB", objReturnParams);
 		}
@@ -528,8 +528,8 @@ namespace Client
 		//tool SlaveRequestSync generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("SlaveRequestSync", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("SlaveRequestSync", objReturnParams);
 		}
@@ -537,8 +537,8 @@ namespace Client
 		//tool MasterStartSync generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT32 , g_rpcDefaultParam_INT32 , g_rpcDefaultParam_CUtilChunk);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_INT32 , g_rpcDefaultParam_INT32 , g_rpcDefaultParam_CUtilChunk);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("MasterStartSync", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("MasterStartSync", objReturnParams);
 		}
@@ -546,8 +546,8 @@ namespace Client
 		//tool SyncDataToSlave generate default deliver and return check param here
 		{
 			CUtil::Parameters objDeliverParams , objReturnParams;
-			CUtil::GenMsgHelper::GenMsgParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk);
-			CUtil::GenMsgHelper::GenMsgParams(objReturnParams  , g_rpcDefaultParam_INT32);
+			CUtil::GenParamHelper::GenParams(objDeliverParams  , g_rpcDefaultParam_std_string , g_rpcDefaultParam_CUtilChunk);
+			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("SyncDataToSlave", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("SyncDataToSlave", objReturnParams);
 		}

@@ -6,9 +6,9 @@
 
 namespace Msg
 { 
-	CErrno MsgQueue::Init( void )
+	CErrno MsgQueue::Init(Timer::ETimerStrategyType objType/* = Timer::TIMER_STRATEGY_DEFAULT*/)
 	{ 
-		return TimerInterface::Init();
+		return TimerInterface::Init(objType);
 	}
 
 
@@ -64,7 +64,7 @@ namespace Msg
 		return pMsg;
 	}
 
-	UINT32 MsgQueue::SetTimer( ObjectMsgCall * pMsg , UINT32 unTimeInterval , UINT32 unStartTime /*= 0*/, UINT32 unTimes /*= 0*/, void * pObj /*= NULL */, TimerCallBackFunc pFunc /*= NULL*/ )
+	INT32 MsgQueue::SetTimer( ObjectMsgCall * pMsg , UINT32 unTimeInterval , UINT32 unStartTime /*= 0*/, UINT32 unTimes /*= 0*/, void * pObj /*= NULL */, TimerCallBackFunc pFunc /*= NULL*/ )
 	{
 		if (m_pTimerStrategy)
 		{

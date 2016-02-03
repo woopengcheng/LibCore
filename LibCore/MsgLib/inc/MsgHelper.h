@@ -3,7 +3,7 @@
 #include "MsgLib/inc/MsgCommon.h" 
 #include "MsgLib/inc/RPCMsgCall.h" 
 #include "CUtil/inc/ParameterHelper.h" 
-#include "CUtil/inc/GenMsgHelper.h" 
+#include "CUtil/inc/GenParamHelper.h" 
 #include "CUtil/inc/CUtil.h"
 #include "CUtil/inc/Chunk.h"
 #include "MsgLib/inc/MsgHelper.h"
@@ -22,7 +22,7 @@ namespace Msg
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
-		CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7);\
+		CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7);\
 		\
 		return pSendInstance->SendMsg(nameOrID , pMsg );\
 	}\
@@ -40,7 +40,7 @@ namespace Msg
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
-		CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7);\
+		CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7);\
 		\
 		return pSendInstance->SendMsg(nameOrID , pMsg );\
 	}\
@@ -58,7 +58,7 @@ namespace Msg
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
-		CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 );\
+		CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 );\
 		\
 		return pSendInstance->SendMsg(nameOrID , pMsg );\
 	}\
@@ -76,7 +76,7 @@ namespace Msg
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
-		CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5);\
+		CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5);\
 		\
 		return pSendInstance->SendMsg(nameOrID , pMsg );\
 	}\
@@ -94,7 +94,7 @@ namespace Msg
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
-		CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4);\
+		CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4);\
 		\
 		return pSendInstance->SendMsg(nameOrID , pMsg );\
 	}\
@@ -112,7 +112,7 @@ namespace Msg
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
-		CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3);\
+		CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3);\
 		\
 		return pSendInstance->SendMsg(nameOrID , pMsg );\
 	}\
@@ -130,7 +130,7 @@ namespace Msg
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
-		CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2);\
+		CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2);\
 		\
 		return pSendInstance->SendMsg(nameOrID , pMsg );\
 	}\
@@ -148,7 +148,7 @@ namespace Msg
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
-		CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1);\
+		CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1);\
 		\
 		return pSendInstance->SendMsg(nameOrID , pMsg );\
 	}\
@@ -166,7 +166,7 @@ namespace Msg
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
-		CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams);\
+		CUtil::GenParamHelper::GenParams(pMsg->m_objParams);\
 		\
 		return pSendInstance->SendMsg(nameOrID , pMsg );\
 	}\
@@ -184,7 +184,7 @@ namespace Msg
 		Msg::ObjectMsgCall * pMsg = new(sizeof(Msg::Object)*(UINT32)(vecTargets.size()))Msg::ObjectMsgCall;  \
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
-		CUtil::GenMsgHelper::GenMsgParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7);\
+		CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7);\
 		\
 		return MsgInstance::GetInstance().SendMsg(pMsg);\
 	}\

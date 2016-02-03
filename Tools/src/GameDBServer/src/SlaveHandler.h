@@ -33,7 +33,7 @@ namespace Server
 			SAFE_DELETE(m_pDatabase);
 		}
 	public:
-		virtual CErrno Update(){ return CErrno::Success(); } 
+		virtual CErrno Update() override { return CErrno::Success(); }
 
 	public:
 		void					StartAuth();

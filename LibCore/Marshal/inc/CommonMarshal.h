@@ -14,8 +14,8 @@ namespace CUtil
 		CharPtr(char * pBuf , UINT32 unLen) : m_pBuf(pBuf) , m_unLen(unLen) {}
 
 	public:
-		virtual CStream & marshal(CStream & cs) const;
-		virtual CStream & unMarshal(CStream & cs);
+		virtual CStream & marshal(CStream & cs) const override;
+		virtual CStream & unMarshal(CStream & cs) override;
 
 	protected:
 		char * m_pBuf;
@@ -32,7 +32,7 @@ namespace CUtil
 			std::copy(stl.GetContainer()->begin(), stl.GetContainer()->end(), std::back_inserter(*m_pContainer));  
 		}
 	public:
-		virtual CStream & marshal( CStream & cs )const
+		virtual CStream & marshal( CStream & cs )const override
 		{
 			cs << m_pContainer->size();
 
@@ -44,7 +44,7 @@ namespace CUtil
 
 			return cs;
 		}
-		virtual CStream & unMarshal (CStream & cs)
+		virtual CStream & unMarshal (CStream & cs) override
 		{
 			m_pContainer->clear();
 			size_t unCount = 0;
@@ -76,7 +76,7 @@ namespace CUtil
 			std::copy(stl.GetContainer()->begin(), stl.GetContainer()->end(), std::back_inserter(*m_pContainer));  
 		}
 	public:
-		virtual CStream & marshal( CStream & cs ) const
+		virtual CStream & marshal( CStream & cs ) const override
 		{
 			cs << m_pContainer->size();
 
@@ -88,7 +88,7 @@ namespace CUtil
 
 			return cs;
 		}
-		virtual CStream & unMarshal (CStream & cs)
+		virtual CStream & unMarshal (CStream & cs) override
 		{
 			m_pContainer->clear();
 			UINT32 unCount = 0;

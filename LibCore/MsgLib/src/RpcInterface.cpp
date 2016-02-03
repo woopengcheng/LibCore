@@ -200,21 +200,21 @@ namespace Msg
 	{
 		if (pMsg->GetSyncType() == SYNC_TYPE_SYNC)
 		{ 
-			SRpcCoTask * pTask = new SRpcCoTask;
-			pTask->pMsg = pMsg;
-			pTask->pInterface = this;
-
-			Coroutine::CoCreate(&(pTask->pCoID), fiberProc, pTask);
-			if (pTask->pCoID)
-			{
-				AddRpcCoTask(pTask);
-				Coroutine::CoResume(pTask->pCoID);
-			}
-// 			while (pMsg->GetSyncResult() == SYNC_RESULT_START_RETURN)
+// 			SRpcCoTask * pTask = new SRpcCoTask;
+// 			pTask->pMsg = pMsg;
+// 			pTask->pInterface = this;
+// 
+// 			Coroutine::CoCreate(&(pTask->pCoID), fiberProc, pTask);
+// 			if (pTask->pCoID)
 // 			{
-// 				Update();
+// 				AddRpcCoTask(pTask);
+// 				Coroutine::CoResume(pTask->pCoID);
 // 			}
-//			SAFE_DELETE_NEW(pMsg);
+			while (pMsg->GetSyncResult() == SYNC_RESULT_START_RETURN)
+			{
+				Update();
+			}
+			SAFE_DELETE_NEW(pMsg);
 		}
 	}
 

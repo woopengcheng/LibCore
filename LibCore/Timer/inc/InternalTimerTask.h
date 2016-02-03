@@ -14,11 +14,11 @@ namespace Timer
 		virtual ~InternalTimerTask( void );
 
 	public:
-		virtual CErrno  Update();
+		virtual CErrno		Update() override;
 
 	private:
-		TimerNode		* m_pNode;
-		TimerInterface	* m_pTimerInterface;
+		TimerNode		*	m_pNode;
+		TimerInterface	*	m_pTimerInterface;
 	};
 }
 #endif

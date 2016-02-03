@@ -53,15 +53,15 @@ namespace Log
 		virtual ~Log4CPlusAdaptee(){} 
 
 	public: 
-		virtual  CErrno  Init(const char * pLogName , const char * pLayoutConfig = NULL , BOOL bMultCategory = TRUE) ; 
-		virtual  CErrno  Cleanup(); 
+		virtual  CErrno  Init(const char * pLogName , const char * pLayoutConfig = NULL , BOOL bMultCategory = TRUE) override; 
+		virtual  CErrno  Cleanup() override;
 
 	public:
-		virtual  void    Debug( std_ostream & os ); 
-		virtual  void    Error( std_ostream & os); 
-		virtual  void    Warning( std_ostream & os); 
-		virtual  void    Trace( std_ostream & os); 
-		virtual  void    Other( std_ostream & os); 
+		virtual  void    Debug( std_ostream & os ) override;
+		virtual  void    Error( std_ostream & os) override;
+		virtual  void    Warning( std_ostream & os) override;
+		virtual  void    Trace( std_ostream & os) override;
+		virtual  void    Other( std_ostream & os) override;
 
 	public: 
 		virtual  CErrno				CreateLog(const char * pName , const char * pLayoutConfig , const char * pFile);

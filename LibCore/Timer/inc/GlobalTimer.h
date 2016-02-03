@@ -49,14 +49,14 @@ namespace Timer
 		virtual ~GlobalTimer(void){}
 		 
 	public:
-		static GlobalTimer & GetInstance( void ){ static GlobalTimer m_sInstance; return m_sInstance;}
+		static GlobalTimer &	GetInstance( void ){ static GlobalTimer m_sInstance; return m_sInstance;}
 
 	public: 
-		virtual CErrno    Init(UINT32 unTimerThreadPriorityCount = 1 , UINT32 unTimerHandlerthreadPriorityCount = 1, UINT32 unTimerThreadPriority = DEFAULT_TIMER_THREAD_ID ,UINT32 unTimerHandlerthreadPriority = DEFAULT_TIMER_HANDLE_THREAD_ID );
-		virtual CErrno    Cleanup(void);
+		virtual CErrno			Init(UINT32 unTimerThreadPriorityCount = 1 , UINT32 unTimerHandlerthreadPriorityCount = 1, UINT32 unTimerThreadPriority = DEFAULT_TIMER_THREAD_ID ,UINT32 unTimerHandlerthreadPriority = DEFAULT_TIMER_HANDLE_THREAD_ID );
+		virtual CErrno			Cleanup(void) override;
 
 	public:  
-		virtual CErrno    Update_Thread(void); 
+		virtual CErrno			Update_Thread(void) override; 
 	};  
 } 
 #endif

@@ -23,7 +23,7 @@ namespace Client
 		} 
 
 	public: 
-		virtual void	OnRegisterRpcs(void); 
+		virtual void	OnRegisterRpcs(void) override;
 
 	public:
 		INT32			GetServerSessionID() const { return m_nServerSessionID; }
@@ -46,8 +46,8 @@ namespace Client
 		}
 
 	public:
-		virtual CErrno OnConnected(Msg::RpcInterface * pRpcInterface, INT32 nSessionID, const std::string & strNetNodeName, bool bReconnect = false);
-		virtual CErrno OnDisconnected(Msg::RpcInterface * pRpcInterface, INT32 nSessionID, INT32 nPeerSessionID);
+		virtual CErrno OnConnected(Msg::RpcInterface * pRpcInterface, INT32 nSessionID, const std::string & strNetNodeName, bool bReconnect = false) override;
+		virtual CErrno OnDisconnected(Msg::RpcInterface * pRpcInterface, INT32 nSessionID, INT32 nPeerSessionID) override;
 
 	private:
 		DBClient * m_pDBClient;

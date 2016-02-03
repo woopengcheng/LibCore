@@ -9,7 +9,7 @@ namespace Net
 	{
 	public:
 		UDPContext() {}
-		virtual ~UDPContext() {}
+		~UDPContext() {}
 
 		sockaddr_in GetPeerAddr() 
 		{
@@ -35,14 +35,14 @@ namespace Net
 		virtual ~NetReactorUDP( void );
 
 	public:
-		virtual CErrno   Init( void );
-		virtual CErrno   Cleanup( void );
-		virtual CErrno   Update( void );
+		virtual CErrno   Init( void ) override;
+		virtual CErrno   Cleanup( void ) override;
+		virtual CErrno   Update( void ) override;
 
 	public:
-		virtual CErrno   AddNetHandler(INetHandlerPtr  pNetHandler , ENetHandlerFuncMask objMask = NET_FUNC_DEFAULT);
-		virtual CErrno   DelNetHandler(INetHandlerPtr  pNetHandler , BOOL bEraseHandler = TRUE);
-		virtual CErrno   ModNetHandler(INetHandlerPtr  pNetHandler , ENetHandlerFuncMask objMask);
+		virtual CErrno   AddNetHandler(INetHandlerPtr  pNetHandler , ENetHandlerFuncMask objMask = NET_FUNC_DEFAULT) override;
+		virtual CErrno   DelNetHandler(INetHandlerPtr  pNetHandler , BOOL bEraseHandler = TRUE) override;
+		virtual CErrno   ModNetHandler(INetHandlerPtr  pNetHandler , ENetHandlerFuncMask objMask) override;
 
 	private: //5 reactor一般都是单线程.所以不必考虑线程安全.如果多线程的话一定不安全.
 		UINT32          m_nNetHandlerCount;
@@ -50,8 +50,8 @@ namespace Net
 		MapNetHandlersT m_mapNetHandlers;
 
 	private:
-		void  * m_pFdSetReads;
-		void  * m_pFdSetExcepts;
+		void		*	m_pFdSetReads;
+		void		*	m_pFdSetExcepts;
 
 	}; 
 

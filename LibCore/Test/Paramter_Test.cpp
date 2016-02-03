@@ -235,21 +235,21 @@ TEST(Parameters)
 	t25.insert(std::make_pair(1 , t18));
 
 	CUtil::Parameters objParams1;
-	objParams1.GenMsgParams(t , t1 , t2 , t3 , t4 , t5 , t6 , t7);
+	objParams1.GenParams(t , t1 , t2 , t3 , t4 , t5 , t6 , t7);
 	CUtil::Parameters objParams2;
-	objParams2.GenMsgParams(t8 , t9 , t10 , t11 , t12 , t13 , t14 , t15);
+	objParams2.GenParams(t8 , t9 , t10 , t11 , t12 , t13 , t14 , t15);
 	CUtil::Parameters objParams3;
-	objParams3.GenMsgParams(t16 , t17 , t18 , t19 , t20 , t21 , t22 , t23);
+	objParams3.GenParams(t16 , t17 , t18 , t19 , t20 , t21 , t22 , t23);
 	CUtil::Parameters objParams4;
-	objParams4.GenMsgParams(t24 , t25); 
+	objParams4.GenParams(t24 , t25); 
 	
 	CUtil::Parameter t26(t);
 	CUtil::Parameters objParams5;
-	objParams5.GenMsgParams(t26); 
+	objParams5.GenParams(t26); 
 
 	CUtil::Parameters t27 = objParams4;
 	CUtil::Parameters objParams6;
-	objParams6.GenMsgParams(t27); 
+	objParams6.GenParams(t27); 
 
 	CHECK_EQUAL(t27 , objParams4);
 	CHECK_EQUAL(objParams1.GetParamCount() , 8);

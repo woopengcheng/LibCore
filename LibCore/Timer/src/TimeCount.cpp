@@ -11,7 +11,7 @@ namespace Timer
 		return CErrno::Success();
 	}
 
-	CErrno TimeCount::Clean()
+	CErrno TimeCount::Cleanup()
 	{
 		m_ullLastTime = 0;
 		m_ullTimeInterval = 0;
@@ -126,7 +126,7 @@ namespace Timer
 		return CErrno::Success();
 	}
 
-	CErrno TimeCount_Safe::Clean()
+	CErrno TimeCount_Safe::Cleanup()
 	{
 		SetLastTime(0);
 		SetTimeInterval(0);

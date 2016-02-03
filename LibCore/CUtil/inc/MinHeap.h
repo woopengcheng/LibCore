@@ -12,17 +12,17 @@ namespace CUtil
 		virtual ~MinHeap(void){} 
 
 	public:
-		virtual CErrno  Init(void);
-		virtual CErrno  Cleanup(void);
+		virtual CErrno		Init(void);
+		virtual CErrno		Cleanup(void);
 		virtual Node<ValueType> *    Update(void);
 
 	public:
-		virtual CErrno  InsertNode(UINT32 unNodeID , Node<ValueType> * pNode);
-		virtual CErrno  RemoveNode(UINT32 unNodeID);  
+		virtual CErrno		InsertNode(UINT32 unNodeID , Node<ValueType> * pNode);
+		virtual CErrno		RemoveNode(UINT32 unNodeID);  
 
 	protected:
-		virtual CErrno  HeapRebuildDown(Node<ValueType> * pRebuildNode);
-		virtual CErrno  HeapRebuildUp(UINT32 unCurPos , Node<ValueType>  * pRebuildNode);
+		virtual CErrno		HeapRebuildDown(Node<ValueType> * pRebuildNode);
+		virtual CErrno		HeapRebuildUp(UINT32 unCurPos , Node<ValueType>  * pRebuildNode);
 	}; 
 
 	template <typename ValueType>

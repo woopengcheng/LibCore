@@ -69,58 +69,50 @@ namespace Msg
 		} 
 
 	public:   
-		virtual UINT32 RefreshSize(); 
-		virtual void   RefreshTargets();
-		virtual UINT32 GetPacketSize( void );
+		virtual UINT32				RefreshSize() override;
+		virtual void				RefreshTargets() override;
+		virtual UINT32				GetPacketSize( void ) override;
 
 	public:
-		//************************************
-		// Method:    CopyTo
-		// FullName:  RpcMsgCall::CopyTo
-		// Access:    virtual public 
-		// Returns:   UINT32
-		// Qualifier: 将当前对象拷贝给pMsg使用
-		// Parameter: RpcMsgCall * pMsg
-		//************************************
-		CErrno CopyTo(RPCMsgCall *& pMsg);
-		CErrno CopyExcludeNetDatas(RPCMsgCall *& pMsg);
-		CErrno CopyExcludeParams(RPCMsgCall *& pMsg);
-		CErrno CopyExcludeParamsAndTargets(RPCMsgCall *& pMsg ,const std::vector<Msg::Object> & vecTargets , Msg::Object objSrc);
-
-
+		CErrno						CopyTo(RPCMsgCall *& pMsg); //5 将当前对象拷贝给pMsg使用
+		CErrno						CopyExcludeNetDatas(RPCMsgCall *& pMsg);
+		CErrno						CopyExcludeParams(RPCMsgCall *& pMsg);
+		CErrno						CopyExcludeParamsAndTargets(RPCMsgCall *& pMsg ,const std::vector<Msg::Object> & vecTargets , Msg::Object objSrc);
+		
 	public:
-		INT32	GetProxySessionID() const { return m_nProxySessionID; }
-		void	SetProxySessionID(INT32 val) { m_nProxySessionID = val; }
-		void	SetProxySrcID(Object objProxySrcID){ m_objProxySrcID = objProxySrcID; }
-		Object	GetProxySrcID(){ return m_objProxySrcID; }
-		INT32	GetRpcMsgCallType() const { return m_nRpcMsgCallType; }
-		void	SetRpcMsgCallType(INT32 val) { m_nRpcMsgCallType = val; }
-		void	SetSyncType(EMSG_SYNC_TYPE val) { m_objSyncType = val; }
-		EMSG_SYNC_TYPE GetSyncType( void ){ return m_objSyncType; }
-		void	SetSyncResult(EMSG_SYNC_RESULT val) { m_objSyncResult = val; }
-		EMSG_SYNC_RESULT GetSyncResult( void ){ return m_objSyncResult; }
-		INT32	GetReturnType() const { return m_nReturnType; }
-		void	AddReturnType(Msg::ERPCRETURN_TYPE val) { m_nReturnType = m_nReturnType | val; }
-		void	ResetReturnType() { m_nReturnType = RETURN_TYPE_DONE; }
-		void	AddDelayTarget(Msg::Object obj);
-		void	ReplaceDelayTarget();
+		INT32						GetProxySessionID() const { return m_nProxySessionID; }
+		void						SetProxySessionID(INT32 val) { m_nProxySessionID = val; }
+		void						SetProxySrcID(Object objProxySrcID){ m_objProxySrcID = objProxySrcID; }
+		Object						GetProxySrcID(){ return m_objProxySrcID; }
+		INT32						GetRpcMsgCallType() const { return m_nRpcMsgCallType; }
+		void						SetRpcMsgCallType(INT32 val) { m_nRpcMsgCallType = val; }
+		void						SetSyncType(EMSG_SYNC_TYPE val) { m_objSyncType = val; }
+		void						SetSyncResult(EMSG_SYNC_RESULT val) { m_objSyncResult = val; }
+		INT32						GetReturnType() const { return m_nReturnType; }
+		void						AddReturnType(Msg::ERPCRETURN_TYPE val) { m_nReturnType = m_nReturnType | val; }
+		void						ResetReturnType() { m_nReturnType = RETURN_TYPE_DONE; }
+		void						AddDelayTarget(Msg::Object obj);
+		void						ReplaceDelayTarget();
+		EMSG_SYNC_TYPE				GetSyncType(void) { return m_objSyncType; }
+		EMSG_SYNC_RESULT			GetSyncResult(void) { return m_objSyncResult; }
 
 	public: 
-		virtual CUtil::CStream & marshal(CUtil::CStream & cs);
-		virtual CUtil::CStream & unMarshal(CUtil::CStream & cs);
+		virtual CUtil::CStream &	marshal(CUtil::CStream & cs) const override;
+		virtual CUtil::CStream &	unMarshal(CUtil::CStream & cs) override;
+
 	public:    
-		BOOL           m_bClientRequest;
-		UINT64         m_ullTimeout;   
+		BOOL						m_bClientRequest;
+		UINT64						m_ullTimeout;   
 
 		//5 下面的参数是不参与网络传输的.
 	protected:
-		INT32				m_nProxySessionID;
-		Object				m_objProxySrcID;
-		INT32				m_nRpcMsgCallType;
-		INT32				m_nReturnType;
-		EMSG_SYNC_TYPE		m_objSyncType;
-		EMSG_SYNC_RESULT	m_objSyncResult;
-		CollectionTargetsT	m_setDelayTargets;
+		INT32						m_nProxySessionID;
+		Object						m_objProxySrcID;
+		INT32						m_nRpcMsgCallType;
+		INT32						m_nReturnType;
+		EMSG_SYNC_TYPE				m_objSyncType;
+		EMSG_SYNC_RESULT			m_objSyncResult;
+		CollectionTargetsT			m_setDelayTargets;
 	};  
 
 }

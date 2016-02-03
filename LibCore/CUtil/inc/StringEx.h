@@ -28,16 +28,21 @@ namespace  CUtil
 			Init(pStr , (UINT32)strlen(pStr)); //5 故意少拷贝一个.结尾时自动加上.
 		}
 
-		virtual void  Init(const char * pStr , UINT32 unLength)
+		virtual void  Init(const char * pStr , UINT32 unLength) override
 		{
 			INT32 nSize = __min(unLength , L); 
 			strncpy(m_szString , L , pStr);
 			m_szString[nSize] = 0;
 		}
 
-		virtual const UINT32 length() const
+		virtual const UINT32 length() const override
 		{
 			return (UINT32)strlen(m_szString);
+		}
+
+		virtual const char * c_str() const override
+		{
+			return m_szString;
 		}
 
 		StringEx<L> & operator = (const char * pStr)
@@ -53,11 +58,6 @@ namespace  CUtil
 		}
 
 		operator char * () const
-		{
-			return m_szString;
-		}
-
-		const char * c_str() const
 		{
 			return m_szString;
 		}

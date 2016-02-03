@@ -16,11 +16,11 @@ namespace GameDB
 		}
 
 	public:
-		virtual void Put(const Slice& objKey, const Slice& objValue);
-		virtual void Delete(const Slice& objKey);
+		virtual void	Put(const Slice& objKey, const Slice& objValue);
+		virtual void	Delete(const Slice& objKey);
 
 	private:
-		Database * m_pDB;
+		Database *		m_pDB;
 	};
 }
 
