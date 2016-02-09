@@ -1,8 +1,8 @@
 /************************************
 FileName	:	RPCDefines.h
 Author		:	generate by tools
-HostName	:	devuser-PC
-IP			:	10.236.41.54
+HostName	:	DESKTOP-5AT4DK2
+IP			:	192.168.31.196
 Version		:	0.0.1
 Description	:	RPC函数定义
 ************************************/
@@ -13,7 +13,7 @@ Description	:	RPC函数定义
 namespace Server
 {
 
-#define  RPC_DEFINE_GlobalRpc public:\
+#define  RPC_DEFINE_GRpc public:\
 	Msg::ObjectMsgCall * SyncServerHandler_RpcServer(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 	Msg::ObjectMsgCall * SyncDataToSlave_RpcServerProxy(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk());\
 	Msg::ObjectMsgCall * SyncDataToSlave_RpcTimeoutProxy(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk());\
@@ -22,13 +22,13 @@ public:\
 	static CollectionObjectFuncsT s_setFuncs;\
 	static void InitObjectFuncs()\
 	{\
-		GlobalRpc::s_setFuncs.insert("SyncServerHandler");\
-		GlobalRpc::s_setFuncs.insert("SyncDataToSlave");\
+		GRpc::s_setFuncs.insert("SyncServerHandler");\
+		GRpc::s_setFuncs.insert("SyncDataToSlave");\
 	}\
 	virtual BOOL IsHasFunc(const std::string & strFunc)\
 	{\
-		CollectionObjectFuncsT::iterator iter = GlobalRpc::s_setFuncs.find(strFunc);\
-		if (iter != GlobalRpc::s_setFuncs.end())\
+		CollectionObjectFuncsT::iterator iter = GRpc::s_setFuncs.find(strFunc);\
+		if (iter != GRpc::s_setFuncs.end())\
 		{\
 			return TRUE;\
 		}\

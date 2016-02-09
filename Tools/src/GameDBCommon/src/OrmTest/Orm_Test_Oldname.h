@@ -1,10 +1,10 @@
 /************************************
 FileName	:	Orm_Test_Oldname.h
 Author		:	generate by tools
-HostName	:	devuser-PC
-IP			:	10.236.41.54
+HostName	:	DESKTOP-5AT4DK2
+IP			:	192.168.31.196
 Version		:	0.0.1
-Date		:	2016-02-03 17:05:36
+Date		:	2016-02-09 11:26:27
 Description	:	orm²Ù×÷¼¯ºÏ.
 ************************************/
 #ifndef __Orm_Orm_Test_Oldname_h__
@@ -57,10 +57,10 @@ namespace Orm
 		
 		public:
 			virtual void		AutoIncrease(INT64 llKey) override ; 
-			virtual void		SetMasterID(INT64 llID){id = llID; } override 
-			virtual void		SetMasterID(const char* pID){ } override 
-			virtual INT64		GetMasterID(){ return id;} override 
-			virtual const char*	GetMasterStrID(){ return "";} override 
+			virtual void		SetMasterID(INT64 llID) override {id = llID; }
+			virtual void		SetMasterID(const char* pID) override { }
+			virtual INT64		GetMasterID() override { return id;}
+			virtual const char*	GetMasterStrID() override { return "";}
 		
 		public:
 			INT64 Getid() const;

@@ -558,10 +558,10 @@ def GenerateOrmsHeadFile():
 		
 		fileOrm.write(twoTab + "public:\n")
 		fileOrm.write(threeTab + "virtual void		AutoIncrease(INT64 llKey) override ; \n")
-		fileOrm.write(threeTab + "virtual void		SetMasterID(INT64 llID){" + GetMasterIDFieldNameINT64(table , 0) + " } override \n")
-		fileOrm.write(threeTab + "virtual void		SetMasterID(const char* pID){" + GetMasterIDFieldNameString(table , 0) + " } override \n")
-		fileOrm.write(threeTab + "virtual INT64		GetMasterID(){ " + GetMasterIDFieldNameINT64(table , 1) + "} override \n")
-		fileOrm.write(threeTab + "virtual const char*	GetMasterStrID(){ " + GetMasterIDFieldNameString(table , 1) + "} override \n")
+		fileOrm.write(threeTab + "virtual void		SetMasterID(INT64 llID) override {" + GetMasterIDFieldNameINT64(table , 0) + " }\n")
+		fileOrm.write(threeTab + "virtual void		SetMasterID(const char* pID) override {" + GetMasterIDFieldNameString(table , 0) + " }\n")
+		fileOrm.write(threeTab + "virtual INT64		GetMasterID() override { " + GetMasterIDFieldNameINT64(table , 1) + "}\n")
+		fileOrm.write(threeTab + "virtual const char*	GetMasterStrID() override { " + GetMasterIDFieldNameString(table , 1) + "}\n")
 		fileOrm.write(twoTab + "\n")
 		
 		fileOrm.write(twoTab + "public:\n")

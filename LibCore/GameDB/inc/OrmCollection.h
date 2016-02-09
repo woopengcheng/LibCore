@@ -14,6 +14,10 @@ namespace GameDB
 		OrmCollection()
 		{ 
 		}
+		virtual void		ToBson(std::string & strBuf) {};
+		virtual void		ToBson(mongo::BSONObj  & objBson) {};
+		virtual void		FromBson(std::string & compressedBuf) {};
+		virtual void		FromBson(const char * pData, UINT32 nSize) {};
 	};
 
 	
@@ -26,7 +30,14 @@ namespace GameDB
 		{ 
 		}
 	public:
+		virtual void		ToBson(std::string & strBuf) {};
+		virtual void		ToBson(mongo::BSONObj  & objBson) {};
+		virtual void		FromBson(std::string & compressedBuf) {};
+		virtual void		FromBson(const char * pData, UINT32 nSize) {};
+
+	public:
 		void SetMasterID(INT64 id) { m_vMasterId = id; }
+
 	protected:
 		INT64 m_vMasterId;
 	};
@@ -39,6 +50,12 @@ namespace GameDB
 			: m_vMasterId("")
 		{ 
 		}
+	public:
+		virtual void		ToBson(std::string & strBuf) {};
+		virtual void		ToBson(mongo::BSONObj  & objBson) {};
+		virtual void		FromBson(std::string & compressedBuf) {};
+		virtual void		FromBson(const char * pData, UINT32 nSize) {};
+
 	public:
 		void SetMasterID(std::string id) { m_vMasterId = id; }
 

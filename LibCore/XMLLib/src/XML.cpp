@@ -10,13 +10,16 @@ namespace XML
 {  
 	void XMLCALL XML::StartElement( void * pUserData , const char * pName , const char ** pAttr )
 	{
+		MsgAssert(pUserData && pName, "StartElement error" << pName);
+
 		XMLValue * pValues = (XMLValue*)pUserData;
 		pValues->GetVectorParents().push_back(pName);
-
 	}
 
 	void XMLCALL XML::DataHandler( void * pUserData , const char * pValue , int nLength )
 	{
+		MsgAssert(pUserData && pValue , "DataHandler error" << pValue);
+
 		XMLValue * pValues = (XMLValue*)pUserData;
 
 		std::string strKey , strValue(pValue , nLength);
@@ -26,6 +29,8 @@ namespace XML
 
 	void XMLCALL XML::EndElement( void * pUserData , const char * pName )
 	{
+		MsgAssert(pUserData && pName, "EndElement error" << pName);
+
 		XMLValue * pValues = (XMLValue*)pUserData;
 
 		pValues->GetVectorParents().pop_back();   //5 将最后一个值弹出去.

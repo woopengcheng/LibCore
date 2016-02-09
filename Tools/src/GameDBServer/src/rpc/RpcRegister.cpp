@@ -1,8 +1,8 @@
 /************************************
 FileName	:	RpcRegister.cpp
 Author		:	generate by tools
-HostName	:	devuser-PC
-IP			:	10.236.41.54
+HostName	:	DESKTOP-5AT4DK2
+IP			:	192.168.31.196
 Version		:	0.0.1
 Description	:	注册每个函数.以及检测网络传递的消息是否是正确的参数.
 ************************************/
@@ -10,13 +10,13 @@ Description	:	注册每个函数.以及检测网络传递的消息是否是正确的参数.
 #include "MsgLib/inc/RpcCheckParams.h"
 #include "CUtil/inc/Chunk.h"
 #include "MsgNameDefine.h"
-#include "GlobalRpc.h"
+#include "GRpc.h"
 #include "DBServer.h"
 #include "DBMaster.h"
 #include "DBSlave.h"
 #include "ServerHandler.h"
 #include "MasterHandler.h"
-#include "GlobalRpc.h"
+#include "GRpc.h"
 #include "SlaveHandler.h"
 
 namespace Server
@@ -31,8 +31,8 @@ namespace Server
 	static unsigned char g_rpcDefaultParam_unsigned_char = 0;
 	static std::string g_rpcDefaultParam_std__string = std::string();
 	static time_t g_rpcDefaultParam_time_t = 0;
-	static UINT8 g_rpcDefaultParam_UINT8 = 0;
 	static SINT8 g_rpcDefaultParam_SINT8 = 0;
+	static UINT8 g_rpcDefaultParam_UINT8 = 0;
 	static INT16 g_rpcDefaultParam_INT16 = 0;
 	static UINT16 g_rpcDefaultParam_UINT16 = 0;
 	static INT32 g_rpcDefaultParam_INT32 = 0;
@@ -50,7 +50,7 @@ namespace Server
 	void DBServer::OnRegisterRpcs( void )
 	{
 		Assert(m_pRpcManager && Msg::RpcCheckParams::GetInstance());	
-		static Server::GlobalRpc g_pGlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcManager); 
+		static Server::GRpc g_pGRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcManager); 
 
 		//tool testMulitServerNode generate default deliver and return check param here
 		{
@@ -503,7 +503,7 @@ namespace Server
 	void DBMaster::OnRegisterRpcs( void )
 	{
 		Assert(m_pRpcManager && Msg::RpcCheckParams::GetInstance());	
-		static Server::GlobalRpc g_pGlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcManager); 
+		static Server::GRpc g_pGRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcManager); 
 
 		//tool testMulitServerNode generate default deliver and return check param here
 		{
@@ -537,7 +537,7 @@ namespace Server
 			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_INT32);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("SyncServerHandler", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("SyncServerHandler", objReturnParams);
-			m_pRpcManager->RegisterFunc<GlobalRpc >(Msg::g_szSyncServerHandler_RpcServer , &GlobalRpc::SyncServerHandler_RpcServer); 
+			m_pRpcManager->RegisterFunc<GRpc >(Msg::g_szSyncServerHandler_RpcServer , &GRpc::SyncServerHandler_RpcServer); 
 		}
 
 		//tool HandleUserAuth generate default deliver and return check param here
@@ -923,19 +923,19 @@ namespace Server
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("SyncDataToSlave", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("SyncDataToSlave", objReturnParams);
 			
-			m_pRpcManager->RegisterFunc<GlobalRpc >(Msg::g_szSyncDataToSlave_RpcServerProxy , &GlobalRpc::SyncDataToSlave_RpcServerProxy); 
-			m_pRpcManager->RegisterFunc<GlobalRpc >(Msg::g_szSyncDataToSlave_RpcClientProxy , &GlobalRpc::SyncDataToSlave_RpcClientProxy); 
-			m_pRpcManager->RegisterFunc<GlobalRpc >(Msg::g_szSyncDataToSlave_RpcTimeoutProxy ,&GlobalRpc::SyncDataToSlave_RpcTimeoutProxy); 
+			m_pRpcManager->RegisterFunc<GRpc >(Msg::g_szSyncDataToSlave_RpcServerProxy , &GRpc::SyncDataToSlave_RpcServerProxy); 
+			m_pRpcManager->RegisterFunc<GRpc >(Msg::g_szSyncDataToSlave_RpcClientProxy , &GRpc::SyncDataToSlave_RpcClientProxy); 
+			m_pRpcManager->RegisterFunc<GRpc >(Msg::g_szSyncDataToSlave_RpcTimeoutProxy ,&GRpc::SyncDataToSlave_RpcTimeoutProxy); 
 		}
 
 		Server::MasterHandler::InitObjectFuncs();
-		Server::GlobalRpc::InitObjectFuncs();
+		Server::GRpc::InitObjectFuncs();
 	}
 
 	void DBSlave::OnRegisterRpcs( void )
 	{
 		Assert(m_pRpcManager && Msg::RpcCheckParams::GetInstance());	
-		static Server::GlobalRpc g_pGlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcManager); 
+		static Server::GRpc g_pGRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcManager); 
 
 		//tool testMulitServerNode generate default deliver and return check param here
 		{
@@ -1349,7 +1349,7 @@ namespace Server
 		Server::SlaveHandler::InitObjectFuncs();
 	}
 
-	CollectionObjectFuncsT Server::GlobalRpc::s_setFuncs;
+	CollectionObjectFuncsT Server::GRpc::s_setFuncs;
 	CollectionObjectFuncsT Server::ServerHandler::s_setFuncs;
 	CollectionObjectFuncsT Server::MasterHandler::s_setFuncs;
 	CollectionObjectFuncsT Server::SlaveHandler::s_setFuncs;

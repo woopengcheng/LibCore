@@ -1,8 +1,8 @@
 /************************************
 FileName	:	RPCDefines.h
 Author		:	generate by tools
-HostName	:	devuser-PC
-IP			:	10.236.41.54
+HostName	:	DESKTOP-5AT4DK2
+IP			:	192.168.31.196
 Version		:	0.0.1
 Description	:	RPC函数定义
 ************************************/
@@ -13,7 +13,7 @@ Description	:	RPC函数定义
 namespace Client
 {
 
-#define  RPC_DEFINE_GlobalRpc public:\
+#define  RPC_DEFINE_GRpc public:\
 	Msg::ObjectMsgCall * testMulitServerNode_RpcClient(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , CUtilChunk & res = CUtil::Chunk());\
 	Msg::ObjectMsgCall * testMulitServerNode_RpcTimeout(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0));\
 	Msg::ObjectMsgCall * SyncServerHandler_RpcServer(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
@@ -91,48 +91,48 @@ public:\
 	static CollectionObjectFuncsT s_setFuncs;\
 	static void InitObjectFuncs()\
 	{\
-		GlobalRpc::s_setFuncs.insert("testMulitServerNode");\
-		GlobalRpc::s_setFuncs.insert("SyncServerHandler");\
-		GlobalRpc::s_setFuncs.insert("HandleUserAuth");\
-		GlobalRpc::s_setFuncs.insert("HandleSelectDatabase");\
-		GlobalRpc::s_setFuncs.insert("HandleCreateDatabase");\
-		GlobalRpc::s_setFuncs.insert("HandleDeleteDatabase");\
-		GlobalRpc::s_setFuncs.insert("HandleShowDatabases");\
-		GlobalRpc::s_setFuncs.insert("HandleShowUsers");\
-		GlobalRpc::s_setFuncs.insert("HandleCreateUser");\
-		GlobalRpc::s_setFuncs.insert("HandleDeleteUser");\
-		GlobalRpc::s_setFuncs.insert("HandleModifyUser");\
-		GlobalRpc::s_setFuncs.insert("HandleHSet");\
-		GlobalRpc::s_setFuncs.insert("HandleHSetNX");\
-		GlobalRpc::s_setFuncs.insert("HandleHSetOW");\
-		GlobalRpc::s_setFuncs.insert("HandleHGet");\
-		GlobalRpc::s_setFuncs.insert("HandleHDel");\
-		GlobalRpc::s_setFuncs.insert("HandleHSetIncr");\
-		GlobalRpc::s_setFuncs.insert("HandleHSetIncrFloat");\
-		GlobalRpc::s_setFuncs.insert("HandleHGetKeys");\
-		GlobalRpc::s_setFuncs.insert("HandleHGetVals");\
-		GlobalRpc::s_setFuncs.insert("HandleHGetKeyVals");\
-		GlobalRpc::s_setFuncs.insert("HandleHScan");\
-		GlobalRpc::s_setFuncs.insert("HandleHCount");\
-		GlobalRpc::s_setFuncs.insert("HandleHDrop");\
-		GlobalRpc::s_setFuncs.insert("HandleHList");\
-		GlobalRpc::s_setFuncs.insert("HandleHMultiSet");\
-		GlobalRpc::s_setFuncs.insert("HandleHMultiGet");\
-		GlobalRpc::s_setFuncs.insert("HandleHMultiDel");\
-		GlobalRpc::s_setFuncs.insert("HandleZSet");\
-		GlobalRpc::s_setFuncs.insert("HandleZGet");\
-		GlobalRpc::s_setFuncs.insert("HandleZDel");\
-		GlobalRpc::s_setFuncs.insert("HandleZTop");\
-		GlobalRpc::s_setFuncs.insert("HandleZRTop");\
-		GlobalRpc::s_setFuncs.insert("HandleZDrop");\
-		GlobalRpc::s_setFuncs.insert("HandleZCount");\
-		GlobalRpc::s_setFuncs.insert("HandleZList");\
-		GlobalRpc::s_setFuncs.insert("HandleDump");\
+		GRpc::s_setFuncs.insert("testMulitServerNode");\
+		GRpc::s_setFuncs.insert("SyncServerHandler");\
+		GRpc::s_setFuncs.insert("HandleUserAuth");\
+		GRpc::s_setFuncs.insert("HandleSelectDatabase");\
+		GRpc::s_setFuncs.insert("HandleCreateDatabase");\
+		GRpc::s_setFuncs.insert("HandleDeleteDatabase");\
+		GRpc::s_setFuncs.insert("HandleShowDatabases");\
+		GRpc::s_setFuncs.insert("HandleShowUsers");\
+		GRpc::s_setFuncs.insert("HandleCreateUser");\
+		GRpc::s_setFuncs.insert("HandleDeleteUser");\
+		GRpc::s_setFuncs.insert("HandleModifyUser");\
+		GRpc::s_setFuncs.insert("HandleHSet");\
+		GRpc::s_setFuncs.insert("HandleHSetNX");\
+		GRpc::s_setFuncs.insert("HandleHSetOW");\
+		GRpc::s_setFuncs.insert("HandleHGet");\
+		GRpc::s_setFuncs.insert("HandleHDel");\
+		GRpc::s_setFuncs.insert("HandleHSetIncr");\
+		GRpc::s_setFuncs.insert("HandleHSetIncrFloat");\
+		GRpc::s_setFuncs.insert("HandleHGetKeys");\
+		GRpc::s_setFuncs.insert("HandleHGetVals");\
+		GRpc::s_setFuncs.insert("HandleHGetKeyVals");\
+		GRpc::s_setFuncs.insert("HandleHScan");\
+		GRpc::s_setFuncs.insert("HandleHCount");\
+		GRpc::s_setFuncs.insert("HandleHDrop");\
+		GRpc::s_setFuncs.insert("HandleHList");\
+		GRpc::s_setFuncs.insert("HandleHMultiSet");\
+		GRpc::s_setFuncs.insert("HandleHMultiGet");\
+		GRpc::s_setFuncs.insert("HandleHMultiDel");\
+		GRpc::s_setFuncs.insert("HandleZSet");\
+		GRpc::s_setFuncs.insert("HandleZGet");\
+		GRpc::s_setFuncs.insert("HandleZDel");\
+		GRpc::s_setFuncs.insert("HandleZTop");\
+		GRpc::s_setFuncs.insert("HandleZRTop");\
+		GRpc::s_setFuncs.insert("HandleZDrop");\
+		GRpc::s_setFuncs.insert("HandleZCount");\
+		GRpc::s_setFuncs.insert("HandleZList");\
+		GRpc::s_setFuncs.insert("HandleDump");\
 	}\
 	virtual BOOL IsHasFunc(const std::string & strFunc)\
 	{\
-		CollectionObjectFuncsT::iterator iter = GlobalRpc::s_setFuncs.find(strFunc);\
-		if (iter != GlobalRpc::s_setFuncs.end())\
+		CollectionObjectFuncsT::iterator iter = GRpc::s_setFuncs.find(strFunc);\
+		if (iter != GRpc::s_setFuncs.end())\
 		{\
 			return TRUE;\
 		}\

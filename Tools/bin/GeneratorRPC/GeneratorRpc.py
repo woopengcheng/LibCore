@@ -264,7 +264,7 @@ def handleRpcServerName(rpcServerNames , xmlRpcServerName):
 		LogOutError("Parase rpcServerNames :" , rpcServerName.serverName , "has same rpcServerName.") 
 		
 	g_rpcRecords[rpcServerName.namespace] = collections.OrderedDict()
-	g_rpcRecords[rpcServerName.namespace]["GlobalRpc"] = collections.OrderedDict()
+	g_rpcRecords[rpcServerName.namespace]["GRpc"] = collections.OrderedDict()
 	rpcServerNames[rpcServerName.serverName] = rpcServerName
 
 def handleRpcs(rpcs , xmlRpcs):
@@ -311,8 +311,8 @@ def handleRpc(rpcs , xmlRpc):
 					
 	if targetAttrClient.name != "" and targetAttrClient.name != None:
 		if targetAttrClient.classes == None:
-			targetAttrClient.classes = "GlobalRpc"
-			targetAttrClient.include = "GlobalRpc.h"
+			targetAttrClient.classes = "GRpc"
+			targetAttrClient.include = "GRpc.h"
 		targetAttrServer.targetType = g_targetTypeClient
 		CheckInRpcServerName(targetAttrClient.name)
 		rpc.targets[targetAttrClient.name + targetAttrClient.classes + str(targetAttrClient.targetType) ] = targetAttrClient
@@ -320,8 +320,8 @@ def handleRpc(rpcs , xmlRpc):
 		
 	if targetAttrProxy.name != "" and targetAttrProxy.name != None:
 		if targetAttrProxy.classes == None:
-			targetAttrProxy.classes = "GlobalRpc"
-			targetAttrProxy.include = "GlobalRpc.h"
+			targetAttrProxy.classes = "GRpc"
+			targetAttrProxy.include = "GRpc.h"
 		targetAttrServer.targetType = g_targetTypeProxy
 		CheckInRpcServerName(targetAttrProxy.name)
 		rpc.targets[targetAttrProxy.name + targetAttrProxy.classes + str(targetAttrProxy.targetType) ] = targetAttrProxy
@@ -329,8 +329,8 @@ def handleRpc(rpcs , xmlRpc):
 			
 	if targetAttrServer.name != "" and targetAttrServer.name != None:
 		if targetAttrServer.classes == None:
-			targetAttrServer.classes = "GlobalRpc"
-			targetAttrServer.include = "GlobalRpc.h"
+			targetAttrServer.classes = "GRpc"
+			targetAttrServer.include = "GRpc.h"
 		targetAttrServer.targetType = g_targetTypeServer
 		CheckInRpcServerName(targetAttrServer.name)
 		rpc.targets[targetAttrServer.name + targetAttrServer.classes + str(targetAttrServer.targetType) ] = targetAttrServer
@@ -369,8 +369,8 @@ def handleTarget(targets , xmData , rpc , targetType):
 			targetAttr.classes = xmData.attrib[attr]
 			
 	if targetAttr.classes == "" or targetAttr.classes == None:
-		targetAttr.classes = "GlobalRpc" 
-		targetAttr.include = "GlobalRpc.h" 
+		targetAttr.classes = "GRpc" 
+		targetAttr.include = "GRpc.h" 
 		
 	CheckInRpcServerName(targetAttr.name)
 	
@@ -519,7 +519,7 @@ def GenerateRpc():
 	LogOutInfo("generate MsgNameDefine.h file finished.\n")
 	
 	GenerateGlableRpc()
-	LogOutInfo("generate GlobalRpc.h file finished.\n")
+	LogOutInfo("generate GRpc.h file finished.\n")
 	
 	GenerateRpcRegister()
 	LogOutInfo("generate RpcRegister.cpp file finished.\n")
@@ -660,7 +660,7 @@ def GenerateGlableRpc():
 	sameNamespace = collections.OrderedDict()
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
 		outputPath = GetOutputPath(rpcServerName.namespace)  
-		outputPath = outputPath + "GlobalRpc.h"   
+		outputPath = outputPath + "GRpc.h"   
 					
 		fileRpc = open(outputPath , "a")
 		if rpcServerName.namespace not in sameNamespace :
@@ -672,7 +672,7 @@ def GenerateGlableRpc():
 	sameNamespace = collections.OrderedDict()
 	for index , rpcServerName in g_rpcMsgs.rpcServerNames.items():  
 		outputPath = GetOutputPath(rpcServerName.namespace)  
-		outputPath = outputPath + "GlobalRpc.h"   
+		outputPath = outputPath + "GRpc.h"   
 		
 		if rpcServerName.namespace not in sameNamespace :
 			fileRpc = open(outputPath , "a")
@@ -696,14 +696,14 @@ def GenerateGlableRpcHeaderNamespace(fileRpc , namespace):
 	fileRpc.write("\n") 
 	fileRpc.write("namespace " +  namespace  + "\n{\n") 
 	
-	fileRpc.write(oneTab + "class GlobalRpc : public Msg::IRpcMsgCallableObject\n") 
+	fileRpc.write(oneTab + "class GRpc : public Msg::IRpcMsgCallableObject\n") 
 	fileRpc.write(oneTab + "{\n") 
-	fileRpc.write(twoTab + "RPC_DEFINE_GlobalRpc;\n") 
+	fileRpc.write(twoTab + "RPC_DEFINE_GRpc;\n") 
 	fileRpc.write(oneTab + "public:\n") 
-	fileRpc.write(twoTab + "GlobalRpc(Msg::Object nID , Msg::RpcManager * pRpcManager)\n") 
+	fileRpc.write(twoTab + "GRpc(Msg::Object nID , Msg::RpcManager * pRpcManager)\n") 
 	fileRpc.write(threeTab + ": Msg::IRpcMsgCallableObject(nID , pRpcManager)\n") 
 	fileRpc.write(twoTab + "{\n")  
-	fileRpc.write(threeTab +"GlobalRpc::InitObjectFuncs();\n")  
+	fileRpc.write(threeTab +"GRpc::InitObjectFuncs();\n")  
 	fileRpc.write(twoTab +"}\n")   
 	fileRpc.write(oneTab +"public:\n")  
 			 
@@ -728,7 +728,7 @@ def GenerateRpcRegister():
 		fileRpc.write(oneTab + "void " + rpcServerName.rpcInterface + "::OnRegisterRpcs( void )\n")
 		fileRpc.write(oneTab + "{\n")
 		fileRpc.write(twoTab + "Assert(m_pRpcManager && Msg::RpcCheckParams::GetInstance());	\n")
-		fileRpc.write(twoTab + "static " + rpcServerName.namespace + "::GlobalRpc g_pGlobalRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcManager); \n\n") 
+		fileRpc.write(twoTab + "static " + rpcServerName.namespace + "::GRpc g_pGRpc( Msg::DEFAULT_RPC_CALLABLE_ID , m_pRpcManager); \n\n") 
 		
 		rpcRecords = collections.OrderedDict()
 		for index , rpc in g_rpcMsgs.rpcs.rpcs.items():  
@@ -785,7 +785,7 @@ def GenerateRpcRegisterHeader(fileRpc , rpcNamespace) :
 	fileRpc.write("#include \"MsgLib/inc/RpcCheckParams.h\"\n") 
 	fileRpc.write("#include \"CUtil/inc/Chunk.h\"\n")  
 	fileRpc.write("#include \"MsgNameDefine.h\"\n")  
-	fileRpc.write("#include \"GlobalRpc.h\"\n") 
+	fileRpc.write("#include \"GRpc.h\"\n") 
 	GenerateRpcRegisterHeaderInclude(fileRpc , rpcNamespace)
 
 	sameNamespace = collections.OrderedDict()
@@ -867,7 +867,11 @@ def GenerateRpcHandler(rpcs , serverName , old_namespace):
 			className = target.classes
 				
 			outputPath = GetOutputPath(serverName)  
-			outputPath = outputPath + target.classes + "_" + rpc.name
+			if target.classes.lower() == "GRpc".lower():
+				outputPath = outputPath + serverName + "_" + target.classes + "_" + rpc.name
+			else:
+				outputPath = outputPath + target.classes + "_" + rpc.name
+				
 			if target.targetType == g_targetTypeClient and serverName == target.name:
 				outputPath = outputPath + "_Client.cpp"
 			elif target.targetType == g_targetTypeProxy and serverName == target.name:
@@ -1628,8 +1632,8 @@ def DeleteServerNameFiles():
 			os.remove(serverName.outputPath + "RpcDatas.h")
 		if os.path.exists(serverName.outputPath + "RPCDefines.h"): 
 			os.remove(serverName.outputPath + "RPCDefines.h")
-		if os.path.exists(serverName.outputPath + "GlobalRpc.h"): 
-			os.remove(serverName.outputPath + "GlobalRpc.h") 
+		if os.path.exists(serverName.outputPath + "GRpc.h"): 
+			os.remove(serverName.outputPath + "GRpc.h") 
 		if os.path.exists(serverName.outputPath + "RpcRegister.cpp"): 
 			os.remove(serverName.outputPath + "RpcRegister.cpp") 
 

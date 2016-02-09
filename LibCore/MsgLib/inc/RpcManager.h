@@ -18,8 +18,9 @@ namespace Msg
 	{
 	public:
 		typedef tbb_queue<RPCMsgCall *>									CollectionMsgsQueT;
+		typedef std::queue<RPCMsgCall *>								StdQueueMsgsQueT;
 		typedef tbb_unordered_map<INT32, CollectionMsgsQueT>			CollectionPostMsgsT;
-		typedef std_unordered_map<INT32, CollectionMsgsQueT>			CollectionDelayMsgsT;
+		typedef std_unordered_map<INT32, StdQueueMsgsQueT>				CollectionDelayMsgsT;
 
 		typedef std_unordered_map<INT32, SPeerInfo>						CollectSessionsIDT;
 		typedef std_unordered_map<std::string, SPeerInfo>				CollectSessionsStringT;

@@ -1,10 +1,10 @@
 /************************************
 FileName	:	Orm_TestSlaveCollection.h
 Author		:	generate by tools
-HostName	:	devuser-PC
-IP			:	10.236.41.54
+HostName	:	DESKTOP-5AT4DK2
+IP			:	192.168.31.196
 Version		:	0.0.1
-Date		:	2016-02-03 17:05:36
+Date		:	2016-02-09 11:26:27
 Description	:	针对orm子表操作的集合类.
 ************************************/
 #ifndef __Orm_Orm_TestSlave_collection_h__

@@ -384,11 +384,13 @@ namespace Msg
 		for (; iter != m_mapDelayMsgs.end(); ++iter)
 		{
 			INT32 nSessionID = iter->first;
-			CollectionMsgsQueT & que = iter->second;
+			StdQueueMsgsQueT & que = iter->second;
 
-			while (que.try_pop(pMsg))
+			while (!que.empty())
 			{
+				pMsg = que.front();
 				HandleMsg(nSessionID, pMsg);
+				que.pop();
 			}
 		}
 
@@ -400,12 +402,12 @@ namespace Msg
 		CollectionDelayMsgsT::iterator iter = m_mapDelayMsgs.find(nSessionID);
 		if (iter != m_mapDelayMsgs.end())
 		{
-			CollectionMsgsQueT & que = iter->second;
+			StdQueueMsgsQueT & que = iter->second;
 			que.push(pMsg);
 		}
 		else
 		{
-			CollectionMsgsQueT que;
+			StdQueueMsgsQueT que;
 			que.push(pMsg);
 
 			m_mapDelayMsgs.insert(std::make_pair(nSessionID, que));

@@ -117,11 +117,6 @@
     <ClCompile Include="src\DBServer.cpp" />
     <ClCompile Include="src\DBSlave.cpp" />
     <ClCompile Include="src\MasterHandler.cpp" />
-    <ClCompile Include="src\rpc\GlobalRpc_SyncDataToSlave_Proxy.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_SyncServerHandler_Server.cpp" />
     <ClCompile Include="src\rpc\MasterHandler_MasterStartSync_Client.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
       </ExcludedFromBuild>
@@ -150,6 +145,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
       </ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="src\rpc\Master_GRpc_SyncDataToSlave_Proxy.cpp" />
+    <ClCompile Include="src\rpc\Master_GRpc_SyncServerHandler_Server.cpp" />
     <ClCompile Include="src\rpc\RpcRegister.cpp" />
     <ClCompile Include="src\rpc\ServerHandler_HandleCreateDatabase_Server.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
@@ -348,7 +345,7 @@
     <ClInclude Include="src\DBServer.h" />
     <ClInclude Include="src\DBSlave.h" />
     <ClInclude Include="src\MasterHandler.h" />
-    <ClInclude Include="src\rpc\GlobalRpc.h" />
+    <ClInclude Include="src\rpc\GRpc.h" />
     <ClInclude Include="src\rpc\MsgNameDefine.h" />
     <ClInclude Include="src\rpc\RPCCallFuncs.h" />
     <ClInclude Include="src\rpc\RpcDatas.h" />

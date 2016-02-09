@@ -112,155 +112,50 @@
     <ClCompile Include="src\ClientCommands.cpp" />
     <ClCompile Include="src\DBClient.cpp" />
     <ClCompile Include="src\DBClientHttpServer.cpp" />
-    <ClCompile Include="src\rpc\GlobalRpc_HandleCreateDatabase_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleCreateUser_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleDeleteDatabase_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleDeleteUser_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleDump_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleHCount_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleHDel_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleHDrop_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleHGetKeys_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleHGetKeyVals_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleHGetVals_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleHGet_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleHList_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleHMultiDel_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleHMultiGet_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleHMultiSet_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleHScan_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleHSetIncrFloat_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleHSetIncr_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleHSetNX_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleHSetOW_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleHSet_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleModifyUser_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleSelectDatabase_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleShowDatabases_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleShowUsers_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleUserAuth_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleZCount_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleZDel_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleZDrop_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleZGet_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleZList_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleZRTop_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleZSet_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_HandleZTop_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\GlobalRpc_SyncServerHandler_Server.cpp" />
-    <ClCompile Include="src\rpc\GlobalRpc_testMulitServerNode_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleCreateDatabase_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleCreateUser_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleDeleteDatabase_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleDeleteUser_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleDump_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleHCount_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleHDel_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleHDrop_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleHGetKeys_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleHGetKeyVals_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleHGetVals_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleHGet_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleHList_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleHMultiDel_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleHMultiGet_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleHMultiSet_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleHScan_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleHSetIncrFloat_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleHSetIncr_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleHSetNX_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleHSetOW_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleHSet_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleModifyUser_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleSelectDatabase_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleShowDatabases_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleShowUsers_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleUserAuth_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleZCount_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleZDel_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleZDrop_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleZGet_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleZList_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleZRTop_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleZSet_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_HandleZTop_Client.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_SyncServerHandler_Server.cpp" />
+    <ClCompile Include="src\rpc\Client_GRpc_testMulitServerNode_Client.cpp" />
     <ClCompile Include="src\rpc\RpcRegister.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ClientCommands.h" />
     <ClInclude Include="src\DBClientHttpServer.h" />
     <ClInclude Include="src\rpc\DBClient.h" />
-    <ClInclude Include="src\rpc\GlobalRpc.h" />
+    <ClInclude Include="src\rpc\GRpc.h" />
     <ClInclude Include="src\rpc\MsgNameDefine.h" />
     <ClInclude Include="src\rpc\RPCCallFuncs.h" />
     <ClInclude Include="src\rpc\RpcDatas.h" />
