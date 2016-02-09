@@ -172,34 +172,38 @@ namespace Msg
 		return -1; 
 	}
 
-	static void fiberProc(void * pArg)
+	static void fiberProc(void * pArg)  //5 这里变为主协程,用来处理逻辑.0
 	{
 		SRpcCoTask * pTask = (SRpcCoTask *)pArg;
 		if(pTask && pTask->pMsg)
 		{
-			RPCMsgCall * pMsg = pTask->pMsg;
-			while (pMsg->GetSyncResult() == SYNC_RESULT_START_RETURN)
+ 			RPCMsgCall * pMsg = pTask->pMsg;
+			while (pTask->pInterface)
 			{
-				gErrorStream("MsgName=" << pMsg->m_szMsgMethod << "sync error. state is wrong.state=" << SYNC_RESULT_START_RETURN);
-				Coroutine::CoYieldCur();
+				pTask->pInterface->Update();
 			}
-			
-			if (pTask->pInterface)
-			{
-				pTask->pInterface->DeleteRpcCoTask(pMsg->m_ullMsgID);
-			}
-
-			void * pCoID = pTask->pCoID;
-			SAFE_DELETE(pTask);
-			SAFE_DELETE_NEW(pMsg);
-			Coroutine::CoRelease(pCoID);
+// 			while (pMsg->GetSyncResult() == SYNC_RESULT_START_RETURN)
+// 			{
+// 				gErrorStream("MsgName=" << pMsg->m_szMsgMethod << "sync error. state is wrong.state=" << SYNC_RESULT_START_RETURN);
+// 				Coroutine::CoYieldCur();
+// 			}
+// 			
+// 			if (pTask->pInterface)
+// 			{
+// 				pTask->pInterface->DeleteRpcCoTask(pMsg->m_ullMsgID);
+// 			}
+// 
+// 			void * pCoID = pTask->pCoID;
+// 			SAFE_DELETE(pTask);
+// 			SAFE_DELETE_NEW(pMsg);
+// 			Coroutine::CoRelease(pCoID);
 		}
 	}
 
 	void RpcInterface::TakeOverSync(RPCMsgCall * pMsg)
 	{
 		if (pMsg->GetSyncType() == SYNC_TYPE_SYNC)
-		{ 
+		{  
 			SRpcCoTask * pTask = new SRpcCoTask;
 			pTask->pMsg = pMsg;
 			pTask->pInterface = this;
@@ -210,6 +214,11 @@ namespace Msg
 				AddRpcCoTask(pTask);
 				Coroutine::CoResume(pTask->pCoID);
 			}
+			DeleteRpcCoTask(pMsg->m_ullMsgID);
+			void * pCoID = pTask->pCoID;
+			SAFE_DELETE(pTask);
+			SAFE_DELETE_NEW(pMsg);
+			Coroutine::CoRelease(pCoID);  //5 这个要等会释放.
 // 			while (pMsg->GetSyncResult() == SYNC_RESULT_START_RETURN)
 // 			{
 // 				Update();
