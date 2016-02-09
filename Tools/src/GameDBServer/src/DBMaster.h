@@ -32,10 +32,10 @@ namespace Server
 		} 
 
 	public: 
-		virtual CErrno			Init(Json::Value & conf); 
-		virtual CErrno			Cleanup(void);
-		virtual void			OnRegisterRpcs(void); 
-		virtual CErrno			Update(void);
+		virtual CErrno			Init(Json::Value & conf) override;
+		virtual CErrno			Cleanup(void) override;
+		virtual void			OnRegisterRpcs(void) override;
+		virtual CErrno			Update(void) override;
 
 	public:
 		INT32					CreateMasterHandler(INT32 nSessionID); 
@@ -64,8 +64,8 @@ namespace Server
 		}
 
 	public:
-		virtual CErrno OnConnected(Msg::RpcInterface * pRpcInterface , INT32 nSessionID, const std::string & strNetNodeName, bool bReconnect = false);
-		virtual CErrno OnDisconnected(Msg::RpcInterface * pRpcInterface , INT32 nSessionID, INT32 nPeerSessionID);
+		virtual CErrno OnConnected(Msg::RpcInterface * pRpcInterface , INT32 nSessionID, const std::string & strNetNodeName, bool bReconnect = false) override;
+		virtual CErrno OnDisconnected(Msg::RpcInterface * pRpcInterface , INT32 nSessionID, INT32 nPeerSessionID) override;
 
 	private:
 		DBMaster * m_pDBMaster;

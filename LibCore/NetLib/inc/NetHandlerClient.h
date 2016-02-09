@@ -13,11 +13,11 @@ namespace Net
 		virtual ~NetHandlerClient();
 
 	public:
-		virtual CErrno	Init( void ); 
+		virtual CErrno	Init( void ) override;
 		virtual CErrno	Init(const std::string & ip,int port );
-		virtual CErrno	Update( void );
+		virtual CErrno	Update( void ) override;
 		virtual CErrno	OnReconnect(void);
-		virtual CErrno	HandleMsg(ISession * pSession, UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
+		virtual CErrno	HandleMsg(ISession * pSession, UINT32 unMsgID, const char* pBuffer, UINT32 unLength) override;
 
 	public: 
 		BOOL			Reconnect(void);

@@ -25,8 +25,8 @@ namespace Net
 		} 
 
 	public:
-		virtual CErrno  Init( void )         { return CErrno::Success(); }
-		virtual CErrno  Cleanup( void )
+		virtual CErrno		Init( void )         { return CErrno::Success(); }
+		virtual CErrno		Cleanup( void )
 		{
 			if (m_pSession)
 			{
@@ -34,21 +34,21 @@ namespace Net
 			}
 			return CErrno::Success();
 		}
-		virtual CErrno  Update( void )			{ return CErrno::Success(); }
-		virtual CErrno  OnClose( void )			{ return CErrno::Success(); } 
-		virtual CErrno  OnMsgRecving( void )	{ return CErrno::Success(); }
-		virtual CErrno  OnMsgSending(void)		{ return CErrno::Success(); }
-		virtual CErrno	DeliverMsg() { return CErrno::Success(); }
-		virtual CErrno	FetchMsgs(CollectMsgChunksVec & vecMsgs) { return CErrno::Success(); }
-		virtual INT32	SendMsg(const char * pBuf, UINT32 unSize) { return -1; }
+		virtual CErrno		Update( void )			{ return CErrno::Success(); }
+		virtual CErrno		OnClose( void )			{ return CErrno::Success(); } 
+		virtual CErrno		OnMsgRecving( void )	{ return CErrno::Success(); }
+		virtual CErrno		OnMsgSending(void)		{ return CErrno::Success(); }
+		virtual CErrno		DeliverMsg() { return CErrno::Success(); }
+		virtual CErrno		FetchMsgs(CollectMsgChunksVec & vecMsgs) { return CErrno::Success(); }
+		virtual INT32		SendMsg(const char * pBuf, UINT32 unSize) { return -1; }
 
 	public: 
-		ISession	*	GetSession(){ return m_pSession; }
-		INetReactor *	GetNetReactor(){ return m_pNetReactor; }
+		ISession		*	GetSession(){ return m_pSession; }
+		INetReactor		*	GetNetReactor(){ return m_pNetReactor; }
 
 	protected: 
-		ISession	*	m_pSession;             //5 session must be delete
-		INetReactor	*	m_pNetReactor;          //5 use it for delete
+		ISession		*	m_pSession;             //5 session must be delete
+		INetReactor		*	m_pNetReactor;          //5 use it for delete
 	}; 
 
 	DECLARE_BOOST_POINTERS(INetHandler);

@@ -153,7 +153,7 @@ namespace Net
 	protected:
 		typedef std::map<std::string,char*> CollectionHeadersT;
 	public:
-		virtual void Clear();
+		virtual void Clear() override;
 	public:
 		char* GetHeader(const std::string& name) 
 		{
@@ -163,8 +163,8 @@ namespace Net
 			return NULL;
 		}
 	protected:
-		virtual bool OnHeaderSet(const char* name,char* value);
-		virtual void OnBufferRealloced(char* oldbuf,char* newbuf);
+		virtual bool OnHeaderSet(const char* name,char* value) override;
+		virtual void OnBufferRealloced(char* oldbuf,char* newbuf) override;
 	protected:
 		CollectionHeadersT m_mapHeaders;
 	};
@@ -179,7 +179,7 @@ namespace Net
 			m_bNeedReleaseBuf = false;
 		}
 	public:
-		virtual void Reserve(INT32 len);
+		virtual void Reserve(INT32 len) override;
 	};
 
 	class HttpProtocolUtils

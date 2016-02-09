@@ -64,13 +64,13 @@ namespace Server
 			p13 = val.p13;
 		} 
 
-		virtual CUtil::CStream & marshal(CUtil::CStream & cs) const
+		virtual CUtil::CStream & marshal(CUtil::CStream & cs) const override
 		{ 
 			cs << p1 << p2 << p3 << p4 << p5 << p6 << p7 << p8 << p9 << p10 << p11 << p12 << p13;
 			return cs; 
 		} 
 
-		virtual CUtil::CStream & unMarshal(CUtil::CStream & cs)
+		virtual CUtil::CStream & unMarshal(CUtil::CStream & cs) override
 		{ 
 			cs >> p1 >> p2 >> p3 >> p4 >> p5 >> p6 >> p7 >> p8 >> p9 >> p10 >> p11 >> p12 >> p13;
 			return cs; 
@@ -112,13 +112,13 @@ namespace Server
 			p9 = val.p9;
 		} 
 
-		virtual CUtil::CStream & marshal(CUtil::CStream & cs) const
+		virtual CUtil::CStream & marshal(CUtil::CStream & cs) const override
 		{ 
 			cs << p1 << p2 << p3 << p4 << p6 << p7 << p8 << p9;
 			return cs; 
 		} 
 
-		virtual CUtil::CStream & unMarshal(CUtil::CStream & cs)
+		virtual CUtil::CStream & unMarshal(CUtil::CStream & cs) override
 		{ 
 			cs >> p1 >> p2 >> p3 >> p4 >> p6 >> p7 >> p8 >> p9;
 			return cs; 

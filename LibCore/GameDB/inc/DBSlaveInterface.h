@@ -15,9 +15,9 @@ namespace GameDB
 		virtual ~DBSlaveInterface(void);
 
 	public: 
-		virtual CErrno  Init(Json::Value & conf); 
-		virtual CErrno  Cleanup(void);
-		virtual CErrno  Update(void);  
+		virtual CErrno  Init(Json::Value & conf) override;
+		virtual CErrno  Cleanup(void) override;
+		virtual CErrno  Update(void) override;
 		virtual void	OnCreateDatabase(const SDBSlaveInfo & objInfo){} 
 
 	private: 

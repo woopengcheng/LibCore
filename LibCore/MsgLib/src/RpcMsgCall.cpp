@@ -127,7 +127,7 @@ namespace Msg
 
 	}
 
-	CUtil::CStream & RPCMsgCall::marshal( CUtil::CStream & cs )
+	CUtil::CStream & RPCMsgCall::marshal( CUtil::CStream & cs ) const
 	{  
 		ObjectMsgCall::marshal(cs);
 		cs << m_ullTimeout << m_bClientRequest;

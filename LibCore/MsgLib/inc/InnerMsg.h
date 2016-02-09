@@ -23,19 +23,19 @@ namespace Msg
 		virtual ~InnerMsg(){}
 		
 	public:
-		virtual  CErrno  Init( void );
-		virtual  CErrno  Cleanup( void );
-		virtual  CErrno  Update( void ); 
-		virtual  void   OnRegisterMsgs(void){}
+		virtual	CErrno			Init( void );
+		virtual	CErrno			Cleanup( void );
+		virtual	CErrno			Update( void ); 
+		virtual	void			OnRegisterMsgs(void){}
 
 	public:
-		void   RegisterMsg(void);
-		CErrno  SendMsg(ObjectMsgCall * pMsg , UINT32 unTimeout = 0); 
+		void					RegisterMsg(void);
+		CErrno					SendMsg(ObjectMsgCall * pMsg, UINT32 unTimeout = 0);
+		void					SetThreadPool(ThreadPool::ThreadPoolInterface * pThreadPoolInterface) { m_pThreadPoolInterface = pThreadPoolInterface; }
 		ThreadPool::ThreadPoolInterface * GetThreadPool(void){ return m_pThreadPoolInterface; }
-		void   SetThreadPool(ThreadPool::ThreadPoolInterface * pThreadPoolInterface){ m_pThreadPoolInterface = pThreadPoolInterface; }
 
 	protected: 
-		CErrno  RunMsg( ObjectMsgCall * pMsg );
+		CErrno					RunMsg( ObjectMsgCall * pMsg );
 
 	protected:
 		MsgQueue						  m_objMsgQueue;

@@ -18,17 +18,17 @@ namespace Msg
 		virtual ~MsgQueue(){}
 
 	public:
-		virtual CErrno			  Init(void);
-		virtual CErrno			  Cleanup(void);
-		virtual Timer::TimerNode* Update(void); 
-		virtual UINT32			  SetTimer(ObjectMsgCall * pMsg , UINT32 unTimeInterval , UINT32 unStartTime = 0, UINT32 unTimes = 0, void * pObj = NULL , TimerCallBackFunc pFunc = NULL);
+		virtual CErrno				Init(Timer::ETimerStrategyType objType = Timer::TIMER_STRATEGY_DEFAULT) override;
+		virtual CErrno				Cleanup(void) override;
+		virtual Timer::TimerNode*	Update(void) override;
+		virtual INT32				SetTimer(ObjectMsgCall * pMsg , UINT32 unTimeInterval , UINT32 unStartTime = 0, UINT32 unTimes = 0, void * pObj = NULL , TimerCallBackFunc pFunc = NULL) ;
 
 	public: 
-		virtual  CErrno            AddMsg(ObjectMsgCall * pMsg , UINT32  unTimeout = 0);
-		virtual  ObjectMsgCall  * FetchMsg(); 
+		virtual  CErrno				AddMsg(ObjectMsgCall * pMsg , UINT32  unTimeout = 0);
+		virtual  ObjectMsgCall	*	FetchMsg(); 
 
 	public:
-		QueueMsgsT m_queueMsgs; 
+		QueueMsgsT					m_queueMsgs; 
 	}; 
 	
 }

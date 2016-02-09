@@ -1,10 +1,10 @@
 /************************************
 FileName	:	Orm_TestSlaveCollection.h
 Author		:	generate by tools
-HostName	:	woopengcheng
-IP			:	192.168.1.107
+HostName	:	devuser-PC
+IP			:	10.236.41.54
 Version		:	0.0.1
-Date		:	2015-09-16 00:05:43
+Date		:	2016-02-03 17:05:36
 Description	:	针对orm子表操作的集合类.
 ************************************/
 #ifndef __Orm_Orm_TestSlave_collection_h__
@@ -31,10 +31,10 @@ namespace Orm
 			const TestSlaveCollection & operator=( const TestSlaveCollection &);
 		
 		public:
-			virtual void		ToBson(std::string & strBuf);
-			virtual void		ToBson(mongo::BSONObj  & objBson);
-			virtual void		FromBson(std::string & compressedBuf);
-			virtual void		FromBson(const char * pData , UINT32 nSize);
+			virtual void		ToBson(std::string & strBuf) override;
+			virtual void		ToBson(mongo::BSONObj  & objBson) override;
+			virtual void		FromBson(std::string & compressedBuf) override;
+			virtual void		FromBson(const char * pData , UINT32 nSize) override;
 		
 		public:
 		template<class VISITOR,class PARAM> void visit(VISITOR visitor,PARAM& param)

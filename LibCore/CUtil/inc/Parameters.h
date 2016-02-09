@@ -1,11 +1,11 @@
 #ifndef __cutil_parameters_h__
 #define __cutil_parameters_h__ 
 #include "CUtil/inc/Parameter.h"
-#include "CUtil/inc/GenMsgHelper.h" 
+#include "CUtil/inc/GenParamHelper.h" 
 
 namespace CUtil
 { 
-	class GenMsgHelper;
+	class GenParamHelper;
 
 	class DLL_EXPORT Parameters : public CUtil::Marshal
 	{
@@ -108,7 +108,7 @@ namespace CUtil
 			MsgAssert_Re0( nStartPos + 1 <= m_unParamCount , "GetValue pos error."); 
 
 			Parameters params;
-			params.GenMsgParams(p1);
+			params.GenParams(p1);
 
 			for (UINT32 i = nStartPos;i < m_unParamCount;++i)
 			{	
@@ -129,7 +129,7 @@ namespace CUtil
 			MsgAssert_Re0( nStartPos + 2 <= m_unParamCount , "GetValue pos error."); 
 
 			Parameters params;
-			params.GenMsgParams(p1 , p2);
+			params.GenParams(p1 , p2);
 
 			for (UINT32 i = nStartPos;i < m_unParamCount;++i)
 			{	
@@ -155,7 +155,7 @@ namespace CUtil
 			MsgAssert_Re0( nStartPos + 3 <= m_unParamCount , "GetValue pos error."); 
 
 			Parameters params;
-			params.GenMsgParams(p1 , p2 , p3);
+			params.GenParams(p1 , p2 , p3);
 
 			for (UINT32 i = nStartPos;i < m_unParamCount;++i)
 			{	
@@ -185,7 +185,7 @@ namespace CUtil
 			MsgAssert_Re0( nStartPos + 4 <= m_unParamCount , "GetValue pos error."); 
 
 			Parameters params;
-			params.GenMsgParams(p1 , p2 , p3 , p4);
+			params.GenParams(p1 , p2 , p3 , p4);
 
 			for (UINT32 i = nStartPos;i < m_unParamCount;++i)
 			{	
@@ -220,7 +220,7 @@ namespace CUtil
 			MsgAssert_Re0( nStartPos + 5 <= m_unParamCount , "GetValue pos error."); 
 
 			Parameters params;
-			params.GenMsgParams(p1 , p2 , p3 , p4 , p5);
+			params.GenParams(p1 , p2 , p3 , p4 , p5);
 
 			for (UINT32 i = nStartPos;i < m_unParamCount;++i)
 			{	
@@ -259,7 +259,7 @@ namespace CUtil
 			MsgAssert_Re0( nStartPos + 6 <= m_unParamCount , "GetValue pos error."); 
 
 			Parameters params;
-			params.GenMsgParams(p1 , p2 , p3 , p4 , p5 , p6);
+			params.GenParams(p1 , p2 , p3 , p4 , p5 , p6);
 
 			for (UINT32 i = nStartPos;i < m_unParamCount;++i)
 			{	
@@ -302,7 +302,7 @@ namespace CUtil
 			MsgAssert_Re0( nStartPos + 7 <= m_unParamCount , "GetValue pos error."); 
 
 			Parameters params;
-			params.GenMsgParams(p1 , p2 , p3 , p4 , p5 , p6 , p7);
+			params.GenParams(p1 , p2 , p3 , p4 , p5 , p6 , p7);
 
 			for (UINT32 i = nStartPos;i < m_unParamCount;++i)
 			{	
@@ -350,7 +350,7 @@ namespace CUtil
 			MsgAssert_Re0(m_unParamCount >= 1 , "GetValueEx size error:size=" << m_unParamCount ); 
 
 			Parameters params;
-			params.GenMsgParams(p1);
+			params.GenParams(p1);
 
 			for (UINT32 i = 0;i < 1;++i)
 			{	
@@ -371,7 +371,7 @@ namespace CUtil
 			MsgAssert_Re0(m_unParamCount >= 2 , "GetValueEx size error:size=" << m_unParamCount ); 
 
 			Parameters params;
-			params.GenMsgParams(p1 , p2);
+			params.GenParams(p1 , p2);
 
 			for (UINT32 i = 0;i < 2;++i)
 			{	
@@ -396,7 +396,7 @@ namespace CUtil
 			MsgAssert_Re0(m_unParamCount >= 3 , "GetValueEx size error:size=" << m_unParamCount ); 
 
 			Parameters params;
-			params.GenMsgParams(p1 , p2 , p3 );
+			params.GenParams(p1 , p2 , p3 );
 
 			for (UINT32 i = 0;i < 3;++i)
 			{	
@@ -425,7 +425,7 @@ namespace CUtil
 			MsgAssert_Re0(m_unParamCount >= 4 , "GetValueEx size error:size=" << m_unParamCount ); 
 
 			Parameters params;
-			params.GenMsgParams(p1 , p2 , p3 , p4 );
+			params.GenParams(p1 , p2 , p3 , p4 );
 
 			for (UINT32 i = 0;i < 4 ;++i)
 			{				
@@ -459,7 +459,7 @@ namespace CUtil
 			MsgAssert_Re0(m_unParamCount >= 5 , "GetValueEx size error:size=" << m_unParamCount ); 
 
 			Parameters params;
-			params.GenMsgParams(p1 , p2 , p3 , p4 , p5 );
+			params.GenParams(p1 , p2 , p3 , p4 , p5 );
 
 			for (UINT32 i = 0;i < 5;++i)
 			{	
@@ -497,7 +497,7 @@ namespace CUtil
 			MsgAssert_Re0(m_unParamCount >= 6 , "GetValueEx size error:size=" << m_unParamCount ); 
 
 			Parameters params;
-			params.GenMsgParams(p1 , p2 , p3 , p4 , p5 , p6 );
+			params.GenParams(p1 , p2 , p3 , p4 , p5 , p6 );
 
 			for (UINT32 i = 0;i < 6;++i)
 			{	
@@ -539,7 +539,7 @@ namespace CUtil
 			MsgAssert_Re0(m_unParamCount >= 7 , "GetValueEx size error:size=" << m_unParamCount ); 
 
 			Parameters params;
-			params.GenMsgParams(p1 , p2 , p3 , p4 , p5 , p6 , p7);
+			params.GenParams(p1 , p2 , p3 , p4 , p5 , p6 , p7);
 
 			for (UINT32 i = 0;i < 7;++i)
 			{		
@@ -584,7 +584,7 @@ namespace CUtil
 			MsgAssert_Re0(m_unParamCount >= 8 , "GetValueEx size error:size=" << m_unParamCount ); 
 
 			Parameters params;
-			params.GenMsgParams(p1 , p2 , p3 , p4 , p5 , p6 , p7 , p8);
+			params.GenParams(p1 , p2 , p3 , p4 , p5 , p6 , p7 , p8);
 
 			for (UINT32 i = 0;i < 8;++i)
 			{				
@@ -628,61 +628,61 @@ namespace CUtil
 		}
 
 	public: 
-		virtual CUtil::CStream & marshal(CUtil::CStream & cs) const;
-		virtual CUtil::CStream & unMarshal(CUtil::CStream & cs);
+		virtual CUtil::CStream & marshal(CUtil::CStream & cs) const override;
+		virtual CUtil::CStream & unMarshal(CUtil::CStream & cs) override;
 
 	public:
-// 		UINT32 GenMsgParams()
+// 		UINT32 GenParams()
 // 		{
-// 			return CUtil::GenMsgHelper::GenMsgParams(*this);
+// 			return CUtil::GenMsgHelper::GenParams(*this);
 // 		} 
 // 
 		template<typename P1>
-		UINT32 GenMsgParams(P1 &p1)
+		UINT32 GenParams(P1 &p1)
 		{
-			return CUtil::GenMsgHelper::GenMsgParams(*this , p1);
+			return CUtil::GenParamHelper::GenParams(*this , p1);
 		}
 
 		template<typename P1 , typename P2>
-		UINT32 GenMsgParams(P1 &p1 , P2 &p2)
+		UINT32 GenParams(P1 &p1 , P2 &p2)
 		{
-			return CUtil::GenMsgHelper::GenMsgParams(*this , p1 , p2);
+			return CUtil::GenParamHelper::GenParams(*this , p1 , p2);
 		}
 
 		template<typename P1 , typename P2 , typename P3>
-		UINT32 GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3)
+		UINT32 GenParams(P1 &p1 , P2 &p2 , P3 &p3)
 		{
-			return CUtil::GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3);
+			return CUtil::GenParamHelper::GenParams(*this , p1 , p2 , p3);
 		}
 
 		template<typename P1 , typename P2 , typename P3 , typename P4>
-		UINT32 GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4)
+		UINT32 GenParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4)
 		{
-			return CUtil::GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4);
+			return CUtil::GenParamHelper::GenParams(*this , p1 , p2 , p3 , p4);
 		} 
 
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5>
-		UINT32 GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5)
+		UINT32 GenParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5)
 		{
-			return CUtil::GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4 , p5 );
+			return CUtil::GenParamHelper::GenParams(*this , p1 , p2 , p3 , p4 , p5 );
 		} 
 
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6>
-		UINT32 GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6)
+		UINT32 GenParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6)
 		{
-			return CUtil::GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4 , p5 , p6 );
+			return CUtil::GenParamHelper::GenParams(*this , p1 , p2 , p3 , p4 , p5 , p6 );
 		}
 
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7>
-		UINT32 GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7)
+		UINT32 GenParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7)
 		{
-			return CUtil::GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4 , p5 , p6 , p7);
+			return CUtil::GenParamHelper::GenParams(*this , p1 , p2 , p3 , p4 , p5 , p6 , p7);
 		}
 
 		template<typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8>
-		UINT32 GenMsgParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7 , P8 &p8)
+		UINT32 GenParams(P1 &p1 , P2 &p2 , P3 &p3 , P4 &p4 , P5 &p5 , P6 &p6 , P7 &p7 , P8 &p8)
 		{
-			return GenMsgHelper::GenMsgParams(*this , p1 , p2 , p3 , p4 , p5 , p6 , p7 , p8);
+			return GenParamHelper::GenParams(*this , p1 , p2 , p3 , p4 , p5 , p6 , p7 , p8);
 		}
 
 	public:

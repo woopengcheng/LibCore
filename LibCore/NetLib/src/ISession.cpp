@@ -68,7 +68,7 @@ namespace Net
 	{  
 		m_bClosed = TRUE;
 		m_nNetState = NET_STATE_LOSTED; 
-		m_objTimeout.Clean();
+		m_objTimeout.Cleanup();
 
 		if (m_socket != -1)
 		{

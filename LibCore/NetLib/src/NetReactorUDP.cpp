@@ -139,7 +139,17 @@ namespace Net
 	{
 		Assert_ReF(pNetHandler->GetSession());
 	
-		m_mapNetHandlers.insert(std::make_pair(pNetHandler->GetSession()->GetSessionID() , pNetHandler));
+		INT32 nSessionID = pNetHandler->GetSession()->GetSessionID();
+		if (m_mapNetHandlers.find(nSessionID) == m_mapNetHandlers.end())
+		{
+			m_mapNetHandlers.insert(std::make_pair(nSessionID, pNetHandler));
+		}
+		else
+		{
+			gErrorStream("NetReactorUDP::AddNetHandler error. nodeName=" << pNetHandler->GetSession()->GetCurNodeName() << ":address=" << pNetHandler->GetSession()->GetAddress() << ":port=" << pNetHandler->GetSession()->GetPort());
+
+			return CErrno::Failure();
+		}
 
 		return INetReactor::AddNetHandler(pNetHandler, objMask);
 	}

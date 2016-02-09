@@ -24,19 +24,19 @@ namespace Net
 			: m_pPacket(NULL)
 		{
 		}
-		virtual ~RakNetContext()
+		~RakNetContext()
 		{
 		}
 
 	public:
-		RakNet::Packet * GetPacket() const { return m_pPacket; }
-		void SetPacket(RakNet::Packet * val) { m_pPacket = val; }
-		RakNet::SystemAddress  GetId() const { return m_pID; }
-		void SetId(RakNet::SystemAddress val) { m_pID = val; }
+		RakNet::Packet		*	GetPacket() const { return m_pPacket; }
+		void					SetPacket(RakNet::Packet * val) { m_pPacket = val; }
+		RakNet::SystemAddress	GetId() const { return m_pID; }
+		void					SetId(RakNet::SystemAddress val) { m_pID = val; }
 
 	private:
-		RakNet::SystemAddress		m_pID;
-		RakNet::Packet			*	m_pPacket;
+		RakNet::SystemAddress	m_pID;
+		RakNet::Packet		*	m_pPacket;
 	};
 
 	CErrno NetHandlerListener::OnMsgRecvingRakNet()

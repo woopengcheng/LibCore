@@ -37,7 +37,7 @@ namespace Net
 		virtual ~NetHandlerHttpServer(){}
 
 	public:
-		virtual CErrno  OnMsgRecving( const char * pBuf , UINT32 unSize );  
+		virtual CErrno  OnMsgRecving( const char * pBuf , UINT32 unSize ) override;
 		virtual	INT32	Send( HttpProtocol& response );
 
 	protected:
@@ -60,7 +60,7 @@ namespace Net
 		}
 
 	public:
-		virtual void			OnAccept(NetSocket socket , sockaddr_in * addr);
+		virtual void			OnAccept(NetSocket socket , sockaddr_in * addr) override;
 
 	protected:
 		HttpServer			*	m_pHttpServer;

@@ -9,16 +9,16 @@ namespace GameDB
 	{ 
 	public:
 		UserAuth(){}
-		UserAuth(const User & objUserInfos);
-		virtual ~UserAuth(); 
+		explicit UserAuth(const User & objUserInfos);
+		~UserAuth(); 
 
 	public:
-		bool CheckSysPermission(); 
-		void SetUserInfo(const User & user){m_objUserInfo = user;}
-		User GetUserInfo(){ return m_objUserInfo;}
+		bool		CheckSysPermission(); 
+		void		SetUserInfo(const User & user){m_objUserInfo = user;}
+		User		GetUserInfo(){ return m_objUserInfo;}
 
 	protected:
-		User m_objUserInfo; 
+		User		m_objUserInfo; 
 	};
 
 }

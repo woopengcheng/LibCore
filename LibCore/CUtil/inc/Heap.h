@@ -28,20 +28,20 @@ namespace CUtil
 		virtual  Node<ValueType> * GetNode(UINT32 unNodeID);
 
 	protected:
-		virtual  CErrno    HeapRebuildDown(Node<ValueType> * pRebuildNode){ return CErrno::Success(); }
-		virtual  CErrno    HeapRebuildUp(Node<ValueType>  * pRebuildNode) { return CErrno::Success(); }
+		virtual  CErrno		HeapRebuildDown(Node<ValueType> * pRebuildNode){ return CErrno::Success(); }
+		virtual  CErrno		HeapRebuildUp(Node<ValueType>  * pRebuildNode) { return CErrno::Success(); }
 
 	public:
-		INT32             GetHeapParentPos(UINT32 unPos);
-		INT32             GetHeapLeftPos(UINT32 unPos);
-		INT32             GetHeapRightPos(UINT32 unPos);
-		UINT32            GetHeapSize(void);
-		INT32             SwitchNode(Node<ValueType>  * pMoveNode , UINT32 unMoveNodePos);
-		void              SetNode(UINT32 unNodePos , Node<ValueType> * pNode);
+		INT32				GetHeapParentPos(UINT32 unPos);
+		INT32				GetHeapLeftPos(UINT32 unPos);
+		INT32				GetHeapRightPos(UINT32 unPos);
+		UINT32				GetHeapSize(void);
+		INT32				SwitchNode(Node<ValueType>  * pMoveNode , UINT32 unMoveNodePos);
+		void				SetNode(UINT32 unNodePos , Node<ValueType> * pNode);
 
 	protected:
-		MapNodesT                       m_mapNodes;              //5 主要是用来查找Node所处的位置,然后进行删除.
-		Node<ValueType>  *              m_pNodes[MAX_NODE_SIZE]; //5 采用数组的方式来实现堆. 
+		MapNodesT			m_mapNodes;              //5 主要是用来查找Node所处的位置,然后进行删除.
+		Node<ValueType>	*	m_pNodes[MAX_NODE_SIZE]; //5 采用数组的方式来实现堆. 
 		ThreadPool::ThreadSpinRWMutex   m_objLock;               //5 用来锁堆这个类的.
 	};  
 

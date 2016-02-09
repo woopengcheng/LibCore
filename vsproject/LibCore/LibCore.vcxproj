@@ -255,7 +255,7 @@
     <ClInclude Include="..\..\LibCore\CUtil\inc\CUtil.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\DeelxRegexp.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\CErrno.h" />
-    <ClInclude Include="..\..\LibCore\CUtil\inc\GenMsgHelper.h" />
+    <ClInclude Include="..\..\LibCore\CUtil\inc\GenParamHelper.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\Heap.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\Iconv.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\intrusive_ptr.h" />
@@ -308,7 +308,7 @@
     <ClInclude Include="..\..\LibCore\Marshal\inc\CStream.h" />
     <ClInclude Include="..\..\LibCore\Marshal\inc\Marshal.h" />
     <ClInclude Include="..\..\LibCore\Marshal\inc\MashalTest.h" />
-    <ClInclude Include="..\..\LibCore\MsgLib\inc\GenMsgHelper.h" />
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\GenParamHelper.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\GenMsgParams.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\ICallableObject.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\IMsgCallableObject.h" />
@@ -403,7 +403,7 @@
     <ClCompile Include="..\..\LibCore\CUtil\src\Common.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\CRTTI.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\CUtil.cpp" />
-    <ClCompile Include="..\..\LibCore\CUtil\src\GenMsgHelper.cpp" />
+    <ClCompile Include="..\..\LibCore\CUtil\src\GenParamHelper.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\Iconv.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\Parameter.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\Parameters.cpp" />

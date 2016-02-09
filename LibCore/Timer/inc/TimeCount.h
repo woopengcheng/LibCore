@@ -15,8 +15,8 @@ namespace Timer
  		~TimeCount(){}
  
  	public:
-		virtual CErrno Start(UINT64 ullTimeInterval);
-		virtual CErrno Clean(); 
+		virtual CErrno		Start(UINT64 ullTimeInterval);
+		virtual CErrno		Cleanup(); 
  
  	public:
  		//************************************
@@ -28,14 +28,14 @@ namespace Timer
  		// Parameter: UINT64 unCurTime  如果有传递当前时间.就用传递值.如果没有.自动获取.
  		// Parameter: UINT64 * pDiff  通过指针的方式获取相差的值得大小.
  		//************************************
-		BOOL     IsExpired(UINT64 unCurTime = 0 , UINT64 * pDiff = NULL);
- 		BOOL     IsStarted();
-		UINT64	 ElapseTicks();
- 		UINT64   ResetTime(); 
+		BOOL				IsExpired(UINT64 unCurTime = 0 , UINT64 * pDiff = NULL);
+ 		BOOL				IsStarted();
+		UINT64				ElapseTicks();
+ 		UINT64				ResetTime(); 
 		
 	private:
- 		UINT64   m_ullLastTime;
- 		UINT64   m_ullTimeInterval;
+ 		UINT64				m_ullLastTime;
+ 		UINT64				m_ullTimeInterval;
 	};
 
 	
@@ -49,8 +49,8 @@ namespace Timer
  		~TimeCount_Safe(){}
  
  	public:
- 		virtual CErrno Start(UINT64 ullTimeInterval);
- 		virtual CErrno Clean(); 
+ 		virtual CErrno		Start(UINT64 ullTimeInterval);
+ 		virtual CErrno		Cleanup(); 
  
  	public:
  		//************************************
@@ -62,20 +62,20 @@ namespace Timer
  		// Parameter: UINT64 unCurTime  如果有传递当前时间.就用传递值.如果没有.自动获取.
  		// Parameter: UINT64 * pDiff  通过指针的方式获取相差的值得大小.
  		//************************************
- 		BOOL     IsExpired(UINT64 unCurTime = 0 , UINT64 * pDiff = NULL);
- 		BOOL     IsStarted();
-		UINT64	 ElapseTicks();
- 		CErrno    ResetTime();
+ 		BOOL				IsExpired(UINT64 unCurTime = 0 , UINT64 * pDiff = NULL);
+ 		BOOL				IsStarted();
+		UINT64				ElapseTicks();
+ 		CErrno				ResetTime();
  
  	public:
- 		void     SetLastTime(UINT64 ullLastTime);
- 		UINT64   GetLastTime();
- 		void     SetTimeInterval(UINT64 ullTimeInterval);
- 		UINT64   GetTimeInterval();
+ 		void				SetLastTime(UINT64 ullLastTime);
+ 		UINT64				GetLastTime();
+ 		void				SetTimeInterval(UINT64 ullTimeInterval);
+ 		UINT64				GetTimeInterval();
  
  	private:
- 		UINT64   m_ullLastTime;
- 		UINT64   m_ullTimeInterval;
+ 		UINT64				m_ullLastTime;
+ 		UINT64				m_ullTimeInterval;
   		ThreadPool::ThreadSpinRWMutex m_objLock;
  	};
 

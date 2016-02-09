@@ -39,15 +39,7 @@ namespace Timer
 		virtual TimerNode * Update(void);
 
 	public:
-		//************************************
-		// Method:    GetNode
-		// FullName:  Timer::TimerInterface::GetNode
-		// Access:    virtual public 
-		// Returns:   Node<TimerType> *
-		// Qualifier: 如果这里是最小堆实现的.则输入最小堆的位置.一般输入栈顶为0
-		// Parameter: UINT32 unNodeID
-		//************************************
-		TimerNode *			GetNode(UINT32 unNodeID = 0);
+		TimerNode *			GetNode(UINT32 unNodeID = 0);  //5  如果这里是最小堆实现的.则输入最小堆的位置.一般输入栈顶为0
 
 	public:
 		UINT32				GetTimerIDCount()

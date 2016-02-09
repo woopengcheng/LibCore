@@ -33,22 +33,22 @@ namespace GameDB
 		virtual ~BackupEnvironment(){}
 
 	public:
-		virtual Status Backup(const std::string & strDir , void * arg);
-		virtual Status DeleteFile(const std::string & strFile){ return RemoveFile(strFile); }
-		virtual bool   CheckCopyFile(const std::string& strName);
-		virtual bool   CanCopyFile(const std::string& strName);
-		virtual Status CloneFile(void * arg , const std::string & strFile , int64_t llFileLength);
-		virtual Status CloneFile(const std::string& strSrc,const std::string& strDst,int64_t llFileLength );
-		virtual Status LinkFile(const std::string & strSrc , const std::string & strDst);
-		virtual Status TouchFile(const std::string & strDir );
+		virtual Status				Backup(const std::string & strDir , void * arg);
+		virtual Status				DeleteFile(const std::string & strFile){ return RemoveFile(strFile); }
+		virtual bool				CheckCopyFile(const std::string& strName);
+		virtual bool				CanCopyFile(const std::string& strName);
+		virtual Status				CloneFile(void * arg , const std::string & strFile , int64_t llFileLength);
+		virtual Status				CloneFile(const std::string& strSrc,const std::string& strDst,int64_t llFileLength );
+		virtual Status				LinkFile(const std::string & strSrc , const std::string & strDst);
+		virtual Status				TouchFile(const std::string & strDir );
  
 	public: 
-		Status RemoveFile(const std::string & strFile);  //5 解决windows的DeleteFile检测错误问题
+		Status						RemoveFile(const std::string & strFile);  //5 解决windows的DeleteFile检测错误问题
 
 	protected:
-		BOOL						 m_bBackuping;		//5 是否正在备份,用于删除文件之用
-		DBMutex						 m_objMutex;
-		CollectionWillDeleteFilesT	 m_vecWillDeleteFiles;
+		BOOL						m_bBackuping;		//5 是否正在备份,用于删除文件之用
+		DBMutex						m_objMutex;
+		CollectionWillDeleteFilesT	m_vecWillDeleteFiles;
 	}; 
 }
 

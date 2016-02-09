@@ -152,10 +152,19 @@ namespace Net
 		if(objMask & NET_FUNC_EXCEPT)  
 			nFDMask |= FD_CLOSE; 
 		 
-		m_mapNetHandlers.insert(std::make_pair(pNetHandler->GetSession()->GetSessionID() , pNetHandler));
-		m_mapNetEvents.insert(std::make_pair(pNetHandler->GetSession()->GetSessionID() , nFDMask));
+		INT32 nSessionID = pNetHandler->GetSession()->GetSessionID();
+		if (m_mapNetHandlers.find(nSessionID) == m_mapNetHandlers.end())
+		{
+			m_mapNetHandlers.insert(std::make_pair(nSessionID, pNetHandler));
+			m_mapNetEvents.insert(std::make_pair(nSessionID, nFDMask));
+			++m_nNetHandlerCount;
+		}
+		else
+		{
+			gErrorStream("NetReactorSelect::AddNetHandler error. nodeName=" << pNetHandler->GetSession()->GetCurNodeName() << ":address=" << pNetHandler->GetSession()->GetAddress() << ":port=" << pNetHandler->GetSession()->GetPort());
 
-		++m_nNetHandlerCount;
+			return CErrno::Failure();
+		}
 
 		return INetReactor::AddNetHandler(pNetHandler , objMask);
 	}

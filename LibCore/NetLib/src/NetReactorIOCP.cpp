@@ -13,7 +13,7 @@ namespace Net
 	{
 	public:
 		IocpContext();
-		virtual ~IocpContext();
+		~IocpContext();
 
 		enum AsyncOper
 		{
@@ -26,26 +26,28 @@ namespace Net
 			OVERLAPPED overlapped;
 			AsyncOper asyncoper;
 		};
-	public:
-		void SetSendBuf(const char* buf, INT32 len);
-		INT32 CreateClientSocketForAccept();
-	public:
-		WSABUF recvBuf;
-		INT32 recvNum;
 
-		WSABUF sendBuf;
-		INT32 sendNum;
-
-		MYOVERLAPPED recvOverlapped;
-		MYOVERLAPPED sendOverlapped;
-
-		INT32 acceptNum;
-		MYOVERLAPPED acceptOverlapped;
-		char acceptAddr[sizeof(sockaddr_in) * 2 + 32];
-		int acceptClientSock;
 	public:
-		char* sendBufPtr;
-		INT32 sendbufSize;
+		void			SetSendBuf(const char* buf, INT32 len);
+		INT32			CreateClientSocketForAccept();
+
+	public:
+		WSABUF			recvBuf;
+		INT32			recvNum;
+
+		WSABUF			sendBuf;
+		INT32			sendNum;
+
+		MYOVERLAPPED	recvOverlapped;
+		MYOVERLAPPED	sendOverlapped;
+
+		INT32			acceptNum;
+		MYOVERLAPPED	acceptOverlapped;
+		char			acceptAddr[sizeof(sockaddr_in) * 2 + 32];
+		INT32			acceptClientSock;
+
+		char		*	sendBufPtr;
+		INT32			sendbufSize;
 	};
 
 	IocpContext::IocpContext()

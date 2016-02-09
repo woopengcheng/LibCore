@@ -736,9 +736,9 @@ def GenerateRpcRegister():
 			fileRpc.write(twoTab + "{\n")
 			fileRpc.write(threeTab + "CUtil::Parameters objDeliverParams , objReturnParams;\n")
 			strDefaultParams = GetRpcSpecialParamsIncludeDefault(rpc.call)
-			fileRpc.write(threeTab + "CUtil::GenMsgHelper::GenMsgParams(objDeliverParams " + strDefaultParams +  ");\n") 
+			fileRpc.write(threeTab + "CUtil::GenParamHelper::GenParams(objDeliverParams " + strDefaultParams +  ");\n") 
 			strDefaultParams = GetRpcSpecialParamsIncludeDefault(rpc.returns)
-			fileRpc.write(threeTab + "CUtil::GenMsgHelper::GenMsgParams(objReturnParams " + strDefaultParams +  ");\n") 
+			fileRpc.write(threeTab + "CUtil::GenParamHelper::GenParams(objReturnParams " + strDefaultParams +  ");\n") 
 			fileRpc.write(threeTab + "Msg::RpcCheckParams::GetInstance()->InsertDeliverParams(" + "\"" + rpc.name  + "\", objDeliverParams);\n") 
 			fileRpc.write(threeTab + "Msg::RpcCheckParams::GetInstance()->InsertReturnParams(" + "\"" + rpc.name  +  "\", objReturnParams);\n") 
 #			fileRpc.write(threeTab + "objDeliverParams.Clear();\n") 
@@ -1074,7 +1074,7 @@ def WriteRpcDataCopyFunc(fileRpc , rpcData):
 	fileRpc.write(twoTab + "} \n\n")
 
 def WriteRpcDataMarshal(fileRpc , rpcData):
-	fileRpc.write(twoTab + "virtual CUtil::CStream & marshal(CUtil::CStream & cs) const\n" )
+	fileRpc.write(twoTab + "virtual CUtil::CStream & marshal(CUtil::CStream & cs) const override\n" )
 	fileRpc.write(twoTab + "{ \n")
 	strParam = threeTab + "cs"
 	for index , param in rpcData.params.items():  
@@ -1085,7 +1085,7 @@ def WriteRpcDataMarshal(fileRpc , rpcData):
 	fileRpc.write(twoTab + "} \n\n")
 	
 def WriteRpcDataunMarshal(fileRpc , rpcData):
-	fileRpc.write(twoTab + "virtual CUtil::CStream & unMarshal(CUtil::CStream & cs)\n" )
+	fileRpc.write(twoTab + "virtual CUtil::CStream & unMarshal(CUtil::CStream & cs) override\n" )
 	fileRpc.write(twoTab + "{ \n")
 	strParam = threeTab + "cs"
 	for index , param in rpcData.params.items():  

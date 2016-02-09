@@ -3,19 +3,19 @@
 #include "MsgLib/inc/MsgCommon.h"     
 #include "CUtil/inc/Chunk.h"
 #include "CUtil/inc/Parameter.h"
-#include "CUtil/inc/GenMsgHelper.h"
+#include "CUtil/inc/GenParamHelper.h"
 #include "CUtil/inc/Parameters.h"
  
 
-#define	CheckParams_0(PARAM) CUtil::GenMsgHelper::CheckParams(*PARAM) 
-#define	CheckParams_1(PARAM , p1) CUtil::GenMsgHelper::CheckParams(*PARAM , p1 ) 
-#define	CheckParams_2(PARAM , p1 , p2) CUtil::GenMsgHelper::CheckParams(*PARAM , p1 , p2 ) 
-#define	CheckParams_3(PARAM , p1 , p2 , p3) CUtil::GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3 ) 
-#define	CheckParams_4(PARAM , p1 , p2 , p3, p4) CUtil::GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 ) 
-#define	CheckParams_5(PARAM , p1 , p2 , p3, p4 , p5) CUtil::GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 ) 
-#define	CheckParams_6(PARAM , p1 , p2 , p3, p4 , p5 , p6) CUtil::GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 , p6 ) 
-#define	CheckParams_7(PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7) CUtil::GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7 )  
-#define	CheckParams_8(PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7 , p8) CUtil::GenMsgHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7 , p8) 
+#define	CheckParams_0(PARAM) CUtil::GenParamHelper::CheckParams(*PARAM) 
+#define	CheckParams_1(PARAM , p1) CUtil::GenParamHelper::CheckParams(*PARAM , p1 ) 
+#define	CheckParams_2(PARAM , p1 , p2) CUtil::GenParamHelper::CheckParams(*PARAM , p1 , p2 ) 
+#define	CheckParams_3(PARAM , p1 , p2 , p3) CUtil::GenParamHelper::CheckParams(*PARAM , p1 , p2 , p3 ) 
+#define	CheckParams_4(PARAM , p1 , p2 , p3, p4) CUtil::GenParamHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 ) 
+#define	CheckParams_5(PARAM , p1 , p2 , p3, p4 , p5) CUtil::GenParamHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 ) 
+#define	CheckParams_6(PARAM , p1 , p2 , p3, p4 , p5 , p6) CUtil::GenParamHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 , p6 ) 
+#define	CheckParams_7(PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7) CUtil::GenParamHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7 )  
+#define	CheckParams_8(PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7 , p8) CUtil::GenParamHelper::CheckParams(*PARAM , p1 , p2 , p3, p4 , p5 , p6 , p7 , p8) 
 
 #define GET_PARAMETER CUtil::Parameters * pParameter = NULL;\
 	if (bDeliver)\

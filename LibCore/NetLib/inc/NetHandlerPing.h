@@ -17,14 +17,12 @@ namespace Net
 		~NetHandlerPing() {}
 
 	public:
-		virtual CErrno		Update(void);
+		virtual CErrno		Update(void) override;
 		virtual CErrno		HandlePing(ISession * pSession, SPing * pPing);
 		virtual	CErrno		HandleMsg(const char* pBuffer, UINT32 unLength) final;
-		virtual CErrno		HandleMsg(ISession * pSession, UINT32 unMsgID, const char* pBuffer, UINT32 unLength);
+		virtual CErrno		HandleMsg(ISession * pSession, UINT32 unMsgID, const char* pBuffer, UINT32 unLength) override;
 		virtual CErrno		UpdatePing(void);
-
-	public:
-		CErrno				Ping(void);
+		virtual CErrno		Ping(void);
 
 	private:
 		INT64				m_llLastSendPing;
