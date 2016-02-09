@@ -63,6 +63,9 @@ namespace Msg
 	class DLL_EXPORT  Rpc : public ICallableObject
 	{
 	public:
+		typedef std::vector<ObjectMsgCall*> VecObjectMsgCallT;
+
+	public:
 		Rpc(RpcManager * pRpcManager , UINT64 unTimeout = 0 , Object nID = DEFAULT_RPC_CALLABLE_ID , RPCMsgCall *  pMsg = NULL , INT32 nSessionID = 0)
 			: ICallableObject(nID)  
 			, m_pRpcMsgCall(pMsg)
@@ -72,9 +75,6 @@ namespace Msg
 			m_objTimeout.Start(unTimeout * 1000); 
 		} 
 		~Rpc( void ){}
-
-	public:
-		typedef std::vector<ObjectMsgCall*> VecObjectMsgCallT;
 
 	public:
 		virtual BOOL			OnTimeout( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall );
@@ -87,7 +87,7 @@ namespace Msg
 		void					SetTimeout(UINT64 unTimeout); 
 		INT32					ProxySendBack();   
 		CUtil::Parameters	*	GetInParams();
-		 
+
 	public:   
 		template<typename NameOrID>
 		INT32 ProxySendMsg(NameOrID pName , std::vector<Msg::Object> & vecTargets ) 
@@ -405,11 +405,11 @@ namespace Msg
 		BOOL					CallObjectFunc( RPCMsgCall * pMsg , VecObjectMsgCallT & vecObjectMsgCall); 
 
 	protected: 
-		RPCMsgCall			 *  m_pRpcMsgCall;
-		RpcManager			 *  m_pRpcManager;
-		Timer::TimeCount        m_objTimeout;
+		RPCMsgCall			*	m_pRpcMsgCall;
+		RpcManager			*	m_pRpcManager;
+		Timer::TimeCount		m_objTimeout;
 		INT32					m_nSessionID;
-		Net::ISession        *  m_pSession;
+		Net::ISession		*	m_pSession;
 	}; 
 	 
 }

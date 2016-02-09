@@ -103,7 +103,7 @@ namespace Server
 	{ 
 		if (m_pDBSlave)
 		{
-			Server::rpc_SlaveSelectDB(m_nMasterSessionID, m_pDBSlave->GetMasterID() , m_objID , m_objSlaveInfo.strDBName , 1);
+			Server::rpc_SlaveSelectDB(m_nMasterSessionID, m_pDBSlave->GetMasterID() , m_objID , m_objSlaveInfo.strDBName , NULL , 1);
 		}
 
 	}

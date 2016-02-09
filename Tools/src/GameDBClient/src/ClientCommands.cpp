@@ -164,7 +164,7 @@ namespace Client
 
 		
 		
-		Client::rpc_HandleShowDatabases(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , 1);
+		Client::rpc_HandleShowDatabases(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , NULL , Msg::SYNC_TYPE_SYNC);
 	}
 
 	void ClientCommands::pfnHandleSelectDatabase(DBClient * pClient ,  std::vector<std::string> & objParams)
@@ -173,7 +173,7 @@ namespace Client
 
 		
 		
-		Client::rpc_HandleSelectDatabase(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1);
+		Client::rpc_HandleSelectDatabase(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , NULL, Msg::SYNC_TYPE_SYNC);
 	}
 
 	void ClientCommands::pfnHandleCreateDatabase(DBClient * pClient ,  std::vector<std::string> & objParams)
@@ -184,7 +184,7 @@ namespace Client
 		
 
 
-		Client::rpc_HandleCreateDatabase(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1);
+		Client::rpc_HandleCreateDatabase(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , NULL, Msg::SYNC_TYPE_SYNC);
 	}
 
 	void ClientCommands::pfnHandleDeleteDatabase(DBClient * pClient ,  std::vector<std::string> & objParams)
@@ -194,7 +194,7 @@ namespace Client
 		
 		 
 
-		Client::rpc_HandleDeleteDatabase(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1);
+		Client::rpc_HandleDeleteDatabase(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1], NULL , Msg::SYNC_TYPE_SYNC);
 	} 
 
 	void ClientCommands::pfnHandleShowUsers(DBClient * pClient , std::vector<std::string> & objParams)
@@ -203,7 +203,7 @@ namespace Client
 
 		
 		
-		Client::rpc_HandleShowUsers(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , 1);
+		Client::rpc_HandleShowUsers(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0), NULL , Msg::SYNC_TYPE_SYNC);
 	}
 
 	void ClientCommands::pfnHandleCreateUser(DBClient * pClient ,  std::vector<std::string> & objParams)
@@ -213,7 +213,7 @@ namespace Client
 		SINT8 isSys = (SINT8)CUtil::atoi(objParams[3]);
 				
 		 
-		Client::rpc_HandleCreateUser(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , isSys , 1);
+		Client::rpc_HandleCreateUser(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , isSys, NULL , Msg::SYNC_TYPE_SYNC);
 
 		gDebugStream( "pfnHandleCreateUser"); 
 	}
@@ -225,7 +225,7 @@ namespace Client
 		
 		
 		 
-		Client::rpc_HandleDeleteUser(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1);
+		Client::rpc_HandleDeleteUser(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1], NULL , Msg::SYNC_TYPE_SYNC);
 	}
 
 	void ClientCommands::pfnHandleModifyUser(DBClient * pClient ,  std::vector<std::string> & objParams)
@@ -236,7 +236,7 @@ namespace Client
 
 		
 		 
-		Client::rpc_HandleCreateUser(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , isSys , 1);
+		Client::rpc_HandleCreateUser(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , isSys, NULL , Msg::SYNC_TYPE_SYNC);
 	} 
 
 	void ClientCommands::pfnHandleHSet(DBClient * pClient ,  std::vector<std::string> & objParams)
@@ -245,7 +245,7 @@ namespace Client
 
 		
 		 
-		Client::rpc_HandleHSet(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , objParams[3] , 1);
+		Client::rpc_HandleHSet(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , objParams[3], NULL , Msg::SYNC_TYPE_SYNC);
 
 		gDebugStream( "pfnHandleHSet");
 	}
@@ -256,7 +256,7 @@ namespace Client
 
 		
 		 
-		Client::rpc_HandleHGet(pClient->GetServerSessionID(), pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , 1);
+		Client::rpc_HandleHGet(pClient->GetServerSessionID(), pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2], NULL , Msg::SYNC_TYPE_SYNC);
 		
 		gDebugStream( "pfnHandleHGet");
 	}
@@ -268,7 +268,7 @@ namespace Client
 
 		
 		 
-		Client::rpc_HandleHSetNX(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , objParams[3] , 1);
+		Client::rpc_HandleHSetNX(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , objParams[3], NULL , Msg::SYNC_TYPE_SYNC);
 		
 	}
 
@@ -278,7 +278,7 @@ namespace Client
 
 		
 		 
-		Client::rpc_HandleHSetOW(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , objParams[3] , 1);
+		Client::rpc_HandleHSetOW(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , objParams[3], NULL , Msg::SYNC_TYPE_SYNC);
 
 	}
 
@@ -288,7 +288,7 @@ namespace Client
 
 		
 		 
-		Client::rpc_HandleHDel(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , 1);
+		Client::rpc_HandleHDel(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2], NULL , Msg::SYNC_TYPE_SYNC);
 
 	}
 
@@ -315,7 +315,7 @@ namespace Client
 
 		
 		 
-		Client::rpc_HandleHSetIncr(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] ,llCount , 1);
+		Client::rpc_HandleHSetIncr(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] ,llCount, NULL , Msg::SYNC_TYPE_SYNC);
 
 	}
 
@@ -327,7 +327,7 @@ namespace Client
 
 		
 		 
-		Client::rpc_HandleHSetIncrFloat(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] ,llCount , 1);
+		Client::rpc_HandleHSetIncrFloat(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] ,llCount, NULL , Msg::SYNC_TYPE_SYNC);
 
 	}
 
@@ -337,7 +337,7 @@ namespace Client
 
 		
 		 
-		Client::rpc_HandleHGetKeys(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1);
+		Client::rpc_HandleHGetKeys(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1], NULL , Msg::SYNC_TYPE_SYNC);
 
 	}
 
@@ -347,7 +347,7 @@ namespace Client
 
 		
 		 
-		Client::rpc_HandleHGetVals(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1);
+		Client::rpc_HandleHGetVals(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1], NULL , Msg::SYNC_TYPE_SYNC);
 
 	}
 
@@ -357,7 +357,7 @@ namespace Client
 
 		
 		 
-		Client::rpc_HandleHGetKeyVals(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1); 
+		Client::rpc_HandleHGetKeyVals(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1], NULL , Msg::SYNC_TYPE_SYNC); 
 	}
 
 	void ClientCommands::pfnHandleHScan(DBClient * pClient ,  std::vector<std::string> & objParams)
@@ -367,7 +367,7 @@ namespace Client
 
 		
 		 
-		Client::rpc_HandleHScan(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , objParams[3] , llLimit , 1); 
+		Client::rpc_HandleHScan(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , objParams[3] , llLimit, NULL , Msg::SYNC_TYPE_SYNC); 
 
 	}
 
@@ -377,7 +377,7 @@ namespace Client
 
 		
 		 
-		Client::rpc_HandleHCount(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1); 
+		Client::rpc_HandleHCount(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1], NULL , Msg::SYNC_TYPE_SYNC); 
 
 	}
 
@@ -387,7 +387,7 @@ namespace Client
 
 		
 		 
-		Client::rpc_HandleHDrop(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1); 
+		Client::rpc_HandleHDrop(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1], NULL , Msg::SYNC_TYPE_SYNC); 
 
 	}
 
@@ -395,7 +395,7 @@ namespace Client
 	{
 		
 		 
-		Client::rpc_HandleHList(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , 1); 
+		Client::rpc_HandleHList(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0), NULL , Msg::SYNC_TYPE_SYNC); 
 
 	}
 
@@ -405,7 +405,7 @@ namespace Client
 
 		
 		 
-		Client::rpc_HandleDump(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , 1);
+		Client::rpc_HandleDump(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0), NULL , Msg::SYNC_TYPE_SYNC);
 
 		gDebugStream( "pfnHandleDump"); 
 	}
@@ -417,7 +417,7 @@ namespace Client
 		INT64 llScore = CUtil::atoi(objParams[3]);
 		
 		 
-		Client::rpc_HandleZSet(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , llScore , 1);
+		Client::rpc_HandleZSet(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , llScore, NULL , Msg::SYNC_TYPE_SYNC);
 
 		gDebugStream( "pfnHandleZSet");
 
@@ -429,7 +429,7 @@ namespace Client
 
 		
 		 
-		Client::rpc_HandleZGet(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , 1);
+		Client::rpc_HandleZGet(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2], NULL , Msg::SYNC_TYPE_SYNC);
 
 		gDebugStream( "pfnHandleZGet");
 
@@ -450,7 +450,7 @@ namespace Client
 			llLimit = CUtil::atoi(objParams[2]);
 		}
 		
-		Client::rpc_HandleZTop(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , llStart  , llEnd , llLimit , 1);
+		Client::rpc_HandleZTop(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , llStart  , llEnd , llLimit, NULL , Msg::SYNC_TYPE_SYNC);
 		
 		gDebugStream( "pfnHandleZTop");
 
@@ -475,7 +475,7 @@ namespace Client
 			llLimit = CUtil::atoi(objParams[2]);
 		} 
 		
-		Client::rpc_HandleZRTop(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , llStart , llEnd , llLimit , 1);
+		Client::rpc_HandleZRTop(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , llStart , llEnd , llLimit, NULL , Msg::SYNC_TYPE_SYNC);
 		 
 		gDebugStream("pfnHandleZRTop"); 
 	}
@@ -572,7 +572,7 @@ namespace Client
 
 		
 		 
-		Client::rpc_HandleZDel(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2] , 1); 
+		Client::rpc_HandleZDel(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , objParams[2], NULL , Msg::SYNC_TYPE_SYNC); 
 
 	}
 
@@ -582,7 +582,7 @@ namespace Client
 
 		
 		 
-		Client::rpc_HandleZDrop(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1); 
+		Client::rpc_HandleZDrop(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1], NULL , Msg::SYNC_TYPE_SYNC); 
 	}
 
 	void ClientCommands::pfnHandleZCount(DBClient * pClient ,  std::vector<std::string> & objParams)
@@ -591,7 +591,7 @@ namespace Client
 
 		
 		 
-		Client::rpc_HandleZCount(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1] , 1); 
+		Client::rpc_HandleZCount(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , objParams[1], NULL , Msg::SYNC_TYPE_SYNC); 
 
 	}
 
@@ -601,7 +601,7 @@ namespace Client
 
 		
 		 
-		Client::rpc_HandleZList(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0) , 1);  
+		Client::rpc_HandleZList(pClient->GetServerSessionID() , pClient->GetServerID() , Msg::Object(0), NULL , Msg::SYNC_TYPE_SYNC);  
 	}
 
 }

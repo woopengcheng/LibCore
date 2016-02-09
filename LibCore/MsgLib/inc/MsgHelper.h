@@ -11,7 +11,7 @@
 namespace Msg
 {  
 	
-#define GEN_RPC_CALL_8(pSendInstance , nameOrID , rpcCallName , p1 , p2 , p3 , p4 , p5 , p6 , p7 , p8 ,vecTargets , objSrc , usPriority , objSyncType , nTimeout) \
+#define GEN_RPC_CALL_8(pSendInstance , nameOrID , rpcCallName , p1 , p2 , p3 , p4 , p5 , p6 , p7 , p8 ,vecTargets , objSrc , pCallback , usPriority , objSyncType , nTimeout ) \
 	if (vecTargets.size() == 0)\
 	{\
 		Assert_ReF1(FALSE);\
@@ -23,13 +23,14 @@ namespace Msg
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7);\
+		pMsg->SetCallback(pCallback);\
 		\
 		return pSendInstance->SendMsg(nameOrID , pMsg );\
 	}\
 	\
 	return -1;\
 	 
-#define GEN_RPC_CALL_7(pSendInstance , nameOrID , rpcCallName , p1 , p2 , p3 , p4 , p5 , p6 , p7 , vecTargets , objSrc , usPriority , objSyncType , nTimeout) \
+#define GEN_RPC_CALL_7(pSendInstance , nameOrID , rpcCallName , p1 , p2 , p3 , p4 , p5 , p6 , p7 , vecTargets , objSrc , pCallback , usPriority , objSyncType , nTimeout ) \
 	if (vecTargets.size() == 0)\
 	{\
 		Assert_ReF1(FALSE);\
@@ -41,13 +42,14 @@ namespace Msg
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7);\
+		pMsg->SetCallback(pCallback);\
 		\
 		return pSendInstance->SendMsg(nameOrID , pMsg );\
 	}\
 	\
 	return -1;\
 	 
-#define GEN_RPC_CALL_6(pSendInstance , nameOrID , rpcCallName , p1 , p2 , p3 , p4 , p5 , p6 , vecTargets , objSrc , usPriority , objSyncType , nTimeout) \
+#define GEN_RPC_CALL_6(pSendInstance , nameOrID , rpcCallName , p1 , p2 , p3 , p4 , p5 , p6 , vecTargets , objSrc , pCallback , usPriority , objSyncType , nTimeout ) \
 	if (vecTargets.size() == 0)\
 	{\
 		Assert_ReF1(FALSE);\
@@ -59,13 +61,14 @@ namespace Msg
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 );\
+		pMsg->SetCallback(pCallback);\
 		\
 		return pSendInstance->SendMsg(nameOrID , pMsg );\
 	}\
 	\
 	return -1;\
 	 
-#define GEN_RPC_CALL_5(pSendInstance , nameOrID , rpcCallName , p1 , p2 , p3 , p4 , p5 , vecTargets , objSrc , usPriority , objSyncType , nTimeout) \
+#define GEN_RPC_CALL_5(pSendInstance , nameOrID , rpcCallName , p1 , p2 , p3 , p4 , p5 , vecTargets , objSrc , pCallback , usPriority , objSyncType , nTimeout ) \
 	if (vecTargets.size() == 0)\
 	{\
 		Assert_ReF1(FALSE);\
@@ -77,13 +80,14 @@ namespace Msg
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5);\
+		pMsg->SetCallback(pCallback);\
 		\
 		return pSendInstance->SendMsg(nameOrID , pMsg );\
 	}\
 	\
 	return -1;\
 	 
-#define GEN_RPC_CALL_4(pSendInstance , nameOrID , rpcCallName , p1 , p2 , p3 , p4 , vecTargets , objSrc , usPriority , objSyncType , nTimeout) \
+#define GEN_RPC_CALL_4(pSendInstance , nameOrID , rpcCallName , p1 , p2 , p3 , p4 , vecTargets , objSrc , pCallback , usPriority , objSyncType , nTimeout ) \
 	if (vecTargets.size() == 0)\
 	{\
 		Assert_ReF1(FALSE);\
@@ -95,13 +99,14 @@ namespace Msg
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4);\
+		pMsg->SetCallback(pCallback);\
 		\
 		return pSendInstance->SendMsg(nameOrID , pMsg );\
 	}\
 	\
 	return -1;\
 	 
-#define GEN_RPC_CALL_3(pSendInstance , nameOrID , rpcCallName , p1 , p2 , p3 , vecTargets , objSrc , usPriority , objSyncType , nTimeout) \
+#define GEN_RPC_CALL_3(pSendInstance , nameOrID , rpcCallName , p1 , p2 , p3 , vecTargets , objSrc , pCallback , usPriority , objSyncType , nTimeout) \
 	if (vecTargets.size() == 0)\
 	{\
 		Assert_ReF1(FALSE);\
@@ -113,13 +118,14 @@ namespace Msg
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3);\
+		pMsg->SetCallback(pCallback);\
 		\
 		return pSendInstance->SendMsg(nameOrID , pMsg );\
 	}\
 	\
 	return -1;\
 	 
-#define GEN_RPC_CALL_2(pSendInstance , nameOrID , rpcCallName , p1 , p2 , vecTargets , objSrc , usPriority , objSyncType , nTimeout) \
+#define GEN_RPC_CALL_2(pSendInstance , nameOrID , rpcCallName , p1 , p2 , vecTargets , objSrc , pCallback , usPriority , objSyncType , nTimeout) \
 	if (vecTargets.size() == 0)\
 	{\
 		Assert_ReF1(FALSE);\
@@ -131,13 +137,14 @@ namespace Msg
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2);\
+		pMsg->SetCallback(pCallback);\
 		\
 		return pSendInstance->SendMsg(nameOrID , pMsg );\
 	}\
 	\
 	return -1;\
 	 
-#define GEN_RPC_CALL_1(pSendInstance , nameOrID , rpcCallName , p1 , vecTargets , objSrc , usPriority , objSyncType , nTimeout) \
+#define GEN_RPC_CALL_1(pSendInstance , nameOrID , rpcCallName , p1 , vecTargets , objSrc , pCallback , usPriority , objSyncType , nTimeout ) \
 	if (vecTargets.size() == 0)\
 	{\
 		Assert_ReF1(FALSE);\
@@ -149,13 +156,14 @@ namespace Msg
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1);\
+		pMsg->SetCallback(pCallback);\
 		\
 		return pSendInstance->SendMsg(nameOrID , pMsg );\
 	}\
 	\
 	return -1;\
 	 
-#define GEN_RPC_CALL_0(pSendInstance , nameOrID , rpcCallName , vecTargets , objSrc , usPriority , objSyncType , nTimeout) \
+#define GEN_RPC_CALL_0(pSendInstance , nameOrID , rpcCallName , vecTargets , objSrc , pCallback , usPriority , objSyncType , nTimeout ) \
 	if (vecTargets.size() == 0)\
 	{\
 		Assert_ReF1(FALSE);\
@@ -167,6 +175,7 @@ namespace Msg
 		Msg::MsgHelper::GenMsgCall(*pMsg , FALSE , nTimeout, 0 , objSyncType);\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		CUtil::GenParamHelper::GenParams(pMsg->m_objParams);\
+		pMsg->SetCallback(pCallback);\
 		\
 		return pSendInstance->SendMsg(nameOrID , pMsg );\
 	}\
@@ -185,6 +194,7 @@ namespace Msg
 		\
 		Msg::MsgHelper::GenMsgCall(*pMsg , rpcCallName , vecTargets , objSrc , usPriority);\
 		CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7);\
+		pMsg->SetCallback(pCallback);\
 		\
 		return MsgInstance::GetInstance().SendMsg(pMsg);\
 	}\

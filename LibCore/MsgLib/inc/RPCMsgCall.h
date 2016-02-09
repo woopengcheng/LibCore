@@ -5,6 +5,13 @@
 
 namespace Msg
 {
+	class DLL_EXPORT RpcCallback
+	{
+	public:
+	protected:
+	private:
+	};
+
 	enum ERPC_MSGCALL_TYPE
 	{
 		RPCTYPE_ERROR = 0 ,
@@ -95,6 +102,8 @@ namespace Msg
 		void						ReplaceDelayTarget();
 		EMSG_SYNC_TYPE				GetSyncType(void) { return m_objSyncType; }
 		EMSG_SYNC_RESULT			GetSyncResult(void) { return m_objSyncResult; }
+		RpcCallback				*	GetCallback() { return m_pCallback; }
+		void						SetCallback(RpcCallback * val) { m_pCallback = val; }
 
 	public: 
 		virtual CUtil::CStream &	marshal(CUtil::CStream & cs) const override;
@@ -113,6 +122,7 @@ namespace Msg
 		EMSG_SYNC_TYPE				m_objSyncType;
 		EMSG_SYNC_RESULT			m_objSyncResult;
 		CollectionTargetsT			m_setDelayTargets;
+		RpcCallback				*	m_pCallback;
 	};  
 
 }
