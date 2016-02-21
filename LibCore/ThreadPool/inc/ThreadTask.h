@@ -37,7 +37,7 @@ namespace ThreadPool
 		ThreadNormalTask(UINT32 unPriority , char * pTaskName = "UnknownName", BOOL bInStack = FALSE):ThreadTask(unPriority , pTaskName , bInStack){}
 
 	public:  
-		virtual CErrno		Update( void ) override;
+		virtual CErrno		Update( void ) = 0;
 	};
 
 	class DLL_EXPORT ThreadSustainTask : public ThreadTask
@@ -48,7 +48,7 @@ namespace ThreadPool
 
 	public: 
 		virtual void		Run( void ) override;
-		virtual CErrno		Update( void ) override;  //5 里不需要再在Update里面加死循环.会阻塞程序.
+		virtual CErrno		Update( void ) = 0;  //5 里不需要再在Update里面加死循环.会阻塞程序.
 	};
 }
 

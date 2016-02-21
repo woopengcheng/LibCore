@@ -17,6 +17,12 @@
     <ClCompile Include="src\SlaveHandler.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\rpc\Master_GRpc_SyncDataToSlave_Proxy.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\Master_GRpc_SyncServerHandler_Server.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
     <ClCompile Include="src\rpc\MasterHandler_MasterStartSync_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
@@ -27,6 +33,15 @@
       <Filter>src\rpc</Filter>
     </ClCompile>
     <ClCompile Include="src\rpc\MasterHandler_SlaveStartAuth_Proxy.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\MasterHandler_SyncMasterHandler_Client.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\MasterHandler_testMulitServerNode_Proxy.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\MasterHandler_testParamsAndRpcDatas_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
     <ClCompile Include="src\rpc\RpcRegister.cpp">
@@ -107,6 +122,9 @@
     <ClCompile Include="src\rpc\ServerHandler_HandleShowDatabases_Server.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
+    <ClCompile Include="src\rpc\ServerHandler_HandleShowUsers_Server.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
     <ClCompile Include="src\rpc\ServerHandler_HandleUserAuth_Server.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
@@ -143,7 +161,16 @@
     <ClCompile Include="src\rpc\ServerHandler_SyncDataToSlave_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
+    <ClCompile Include="src\rpc\ServerHandler_SyncServerHandler_Client.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
     <ClCompile Include="src\rpc\ServerHandler_testMulitServerNode_Proxy.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\ServerHandler_testMulitServerNode_Server.cpp">
+      <Filter>src\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\ServerHandler_testParamsAndRpcDatas_Server.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
     <ClCompile Include="src\rpc\SlaveHandler_MasterStartSync_Server.cpp">
@@ -164,34 +191,7 @@
     <ClCompile Include="src\rpc\SlaveHandler_SyncMasterHandler_Server.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\MasterHandler_SyncMasterHandler_Client.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rpc\MasterHandler_testMulitServerNode_Proxy.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
     <ClCompile Include="src\rpc\SlaveHandler_testMulitServerNode_Server.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_testMulitServerNode_Server.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rpc\MasterHandler_testParamsAndRpcDatas_Client.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_testParamsAndRpcDatas_Server.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleShowUsers_Server.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_SyncServerHandler_Client.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rpc\Master_GRpc_SyncDataToSlave_Proxy.cpp">
-      <Filter>src\rpc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rpc\Master_GRpc_SyncServerHandler_Server.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
   </ItemGroup>
@@ -225,6 +225,9 @@
     <ClInclude Include="src\SlaveRecord.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\rpc\GRpc.h">
+      <Filter>src\rpc</Filter>
+    </ClInclude>
     <ClInclude Include="src\rpc\MsgNameDefine.h">
       <Filter>src\rpc</Filter>
     </ClInclude>
@@ -235,9 +238,6 @@
       <Filter>src\rpc</Filter>
     </ClInclude>
     <ClInclude Include="src\rpc\RPCDefines.h">
-      <Filter>src\rpc</Filter>
-    </ClInclude>
-    <ClInclude Include="src\rpc\GRpc.h">
       <Filter>src\rpc</Filter>
     </ClInclude>
   </ItemGroup>

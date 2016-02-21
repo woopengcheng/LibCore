@@ -5,7 +5,7 @@ Msg::ObjectMsgCall * Server::SlaveHandler::testMulitServerNode_RpcServer(INT32 n
 	CUtilChunk res = CUtil::Chunk();
 
 
-	std::cout << "testMulitServerNode_RpcServer "<< std::endl;
+	std::cout << "SlaveHandler::testMulitServerNode_RpcServer "<< std::endl;
 	Return(res);
 }
 

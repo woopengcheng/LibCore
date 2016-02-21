@@ -26,14 +26,14 @@ namespace ThreadPool
 		}
 	}
 
-	CErrno IThreadPool::Init(char * pFile)
+	IThreadPool::IThreadPool()
+		: m_bPirorityStrict(TRUE)
+		, m_bInited(FALSE)
 	{
-		Assert_ReF(pFile) 
-		 
-		return CErrno::Success();
-	} 
 
-	CErrno IThreadPool::Init(std::map<UINT32 , UINT32 > & mapPriorityCount , BOOL bPirorityStrict/* = TRUE*/)
+	}
+
+	CErrno IThreadPool::Init(std::map<UINT32, UINT32 > & mapPriorityCount, BOOL bPirorityStrict/* = TRUE*/)
 	{
 		std::map<UINT32 , UINT32 >::iterator iter = mapPriorityCount.begin();
 		for (;iter != mapPriorityCount.end();++ iter)
@@ -42,7 +42,6 @@ namespace ThreadPool
 		}
 
 		m_bPirorityStrict = bPirorityStrict;
-		ThreadContext<ThreadState>::Init(); 
  //		RegisterSig(THREAD_SIG_QUIT , SigHandler);
 		return CErrno::Success();
 	}
@@ -81,27 +80,38 @@ namespace ThreadPool
 
 	CErrno IThreadPool::Startup()
 	{
-		pthread_t pID = pthread_self(); 
-		pthread_detach(pID);
-	
-		pthread_t th; 
-		MapThreadPriorityCountT::iterator iter = m_mapThreadPriorityCount.begin();
-		for (;iter != m_mapThreadPriorityCount.end();++ iter)
+		if (!m_bInited)
 		{
-			for (UINT32 i = 0;i < iter->second; ++i)
-			{  
-				ThreadFuncParam * pThreadFuncParam;
+			ThreadContext<ThreadState>::Init();
+
+			pthread_t pID = pthread_self();
+			pthread_detach(pID);
+
+			pthread_t th;
+			MapThreadPriorityCountT::iterator iter = m_mapThreadPriorityCount.begin();
+			for (; iter != m_mapThreadPriorityCount.end(); ++iter)
+			{
+				for (UINT32 i = 0; i < iter->second; ++i)
 				{
-					pThreadFuncParam = new ThreadFuncParam(this , iter->first); 
-					CreateThread( th, NULL , &IThreadPool::ThreadFunc, (void*)pThreadFuncParam); 
-					 
-					m_queueThreads.push(th); 
-					Timer::TimerHelper::sleep(1);
-				} 
+					ThreadFuncParam * pThreadFuncParam;
+					{
+						pThreadFuncParam = new ThreadFuncParam(this, iter->first);
+						CreateThread(th, NULL, &IThreadPool::ThreadFunc, (void*)pThreadFuncParam);
+
+						m_queueThreads.push(th);
+						Timer::TimerHelper::sleep(1);
+					}
+				}
 			}
+			m_bInited = TRUE;
+			return CErrno::Success();
+		}
+		else
+		{
+			gErrorStream("threadpool init muilt times.");
 		}
 
-		return CErrno::Success();
+		return CErrno::Failure();
 	}
 
 	CErrno IThreadPool::Closeup()

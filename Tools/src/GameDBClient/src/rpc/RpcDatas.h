@@ -2,7 +2,7 @@
 FileName	:	RpcDatas.h
 Author		:	generate by tools
 HostName	:	DESKTOP-5AT4DK2
-IP			:	192.168.31.196
+IP			:	192.168.1.104
 Version		:	0.0.1
 Description	:	网络消息的数据域.
 ************************************/
@@ -37,7 +37,7 @@ namespace Client
 			, p2( 21 ) 
 			, p3( 0 ) 
 			, p4( 0 ) 
-			, p5( std::vector<INT32>(1) ) 
+			, p5( std::vector<INT32>(0) ) 
 			, p6( 0 ) 
 			, p7( 0 ) 
 			, p8( 0 ) 

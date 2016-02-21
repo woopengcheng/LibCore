@@ -433,11 +433,11 @@ namespace Msg
 
 	CErrno RpcManager::PostMsg(INT32 nSessionID, RPCMsgCall * pMsg)
 	{
-		pMsg->SetProxySessionID(nSessionID);
 
 		RPCMsgCall * pCopyMsg = NULL;
 		pMsg->CopyTo(pCopyMsg);
 		InsertPostMsg(nSessionID, pCopyMsg);
+		pCopyMsg->SetProxySessionID(nSessionID);
 
 		return CErrno::Success();
 	}
@@ -581,7 +581,7 @@ namespace Msg
 			}
 		}
 
-		return -1;
+		return nRes;
 	}
 
 	INT32 RpcManager::CheckAndHandlePostMsg(const std::string & strNodeName, RPCMsgCall * pMsg , BOOL bAddRpc)
@@ -595,19 +595,20 @@ namespace Msg
 				strName = MsgHelper::ExchangeNodeName(strNodeName);
 				if (pInterface->GetRpcManager()->PostMsg(strName, pMsg).IsFailure())
 				{
-					return 0;
+					return -1;
 				}
 
 				if (bAddRpc)
 				{
 					InsertSendRpc(pMsg);
 				}
-
-				return 100;
+				CUtil::CStream cs;
+				pMsg->marshal(cs);
+				return cs.GetDataLen();
 			}
 		}
 
-		return 0;
+		return -1;
 	}
 
 	CErrno RpcManager::Update(void)

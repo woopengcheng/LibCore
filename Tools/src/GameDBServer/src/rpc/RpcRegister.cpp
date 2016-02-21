@@ -2,7 +2,7 @@
 FileName	:	RpcRegister.cpp
 Author		:	generate by tools
 HostName	:	DESKTOP-5AT4DK2
-IP			:	192.168.31.196
+IP			:	192.168.1.104
 Version		:	0.0.1
 Description	:	注册每个函数.以及检测网络传递的消息是否是正确的参数.
 ************************************/
@@ -16,6 +16,7 @@ Description	:	注册每个函数.以及检测网络传递的消息是否是正确的参数.
 #include "DBSlave.h"
 #include "ServerHandler.h"
 #include "MasterHandler.h"
+#include "GRpc.h"
 #include "GRpc.h"
 #include "SlaveHandler.h"
 
@@ -31,12 +32,12 @@ namespace Server
 	static unsigned char g_rpcDefaultParam_unsigned_char = 0;
 	static std::string g_rpcDefaultParam_std__string = std::string();
 	static time_t g_rpcDefaultParam_time_t = 0;
-	static UINT8 g_rpcDefaultParam_UINT8 = 0;
 	static SINT8 g_rpcDefaultParam_SINT8 = 0;
-	static UINT16 g_rpcDefaultParam_UINT16 = 0;
+	static UINT8 g_rpcDefaultParam_UINT8 = 0;
 	static INT16 g_rpcDefaultParam_INT16 = 0;
-	static UINT32 g_rpcDefaultParam_UINT32 = 0;
+	static UINT16 g_rpcDefaultParam_UINT16 = 0;
 	static INT32 g_rpcDefaultParam_INT32 = 0;
+	static UINT32 g_rpcDefaultParam_UINT32 = 0;
 	static UINT64 g_rpcDefaultParam_UINT64 = 0;
 	static INT64 g_rpcDefaultParam_INT64 = 0;
 	static double g_rpcDefaultParam_double = 0.0f;
@@ -63,7 +64,6 @@ namespace Server
 			m_pRpcManager->RegisterFunc<ServerHandler >(Msg::g_sztestMulitServerNode_RpcServerProxy , &ServerHandler::testMulitServerNode_RpcServerProxy); 
 			m_pRpcManager->RegisterFunc<ServerHandler >(Msg::g_sztestMulitServerNode_RpcClientProxy , &ServerHandler::testMulitServerNode_RpcClientProxy); 
 			m_pRpcManager->RegisterFunc<ServerHandler >(Msg::g_sztestMulitServerNode_RpcTimeoutProxy ,&ServerHandler::testMulitServerNode_RpcTimeoutProxy); 
-			m_pRpcManager->RegisterFunc<ServerHandler >(Msg::g_sztestMulitServerNode_RpcServer , &ServerHandler::testMulitServerNode_RpcServer); 
 		}
 
 		//tool testParamsAndRpcDatas generate default deliver and return check param here
@@ -929,7 +929,6 @@ namespace Server
 		}
 
 		Server::MasterHandler::InitObjectFuncs();
-		Server::GRpc::InitObjectFuncs();
 	}
 
 	void DBSlave::OnRegisterRpcs( void )
@@ -944,6 +943,9 @@ namespace Server
 			CUtil::GenParamHelper::GenParams(objReturnParams  , g_rpcDefaultParam_CUtilChunk);
 			Msg::RpcCheckParams::GetInstance()->InsertDeliverParams("testMulitServerNode", objDeliverParams);
 			Msg::RpcCheckParams::GetInstance()->InsertReturnParams("testMulitServerNode", objReturnParams);
+			
+			m_pRpcManager->RegisterFunc<GRpc >(Msg::g_sztestMulitServerNode_RpcClient , &GRpc::testMulitServerNode_RpcClient); 
+			m_pRpcManager->RegisterFunc<GRpc >(Msg::g_sztestMulitServerNode_RpcTimeout ,&GRpc::testMulitServerNode_RpcTimeout); 
 			m_pRpcManager->RegisterFunc<SlaveHandler >(Msg::g_sztestMulitServerNode_RpcServer , &SlaveHandler::testMulitServerNode_RpcServer); 
 		}
 

@@ -773,7 +773,8 @@ def GenerateRpcRegister():
 
 def GenerateInitStaticFunc(fileRpc , namespace , rpcRecords):	  
 	for index , rpcs in rpcRecords.items(): 
-		fileRpc.write(twoTab + namespace + "::"+ index + "::" +"InitObjectFuncs();\n")
+		if index != "GRpc":
+			fileRpc.write(twoTab + namespace + "::"+ index + "::" +"InitObjectFuncs();\n")
 		
 def GenerateDefineStaticFunc(fileRpc , namespace):	  
 	for index , rpcs in g_rpcRecords[namespace].items(): 
@@ -897,14 +898,14 @@ def GenerateRpcHandler(rpcs , serverName , old_namespace):
 				strParams = GetSpecialParamsExcludeDefaultParam(rpc.returns.params) 
 				fileRpc.write(strParams + ")\n{\n\n\n")
 
-				fileRpc.write(oneTab + "std::cout << \"" + rpc.name + "_RpcClient\" << std::endl;\n")
+				fileRpc.write(oneTab + "std::cout << \"" + target.classes + "::" + rpc.name + "_RpcClient\" << std::endl;\n")
 				fileRpc.write(oneTab + "ReturnNULL;\n}\n\n")
 
 				fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcTimeout(INT32 nSessionID, Msg::Object objSrc ") 
 				strParams = GetSpecialParamsExcludeDefaultParam(rpc.call.params) 
 				fileRpc.write(strParams + ")\n{\n\n\n")
 					
-				fileRpc.write(oneTab + "std::cout << \"" + rpc.name + "_RpcTimeout\" << std::endl;\n")
+				fileRpc.write(oneTab + "std::cout << \"" + target.classes + "::" + rpc.name + "_RpcTimeout\" << std::endl;\n")
 				fileRpc.write(oneTab + "ReturnNULL;\n}\n\n")
 
 				fileRpc.close()
@@ -931,7 +932,7 @@ def GenerateRpcHandler(rpcs , serverName , old_namespace):
 				
 				strParamsNoType= GetParamsExcludeDefaultAndType(rpc.returns.params)
 				strReturnCount = len(rpc.returns.params)
-				fileRpc.write(oneTab + "std::cout << \"" + rpc.name + "_RpcServerProxy\" << std::endl;\n")
+				fileRpc.write(oneTab + "std::cout << \"" + target.classes + "::" + rpc.name + "_RpcServerProxy\" << std::endl;\n")
 				fileRpc.write(oneTab + "ReturnNULL;\n}\n\n")
 
 				fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcClientProxy(INT32 nSessionID, Msg::Object objSrc  ,") 
@@ -942,7 +943,7 @@ def GenerateRpcHandler(rpcs , serverName , old_namespace):
 					fileRpc.write(")\n{\n\n\n")	  
 				fileRpc.write("\n\n")
 				
-				fileRpc.write(oneTab + "std::cout << \"" + rpc.name + "_RpcClientProxy\" << std::endl;\n")
+				fileRpc.write(oneTab + "std::cout << \"" + target.classes + "::" + rpc.name + "_RpcClientProxy\" << std::endl;\n")
 
 				strParamsNoType= GetParamsExcludeDefaultAndType(rpc.returns.params)
 				strReturnCount = len(rpc.returns.params)
@@ -951,7 +952,7 @@ def GenerateRpcHandler(rpcs , serverName , old_namespace):
 				strParams = GetParamsExcludeDefault(rpc.call.params)
 				fileRpc.write("Msg::ObjectMsgCall * " + namespace + "::" + className + "::" + rpc.name + "_RpcTimeoutProxy(INT32 nSessionID, Msg::Object objSrc,")
 				fileRpc.write(strParams + " )\n{\n\n\n ")
-				fileRpc.write(oneTab + "std::cout << \"" + rpc.name + "_RpcTimeoutProxy\" << std::endl;\n")
+				fileRpc.write(oneTab + "std::cout << \"" + target.classes + "::" + rpc.name + "_RpcTimeoutProxy\" << std::endl;\n")
 				fileRpc.write(oneTab + "ReturnNULL;\n}\n\n")
 
 				fileRpc.close()
@@ -966,7 +967,7 @@ def GenerateRpcHandler(rpcs , serverName , old_namespace):
 				
 				strParamsNoType= GetParamsExcludeDefaultAndType(rpc.returns.params)
 				strReturnCount = len(rpc.returns.params)
-				fileRpc.write(oneTab + "std::cout << \"" + rpc.name + "_RpcServer \"<< std::endl;\n")
+				fileRpc.write(oneTab + "std::cout << \"" + target.classes + "::" + rpc.name + "_RpcServer \"<< std::endl;\n")
 				fileRpc.write(oneTab + "Return(" + strParamsNoType + ");\n}\n\n")
 	  
 				fileRpc.close() 
@@ -1194,8 +1195,11 @@ def GenerateRpcCallFuncs():
 			sameNamespace[serverName.namespace] = 1 
 		
 		for index , rpc in g_rpcMsgs.rpcs.rpcs.items(): 
+			sameTarget = collections.OrderedDict() 
+			sameTarget[serverName.outputPath] = 0
 			for targetInde , target in rpc.targets.items():
-				if serverName.serverName == target.name and target.targetType == g_targetTypeClient:	
+				if serverName.serverName == target.name and target.targetType == g_targetTypeClient and sameTarget[serverName.outputPath] != 1:
+					sameTarget[serverName.outputPath] = 1
 					strDefaultParams = GetSpecialParamsIncludeDefaultParam(rpc.call.params) 
 					syncType = GetSyncTypeInString(rpc.syncType)	
 					

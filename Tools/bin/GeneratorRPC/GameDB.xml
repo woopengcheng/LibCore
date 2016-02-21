@@ -153,7 +153,7 @@
 			<Param type="unsigned iNt" name="p2" default="21"/> 
 			<Param type="chAr" name="p3" default="0"/>
 			<Param type="unsiGned char" name="p4" default="0"/>  
-			<Param type="std::vector[INT32]" name="p5" unrefer="!" default="std::vector[INT32](1)"/> 
+			<Param type="std::vector[INT32]" name="p5" unrefer="!" default="std::vector[INT32](0)"/> 
 			<Param type="lOng" name="p6" default="0"/> 
 			<Param type="tiMe_t" name="p7" default="0"/>
 			<Param type="shoRt" name="p8" default="0"/> 
@@ -181,10 +181,10 @@
 		<Rpc name="testMulitServerNode" syncType="1" timeout="10">
 			<Targets> 
 				<Client name="Client"/> 
+				<Client name="Slave"/> 
 				<Proxy name="Server" include="ServerHandler.h" class="ServerHandler" /> 
 				<Proxy name="Master" include="MasterHandler.h" class="MasterHandler" /> 
 				<Server name="Slave" include="SlaveHandler.h" class="SlaveHandler" /> 
-				<Server name="Server" include="ServerHandler.h" class="ServerHandler" /> 
 			</Targets>
 			
 			<Call > 

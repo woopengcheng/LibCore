@@ -471,6 +471,7 @@
     <ClCompile Include="..\..\LibCore\Test\LibCore_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\Paramter_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\ReferCount_Test.cpp" />
+    <ClCompile Include="..\..\LibCore\Test\RPC_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\RTTI_Test.cpp" />
     <ClCompile Include="..\..\LibCore\ThreadPool\src\ThreadPool.cpp" />
     <ClCompile Include="..\..\LibCore\ThreadPool\src\ThreadTask.cpp" />

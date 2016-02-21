@@ -11,7 +11,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcServerProxy(I
 	}
 
 
-	std::cout << "testMulitServerNode_RpcServerProxy" << std::endl;
+	std::cout << "MasterHandler::testMulitServerNode_RpcServerProxy" << std::endl;
 	ReturnNULL;
 }
 
@@ -21,7 +21,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcClientProxy(I
 
 
 
-	std::cout << "testMulitServerNode_RpcClientProxy" << std::endl;
+	std::cout << "MasterHandler::testMulitServerNode_RpcClientProxy" << std::endl;
 	Return(res);
 }
 
@@ -29,7 +29,7 @@ Msg::ObjectMsgCall * Server::MasterHandler::testMulitServerNode_RpcTimeoutProxy(
 {
 
 
- 	std::cout << "testMulitServerNode_RpcTimeoutProxy" << std::endl;
+ 	std::cout << "MasterHandler::testMulitServerNode_RpcTimeoutProxy" << std::endl;
 	ReturnNULL;
 }
 

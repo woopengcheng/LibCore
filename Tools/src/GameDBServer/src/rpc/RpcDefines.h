@@ -2,7 +2,7 @@
 FileName	:	RPCDefines.h
 Author		:	generate by tools
 HostName	:	DESKTOP-5AT4DK2
-IP			:	192.168.31.196
+IP			:	192.168.1.104
 Version		:	0.0.1
 Description	:	RPCº¯Êý¶¨Òå
 ************************************/
@@ -14,6 +14,8 @@ namespace Server
 {
 
 #define  RPC_DEFINE_GRpc public:\
+	Msg::ObjectMsgCall * testMulitServerNode_RpcClient(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , CUtilChunk & res = CUtil::Chunk());\
+	Msg::ObjectMsgCall * testMulitServerNode_RpcTimeout(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0));\
 	Msg::ObjectMsgCall * SyncServerHandler_RpcServer(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID));\
 	Msg::ObjectMsgCall * SyncDataToSlave_RpcServerProxy(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk());\
 	Msg::ObjectMsgCall * SyncDataToSlave_RpcTimeoutProxy(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk());\
@@ -22,6 +24,7 @@ public:\
 	static CollectionObjectFuncsT s_setFuncs;\
 	static void InitObjectFuncs()\
 	{\
+		GRpc::s_setFuncs.insert("testMulitServerNode");\
 		GRpc::s_setFuncs.insert("SyncServerHandler");\
 		GRpc::s_setFuncs.insert("SyncDataToSlave");\
 	}\
@@ -39,7 +42,6 @@ public:\
 	Msg::ObjectMsgCall * testMulitServerNode_RpcServerProxy(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0));\
 	Msg::ObjectMsgCall * testMulitServerNode_RpcTimeoutProxy(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0));\
 	Msg::ObjectMsgCall * testMulitServerNode_RpcClientProxy(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , CUtilChunk & res = CUtil::Chunk());\
-	Msg::ObjectMsgCall * testMulitServerNode_RpcServer(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0));\
 	Msg::ObjectMsgCall * testParamsAndRpcDatas_RpcServer(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID), TestRpcData & rpcData = TestRpcData() , TestRpcData2 & rpcData2 = TestRpcData2() , std::vector<INT32> & Vec = std::vector<INT32>(1));\
 	Msg::ObjectMsgCall * SyncServerHandler_RpcClient(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) , INT32 res = 0);\
 	Msg::ObjectMsgCall * SyncServerHandler_RpcTimeout(INT32 nSessionID, Msg::Object objSrc = Msg::Object(Msg::DEFAULT_RPC_CALLABLE_ID) );\

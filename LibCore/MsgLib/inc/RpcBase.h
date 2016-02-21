@@ -98,7 +98,12 @@ namespace Msg
 
 			CUtil::GenParamHelper::GenParams(pMsg->m_objParams); 
 
-			return  m_pRpcManager->SendMsg(pName , pMsg); 
+			INT32 nResult = m_pRpcManager->SendMsg(pName, pMsg);
+			if (nResult == -1)
+			{
+				SAFE_DELETE_NEW(pMsg);
+			}
+			return nResult;
 		} 
 
 		template<typename NameOrID , typename P1 >
@@ -110,7 +115,12 @@ namespace Msg
 
 			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1); 
 
-			return  m_pRpcManager->SendMsg(pName , pMsg); 
+			INT32 nResult = m_pRpcManager->SendMsg(pName, pMsg);
+			if (nResult == -1)
+			{
+				SAFE_DELETE_NEW(pMsg);
+			}
+			return nResult;
 		}
 
 		template<typename NameOrID , typename P1 , typename P2 >
@@ -122,7 +132,12 @@ namespace Msg
 
 			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2); 
 
-			return  m_pRpcManager->SendMsg(pName , pMsg); 
+			INT32 nResult = m_pRpcManager->SendMsg(pName, pMsg);
+			if (nResult == -1)
+			{
+				SAFE_DELETE_NEW(pMsg);
+			}
+			return nResult;
 		}
 
 		template<typename NameOrID , typename P1 , typename P2 , typename P3>
@@ -134,7 +149,12 @@ namespace Msg
 
 			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 ); 
 
-			return  m_pRpcManager->SendMsg(pName , pMsg); 
+			INT32 nResult = m_pRpcManager->SendMsg(pName, pMsg);
+			if (nResult == -1)
+			{
+				SAFE_DELETE_NEW(pMsg);
+			}
+			return nResult;
 		}
 
 		template<typename NameOrID , typename P1 , typename P2 , typename P3 , typename P4>
@@ -146,7 +166,12 @@ namespace Msg
 
 			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4); 
 
-			return  m_pRpcManager->SendMsg(pName , pMsg); 
+			INT32 nResult = m_pRpcManager->SendMsg(pName, pMsg);
+			if (nResult == -1)
+			{
+				SAFE_DELETE_NEW(pMsg);
+			}
+			return nResult;
 		}
 
 		template<typename NameOrID , typename P1 , typename P2 , typename P3 , typename P4 , typename P5>
@@ -158,7 +183,12 @@ namespace Msg
 
 			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 ); 
 
-			return  m_pRpcManager->SendMsg(pName , pMsg); 
+			INT32 nResult = m_pRpcManager->SendMsg(pName, pMsg);
+			if (nResult == -1)
+			{
+				SAFE_DELETE_NEW(pMsg);
+			}
+			return nResult;
 		}
 
 		template<typename NameOrID , typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6>
@@ -170,7 +200,12 @@ namespace Msg
 
 			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6); 
 
-			return  m_pRpcManager->SendMsg(pName , pMsg); 
+			INT32 nResult = m_pRpcManager->SendMsg(pName, pMsg);
+			if (nResult == -1)
+			{
+				SAFE_DELETE_NEW(pMsg);
+			}
+			return nResult;
 		}
 
 		template<typename NameOrID , typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7>
@@ -182,7 +217,12 @@ namespace Msg
 
 			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7); 
 
-			return  m_pRpcManager->SendMsg(pName , pMsg); 
+			INT32 nResult = m_pRpcManager->SendMsg(pName, pMsg);
+			if (nResult == -1)
+			{
+				SAFE_DELETE_NEW(pMsg);
+			}
+			return nResult;
 		}
 
 		template<typename NameOrID , typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8>
@@ -193,8 +233,13 @@ namespace Msg
 			RPC_GEN_PROXY_MSG(vecTargets);
 
 			CUtil::GenParamHelper::GenParams(pMsg->m_objParams , p1 , p2 , p3 , p4 , p5 , p6 , p7 , p8); 
-			 
-			return  m_pRpcManager->SendMsg(pName , pMsg); 
+
+			INT32 nResult = m_pRpcManager->SendMsg(pName, pMsg);
+			if (nResult == -1)
+			{
+				SAFE_DELETE_NEW(pMsg);
+			}
+			return nResult;
 		}
 
 		template<typename NameOrID>

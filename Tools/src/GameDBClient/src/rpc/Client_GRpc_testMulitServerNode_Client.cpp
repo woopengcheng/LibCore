@@ -4,7 +4,7 @@ Msg::ObjectMsgCall * Client::GRpc::testMulitServerNode_RpcClient(INT32 nSessionI
 {
 
 
-	std::cout << "testMulitServerNode_RpcClient" << std::endl;
+	std::cout << "GRpc::testMulitServerNode_RpcClient" << std::endl;
 	ReturnNULL;
 }
 
@@ -12,7 +12,7 @@ Msg::ObjectMsgCall * Client::GRpc::testMulitServerNode_RpcTimeout(INT32 nSession
 {
 
 
-	std::cout << "testMulitServerNode_RpcTimeout" << std::endl;
+	std::cout << "GRpc::testMulitServerNode_RpcTimeout" << std::endl;
 	ReturnNULL;
 }
 

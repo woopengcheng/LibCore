@@ -2,7 +2,7 @@
 FileName	:	RpcCallFuncs.h
 Author		:	generate by tools
 HostName	:	DESKTOP-5AT4DK2
-IP			:	192.168.31.196
+IP			:	192.168.1.104
 Version		:	0.0.1
 Description	:	客户端调用的rpc.
 ************************************/

@@ -117,226 +117,64 @@
     <ClCompile Include="src\DBServer.cpp" />
     <ClCompile Include="src\DBSlave.cpp" />
     <ClCompile Include="src\MasterHandler.cpp" />
-    <ClCompile Include="src\rpc\MasterHandler_MasterStartSync_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\MasterHandler_SlaveRequestSync_Proxy.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\MasterHandler_SlaveSelectDB_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\MasterHandler_SlaveStartAuth_Proxy.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\MasterHandler_SyncMasterHandler_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\MasterHandler_testMulitServerNode_Proxy.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\MasterHandler_testParamsAndRpcDatas_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="src\rpc\MasterHandler_MasterStartSync_Client.cpp" />
+    <ClCompile Include="src\rpc\MasterHandler_SlaveRequestSync_Proxy.cpp" />
+    <ClCompile Include="src\rpc\MasterHandler_SlaveSelectDB_Server.cpp" />
+    <ClCompile Include="src\rpc\MasterHandler_SlaveStartAuth_Proxy.cpp" />
+    <ClCompile Include="src\rpc\MasterHandler_SyncMasterHandler_Client.cpp" />
+    <ClCompile Include="src\rpc\MasterHandler_testMulitServerNode_Proxy.cpp" />
+    <ClCompile Include="src\rpc\MasterHandler_testParamsAndRpcDatas_Client.cpp" />
     <ClCompile Include="src\rpc\Master_GRpc_SyncDataToSlave_Proxy.cpp" />
     <ClCompile Include="src\rpc\Master_GRpc_SyncServerHandler_Server.cpp" />
     <ClCompile Include="src\rpc\RpcRegister.cpp" />
-    <ClCompile Include="src\rpc\ServerHandler_HandleCreateDatabase_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleCreateUser_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleDeleteDatabase_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleDeleteUser_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleDump_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleHCount_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleHDel_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleHDrop_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleHGetKeys_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleHGetKeyVals_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleHGetVals_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleHGet_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleHList_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleHMultiDel_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleHMultiGet_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleHMultiSet_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleHScan_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleHSetIncrFloat_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleHSetIncr_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleHSetNX_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleHSetOW_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleHSet_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleModifyUser_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleSelectDatabase_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleShowDatabases_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleShowUsers_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleUserAuth_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleZCount_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleZDel_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleZDrop_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleZGet_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleZList_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleZRTop_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleZSet_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_HandleZTop_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_SlaveRequestSync_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_SlaveStartAuth_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_SyncDataToSlave_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="src\rpc\ServerHandler_HandleCreateDatabase_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleCreateUser_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleDeleteDatabase_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleDeleteUser_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleDump_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleHCount_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleHDel_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleHDrop_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleHGetKeys_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleHGetKeyVals_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleHGetVals_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleHGet_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleHList_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleHMultiDel_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleHMultiGet_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleHMultiSet_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleHScan_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleHSetIncrFloat_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleHSetIncr_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleHSetNX_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleHSetOW_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleHSet_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleModifyUser_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleSelectDatabase_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleShowDatabases_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleShowUsers_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleUserAuth_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleZCount_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleZDel_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleZDrop_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleZGet_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleZList_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleZRTop_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleZSet_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_HandleZTop_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_SlaveRequestSync_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_SlaveStartAuth_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_SyncDataToSlave_Client.cpp" />
     <ClCompile Include="src\rpc\ServerHandler_SyncServerHandler_Client.cpp" />
-    <ClCompile Include="src\rpc\ServerHandler_testMulitServerNode_Proxy.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_testMulitServerNode_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_testParamsAndRpcDatas_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\SlaveHandler_MasterStartSync_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\SlaveHandler_SlaveRequestSync_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\SlaveHandler_SlaveSelectDB_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\SlaveHandler_SlaveStartAuth_Client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\SlaveHandler_SyncDataToSlave_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\rpc\SlaveHandler_SyncMasterHandler_Server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="src\rpc\ServerHandler_testMulitServerNode_Proxy.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_testMulitServerNode_Server.cpp" />
+    <ClCompile Include="src\rpc\ServerHandler_testParamsAndRpcDatas_Server.cpp" />
+    <ClCompile Include="src\rpc\SlaveHandler_MasterStartSync_Server.cpp" />
+    <ClCompile Include="src\rpc\SlaveHandler_SlaveRequestSync_Client.cpp" />
+    <ClCompile Include="src\rpc\SlaveHandler_SlaveSelectDB_Client.cpp" />
+    <ClCompile Include="src\rpc\SlaveHandler_SlaveStartAuth_Client.cpp" />
+    <ClCompile Include="src\rpc\SlaveHandler_SyncDataToSlave_Server.cpp" />
+    <ClCompile Include="src\rpc\SlaveHandler_SyncMasterHandler_Server.cpp" />
     <ClCompile Include="src\rpc\SlaveHandler_testMulitServerNode_Server.cpp" />
     <ClCompile Include="src\SlaveHandler.cpp" />
   </ItemGroup>

@@ -2,7 +2,7 @@
 FileName	:	RpcCallFuncs.h
 Author		:	generate by tools
 HostName	:	DESKTOP-5AT4DK2
-IP			:	192.168.31.196
+IP			:	192.168.1.104
 Version		:	0.0.1
 Description	:	客户端调用的rpc.
 ************************************/
@@ -272,6 +272,57 @@ namespace Server
 	static INT32  rpc_MasterStartSync(INT32 nSessionID , Msg::Object objSrc , std_string & filename = std::string() , INT32 filesize = 0 , INT32 sendtype = 0 , CUtilChunk & value = CUtil::Chunk() , Msg::RpcCallback * pCallback = NULL , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
 	{
 		return rpc_MasterStartSync( nSessionID , 0 , objSrc , filename , filesize , sendtype , value, pCallback , usPriority , objSyncType);
+	}
+
+	static INT32  rpc_testMulitServerNode(const char * pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , Msg::RpcCallback * pCallback = NULL , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		GEN_RPC_CALL_5((&(Server::DBSlave::GetInstance())) , pSessionName , Msg::g_sztestMulitServerNode_RpcCall , dbname , value , value2 , value22 , valChar, vecTargets , objSrc , pCallback , usPriority , objSyncType , 10);
+	}
+
+	static INT32  rpc_testMulitServerNode(const char * pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , Msg::RpcCallback * pCallback = NULL , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		std::vector<Msg::Object> vecTargets;
+		vecTargets.push_back(objTarget);
+		return rpc_testMulitServerNode( pSessionName ,vecTargets , objSrc , dbname , value , value2 , value22 , valChar, pCallback , usPriority , objSyncType);
+	}
+
+	static INT32  rpc_testMulitServerNode(const char * pSessionName , Msg::Object objSrc , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , Msg::RpcCallback * pCallback = NULL , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		return rpc_testMulitServerNode( pSessionName , 0 , objSrc , dbname , value , value2 , value22 , valChar, pCallback , usPriority , objSyncType);
+	}
+
+	static INT32  rpc_testMulitServerNode(const std::string & pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , Msg::RpcCallback * pCallback = NULL , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		GEN_RPC_CALL_5((&(Server::DBSlave::GetInstance())) , pSessionName , Msg::g_sztestMulitServerNode_RpcCall , dbname , value , value2 , value22 , valChar, vecTargets , objSrc , pCallback , usPriority , objSyncType , 10);
+	}
+
+	static INT32  rpc_testMulitServerNode(const std::string & pSessionName , Msg::Object objTarget, Msg::Object objSrc , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , Msg::RpcCallback * pCallback = NULL , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		std::vector<Msg::Object> vecTargets;
+		vecTargets.push_back(objTarget);
+		return rpc_testMulitServerNode( pSessionName ,vecTargets , objSrc , dbname , value , value2 , value22 , valChar, pCallback , usPriority , objSyncType);
+	}
+
+	static INT32  rpc_testMulitServerNode(const std::string & pSessionName , Msg::Object objSrc , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , Msg::RpcCallback * pCallback = NULL , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		return rpc_testMulitServerNode( pSessionName , 0 , objSrc , dbname , value , value2 , value22 , valChar, pCallback , usPriority , objSyncType);
+	}
+
+	static INT32  rpc_testMulitServerNode(INT32 nSessionID , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , Msg::RpcCallback * pCallback = NULL , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		GEN_RPC_CALL_5((&(Server::DBSlave::GetInstance())) , nSessionID , Msg::g_sztestMulitServerNode_RpcCall , dbname , value , value2 , value22 , valChar, vecTargets , objSrc , pCallback , usPriority , objSyncType , 10);
+	}
+
+	static INT32  rpc_testMulitServerNode(INT32 nSessionID , Msg::Object objTarget, Msg::Object objSrc , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , Msg::RpcCallback * pCallback = NULL , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		std::vector<Msg::Object> vecTargets;
+		vecTargets.push_back(objTarget);
+		return rpc_testMulitServerNode( nSessionID ,vecTargets , objSrc , dbname , value , value2 , value22 , valChar , pCallback , usPriority , objSyncType);
+	}
+
+	static INT32  rpc_testMulitServerNode(INT32 nSessionID , Msg::Object objSrc , std_string & dbname = std::string() , CUtilChunk & value = CUtil::Chunk() , int value2 = 0 , unsigned int value22 = 0 , char valChar = char(0) , Msg::RpcCallback * pCallback = NULL , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
+	{
+		return rpc_testMulitServerNode( nSessionID , 0 , objSrc , dbname , value , value2 , value22 , valChar, pCallback , usPriority , objSyncType);
 	}
 
 	static INT32  rpc_SlaveStartAuth(const char * pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc , std_string & name = std::string() , std_string & pwd = std::string() , Msg::RpcCallback * pCallback = NULL , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = Msg::SYNC_TYPE_NONSYNC)
