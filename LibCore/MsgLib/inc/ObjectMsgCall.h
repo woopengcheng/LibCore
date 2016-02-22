@@ -21,7 +21,7 @@ namespace Msg
 		{  
 			RefreshTargets();
 		}
-		~ObjectMsgCall()
+		virtual ~ObjectMsgCall()
 		{ 
 		}
 
@@ -33,9 +33,14 @@ namespace Msg
 			return malloc(size + unExtra); 
 		}
 
-		void operator delete(void * p , UINT32 unExtra)throw()
+		static void operator delete(void * p)throw()
 		{
-			free(p); 
+			free(p);
+		}
+
+		static void operator delete(void * p, UINT32 unExtra)throw()
+		{
+			free(p);
 		}
 
 		bool operator < (const ObjectMsgCall & obj)

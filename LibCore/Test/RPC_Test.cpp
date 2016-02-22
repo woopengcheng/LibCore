@@ -112,7 +112,12 @@ static std::string s_parse = "{\
 		\"net_thread\" :\
 		{\
 			\"priority\" : 10002\
-		}\
+		},\
+		\
+		\"enable_rpc\" :\
+		[\
+			{ \"name\" : \"testParamsAndRpcDatas\" , \"enable\" : false }\
+		]\
 	}\
 	\
 }";
@@ -189,7 +194,6 @@ Msg::ObjectMsgCall * FooHandler::testMulitServerNode_RpcServerProxy(INT32 nSessi
 		ReturnDelay;
 	}
 
-	std::cout << "testMulitServerNode_RpcServerProxy" << std::endl;
 	ReturnNULL;
 }
 
@@ -197,7 +201,6 @@ Msg::ObjectMsgCall * FooHandler::testMulitServerNode_RpcClientProxy(INT32 nSessi
 {
 
 
-	std::cout << "testMulitServerNode_RpcClientProxy" << std::endl;
 	Return(res);
 }
 
@@ -264,7 +267,6 @@ Msg::ObjectMsgCall * FooHandler::testParamsAndRpcDatas_RpcServer(INT32 nSessionI
 		ReturnDelay;
 	}
 
-	std::cout << "testParamsAndRpcDatas_RpcServer " << std::endl;
 	Return(nCount);
 }
 
@@ -311,7 +313,7 @@ public:
 		if (strNetNodeName == "bar_To_foo")
 		{
 			BarHandler barHandler(BAR_HANDLER_ID, pRpcInterface);
-			rpc_testMulitServerNode(nSessionID, FOO_HANDLER_ID , BAR_HANDLER_ID);
+ 			rpc_testMulitServerNode(nSessionID, FOO_HANDLER_ID , BAR_HANDLER_ID);
 		}
 
 		return CErrno::Success();
@@ -424,7 +426,6 @@ Msg::ObjectMsgCall * BarHandler::testMulitServerNode_RpcServer(INT32 nSessionID,
 	CUtilChunk res = CUtil::Chunk();
 	
 	g_sBCheck1 = true;
-	std::cout << "BarHandler::testMulitServerNode_RpcServer " << std::endl;
 	Return(res);
 }
 
@@ -457,6 +458,27 @@ private:
 	Msg::RpcInterface		*	m_pDBServer;
 	INT32						m_nClientSessionID;
 };
+
+class ProxyCallback : public Msg::RpcCallback
+{
+public:
+	ProxyCallback()
+		: m_nTest(111)
+	{}
+	~ProxyCallback()
+	{
+
+	}
+	virtual INT32 OnCall(void * pContext) override
+	{
+		CHECK_EQUAL(m_nTest, 333);
+
+		return -1;
+	}
+	INT32	m_nTest;
+};
+DECLARE_BOOST_POINTERS(ProxyCallback);
+Msg::RpcCallbackPtr	g_rpcCallbackTest;
 
 class ProxyListener : public Msg::IRpcListener
 {
@@ -494,7 +516,24 @@ public:
 				test1.p5.push_back(2);
 				TestRpcData2 test2;
 
-				rpc_testParamsAndRpcDatas(nSessionID, FOO_HANDLER_ID, fooHandler.GetObjectID(), test1, test2);
+				ProxyCallback * pCallback = new ProxyCallback;
+				pCallback->m_nTest = 333;
+				INT32 nResult = rpc_testParamsAndRpcDatas(nSessionID, FOO_HANDLER_ID, fooHandler.GetObjectID(), test1, test2 ,std::vector<INT32>(1) ,pCallback);
+				CHECK_EQUAL(nResult, -1);  //5 测试rpc_enable是否是关闭的.
+
+				Msg::MethodImpl * pMethod = pRpcInterface->GetRpcManager()->GetMethodImpl(Msg::g_sztestParamsAndRpcDatas_RpcClient);
+				if (pMethod)
+				{
+					pMethod->m_bEnable = TRUE;
+				}
+
+				pCallback = new ProxyCallback;  //5 这里是因为发送错误后,释放掉了.
+				pCallback->m_nTest = 333;
+				nResult = rpc_testParamsAndRpcDatas(nSessionID, FOO_HANDLER_ID, fooHandler.GetObjectID(), test1, test2, std::vector<INT32>(1), pCallback);
+				if (nResult == -1)
+				{
+					CHECK_EQUAL(nResult , 0);//5 测试rpc_enable是否是开启的.
+				}
 
 				bFirst = false;
 			}
@@ -548,6 +587,10 @@ public:
 		return Msg::RpcInterface::Update();
 	}
 
+	virtual CErrno			Cleanup(void)
+	{
+		return Msg::RpcInterface::Cleanup();
+	}
 public:
 	virtual void				OnRegisterRpcs(void) override;
 
@@ -709,7 +752,14 @@ Msg::ObjectMsgCall * ProxyHandler::testParamsAndRpcDatas_RpcClient(INT32 nSessio
 	}
 
 	CHECK_EQUAL(res , 1);
-	std::cout << "testParamsAndRpcDatas_RpcClient" << std::endl;
+
+	g_rpcCallbackTest = GetCallback();
+	if (g_rpcCallbackTest)
+	{
+		INT32 * t = NULL;
+		CHECK_EQUAL(g_rpcCallbackTest->OnCall(t), -1);
+	}
+	CHECK_EQUAL(!g_rpcCallbackTest, false);
 	ReturnNULL;
 }
 
@@ -728,21 +778,15 @@ Msg::ObjectMsgCall * ProxyHandler::testMulitServerNode_RpcServerProxy(INT32 nSes
 
 	if (-1 == ProxySendMsg("proxy_To_bar", BAR_HANDLER_ID, dbname, value, value2, value22, valChar))
 	{
-		Return(res);
+		ReturnDelay;
 	}
 
-
-	std::cout << "testMulitServerNode_RpcServerProxy" << std::endl;
 	ReturnNULL;
 }
 
 Msg::ObjectMsgCall * ProxyHandler::testMulitServerNode_RpcClientProxy(INT32 nSessionID, Msg::Object objSrc, CUtilChunk & res/* = CUtil::Chunk()*/)
 {
 
-
-
-
-	std::cout << "testMulitServerNode_RpcClientProxy" << std::endl;
 	Return(res);
 }
 
@@ -759,7 +803,7 @@ Msg::ObjectMsgCall * GRpc::testMulitServerNode_RpcClient(INT32 nSessionID, Msg::
 {
 
 	++g_sBCheck3;
-	std::cout << "testMulitServerNode_RpcClient" << std::endl;
+
 	ReturnNULL;
 }
 
@@ -913,7 +957,7 @@ TEST(RPC)
 	static FooHandler fooHandler(FOO_HANDLER_ID, &(FooRpcInterface::GetInstance()), -1);
 	static BarHandler barHandler(BAR_HANDLER_ID, &(BarRpcInterface::GetInstance()));
 	static ProxyHandler proxyHandler(PROXY_HANDLER_ID, &(ProxyRpcInterface::GetInstance()) , -1);
-
+	
 	while (1)
 	{
 		if (g_sBCheck3)
@@ -923,6 +967,7 @@ TEST(RPC)
 		FooRpcInterface::GetInstance().Update();
 	}
 
+	CHECK_EQUAL(g_rpcCallbackTest.use_count(), 1);
 	BarRpcInterface::GetInstance().Cleanup();
 	ProxyRpcInterface::GetInstance().Cleanup();
 	FooRpcInterface::GetInstance().Cleanup();

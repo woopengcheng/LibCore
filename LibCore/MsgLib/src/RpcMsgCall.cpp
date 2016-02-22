@@ -57,6 +57,7 @@ namespace Msg
 		pMsg->m_objSource		= m_objSource;
 		pMsg->m_usPriority		= m_usPriority;
 		pMsg->m_nProxySessionID = m_nProxySessionID;
+		pMsg->m_pCallback		= m_pCallback;
 		memcpy(pMsg->m_szMsgMethod , m_szMsgMethod , sizeof(m_szMsgMethod)); 
 		m_objParams.CopyTo(pMsg->m_objParams);  
 
@@ -80,6 +81,7 @@ namespace Msg
 		pMsg->m_objSource		= m_objSource;
 		pMsg->m_usPriority		= m_usPriority;
 		pMsg->m_nProxySessionID = m_nProxySessionID;
+		pMsg->m_pCallback		= m_pCallback;
 		memcpy(pMsg->m_szMsgMethod , m_szMsgMethod , sizeof(m_szMsgMethod)); 
 
 		UINT32 unTargetsCount = GetTargetsCount();
@@ -103,6 +105,7 @@ namespace Msg
 		pMsg->m_objSource		= objSrc;
 		pMsg->m_usPriority		= m_usPriority;
 		pMsg->m_nProxySessionID = m_nProxySessionID;
+		pMsg->m_pCallback		= m_pCallback;
 		memcpy(pMsg->m_szMsgMethod , m_szMsgMethod , sizeof(m_szMsgMethod)); 
 
 		UINT32 unTargetsCount = GetTargetsCount();
@@ -121,7 +124,8 @@ namespace Msg
 		pMsg->m_nReturnType		= m_nReturnType;
 		pMsg->m_objSyncResult	= m_objSyncResult;
 		pMsg->m_nRpcMsgCallType	= m_nRpcMsgCallType;
-		pMsg->m_nProxySessionID = m_nProxySessionID;  
+		pMsg->m_nProxySessionID = m_nProxySessionID;
+		pMsg->m_pCallback		= m_pCallback;		
 
 		return CErrno::Success(); 
 

@@ -63,26 +63,35 @@ namespace Msg
 		objParseMsgCall.m_pMehtodImpl = GetMethodImpl(objParseMsgCall.m_pMsgCall->m_szMsgMethod);  
 		Assert_ReF(objParseMsgCall.m_pMehtodImpl); 
 
-		if (objParseMsgCall.m_pMehtodImpl->m_cMethodType == METHOD_TYPE_STATIC)
+		if (objParseMsgCall.m_pMehtodImpl->m_bEnable)
 		{
-			objParseMsgCall.m_pMehtodImpl->m_pMethodImpl(&objParseMsgCall);
-		} 
+			if (objParseMsgCall.m_pMehtodImpl->m_cMethodType == METHOD_TYPE_STATIC)
+			{
+				objParseMsgCall.m_pMehtodImpl->m_pMethodImpl(&objParseMsgCall);
+			}
+			else
+			{
+				ICallableObject * pCallableObject = GetCallableObject(obj);
+				Assert_ReF(pCallableObject);
+
+				MapCallableObjectsT::iterator result = m_mapCallableObjects.find(pCallableObject->GetObjectID());
+				if (result != m_mapCallableObjects.end())
+				{
+					objParseMsgCall.m_pObj = result->second;
+					objParseMsgCall.m_pMehtodImpl->m_pMethodImpl(&objParseMsgCall);
+				}
+				else
+					Assert_ReF(0);
+			}
+
+			return CErrno::Success();
+		}
 		else
 		{
-			ICallableObject * pCallableObject = GetCallableObject(obj);
-			Assert_ReF(pCallableObject);
-
-			MapCallableObjectsT::iterator result = m_mapCallableObjects.find(pCallableObject->GetObjectID());
-			if (result != m_mapCallableObjects.end())
-			{
-				objParseMsgCall.m_pObj = result->second; 
-				objParseMsgCall.m_pMehtodImpl->m_pMethodImpl(&objParseMsgCall);
-			} 
-			else
-				Assert_ReF(0);
+			gErrorStream("MsgDispatcher::Dispatch enabled = false, method=" << objParseMsgCall.m_pMsgCall->m_szMsgMethod);
 		}
 
-		return CErrno::Success(); 
+		return CErrno::Failure(); 
 	}
 
 	MethodImpl * MsgDispatcher::GetMethodImpl( std::string strFuncName )

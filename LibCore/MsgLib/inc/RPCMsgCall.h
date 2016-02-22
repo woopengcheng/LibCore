@@ -8,9 +8,16 @@ namespace Msg
 	class DLL_EXPORT RpcCallback
 	{
 	public:
+		virtual ~RpcCallback()
+		{}
+		virtual INT32 OnCall(void * pContext)
+		{
+			return -1;
+		}
 	protected:
 	private:
 	};
+	DECLARE_BOOST_POINTERS(RpcCallback);
 
 	enum ERPC_MSGCALL_TYPE
 	{
@@ -59,7 +66,7 @@ namespace Msg
 		{  
 			RefreshTargets();
 		}
-		~RPCMsgCall()
+		virtual ~RPCMsgCall()
 		{ 
 			m_setDelayTargets.clear();
 		}
@@ -70,10 +77,15 @@ namespace Msg
 			return malloc(size + unExtra); 
 		}
 
-		void operator delete(void * p , UINT32 unExtra)throw()
+		static void operator delete(void * p)throw()
 		{
-			free(p); 
-		} 
+			free(p);
+		}
+
+		static void operator delete(void * p, UINT32 unExtra)throw()
+		{
+			free(p);
+		}
 
 	public:   
 		virtual UINT32				RefreshSize() override;
@@ -102,8 +114,8 @@ namespace Msg
 		void						ReplaceDelayTarget();
 		EMSG_SYNC_TYPE				GetSyncType(void) { return m_objSyncType; }
 		EMSG_SYNC_RESULT			GetSyncResult(void) { return m_objSyncResult; }
-		RpcCallback				*	GetCallback() { return m_pCallback; }
-		void						SetCallback(RpcCallback * val) { m_pCallback = val; }
+		RpcCallbackPtr				GetCallback() { return m_pCallback; }
+		void						SetCallback(RpcCallbackPtr val) { m_pCallback = val; }
 
 	public: 
 		virtual CUtil::CStream &	marshal(CUtil::CStream & cs) const override;
@@ -122,7 +134,7 @@ namespace Msg
 		EMSG_SYNC_TYPE				m_objSyncType;
 		EMSG_SYNC_RESULT			m_objSyncResult;
 		CollectionTargetsT			m_setDelayTargets;
-		RpcCallback				*	m_pCallback;
+		RpcCallbackPtr				m_pCallback;
 	};  
 
 }

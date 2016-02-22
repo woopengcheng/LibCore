@@ -21,9 +21,10 @@ namespace Msg
 		typedef ObjectMsgCall * (*pfnMethodImpl)(ParaseMsgCall * pParseMsgCall);
 
 	public:
-		 UINT8          m_cMethodType;      //5 处理的消息函数的类型
-		 char           m_pMehtodName[MAX_MSG_METHOD_NAME_LENGTH]; //5 处理函数的名字
-		 pfnMethodImpl  m_pMethodImpl;      //5 对消息函数的一个封装. 
+		 UINT8          m_cMethodType;								//5 处理的消息函数的类型
+		 char           m_pMehtodName[MAX_MSG_METHOD_NAME_LENGTH];	//5 处理函数的名字
+		 pfnMethodImpl  m_pMethodImpl;								//5 对消息函数的一个封装. 
+		 BOOL			m_bEnable;									//5 是否启用当前RPC,在脚本配置.
 	};
 	 
 

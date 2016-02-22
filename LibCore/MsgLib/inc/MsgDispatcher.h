@@ -40,6 +40,7 @@ namespace Msg
 			CUtil::strncpy(pSMI->m_pMehtodName , MAX_MSG_METHOD_NAME_LENGTH , pFuncName ); 
 			pSMI->m_objFunc = pFunc;
 			pSMI->m_pMethodImpl = StaticMethodImplHelper::CallFuncEntry< Func>;
+			pSMI->m_bEnable = TRUE;
 			 
 			MapMethodImplT::iterator result = m_mapMethodImpls.find(pFuncName); 
 			if (result == m_mapMethodImpls.end())
@@ -69,7 +70,8 @@ namespace Msg
 
 			pOMI->m_objFunc = pFunc;
 			pOMI->m_pObj = NULL;
-			pOMI->m_pMethodImpl = ObjectMethodImplHelper::CallFuncEntry< ClassObject , Func>; 
+			pOMI->m_pMethodImpl = ObjectMethodImplHelper::CallFuncEntry< ClassObject, Func>;
+			pOMI->m_bEnable = TRUE;
 
 			MapMethodImplT::iterator result = m_mapMethodImpls.find(pFuncName); 
 			if (result == m_mapMethodImpls.end())

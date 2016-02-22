@@ -171,7 +171,7 @@ namespace Msg
 		}
 		else if ((pMsg->GetReturnType() & RETURN_TYPE_IGNORE) || (pMsg->GetReturnType() & RETURN_TYPE_DONE))
 		{
-			SAFE_DELETE_NEW(pMsg);
+			SAFE_DELETE(pMsg);
 		}
 
 		return CErrno::Success();
@@ -195,7 +195,7 @@ namespace Msg
 				if (pReturnMsg)
 				{
 					SendMsg(nSessionID, pReturnMsg, FALSE);
-					SAFE_DELETE_NEW(pReturnMsg);
+					SAFE_DELETE(pReturnMsg);
 				}
 			}
 		}
@@ -211,7 +211,7 @@ namespace Msg
 
 				if (pReturnMsg)
 				{
-					SAFE_DELETE_NEW(pReturnMsg);
+					SAFE_DELETE(pReturnMsg);
 				}
 			}
 		}
@@ -260,7 +260,7 @@ namespace Msg
 							if (pReturnMsg)
 							{
 								SendMsg(pMsg->GetProxySessionID(), pReturnMsg, FALSE);
-								SAFE_DELETE_NEW(pReturnMsg);
+								SAFE_DELETE(pReturnMsg);
 							}
 						}
 					}
@@ -289,7 +289,7 @@ namespace Msg
 							RPCMsgCall * pReturnMsg = (RPCMsgCall *)(*iter);
 							if (pReturnMsg)
 							{
-								SAFE_DELETE_NEW(pReturnMsg);
+								SAFE_DELETE(pReturnMsg);
 							}
 						}
 					}
@@ -320,7 +320,7 @@ namespace Msg
 
 			if (pTemp->GetSyncType() == SYNC_TYPE_NONSYNC)
 			{
-				SAFE_DELETE_NEW(pTemp);
+				SAFE_DELETE(pTemp);
 			}
 		}
 
@@ -345,7 +345,7 @@ namespace Msg
 
 				objRpc->OnTimeout(pRpcMsgCall, vecObjectMsgCall); //5 todo.这里也需要触发同步的协程resume
 
-				SAFE_DELETE_NEW(pRpcMsgCall);
+				SAFE_DELETE(pRpcMsgCall);
 				vecObjectMsgCall.clear();
 				SAFE_DELETE(iter->second);
 				m_mapSendRpcs.erase(iter++);
@@ -534,6 +534,15 @@ namespace Msg
 
 	INT32 RpcManager::SendMsg( INT32 nSessionID , RPCMsgCall * pRpcMsg, BOOL bAddRpc/* = TRUE*/, BOOL bCheck/* = TRUE*/)
 	{
+		std::string strMethod = pRpcMsg->m_szMsgMethod;
+		strMethod += RPCClient;
+		MethodImpl * pMethod = GetMethodImpl(strMethod);
+		if (pMethod && !pMethod->m_bEnable)
+		{
+			gErrorStream("RpcManager::SendMsg enabled = false, method=" << pRpcMsg->m_szMsgMethod);
+			return -1;
+		}
+
 		if (bCheck)
 		{
 			SPeerInfo objInfo = GetPeerSessionInfo(nSessionID);

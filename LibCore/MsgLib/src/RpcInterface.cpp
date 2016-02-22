@@ -102,9 +102,30 @@ namespace Msg
 
 		RegisterRpc();
 
+		EnableRpc(conf);
 		return CErrno::Success(); 
 	}
 
+	void RpcInterface::EnableRpc(Json::Value & conf)
+	{
+		Json::Value rpcs = conf.get("enable_rpc", Json::Value());
+		INT32 nCount = rpcs.size();
+		for (INT32 i = 0; i < nCount; ++i)
+		{
+			Json::Value rpc = rpcs[i];
+
+			std::string strName = rpc.get("name", "").asCString();
+			INT32 enable = rpc.get("enable", TRUE).asBool();
+			if (m_pRpcManager)
+			{
+				MethodImpl * pMethod = m_pRpcManager->GetMethodImpl(strName + RPCClient);
+				if (pMethod)
+				{
+					pMethod->m_bEnable = enable;
+				}
+			}
+		}
+	}
 	void RpcInterface::HandlerMySelfNode(Json::Value & conf)
 	{
 		Json::Value server = conf.get("server", Json::Value());
@@ -191,7 +212,7 @@ namespace Msg
 
 			void * pCoID = pTask->pCoID;
 			SAFE_DELETE(pTask);
-			SAFE_DELETE_NEW(pMsg);
+			SAFE_DELETE(pMsg);
 			Coroutine::CoRelease(pCoID);
 		}
 	}
@@ -214,7 +235,7 @@ namespace Msg
 			{
 				Update();
 			}
-			SAFE_DELETE_NEW(pMsg);
+			SAFE_DELETE(pMsg);
 		}
 	}
 

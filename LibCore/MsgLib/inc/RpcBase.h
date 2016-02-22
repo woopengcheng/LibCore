@@ -87,6 +87,7 @@ namespace Msg
 		void					SetTimeout(UINT64 unTimeout); 
 		INT32					ProxySendBack();   
 		CUtil::Parameters	*	GetInParams();
+		RpcCallbackPtr			GetCallback();
 
 	public:   
 		template<typename NameOrID>
@@ -101,7 +102,7 @@ namespace Msg
 			INT32 nResult = m_pRpcManager->SendMsg(pName, pMsg);
 			if (nResult == -1)
 			{
-				SAFE_DELETE_NEW(pMsg);
+				SAFE_DELETE(pMsg);
 			}
 			return nResult;
 		} 
@@ -118,7 +119,7 @@ namespace Msg
 			INT32 nResult = m_pRpcManager->SendMsg(pName, pMsg);
 			if (nResult == -1)
 			{
-				SAFE_DELETE_NEW(pMsg);
+				SAFE_DELETE(pMsg);
 			}
 			return nResult;
 		}
@@ -135,7 +136,7 @@ namespace Msg
 			INT32 nResult = m_pRpcManager->SendMsg(pName, pMsg);
 			if (nResult == -1)
 			{
-				SAFE_DELETE_NEW(pMsg);
+				SAFE_DELETE(pMsg);
 			}
 			return nResult;
 		}
@@ -152,7 +153,7 @@ namespace Msg
 			INT32 nResult = m_pRpcManager->SendMsg(pName, pMsg);
 			if (nResult == -1)
 			{
-				SAFE_DELETE_NEW(pMsg);
+				SAFE_DELETE(pMsg);
 			}
 			return nResult;
 		}
@@ -169,7 +170,7 @@ namespace Msg
 			INT32 nResult = m_pRpcManager->SendMsg(pName, pMsg);
 			if (nResult == -1)
 			{
-				SAFE_DELETE_NEW(pMsg);
+				SAFE_DELETE(pMsg);
 			}
 			return nResult;
 		}
@@ -186,7 +187,7 @@ namespace Msg
 			INT32 nResult = m_pRpcManager->SendMsg(pName, pMsg);
 			if (nResult == -1)
 			{
-				SAFE_DELETE_NEW(pMsg);
+				SAFE_DELETE(pMsg);
 			}
 			return nResult;
 		}
@@ -203,7 +204,7 @@ namespace Msg
 			INT32 nResult = m_pRpcManager->SendMsg(pName, pMsg);
 			if (nResult == -1)
 			{
-				SAFE_DELETE_NEW(pMsg);
+				SAFE_DELETE(pMsg);
 			}
 			return nResult;
 		}
@@ -220,7 +221,7 @@ namespace Msg
 			INT32 nResult = m_pRpcManager->SendMsg(pName, pMsg);
 			if (nResult == -1)
 			{
-				SAFE_DELETE_NEW(pMsg);
+				SAFE_DELETE(pMsg);
 			}
 			return nResult;
 		}
@@ -237,7 +238,7 @@ namespace Msg
 			INT32 nResult = m_pRpcManager->SendMsg(pName, pMsg);
 			if (nResult == -1)
 			{
-				SAFE_DELETE_NEW(pMsg);
+				SAFE_DELETE(pMsg);
 			}
 			return nResult;
 		}

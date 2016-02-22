@@ -62,6 +62,7 @@ namespace Msg
 	private:
 		void					TakeOverSync(RPCMsgCall * pMsg);
 		void					HandlerMySelfNode(Json::Value & conf);
+		void					EnableRpc(Json::Value & conf);
 
 	protected:
 		RpcManager			*	m_pRpcManager;

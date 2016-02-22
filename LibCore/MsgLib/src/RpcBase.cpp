@@ -126,5 +126,14 @@ namespace Msg
 		return NULL;
 	}
 
-//#include "rpc.crpc"  //5 
+	RpcCallbackPtr Rpc::GetCallback()
+	{
+		if (m_pRpcMsgCall)
+		{
+			return m_pRpcMsgCall->GetCallback();
+		}
+		return NULL;
+	}
+
+	//#include "rpc.crpc"  //5 
 }
