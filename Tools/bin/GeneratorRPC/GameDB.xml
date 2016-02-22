@@ -106,7 +106,10 @@
 			&	&amp;	逻辑与 
 			'	&apos;	单引号 
 			"	&quot;	双引号 
-
+	RPC生成对象:
+		targets中在同一个生成路径下.是不允许有多个Client端.即不同路径下可以多个.
+		targets中的server和proxy中的服务器名字只能2选1.即一个rpc管理器不能做server又做proxy.
+		targets中可以有多个proxy.多个server.
 		
 -->
 
@@ -125,7 +128,7 @@
 	<LongDefaultParams type="unsigned char" default="0"/> 
 	<LongDefaultParams type="std::string" default="std::string()"/> 
 	<LongDefaultParams type="time_t" default="0"/>
-	<SpecialDefaultParam type="std::vector" defaultSuffix="(1)" specialType="0"/>
+	<SpecialDefaultParam type="std::vector" defaultSuffix="(0)" specialType="0"/>
 	<SpecialDefaultParam type="std::set" defaultSuffix="()" specialType="0"/>
 	<SpecialDefaultParam type="std::map" defaultSuffix="()" specialType="0"/>
 	<SpecialDefaultParam type="std::list" defaultSuffix="()" specialType="0"/>
