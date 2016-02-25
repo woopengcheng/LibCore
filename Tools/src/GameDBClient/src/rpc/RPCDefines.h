@@ -1,8 +1,8 @@
 /************************************
 FileName	:	RPCDefines.h
 Author		:	generate by tools
-HostName	:	DESKTOP-5AT4DK2
-IP			:	192.168.1.104
+HostName	:	devuser-PC
+IP			:	10.236.41.54
 Version		:	0.0.1
 Description	:	RPCº¯Êý¶¨Òå
 ************************************/

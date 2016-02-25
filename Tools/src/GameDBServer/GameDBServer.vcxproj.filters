@@ -167,10 +167,10 @@
     <ClCompile Include="src\rpc\ServerHandler_testMulitServerNode_Proxy.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_testMulitServerNode_Server.cpp">
+    <ClCompile Include="src\rpc\ServerHandler_testParamsAndRpcDatas_Server.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
-    <ClCompile Include="src\rpc\ServerHandler_testParamsAndRpcDatas_Server.cpp">
+    <ClCompile Include="src\rpc\Slave_GRpc_testMulitServerNode_Client.cpp">
       <Filter>src\rpc</Filter>
     </ClCompile>
     <ClCompile Include="src\rpc\SlaveHandler_MasterStartSync_Server.cpp">

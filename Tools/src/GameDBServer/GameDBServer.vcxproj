@@ -94,7 +94,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src/rpc;$(SolutionDir)..\LibCore\;$(SolutionDir)..\deps\boost;$(SolutionDir)../deps/rapidjson/include;$(SolutionDir)..\deps\tbb\include;$(SolutionDir)../deps/pthread/include;$(SolutionDir)LibCore;$(SolutionDir)../deps/leveldb/;$(SolutionDir)../deps/leveldb/db;$(SolutionDir)../deps/leveldb/util;$(SolutionDir)../deps/leveldb/port;$(SolutionDir)../deps/leveldb/table;$(SolutionDir)../deps/leveldb/include;$(SolutionDir)../deps/expat/lib;$(SolutionDir)../deps/zeromq/include;$(SolutionDir)../deps/UnitTest++/;$(SolutionDir)../deps/protobuf/src;$(SolutionDir)../deps/raknet/source;$(SolutionDir)../deps/glog/src/windows;$(SolutionDir)../deps/log4cpp/include;$(SolutionDir)../deps/log4cplus/include;$(SolutionDir)../deps/lua/src;$(SolutionDir)../deps/jsoncpp/include;$(SolutionDir)../deps/libiconv/source/include;$(SolutionDir)../deps/Snappy;$(SolutionDir)../deps/Mongobson;$(SolutionDir)../deps/CityHash/src;$(SolutionDir)../deps/vld/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src/rpc;$(SolutionDir)../deps/RocksDB;$(SolutionDir)../deps/RocksDB/db;$(SolutionDir)../deps/RocksDB/table;$(SolutionDir)../deps/RocksDB/port;$(SolutionDir)../deps/RocksDB/util;$(SolutionDir)../deps/RocksDB\include;$(SolutionDir)..\LibCore\;$(SolutionDir)..\deps\boost;$(SolutionDir)../deps/rapidjson/include;$(SolutionDir)..\deps\tbb\include;$(SolutionDir)../deps/pthread/include;$(SolutionDir)LibCore;$(SolutionDir)../deps/leveldb/;$(SolutionDir)../deps/leveldb/db;$(SolutionDir)../deps/leveldb/util;$(SolutionDir)../deps/leveldb/port;$(SolutionDir)../deps/leveldb/table;$(SolutionDir)../deps/leveldb/include;$(SolutionDir)../deps/expat/lib;$(SolutionDir)../deps/zeromq/include;$(SolutionDir)../deps/UnitTest++/;$(SolutionDir)../deps/protobuf/src;$(SolutionDir)../deps/raknet/source;$(SolutionDir)../deps/glog/src/windows;$(SolutionDir)../deps/log4cpp/include;$(SolutionDir)../deps/log4cplus/include;$(SolutionDir)../deps/lua/src;$(SolutionDir)../deps/jsoncpp/include;$(SolutionDir)../deps/libiconv/source/include;$(SolutionDir)../deps/Snappy;$(SolutionDir)../deps/Mongobson;$(SolutionDir)../deps/CityHash/src;$(SolutionDir)../deps/vld/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
@@ -107,7 +107,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\tbb\lib\intel64\vc10;$(SolutionDir)..\deps\vld\lib\Win64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>leveldb.lib;lib_json.lib;LibCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Rpcrt4.lib;rocksdblib.lib;leveldb.lib;lib_json.lib;LibCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -167,7 +167,6 @@
     <ClCompile Include="src\rpc\ServerHandler_SyncDataToSlave_Client.cpp" />
     <ClCompile Include="src\rpc\ServerHandler_SyncServerHandler_Client.cpp" />
     <ClCompile Include="src\rpc\ServerHandler_testMulitServerNode_Proxy.cpp" />
-    <ClCompile Include="src\rpc\ServerHandler_testMulitServerNode_Server.cpp" />
     <ClCompile Include="src\rpc\ServerHandler_testParamsAndRpcDatas_Server.cpp" />
     <ClCompile Include="src\rpc\SlaveHandler_MasterStartSync_Server.cpp" />
     <ClCompile Include="src\rpc\SlaveHandler_SlaveRequestSync_Client.cpp" />
@@ -176,6 +175,7 @@
     <ClCompile Include="src\rpc\SlaveHandler_SyncDataToSlave_Server.cpp" />
     <ClCompile Include="src\rpc\SlaveHandler_SyncMasterHandler_Server.cpp" />
     <ClCompile Include="src\rpc\SlaveHandler_testMulitServerNode_Server.cpp" />
+    <ClCompile Include="src\rpc\Slave_GRpc_testMulitServerNode_Client.cpp" />
     <ClCompile Include="src\SlaveHandler.cpp" />
   </ItemGroup>
   <ItemGroup>

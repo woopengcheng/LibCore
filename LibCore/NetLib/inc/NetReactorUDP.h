@@ -3,26 +3,20 @@
 #include "NetLib/inc/INetHandler.h"
 #include "NetLib/inc/INetReactor.h"
 
+struct sockaddr_in;
 namespace Net 
 {
 	class UDPContext
 	{
 	public:
-		UDPContext() {}
-		~UDPContext() {}
+		UDPContext();
+		~UDPContext();
 
-		sockaddr_in GetPeerAddr() 
-		{
-			return m_objAddr;
-		}
-
-		void SetPeerAddr(sockaddr_in cli)
-		{
-			m_objAddr = cli;
-		}
+		sockaddr_in GetPeerAddr();
+		void SetPeerAddr(sockaddr_in cli);
 
 	private:
-		sockaddr_in m_objAddr;
+		sockaddr_in * m_pAddr;
 	};
 
 	class DLL_EXPORT NetReactorUDP :public INetReactor
