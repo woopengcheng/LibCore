@@ -212,12 +212,16 @@ namespace GameDB
 
 		if (llMaxOpenFiles > 0) 
 			objOptions.max_open_files = (INT32)llMaxOpenFiles;
-		if (llBlockSize > 0) 
-			objOptions.block_size = llBlockSize;
+		if (llBlockSize > 0)
+		{
+//			objOptions.block_size = llBlockSize;
+		}
 		if (llWriteBufferSize > 0) 
 			objOptions.write_buffer_size = llWriteBufferSize;
-		if (llCacheSize > 0) 
-			objOptions.block_cache = NewLRUCache(llCacheSize);;
+		if (llCacheSize > 0)
+		{
+//			objOptions.block_cache = NewLRUCache(llCacheSize);;
+		}
 		if (strCompress == "snappy") 
 			objOptions.compression = kSnappyCompression;
 

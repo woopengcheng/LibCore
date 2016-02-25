@@ -171,4 +171,35 @@ namespace Net
 	}
 
 
+	UDPContext::UDPContext()
+		: m_pAddr(NULL)
+	{
+	}
+
+	UDPContext::~UDPContext()
+	{
+		if (m_pAddr != NULL)
+		{
+			SAFE_DELETE(m_pAddr);
+		}
+	}
+
+	sockaddr_in UDPContext::GetPeerAddr()
+	{
+		if (m_pAddr)
+		{
+			return *m_pAddr;
+		}
+		return sockaddr_in();
+	}
+
+	void UDPContext::SetPeerAddr(sockaddr_in cli)
+	{
+		if (m_pAddr != NULL)
+		{
+			SAFE_DELETE(m_pAddr);
+		}
+		*m_pAddr = cli;
+	}
+
 }

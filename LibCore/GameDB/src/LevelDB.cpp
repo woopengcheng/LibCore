@@ -1,3 +1,5 @@
+#ifdef USE_LEVELDB
+
 #include "GameDB/inc/LevelDB.h"
 
 namespace GameDB
@@ -24,7 +26,9 @@ namespace GameDB
 
 	bool ParseFileName(const std::string& filename, uint64_t* number, FileType* type)
 	{
-		return leveldb::ParseFileName(filename , number , type);
+		return leveldb::ParseFileName(filename, number, type);
 	}
 
 }
+#endif // USE_LEVELDB
+

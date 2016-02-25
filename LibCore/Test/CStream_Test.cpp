@@ -336,8 +336,8 @@ TEST(CStream)
 	CHECK_EQUAL(csCopyEqual.GetDataLen() , nLengthData2);
 	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() ,7);
 	CHECK_EQUAL(cs != csCopy && cs == csCopyData && cs == csCopyChunk && cs == csCopyFunc && cs == csCopyEqual, true);
-	CHECK_EQUAL(cs != csNotEqual, 1);
-	CHECK_EQUAL(cs != csNotEqual2, 1);
+	CHECK_EQUAL(cs != csNotEqual, true);
+	CHECK_EQUAL(cs != csNotEqual2, true);
 
 	INT32 nCopyPushBack = 10 , nCopyPushBack2 = 0 ,nCopyPushBack3 = 11 , nCopyPushBack4 = 0,nCopyPushBack5 = 12 , nCopyPushBack6 = 23 , nCopyPushBack7 = 23 , nCopyPushBack8 = 23;
 	csCopy.Pushback(&nCopyPushBack , sizeof(nCopyPushBack));

@@ -1,5 +1,4 @@
 #include "GameDB/inc/BackupEnvironment.h"
-#include "GameDB/inc/LevelDB.h"
 #ifdef WIN32
 #include <windows.h>
 #endif
@@ -165,20 +164,29 @@ namespace GameDB
 
 	Status BackupEnvironment::CloneFile( const std::string& strSrc,const std::string& strDst,int64_t llFileLength )
 	{
-		WritableFile * pWriteFile = NULL;
-		SequentialFile * pReadFile = NULL;
+// 		WritableFile * pWriteFile = NULL;
+// 		SequentialFile * pReadFile = NUL	
+		std::unique_ptr<SequentialFile> pReadFile;
+		std::unique_ptr<WritableFile> pWriteFile;
 		Status objStatus;
-
-		objStatus = target()->NewSequentialFile(strSrc , &pReadFile);
+#ifdef USE_ROCKDB
+		const EnvOptions options;
+		objStatus = target()->NewSequentialFile(strSrc, &pReadFile, options);
+#else
+		objStatus = target()->NewSequentialFile(strSrc, &pReadFile.get());
+#endif
 		if (!objStatus.ok())
 		{
 			return objStatus;
 		} 
 
-		objStatus = target()->NewWritableFile(strDst , &pWriteFile);
+#ifdef USE_ROCKDB
+		objStatus = target()->NewWritableFile(strSrc, &pWriteFile, options);
+#else
+		objStatus = target()->NewWritableFile(strSrc, &pWriteFile.get());
+#endif
 		if (!objStatus.ok())
 		{
-			SAFE_DELETE(pWriteFile);
 			return objStatus;
 		} 
 
@@ -220,12 +228,16 @@ namespace GameDB
 
 	Status BackupEnvironment::TouchFile(const std::string & strDir)
 	{
-		WritableFile* pWriteFile = NULL;
-		Status objStatus = target()->NewWritableFile(strDir , &pWriteFile);
+		Status objStatus;
+		std::unique_ptr<WritableFile> pWriteFile;
+#ifdef USE_ROCKDB
+		const EnvOptions options;
+		objStatus = target()->NewWritableFile(strDir, &pWriteFile, options);
+#else
+		objStatus = target()->NewWritableFile(strSrc, &pWriteFile.get());
+#endif
 		if(!objStatus.ok())
 			return objStatus;
-
-		delete pWriteFile;
 
 		return objStatus;
 	} 

@@ -558,6 +558,9 @@
     <ClInclude Include="..\..\LibCore\CUtil\inc\GenParamHelper.h">
       <Filter>CUtil\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\GameDB\inc\RocksDB.h">
+      <Filter>GameDB\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -841,6 +844,9 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\Test\RPC_Test.cpp">
       <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\GameDB\src\RocksDB.cpp">
+      <Filter>GameDB\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

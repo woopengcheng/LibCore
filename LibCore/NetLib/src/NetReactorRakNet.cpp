@@ -327,7 +327,7 @@ namespace Net
 					break;
 				case ID_ALREADY_CONNECTED:
 					// Connection lost normally
-					printf("ID_ALREADY_CONNECTED with guid %" PRINTF_64_BIT_MODIFIER "u\n", pPacket->guid);
+//					printf("ID_ALREADY_CONNECTED with guid %" PRINTF_64_BIT_MODIFIER "u\n", pPacket->guid);
 					pNetHandler->GetSession()->SetNetState(NET_STATE_CONNECTED);
 					break;
 				case ID_REMOTE_DISCONNECTION_NOTIFICATION: // Server telling the clients of another client disconnecting gracefully.  You can manually broadcast this in a peer to peer enviroment if you want.
