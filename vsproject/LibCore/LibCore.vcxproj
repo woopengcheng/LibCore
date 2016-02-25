@@ -209,7 +209,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\tbb\lib\intel64\vc10;$(SolutionDir)..\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\boost\lib;$(SolutionDir)..\deps\pthread\lib\x64;$(SolutionDir)..\deps\gperftools-2.1\debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>rocksdblib.lib;libtcmalloc_minimal.lib;libiconv_static.lib;lib_json.lib;lua.lib;libzmq_d.lib;ws2_32.lib;tbb_debug.lib;pthreadVC2.lib;log4cplusSUD.lib;LibStatic.lib;expat.lib;UnitTest.lib;leveldb.lib;Snappy.lib;MongoBson.lib;CityHash.lib;Ws2_32.lib;Rpcrt4.lib;openssl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libtcmalloc_minimal.lib;libiconv_static.lib;lib_json.lib;lua.lib;libzmq_d.lib;ws2_32.lib;tbb_debug.lib;pthreadVC2.lib;log4cplusSUD.lib;LibStatic.lib;expat.lib;UnitTest.lib;leveldb.lib;Snappy.lib;MongoBson.lib;CityHash.lib;Ws2_32.lib;Rpcrt4.lib;openssl.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>LIBCMTD;MSVCRT;</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <HeapReserveSize>104857600</HeapReserveSize>
@@ -252,6 +252,7 @@
     <ClInclude Include="..\..\LibCore\CUtil\inc\CommandHandler.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\Common.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\CRTTI.h" />
+    <ClInclude Include="..\..\LibCore\CUtil\inc\CSVReader.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\CUtil.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\DeelxRegexp.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\CErrno.h" />
@@ -402,6 +403,7 @@
     <ClCompile Include="..\..\LibCore\CUtil\src\CircleBuffer.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\Common.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\CRTTI.cpp" />
+    <ClCompile Include="..\..\LibCore\CUtil\src\CSVReader.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\CUtil.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\GenParamHelper.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\Iconv.cpp" />
@@ -468,6 +470,7 @@
     <ClCompile Include="..\..\LibCore\Test\Chunk_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\Coroutine_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\CStream_Test.cpp" />
+    <ClCompile Include="..\..\LibCore\Test\CSVReader_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\LibCore_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\Paramter_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\ReferCount_Test.cpp" />
