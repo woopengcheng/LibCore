@@ -561,6 +561,9 @@
     <ClInclude Include="..\..\LibCore\GameDB\inc\RocksDB.h">
       <Filter>GameDB\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\CUtil\inc\CSVReader.h">
+      <Filter>CUtil\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -847,6 +850,12 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\GameDB\src\RocksDB.cpp">
       <Filter>GameDB\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\CUtil\src\CSVReader.cpp">
+      <Filter>CUtil\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Test\CSVReader_Test.cpp">
+      <Filter>Test</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

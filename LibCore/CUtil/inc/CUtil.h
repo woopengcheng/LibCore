@@ -27,9 +27,9 @@ namespace CUtil
 	extern INT32  DLL_EXPORT  stricmp(const char* str1,const char* str2);  //5 不区分大小写
 	extern INT64  DLL_EXPORT  atoi(const char* str);
 	extern INT64  DLL_EXPORT  atoi(const std::string & str);
-	extern UINT64  DLL_EXPORT atoull(const char* str);
-	extern INT64  DLL_EXPORT  strtoll(const char* str, char** endptr = NULL, INT32 base = 10);
-	extern UINT64  DLL_EXPORT strtoull(const char* str, char** endptr = NULL, INT32 base = 10);
+	extern UINT64 DLL_EXPORT	atoull(const char* str);
+	extern INT64	DLL_EXPORT  strtoll(const char* str, char** endptr = NULL, INT32 base = 10);
+	extern UINT64	DLL_EXPORT strtoull(const char* str, char** endptr = NULL, INT32 base = 10);
 	extern double DLL_EXPORT  atof(const char* str);
 	extern double DLL_EXPORT  atof(const std::string & str);
 	extern void   DLL_EXPORT  itoa(char* str,INT64 val);
@@ -53,6 +53,7 @@ namespace CUtil
 	extern void   DLL_EXPORT  tohex(INT64 val,char* obuf,UINT32 len);
 	extern void   DLL_EXPORT  tohex(const char* ibuf,UINT32 ilen,char* obuf,UINT32& olen);
 	extern void	  DLL_EXPORT  create_token(char* buf,UINT32 len);
+	extern void	  DLL_EXPORT	tokenize(const std::string& str, std::vector<std::string>& result,const std::string& delimiters, const std::string& delimiters_preserve = "",const std::string& quote = "\"", const std::string& esc = "\\");
 	extern char   DLL_EXPORT* strncat(char* dest,const char* src,UINT32 destlen); 
 	extern void   DLL_EXPORT  FastMemmove(void * dst , const void * src , INT64 unSize);
 	extern INT64  DLL_EXPORT  ParseHumanSizeFromString(const std::string strSize);
