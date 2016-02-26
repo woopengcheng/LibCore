@@ -222,8 +222,12 @@ namespace GameDB
 		{
 //			objOptions.block_cache = NewLRUCache(llCacheSize);;
 		}
-		if (strCompress == "snappy") 
+		if (CUtil::stricmp(strCompress.c_str(), "snappy") == 0)
 			objOptions.compression = kSnappyCompression;
+		else if (CUtil::stricmp(strCompress.c_str() , "LZ4") == 0)
+			objOptions.compression = kLZ4Compression;
+		else
+			objOptions.compression = kNoCompression;
 
 		objOptions.env = m_pBackupEnv;
 	}

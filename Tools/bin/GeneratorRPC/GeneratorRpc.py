@@ -1304,7 +1304,7 @@ def  GenerateRpcCallFuncsHeader(fileRpc , serverName):
 		
 ################################流程无关函数处理#####################################
 def Usage():
-    print('PyTest.py usage:')
+    print('GenerateRpc.py usage:')
     print('-h,--help: print help message.')
     print('-v, --version: print script version')
     print('-o, --output: input an output verb')

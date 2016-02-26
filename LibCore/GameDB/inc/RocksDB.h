@@ -46,6 +46,7 @@ namespace GameDB
 #define kInfoLogFile						rocksdb::kInfoLogFile
 #define	kNoCompression						rocksdb::kNoCompression
 #define	kSnappyCompression					rocksdb::kSnappyCompression
+#define	kLZ4Compression						rocksdb::kLZ4Compression
 
 	extern const rocksdb::Comparator * BytewiseComparator();
 	extern std::shared_ptr<Cache> NewLRUCache(size_t capacity);
