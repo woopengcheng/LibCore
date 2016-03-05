@@ -3,11 +3,28 @@
 #include "GameDB/inc/DBCommon.h" 
 #include "MsgLib/inc/RpcInterface.h" 
 #include "GameDB/inc/Environment.h"
-#include "GameDB/inc/SlaveSession.h"
 #include "json/json.h"
 
 namespace GameDB
-{   
+{
+	struct SDBSlaveInfo
+	{
+		std::string  strDBName;
+		std::string  strDir;
+		std::string  strUser;
+		std::string  strPswd;
+
+		SDBSlaveInfo()
+			: strDBName("")
+			, strDir("")
+			, strUser("")
+			, strPswd("")
+		{
+
+		}
+	};
+
+
 	class DLL_EXPORT DBSlaveInterface : public Msg::RpcInterface
 	{   
 	public:

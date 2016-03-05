@@ -564,6 +564,9 @@
     <ClInclude Include="..\..\LibCore\CUtil\inc\CSVReader.h">
       <Filter>CUtil\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\IRpcListener.h">
+      <Filter>MsgLib\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -793,9 +796,6 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\NetLib\src\HttpProtocol.cpp">
       <Filter>NetLib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\LibCore\CUtil\src\aa.cpp">
-      <Filter>CUtil\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\LibCore\CUtil\src\Iconv.cpp">
       <Filter>CUtil\src</Filter>

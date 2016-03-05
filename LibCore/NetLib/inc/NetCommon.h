@@ -29,6 +29,9 @@ namespace Net
 #define DEFAULT_SOCKET_BUFFER_SIZE		(40 * 1024)
 #define DEFAULT_CIRCLE_BUFFER_SIZE		(DEFAULT_SOCKET_BUFFER_SIZE * 10)
 
+#define DEFAULT_MSG_PING_ID				1
+#define DEFAULT_PING_TIME_OUT			5000
+
 #define tbb_unordered_map tbb::concurrent_unordered_map 
 #define tbb_hash_map      tbb::concurrent_hash_map  
 	  

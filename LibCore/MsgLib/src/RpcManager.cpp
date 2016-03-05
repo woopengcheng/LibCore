@@ -1,7 +1,6 @@
 #include "MsgLib/inc/RpcManager.h"
 #include "MsgLib/inc/RpcBase.h"
 #include "MsgLib/inc/RpcInterface.h"
-#include "MsgLib/inc/IRpcListener.h"
 #include "MsgLib/inc/MsgHelper.h"
 #include "MsgLib/inc/NetNode.h"
 #include "Marshal/inc/CStream.h"

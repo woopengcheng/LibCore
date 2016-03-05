@@ -4,7 +4,6 @@
 #include "NetLib/inc/NetLib.h"
 #include "MsgLib/inc/MsgDispatcher.h"
 #include "MsgLib/inc/MsgCommon.h"
-#include "MsgLib/inc/Ping.h"
 
 namespace Msg
 {

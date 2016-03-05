@@ -1,7 +1,7 @@
 #ifndef __net_net_thread_h__
 #define __net_net_thread_h__  
 #include "NetLib/inc/NetCommon.h"
-#include "NetLib/inc/Ping.h"
+#include "NetLib/inc/NetHandlerPing.h"
 #include "NetLib/inc/NetHandlerListener.h"
 #include "ThreadPool/inc/ThreadTask.h"
 #include "CUtil/inc/Chunk.h"

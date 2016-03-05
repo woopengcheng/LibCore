@@ -1,8 +1,6 @@
 #ifndef __msg_rpc_instance_h__
 #define __msg_rpc_instance_h__  
 #include "ThreadPool/inc/ThreadTask.h"
-#include "MsgLib/inc/RpcInterface.h"
-#include "MsgLib/inc/IRpcListener.h"
 #include "GameDB/inc/DBServerInterface.h"
 #include "GameDB/inc/HashTable.h"
 #include "GameDB/inc/Environment.h"

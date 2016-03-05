@@ -316,6 +316,7 @@
     <ClInclude Include="..\..\LibCore\MsgLib\inc\IMsgCallableObject.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\InnerMsg.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\InternalMsgTask.h" />
+    <ClInclude Include="..\..\LibCore\MsgLib\inc\IRpcListener.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\IRpcMsgCallableObject.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\MethodImpl.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\MsgCommon.h" />
@@ -393,9 +394,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\LibCore\Coroutine\Coroutine.cpp" />
-    <ClCompile Include="..\..\LibCore\CUtil\src\aa.cpp">
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">$(SolutionDir)LibCore;$(SolutionDir)../LibCore/;$(SolutionDir)../deps/leveldb/;$(SolutionDir)../deps/leveldb/db;$(SolutionDir)../deps/leveldb/util;$(SolutionDir)../deps/leveldb/port;$(SolutionDir)../deps/leveldb/table;$(SolutionDir)../deps/leveldb/include;$(SolutionDir)../deps/boost;$(SolutionDir)../deps/expat/lib;$(SolutionDir)../deps/zeromq/include;$(SolutionDir)../deps/tbb/include;$(SolutionDir)../deps/UnitTest++/;$(SolutionDir)../deps/protobuf/src;$(SolutionDir)../deps/raknet/source;$(SolutionDir)../deps/pthread/include;$(SolutionDir)../deps/log4cplus/include;$(SolutionDir)../deps/lua/src;$(SolutionDir)../deps/jsoncpp/include;$(SolutionDir)../deps/libiconv/source/include;$(SolutionDir)../deps/CityHash/src;$(SolutionDir)../deps/Snappy;$(SolutionDir)../deps/MongoBson/;$(SolutionDir)../deps/openssl/openssl/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
     <ClCompile Include="..\..\LibCore\CUtil\src\arg_parser.cc" />
     <ClCompile Include="..\..\LibCore\CUtil\src\AutomicUInt.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\BsonToCpp.cpp" />

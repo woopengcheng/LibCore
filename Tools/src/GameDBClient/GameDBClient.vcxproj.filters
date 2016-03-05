@@ -135,9 +135,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\rpc\DBClient.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\ClientCommands.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -158,6 +155,9 @@
     </ClInclude>
     <ClInclude Include="src\rpc\RPCDefines.h">
       <Filter>src\rpc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DBClient.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

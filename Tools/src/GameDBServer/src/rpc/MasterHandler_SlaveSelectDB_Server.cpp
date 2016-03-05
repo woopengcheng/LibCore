@@ -1,5 +1,4 @@
 #include "MasterHandler.h"
-#include "GameDB/inc/MasterSession.h"
 #include "SlaveRecord.h"
 
 Msg::ObjectMsgCall * Server::MasterHandler::SlaveSelectDB_RpcServer(INT32 nSessionID , Msg::Object objSrc , std_string &dbname/* = std::string()*/  )

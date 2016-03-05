@@ -3,7 +3,6 @@
 #include "MsgLib/inc/IRpcMsgCallableObject.h"
 #include "MsgLib/inc/RpcManager.h"
 #include "MsgLib/inc/Object.h"
-#include "GameDB/inc/SlaveSession.h"
 #include "GameDB/inc/Database.h"
 #include "CUtil/inc/Chunk.h"
 #include "MsgNameDefine.h"  

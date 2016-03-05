@@ -1,5 +1,4 @@
 #include "Msglib/inc/RpcInterface.h"
-#include "Msglib/inc/IRpcListener.h"
 #include "MsgLib/inc/RpcManager.h"
 #include "MsgLib/inc/MsgHelper.h"
 #include "MsgLib/inc/RpcCheckParams.h"

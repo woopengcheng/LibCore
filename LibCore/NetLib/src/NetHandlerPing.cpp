@@ -17,7 +17,7 @@ namespace Net
 		if (m_pNetReactor && m_pNetReactor->GetNetThread())
 		{
 			INT64 ullCurTime = Timer::TimerHelper::GetTickMicroSecond();
-			if (ullCurTime - m_llLastSendPing >= DEFAULT_PING_TIME_OUT_MICROSECOND / 5)
+			if (ullCurTime - m_llLastSendPing >= DEFAULT_PING_TIME_OUT / 5)
 			{
 				m_llLastSendPing = Timer::TimerHelper::GetTickMicroSecond();
 

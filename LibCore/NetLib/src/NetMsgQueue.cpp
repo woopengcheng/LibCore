@@ -1,6 +1,5 @@
 #include "NetLib/inc/NetMsgQueue.h"
 #include "NetLib/inc/INetReactor.h"
-#include "NetLib/inc/Ping.h"
 
 namespace Net
 { 	

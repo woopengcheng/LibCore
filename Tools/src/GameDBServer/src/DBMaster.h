@@ -1,7 +1,6 @@
 #ifndef __server_db_master_h__
 #define __server_db_master_h__  
 #include "MsgLib/inc/RpcInterface.h"
-#include "MsgLib/inc/IRpcListener.h"
 #include "GameDB/inc/DBMasterInterface.h"
 #include "ThreadPool/inc/ThreadTask.h"
 #include "GameDB/inc/HashTable.h"

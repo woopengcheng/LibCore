@@ -1,26 +1,9 @@
 #include "Marshal/inc/CStream.h"
-#include "Marshal/inc/MashalTest.h"
 #include "MsgLib/inc/Object.h"
 
 namespace CUtil
 {  
-
-	CStream & MarshalTest::marshal(CStream & cs)const
-	{  
-		cs << m_nTest;
-		cs.Pushback(m_nTest);
-		gDebugStream(m_nTest << " MarshalTest::marshal m_nTest ");
-		return cs; 
-	}
-
-	CStream & MarshalTest::unMarshal(CStream & cs)
-	{  
-		cs >> m_nTest;
-		cs.Pop(m_nTest);
-		gDebugStream(m_nTest << " MarshalTest::unMarshal m_nTest ");
-		return cs;
-	} 
-
+	
 	CStream & CStream::operator<<(const Chunk & t) 
 	{
 		UINT32 unLen = t.GetDataLen();
