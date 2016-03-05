@@ -25,7 +25,9 @@ namespace GameDB
 
 	void Database::Close()
 	{
-// 		SAFE_DELETE(m_objOptions.block_cache);
+#ifdef USE_LEVELDB
+		SAFE_DELETE(m_objOptions.block_cache);
+#endif
 
 		SAFE_DELETE(m_pLevelDB);
 	}

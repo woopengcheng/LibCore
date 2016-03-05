@@ -1,3 +1,5 @@
+#ifdef USE_ROCKSDB
+
 #include "GameDB/inc/RocksDB.h"
 
 namespace GameDB
@@ -5,8 +7,8 @@ namespace GameDB
 	const DBComparator* BytewiseComparator()
 	{
 		return rocksdb::BytewiseComparator();
-	} 
-	
+	}
+
 	std::shared_ptr<Cache> NewLRUCache(size_t capacity)
 	{
 		return rocksdb::NewLRUCache(capacity);
@@ -28,3 +30,4 @@ namespace GameDB
 	}
 
 }
+#endif // !USE_ROCKSDB

@@ -30,7 +30,7 @@ static std::string s_parse = "{\
 			\"net_node_name\" : \"foo\",\
 			\"listen_type\" : \"tcp\",\
 			\"listen_address\" : \"127.0.0.1\",\
-			\"listen_port\" : 9000 \
+			\"listen_port\" : 50000 \
 		},		\
 		\
 		\"net_thread\" :\
@@ -43,14 +43,14 @@ static std::string s_parse = "{\
 			{\
 				\"type\" : \"tcp\",\
 				\"address\" : \"127.0.0.1\",\
-				\"port\" : 9001,	\
+				\"port\" : 50001,	\
 				\"reconnect\" : 1,\
 				\"same_process\" : 1\
 			},\
 			{\
 				\"type\" : \"tcp\",\
 				\"address\" : \"127.0.0.1\",\
-				\"port\" : 9002,	\
+				\"port\" : 50002,	\
 				\"reconnect\" : 1,\
 				\"same_process\" : 1\
 			}\
@@ -64,7 +64,7 @@ static std::string s_parse = "{\
 			\"net_node_name\" : \"bar\",\
 			\"listen_type\" : \"tcp\",\
 			\"listen_address\" : \"127.0.0.1\",\
-			\"listen_port\" : 9001\
+			\"listen_port\" : 50001\
 		},\
 		\
 		\"thread\" : \
@@ -84,7 +84,7 @@ static std::string s_parse = "{\
 			{\
 				\"type\" : \"tcp\",\
 				\"address\" : \"127.0.0.1\",\
-				\"port\" : 9002,	\
+				\"port\" : 50002,	\
 				\"reconnect\" : 1,\
 				\"same_process\" : 1\
 			}\
@@ -98,7 +98,7 @@ static std::string s_parse = "{\
 			\"net_node_name\" : \"proxy\",\
 			\"listen_type\" : \"tcp\",\
 			\"listen_address\" : \"127.0.0.1\",\
-			\"listen_port\" : 9002\
+			\"listen_port\" : 50002\
 		},\
 		\
 		\"thread\" : \

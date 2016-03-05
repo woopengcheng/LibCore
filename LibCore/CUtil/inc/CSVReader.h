@@ -4,13 +4,14 @@
 
 namespace CUtil
 {
-	class CSVReader
+	class DLL_EXPORT CSVReader
 	{
 	public:
 		typedef std::vector<std::string>	VecValuesT;
 		typedef std::vector<VecValuesT>		VecRowsT;
 
 	public:
+		INT32			Load(const char * pContent);
 		INT32			Load(const std::string& file);
 
 	public:

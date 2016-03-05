@@ -23,14 +23,48 @@ namespace CUtil
 
 	INT32 CSVReader::Load(const std::string& file)
 	{
-		m_vecRows.clear();
-		m_vecNames.clear();
-
 		std::fstream stream;
 		stream.open(file.c_str(), std::ios_base::in);
 		if (!stream.good())
 			return -1;
 
+		m_vecRows.clear();
+		m_vecNames.clear();
+
+		while (!stream.eof())
+		{
+			char buf[10240] = "";
+			stream.getline(buf, sizeof(buf));
+			if (buf[0] == '\0')
+				continue;
+
+			trim_right(buf);
+
+			VecValuesT values;
+
+			CUtil::tokenize(buf, values, "\t", "", "\"");
+
+			if (values.size() == 0)
+				continue;
+
+			if (m_vecNames.size() == 0)
+				m_vecNames = values;
+			else
+				m_vecRows.push_back(values);
+		}
+		return 0;
+	}
+
+	INT32 CSVReader::Load(const char * pContent)
+	{
+		if (!pContent)
+			return -1;
+
+		m_vecRows.clear();
+		m_vecNames.clear();
+		
+		std::stringstream stream;
+		stream << pContent;
 		while (!stream.eof())
 		{
 			char buf[10240] = "";

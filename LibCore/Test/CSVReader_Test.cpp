@@ -2,6 +2,15 @@
 #include "UnitTest++/UnitTestPP.h"
 #include "CUtil/inc/CUtil.h"
 
+const char * g_strTest = R"("轨迹ID"	"生效场景 --不配表示所有场景中生效 --否则仅在配置场景中生效"	"循环方式"	"界面中图标"	"属性修改值"	"起始点"	"备注1"	"坐标系"	
+"curve_id"	"validStages"	"wrapMode"	"InterfaceIcon"	"attr_mod_val"	"start_x"	"col_1"	"isLocal"	
+"int"	"int[]"	"string"	"string[]"	"float"	"float[]"	"long"	"bool"	
+"c"	"s"	"s"	"cs"	"cs"	"cs"	"cs"	"s"	
+"1"	",2003,2005,2006"	"once"	"act_image,molong"	"25.5"	"9.76649,8.890732,-16.13906"	"410"	"1"	
+"2"	",2003,2005,2006"	"once"	"act_image,molong"	"50.7"	"9.76649,8.890732,-16.13906"	"5522677700"	"1"	
+"3"	",2003,2005,2006"	"once"	"act_image,molong"	"25.6"	"9.76649,8.890732,-16.13906"	"5522677700"	"0"	
+)"; 
+
 struct SAction
 {
 	INT32 curve_id;	// 轨迹ID
@@ -17,7 +26,7 @@ struct SAction
 TEST(CSVReader)
 {
 	CUtil::CSVReader csv;
-	CHECK_EQUAL(csv.Load("CSVReader_Test.csv") , 0);
+	CHECK_EQUAL(csv.Load(g_strTest) , 0);
 
 	size_t index_curve_id = csv.GetIndex("curve_id", 1);
 	MsgAssert(index_curve_id != (size_t)-1 , "error");

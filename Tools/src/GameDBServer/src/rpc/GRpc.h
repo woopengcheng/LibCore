@@ -1,8 +1,8 @@
 /************************************
 FileName	:	GlableRpc.h
 Author		:	generate by tools
-HostName	:	devuser-PC
-IP			:	10.236.41.54
+HostName	:	DESKTOP-5AT4DK2
+IP			:	192.168.16.104
 Version		:	0.0.1
 Description	:	静态函数,无对象时通过这个类处理.
 ************************************/

@@ -1,5 +1,6 @@
-#ifdef USE_LEVELDB
+#include "GameDB/inc/db_port.h"
 
+#ifdef USE_LEVELDB
 #include "GameDB/inc/LevelDB.h"
 
 namespace GameDB

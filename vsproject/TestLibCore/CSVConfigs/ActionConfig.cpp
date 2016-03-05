@@ -1,0 +1,50 @@
+/************************************
+FileName	:	ActionConfig.cpp
+Author		:	generate by tools
+HostName	:	DESKTOP-5AT4DK2
+IP			:	192.168.16.104
+Version		:	0.0.1
+Description	:	csv读取数据文件实现
+************************************/
+#include "ActionConfig.h"
+#include "LogLib/inc/Log.h"
+
+namespace Config
+{
+	bool ActionConfig::LoadFrom(const std::string & filepath)
+	{
+		Config::ActionConfigLoad loadConfig;
+		MsgAssert_Re0(loadConfig.LoadFrom(filepath) , "Error ActionConfigLoadFrom " << filepath);
+
+		for(size_t i = 0; i < loadConfig.Count(); ++i)
+		{
+			Config::SActionConfigLoad& config = loadConfig.Get(i);
+			Config::SActionConfig data = {0};
+			data.curve_id = config.curve_id;
+			data.validStages = config.validStages;
+			data.wrapMode = config.wrapMode;
+			data.InterfaceIcon = config.InterfaceIcon;
+			data.attr_mod_val = config.attr_mod_val;
+			data.start_x = config.start_x;
+			data.col_1 = config.col_1;
+			data.isLocal = config.isLocal;
+			m_mapConfigs.insert(std::make_pair(data.curve_id,data));
+		}
+		return true;
+	}
+
+	SActionConfig * ActionConfig::GetActionConfig(INT32 nIndex)
+	{
+		MapConfigsT::iterator iter = m_mapConfigs.find(nIndex);
+		if(iter == m_mapConfigs.end())
+		{
+			gWarniStream( "ActionConfig::GetActionConfig NotFound " << nIndex);
+			return NULL;
+		}
+
+		return &iter->second;
+	}
+
+	ActionConfig * g_pActionConfig = NULL;
+}
+

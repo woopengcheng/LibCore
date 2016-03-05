@@ -10,6 +10,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 	Config::ConfigManager::GetInstance().Init("./csv_config");
 
+	while (true)
+	{
+		Config::ConfigManager::GetInstance().Cleanup();
+
+	}
+
 	CUtil::Cleanup();
 	return 0;
 }

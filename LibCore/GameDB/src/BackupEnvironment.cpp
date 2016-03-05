@@ -164,16 +164,16 @@ namespace GameDB
 
 	Status BackupEnvironment::CloneFile( const std::string& strSrc,const std::string& strDst,int64_t llFileLength )
 	{
-// 		WritableFile * pWriteFile = NULL;
-// 		SequentialFile * pReadFile = NUL	
-		std::unique_ptr<SequentialFile> pReadFile;
-		std::unique_ptr<WritableFile> pWriteFile;
 		Status objStatus;
 #ifdef USE_ROCKDB
+		std::unique_ptr<SequentialFile> pReadFile;
+		std::unique_ptr<WritableFile> pWriteFile;
 		const EnvOptions options;
 		objStatus = target()->NewSequentialFile(strSrc, &pReadFile, options);
-#else
-		objStatus = target()->NewSequentialFile(strSrc, &pReadFile.get());
+#elif defined USE_LEVELDB
+		WritableFile * pWriteFile = NULL;
+		SequentialFile * pReadFile = NULL;
+		objStatus = target()->NewSequentialFile(strSrc, &pReadFile);
 #endif
 		if (!objStatus.ok())
 		{
@@ -183,7 +183,7 @@ namespace GameDB
 #ifdef USE_ROCKDB
 		objStatus = target()->NewWritableFile(strSrc, &pWriteFile, options);
 #else
-		objStatus = target()->NewWritableFile(strSrc, &pWriteFile.get());
+		objStatus = target()->NewWritableFile(strSrc, &pWriteFile);
 #endif
 		if (!objStatus.ok())
 		{
@@ -234,7 +234,8 @@ namespace GameDB
 		const EnvOptions options;
 		objStatus = target()->NewWritableFile(strDir, &pWriteFile, options);
 #else
-		objStatus = target()->NewWritableFile(strSrc, &pWriteFile.get());
+		WritableFile * pWritableFile = pWriteFile.get();
+		objStatus = target()->NewWritableFile(strDir, &pWritableFile);
 #endif
 		if(!objStatus.ok())
 			return objStatus;

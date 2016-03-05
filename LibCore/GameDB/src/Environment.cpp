@@ -214,18 +214,24 @@ namespace GameDB
 			objOptions.max_open_files = (INT32)llMaxOpenFiles;
 		if (llBlockSize > 0)
 		{
-//			objOptions.block_size = llBlockSize;
+#ifdef USE_LEVELDB
+			objOptions.block_size = llBlockSize;
+#endif
 		}
 		if (llWriteBufferSize > 0) 
 			objOptions.write_buffer_size = llWriteBufferSize;
 		if (llCacheSize > 0)
 		{
-//			objOptions.block_cache = NewLRUCache(llCacheSize);;
+#ifdef USE_LEVELDB
+			objOptions.block_cache = NewLRUCache(llCacheSize);
+#endif
 		}
 		if (CUtil::stricmp(strCompress.c_str(), "snappy") == 0)
 			objOptions.compression = kSnappyCompression;
-		else if (CUtil::stricmp(strCompress.c_str() , "LZ4") == 0)
+#ifdef USE_ROCKSDB
+		else if (CUtil::stricmp(strCompress.c_str(), "LZ4") == 0)
 			objOptions.compression = kLZ4Compression;
+#endif
 		else
 			objOptions.compression = kNoCompression;
 

@@ -107,11 +107,7 @@ def GenerateConfigLoadHeader(filename , types , datas , comments):
 	fileWrite.write(oneTab + "public:\n")
 	fileWrite.write(twoTab + "typedef std::vector<" + g_configPrefix + filename + "> CollectionConfigsT;\n\n")
 	fileWrite.write(oneTab + "public:\n")
-	fileWrite.write(twoTab + "bool LoadFrom(const char* filename);\n")
-	fileWrite.write(twoTab + "bool LoadFrom(const std::string& filename)")
-	fileWrite.write("{ ")
-	fileWrite.write("return LoadFrom(filename.c_str()); ")
-	fileWrite.write("}\n\n")
+	fileWrite.write(twoTab + "bool LoadFrom(const std::string& filename);\n\n")
 	fileWrite.write(oneTab + "public:\n")
 	fileWrite.write(twoTab + g_configPrefix + filename + " & Get(size_t row);\n\n")
 	fileWrite.write(oneTab + "public:\n")
@@ -142,11 +138,11 @@ def GenerateConfigLoadCpp(filename , types , datas , comments):
 	fileWrite.write("#include \"CUtil/inc/CSVReader.h\"\n\n") 
 	fileWrite.write("namespace " + g_xlsNamespace + "\n") 
 	fileWrite.write("{\n") 
-	fileWrite.write(oneTab + "bool " + filename + "::LoadFrom(const char* filename)\n") 
+	fileWrite.write(oneTab + "bool " + filename + "::LoadFrom(const std::string & filepath)\n") 
 	fileWrite.write(oneTab + "{\n") 
 	
 	fileWrite.write(twoTab + "CUtil::CSVReader csv;\n") 
-	fileWrite.write(twoTab + "if(csv.Load(filename) != 0)\n") 
+	fileWrite.write(twoTab + "if(csv.Load(filepath) != 0)\n") 
 	fileWrite.write(threeTab + "return false;\n\n") 
 
 	for index , item in enumerate(types):
@@ -383,10 +379,11 @@ def GenerateConfigManagerCPP():
 	fileWrite.write(twoTab + "MsgAssert_ReF1(strCsvPath.length(), \"ConfigManager::Init error.\");\n\n") 
 	fileWrite.write(twoTab + "if (strCsvPath[strCsvPath.length() - 1] != '/')\n") 
 	fileWrite.write(twoTab + "{\n") 
+	fileWrite.write(threeTab + "strCsvPath = strCsvPath + \"/\";\n") 
+	fileWrite.write(twoTab + "}\n\n") 
 	for sheet , item in g_xlsRecords.items():
-		fileWrite.write(threeTab + "MsgAssert_ReF1(" + g_xlsNamespace + "::" +  "g_p" + sheet + " , \"ConfigManager not Init\")\n") 
-		fileWrite.write(threeTab + "" + g_xlsNamespace + "::" +  "g_p" + sheet + "->LoadFrom(strCsvPath + \"" + sheet + ".tabcsv\");\n\n") 
-	fileWrite.write(twoTab + "}\n") 
+		fileWrite.write(twoTab + "MsgAssert_ReF1(" + g_xlsNamespace + "::" +  "g_p" + sheet + " , \"ConfigManager not Init\")\n") 
+		fileWrite.write(twoTab + "" + g_xlsNamespace + "::" +  "g_p" + sheet + "->LoadFrom(strCsvPath + \"" + sheet + ".tabcsv\");\n\n") 
 	fileWrite.write(twoTab + "return 0;\n") 
 	fileWrite.write(oneTab + "}\n\n") 
 
@@ -642,29 +639,35 @@ def Xlsx2CSV(filepath):
 				
 				row_container = []
 				cur_cell_index = 0
-				for cell in row:
-					if type(cell.value) != type(None):
+				for cell in row:		
+					Str = ""	
+					cur_cell_index = cur_cell_index + 1
+					if type(cell.value) == type(None):
+						if cur_cell_index == 1:
+							break		
+						Str = ""	
+#						LogOutError("error parase filepath" , filepath , "  cur_sheet " , sheet , "  cur_rows_index " , cur_rows_index ,"  cur_cell_index " , cur_cell_index , "  type(cell.value) " , type(cell.value))
+					else:
 						Str = cell.value
 						if type(cell.value) != str:
 							Str = str(cell.value)
 						else:
 							Str = Str.encode('gbk').decode('gbk')
-						if len(Str) >= 1:
-							cur_cell_index = cur_cell_index + 1
-							if cur_cell_index == 1:		# 插入ID
-								if Str in id_list:
-									LogOutDebug("repeat id \'" , Str , "\' in \'" , filepath , " \' file")
-									#LogOutError("repeat id \'" , Str , "\' in \'" , filepath , " \' file")
-								id_list.append(Str)
-							row_container.append(Str)
-						#LogOutDebug("cell.value:" , type(cell.value) , Str)
-					
+
+					if len(Str) >= 0:
+						if cur_cell_index == 1:		# 插入ID
+							if Str in id_list:
+								LogOutDebug("repeat id \'" , Str , "\' in \'" , filepath , " \' file")
+								#LogOutError("repeat id \'" , Str , "\' in \'" , filepath , " \' file")
+							id_list.append(Str)
+						row_container.append(Str)
+
 				if len(row_container) >= 1:	
 					RemovListNewLine(row_container)
-					g_xlsRecords[filename] [cur_rows_index] = row_container
+					g_xlsRecords[filename][cur_rows_index] = row_container
 					csv_file_writer.writerow(row_container)
 					cur_rows_index = cur_rows_index + 1
-					#LogOutDebug("cell.row_container:" , row_container)
+#					LogOutDebug("cell.row_container:" , row_container)
 				
 			cur_sheet_index = cur_sheet_index + 1		
 		csv_file.close()
@@ -708,10 +711,10 @@ def main(argv):
 	global g_xlsImportPath 
 	global g_xlsExportCSVPath
 	global g_xlsExportCPPPath
-#	handleArgs(argv)
-	g_xlsImportPath = "./xls_config"
-	g_xlsExportCSVPath = "../../../bin/vs14.0/x64/DLL_Debug_x64/csv_config"
-	g_xlsExportCPPPath = "../../../vsproject/TestLibCore/CSVConfigs"
+	handleArgs(argv)
+#	g_xlsImportPath = "./xls_config"
+#	g_xlsExportCSVPath = "../../../bin/vs14.0/x64/DLL_Debug_x64/csv_config"
+#	g_xlsExportCPPPath = "../../../vsproject/TestLibCore/CSVConfigs"
 	LogOutInfo("generate csv from path:" + g_xlsImportPath + " csv will export to:" + g_xlsExportCSVPath + " cpp will export to:" + g_xlsExportCPPPath) 
 	start()
 	LogOutInfo("complete generate csv.") 

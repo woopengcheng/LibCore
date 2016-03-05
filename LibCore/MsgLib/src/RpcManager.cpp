@@ -301,7 +301,7 @@ namespace Msg
 
 					if (m_pRpcInterface)
 					{
-						m_pRpcInterface->ResumeRpcCoTask(pTemp->m_ullMsgID);
+// 						m_pRpcInterface->ResumeRpcCoTask(pTemp->m_ullMsgID);
 					}
 				}
 				else

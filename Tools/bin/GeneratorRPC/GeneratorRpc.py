@@ -1219,12 +1219,12 @@ def GenerateRpcCallFuncs():
 					fileRpc.write(twoTab + "return rpc_" + rpc.name + "( pSessionName ,vecTargets , objSrc " + strExcludeDefaultParams + ", pCallback , usPriority , objSyncType);\n" )
 					fileRpc.write(oneTab + "}\n\n")		
 					
-					#生成sessionName方式不带有vec且全局发送的RPC
-					fileRpc.write(oneTab + "static INT32  rpc_" + rpc.name + "(const char * pSessionName , Msg::Object objSrc " + strDefaultParams + " , Msg::RpcCallback * pCallback = NULL , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
-					fileRpc.write(oneTab + "{\n")
-					  
-					fileRpc.write(twoTab + "return rpc_" + rpc.name + "( pSessionName , 0 , objSrc " + strExcludeDefaultParams + ", pCallback , usPriority , objSyncType);\n" )
-					fileRpc.write(oneTab + "}\n\n")	
+#					#生成sessionName方式不带有vec且全局发送的RPC
+#					fileRpc.write(oneTab + "static INT32  rpc_" + rpc.name + "(const char * pSessionName , Msg::Object objSrc " + strDefaultParams + " , Msg::RpcCallback * pCallback = NULL , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
+#					fileRpc.write(oneTab + "{\n")
+#					  
+#					fileRpc.write(twoTab + "return rpc_" + rpc.name + "( pSessionName , 0 , objSrc " + strExcludeDefaultParams + ", pCallback , usPriority , objSyncType);\n" )
+#					fileRpc.write(oneTab + "}\n\n")	
 					
 					#生成strNodeName方式带有vec发送的RPC
 					fileRpc.write(oneTab + "static INT32  rpc_" + rpc.name + "(const std::string & pSessionName , Msg::VecObjects & vecTargets , Msg::Object objSrc " + strDefaultParams + " , Msg::RpcCallback * pCallback = NULL , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
@@ -1242,11 +1242,11 @@ def GenerateRpcCallFuncs():
 					fileRpc.write(oneTab + "}\n\n")	
 							
 					#生成strNodeName方式不带有vec且全局发送的RPC
-					fileRpc.write(oneTab + "static INT32  rpc_" + rpc.name + "(const std::string & pSessionName , Msg::Object objSrc " + strDefaultParams + " , Msg::RpcCallback * pCallback = NULL , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
-					fileRpc.write(oneTab + "{\n")
-					
-					fileRpc.write(twoTab + "return rpc_" + rpc.name + "( pSessionName , 0 , objSrc " + strExcludeDefaultParams + ", pCallback , usPriority , objSyncType);\n" )
-					fileRpc.write(oneTab + "}\n\n")	
+					# fileRpc.write(oneTab + "static INT32  rpc_" + rpc.name + "(const std::string & pSessionName , Msg::Object objSrc " + strDefaultParams + " , Msg::RpcCallback * pCallback = NULL , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
+					# fileRpc.write(oneTab + "{\n")
+					#
+					# fileRpc.write(twoTab + "return rpc_" + rpc.name + "( pSessionName , 0 , objSrc " + strExcludeDefaultParams + ", pCallback , usPriority , objSyncType);\n" )
+					# fileRpc.write(oneTab + "}\n\n")	
 					
 					#生成sessionID方式带有vec发送的RPC
 					fileRpc.write(oneTab + "static INT32  rpc_" + rpc.name + "(INT32 nSessionID , Msg::VecObjects & vecTargets , Msg::Object objSrc " + strDefaultParams + " , Msg::RpcCallback * pCallback = NULL , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
@@ -1264,11 +1264,11 @@ def GenerateRpcCallFuncs():
 					fileRpc.write(oneTab + "}\n\n")	
 										
 					#生成sessionID方式不带有vec且全局发送的RPC
-					fileRpc.write(oneTab + "static INT32  rpc_" + rpc.name + "(INT32 nSessionID , Msg::Object objSrc " + strDefaultParams + " , Msg::RpcCallback * pCallback = NULL , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
-					fileRpc.write(oneTab + "{\n")
+					#fileRpc.write(oneTab + "static INT32  rpc_" + rpc.name + "(INT32 nSessionID , Msg::Object objSrc " + strDefaultParams + " , Msg::RpcCallback * pCallback = NULL , UINT16 usPriority = 0 , Msg::EMSG_SYNC_TYPE objSyncType = " +syncType + ")\n")
+					# fileRpc.write(oneTab + "{\n")
 					
-					fileRpc.write(twoTab + "return rpc_" + rpc.name + "( nSessionID , 0 , objSrc " + strExcludeDefaultParams + ", pCallback , usPriority , objSyncType);\n" )
-					fileRpc.write(oneTab + "}\n\n")	
+					# fileRpc.write(twoTab + "return rpc_" + rpc.name + "( nSessionID , 0 , objSrc " + strExcludeDefaultParams + ", pCallback , usPriority , objSyncType);\n" )
+					# fileRpc.write(oneTab + "}\n\n")	
 					
 		fileRpc.close()
 			
