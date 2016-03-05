@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="CSVConfigs">
+      <UniqueIdentifier>{ddf248d0-fc3a-46f3-8279-99f87757e138}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -24,6 +27,21 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CSVConfigs\ActionConfig.h">
+      <Filter>CSVConfigs</Filter>
+    </ClInclude>
+    <ClInclude Include="CSVConfigs\ActionConfigLoad.h">
+      <Filter>CSVConfigs</Filter>
+    </ClInclude>
+    <ClInclude Include="CSVConfigs\ActivityConfig.h">
+      <Filter>CSVConfigs</Filter>
+    </ClInclude>
+    <ClInclude Include="CSVConfigs\ActivityConfigLoad.h">
+      <Filter>CSVConfigs</Filter>
+    </ClInclude>
+    <ClInclude Include="CSVConfigs\ConfigManager.h">
+      <Filter>CSVConfigs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -31,6 +49,21 @@
     </ClCompile>
     <ClCompile Include="TestLibCore.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CSVConfigs\ActionConfig.cpp">
+      <Filter>CSVConfigs</Filter>
+    </ClCompile>
+    <ClCompile Include="CSVConfigs\ActionConfigLoad.cpp">
+      <Filter>CSVConfigs</Filter>
+    </ClCompile>
+    <ClCompile Include="CSVConfigs\ActivityConfig.cpp">
+      <Filter>CSVConfigs</Filter>
+    </ClCompile>
+    <ClCompile Include="CSVConfigs\ActivityConfigLoad.cpp">
+      <Filter>CSVConfigs</Filter>
+    </ClCompile>
+    <ClCompile Include="CSVConfigs\ConfigManager.cpp">
+      <Filter>CSVConfigs</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
