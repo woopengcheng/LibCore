@@ -32,12 +32,33 @@ g_xlsRecords = {}
 g_configPrefix = "S"
 g_loadConfigSuffix = "Load"
 g_xlsNamespace = "Config"
-g_int32Array = 1
-g_int64Array = 2
-g_boolArray = 3
-g_doubleArray = 4
-g_stringArray = 5
+
+g_int32Type = "INT32"
+g_int64Type = "INT64"
+g_boolType = "bool"
+g_doubleType = "double"
+g_stringType = "std::string"
+g_int32ArrayType = "std::vector<INT32>" 
+g_int64ArrayType = "std::vector<INT64>"
+g_boolArrayType = "std::vector<bool>"
+g_doubleArrayType = "std::vector<double>"
+g_stringArrayType = "std::vector<std::string>"
+g_structType = 1
+g_structArrayType = 2
 	
+g_int32Func = "GetInt32"
+g_int64Func = "GetInt64"
+g_boolFunc = "GetBool"
+g_doubleFunc = "GetDouble"
+g_stringFunc = "GetString"
+g_int32ArrayFunc = 6
+g_int64ArrayFunc = 7
+g_boolArrayFunc = 8
+g_doubleArrayFunc = 9
+g_stringArrayFunc = 10
+g_structFunc = 11
+g_structArrayFunc = 12
+
 oneTab = "\t"
 twoTab = oneTab + "\t"
 threeTab = twoTab + "\t"
@@ -71,12 +92,41 @@ def GenerateCPP():
 		GenerateConfigLoadCpp(sheet , item[2] , item[1] , item[0])
 		GenerateConfigHeader(sheet , item[2] , item[1] , item[0])
 		GenerateConfigCpp(sheet , item[2] , item[1] , item[0])
-		for row , item2 in g_xlsRecords[sheet].items():
-			#LogOutInfo("row" , row , "size:" , len(item2) , "size2" , len(item2[2]), "size1" , len(item2[1]), "size0" , len(item2[0]))
-			#LogOutInfo("row" , row)
-			pass
-			#GenerateConfigHeader(sheet , item2[2] , item2[1] , item2[0])
 	GenerateConfigManagerCPP()
+
+def GenerateStructData(fileWrite , types , datas , comments):	
+	for index , item in enumerate(types):
+		item_type = GetType(item)
+		if item_type == g_structType:
+			npos = datas[index].find('[')
+			structName = datas[index][0 : npos]
+			structDatas = datas[index][npos + 1 : len(datas[index]) - 1].split(',')
+			fileWrite.write("\n" + twoTab + "//" + comments[index] + "\n") 
+			fileWrite.write(twoTab + "struct " + g_configPrefix + structName + "\n");
+			fileWrite.write(twoTab + "{\n");
+			childItems = item.split(',')
+			if len(childItems) != len(structDatas):
+				LogOutError("parase struct error.invalid size . name=" , structName , ":childItems size=" , len(childItems) , ":structDatas size=" , len(structDatas))
+			for indexChild , childItem in enumerate(childItems):
+				fileWrite.write(threeTab + GetType(childItem) + GetTypeTab(childItem) + structDatas[indexChild] + ";\n")
+			fileWrite.write(twoTab + "}" + structName + ";\n");
+		elif item_type == g_structArrayType:
+			npos = datas[index].find('[')
+			structName = datas[index][0 : npos]
+			structDatas = datas[index][npos + 1 : len(datas[index]) - 1].split(',')
+			fileWrite.write("\n" + twoTab + "//" + comments[index] + "\n") 
+			fileWrite.write(twoTab + "struct " + g_configPrefix + structName + "\n");
+			fileWrite.write(twoTab + "{\n");
+			childItems = item.split(',')
+			if len(childItems) != len(structDatas):
+				LogOutError("parase struct error.invalid size . name=" , structName , ":childItems size=" , len(childItems) , ":structDatas size=" , len(structDatas))
+			for indexChild , childItem in enumerate(childItems):
+				fileWrite.write(threeTab + GetType(childItem) + GetTypeTab(childItem) + structDatas[indexChild] + ";\n")
+			fileWrite.write(twoTab + "}" + ";\n");
+			fileWrite.write(twoTab + "std::vector<" + g_configPrefix + structName + ">" + twoTab + "vec" + structName + ";\n");
+		else:
+			fileWrite.write(twoTab + item_type + GetTypeTab(item) + oneTab + datas[index] + ";"  + oneTab)
+			fileWrite.write("//" + comments[index] + "\n") 
 
 def GenerateConfigLoadHeader(filename , types , datas , comments):
 	filename = filename + g_loadConfigSuffix
@@ -95,10 +145,7 @@ def GenerateConfigLoadHeader(filename , types , datas , comments):
 	fileWrite.write("{\n") 
 	fileWrite.write(oneTab + "struct " + g_configPrefix + filename + "\n") 
 	fileWrite.write(oneTab + "{\n") 
-	 
-	for index , item in enumerate(types):
-		fileWrite.write(twoTab + GetType(item) + GetTypeTab(item) + datas[index] + ";"  + oneTab)
-		fileWrite.write("//" + comments[index] + "\n") 
+	GenerateStructData(fileWrite , types , datas , comments)
 	fileWrite.write(oneTab + "};\n\n\n") 
 			
 	#以下是生成导入数据接口
@@ -146,8 +193,17 @@ def GenerateConfigLoadCpp(filename , types , datas , comments):
 	fileWrite.write(threeTab + "return false;\n\n") 
 
 	for index , item in enumerate(types):
-		fileWrite.write(twoTab + "size_t index_" + datas[index] + " = csv.GetIndex(\"" + datas[index] + "\", 1);\n") 
-		fileWrite.write(twoTab + "MsgAssert_Re0(index_" + datas[index] + " != (size_t)-1 , \"error " + datas[index] + "\");\n\n") 
+		item_type = GetType(item)
+		if item_type == g_structType:
+			npos = datas[index].find('[')
+			structName = datas[index][0 : npos]
+			fileWrite.write(twoTab + "size_t index_" + structName + " = csv.GetIndex(\"" + datas[index] + "\", 1);\n") 
+			fileWrite.write(twoTab + "MsgAssert_Re0(index_" + structName + " != (size_t)-1 , \"error " + datas[index] + "\");\n\n") 
+		elif item_type == g_structArrayType:
+			pass
+		else:
+			fileWrite.write(twoTab + "size_t index_" + datas[index] + " = csv.GetIndex(\"" + datas[index] + "\", 1);\n") 
+			fileWrite.write(twoTab + "MsgAssert_Re0(index_" + datas[index] + " != (size_t)-1 , \"error " + datas[index] + "\");\n\n") 
 
 	fileWrite.write(twoTab + "for (size_t row = 3; row < csv.Count(); ++row)\n") 
 	fileWrite.write(twoTab + "{\n") 
@@ -155,7 +211,7 @@ def GenerateConfigLoadCpp(filename , types , datas , comments):
 	for index , item in enumerate(types):
 		Str = GetTypeFunc(item)
 		if type(Str) != str :
-			if Str == g_int32Array:
+			if Str == g_int32ArrayFunc:
 				fileWrite.write(threeTab + "{\n") 
 				fileWrite.write(fourTab + "std::vector<std::string> vals;\n") 
 				fileWrite.write(fourTab + "std::string __tmp = csv.GetString(row, index_" + datas[index] + ");\n") 
@@ -163,7 +219,7 @@ def GenerateConfigLoadCpp(filename , types , datas , comments):
 				fileWrite.write(fourTab + "for (size_t i = 0; i < vals.size(); ++i)\n") 
 				fileWrite.write(fiveTab + "conf." + datas[index] + ".push_back((INT32)CUtil::atoi(vals[i].c_str()));\n") 
 				fileWrite.write(threeTab + "}\n\n") 
-			elif Str == g_int64Array:
+			elif Str == g_int64ArrayFunc:
 				fileWrite.write(threeTab + "{\n") 
 				fileWrite.write(fourTab + "std::vector<std::string> vals;\n") 
 				fileWrite.write(fourTab + "std::string __tmp = csv.GetString(row, index_" + datas[index] + ");\n") 
@@ -171,7 +227,7 @@ def GenerateConfigLoadCpp(filename , types , datas , comments):
 				fileWrite.write(fourTab + "for (size_t i = 0; i < vals.size(); ++i)\n") 
 				fileWrite.write(fiveTab + "conf." + datas[index] + ".push_back((INT64)CUtil::atoi(vals[i].c_str()));\n") 
 				fileWrite.write(threeTab + "}\n\n") 
-			elif Str == g_boolArray:
+			elif Str == g_boolArrayFunc:
 				fileWrite.write(threeTab + "{\n") 
 				fileWrite.write(fourTab + "std::vector<std::string> vals;\n") 
 				fileWrite.write(fourTab + "std::string __tmp = csv.GetString(row, index_" + datas[index] + ");\n") 
@@ -179,7 +235,7 @@ def GenerateConfigLoadCpp(filename , types , datas , comments):
 				fileWrite.write(fourTab + "for (size_t i = 0; i < vals.size(); ++i)\n") 
 				fileWrite.write(fiveTab + "conf." + datas[index] + ".push_back((bool)CUtil::atoi(vals[i].c_str()));\n") 
 				fileWrite.write(threeTab + "}\n\n") 
-			elif Str == g_doubleArray:
+			elif Str == g_doubleArrayFunc:
 				fileWrite.write(threeTab + "{\n") 
 				fileWrite.write(fourTab + "std::vector<std::string> vals;\n") 
 				fileWrite.write(fourTab + "std::string __tmp = csv.GetString(row, index_" + datas[index] + ");\n") 
@@ -187,11 +243,86 @@ def GenerateConfigLoadCpp(filename , types , datas , comments):
 				fileWrite.write(fourTab + "for (size_t i = 0; i < vals.size(); ++i)\n") 
 				fileWrite.write(fiveTab + "conf." + datas[index] + ".push_back((float)CUtil::atof(vals[i].c_str()));\n") 
 				fileWrite.write(threeTab + "}\n\n") 
-			elif Str == g_stringArray:
+			elif Str == g_stringArrayFunc:
 				fileWrite.write(threeTab + "{\n") 
 				fileWrite.write(fourTab + "std::string __tmp = csv.GetString(row, index_" + datas[index] + ");\n") 
 				fileWrite.write(fourTab + "CUtil::tokenize(__tmp, conf." + datas[index] + ", \",\", \"\", \"\\\"\");\n") 
 				fileWrite.write(threeTab + "}\n\n") 
+			elif Str == g_structFunc:
+				fileWrite.write(threeTab + "{\n") 
+
+				npos = datas[index].find('[')
+				structName = datas[index][0 : npos]
+				structDatas = datas[index][npos + 1 : len(datas[index]) - 1].split(',')
+				childItems = item.split(',')
+
+				fileWrite.write(fourTab + "std::vector<std::string> vals;\n") 
+				fileWrite.write(fourTab + "std::string __tmp = csv.GetString(row, index_" + structName + ");\n") 
+				fileWrite.write(fourTab + "CUtil::tokenize(__tmp, vals, \",\", \"\", \"\\\"\");\n") 
+				fileWrite.write(fourTab + "for (size_t i = 0; i < vals.size(); ++i)\n")
+				fileWrite.write(fourTab + "{\n") 
+				for indexChild , childItem in enumerate(childItems):
+					fileWrite.write(fiveTab + "if(i == " + str(indexChild) + ")\n")
+					fileWrite.write(fiveTab + "{\n") 
+
+					childItemType = GetType(childItem)
+					if childItemType == g_boolType:
+						strVal = "bool val = "
+						strVal = strVal + "CUtil::strtobool(vals[i].c_str()) >= 0;"
+					elif childItemType == g_int32Type:
+						strVal = "INT32 val = "
+						strVal = strVal + "(INT32)CUtil::atoi(vals[i].c_str());"
+					elif childItemType == g_int64Type:
+						strVal = "INT64 val = "
+						strVal = strVal + "(INT64)CUtil::atoi(vals[i].c_str());"
+					elif childItemType == g_doubleType:
+						strVal = "double val = "
+						strVal = strVal + "(float)CUtil::atof(vals[i].c_str());"
+					elif childItemType == g_stringType:
+						strVal = "std::string val = "
+						strVal = strVal + "vals[i].c_str();"
+					
+					fileWrite.write(sixTab + strVal + "\n") 
+					fileWrite.write(sixTab + "conf." + structName + "." + structDatas[indexChild] + " = val;\n") 
+
+					fileWrite.write(fiveTab + "}\n") 
+				fileWrite.write(fourTab + "}\n") 
+				fileWrite.write(threeTab + "}\n\n") 
+
+			elif Str == g_structArrayFunc:				
+				fileWrite.write(threeTab + "{\n") 
+
+				npos = datas[index].find('[')
+				structName = datas[index][0 : npos]
+				structDatas = datas[index][npos + 1 : len(datas[index]) - 1].split(',')
+
+				fileWrite.write(fourTab + "std::vector<std::string> vals;\n") 
+				fileWrite.write(fourTab + "std::string __tmp = csv.GetString(row, index_" + structName + ");\n") 
+				fileWrite.write(fourTab + "CUtil::tokenize(__tmp, vals, \",\", \"\", \"\\\"\");\n") 
+				fileWrite.write(fourTab + "for (size_t i = 0; i < vals.size(); ++i)\n")
+				fileWrite.write(fourTab + "{\n") 
+				for indexChild , childItem in enumerate(childItems):
+					fileWrite.write(fiveTab + "if(i == " +  indexChild + ")\n")
+					fileWrite.write(fiveTab + "{\n") 
+					fileWrite.write(fiveTab + "}\n") 
+
+					childItemType = GetType(childItem)
+					strVal = ""
+					if childItem == g_boolType:
+						strVal = "(bool)CUtil::atoi(vals[i].c_str());"
+					elif childItem == g_int32Type:
+						strVal = "(INT32)CUtil::atoi(vals[i].c_str());"
+					elif childItem == g_int64Type:
+						strVal = "(INT64)CUtil::atoi(vals[i].c_str());"
+					elif childItem == g_doubleType:
+						strVal = "(float)CUtil::atof(vals[i].c_str());"
+					elif childItem == g_stringType:
+						strVal = "vals[i].c_str();"
+
+					fileWrite.write(sixTab + "conf." + structName + "." + structDatas[indexChild] + " = strVal;\n") 
+				fileWrite.write(fourTab + "}\n") 
+				fileWrite.write(threeTab + "}\n\n") 
+				
 		else:
 			fileWrite.write(threeTab + "conf." + datas[index] + " = csv." + Str + "(row , index_" + datas[index] + ");\n") 
 			
@@ -229,11 +360,8 @@ def GenerateConfigHeader(filename , types , datas , comments):
 	fileWrite.write("{\n\n") 
 
 	fileWrite.write(oneTab + "struct " + dataConfig + "\n") 
-	fileWrite.write(oneTab + "{\n") 
-	 
-	for index , item in enumerate(types):
-		fileWrite.write(twoTab + GetType(item) + GetTypeTab(item) + datas[index] + ";"  + oneTab)
-		fileWrite.write("//" + comments[index] + "\n") 
+	fileWrite.write(oneTab + "{\n") 	 
+	GenerateStructData(fileWrite , types , datas , comments)
 	fileWrite.write(oneTab + "};\n\n\n") 
 			
 	fileWrite.write(oneTab + "class " + filename + "\n") 
@@ -282,7 +410,30 @@ def GenerateConfigCpp(filename , types , datas , comments):
 	fileWrite.write(threeTab + g_xlsNamespace + "::" + dataConfig + " data = {0};\n") 
 	
 	for index , item in enumerate(types):
-		fileWrite.write(threeTab + "data." + datas[index] + " = config." + datas[index] + ";\n") 
+		itemType = GetType(item)
+		if itemType == g_structType:
+			npos = datas[index].find('[')
+			structName = datas[index][0 : npos]
+			structDatas = datas[index][npos + 1 : len(datas[index]) - 1].split(',')
+			childItems = item.split(',')
+
+			fileWrite.write(threeTab + "{\n") 
+			for indexChild , childItem in enumerate(childItems):
+				fileWrite.write(fourTab + "data." + structName + "." + structDatas[indexChild] + " = config." + structName + "." + structDatas[indexChild] + ";\n") 
+			fileWrite.write(threeTab + "}\n")
+
+		elif itemType == g_structArrayType:			
+			npos = datas[index].find('[')
+			structName = datas[index][0 : npos]
+			structDatas = datas[index][npos + 1 : len(datas[index]) - 1].split(',')
+			childItems = item.split(',')
+
+			fileWrite.write(threeTab + "{\n") 
+			for indexChild , childItem in enumerate(childItems):
+				fileWrite.write(fourTab + "data." + structName + "." + structDatas[indexChild] + " = config." + structName + "." + structDatas[indexChild] + ";\n") 
+			fileWrite.write(threeTab + "}\n")
+		else:
+			fileWrite.write(threeTab + "data." + datas[index] + " = config." + datas[index] + ";\n") 
 
 	fileWrite.write(threeTab + "m_mapConfigs.insert(std::make_pair(data." + datas[0] + ",data));\n") 
 	fileWrite.write(twoTab + "}\n") 
@@ -400,7 +551,7 @@ def GenerateConfigManagerCPP():
 def RemoveNewLine(str):
 	pp = ""
 	for tt in str.splitlines():
-		tt = tt.rstrip()
+		tt = tt.strip().lstrip().rstrip()
 		pp = pp+tt
 	return pp
 
@@ -411,40 +562,48 @@ def RemovListNewLine(List):
 def GetType(item):
 	if  item.lower() == "int".lower() or\
 		item.lower() == "int32".lower():
-		return "INT32"
+		return g_int32Type
 	elif item.lower() == "int64".lower() or\
 		item.lower() == "long".lower():
-		return "INT64"
+		return g_int64Type
 	elif item.lower() == "double".lower() or\
 		item.lower() == "float".lower():
-		return "double"
+		return g_doubleType
 	elif item.lower() == "bool".lower():
-		return "bool"
+		return g_boolType
 	elif item.lower() == "string".lower():
-		return "std::string"
+		return g_stringType
 	elif item.lower() == "int[]".lower() or\
 		item.lower() == "[]int".lower() or\
 		item.lower() == "[]int32".lower() or\
 		item.lower() == "int32[]".lower():
-		return "std::vector<INT32>" 
+		return g_int32ArrayType
 	elif item.lower() == "int64[]".lower() or\
 		item.lower() == "[]int64".lower() or\
 		item.lower() == "[]long".lower() or\
 		item.lower() == "long[]".lower():
-		return "std::vector<INT64>"
+		return g_int64ArrayType
 	elif item.lower() == "double[]".lower() or\
 		item.lower() == "[]double".lower() or\
 		item.lower() == "[]float".lower() or\
 		item.lower() == "float[]".lower():
-		return "std::vector<double>"
+		return g_doubleArrayType
 	elif item.lower() == "string[]".lower() or\
 		item.lower() == "[]string".lower() or\
 		item.lower() == "[]std::string".lower() or\
 		item.lower() == "std::string[]".lower():
-		return "std::vector<std::string>"
+		return g_stringArrayType
 	elif item.lower() == "bool[]".lower() or\
 		item.lower() == "[]bool".lower():
-		return "std::vector<bool>"
+		return g_boolArrayType
+	elif item.lower().index(",") >= 0 and \
+		item.lower()[0] != "[" and\
+		item.lower()[len(item.lower()) - 1] != "]":
+		return g_structType
+	elif item.lower().index(",") >= 0 and \
+		item.lower()[0] == "[" and\
+		item.lower()[len(item.lower()) - 1] == "]":
+		return g_structArrayType
 	else:
 		LogOutError("GetType error." , item)
 
@@ -453,40 +612,48 @@ def GetType(item):
 def GetTypeFunc(item):
 	if  item.lower() == "int".lower() or\
 		item.lower() == "int32".lower():
-		return "GetInt32"
+		return g_int32Func
 	elif item.lower() == "int64".lower() or\
 		item.lower() == "long".lower():
-		return "GetInt64"
+		return g_int64Func
 	elif item.lower() == "double".lower() or\
 		item.lower() == "float".lower():
-		return "GetDouble"
+		return g_doubleFunc
 	elif item.lower() == "bool".lower():
-		return "GetBool"
+		return g_boolFunc
 	elif item.lower() == "string".lower():
-		return "GetString"
+		return g_stringFunc
 	elif item.lower() == "int[]".lower() or\
 		item.lower() == "[]int".lower() or\
 		item.lower() == "[]int32".lower() or\
 		item.lower() == "int32[]".lower():
-		return g_int32Array
+		return g_int32ArrayFunc
 	elif item.lower() == "int64[]".lower() or\
 		item.lower() == "[]int64".lower() or\
 		item.lower() == "[]long".lower() or\
 		item.lower() == "long[]".lower():
-		return g_int64Array
+		return g_int64ArrayFunc
 	elif item.lower() == "double[]".lower() or\
 		item.lower() == "[]double".lower() or\
 		item.lower() == "[]float".lower() or\
 		item.lower() == "float[]".lower():
-		return g_doubleArray
+		return g_doubleArrayFunc
 	elif item.lower() == "string[]".lower() or\
 		item.lower() == "[]string".lower() or\
 		item.lower() == "[]std::string".lower() or\
 		item.lower() == "std::string[]".lower():
-		return g_stringArray
+		return g_stringArrayFunc
 	elif item.lower() == "bool[]".lower() or\
 		item.lower() == "[]bool".lower():
-		return g_boolArray
+		return g_boolArrayFunc
+	elif item.lower().index(",") >= 0 and \
+		item.lower()[0] != "[" and\
+		item.lower()[len(item.lower()) - 1] != "]":
+		return g_structFunc
+	elif item.lower().index(",") >= 0 and \
+		item.lower()[0] == "[" and\
+		item.lower()[len(item.lower()) - 1] == "]":
+		return g_structArrayFunc
 	else:
 		LogOutError("GetTypeFunc error." , item)
 
@@ -529,8 +696,16 @@ def GetTypeTab(item):
 		item.lower() == "[]std::string".lower() or\
 		item.lower() == "std::string[]".lower():
 		return oneTab
+	elif item.lower().index(",") >= 0 and \
+		item.lower()[0] != "[" and\
+		item.lower()[len(item.lower()) - 1] != "]":
+		return twoTab
+	elif item.lower().index(",") >= 0 and \
+		item.lower()[0] == "[" and\
+		item.lower()[len(item.lower()) - 1] == "]":
+		return oneTab
 	else:
-		LogOutError("GetTypeTab error." , item)
+		return twoTab
 
 	return oneTab
 
@@ -654,7 +829,9 @@ def Xlsx2CSV(filepath):
 						else:
 							Str = Str.encode('gbk').decode('gbk')
 
-					if len(Str) >= 0:
+					if len(Str) >= 0:						
+						if cur_rows_index < 4:
+							Str = ''.join([x for x in Str if x != " "]) 
 						if cur_cell_index == 1:		# 插入ID
 							if Str in id_list:
 								LogOutDebug("repeat id \'" , Str , "\' in \'" , filepath , " \' file")
@@ -711,10 +888,10 @@ def main(argv):
 	global g_xlsImportPath 
 	global g_xlsExportCSVPath
 	global g_xlsExportCPPPath
-	handleArgs(argv)
-#	g_xlsImportPath = "./xls_config"
-#	g_xlsExportCSVPath = "../../../bin/vs14.0/x64/DLL_Debug_x64/csv_config"
-#	g_xlsExportCPPPath = "../../../vsproject/TestLibCore/CSVConfigs"
+	#handleArgs(argv)
+	g_xlsImportPath = "./xls_config"
+	g_xlsExportCSVPath = "../../../bin/vs14.0/x64/DLL_Debug_x64/csv_config"
+	g_xlsExportCPPPath = "../../../vsproject/TestLibCore/CSVConfigs"
 	LogOutInfo("generate csv from path:" + g_xlsImportPath + " csv will export to:" + g_xlsExportCSVPath + " cpp will export to:" + g_xlsExportCPPPath) 
 	start()
 	LogOutInfo("complete generate csv.") 

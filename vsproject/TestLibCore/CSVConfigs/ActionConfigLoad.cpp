@@ -42,6 +42,9 @@ namespace Config
 		size_t index_isLocal = csv.GetIndex("isLocal", 1);
 		MsgAssert_Re0(index_isLocal != (size_t)-1 , "error isLocal");
 
+		size_t index_TestStruct = csv.GetIndex("TestStruct[test1,test2,test3,test4,test5]", 1);
+		MsgAssert_Re0(index_TestStruct != (size_t)-1 , "error TestStruct[test1,test2,test3,test4,test5]");
+
 		for (size_t row = 3; row < csv.Count(); ++row)
 		{
 			SActionConfigLoad conf;
@@ -72,6 +75,40 @@ namespace Config
 
 			conf.col_1 = csv.GetInt64(row , index_col_1);
 			conf.isLocal = csv.GetBool(row , index_isLocal);
+			{
+				std::vector<std::string> vals;
+				std::string __tmp = csv.GetString(row, index_TestStruct);
+				CUtil::tokenize(__tmp, vals, ",", "", "\"");
+				for (size_t i = 0; i < vals.size(); ++i)
+				{
+					if(i == 0)
+					{
+						bool val = CUtil::strtobool(vals[i].c_str()) >= 0;
+						conf.TestStruct.test1 = val;
+					}
+					if(i == 1)
+					{
+						INT64 val = (INT64)CUtil::atoi(vals[i].c_str());
+						conf.TestStruct.test2 = val;
+					}
+					if(i == 2)
+					{
+						double val = (float)CUtil::atof(vals[i].c_str());
+						conf.TestStruct.test3 = val;
+					}
+					if(i == 3)
+					{
+						INT32 val = (INT32)CUtil::atoi(vals[i].c_str());
+						conf.TestStruct.test4 = val;
+					}
+					if(i == 4)
+					{
+						std::string val = vals[i].c_str();
+						conf.TestStruct.test5 = val;
+					}
+				}
+			}
+
 			m_vtConfigs.push_back(conf);
 		}
 

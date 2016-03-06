@@ -28,6 +28,13 @@ namespace Config
 			data.start_x = config.start_x;
 			data.col_1 = config.col_1;
 			data.isLocal = config.isLocal;
+			{
+				data.TestStruct.test1 = config.TestStruct.test1;
+				data.TestStruct.test2 = config.TestStruct.test2;
+				data.TestStruct.test3 = config.TestStruct.test3;
+				data.TestStruct.test4 = config.TestStruct.test4;
+				data.TestStruct.test5 = config.TestStruct.test5;
+			}
 			m_mapConfigs.insert(std::make_pair(data.curve_id,data));
 		}
 		return true;
