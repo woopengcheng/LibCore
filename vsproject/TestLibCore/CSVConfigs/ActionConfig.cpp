@@ -35,6 +35,20 @@ namespace Config
 				data.TestStruct.test4 = config.TestStruct.test4;
 				data.TestStruct.test5 = config.TestStruct.test5;
 			}
+			{
+				std::vector<SActionConfigLoad::STestStructArray>::iterator iter = config.vecTestStructArray.begin();
+				std::vector<SActionConfigLoad::STestStructArray>::iterator end = config.vecTestStructArray.end();
+				for (; iter != end;++iter)
+				{
+					SActionConfig::STestStructArray array;
+					array.test1 = iter->test1;
+					array.test2 = iter->test2;
+					array.test3 = iter->test3;
+					array.test4 = iter->test4;
+					array.test5 = iter->test5;
+					data.vecTestStructArray.push_back(array);
+				}
+			}
 			m_mapConfigs.insert(std::make_pair(data.curve_id,data));
 		}
 		return true;

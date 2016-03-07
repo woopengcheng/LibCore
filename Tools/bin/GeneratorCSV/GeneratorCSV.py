@@ -118,6 +118,7 @@ def GenerateStructData(fileWrite , types , datas , comments):
 			fileWrite.write("\n" + twoTab + "//" + comments[index] + "\n") 
 			fileWrite.write(twoTab + "struct " + g_configPrefix + structName + "\n");
 			fileWrite.write(twoTab + "{\n");
+			item = item.replace('[' , '').replace(']' , '')
 			childItems = item.split(',')
 			if len(childItems) != len(structDatas):
 				LogOutError("parase struct error.invalid size . name=" , structName , ":childItems size=" , len(childItems) , ":structDatas size=" , len(structDatas))
@@ -201,7 +202,10 @@ def GenerateConfigLoadCpp(filename , types , datas , comments):
 			fileWrite.write(twoTab + "size_t index_" + structName + " = csv.GetIndex(\"" + datas[index] + "\", 1);\n") 
 			fileWrite.write(twoTab + "MsgAssert_Re0(index_" + structName + " != (size_t)-1 , \"error " + datas[index] + "\");\n\n") 
 		elif item_type == g_structArrayType:
-			pass
+			npos = datas[index].find('[')
+			structName = datas[index][0 : npos]
+			fileWrite.write(twoTab + "size_t index_" + structName + " = csv.GetIndex(\"" + datas[index] + "\", 1);\n") 
+			fileWrite.write(twoTab + "MsgAssert_Re0(index_" + structName + " != (size_t)-1 , \"error " + datas[index] + "\");\n\n") 
 		else:
 			fileWrite.write(twoTab + "size_t index_" + datas[index] + " = csv.GetIndex(\"" + datas[index] + "\", 1);\n") 
 			fileWrite.write(twoTab + "MsgAssert_Re0(index_" + datas[index] + " != (size_t)-1 , \"error " + datas[index] + "\");\n\n") 
@@ -269,7 +273,7 @@ def GenerateConfigLoadCpp(filename , types , datas , comments):
 					childItemType = GetType(childItem)
 					if childItemType == g_boolType:
 						strVal = "bool val = "
-						strVal = strVal + "CUtil::strtobool(vals[i].c_str()) >= 0;"
+						strVal = strVal + "CUtil::strtobool(vals[i].c_str()) >= 1;"
 					elif childItemType == g_int32Type:
 						strVal = "INT32 val = "
 						strVal = strVal + "(INT32)CUtil::atoi(vals[i].c_str());"
@@ -290,40 +294,58 @@ def GenerateConfigLoadCpp(filename , types , datas , comments):
 				fileWrite.write(fourTab + "}\n") 
 				fileWrite.write(threeTab + "}\n\n") 
 
-			elif Str == g_structArrayFunc:				
+			elif Str == g_structArrayFunc:		
 				fileWrite.write(threeTab + "{\n") 
 
 				npos = datas[index].find('[')
 				structName = datas[index][0 : npos]
 				structDatas = datas[index][npos + 1 : len(datas[index]) - 1].split(',')
-
+				childItems = item.replace('[' , '').replace(']' , '').split(',')
+				
 				fileWrite.write(fourTab + "std::vector<std::string> vals;\n") 
 				fileWrite.write(fourTab + "std::string __tmp = csv.GetString(row, index_" + structName + ");\n") 
-				fileWrite.write(fourTab + "CUtil::tokenize(__tmp, vals, \",\", \"\", \"\\\"\");\n") 
+				fileWrite.write(fourTab + "CUtil::tokenize(__tmp, vals, \"]\", \"\", \"\\\"\");\n") 
 				fileWrite.write(fourTab + "for (size_t i = 0; i < vals.size(); ++i)\n")
 				fileWrite.write(fourTab + "{\n") 
+				fileWrite.write(fiveTab + "std::string strVal = vals[i];\n") 
+				fileWrite.write(fiveTab + "if (strVal[0] == '[')\n") 
+				fileWrite.write(sixTab + "strVal.assign(vals[i], 1, vals[i].length() - 1);\n\n") 
+				fileWrite.write(fiveTab + g_configPrefix + filename + "::" + g_configPrefix + structName + "	" + "array;\n") 
+				fileWrite.write(fiveTab + "std::vector<std::string> vals2;\n") 
+				fileWrite.write(fiveTab + "CUtil::tokenize(strVal, vals2, \",\", \"\", \"\\\"\");\n") 
+				fileWrite.write(fiveTab + "for (size_t j = 0; j < vals2.size(); ++j)\n") 
+				fileWrite.write(fiveTab + "{\n")
+				#childItems = re.split('(\[.*\])' , item)
 				for indexChild , childItem in enumerate(childItems):
-					fileWrite.write(fiveTab + "if(i == " +  indexChild + ")\n")
-					fileWrite.write(fiveTab + "{\n") 
-					fileWrite.write(fiveTab + "}\n") 
+					fileWrite.write(sixTab + "if(j == " + str(indexChild) + ")\n")
+					fileWrite.write(sixTab + "{\n") 
 
 					childItemType = GetType(childItem)
-					strVal = ""
-					if childItem == g_boolType:
-						strVal = "(bool)CUtil::atoi(vals[i].c_str());"
-					elif childItem == g_int32Type:
-						strVal = "(INT32)CUtil::atoi(vals[i].c_str());"
-					elif childItem == g_int64Type:
-						strVal = "(INT64)CUtil::atoi(vals[i].c_str());"
-					elif childItem == g_doubleType:
-						strVal = "(float)CUtil::atof(vals[i].c_str());"
-					elif childItem == g_stringType:
-						strVal = "vals[i].c_str();"
+					if childItemType == g_boolType:
+						strVal = "bool val = "
+						strVal = strVal + "CUtil::strtobool(vals2[j].c_str()) >= 1;"
+					elif childItemType == g_int32Type:
+						strVal = "INT32 val = "
+						strVal = strVal + "(INT32)CUtil::atoi(vals2[j].c_str());"
+					elif childItemType == g_int64Type:
+						strVal = "INT64 val = "
+						strVal = strVal + "(INT64)CUtil::atoi(vals2[j].c_str());"
+					elif childItemType == g_doubleType:
+						strVal = "double val = "
+						strVal = strVal + "(float)CUtil::atof(vals2[j].c_str());"
+					elif childItemType == g_stringType:
+						strVal = "std::string val = "
+						strVal = strVal + "vals2[j].c_str();"
+					
+					fileWrite.write(sixTab + oneTab + strVal + "\n") 
+					fileWrite.write(sixTab + oneTab  + "array." + structDatas[indexChild] + " = val;\n") 
 
-					fileWrite.write(sixTab + "conf." + structName + "." + structDatas[indexChild] + " = strVal;\n") 
+					fileWrite.write(sixTab + "}\n") 
+				fileWrite.write(fiveTab + "}\n") 
+				fileWrite.write(fiveTab + "conf.vec" + structName + ".push_back(array);\n") 
 				fileWrite.write(fourTab + "}\n") 
 				fileWrite.write(threeTab + "}\n\n") 
-				
+
 		else:
 			fileWrite.write(threeTab + "conf." + datas[index] + " = csv." + Str + "(row , index_" + datas[index] + ");\n") 
 			
@@ -430,8 +452,15 @@ def GenerateConfigCpp(filename , types , datas , comments):
 			childItems = item.split(',')
 
 			fileWrite.write(threeTab + "{\n") 
+			fileWrite.write(fourTab + "std::vector<" + g_configPrefix + loadConfig + "::" + g_configPrefix + structName + ">::iterator iter = config.vec" + structName + ".begin();\n") 
+			fileWrite.write(fourTab + "std::vector<" + g_configPrefix + loadConfig + "::" + g_configPrefix + structName + ">::iterator end = config.vec" + structName + ".end();\n") 
+			fileWrite.write(fourTab + "for (; iter != end;++iter)\n") 
+			fileWrite.write(fourTab + "{\n") 
+			fileWrite.write(fiveTab + g_configPrefix + filename + "::" + g_configPrefix + structName + " array;\n")
 			for indexChild , childItem in enumerate(childItems):
-				fileWrite.write(fourTab + "data." + structName + "." + structDatas[indexChild] + " = config." + structName + "." + structDatas[indexChild] + ";\n") 
+				fileWrite.write(fiveTab + "array." + structDatas[indexChild] + " = iter->" + structDatas[indexChild] + ";\n")
+			fileWrite.write(fiveTab + "data.vec" + structName + ".push_back(array);\n")
+			fileWrite.write(fourTab + "}\n")
 			fileWrite.write(threeTab + "}\n")
 		else:
 			fileWrite.write(threeTab + "data." + datas[index] + " = config." + datas[index] + ";\n") 

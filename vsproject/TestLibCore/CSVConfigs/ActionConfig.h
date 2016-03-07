@@ -33,6 +33,17 @@ namespace Config
 			INT32						test4;
 			std::string					test5;
 		}TestStruct;
+
+		//结构体数组
+		struct STestStructArray
+		{
+			bool						test1;
+			INT64						test2;
+			double						test3;
+			INT32						test4;
+			std::string					test5;
+		};
+		std::vector<STestStructArray>		vecTestStructArray;
 	};
 
 

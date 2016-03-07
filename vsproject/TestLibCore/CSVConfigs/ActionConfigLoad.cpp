@@ -45,6 +45,9 @@ namespace Config
 		size_t index_TestStruct = csv.GetIndex("TestStruct[test1,test2,test3,test4,test5]", 1);
 		MsgAssert_Re0(index_TestStruct != (size_t)-1 , "error TestStruct[test1,test2,test3,test4,test5]");
 
+		size_t index_TestStructArray = csv.GetIndex("TestStructArray[test1,test2,test3,test4,test5]", 1);
+		MsgAssert_Re0(index_TestStructArray != (size_t)-1 , "error TestStructArray[test1,test2,test3,test4,test5]");
+
 		for (size_t row = 3; row < csv.Count(); ++row)
 		{
 			SActionConfigLoad conf;
@@ -83,7 +86,7 @@ namespace Config
 				{
 					if(i == 0)
 					{
-						bool val = CUtil::strtobool(vals[i].c_str()) >= 0;
+						bool val = CUtil::strtobool(vals[i].c_str()) >= 1;
 						conf.TestStruct.test1 = val;
 					}
 					if(i == 1)
@@ -106,6 +109,51 @@ namespace Config
 						std::string val = vals[i].c_str();
 						conf.TestStruct.test5 = val;
 					}
+				}
+			}
+
+			{
+				std::vector<std::string> vals;
+				std::string __tmp = csv.GetString(row, index_TestStructArray);
+				CUtil::tokenize(__tmp, vals, "]", "", "\"");
+				for (size_t i = 0; i < vals.size(); ++i)
+				{
+					std::string strVal = vals[i];
+					if (strVal[0] == '[')
+						strVal.assign(vals[i], 1, vals[i].length() - 1);
+
+					SActionConfigLoad::STestStructArray	array;
+					std::vector<std::string> vals2;
+					CUtil::tokenize(strVal, vals2, ",", "", "\"");
+					for (size_t j = 0; j < vals2.size(); ++j)
+					{
+						if(j == 0)
+						{
+							bool val = CUtil::strtobool(vals2[j].c_str()) >= 1;
+							array.test1 = val;
+						}
+						if(j == 1)
+						{
+							INT64 val = (INT64)CUtil::atoi(vals2[j].c_str());
+							array.test2 = val;
+						}
+						if(j == 2)
+						{
+							double val = (float)CUtil::atof(vals2[j].c_str());
+							array.test3 = val;
+						}
+						if(j == 3)
+						{
+							INT32 val = (INT32)CUtil::atoi(vals2[j].c_str());
+							array.test4 = val;
+						}
+						if(j == 4)
+						{
+							std::string val = vals2[j].c_str();
+							array.test5 = val;
+						}
+					}
+					conf.vecTestStructArray.push_back(array);
 				}
 			}
 

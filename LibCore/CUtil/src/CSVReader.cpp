@@ -156,7 +156,7 @@ namespace CUtil
 	{
 		std::string name = this->Get(row, col);
 
-		return CUtil::strtobool(name.c_str()) >= 0;
+		return CUtil::strtobool(name.c_str()) >= 1;
 	}
 
 	size_t CSVReader::GetIndex(const char* name)
