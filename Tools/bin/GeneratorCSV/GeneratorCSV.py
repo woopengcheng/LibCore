@@ -28,6 +28,7 @@ g_xlsImportPath = ""
 g_xlsExportCSVPath = ""
 g_xlsExportCPPPath = ""
 
+g_xlsDeleteRecord = []
 g_xlsRecords = {}
 g_configPrefix = "S"
 g_loadConfigSuffix = "Load"
@@ -510,13 +511,19 @@ def GenerateConfigManagerCPP():
 	fileWrite.write(oneTab + "ConfigManager::ConfigManager()\n") 
 	fileWrite.write(oneTab + "{\n") 
 	for sheet , item in g_xlsRecords.items():
-		fileWrite.write(twoTab + "g_p" + sheet + " = new " + g_xlsNamespace + "::" + sheet + ";\n") 
+		if sheet in g_xlsDeleteRecord:
+			fileWrite.write("// " + twoTab + "g_p" + sheet + " = new " + g_xlsNamespace + "::" + sheet + ";\n") 
+		else:
+			fileWrite.write(twoTab + "g_p" + sheet + " = new " + g_xlsNamespace + "::" + sheet + ";\n") 
 	fileWrite.write(oneTab + "}\n\n") 
 	
 	fileWrite.write(oneTab + "ConfigManager::~ConfigManager()\n") 
 	fileWrite.write(oneTab + "{\n") 
 	for sheet , item in g_xlsRecords.items():
-		fileWrite.write(twoTab + "SAFE_DELETE(" + g_xlsNamespace + "::" +  "g_p" + sheet + ");\n") 
+		if sheet in g_xlsDeleteRecord:
+			fileWrite.write("// " + twoTab + "SAFE_DELETE(" + g_xlsNamespace + "::" +  "g_p" + sheet + ");\n") 
+		else:
+			fileWrite.write(twoTab + "SAFE_DELETE(" + g_xlsNamespace + "::" +  "g_p" + sheet + ");\n") 
 	fileWrite.write(oneTab + "}\n\n") 
 
 	fileWrite.write(oneTab + "ConfigManager & ConfigManager::GetInstance()\n") 
@@ -533,8 +540,12 @@ def GenerateConfigManagerCPP():
 	fileWrite.write(threeTab + "strCsvPath = strCsvPath + \"/\";\n") 
 	fileWrite.write(twoTab + "}\n\n") 
 	for sheet , item in g_xlsRecords.items():
-		fileWrite.write(twoTab + "MsgAssert_ReF1(" + g_xlsNamespace + "::" +  "g_p" + sheet + " , \"ConfigManager not Init\")\n") 
-		fileWrite.write(twoTab + "" + g_xlsNamespace + "::" +  "g_p" + sheet + "->LoadFrom(strCsvPath + \"" + sheet + ".tabcsv\");\n\n") 
+		if sheet in g_xlsDeleteRecord:
+			fileWrite.write("// " + twoTab + "MsgAssert_ReF1(" + g_xlsNamespace + "::" +  "g_p" + sheet + " , \"ConfigManager not Init\")\n") 
+			fileWrite.write("// " + twoTab + "" + g_xlsNamespace + "::" +  "g_p" + sheet + "->LoadFrom(strCsvPath + \"" + sheet + ".tabcsv\");\n\n") 
+		else:
+			fileWrite.write(twoTab + "MsgAssert_ReF1(" + g_xlsNamespace + "::" +  "g_p" + sheet + " , \"ConfigManager not Init\")\n") 
+			fileWrite.write(twoTab + "" + g_xlsNamespace + "::" +  "g_p" + sheet + "->LoadFrom(strCsvPath + \"" + sheet + ".tabcsv\");\n\n") 
 	fileWrite.write(twoTab + "return 0;\n") 
 	fileWrite.write(oneTab + "}\n\n") 
 
@@ -792,6 +803,11 @@ def Xlsx2CSV(filepath):
 		# 一个表中的所有sheet输出到一个csv文件中,所以要保证格式一致.文件名用xlsx文件名
 		filename = os.path.basename(filepath) #获取文件名
 		filename = os.path.splitext(filename.replace(' ', '_'))[0]
+		if filename.find('#') >= 0:
+			filename = filename.replace('#' , '')
+			LogOutInfo("delete filename" , filename )
+			g_xlsDeleteRecord.append(filename)
+
 		csv_filename = '{xlsx}.tabcsv'.format(xlsx=filename)		
 		dirfileout  = dirout + csv_filename
 		#LogOutDebug("dirfileout" , dirfileout )
