@@ -67,17 +67,82 @@ fourTab = threeTab + "\t"
 fiveTab = fourTab + "\t"
 sixTab = fiveTab + "\t"
 
+g_rowComent = 0
+g_rowName = 1
+g_rowType = 2
+g_rowCS = 3
+
 def start(): 
 	LogOutInfo("start generate csv.\n")   
 	CreateExportPathFiles()
 	DeleteExportPathFiles()
 	GenerateCSVFromXLS()
 	LogOutInfo("generate CSV finished.\n") 
+	CheckRecords()
 			
 	LogOutInfo("start generate CPP.\n")   	
 	GenerateCPP()
 	LogOutInfo("generate CPP finished.\n") 
 
+def CheckRecords():
+	for sheet , item in g_xlsRecords.items(): 	#读取sheet
+		for row , rowItem in item.items():	#读取每一行
+			if row == g_rowName:		#命名重名检测,
+				sameName = []
+				for col , colItem in enumerate(rowItem):	#读取每一列
+					colItemName = colItem
+					item_type = GetType(g_xlsRecords[sheet][g_rowType][col])
+										
+					if colItem[0] == '[' or colItem[0].isdigit():
+						LogOutError("sheet=" , sheet , " :row=" , row , " :col=" , col , " item=" , colItem , "use error name .")
+					if item_type == g_structArrayType:
+						if colItem.find('[') <= 0 or colItem.find(']') <= 0:
+							LogOutError("sheet=" , sheet , " :row=" , row , " :col=" , col , " item=" , colItem , "error  .no \'[\' or \']\'.")							
+					
+					if item_type == g_structArrayType or item_type == g_structType:
+						npos = colItem.find('[')
+						colItemName = colItem[0 : npos]
+					
+					if colItemName in sameName:
+						LogOutError("sheet=" , sheet , " :row=" , row , " :col=" , col , " item=" , colItemName , " use one same name .")
+					else:
+						sameName.append(colItemName)						
+			elif row == g_rowType:		#类型
+				for col , colItem in enumerate(rowItem):	#读取每一列
+					item_type = GetType(colItem)					
+				
+			elif row == g_rowCS:	
+				pass	
+			else:
+				for col , colItem in enumerate(rowItem):	#读取每一列
+					item_type = GetType(g_xlsRecords[sheet][g_rowType][col])					
+					if item_type == g_boolType:
+						pass
+					elif item_type == g_int32Type:
+						pass
+					elif item_type == g_int32ArrayType:
+						pass
+					elif item_type == g_int64Type:
+						pass
+					elif item_type == g_int64ArrayType:
+						pass						
+					elif item_type == g_doubleType:
+						pass
+					elif item_type == g_doubleArrayType:
+						pass
+					elif item_type == g_stringType:
+						pass
+					elif item_type == g_stringArrayType:
+						pass
+					elif item_type == g_structType:
+						pass
+					elif item_type == g_structArrayType:
+						pass
+					else:
+						pass
+				
+				
+				
 def GenerateCSVFromXLS():
 	root = g_xlsImportPath
 	
