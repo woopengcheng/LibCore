@@ -78,12 +78,92 @@ def start():
 	DeleteExportPathFiles()
 	GenerateCSVFromXLS()
 	LogOutInfo("generate CSV finished.\n") 
-	CheckRecords()
 			
 	LogOutInfo("start generate CPP.\n")   	
 	GenerateCPP()
 	LogOutInfo("generate CPP finished.\n") 
 
+def GenerateCSVFromXLS():
+	root = g_xlsImportPath
+	
+	files = Search(root ,'.xlsx')
+	for result in files:
+		LogOutInfo("filename:" , result);
+		Xlsx2CSV(result)
+		CheckRecords()
+		GenerateCSV()
+		
+def Xlsx2CSV(filepath):
+	dirout = g_xlsExportCSVPath
+	dirout = dirout + os.sep  #新路径名称
+	try:
+		# 一个表中的所有sheet输出到一个csv文件中,所以要保证格式一致.文件名用xlsx文件名
+		filename = os.path.basename(filepath) #获取文件名
+		filename = os.path.splitext(filename.replace(' ', '_'))[0]
+		if filename.find('#') >= 0:
+			filename = filename.replace('#' , '')
+			LogOutInfo("delete filename" , filename )
+			g_xlsDeleteRecord.append(filename)
+
+		#csv_filename = '{xlsx}.tabcsv'.format(xlsx=filename)		
+		#dirfileout  = dirout + csv_filename
+		#LogOutDebug("dirfileout" , dirfileout )
+		#csv_file = open(dirfileout , 'w' , newline='')
+		
+		#QUOTE_MINIMAL QUOTE_NONE所有的都要加引号.
+		#csv_file_writer = csv.writer(csv_file , delimiter='	', quotechar='"', quoting=csv.QUOTE_ALL)
+		
+		id_list = [] #用于重复的ID去除
+		cur_sheet_index = 0
+		xlsx_file_reader = load_workbook(filepath)
+		g_xlsRecords[filename] = {}
+		for sheet in xlsx_file_reader.get_sheet_names():			
+			cur_rows_index = 0
+			sheet_ranges = xlsx_file_reader[sheet]
+			for row in sheet_ranges.rows:
+				if cur_sheet_index >= 1 and cur_rows_index < 4:
+					cur_rows_index = cur_rows_index + 1
+					continue
+				
+				row_container = []
+				cur_cell_index = 0
+				for cell in row:		
+					Str = ""	
+					cur_cell_index = cur_cell_index + 1
+					if type(cell.value) == type(None):
+						if cur_cell_index == 1:
+							break		
+						Str = ""	
+#						LogOutError("error parase filepath" , filepath , "  cur_sheet " , sheet , "  cur_rows_index " , cur_rows_index ,"  cur_cell_index " , cur_cell_index , "  type(cell.value) " , type(cell.value))
+					else:
+						Str = cell.value
+						if type(cell.value) != str:
+							Str = str(cell.value)
+						else:
+							Str = Str.encode('gbk').decode('gbk')
+
+					if len(Str) >= 0:						
+						if cur_rows_index < 4:
+							Str = ''.join([x for x in Str if x != " "]) 
+						if cur_cell_index == 1:		# 插入ID
+							if Str in id_list:
+								LogOutDebug("repeat id \'" , Str , "\' in \'" , filepath , " \' file")
+								#LogOutError("repeat id \'" , Str , "\' in \'" , filepath , " \' file")
+							id_list.append(Str)
+						row_container.append(Str)
+
+				if len(row_container) >= 1:	
+					RemovListNewLine(row_container)
+					g_xlsRecords[filename][cur_rows_index] = row_container
+					#csv_file_writer.writerow(row_container)
+					cur_rows_index = cur_rows_index + 1
+#					LogOutDebug("cell.row_container:" , row_container)
+				
+			cur_sheet_index = cur_sheet_index + 1		
+		#csv_file.close()
+	except Exception as e:
+		LogOutError(e)
+		
 def CheckRecords():
 	for sheet , item in g_xlsRecords.items(): 	#读取sheet
 		for row , rowItem in item.items():	#读取每一行
@@ -112,45 +192,37 @@ def CheckRecords():
 					item_type = GetType(colItem)					
 				
 			elif row == g_rowCS:	
+				pass
+			elif row == g_rowComent:	
 				pass	
 			else:
 				for col , colItem in enumerate(rowItem):	#读取每一列
-					item_type = GetType(g_xlsRecords[sheet][g_rowType][col])					
-					if item_type == g_boolType:
-						pass
-					elif item_type == g_int32Type:
-						pass
-					elif item_type == g_int32ArrayType:
-						pass
-					elif item_type == g_int64Type:
-						pass
-					elif item_type == g_int64ArrayType:
-						pass						
-					elif item_type == g_doubleType:
-						pass
-					elif item_type == g_doubleArrayType:
-						pass
-					elif item_type == g_stringType:
-						pass
-					elif item_type == g_stringArrayType:
-						pass
-					elif item_type == g_structType:
-						pass
-					elif item_type == g_structArrayType:
-						pass
-					else:
-						pass
-				
-				
-				
-def GenerateCSVFromXLS():
-	root = g_xlsImportPath
+					item_type = GetType(g_xlsRecords[sheet][g_rowType][col])	
+					CheckDataType(item_type , sheet , row , col , colItem)
+					#LogOutDebug("g_xlsRecords[sheet][row][col]:" , g_xlsRecords[sheet][row][col])
+					
+def GenerateCSV():
 	
-	files = Search(root ,'.xlsx')
-	for result in files:
-		LogOutInfo("filename:" , result);
-		Xlsx2CSV(result)
-		
+	dirout = g_xlsExportCSVPath
+	dirout = dirout + os.sep  #新路径名称
+	try:
+		for sheet , item in g_xlsRecords.items(): 	#读取sheet
+			filename = sheet
+			csv_filename = '{xlsx}.tabcsv'.format(xlsx=filename)		
+			dirfileout  = dirout + csv_filename
+			#LogOutDebug("dirfileout" , dirfileout )
+			csv_file = open(dirfileout , 'w' , newline='')
+			
+			#QUOTE_MINIMAL QUOTE_NONE所有的都要加引号.
+			csv_file_writer = csv.writer(csv_file , delimiter='	', quotechar='"', quoting=csv.QUOTE_ALL)
+
+			for row , rowItem in item.items():	#读取每一行
+				csv_file_writer.writerow(rowItem)
+
+			csv_file.close()
+	except Exception as e:
+		LogOutError(e)
+
 def GenerateCPP(): 
 	GenerateConfigManagerHeader()
 	for sheet , item in g_xlsRecords.items():
@@ -701,11 +773,11 @@ def GetType(item):
 	elif item.lower() == "bool[]".lower() or\
 		item.lower() == "[]bool".lower():
 		return g_boolArrayType
-	elif item.lower().index(",") >= 0 and \
+	elif item.lower().find(',') >= 0 and \
 		item.lower()[0] != "[" and\
 		item.lower()[len(item.lower()) - 1] != "]":
 		return g_structType
-	elif item.lower().index(",") >= 0 and \
+	elif item.lower().find(',') >= 0 and \
 		item.lower()[0] == "[" and\
 		item.lower()[len(item.lower()) - 1] == "]":
 		return g_structArrayType
@@ -814,6 +886,120 @@ def GetTypeTab(item):
 
 	return oneTab
 
+def RemoveSpecialWord(item):
+	return item.replace(' ','').replace('	','').replace('[','').replace(']','').strip().rstrip()
+
+def CheckDataArray(colItem):
+	pp = ""
+	childItems = colItem.split(',')
+	for childIndex , childItem in enumerate(childItems):							
+		childItem = RemoveSpecialWord(childItem)
+		if len(childItem) > 0:
+			pp = pp + childItem
+			if len(childItems) - 1 != childIndex:
+				pp = pp + ","
+
+	#LogOutInfo("pp " , pp) 
+	return pp
+
+def CheckDataType(item_type , sheet , row , col , colItem):					
+	if item_type == g_boolType:
+		item = RemoveSpecialWord(colItem)
+		if item.lower() == "true".lower() or\
+			item.lower() == "false".lower() or\
+			item.lower() == "0".lower() or\
+			item.lower() == "1".lower():	
+			pass
+		else:
+			LogOutError("sheet=" , sheet , " :row=" , row , " :col=" , col , " item="  , " bool type error.")							
+
+		if row != -1:
+			g_xlsRecords[sheet][row][col] = item
+		else:
+			return item
+	elif item_type == g_int32Type:
+		item = RemoveSpecialWord(colItem)
+		if not item.lower().isdigit():	
+			LogOutError("sheet=" , sheet , " :row=" , row , " :col=" , col , " item="  , " int32 type error.")							
+
+		if row != -1:
+			g_xlsRecords[sheet][row][col] = item
+		else:
+			return item
+	elif item_type == g_int64Type:
+		item = RemoveSpecialWord(colItem)
+		if not item.lower().isdigit():	
+			LogOutError("sheet=" , sheet , " :row=" , row , " :col=" , col , " item=" , " int64 type error.")							
+
+		if row != -1:
+			g_xlsRecords[sheet][row][col] = item
+		else:
+			return item
+	elif item_type == g_doubleType:						
+		item = RemoveSpecialWord(colItem)
+		#if !item.lower().isdigit():	
+		#	LogOutError("sheet=" , sheet , " :row=" , row , " :col=" , col , " item=" , " double type error.")							
+
+		if row != -1:
+			g_xlsRecords[sheet][row][col] = item
+		else:
+			return item
+	elif item_type == g_stringType:
+		return colItem
+	elif item_type == g_int32ArrayType:
+		g_xlsRecords[sheet][row][col] = CheckDataArray(colItem)
+	elif item_type == g_int64ArrayType:
+		g_xlsRecords[sheet][row][col] = CheckDataArray(colItem)
+	elif item_type == g_doubleArrayType:
+		g_xlsRecords[sheet][row][col] = CheckDataArray(colItem)
+	elif item_type == g_stringArrayType:
+		pass
+	elif item_type == g_structType:			
+		childItems = colItem.split(',')		
+		itemContent = ""
+		for childIndex , childItem in enumerate(childItems):	
+			childItem = RemoveSpecialWord(childItem)
+			childType = GetTypeByIndex(g_xlsRecords[sheet][g_rowType][col] , childIndex)
+			#LogOutDebug("childType" , childType , " childItem" , childItem)
+			childItem = CheckDataType(childType , sheet , -1 , col , childItem)
+			itemContent = itemContent + childItem
+			if len(childItems) - 1 != childIndex:
+				itemContent = itemContent + ","
+
+		#LogOutDebug("itemContent:" , itemContent)
+		if row != -1:
+			g_xlsRecords[sheet][row][col] = itemContent
+		else:
+			item = "["
+			item = item + itemContent
+			item = item + "]"
+			return item
+
+	elif item_type == g_structArrayType:
+		if row != -1:
+			childItems = colItem.split(']')		
+			itemContent = ""
+			for childIndex , childItem in enumerate(childItems):
+				if len(childItem) > 0:
+					#LogOutDebug("itemContent:" , itemContent , "childIndex" , childIndex , "size=" , len(childItems) , "childItems" , childItems , "colItem:" , colItem)
+					childItem = childItem.replace('[' , '').replace(']' , '').strip().rstrip().lstrip()
+					childItem = CheckDataType(g_structType , sheet , -1 , col , childItem)
+					itemContent = itemContent + childItem
+
+			g_xlsRecords[sheet][row][col] = itemContent
+		else:
+			return colItem
+	else:
+		return colItem
+
+def GetTypeByIndex(types , index):
+	typeItems = types.split(',')
+	for childIndex , childItem in enumerate(typeItems):
+		childItem = RemoveSpecialWord(childItem)
+		if index == childIndex:
+			return GetType(childItem)
+
+	LogOutError("GetTypeByIndex error.types=" , types , " index=" ,index)
 
 ################################流程无关函数处理#####################################
 def Usage():
@@ -858,7 +1044,7 @@ def WriteFileDescription(fileWrite , sfile , desc):
 	fileWrite.write("HostName	:	" + socket.gethostname() + "\n")
 	fileWrite.write("IP			:	" + socket.gethostbyname(socket.gethostname()) + "\n")
 	fileWrite.write("Version		:	0.0.1" + "\n")
-#	fileWrite.write("Date		:	" + time.strftime('%Y-%m-%d %H:%M:%S') + "\n")
+	fileWrite.write("Date		:	" + time.strftime('%Y-%m-%d %H:%M:%S') + "\n")
 	fileWrite.write("Description	:	" + desc + "\n")
 	fileWrite.write("************************************/" + "\n")
 
@@ -890,77 +1076,7 @@ def CreateExportPathFiles():
 		os.makedirs(g_xlsExportCPPPath)
 		LogOutInfo("create dir: " , g_xlsExportCPPPath)
 
-def Xlsx2CSV(filepath):
-	dirout = g_xlsExportCSVPath
-	dirout = dirout + os.sep  #新路径名称
-	try:
-		# 一个表中的所有sheet输出到一个csv文件中,所以要保证格式一致.文件名用xlsx文件名
-		filename = os.path.basename(filepath) #获取文件名
-		filename = os.path.splitext(filename.replace(' ', '_'))[0]
-		if filename.find('#') >= 0:
-			filename = filename.replace('#' , '')
-			LogOutInfo("delete filename" , filename )
-			g_xlsDeleteRecord.append(filename)
 
-		csv_filename = '{xlsx}.tabcsv'.format(xlsx=filename)		
-		dirfileout  = dirout + csv_filename
-		#LogOutDebug("dirfileout" , dirfileout )
-		csv_file = open(dirfileout , 'w' , newline='')
-		
-		#QUOTE_MINIMAL QUOTE_NONE所有的都要加引号.
-		csv_file_writer = csv.writer(csv_file , delimiter='	', quotechar='"', quoting=csv.QUOTE_ALL)
-		
-		id_list = [] #用于重复的ID去除
-		cur_sheet_index = 0
-		xlsx_file_reader = load_workbook(filepath)
-		g_xlsRecords[filename] = {}
-		for sheet in xlsx_file_reader.get_sheet_names():			
-			cur_rows_index = 0
-			sheet_ranges = xlsx_file_reader[sheet]
-			for row in sheet_ranges.rows:
-				if cur_sheet_index >= 1 and cur_rows_index < 4:
-					cur_rows_index = cur_rows_index + 1
-					continue
-				
-				row_container = []
-				cur_cell_index = 0
-				for cell in row:		
-					Str = ""	
-					cur_cell_index = cur_cell_index + 1
-					if type(cell.value) == type(None):
-						if cur_cell_index == 1:
-							break		
-						Str = ""	
-#						LogOutError("error parase filepath" , filepath , "  cur_sheet " , sheet , "  cur_rows_index " , cur_rows_index ,"  cur_cell_index " , cur_cell_index , "  type(cell.value) " , type(cell.value))
-					else:
-						Str = cell.value
-						if type(cell.value) != str:
-							Str = str(cell.value)
-						else:
-							Str = Str.encode('gbk').decode('gbk')
-
-					if len(Str) >= 0:						
-						if cur_rows_index < 4:
-							Str = ''.join([x for x in Str if x != " "]) 
-						if cur_cell_index == 1:		# 插入ID
-							if Str in id_list:
-								LogOutDebug("repeat id \'" , Str , "\' in \'" , filepath , " \' file")
-								#LogOutError("repeat id \'" , Str , "\' in \'" , filepath , " \' file")
-							id_list.append(Str)
-						row_container.append(Str)
-
-				if len(row_container) >= 1:	
-					RemovListNewLine(row_container)
-					g_xlsRecords[filename][cur_rows_index] = row_container
-					csv_file_writer.writerow(row_container)
-					cur_rows_index = cur_rows_index + 1
-#					LogOutDebug("cell.row_container:" , row_container)
-				
-			cur_sheet_index = cur_sheet_index + 1		
-		csv_file.close()
-	except Exception as e:
-		LogOutError(e)
-			
 ################################main函数处理#####################################
 def handleArgs(argv): 
 	global g_xlsImportPath 
