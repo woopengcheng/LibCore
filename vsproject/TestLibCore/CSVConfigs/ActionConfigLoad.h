@@ -4,7 +4,7 @@ Author		:	generate by tools
 HostName	:	DESKTOP-5AT4DK2
 IP			:	192.168.16.104
 Version		:	0.0.1
-Date		:	2016-03-09 00:27:08
+Date		:	2016-03-09 21:42:33
 Description	:	csv配置文件
 ************************************/
 #ifndef __ActionConfigLoad_define_h__
@@ -31,7 +31,7 @@ namespace Config
 			INT64						test2;
 			double						test3;
 			INT32						test4;
-			std::string					test5;
+			std::string					test6;
 		}TestStruct;
 
 		//结构体数组

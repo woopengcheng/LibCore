@@ -4,7 +4,7 @@ Author		:	generate by tools
 HostName	:	DESKTOP-5AT4DK2
 IP			:	192.168.16.104
 Version		:	0.0.1
-Date		:	2016-03-09 00:27:08
+Date		:	2016-03-09 21:42:33
 Description	:	csv读取文件实现
 ************************************/
 #include "ActionConfigLoad.h"
@@ -43,8 +43,8 @@ namespace Config
 		size_t index_isLocal = csv.GetIndex("isLocal", 1);
 		MsgAssert_Re0(index_isLocal != (size_t)-1 , "error isLocal");
 
-		size_t index_TestStruct = csv.GetIndex("TestStruct[test1,test2,test3,test4,test5]", 1);
-		MsgAssert_Re0(index_TestStruct != (size_t)-1 , "error TestStruct[test1,test2,test3,test4,test5]");
+		size_t index_TestStruct = csv.GetIndex("TestStruct[test1,test2,test3,test4,test6]", 1);
+		MsgAssert_Re0(index_TestStruct != (size_t)-1 , "error TestStruct[test1,test2,test3,test4,test6]");
 
 		size_t index_TestStructArray = csv.GetIndex("TestStructArray[test1,test2,test3,test4,test5]", 1);
 		MsgAssert_Re0(index_TestStructArray != (size_t)-1 , "error TestStructArray[test1,test2,test3,test4,test5]");
@@ -108,7 +108,7 @@ namespace Config
 					if(i == 4)
 					{
 						std::string val = vals[i].c_str();
-						conf.TestStruct.test5 = val;
+						conf.TestStruct.test6 = val;
 					}
 				}
 			}

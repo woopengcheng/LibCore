@@ -1,10 +1,11 @@
+// attention dont't change this line:INT32 ActivityId;std::string ActivityName;INT32 ActivityLevelLow;INT32 ActivityLevelHigh;bool IsShowEntrance;std::vector<std::string> EntranceIcon;bool IsShowInterface;std::vector<std::string> InterfaceIcon;INT32 StartTimeWeek;INT32 EndTimeWeek;INT32 StartTimeDate;INT32 EndTimeDate;std::string StartTime;std::string EndTime;INT32 Description;std::string RewardIcon;
 /************************************
 FileName	:	ActivityConfig.h
 Author		:	generate by tools
 HostName	:	DESKTOP-5AT4DK2
 IP			:	192.168.16.104
 Version		:	0.0.1
-Date		:	2016-03-09 00:27:08
+Date		:	2016-03-09 21:35:57
 Description	:	csv¶ÁÈ¡ÎÄ¼þ
 ************************************/
 #ifndef __Config_ActivityConfig_define_h__

@@ -29,7 +29,7 @@ g_xlsExportCSVPath = ""
 g_xlsExportCPPPath = ""
 
 g_xlsDeleteRecord = []
-g_xlsRecords = {}
+g_xlsRecords = collections.OrderedDict()
 g_configPrefix = "S"
 g_loadConfigSuffix = "Load"
 g_xlsNamespace = "Config"
@@ -116,7 +116,7 @@ def Xlsx2CSV(filepath):
 		id_list = [] #用于重复的ID去除
 		cur_sheet_index = 0
 		xlsx_file_reader = load_workbook(filepath)
-		g_xlsRecords[filename] = {}
+		g_xlsRecords[filename] = collections.OrderedDict()
 		for sheet in xlsx_file_reader.get_sheet_names():			
 			cur_rows_index = 0
 			sheet_ranges = xlsx_file_reader[sheet]
@@ -503,15 +503,18 @@ def GenerateConfigLoadCpp(filename , types , datas , comments):
 
 def GenerateConfigHeader(filename , types , datas , comments):
 	outputPath = g_xlsExportCPPPath  + os.sep + filename + ".h"
-	if os.path.exists(outputPath): 
-		os.remove(outputPath)
-#		return 
+	if CheckNeedDelete(outputPath , types , datas ):
+		return
+	#if os.path.exists(outputPath): 
+	#	os.remove(outputPath)
 
 	fileWrite = open(outputPath , "a")
 	
 	loadConfig = filename + g_loadConfigSuffix
 	dataConfig = g_configPrefix + filename
 
+	strTitle = MakeTitle(types , datas)
+	fileWrite.write(strTitle)	
 	WriteFileDescription(fileWrite , filename + ".h" , "csv读取文件")
 	fileWrite.write("#ifndef __" + g_xlsNamespace + "_" + filename + "_define_h__\n")
 	fileWrite.write("#define __" + g_xlsNamespace + "_" + filename +  "_define_h__\n") 
@@ -543,16 +546,19 @@ def GenerateConfigHeader(filename , types , datas , comments):
 	
 	fileWrite.close()	 	
 
-
 def GenerateConfigCpp(filename , types , datas , comments):
 	outputPath = g_xlsExportCPPPath  + os.sep + filename + ".cpp"
-	if os.path.exists(outputPath): 
-		os.remove(outputPath)
+	if CheckNeedDelete(outputPath , types , datas ):
+		return
+	#if os.path.exists(outputPath): 
+	#	os.remove(outputPath)
 
 	loadConfig = filename + g_loadConfigSuffix
 	dataConfig = g_configPrefix + filename
 	fileWrite = open(outputPath , "a")
 	
+	strTitle = MakeTitle(types , datas)
+	fileWrite.write(strTitle)	
 	WriteFileDescription(fileWrite , filename + ".cpp" , "csv读取数据文件实现")
 	fileWrite.write("#include \"" + filename + ".h\"\n") 
 	fileWrite.write("#include \"LogLib/inc/Log.h\"\n\n") 
@@ -1001,6 +1007,56 @@ def GetTypeByIndex(types , index):
 
 	LogOutError("GetTypeByIndex error.types=" , types , " index=" ,index)
 
+def MakeTitle(types , datas ):
+	Str = "// attention dont't change this line:"		
+	for index , item in enumerate(types):
+		item_type = GetType(item)
+		if item_type == g_structType:
+			npos = datas[index].find('[')
+			structName = datas[index][0 : npos]
+			structDatas = datas[index][npos + 1 : len(datas[index]) - 1].split(',')
+			childItems = item.split(',')
+			Str = Str + structName
+			if len(childItems) != len(structDatas):
+				LogOutError("parase struct error.invalid size . name=" , structName , ":childItems size=" , len(childItems) , ":structDatas size=" , len(structDatas))
+			for indexChild , childItem in enumerate(childItems):
+				Str = Str + GetType(childItem) + " " + structDatas[indexChild]  + ";"
+		elif item_type == g_structArrayType:
+			npos = datas[index].find('[')
+			structName = datas[index][0 : npos]
+			structDatas = datas[index][npos + 1 : len(datas[index]) - 1].split(',')
+			
+			Str = Str + structName
+			item = item.replace('[' , '').replace(']' , '')
+			childItems = item.split(',')
+			if len(childItems) != len(structDatas):
+				LogOutError("parase struct error.invalid size . name=" , structName , ":childItems size=" , len(childItems) , ":structDatas size=" , len(structDatas))
+			for indexChild , childItem in enumerate(childItems):
+				Str = Str + GetType(childItem) + " " + structDatas[indexChild]  + ";"
+		else:
+			Str = Str + item_type + " " + datas[index]   + ";"
+	Str += "\n"
+	return Str
+	
+def CheckNeedDelete(outputFile , types , datas):
+	if os.path.exists(outputFile): 
+		strNew = MakeTitle(types , datas)
+		
+		fileRead = open(outputFile , "r")
+		for line in fileRead: 
+			strOld = line
+			break
+
+		#LogOutDebug("\nold comments:" , strOld , "new comments:" , strNew , "\n")
+		if strNew != strOld:
+			LogOutInfo(outputFile , " not match.\n")
+			LogOutInfo("old comments:" , strOld)
+			LogOutInfo("new comments:" , strNew)		
+		fileRead.close()
+		return True
+	else:
+		return False
+
 ################################流程无关函数处理#####################################
 def Usage():
     print('GenerateCSV.py usage:')
@@ -1020,7 +1076,6 @@ def LogOutDebug(*string):
 		longStr += str(string[item])
 
 	print(longStr)
-	pass
 
 def LogOutInfo(*string):
 	longStr = "info: "
@@ -1035,7 +1090,7 @@ def LogOutError(*string):
 		longStr += str(string[item])
 	
 	print(longStr)
-	sys.exit()
+	sys.exit(3)
 	
 def WriteFileDescription(fileWrite , sfile , desc):
 	fileWrite.write("/************************************" + "\n")
