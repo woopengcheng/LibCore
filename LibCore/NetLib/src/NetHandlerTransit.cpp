@@ -444,7 +444,7 @@ namespace Net
 				m_pSession->SetClosed(TRUE);
 				break;
 			}
-			Timer::TimerHelper::sleep(1);
+			Timer::sleep(1);
 		}
 
 		return unTotalSendBytes;
@@ -485,7 +485,7 @@ namespace Net
 				m_pSession->SetClosed(TRUE);
 				break;
 			}
-			Timer::TimerHelper::sleep(1);
+			Timer::sleep(1);
 		}
 
 		return unTotalSendBytes;

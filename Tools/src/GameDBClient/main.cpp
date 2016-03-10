@@ -90,7 +90,7 @@ char * ReadLine(const Client::ClientCommands & cc)
 // 	memset(line , 0 , sizeof(line));
 // 
 // 	std::cout << "GameDBClient>";
-// 	Timer::TimerHelper::sleep(10);
+// 	Timer::sleep(10);
 // 	
 // 	std::string strTab , strLastTab;
 // 	char ch = 1;
@@ -224,7 +224,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			break;
 		}
 		Client::DBClient::GetInstance().Update(); 
-		Timer::TimerHelper::sleep(1);
+		Timer::sleep(1);
 	}
 
 	Client::ClientCommands & clientComands = *Client::g_pClientCommands;

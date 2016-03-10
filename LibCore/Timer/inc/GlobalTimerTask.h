@@ -1,4 +1,4 @@
-#ifndef __timer_global_timer_task_h
+ï»¿#ifndef __timer_global_timer_task_h
 #define __timer_global_timer_task_h
 #include "Timer/inc/TimerTask.h" 
 
@@ -8,20 +8,31 @@ namespace Timer
 	/**
 	 * @class : TimerTask
 	 * @author: woo
-	 * @date  : 2014Äê8ÔÂ2ÈÕ
+	 * @date  : 2014å¹´8æœˆ2æ—¥
 	 * @file  : TimerTask.h
-	 * @brief : Õâ¸öÀàÖ÷ÒªÊÇĞèÒªÊ¹ÓÃµ½¼ÆÊ±Æ÷µÄÀà¼Ì³Ğ,È»ºóÖØÔØOnTimerº¯Êı.µÈ´ı¼ÆÊ±Æ÷´¥·¢.
+	 * @brief : è¿™ä¸ªç±»ä¸»è¦æ˜¯éœ€è¦ä½¿ç”¨åˆ°è®¡æ—¶å™¨çš„ç±»ç»§æ‰¿,ç„¶åé‡è½½OnTimerå‡½æ•°.ç­‰å¾…è®¡æ—¶å™¨è§¦å‘.
 	 */
 	class DLL_EXPORT GlobalTimerTask : public TimerTask
 	{
+	public:
+		typedef std::vector<int>			CollectTimerIDT;
+
 	public:
 		GlobalTimerTask( void );
 		virtual ~GlobalTimerTask( void );
 
 	public:		 
-		virtual void		OnTimer(UINT32 unTimerID , UINT32 unTimers) override;
-		virtual INT32		SetTimer( UINT32 unInterval , UINT32 unTimes = 0, UINT32 unStartTimer = 0) override;
+		virtual void		OnTimer(UINT32 unTimerID , UINT32 unTimers = 0); 
+		virtual INT32		SetTimer( UINT32 unInterval , UINT32 unTimes = 0, UINT32 unStartTimer = 0 , UINT32 unTimerID = 0);
+		virtual INT32		SetTimerEx(UINT32 unStartExecuteTime , UINT32 unTimes = 0 , UINT32 unTimerID = 0);
+		virtual void		ClearTimer();
+		virtual	void		OnRemoveTimer(INT32 nID){;}
+		
+	public:
+		void				RemoveTimer(INT32 nID);
 
+	private:
+		CollectTimerIDT		m_vecTimer;
 	};
 }
 

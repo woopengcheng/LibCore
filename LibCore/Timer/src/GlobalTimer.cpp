@@ -1,49 +1,24 @@
-#include "Timer/inc/GlobalTimer.h" 
-#include "MsgLib/inc/InnerMsg.h"
-#include "Timer/inc/InternalTimerTask.h" 
+ï»¿#include "Timer/inc/GlobalTimer.h" 
 #include "Timer/inc/TimerNode.h" 
-#include "ThreadPool/inc/ThreadPool.h"
-#include "ThreadPool/inc/ThreadPoolInterface.h"
+#include "Timer/inc/TimerTask.h"
+// #include "Timer/inc/InternalTimerTask.h" 
 
 namespace Timer
 {  
-	CErrno GlobalTimer::Init(UINT32 unTimerThreadPriorityCount , UINT32 unTimerHandlerthreadPriorityCount , UINT32 unTimerThreadPriority /* = DEFAULT_TIMER_THREAD_ID*/ ,UINT32 unTimerHandlerthreadPriority /*= DEFAULT_TIMER_HANDLE_THREAD_ID */)
+	CErrno GlobalTimer::Init(ETimerStrategyType objTimerStrategyType /*= TIMER_STRATEGY_DEFAULT*/)
 	{
- 		ThreadPool::ThreadPoolInterface::GetInstance().Init(std::map<UINT32 , UINT32>() , TRUE);
- 		ThreadPool::ThreadPoolInterface::GetInstance().Startup();
-		ThreadPool::ThreadPoolInterface::GetInstance().CreateThread(unTimerThreadPriority , unTimerThreadPriorityCount);  //5 ´´½¨Ò»¸öÈ«¾ÖµÄ¼ÆÊ±Æ÷Ïß³Ì.
- 		ThreadPool::ThreadPoolInterface::GetInstance().CreateThread(unTimerHandlerthreadPriority , unTimerHandlerthreadPriorityCount);  //5 ´´½¨´¦Àí¼ÆÊ±Æ÷ÈÎÎñµÄÏß³Ì.
-
-		ThreadPool::ThreadPoolInterface::GetInstance().AddTask(this);
-
-		return TimerInterface::Init();              //5 ÕâÀï±ØÐëµ÷ÓÃ
+		return TimerInterface::Init(objTimerStrategyType);
 	}
 
-	CErrno GlobalTimer::Cleanup( void )
+	CErrno GlobalTimer::Cleanup(void)
 	{
-		ThreadPool::ThreadPoolInterface::GetInstance().Cleanup();
 
-		return TimerInterface::Cleanup();            //5 ÕâÀï±ØÐëµ÷ÓÃ
+		return TimerInterface::Cleanup();            //5 è¿™é‡Œå¿…é¡»è°ƒç”¨
 	} 
 
-	CErrno  GlobalTimer::Update_Thread( void )
+	CErrno   GlobalTimer::Update( void )
 	{  
-		TimerNode * pNode = TimerInterface::Update();
-		if (!pNode)
-		{
-			return CErrno::Failure();
-		} 
-
-		while(pNode)
-		{
-			if (pNode && pNode->GetTimeCount().IsExpired())
-			{
-				InternalTimerTask * pTask = new InternalTimerTask(this , pNode); 
-				ThreadPool::ThreadPoolInterface::GetInstance().AddTask(pTask);
-
-				pNode = pNode->GetNext();
-			}  
-		}
-		return CErrno::Success();
+		return TimerInterface::Update();
 	} 
+
 }

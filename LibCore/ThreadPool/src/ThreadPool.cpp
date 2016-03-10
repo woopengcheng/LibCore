@@ -99,7 +99,7 @@ namespace ThreadPool
 						CreateThread(th, NULL, &IThreadPool::ThreadFunc, (void*)pThreadFuncParam);
 
 						m_queueThreads.push(th);
-						Timer::TimerHelper::sleep(1);
+						Timer::sleep(1);
 					}
 				}
 			}
@@ -295,7 +295,7 @@ namespace ThreadPool
 				CreateThread( th, NULL, &IThreadPool::ThreadFunc, (void*)pThreadFuncParam); 
 
 				m_queueThreads.push(th); 
-				Timer::TimerHelper::sleep(1);
+				Timer::sleep(1);
 			}  
 		} 
 
@@ -361,7 +361,7 @@ namespace ThreadPool
 //  		}
 // 			else if (nRe == ESRCH)
 // 			{
-// 				Timer::TimerHelper::sleep(1);
+// 				Timer::sleep(1);
 // 			}
 // 			else
 // 				Assert_Re0(0);
@@ -369,7 +369,7 @@ namespace ThreadPool
 // 
 // 			if (nCount % THREAD_SLEEP_COUNT == 0)
 // 			{
-// 				Timer::TimerHelper::sleep(1);
+// 				Timer::sleep(1);
 // 			}
 // 			if (nCount >= MAX_THREAD_SLEEP_COUNT)
 // 			{

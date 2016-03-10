@@ -6,166 +6,250 @@
 #include "Timer/inc/TimerHelp.h" 
 #include "LogLib/inc/Log.h"
 
-#define TIMER_ROOT_SIZE_MASK 8
-#define TIMER_OTHER_SIZE_MASK 6
+#define TIMER_ROOT_SIZE_MASK_NUM 8
+#define TIMER_OTHER_SIZE_MASK_NUM 6
 #define TIMER_ROOT_SIZE  256
 #define TIMER_OTHER_SIZE 64
 #define TIMER_OTHER_WHEEL_SIZE  4 
- 
+#define TIMER_OTHER_SIZE_MASK 0X3F
+#define TIMER_ROOT_SIZE_MASK 0XFF
+
 
 namespace Timer
-{  
-	class TimerList
+{
+	class DLL_EXPORT TimerList
 	{
 	public:
 		TimerList()
-			: m_pHead(NULL) 
+			: m_pHead(NULL)
 		{
-		
+
 		}
 	public:
-		TimerNode * GetTimerHead(){ return m_pHead; }
-		void SetTimerHead(TimerNode * pNode){ m_pHead = pNode; }
+		TimerNode * GetTimerHead() { return m_pHead; }
+		void SetTimerHead(TimerNode * pNode) { m_pHead = pNode; }
 
 		void  AddTimerNode(TimerNode * pNode)
-		{ 
+		{
 			pNode->m_pNext = m_pHead;
 			m_pHead = pNode;
-		} 
+		}
 
-	protected:   
+	protected:
 		TimerNode * m_pHead;
 	};
-	   
-	class TimingWheel : public IStrategy
+
+	class DLL_EXPORT TimingWheel : public IStrategy
 	{
 	public:
-		typedef tbb::concurrent_hash_map<UINT32 , TimerNode *> MapNodesT;      //5 保证线程安全.
+		typedef std_unordered_map<UINT32, TimerNode *> MapNodesT;
 
 	public:
 		TimingWheel()
 			: m_nCurTime(0)
 		{
-		
-		} 
+			memset(m_objRoot, 0, sizeof(TimerList) * TIMER_ROOT_SIZE);
+			memset(m_aTimer, 0, sizeof(TimerList) * TIMER_OTHER_WHEEL_SIZE * TIMER_OTHER_SIZE);
+		}
 	public:
 		virtual CErrno  Init(void) override { return CErrno::Success(); }
-		virtual CErrno  Cleanup(void) override { return CErrno::Success(); }
-
-	public: 
-		virtual CErrno  RemoveNode(UINT32 unNodeID)  override
+		virtual CErrno  Cleanup(void)
 		{
-			MapNodesT::accessor result; 
-			if (m_mapNodes.find(result , unNodeID))
+			m_mapNodes.clear();
+
+			for (INT32 i = 0; i < TIMER_ROOT_SIZE; ++i)
 			{
-				TimerNode * pNode = result->second;
-				if (pNode)
+				TimerList & pList = m_objRoot[i];
+
+				TimerNode * pNode = pList.GetTimerHead();
+				TimerNode * pNext = NULL;
+				while (pNode)
 				{
-					TimerNode * pPrev = pNode->GetPrev();
-					TimerNode * pNext = pNode->GetNext();
-					if (pPrev)
+					pNext = pNode->GetNext();
+					SAFE_DELETE(pNode);
+					pNode = pNext;
+				}
+			}
+
+			for (INT32 i = 0; i < TIMER_OTHER_WHEEL_SIZE; ++i)
+			{
+				for (INT32 j = 0; j < TIMER_OTHER_SIZE; ++j)
+				{
+					TimerList & pList = m_aTimer[i][j];
 					{
-						pPrev->m_pNext = pNext;
-					}
-					else
-					{
-						UINT32 unNodePos = pNode->GetNodePos();
-						INT32 nTimerList = 0 , nTimerPos = 0;
-						TimerHelper::GetCurTimingwheelPos(unNodePos , nTimerList , nTimerPos);
-						if (nTimerList == 0)
+						TimerNode * pNode = pList.GetTimerHead();
+						TimerNode * pNext = NULL;
+						while (pNode)
 						{
-							m_objRoot.SetTimerHead(pNext);
+							pNext = pNode->GetNext();
+							SAFE_DELETE(pNode);
+							pNode = pNext;
 						}
-						else if (nTimerList > 0) 
-						{
-							m_aTimer[nTimerList][nTimerPos].SetTimerHead(pNext);
-						}
-						else
-							gErrorStream("wrong timelist id:" << nTimerList << ",timeID:" << pNode->GetTimerID());
 					}
 				}
 			}
-			
 
-			return CErrno::Success(); 
-		}
-		virtual TimerNode * GetNode(UINT32 unNodeID)  override
-		{
-			MapNodesT::accessor result; 
-			if (m_mapNodes.find(result , unNodeID))
-			{
-				return result->second;
-			}
+			memset(m_objRoot, 0, sizeof(TimerList) * TIMER_ROOT_SIZE);
+			memset(m_aTimer, 0, sizeof(TimerList) * TIMER_OTHER_WHEEL_SIZE * TIMER_OTHER_SIZE);
 
-			return NULL; 
-		}
-
-	public:
-		virtual CErrno  InsertNode(UINT32 unNodeID , TimerNode * pNode) override
-		{
-			INT32 nFutureTime = m_nCurTime + pNode->GetTimeInterval();
-					
-			nFutureTime = nFutureTime << TIMER_ROOT_SIZE_MASK;
-			if ( nFutureTime < (1 << TIMER_ROOT_SIZE_MASK))
-			{
-				m_objRoot.AddTimerNode(pNode);
-				return CErrno::Success();
-			}
-
-			INT32 nSize = 0;
-			while(1)
-			{
-				nFutureTime = nFutureTime << TIMER_OTHER_SIZE_MASK;
-				if (nFutureTime < (1 << TIMER_OTHER_SIZE_MASK))
-				{
-					break;
-				} 
-				++nSize;
-			}
-			
-			pNode->SetNodePos((UINT32)nFutureTime);
-			m_aTimer[nSize][nFutureTime].AddTimerNode(pNode); 
-			m_mapNodes.insert(std::make_pair(unNodeID , pNode));
 			return CErrno::Success();
 		}
 
-		virtual TimerNode * Update(void) override
+	public:
+		virtual CErrno  RemoveNode(UINT32 unNodeID)
+		{
+			MapNodesT::iterator iter = m_mapNodes.find(unNodeID);
+			if (iter != m_mapNodes.end())
+			{
+				TimerNode * pNode = iter->second;
+				if (pNode)
+				{
+					pNode->SetDelete(TRUE);
+					m_mapNodes.erase(iter);
+				}
+			}
+
+			return CErrno::Success();
+		}
+		virtual TimerNode * GetNode(UINT32 unNodeID)
+		{
+			MapNodesT::iterator iter = m_mapNodes.find(unNodeID);
+			if (iter != m_mapNodes.end())
+			{
+				return iter->second;
+			}
+
+			return NULL;
+		}
+
+	public:
+		virtual CErrno  DispathNode()
 		{
 			TimerList * pCurList = NULL;
-			m_nCurTime += 1;
 			INT32 nTemp = m_nCurTime;
-			if (nTemp << TIMER_ROOT_SIZE_MASK < (1 << TIMER_ROOT_SIZE_MASK))
+			INT32 nLastTemp = m_nCurTime - 1;
+			if ((m_nCurTime & TIMER_ROOT_SIZE_MASK) != 0)
 			{
-				pCurList = &m_objRoot;
+				return CErrno::Failure();
 			}
 			else
 			{
+
+				nTemp >>= TIMER_ROOT_SIZE_MASK_NUM;
+				nLastTemp >>= TIMER_ROOT_SIZE_MASK_NUM;
 				INT32 nSize = 0;
-				while(1)
+				while (1)
 				{
-					nTemp = nTemp << TIMER_OTHER_SIZE_MASK;
-					if (nTemp < (1 << TIMER_OTHER_SIZE_MASK))
+					if ((nLastTemp >> TIMER_OTHER_SIZE_MASK_NUM) == (nTemp >> TIMER_OTHER_SIZE_MASK_NUM))
 					{
 						break;
-					} 
+					}
+					nLastTemp >>= TIMER_OTHER_SIZE_MASK_NUM;
+					nTemp >>= TIMER_OTHER_SIZE_MASK_NUM;
 					++nSize;
 				}
-				pCurList = &m_aTimer[nSize][nTemp];
+
+				pCurList = &m_aTimer[nSize][nTemp & TIMER_OTHER_SIZE_MASK];
+
+				int nCount = -1;
+				if (pCurList)
+				{
+					nCount = 0;
+					memset(m_objRoot, 0, sizeof(TimerList) * TIMER_ROOT_SIZE);	//5 客户端不会跳帧.所以不用释放.
+					TimerNode * pHead = pCurList->GetTimerHead();
+					TimerNode * pNext = pHead;
+					while (pHead)
+					{
+						pNext = pHead->GetNext();
+						pHead->SetValue(pHead->GetStartTime() + pHead->GetTimeInterval() + pHead->GetStartAddTime() - m_nCurTime);
+						InsertNode(pHead->GetTimerID(), pHead, false);
+						pHead = pNext;
+						++nCount;
+					}
+				}
+				//				glb_LogOutput(true , "dispatcher:nSize=%d:nPos=%d:nCurPos=%d:nCount=%d:" , nSize , nTemp & TIMER_OTHER_SIZE_MASK , m_nCurTime , nCount);
+				m_aTimer[nSize][nTemp & TIMER_OTHER_SIZE_MASK].SetTimerHead(NULL);
 			}
+			return CErrno::Success();
+		}
+
+		virtual CErrno  InsertNode(UINT32 unNodeID, TimerNode * pNode, bool bRemoveSame = true)
+		{
+			UINT32 nFutureTime = m_nCurTime + pNode->GetValue() + 1;   //5 +1是因为执行时肯定会是下一帧执行
+			UINT32 nOldTime = nFutureTime;
+			pNode->SetStartAddTime(m_nCurTime);
+			UINT32 nTemp = m_nCurTime;
+
+			MapNodesT::iterator iter = m_mapNodes.find(unNodeID);
+			if (bRemoveSame && iter != m_mapNodes.end())
+			{
+				TimerNode * pOldNode = iter->second;
+				pOldNode->SetDelete(TRUE);
+				RemoveNode(unNodeID);
+			}
+
+			if ((nFutureTime >> TIMER_ROOT_SIZE_MASK_NUM) == ((m_nCurTime) >> TIMER_ROOT_SIZE_MASK_NUM))
+			{
+				pNode->SetNodePos(nOldTime);
+				m_mapNodes[unNodeID] = pNode;
+				m_objRoot[nFutureTime & TIMER_ROOT_SIZE_MASK].AddTimerNode(pNode);
+				//				glb_LogOutput(true , "insert_root:nPos=%d:unNodeID=%d:nCurPos=%d:internal=%d:bDelete=%d" , nFutureTime & TIMER_ROOT_SIZE_MASK , unNodeID , m_nCurTime , nOldTime - m_nCurTime , pNode->IsDelete());
+				return CErrno::Success();
+			}
+
+			nTemp >>= TIMER_ROOT_SIZE_MASK_NUM;
+			nFutureTime >>= TIMER_ROOT_SIZE_MASK_NUM;  //5 这里代表处于哪个时刻上.
+			INT32 nSize = 0;
+			while (1)
+			{
+				if ((nFutureTime >> TIMER_OTHER_SIZE_MASK_NUM) == (nTemp >> TIMER_OTHER_SIZE_MASK_NUM))
+				{
+					break;
+				}
+				nFutureTime >>= TIMER_OTHER_SIZE_MASK_NUM;
+				nTemp >>= TIMER_OTHER_SIZE_MASK_NUM;
+				++nSize;
+			}
+
+			pNode->SetNodePos(nOldTime);
+			m_aTimer[nSize][nFutureTime & TIMER_OTHER_SIZE_MASK].AddTimerNode(pNode);
+			m_mapNodes[unNodeID] = pNode;
+			//			glb_LogOutput(true , "insert_other:nSize=%d:nPos=%d:unNodeID=%d:nCurPos=%d:internal=%d:bDelete=%d" , nSize , nFutureTime & TIMER_OTHER_SIZE_MASK , unNodeID , m_nCurTime , nOldTime - m_nCurTime , pNode->IsDelete());
+
+			return CErrno::Success();
+		}
+
+		virtual TimerNode * Update(void)
+		{
+			TimerList * pCurList = NULL;
+
+			++m_nCurTime;
+			INT32 nTemp = m_nCurTime & TIMER_ROOT_SIZE_MASK;
+			if (nTemp == 0)
+			{
+				DispathNode();
+			}
+
+			pCurList = &m_objRoot[nTemp];
 
 			if (pCurList)
 			{
-				return pCurList->GetTimerHead();
+				TimerNode * pNode = pCurList->GetTimerHead();
+				m_objRoot[nTemp].SetTimerHead(NULL);
+				// 				if (pNode)
+				// 				{
+				// 					glb_LogOutput(true , "update:total=%d:unNodeID=%d:nCurPos=%d:internal=%d:bDelete=%d" , pNode->GetStartTime() + pNode->GetStartAddTime() + pNode->GetTimeInterval() , pNode->GetTimerID() , m_nCurTime , pNode->GetTimeInterval() + pNode->GetStartTime() , pNode->IsDelete());
+				// 				}
+				return pNode;
 			}
 			else
 				return NULL;
 		}
 
-
 	private:
-		TimerList   m_objRoot;
+		TimerList   m_objRoot[TIMER_ROOT_SIZE];
 		TimerList   m_aTimer[TIMER_OTHER_WHEEL_SIZE][TIMER_OTHER_SIZE];
-		INT32       m_nCurTime;
+		UINT32      m_nCurTime;
 		MapNodesT   m_mapNodes;
 	};
 }

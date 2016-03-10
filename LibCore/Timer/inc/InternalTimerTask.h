@@ -7,7 +7,7 @@ namespace Timer
 	class TimerNode;
 	class TimerInterface;
 
-	class InternalTimerTask : public ThreadPool::ThreadNormalTask
+	class DLL_EXPORT InternalTimerTask : public ThreadPool::ThreadNormalTask
 	{
 	public:
 		InternalTimerTask(TimerInterface * pTimerInterface , TimerNode * pNode);

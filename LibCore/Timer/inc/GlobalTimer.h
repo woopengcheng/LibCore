@@ -1,62 +1,33 @@
-#ifndef __timer_global_timer_h
+ï»¿#ifndef __timer_global_timer_h
 #define __timer_global_timer_h
 #include "Timer/inc/TimerNode.h"
 #include "Timer/inc/TimerInterface.h"
-#include "ThreadPool/inc/ThreadTask.h"
 
 namespace Timer
 {   
-	class DLL_EXPORT FooTimeInterface :  public TimerInterface 
-	{
-	public:
-		virtual TimerNode * Update_Timer(void)
-		{
-			return Update();
-		}
-	};
-
-	class DLL_EXPORT BarThreadSustainTask : public ThreadPool::ThreadSustainTask  
-	{
-	public:
-		BarThreadSustainTask(UINT32 unPriority , char * a = "UnknownName", BOOL bInStack = TRUE)
-			: ThreadPool::ThreadSustainTask(unPriority , a , bInStack) 
-		{
-
-		}
-		virtual CErrno Update_Thread(void)
-		{
-			return CErrno::Success();
-		} 
-		virtual CErrno Update(void)
-		{
-			return Update_Thread();
-		} 
-	};
-
 	/**
 	 * @class : GlobalTimer
 	 * @author: woo
-	 * @date  : 2014Äê8ÔÂ2ÈÕ
+	 * @date  : 2014å¹´8æœˆ2æ—¥
 	 * @file  : GlobalTimer.h
-	 * @brief : Õâ¸öÀà¼Ì³Ğ×ÔThreadSustainTask.Ò²¾ÍÊÇÓĞÒ»¸öÏß³Ìµ¥¶ÀÅÜÕâ¸ö¼ÆÊ±Æ÷.È»ºó½«¼ÆÊ±Æ÷µÄÈÎÎñ·ÖÅä¸øÆäËûµÄÏß³Ì.
+	 * @brief : è¿™ä¸ªç±»ç»§æ‰¿è‡ªThreadSustainTask.ä¹Ÿå°±æ˜¯æœ‰ä¸€ä¸ªçº¿ç¨‹å•ç‹¬è·‘è¿™ä¸ªè®¡æ—¶å™¨.ç„¶åå°†è®¡æ—¶å™¨çš„ä»»åŠ¡åˆ†é…ç»™å…¶ä»–çš„çº¿ç¨‹.
 	 */ 
-	class DLL_EXPORT GlobalTimer : public FooTimeInterface , public BarThreadSustainTask   
+	class DLL_EXPORT  GlobalTimer : public TimerInterface
 	{
 	public:
 		GlobalTimer(void)
-			: BarThreadSustainTask(DEFAULT_TIMER_THREAD_ID , "GlobalTimer" , TRUE) 
 		{}
 		virtual ~GlobalTimer(void){}
 		 
 	public:
-		static GlobalTimer &	GetInstance( void ){ static GlobalTimer m_sInstance; return m_sInstance;}
+		static GlobalTimer	&	GetInstance( void ){ static GlobalTimer m_sInstance; return m_sInstance;}
 
-	public: 
-		virtual CErrno			Init(UINT32 unTimerThreadPriorityCount = 1 , UINT32 unTimerHandlerthreadPriorityCount = 1, UINT32 unTimerThreadPriority = DEFAULT_TIMER_THREAD_ID ,UINT32 unTimerHandlerthreadPriority = DEFAULT_TIMER_HANDLE_THREAD_ID );
-		virtual CErrno			Cleanup(void) override;
+	public:
+		virtual CErrno			Init(ETimerStrategyType objTimerStrategyType = TIMER_STRATEGY_DEFAULT);
+		virtual CErrno			Cleanup(void);
 
 	public:  
-		virtual CErrno			Update_Thread(void) override; 
+		virtual CErrno			Update(void); 
 	};  
 } 
 #endif

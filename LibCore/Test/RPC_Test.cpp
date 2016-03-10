@@ -949,7 +949,7 @@ TEST(RPC)
 // 	Json::Value bar = root["bar"];
 // 	BarRpcInterface::GetInstance().Init(bar);
 // 
-// 	Timer::TimerHelper::sleep(100);
+// 	Timer::sleep(100);
 // 
 // 	Json::Value foo = root["foo"];
 // 	FooRpcInterface::GetInstance().Init(foo);

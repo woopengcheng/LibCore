@@ -121,7 +121,7 @@ CErrno Client::Update()
 		{
 			m_pNetHandlerClient->SendMsg(pBuf , unLen + sizeof(Net::MsgHeader));
 		}
-		Timer::TimerHelper::sleep(1); 
+		Timer::sleep(1); 
 	}
 	return CErrno::Success();
 }

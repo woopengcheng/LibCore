@@ -102,7 +102,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		{
 			break;
 		}
-		Timer::TimerHelper::sleep(1);
+		Timer::sleep(1);
 	}
 
 

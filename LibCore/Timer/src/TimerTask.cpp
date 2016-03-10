@@ -1,4 +1,4 @@
-#include "Timer/inc/TimerTask.h" 
+﻿#include "Timer/inc/TimerTask.h" 
 
 namespace Timer
 {
@@ -7,7 +7,7 @@ namespace Timer
 
 	} 
 
-	INT32 TimerTask::SetTimer( UINT32 unInterval , UINT32 unTimes , UINT32 unStartTimer /*= 0*/ )
+	INT32 TimerTask::SetTimer( UINT32 unInterval , UINT32 unTimes , UINT32 unStartTimer /*= 0*/  , UINT32 unTimerID /*= 0*/)
 	{   
 		return -1;
 	} 

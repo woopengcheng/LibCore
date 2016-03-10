@@ -857,5 +857,8 @@
     <ClCompile Include="..\..\LibCore\Test\CSVReader_Test.cpp">
       <Filter>Test</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\LibCore\Test\Timer_test.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

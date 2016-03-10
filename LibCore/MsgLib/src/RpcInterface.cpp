@@ -159,7 +159,7 @@ namespace Msg
 			m_pRpcManager->Update();
 		}
 
-		Timer::TimerHelper::sleep(1);
+		Timer::sleep(1);
 		return CErrno::Success();
 	}	
 

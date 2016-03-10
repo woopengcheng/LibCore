@@ -188,7 +188,7 @@ namespace Net
 			{
 				m_queueRecvMsgs.push(pMsgWrapper);
 				pMsgWrapper = m_pNet->RecvMsg();
-				Timer::TimerHelper::sleep(1);
+				Timer::sleep(1);
 			}
 
 			return CErrno::Success();
@@ -211,7 +211,7 @@ namespace Net
 				SAFE_DELETE_ARRAY(pMsg);
 				SAFE_DELETE(pMsgWrapper);
 
-				Timer::TimerHelper::sleep(1);
+				Timer::sleep(1);
 			}
 			return CErrno::Success();
 		} 
@@ -238,7 +238,7 @@ namespace Net
 				SAFE_DELETE_ARRAY(pMsg);
 				SAFE_DELETE(pMsgWrapper);
 
-				Timer::TimerHelper::sleep(1);
+				Timer::sleep(1);
 			}
 		}
 		return nCodeError;

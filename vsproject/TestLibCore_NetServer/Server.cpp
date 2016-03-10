@@ -124,7 +124,7 @@ INT32 Server::Update()
 
 			Net::NetThread::GetInstance().SendMsg(*iter, pBuf, nLength);
 		}
-		Timer::TimerHelper::sleep(1); 
+		Timer::sleep(1); 
 	}
 	return TRUE;
 }

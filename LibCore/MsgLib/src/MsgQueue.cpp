@@ -18,14 +18,14 @@ namespace Msg
 	}
 
 
-	Timer::TimerNode * MsgQueue::Update( void )
+	CErrno MsgQueue::Update( void )
 	{  
 		Timer::TimerNode * pNodeInt64 = GetNode(0);
 		if (!pNodeInt64)
 		{
-			return NULL;
+			return CErrno::Failure();
 		}
-		MsgTimerNode * pNode = pNodeInt64->GetClass<MsgTimerNode >();    //5 获取堆顶的元素.然后进行比较.
+		MsgTimerNode * pNode = dynamic_cast<MsgTimerNode*>(pNodeInt64);    //5 获取堆顶的元素.然后进行比较.
 
 		if (pNode && pNode->GetTimeCount().IsExpired())
 		{
@@ -35,7 +35,7 @@ namespace Msg
 			RemoveTimer(pNode->GetTimerID());
 		}
 
-		return NULL;
+		return CErrno::Success();
 	}  
 
 	CErrno MsgQueue::AddMsg( ObjectMsgCall * pMsg , UINT32 unTimeout/* = 0*/)
@@ -64,7 +64,7 @@ namespace Msg
 		return pMsg;
 	}
 
-	INT32 MsgQueue::SetTimer( ObjectMsgCall * pMsg , UINT32 unTimeInterval , UINT32 unStartTime /*= 0*/, UINT32 unTimes /*= 0*/, void * pObj /*= NULL */, TimerCallBackFunc pFunc /*= NULL*/ )
+	INT32 MsgQueue::SetTimer( ObjectMsgCall * pMsg , UINT32 unTimeInterval , UINT32 unTimes /*= 0*/, UINT32 unStartTime /*= 0*/, void * pObj /*= NULL */, TimerCallBackFunc pFunc /*= NULL*/ )
 	{
 		if (m_pTimerStrategy)
 		{

@@ -1,16 +1,13 @@
-#ifndef __timer_timer_common_h__
+ï»¿#ifndef __timer_timer_common_h__
 #define __timer_timer_common_h__
 #include "CUtil/inc/Common.h"
 
-#ifdef WIN32
-#include <Windows.h>
-#else 
-#endif
 
-#define TIME_PRECISE 1000                     //5 ¶¨Òå¾«È·¼¶±ğÎªÎ¢Ãî.
+
+#define TIME_PRECISE 1000                     //5 å®šä¹‰ç²¾ç¡®çº§åˆ«ä¸ºå¾®å¦™.
  
-#define DEFAULT_TIMER_THREAD_ID 1             //5 Ä¬ÈÏ¼ÆÊ±Æ÷ÖĞĞÄID.
-#define DEFAULT_TIMER_HANDLE_THREAD_ID 2      //5 Ä¬ÈÏ¼ÆÊ±Æ÷´¦ÀíID
+#define DEFAULT_TIMER_THREAD_ID 1             //5 é»˜è®¤è®¡æ—¶å™¨ä¸­å¿ƒID.
+#define DEFAULT_TIMER_HANDLE_THREAD_ID 2      //5 é»˜è®¤è®¡æ—¶å™¨å¤„ç†ID
 
 typedef INT64 TimerType;
 

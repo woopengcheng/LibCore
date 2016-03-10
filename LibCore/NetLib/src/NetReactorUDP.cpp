@@ -130,7 +130,7 @@ namespace Net
 				}
 			}
 		} 
-		Timer::TimerHelper::sleep(1);
+		Timer::sleep(1);
 
 		return CErrno::Success();
 	}

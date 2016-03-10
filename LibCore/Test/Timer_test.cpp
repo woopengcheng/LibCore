@@ -1,0 +1,120 @@
+#include "Timer/inc/GlobalTimer.h"
+#include "Timer/inc/GlobalTimerTask.h"
+#include "Timer/inc/TimerHelp.h"
+#include "CUtil/inc/CUtil.h"
+#include "UnitTest++/UnitTestPP.h"
+
+#include "stdafx.h"
+
+static BOOL	 g_bClosed = false;
+static INT32 g_nTestTimerOneTimeID = 100;
+static INT32 g_nTestTimerMultiTimesID = 101;
+static INT32 g_nTestTimerLimitTimeID = 102;
+static INT32 g_nTestTimerObjectStaticID = 103;
+static INT32 g_nTestTimerStaticID = 104;
+static INT32 g_nTestTimerMultiTimes = 100;
+
+class TestTimer : public Timer::TimerTask
+{
+public:
+	TestTimer()
+		: test(1)
+	{}
+	virtual ~TestTimer() {}
+	UINT32 test;
+
+public:
+	virtual void	OnTimer(UINT32 unTimerID, UINT32 unRemainTimers) override
+	{
+		if (unTimerID == g_nTestTimerOneTimeID)  //5 测试1次是否生效
+		{
+			CHECK_EQUAL(unRemainTimers, 1);
+		}
+		else if (unTimerID == g_nTestTimerMultiTimesID)  //5 测试是否多次生效
+		{
+			static INT32 nTimes = g_nTestTimerMultiTimes;
+			CHECK_EQUAL(unRemainTimers, nTimes);
+			--nTimes;
+		}
+		else if (unTimerID == g_nTestTimerLimitTimeID)//5 测试无限次是否生效
+		{
+			CHECK_EQUAL(unRemainTimers, 0);
+		}
+		else
+		{
+			CHECK_EQUAL(unRemainTimers,1);  //5 测试自动生成的ID
+		}
+	}
+	virtual INT32	SetTimer(UINT32 unInterval, UINT32 unTimes = 0, UINT32 unStartTimer = 0, UINT32 unTimerID = 0) override
+	{
+		return Timer::GlobalTimer::GetInstance().SetTimer(unInterval, unTimes, unStartTimer,  this, NULL , unTimerID);
+	}
+
+	static void  RunTimer(void * pObj, UINT32 unTimerID, UINT32 unRemainTimers)
+	{
+		TestTimer * pTimerTask = (TestTimer *)pObj;
+		CHECK_EQUAL(!pTimerTask, false);
+		CHECK_EQUAL(pTimerTask->test, 1);
+
+		CHECK_EQUAL(unTimerID, g_nTestTimerObjectStaticID);
+		CHECK_EQUAL(unRemainTimers, 1);
+	}
+};
+
+static INT32 g_nExtraID = 1000;
+static void  RunTimer(void * pObj, UINT32 unTimerID, UINT32 unRemainTimers)
+{
+	if (pObj)
+	{
+		CHECK_EQUAL(1, 0);
+	}
+
+	if (unTimerID == g_nTestTimerOneTimeID + g_nExtraID)  //5 测试1次是否生效
+	{
+		CHECK_EQUAL(unRemainTimers, 1);
+	}
+	else if (unTimerID == g_nTestTimerMultiTimesID + g_nExtraID)  //5 测试是否多次生效
+	{
+		static INT32 nTimes = g_nTestTimerMultiTimes;
+		CHECK_EQUAL(unRemainTimers, nTimes);
+		--nTimes;
+	}
+	else if (unTimerID == g_nTestTimerLimitTimeID + g_nExtraID)//5 测试无限次是否生效
+	{
+		CHECK_EQUAL(unRemainTimers, 0);
+	}
+	else
+	{
+		CHECK_EQUAL(unTimerID, g_nTestTimerStaticID);
+		if (unRemainTimers == 1)
+		{
+			g_bClosed = TRUE;
+		}		
+	}
+
+}
+
+
+TEST(Timer_Test)
+{
+	Timer::GlobalTimer::GetInstance().Init();
+
+	TestTimer test;
+	test.SetTimer(1, 1, 0, g_nTestTimerOneTimeID);
+	test.SetTimer(2, g_nTestTimerMultiTimes, 0, g_nTestTimerMultiTimesID);
+	test.SetTimer(3, 0, 0, g_nTestTimerLimitTimeID);
+	test.SetTimer(4, 1, 1);
+	Timer::GlobalTimer::GetInstance().SetTimer(1, 1, 1, &test, &TestTimer::RunTimer , g_nTestTimerObjectStaticID);
+
+	Timer::GlobalTimer::GetInstance().SetTimer(1, 1, 0, NULL, RunTimer, g_nTestTimerOneTimeID + g_nExtraID);
+	Timer::GlobalTimer::GetInstance().SetTimer(2, g_nTestTimerMultiTimes, 1, NULL, RunTimer, g_nTestTimerMultiTimesID + g_nExtraID);
+	Timer::GlobalTimer::GetInstance().SetTimer(3, 0, 1, NULL, RunTimer, g_nTestTimerLimitTimeID + g_nExtraID);
+	Timer::GlobalTimer::GetInstance().SetTimer(5, 2, 5, NULL, RunTimer, g_nTestTimerStaticID);
+	while (!g_bClosed)
+	{
+		Timer::GlobalTimer::GetInstance().Update();
+		Timer::sleep(1);
+	}
+
+	Timer::GlobalTimer::GetInstance().Cleanup();
+}

@@ -79,7 +79,7 @@ namespace ThreadPool
 
 			Update();
 
-			Timer::TimerHelper::sleep(1);
+			Timer::sleep(1);
 // 			pthread_testcancel();
 		}
 	}

@@ -15,7 +15,7 @@ Msg::ObjectMsgCall * Server::ServerHandler::SlaveRequestSync_RpcServer(INT32 nSe
 		Return(newbackdir , res);
 	}
 
-	std::string strTimeStamp = Timer::TimerHelper::GetDate("%Y%m%d%H%M%S");
+	std::string strTimeStamp = Timer::GetDate("%Y%m%d%H%M%S");
 	pDB->Backup(strTimeStamp , Server::DBServer::GetInstance().GetBackupDir());
 	newbackdir = Server::DBServer::GetInstance().GetBackupDir() + strTimeStamp + "/" + dbname;
 

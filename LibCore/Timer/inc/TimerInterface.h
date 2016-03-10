@@ -1,6 +1,7 @@
-#ifndef __timer_timer_interface_h__
+ï»¿#ifndef __timer_timer_interface_h__
 #define __timer_timer_interface_h__ 
-#include "Timer/inc/MinHeapTimer.h"
+/*#include "Timer/inc/MinHeapTimer.h"*/
+#include "Timer/inc/IStrategy.h"
 
 namespace Timer
 {
@@ -9,24 +10,21 @@ namespace Timer
 		TIMER_STRATEGY_MIN_HEAP = 0 , 
 		TIMER_STRATEGY_TIMINGWHEEL = 1 , 
 
-		TIMER_STRATEGY_DEFAULT  = TIMER_STRATEGY_MIN_HEAP , 
+		TIMER_STRATEGY_DEFAULT  = TIMER_STRATEGY_TIMINGWHEEL , 
 	};
 
 	/**
 	 * @class : Timer
 	 * @author: woo
-	 * @date  : 2014Äê8ÔÂ3ÈÕ
+	 * @date  : 2014å¹´8æœˆ3æ—¥
 	 * @file  : Timer.h
-	 * @brief : ¹ı¶ÉÀà.ÓÃÀ´ÆÁ±Îµ×²ãºÍÉÏ²ã.Ò²¿ÉÒÔ½øĞĞ×ª»»µ×²ãµÄÊµÏÖ»úÖÆ.
-	 * @bug   : ÕâÀïÓĞÒ»¸öBug.µ±Õâ¸öÀàÎªTimer µÄÊ±ºò.ÄÇÃ´ÔÚÄ£°åÊµÏÖÖĞ.¾Í²»ÄÜĞ´×÷ÓÃÓòTimer.·ñÔò±àÒëÆ÷²»ÄÜÊ¶±ğ.
+	 * @brief : è¿‡æ¸¡ç±».ç”¨æ¥å±è”½åº•å±‚å’Œä¸Šå±‚.ä¹Ÿå¯ä»¥è¿›è¡Œè½¬æ¢åº•å±‚çš„å®ç°æœºåˆ¶.
+	 * @bug   : è¿™é‡Œæœ‰ä¸€ä¸ªBug.å½“è¿™ä¸ªç±»ä¸ºTimer çš„æ—¶å€™.é‚£ä¹ˆåœ¨æ¨¡æ¿å®ç°ä¸­.å°±ä¸èƒ½å†™ä½œç”¨åŸŸTimer.å¦åˆ™ç¼–è¯‘å™¨ä¸èƒ½è¯†åˆ«.
 	 */ 
 	class DLL_EXPORT TimerInterface
 	{ 
 	public:
-		TimerInterface(void)
-			: m_unTimerIDCount(0)
-			, m_pTimerStrategy(NULL)
-		{}
+		TimerInterface(void);
 		virtual ~TimerInterface(void){} 
 
 	public:
@@ -34,28 +32,32 @@ namespace Timer
 		virtual CErrno		Cleanup(void);
 
 	public:
-		virtual INT32		SetTimer(UINT32 unTimeInterval , UINT32 unStartTime = 0, UINT32 unTimes = 0, void * pObj = NULL , TimerCallBackFunc pFunc = NULL);
+		virtual INT32		SetTimer(UINT32 unTimeInterval , UINT32 unTimes = 0, UINT32 unStartTime = 0, void * pObj = NULL , TimerCallBackFunc pFunc = NULL , UINT32 unTimerID = 0);
 		virtual CErrno		RemoveTimer(UINT32 unTimeID);
-		virtual TimerNode * Update(void);
+		virtual CErrno		Update(void);
 
 	public:
-		TimerNode *			GetNode(UINT32 unNodeID = 0);  //5  Èç¹ûÕâÀïÊÇ×îĞ¡¶ÑÊµÏÖµÄ.ÔòÊäÈë×îĞ¡¶ÑµÄÎ»ÖÃ.Ò»°ãÊäÈëÕ»¶¥Îª0
+		//************************************
+		// Method:    GetNode
+		// FullName:  Timer::TimerInterface::GetNode
+		// Access:    virtual public 
+		// Returns:   Node<TimerType> *
+		// Qualifier: å¦‚æœè¿™é‡Œæ˜¯æœ€å°å †å®ç°çš„.åˆ™è¾“å…¥æœ€å°å †çš„ä½ç½®.ä¸€èˆ¬è¾“å…¥æ ˆé¡¶ä¸º0
+		// Parameter: UINT32 unNodeID
+		//************************************
+		TimerNode 		*	GetNode(UINT32 unNodeID = 0);
+		CErrno				HandleNode( TimerNode * pNode );
+		CErrno				UpdateNode(TimerNode * pNode);  
 
 	public:
-		UINT32				GetTimerIDCount()
-		{
-			ThreadPool::AutoSpinRWLock(m_objLock , false);
-			return m_unTimerIDCount;
-		} 
-		UINT32				TimerIDAutoAddOne()
-		{
-			ThreadPool::AutoSpinRWLock(m_objLock);
-			return ++m_unTimerIDCount; 
-		} 
-
+		UINT32				GetTimerIDCount();
+		UINT32				TimerIDAutoAddOne();
 	protected:
-		UINT32                 m_unTimerIDCount;
-		IStrategy			 * m_pTimerStrategy;
+		UINT32				m_unTimerIDCount;
+		IStrategy		*	m_pTimerStrategy;
+		UINT32				m_unTimerCount;   //5 ç”¨æ¥è®¡æ—¶1ç§’1å¿ƒè·³
+		UINT64				m_unLastTimerCount;
+		ETimerStrategyType	m_objStrategyType;
 		ThreadPool::ThreadSpinRWMutex  m_objLock;
 	};
 } 

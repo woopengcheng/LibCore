@@ -6,7 +6,7 @@
 
 namespace Timer
 { 
-	class MinHeapTimer : public CUtil::MinHeap<TimerType> , public IStrategy
+	class DLL_EXPORT MinHeapTimer : public CUtil::MinHeap<TimerType> , public IStrategy
 	{
 	public:
 		MinHeapTimer( void ){}

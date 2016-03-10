@@ -42,7 +42,7 @@ namespace CUtil
 
 	INT64 GenerateUUIDByTime( void )
 	{ 
-		return (Timer::TimerHelper::GetTickCount());
+		return (Timer::GetTickCount());
 	}
 
 	CErrno  Init(std::string strLogFile)

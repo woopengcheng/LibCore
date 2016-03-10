@@ -29,7 +29,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	while (1)
 	{
 		Client::MsgInstance::GetInstance().Update();
-		Timer::TimerHelper::sleep(10);  
+		Timer::sleep(10);  
 	}
 
 	Client::MsgInstance::GetInstance().Cleanup(); 

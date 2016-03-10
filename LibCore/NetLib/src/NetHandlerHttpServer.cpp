@@ -157,7 +157,7 @@ namespace Net
 				return false;
 			}
 
-			time_t now = Timer::TimerHelper::GetTime();
+			time_t now = Timer::GetTime();
 			for (CollectionEntrysT::iterator iter = m_vecEntries.begin();iter != m_vecEntries.end();++iter)
 			{
 				if(iter->nExpireTime < now || CUtil::stricmp(iter->strName.c_str() , szNamePwdTime[0]) == 0)
@@ -230,7 +230,7 @@ namespace Net
 			return false;
 		}
 
-		time_t now = Timer::TimerHelper::GetTime();
+		time_t now = Timer::GetTime();
 		for (CollectionEntrysT::iterator iter = m_vecEntries.begin(); iter != m_vecEntries.end(); ++iter)
 		{
 			if (((iter->nExpireTime && iter->nExpireTime >= now) || iter->nExpireTime == 0)&&

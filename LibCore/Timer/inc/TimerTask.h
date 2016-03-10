@@ -1,18 +1,17 @@
-#ifndef __timer_timer_task_h
+ï»¿#ifndef __timer_timer_task_h
 #define __timer_timer_task_h
 #include "Timer/inc/TimerCommon.h"  
-#include "ThreadPool/inc/ThreadTask.h"
 
 namespace Timer
 { 	 
 	/**
 	 * @class : TimerTask
 	 * @author: woo
-	 * @date  : 2014Äê8ÔÂ2ÈÕ
+	 * @date  : 2014å¹´8æœˆ2æ—¥
 	 * @file  : TimerTask.h
-	 * @brief : Õâ¸öÀàÖ÷ÒªÊÇĞèÒªÊ¹ÓÃµ½¼ÆÊ±Æ÷µÄÀà¼Ì³Ğ,È»ºóÖØÔØOnTimerº¯Êı.µÈ´ı¼ÆÊ±Æ÷´¥·¢.
+	 * @brief : è¿™ä¸ªç±»ä¸»è¦æ˜¯éœ€è¦ä½¿ç”¨åˆ°è®¡æ—¶å™¨çš„ç±»ç»§æ‰¿,ç„¶åé‡è½½OnTimerå‡½æ•°.ç­‰å¾…è®¡æ—¶å™¨è§¦å‘.
 	 */
-	class DLL_EXPORT TimerTask 
+	class  DLL_EXPORT TimerTask
 	{   
 	public:
 		TimerTask( void ){}
@@ -24,23 +23,23 @@ namespace Timer
 		// FullName:  TimerTask::OnTimer
 		// Access:    virtual public 
 		// Returns:   void
-		// Qualifier: ¼ÆÊ±Æ÷´¥·¢ºóµ÷ÓÃµÄº¯Êı.ĞèÒªÖØÔØ.
-		// Parameter: UINT32 unTimerID  ¼ÆÊ±Æ÷µÄID
-		// Parameter: UINT32 unTimers   ¼ÆÊ±Æ÷µÄ´ÎÊı
+		// Qualifier: è®¡æ—¶å™¨è§¦å‘åè°ƒç”¨çš„å‡½æ•°.éœ€è¦é‡è½½.
+		// Parameter: UINT32 unTimerID  è®¡æ—¶å™¨çš„ID
+		// Parameter: UINT32 unRemainTimers   è®¡æ—¶å™¨çš„å‰©ä½™æ¬¡æ•°(åŒ…å«å½“å‰æ­£åœ¨å¤„ç†çš„æ¬¡æ•°.å¤„ç†å®Œæ¯•åæ‰å»æ‰è®¡æ—¶å™¨.ä¸ºäº†å’Œæ— é™æ¬¡æ•°åŒºåˆ†)
 		//************************************
-		virtual void  OnTimer(UINT32 unTimerID , UINT32 unTimers) = 0;
+		virtual void	OnTimer(UINT32 unTimerID , UINT32 unRemainTimers) = 0;
 		 
 		//************************************
 		// Method:    SetTimer
 		// FullName:  TimerTask::SetTimer
 		// Access:    virtual public  
-		// Returns:   INT32   ·µ»ØTimerµÄID.-1´ú±í´íÎó.
-		// Qualifier: Ìí¼Ó¼ÆÊ±Æ÷µ½¼ÆÊ±Æ÷¶ÑÀïÃæ.
-		// Parameter: UINT32 unInterval    Ê±¼ä¼ä¸ô
-		// Parameter: UINT32 unTimes       0´ú±í³ÖĞø.1´ú±íÒ»´Î.
-		// Parameter: UINT32 unStartTimer  0´ú±í¼´¿É¿ªÊ¼
+		// Returns:   INT32   è¿”å›Timerçš„ID.-1ä»£è¡¨é”™è¯¯.
+		// Qualifier: æ·»åŠ è®¡æ—¶å™¨åˆ°è®¡æ—¶å™¨å †é‡Œé¢.
+		// Parameter: UINT32 unInterval    æ—¶é—´é—´éš”
+		// Parameter: UINT32 unTimes       0ä»£è¡¨æŒç»­.1ä»£è¡¨ä¸€æ¬¡.
+		// Parameter: UINT32 unStartTimer  0ä»£è¡¨å³å¯å¼€å§‹
 		//************************************
-		virtual INT32  SetTimer( UINT32 unInterval , UINT32 unTimes = 0, UINT32 unStartTimer = 0) = 0;
+		virtual INT32	SetTimer( UINT32 unInterval , UINT32 unTimes = 0, UINT32 unStartTimer = 0 , UINT32 unTimerID = 0) = 0;
 	};
 }
 

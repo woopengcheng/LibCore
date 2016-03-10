@@ -77,7 +77,7 @@ int _tmain(int argc, _TCHAR* argv[])
 //	test.SetTimer(1 , 2);
 	while (1)
 	{
-		Timer::TimerHelper::sleep(1);
+		Timer::sleep(1);
 	}
 
 	Timer::GlobalTimer::GetInstance().Cleanup();

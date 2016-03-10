@@ -5,8 +5,8 @@ namespace Timer
 {  
 	CErrno TimeCount::Start( UINT64 ullTimeInterval )
 	{
-		m_ullLastTime = TimerHelper::GetTickCount();
-		m_ullTimeInterval = TimerHelper::GetMicroSecond(ullTimeInterval);
+		m_ullLastTime = Timer::GetTickCount();
+		m_ullTimeInterval = Timer::GetMicroSecond(ullTimeInterval);
 
 		return CErrno::Success();
 	}
@@ -29,7 +29,7 @@ namespace Timer
 		{
 			if (!unCurTime)
 			{
-				unCurTime = TimerHelper::GetTickCount();
+				unCurTime = Timer::GetTickCount();
 			}
 			if ((m_ullLastTime + m_ullTimeInterval) < unCurTime)
 			{
@@ -52,12 +52,12 @@ namespace Timer
 
 	UINT64 TimeCount::ElapseTicks()
 	{ 
-		return TimerHelper::GetMicroSecond(__max(0LL,Timer::TimerHelper::GetTickCount() - m_ullLastTime));
+		return Timer::GetMicroSecond(__max(0LL,Timer::GetTickCount() - m_ullLastTime));
 	}
 
 	UINT64 TimeCount::ResetTime()
 	{
-		return m_ullLastTime = Timer::TimerHelper::GetTickCount();
+		return m_ullLastTime = Timer::GetTickCount();
 	}
 
 	void TimeCount_Safe::SetLastTime( UINT64 ullLastTime )
@@ -96,7 +96,7 @@ namespace Timer
 		{
 			if (!unCurTime)
 			{
-				unCurTime = TimerHelper::GetTickCount();
+				unCurTime = Timer::GetTickCount();
 			}
 			if ((ullLastTime + ullTimeInterval) <= unCurTime)
 			{
@@ -120,8 +120,8 @@ namespace Timer
 
 	CErrno TimeCount_Safe::Start( UINT64 ullTimeInterval )
 	{
-		m_ullLastTime = TimerHelper::GetTickCount();
-		m_ullTimeInterval = TimerHelper::GetMicroSecond(ullTimeInterval);
+		m_ullLastTime = Timer::GetTickCount();
+		m_ullTimeInterval = Timer::GetMicroSecond(ullTimeInterval);
 
 		return CErrno::Success();
 	}
@@ -136,12 +136,12 @@ namespace Timer
 
 	UINT64 TimeCount_Safe::ElapseTicks()
 	{ 
-		return TimerHelper::GetMicroSecond(__max(0LL,Timer::TimerHelper::GetTickCount() - GetLastTime()));
+		return Timer::GetMicroSecond(__max(0LL,Timer::GetTickCount() - GetLastTime()));
 	}
 
 	CErrno TimeCount_Safe::ResetTime()
 	{
-		 SetLastTime(Timer::TimerHelper::GetTickCount()) ;
+		 SetLastTime(Timer::GetTickCount()) ;
 		 return CErrno::Success();
 	}
 }

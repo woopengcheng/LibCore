@@ -1,5 +1,5 @@
-#include "Timer/inc/TimerNode.h"
-
+﻿#include "Timer/inc/TimerNode.h"
+#include "ThreadPool/inc/ThreadLock.h"
 
 namespace Timer
 { 
@@ -87,6 +87,35 @@ namespace Timer
 		ThreadPool::AutoSpinRWLock objLock(m_objLock , false);
 		return m_bDelete;
 
+	}
+
+	void TimerNode::SetNodePos(UINT32 unNodePos)
+	{
+		ThreadPool::AutoSpinRWLock objLock(m_objLock);
+		m_unNodePos = unNodePos;
+	}
+
+	INT32 TimerNode::GetNodePos(void)
+	{
+		ThreadPool::AutoSpinRWLock objLock(m_objLock, false);
+		return m_unNodePos;
+	}
+
+	INT64 TimerNode::GetValue(void)
+	{
+		ThreadPool::AutoSpinRWLock objLock(m_objLock, false);
+		return m_objValue;
+	}
+
+	void TimerNode::SetValue(INT64 objValue)
+	{
+		ThreadPool::AutoSpinRWLock objLock(m_objLock);
+		m_objValue = objValue;
+	}
+
+	ThreadPool::ThreadSpinRWMutex & TimerNode::GetLock()
+	{
+		return m_objLock;
 	}
 
 }

@@ -26,7 +26,7 @@ namespace GameDB
 
 	CErrno DBSlaveInterface::InitDB(const Json::Value & conf)
 	{  
-		std::string timestamp = Timer::TimerHelper::GetDate();
+		std::string timestamp = Timer::GetDate();
 		for(size_t i = 0; i < timestamp.length(); ++i)
 		{
 			if(timestamp[i] == '-' || timestamp[i] == ' ' || timestamp[i] == ':')

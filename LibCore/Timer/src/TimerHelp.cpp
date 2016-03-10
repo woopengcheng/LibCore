@@ -2,10 +2,14 @@
 #include "Timer/inc/GlobalTimer.h"
 #include "Timer/inc/TimingWheel.h"
 
+#ifdef WIN32
+#include <windows.h>
+#endif
+
 namespace Timer
 {  
 #ifdef WIN32
-	INT64 TimerHelper::GetTickCount()
+	INT64 GetTickCount()
 	{  
 		INT64  llCount = 0;
 		QueryPerformanceCounter((LARGE_INTEGER *)(&llCount));
@@ -13,7 +17,7 @@ namespace Timer
 		return llCount;
 	}
 
-	INT64 TimerHelper::GetTickFrequency()
+	INT64 GetTickFrequency()
 	{
 		static INT64  s_llFrequency = 0;
 		if (!s_llFrequency)
@@ -24,7 +28,7 @@ namespace Timer
 		return s_llFrequency;
 	} 
 #else
-	INT64 TimerHelper::GetTickCount()
+	INT64 GetTickCount()
 	{ 
 		timespec t;
 		::clock_gettime(CLOCK_MONOTONIC,&t);              //5 CLOCK_REALTIME不同.这个是过去的某个逝去的时间点的次数.
@@ -33,13 +37,13 @@ namespace Timer
 		return llCount;
 	}
 
-	INT64 TimerHelper::GetTickFrequency()
+	INT64 GetTickFrequency()
 	{  
 		return TIME_PRECISE;
 	}  
 #endif
 
-	INT64 TimerHelper::GetTickSecond(INT64 llTime /*= -1*/ )
+	INT64 GetTickSecond(INT64 llTime /*= -1*/ )
 	{
 		if (llTime == -1)
 		{
@@ -51,7 +55,7 @@ namespace Timer
 		}
 	}
 
-	INT64 TimerHelper::GetTickMicroSecond( INT64 llTime /*= -1*/ )
+	INT64 GetTickMicroSecond( INT64 llTime /*= -1*/ )
 	{
 		if (llTime == -1)
 		{
@@ -63,7 +67,7 @@ namespace Timer
 		} 
 	}
 
-	INT64 TimerHelper::GetTickMilliSecond( INT64 llTime /*= -1*/ )
+	INT64 GetTickMilliSecond( INT64 llTime /*= -1*/ )
 	{
 		if (llTime == -1)
 		{
@@ -75,39 +79,39 @@ namespace Timer
 		} 
 	}
 
-	INT64 TimerHelper::GetMilliSecond( INT64 llTime )
+	INT64 GetMilliSecond( INT64 llTime )
 	{
 		return llTime * GetTickFrequency() / 1000000;
 
 	}
 
-	INT64 TimerHelper::GetMicroSecond( INT64 llTime )
+	INT64 GetMicroSecond( INT64 llTime )
 	{
 		return llTime * GetTickFrequency() / 1000;
 	}
 
-	INT64 TimerHelper::GetSecond( INT64 llTime )
+	INT64 GetSecond( INT64 llTime )
 	{
 		return llTime * GetTickFrequency();
 	}
 
-	INT64 TimerHelper::DiffMilliSecond( INT64 llTime1 , INT64 llTime2 )
+	INT64 DiffMilliSecond( INT64 llTime1 , INT64 llTime2 )
 	{
 		return (llTime1 - llTime2) * 1000000 / GetTickFrequency(); 
 	}
 
-	INT64 TimerHelper::DiffMicroSecond( INT64 llTime1 , INT64 llTime2 )
+	INT64 DiffMicroSecond( INT64 llTime1 , INT64 llTime2 )
 	{
 		return (llTime1 - llTime2) * 1000 / GetTickFrequency(); 
 
 	}
 
-	INT64 TimerHelper::DiffSecond( INT64 llTime1 , INT64 llTime2 )
+	INT64 DiffSecond( INT64 llTime1 , INT64 llTime2 )
 	{
 		return (llTime1 - llTime2) / GetTickFrequency(); 
 	}
 
-	std::string TimerHelper::GetDate(std::string strFormat/* = "%Y-%m-%d"*/)
+	std::string GetDate(std::string strFormat/* = "%Y-%m-%d"*/)
 	{
 		time_t t = time(0); 
 		char tmp[64]; 
@@ -115,12 +119,12 @@ namespace Timer
 		return std::string(tmp); 
 	}
 
-	time_t TimerHelper::GetTime()
+	time_t GetTime()
 	{
 		return time(0);
 	}
 
-	void TimerHelper::sleep(INT64 llMillSec)
+	void sleep(INT64 llMillSec)
 	{
 #ifdef WIN32
 		::Sleep((DWORD)llMillSec);
@@ -132,7 +136,7 @@ namespace Timer
 #endif
 	}
 
-	INT32 TimerHelper::GetCurTimingwheelPos(INT32 nFutureTime , INT32 & nWheelSize , INT32 & nTimerSize)
+	INT32 GetCurTimingwheelPos(INT32 nFutureTime , INT32 & nWheelSize , INT32 & nTimerSize)
 	{
 		if (nFutureTime < 0)
 		{

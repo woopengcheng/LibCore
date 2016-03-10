@@ -73,7 +73,7 @@ namespace Server
 			return false;
 		}
 
-		gDebugStream(Timer::TimerHelper::GetDate("%Y-%m-%d-%H-%M-%S") << " " << "slave sync successful:" << strDBName );
+		gDebugStream(Timer::GetDate("%Y-%m-%d-%H-%M-%S") << " " << "slave sync successful:" << strDBName );
 
 		return true;
 	}

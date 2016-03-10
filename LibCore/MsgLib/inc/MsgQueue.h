@@ -20,8 +20,8 @@ namespace Msg
 	public:
 		virtual CErrno				Init(Timer::ETimerStrategyType objType = Timer::TIMER_STRATEGY_DEFAULT) override;
 		virtual CErrno				Cleanup(void) override;
-		virtual Timer::TimerNode*	Update(void) override;
-		virtual INT32				SetTimer(ObjectMsgCall * pMsg , UINT32 unTimeInterval , UINT32 unStartTime = 0, UINT32 unTimes = 0, void * pObj = NULL , TimerCallBackFunc pFunc = NULL) ;
+		virtual CErrno				Update(void) override;
+		virtual INT32				SetTimer(ObjectMsgCall * pMsg , UINT32 unTimeInterval , UINT32 unTimes = 0, UINT32 unStartTime = 0, void * pObj = NULL , TimerCallBackFunc pFunc = NULL) ;
 
 	public: 
 		virtual  CErrno				AddMsg(ObjectMsgCall * pMsg , UINT32  unTimeout = 0);

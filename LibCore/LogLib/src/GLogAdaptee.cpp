@@ -27,7 +27,7 @@
 // 		strFileName += pLogName;
 // 		strFileName += "_";
 // 
-// 		strFileName += Timer::TimerHelper::GetDate();
+// 		strFileName += Timer::GetDate();
 // 
 // 		m_bMultCategory = bMultCategory;
 // 		if (bMultCategory)
