@@ -209,7 +209,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\tbb\lib\intel64\vc10;$(SolutionDir)..\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\boost\lib;$(SolutionDir)..\deps\pthread\lib\x64;$(SolutionDir)..\deps\gperftools-2.1\debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Rpcrt4.lib;leveldb.lib;libtcmalloc_minimal.lib;libiconv_static.lib;lib_json.lib;lua.lib;libzmq_d.lib;ws2_32.lib;tbb_debug.lib;pthreadVC2.lib;log4cplusSUD.lib;LibStatic.lib;expat.lib;UnitTest.lib;Snappy.lib;MongoBson.lib;CityHash.lib;Ws2_32.lib;openssl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Rpcrt4.lib;leveldb.lib;libtcmalloc_minimal.lib;libiconv_static.lib;lib_json.lib;lua.lib;libzmq_d.lib;ws2_32.lib;tbb_debug.lib;pthreadVC2.lib;log4cplusSUD.lib;LibStatic.lib;expat.lib;UnitTest.lib;Snappy.lib;Ws2_32.lib;openssl.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>LIBCMTD;MSVCRT;</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <HeapReserveSize>104857600</HeapReserveSize>
@@ -234,9 +234,12 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\..\LibCore\MongoBson\bson\README" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\LibCore\CityHash\city.h" />
+    <ClInclude Include="..\..\LibCore\CityHash\citycrc.h" />
     <ClInclude Include="..\..\LibCore\Coroutine\Coroutine.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\arg_parser.h" />
     <ClInclude Include="..\..\LibCore\CUtil\inc\AutomicUInt.h" />
@@ -310,6 +313,37 @@
     <ClInclude Include="..\..\LibCore\Marshal\inc\CStream.h" />
     <ClInclude Include="..\..\LibCore\Marshal\inc\Marshal.h" />
     <ClInclude Include="..\..\LibCore\Marshal\inc\MashalTest.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\bson-inl.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\bson.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\bsonelement.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\bsonmisc.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\bsonobj.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\bsonobjbuilder.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\bsonobjiterator.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\bsontypes.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\bson_builder_base.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\bson_field.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\inline_decls.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\ordering.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\util\atomic_int.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\util\builder.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\util\misc.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\assert_util.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\atomic_intrinsics.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\atomic_intrinsics_gcc.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\atomic_intrinsics_win32.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\atomic_word.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\compiler.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\compiler_gcc.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\compiler_msvc.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\exit_code.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\float_utils.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\hex.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\redef_macros.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\string_data.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\targetver.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\undef_macros.h" />
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\windows_basic.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\GenParamHelper.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\GenMsgParams.h" />
     <ClInclude Include="..\..\LibCore\MsgLib\inc\ICallableObject.h" />
@@ -392,6 +426,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\LibCore\CityHash\city.cc" />
     <ClCompile Include="..\..\LibCore\Coroutine\Coroutine.cpp" />
     <ClCompile Include="..\..\LibCore\CUtil\src\arg_parser.cc" />
     <ClCompile Include="..\..\LibCore\CUtil\src\AutomicUInt.cpp" />
@@ -431,6 +466,7 @@
     <ClCompile Include="..\..\LibCore\LogLib\src\LogInterface.cpp" />
     <ClCompile Include="..\..\LibCore\Marshal\inc\CStream.cpp" />
     <ClCompile Include="..\..\LibCore\Marshal\src\CommonMarshal.cpp" />
+    <ClCompile Include="..\..\LibCore\MongoBson\bson\bson.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\InnerMsg.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\InternalMsgTask.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\MsgDispatcher.cpp" />
@@ -467,10 +503,12 @@
     <ClCompile Include="..\..\LibCore\NetLib\src\NetThread.cpp" />
     <ClCompile Include="..\..\LibCore\NetLib\src\RakNetUDPManager.cpp" />
     <ClCompile Include="..\..\LibCore\Test\Chunk_Test.cpp" />
+    <ClCompile Include="..\..\LibCore\Test\CityHash_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\Coroutine_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\CStream_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\CSVReader_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\LibCore_Test.cpp" />
+    <ClCompile Include="..\..\LibCore\Test\MongoBson_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\Paramter_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\ReferCount_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\RPC_Test.cpp" />

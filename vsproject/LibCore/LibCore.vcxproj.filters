@@ -100,9 +100,27 @@
     <Filter Include="Coroutine">
       <UniqueIdentifier>{f65d27df-a94d-41f7-9eed-34cb4d2b6cc4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="CityHash">
+      <UniqueIdentifier>{058be6be-9e6b-4c67-9d92-ad12ecc012c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MongoBson">
+      <UniqueIdentifier>{dc124a9f-8a5b-4686-a65f-888977711f7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MongoBson\bson">
+      <UniqueIdentifier>{bd2058e1-d652-4e87-8bc1-65b4aa3f425e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MongoBson\bson\util">
+      <UniqueIdentifier>{32a327c2-a2de-4d6c-ba5c-eac92c9cbf55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MongoBson\Mongo">
+      <UniqueIdentifier>{7a900a46-1059-42bb-8920-55d30e70f472}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
+    <None Include="..\..\LibCore\MongoBson\bson\README">
+      <Filter>MongoBson\bson</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -564,6 +582,105 @@
     <ClInclude Include="..\..\LibCore\MsgLib\inc\IRpcListener.h">
       <Filter>MsgLib\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\LibCore\CityHash\city.h">
+      <Filter>CityHash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\CityHash\citycrc.h">
+      <Filter>CityHash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\util\atomic_int.h">
+      <Filter>MongoBson\bson\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\util\builder.h">
+      <Filter>MongoBson\bson\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\util\misc.h">
+      <Filter>MongoBson\bson\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\bson.h">
+      <Filter>MongoBson\bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\bson_builder_base.h">
+      <Filter>MongoBson\bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\bson_field.h">
+      <Filter>MongoBson\bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\bsonelement.h">
+      <Filter>MongoBson\bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\bson-inl.h">
+      <Filter>MongoBson\bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\bsonmisc.h">
+      <Filter>MongoBson\bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\bsonobj.h">
+      <Filter>MongoBson\bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\bsonobjbuilder.h">
+      <Filter>MongoBson\bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\bsonobjiterator.h">
+      <Filter>MongoBson\bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\bsontypes.h">
+      <Filter>MongoBson\bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\inline_decls.h">
+      <Filter>MongoBson\bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\bson\ordering.h">
+      <Filter>MongoBson\bson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\assert_util.h">
+      <Filter>MongoBson\Mongo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\atomic_intrinsics.h">
+      <Filter>MongoBson\Mongo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\atomic_intrinsics_gcc.h">
+      <Filter>MongoBson\Mongo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\atomic_intrinsics_win32.h">
+      <Filter>MongoBson\Mongo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\atomic_word.h">
+      <Filter>MongoBson\Mongo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\compiler.h">
+      <Filter>MongoBson\Mongo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\compiler_gcc.h">
+      <Filter>MongoBson\Mongo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\compiler_msvc.h">
+      <Filter>MongoBson\Mongo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\exit_code.h">
+      <Filter>MongoBson\Mongo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\float_utils.h">
+      <Filter>MongoBson\Mongo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\hex.h">
+      <Filter>MongoBson\Mongo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\redef_macros.h">
+      <Filter>MongoBson\Mongo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\string_data.h">
+      <Filter>MongoBson\Mongo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\targetver.h">
+      <Filter>MongoBson\Mongo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\undef_macros.h">
+      <Filter>MongoBson\Mongo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LibCore\MongoBson\mongo\windows_basic.h">
+      <Filter>MongoBson\Mongo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -865,6 +982,18 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\Timer\src\TimingWheel.cpp">
       <Filter>Timer\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\CityHash\city.cc">
+      <Filter>CityHash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Test\CityHash_Test.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\MongoBson\bson\bson.cpp">
+      <Filter>MongoBson\bson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Test\MongoBson_Test.cpp">
+      <Filter>Test</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

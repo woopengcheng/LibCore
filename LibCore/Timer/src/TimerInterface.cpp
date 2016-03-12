@@ -153,7 +153,7 @@ namespace Timer
 				TimerNode * pNode = m_pTimerStrategy->Update();
 				if (pNode && pNode->GetTimeCount().IsExpired())
 				{
-					std::cout << "update timer:Obj="  << ":id=" << pNode->GetTimerID() << ":value=" << pNode->GetEndTime() << std::endl;
+//					std::cout << "update timer:Obj="  << ":id=" << pNode->GetTimerID() << ":value=" << pNode->GetEndTime() << std::endl;
 
 					RemoveTimer(pNode->GetTimerID());
 					CErrno error = HandleNode(pNode);
