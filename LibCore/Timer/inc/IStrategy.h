@@ -19,7 +19,6 @@ namespace Timer
 	public:
 		virtual CErrno			InsertNode(UINT32 unTimerID ,TimerNode * pNode , bool bRemoveSame = true) = 0 ;
 		virtual CErrno			RemoveNode(UINT32 unTimerID) = 0;
-		virtual TimerNode	*	GetNode(UINT32 unTimerID) = 0;
 	};   
 } 
 #endif

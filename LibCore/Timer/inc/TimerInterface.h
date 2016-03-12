@@ -32,33 +32,24 @@ namespace Timer
 		virtual CErrno		Cleanup(void);
 
 	public:
-		virtual INT32		SetTimer(UINT32 unTimeInterval , UINT32 unTimes = 0, UINT32 unStartTime = 0, void * pObj = NULL , TimerCallBackFunc pFunc = NULL , UINT32 unTimerID = 0);
+		virtual INT32		SetTimer(UINT32 unTimeInterval , UINT32 unTimes = 0, UINT32 unStartTime = 0, void * pObj = NULL , TimerCallBackFunc pFunc = NULL , UINT32 unTimerID = 0 , TimerNode * pNode = NULL);
 		virtual CErrno		RemoveTimer(UINT32 unTimeID);
 		virtual CErrno		Update(void);
+		virtual CErrno		OnUpdate(TimerNode * pNode);
 
-	public:
-		//************************************
-		// Method:    GetNode
-		// FullName:  Timer::TimerInterface::GetNode
-		// Access:    virtual public 
-		// Returns:   Node<TimerType> *
-		// Qualifier: 如果这里是最小堆实现的.则输入最小堆的位置.一般输入栈顶为0
-		// Parameter: UINT32 unTimerID
-		//************************************
-		TimerNode 		*	GetNode(UINT32 unTimerID = 0);
+	protected:
 		CErrno				HandleNode( TimerNode * pNode );
-		CErrno				UpdateNode(TimerNode * pNode);  
+		CErrno				UpdateNode(TimerNode * pNode);
 
-	public:
-		UINT32				GetTimerIDCount();
-		UINT32				TimerIDAutoAddOne();
 	protected:
 		UINT32				m_unTimerIDCount;
 		IStrategy		*	m_pTimerStrategy;
-		UINT32				m_unTimerCount;   //5 用来计时1秒1心跳
-		UINT64				m_unLastTimerCount;
+		UINT64				m_ullTimerCount;
+		UINT64				m_ullLastTimerCount;
 		ETimerStrategyType	m_objStrategyType;
-		ThreadPool::ThreadSpinRWMutex  m_objLock;
+
+	protected:
+		ThreadPool::ThreadSpinRWMutex  m_objLock;	//5 暂时未用在多线程中.如果用的话.用消息转发.就不用加锁了.
 	};
 } 
 

@@ -23,11 +23,11 @@ namespace Timer
 		static GlobalTimer	&	GetInstance( void ){ static GlobalTimer m_sInstance; return m_sInstance;}
 
 	public:
-		virtual CErrno			Init(ETimerStrategyType objTimerStrategyType = TIMER_STRATEGY_DEFAULT);
-		virtual CErrno			Cleanup(void);
+		virtual CErrno			Init(ETimerStrategyType objTimerStrategyType = TIMER_STRATEGY_DEFAULT) override;
+		virtual CErrno			Cleanup(void) override;
 
 	public:  
-		virtual CErrno			Update(void); 
+		virtual CErrno			Update(void) override;
 	};  
 } 
 #endif

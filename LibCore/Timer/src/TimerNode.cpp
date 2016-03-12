@@ -11,9 +11,8 @@ namespace Timer
 
 	void TimerNode::SetTimes( UINT32 unTimes )
 	{
-// 		ThreadPool::AutoSpinRWLock objLock(m_objLock);
+//  	ThreadPool::AutoSpinRWLock objLock(m_objLock);
 		m_unTimes = unTimes;
-
 	}
 
 	UINT32 TimerNode::GetTimes()
@@ -46,7 +45,7 @@ namespace Timer
 
 	void TimerNode::SetDelete(BOOL bDelete)
 	{
-// 		ThreadPool::AutoSpinRWLock objLock(m_objLock);
+//		ThreadPool::AutoSpinRWLock objLock(m_objLock);
 		m_bDelete = bDelete; 
 	}
 
@@ -57,9 +56,9 @@ namespace Timer
 
 	}
 
-	UINT64 TimerNode::GetEndTime(void) const
+	UINT64 TimerNode::GetEndTime(void) 
 	{
-// 		ThreadPool::AutoSpinRWLock objLock(m_objLock, false);
+//		ThreadPool::AutoSpinRWLock objLock(m_objLock, false);
 		return m_llEndTime;
 	}
 

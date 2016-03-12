@@ -6,7 +6,7 @@ namespace Timer
 	class MinHeapCompare
 	{
 	public:
-		bool operator ()(const TimerNode *e1, const TimerNode *e2)
+		bool operator ()(TimerNode *e1, TimerNode *e2)
 		{
 			return e1->GetEndTime() > e2->GetEndTime();
 		}

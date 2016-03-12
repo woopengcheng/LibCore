@@ -73,9 +73,11 @@ namespace Timer
  		void				SetTimeInterval(UINT64 ullTimeInterval);
  		UINT64				GetTimeInterval();
  
- 	private:
+	protected:
  		UINT64				m_ullLastTime;
- 		UINT64				m_ullTimeInterval;
+		UINT64				m_ullTimeInterval;
+
+	protected:
   		ThreadPool::ThreadSpinRWMutex m_objLock;
  	};
 

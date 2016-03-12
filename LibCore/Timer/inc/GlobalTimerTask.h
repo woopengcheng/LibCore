@@ -22,8 +22,8 @@ namespace Timer
 		virtual ~GlobalTimerTask( void );
 
 	public:		 
-		virtual void		OnTimer(UINT32 unTimerID , UINT32 unTimers = 0); 
-		virtual INT32		SetTimer( UINT32 unInterval , UINT32 unTimes = 0, UINT32 unStartTimer = 0 , UINT32 unTimerID = 0);
+		virtual void		OnTimer(UINT32 unTimerID , UINT32 unTimers = 0) override;
+		virtual INT32		SetTimer( UINT32 unInterval , UINT32 unTimes = 0, UINT32 unStartTimer = 0 , UINT32 unTimerID = 0) override;
 		virtual INT32		SetTimerEx(UINT32 unStartExecuteTime , UINT32 unTimes = 0 , UINT32 unTimerID = 0);
 		virtual void		ClearTimer();
 		virtual	void		OnRemoveTimer(INT32 nID){;}

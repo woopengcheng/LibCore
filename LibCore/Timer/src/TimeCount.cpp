@@ -60,6 +60,14 @@ namespace Timer
 		return m_ullLastTime = Timer::GetTickMicroSecond();
 	}
 
+
+
+
+
+
+
+
+
 	void TimeCount_Safe::SetLastTime( UINT64 ullLastTime )
 	{
 		ThreadPool::AutoSpinRWLock objLock(m_objLock);
@@ -96,7 +104,7 @@ namespace Timer
 		{
 			if (!unCurTime)
 			{
-				unCurTime = Timer::GetTickCount();
+				unCurTime = Timer::GetTickMicroSecond();
 			}
 			if ((ullLastTime + ullTimeInterval) <= unCurTime)
 			{
@@ -120,8 +128,8 @@ namespace Timer
 
 	CErrno TimeCount_Safe::Start( UINT64 ullTimeInterval )
 	{
-		m_ullLastTime = Timer::GetTickCount();
-		m_ullTimeInterval = Timer::GetMicroSecond(ullTimeInterval);
+		SetTimeInterval(ullTimeInterval);
+		SetLastTime(Timer::GetTickMicroSecond());
 
 		return CErrno::Success();
 	}
@@ -136,12 +144,12 @@ namespace Timer
 
 	UINT64 TimeCount_Safe::ElapseTicks()
 	{ 
-		return Timer::GetMicroSecond(__max(0LL,Timer::GetTickCount() - GetLastTime()));
+		return Timer::GetMicroSecond(__max(0LL,Timer::GetTickMicroSecond() - GetLastTime()));
 	}
 
 	CErrno TimeCount_Safe::ResetTime()
 	{
-		 SetLastTime(Timer::GetTickCount()) ;
+		 SetLastTime(Timer::GetTickMicroSecond()) ;
 		 return CErrno::Success();
 	}
 }

@@ -38,7 +38,7 @@ namespace Timer
 		void				SetDelete(BOOL bDelete);
 		int					IsDelete();
 		TimerCallBackFunc	GetCallBackFunc() { return m_pCallBackFunc; }
-		UINT64				GetEndTime(void) const;
+		UINT64				GetEndTime(void);
 		ThreadPool::ThreadSpinRWMutex & GetLock();
 
 	public:
@@ -56,6 +56,8 @@ namespace Timer
 		INT64	            m_llEndTime;
 
 		TimerCallBackFunc	m_pCallBackFunc;
+
+	protected:
 		ThreadPool::ThreadSpinRWMutex   m_objLock;
 	};
 

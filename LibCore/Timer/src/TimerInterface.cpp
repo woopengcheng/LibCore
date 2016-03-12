@@ -8,13 +8,11 @@
 
 namespace Timer
 { 
-#define TIMER_PEROID 1000
-
 	TimerInterface::TimerInterface(void)
 		: m_unTimerIDCount(0)
 		, m_pTimerStrategy(NULL)
-		, m_unTimerCount(0)
-		, m_unLastTimerCount(Timer::GetTickMicroSecond())
+		, m_ullTimerCount(0)
+		, m_ullLastTimerCount(Timer::GetTickMicroSecond())
 	{}
 
 	CErrno TimerInterface::Init(ETimerStrategyType objTimerStrategyType)
@@ -53,16 +51,20 @@ namespace Timer
 		return nResult;
 	}
 
-	INT32 TimerInterface::SetTimer( UINT32 unTimeInterval ,UINT32 unTimes /*= 0*/,  UINT32 unStartTime /*= 0*/, void * pObj /*= NULL */, TimerCallBackFunc pFunc /*= NULL*/ , UINT32 unTimerID/* = 0*/)
+	INT32 TimerInterface::SetTimer( UINT32 unTimeInterval ,UINT32 unTimes /*= 0*/,  UINT32 unStartTime /*= 0*/, void * pObj /*= NULL */, TimerCallBackFunc pFunc /*= NULL*/ , UINT32 unTimerID/* = 0*/, TimerNode * pNode/* = NULL*/)
 	{
 		if (m_pTimerStrategy)
 		{
 			if (unTimerID <= 0)
 			{
+//				ThreadPool::AutoSpinRWLock(m_objLock);
 				++m_unTimerIDCount;
 				unTimerID = m_unTimerIDCount;
 			}
-			TimerNode * pNode = new TimerNode(unTimerID , unTimeInterval , unStartTime , unTimes , pObj , pFunc);
+			if (NULL == pNode)
+			{
+				pNode = new TimerNode(unTimerID, unTimeInterval, unStartTime, unTimes, pObj, pFunc);
+			}
 			if (m_pTimerStrategy->InsertNode(unTimerID, pNode).IsSuccess())
 			{
 //				gDebugStream("insert timer:Obj=" << pObj << ":id=" << unID << ":value=" << pNode->GetValue());
@@ -106,7 +108,8 @@ namespace Timer
 				if (!pNode->IsDelete())
 				{
 					UpdateNode(pNode);
-				}
+					OnUpdate(pNode);
+				};
 				pOldNode = pNode;
 				pNode = pNode->GetNext();
 // 				if (pOldNode)
@@ -130,13 +133,13 @@ namespace Timer
 		{
 			if (m_objStrategyType == TIMER_STRATEGY_TIMINGWHEEL)
 			{
-				m_unTimerCount += Timer::GetTickMicroSecond() - m_unLastTimerCount;
-				m_unLastTimerCount = Timer::GetTickMicroSecond();
-				int nRepeat = (m_unTimerCount) / TIMER_PEROID;
-				m_unTimerCount = (m_unTimerCount % TIMER_PEROID);
-				if (nRepeat)
+				m_ullTimerCount += Timer::GetTickMicroSecond() - m_ullLastTimerCount;
+				m_ullLastTimerCount = Timer::GetTickMicroSecond();
+				UINT64 ullRepeat = (m_ullTimerCount) / TIME_MICRO_PRECISE;
+				m_ullTimerCount = (m_ullTimerCount % TIME_MICRO_PRECISE);
+				if (ullRepeat)
 				{	
-					while(nRepeat--)
+					while(ullRepeat--)
 					{
 						TimerNode * pNode = m_pTimerStrategy->Update();
 						HandleNode(pNode);
@@ -153,7 +156,8 @@ namespace Timer
 					std::cout << "update timer:Obj="  << ":id=" << pNode->GetTimerID() << ":value=" << pNode->GetEndTime() << std::endl;
 
 					RemoveTimer(pNode->GetTimerID());
-					return HandleNode(pNode);
+					CErrno error = HandleNode(pNode);
+					return error;
 				}				
 			}
 		}
@@ -161,15 +165,12 @@ namespace Timer
 		return CErrno::Failure();
 	} 
 
-	TimerNode * TimerInterface::GetNode( UINT32 unTimerID)
-	{
-		if (m_pTimerStrategy)
-		{
-			return m_pTimerStrategy->GetNode(unTimerID);
-		}
-		return NULL;
-	}
 
+	CErrno TimerInterface::OnUpdate(TimerNode * pNode)
+	{
+		return CErrno::Success();
+	}
+	
 	CErrno TimerInterface::UpdateNode( TimerNode * pNode )
 	{
 		if (pNode)
@@ -250,16 +251,5 @@ namespace Timer
 		return CErrno::Failure();
 	}
 
-	UINT32 TimerInterface::GetTimerIDCount()
-	{
-		ThreadPool::AutoSpinRWLock(m_objLock, false);
-		return m_unTimerIDCount;
-	}
-
-	UINT32 TimerInterface::TimerIDAutoAddOne()
-	{
-		ThreadPool::AutoSpinRWLock(m_objLock);
-		return ++m_unTimerIDCount;
-	}
 
 }

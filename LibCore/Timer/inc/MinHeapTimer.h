@@ -75,7 +75,7 @@ namespace Timer
 	public:
 		virtual CErrno			InsertNode(UINT32 unTimerID, TimerNode * pNode, bool bRemoveSame = true) override;
 		virtual CErrno			RemoveNode(UINT32 unTimerID) override;
-		virtual TimerNode	*	GetNode(UINT32 unTimerID) override;
+		virtual TimerNode	*	GetNode(UINT32 unTimerID);
 
 	private:
 		VecTimerNodes			m_vecNodes;

@@ -488,6 +488,7 @@
     <ClCompile Include="..\..\LibCore\Timer\src\TimerInterface.cpp" />
     <ClCompile Include="..\..\LibCore\Timer\src\TimerNode.cpp" />
     <ClCompile Include="..\..\LibCore\Timer\src\TimerTask.cpp" />
+    <ClCompile Include="..\..\LibCore\Timer\src\TimingWheel.cpp" />
     <ClCompile Include="..\..\LibCore\XMLLib\src\XML.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>

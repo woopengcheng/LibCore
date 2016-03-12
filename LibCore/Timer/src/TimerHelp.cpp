@@ -30,12 +30,12 @@ namespace Timer
 	{ 
 		timespec t;
 		::clock_gettime(CLOCK_MONOTONIC,&t);              //5 CLOCK_REALTIME不同.这个是过去的某个逝去的时间点的次数.
-		return (UINT64)t.tv_sec * TIME_PRECISE + t.tv_nsec / (1e9 / TIME_PRECISE);   //5 微妙级别
+		return (UINT64)t.tv_sec * TIME_MICRO_PRECISE + t.tv_nsec / (1e9 / TIME_MICRO_PRECISE);   //5 微妙级别
 	}
 
 	UINT64 GetTickFrequency()
 	{  
-		return TIME_PRECISE;
+		return TIME_MICRO_PRECISE;
 	}  
 #endif
 
