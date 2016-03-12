@@ -5,8 +5,8 @@ namespace Timer
 {  
 	CErrno TimeCount::Start( UINT64 ullTimeInterval )
 	{
-		m_ullLastTime = Timer::GetTickCount();
-		m_ullTimeInterval = Timer::GetMicroSecond(ullTimeInterval);
+		m_ullLastTime = Timer::GetTickMicroSecond();
+		m_ullTimeInterval = ullTimeInterval;
 
 		return CErrno::Success();
 	}
@@ -29,7 +29,7 @@ namespace Timer
 		{
 			if (!unCurTime)
 			{
-				unCurTime = Timer::GetTickCount();
+				unCurTime = Timer::GetTickMicroSecond();
 			}
 			if ((m_ullLastTime + m_ullTimeInterval) < unCurTime)
 			{
@@ -52,12 +52,12 @@ namespace Timer
 
 	UINT64 TimeCount::ElapseTicks()
 	{ 
-		return Timer::GetMicroSecond(__max(0LL,Timer::GetTickCount() - m_ullLastTime));
+		return Timer::GetMicroSecond(__max(0LL,Timer::GetTickMicroSecond() - m_ullLastTime));
 	}
 
 	UINT64 TimeCount::ResetTime()
 	{
-		return m_ullLastTime = Timer::GetTickCount();
+		return m_ullLastTime = Timer::GetTickMicroSecond();
 	}
 
 	void TimeCount_Safe::SetLastTime( UINT64 ullLastTime )

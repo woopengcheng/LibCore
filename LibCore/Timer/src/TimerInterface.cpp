@@ -1,5 +1,6 @@
 ﻿#include "Timer/inc/TimerInterface.h" 
 #include "Timer/inc/TimerNode.h" 
+#include "Timer/inc/MinHeapTimer.h" 
 #include "Timer/inc/IStrategy.h"
 #include "Timer/inc/TimingWheel.h"
 #include "Timer/inc/TimerTask.h"
@@ -28,7 +29,7 @@ namespace Timer
 		default: 
 		case TIMER_STRATEGY_MIN_HEAP:
 			{
-/*				m_pTimerStrategy = new MinHeapTimer;*/
+				m_pTimerStrategy = new MinHeapTimer;
 			}break; 
 		case TIMER_STRATEGY_TIMINGWHEEL:
 			{
@@ -54,23 +55,29 @@ namespace Timer
 
 	INT32 TimerInterface::SetTimer( UINT32 unTimeInterval ,UINT32 unTimes /*= 0*/,  UINT32 unStartTime /*= 0*/, void * pObj /*= NULL */, TimerCallBackFunc pFunc /*= NULL*/ , UINT32 unTimerID/* = 0*/)
 	{
-		UINT32 unID = 0;
 		if (m_pTimerStrategy)
 		{
-			if (unTimerID > 0)
+			if (unTimerID <= 0)
 			{
-				unID = unTimerID;
+				++m_unTimerIDCount;
+				unTimerID = m_unTimerIDCount;
+			}
+			TimerNode * pNode = new TimerNode(unTimerID , unTimeInterval , unStartTime , unTimes , pObj , pFunc);
+			if (m_pTimerStrategy->InsertNode(unTimerID, pNode).IsSuccess())
+			{
+//				gDebugStream("insert timer:Obj=" << pObj << ":id=" << unID << ":value=" << pNode->GetValue());
+				if (m_objStrategyType == TIMER_STRATEGY_MIN_HEAP)
+				{
+					pNode->GetTimeCount().Start(pNode->GetTimeInterval() * 1000);
+				}
 			}
 			else
 			{
-				++m_unTimerIDCount;
-				unID = m_unTimerIDCount;
+				gErrorStream("error TimerInterface settimer id" << unTimerID);
 			}
-			TimerNode * pNode = new TimerNode(unID , unTimeInterval , unStartTime , unTimes , pObj , pFunc);
-			m_pTimerStrategy->InsertNode(unID , pNode);
 		}
 
-		return unID;
+		return unTimerID;
 	}
 
 	CErrno TimerInterface::RemoveTimer( UINT32 unTimeID )
@@ -102,6 +109,10 @@ namespace Timer
 				}
 				pOldNode = pNode;
 				pNode = pNode->GetNext();
+// 				if (pOldNode)
+// 				{
+// 					gDebugStream("timerID=" << pOldNode->GetTimerID() << "internal=" << pOldNode->GetTimeInterval());
+// 				}
 				SAFE_DELETE(pOldNode);
 			} 
 			else
@@ -136,23 +147,25 @@ namespace Timer
 			}
 			else
 			{
-// 				TimerNode * pNode = m_pTimerStrategy->Update();
-// 				if (pNode && pNode->GetTimeCount().IncCounter(g_pGame->GetRealTickTime()))
-// 				{
-// 					HandleNode(pNode);
-// 					return CErrno::Success();
-// 				}				
+				TimerNode * pNode = m_pTimerStrategy->Update();
+				if (pNode && pNode->GetTimeCount().IsExpired())
+				{
+					std::cout << "update timer:Obj="  << ":id=" << pNode->GetTimerID() << ":value=" << pNode->GetEndTime() << std::endl;
+
+					RemoveTimer(pNode->GetTimerID());
+					return HandleNode(pNode);
+				}				
 			}
 		}
 
 		return CErrno::Failure();
 	} 
 
-	TimerNode * TimerInterface::GetNode( UINT32 unNodeID )
+	TimerNode * TimerInterface::GetNode( UINT32 unTimerID)
 	{
 		if (m_pTimerStrategy)
 		{
-			return m_pTimerStrategy->GetNode(unNodeID);
+			return m_pTimerStrategy->GetNode(unTimerID);
 		}
 		return NULL;
 	}

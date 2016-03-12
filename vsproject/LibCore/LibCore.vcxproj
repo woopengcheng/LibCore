@@ -380,7 +380,6 @@
     <ClInclude Include="..\..\LibCore\Timer\inc\IStrategy.h" />
     <ClInclude Include="..\..\LibCore\Timer\inc\MinHeapTimer.h" />
     <ClInclude Include="..\..\LibCore\Timer\inc\TimeCount.h" />
-    <ClInclude Include="..\..\LibCore\Timer\inc\TimerClassTypeID.h" />
     <ClInclude Include="..\..\LibCore\Timer\inc\TimerCommon.h" />
     <ClInclude Include="..\..\LibCore\Timer\inc\TimerHelp.h" />
     <ClInclude Include="..\..\LibCore\Timer\inc\TimerInterface.h" />
@@ -482,6 +481,7 @@
     <ClCompile Include="..\..\LibCore\Timer\src\GlobalTimer.cpp" />
     <ClCompile Include="..\..\LibCore\Timer\src\GlobalTimerTask.cpp" />
     <ClCompile Include="..\..\LibCore\Timer\src\InternalTimerTask.cpp" />
+    <ClCompile Include="..\..\LibCore\Timer\src\MinHeapTimer.cpp" />
     <ClCompile Include="..\..\LibCore\Timer\src\TimeCount.cpp" />
     <ClCompile Include="..\..\LibCore\Timer\src\TimerHelp.cpp" />
     <ClCompile Include="..\..\LibCore\Timer\src\TimerInterface.cpp" />

@@ -4,23 +4,22 @@
 
 namespace Timer
 {
-	extern INT64 	DLL_EXPORT	GetTickCount();									//5 获得CPU的时钟频率启动后的次数,如果除以频率的速度.就可以得到毫秒
-	extern INT64	DLL_EXPORT	GetTickFrequency();								//5 CPU频率.
-	extern INT64	DLL_EXPORT	GetTickSecond(INT64 llTime = -1);				//5 获取CPU运行的时间(秒)
-	extern INT64	DLL_EXPORT	GetTickMicroSecond(INT64 llTime = -1);			//5 获取CPU运行的时间(毫秒)
-	extern INT64	DLL_EXPORT	GetTickMilliSecond(INT64 llTime = -1);			//5 获取CPU运行的时间(微妙) 
+	extern UINT64 	DLL_EXPORT	GetTickCount();									//5 获得CPU的时钟频率启动后的次数,如果除以频率的速度.就可以得到毫秒
+	extern UINT64	DLL_EXPORT	GetTickFrequency();								//5 CPU频率.
+	extern UINT64	DLL_EXPORT	GetTickSecond(UINT64 llTime = -1);				//5 获取CPU运行的时间(秒)
+	extern UINT64	DLL_EXPORT	GetTickMicroSecond(UINT64 llTime = -1);			//5 获取CPU运行的时间(毫秒)
+	extern UINT64	DLL_EXPORT	GetTickMilliSecond(UINT64 llTime = -1);			//5 获取CPU运行的时间(微妙) 
 
-	extern INT64	DLL_EXPORT	GetMilliSecond(INT64 llTime);					//5 获得微妙
-	extern INT64	DLL_EXPORT	GetMicroSecond(INT64 llTime);					//5 获得毫秒 
-	extern INT64	DLL_EXPORT	GetSecond(INT64 llTime);						//5 获得秒  
+	extern UINT64	DLL_EXPORT	GetMilliSecond(UINT64 llTime);					//5 获得微妙
+	extern UINT64	DLL_EXPORT	GetMicroSecond(UINT64 llTime);					//5 获得毫秒 
+	extern UINT64	DLL_EXPORT	GetSecond(UINT64 llTime);						//5 获得秒  
 
-	extern INT64	DLL_EXPORT	DiffMilliSecond(INT64 llTime1, INT64 llTime2);	//5 比较两个微秒的差异
-	extern INT64	DLL_EXPORT	DiffMicroSecond(INT64 llTime1, INT64 llTime2);	//5 比较两个毫秒的差异
-	extern INT64 	DLL_EXPORT	DiffSecond(INT64 llTime1, INT64 llTime2);		//5 比较两个秒的差异
+	extern UINT64	DLL_EXPORT	DiffMilliSecond(UINT64 llTime1, UINT64 llTime2);	//5 比较两个微秒的差异
+	extern UINT64	DLL_EXPORT	DiffMicroSecond(UINT64 llTime1, UINT64 llTime2);	//5 比较两个毫秒的差异
+	extern UINT64 	DLL_EXPORT	DiffSecond(UINT64 llTime1, UINT64 llTime2);		//5 比较两个秒的差异
 
 	extern time_t	DLL_EXPORT	GetTime();
-	extern void		DLL_EXPORT	sleep(INT64 llMillSec);
-	extern INT32	DLL_EXPORT	GetCurTimingwheelPos(INT32 nFutureTime, INT32 & nWheelSize, INT32 & nTimerSize);
+	extern void		DLL_EXPORT	sleep(UINT64 llMillSec);
 
 	/*
 	%a 星期几的缩写。Eg:Tue

@@ -6,14 +6,13 @@
 #include "Timer/inc/TimerHelp.h" 
 #include "LogLib/inc/Log.h"
 
-#define TIMER_ROOT_SIZE_MASK_NUM 8
-#define TIMER_OTHER_SIZE_MASK_NUM 6
-#define TIMER_ROOT_SIZE  256
-#define TIMER_OTHER_SIZE 64
-#define TIMER_OTHER_WHEEL_SIZE  4 
-#define TIMER_OTHER_SIZE_MASK 0X3F
-#define TIMER_ROOT_SIZE_MASK 0XFF
-
+#define TIMER_ROOT_SIZE_MASK_NUM	((UINT32)8)
+#define TIMER_OTHER_SIZE_MASK_NUM	((UINT32)6)
+#define TIMER_ROOT_SIZE				((UINT32)256)
+#define TIMER_OTHER_SIZE			((UINT32)64)
+#define TIMER_OTHER_WHEEL_SIZE		((UINT32)4) 
+#define TIMER_OTHER_SIZE_MASK		0X3F
+#define TIMER_ROOT_SIZE_MASK		0XFF
 
 namespace Timer
 {
@@ -46,7 +45,7 @@ namespace Timer
 
 	public:
 		TimingWheel()
-			: m_nCurTime(0)
+			: m_ullCurTime(TIMING_WHEEL_PRECISE_FUNC)
 		{
 			memset(m_objRoot, 0, sizeof(TimerList) * TIMER_ROOT_SIZE);
 			memset(m_aTimer, 0, sizeof(TimerList) * TIMER_OTHER_WHEEL_SIZE * TIMER_OTHER_SIZE);
@@ -96,9 +95,9 @@ namespace Timer
 		}
 
 	public:
-		virtual CErrno  RemoveNode(UINT32 unNodeID)
+		virtual CErrno  RemoveNode(UINT32 unTimerID)
 		{
-			MapNodesT::iterator iter = m_mapNodes.find(unNodeID);
+			MapNodesT::iterator iter = m_mapNodes.find(unTimerID);
 			if (iter != m_mapNodes.end())
 			{
 				TimerNode * pNode = iter->second;
@@ -111,9 +110,9 @@ namespace Timer
 
 			return CErrno::Success();
 		}
-		virtual TimerNode * GetNode(UINT32 unNodeID)
+		virtual TimerNode * GetNode(UINT32 unTimerID)
 		{
-			MapNodesT::iterator iter = m_mapNodes.find(unNodeID);
+			MapNodesT::iterator iter = m_mapNodes.find(unTimerID);
 			if (iter != m_mapNodes.end())
 			{
 				return iter->second;
@@ -126,30 +125,30 @@ namespace Timer
 		virtual CErrno  DispathNode()
 		{
 			TimerList * pCurList = NULL;
-			INT32 nTemp = m_nCurTime;
-			INT32 nLastTemp = m_nCurTime - 1;
-			if ((m_nCurTime & TIMER_ROOT_SIZE_MASK) != 0)
+			UINT64 ullTemp = m_ullCurTime;
+			UINT64 ullLastTemp = m_ullCurTime - 1;
+			if ((m_ullCurTime & TIMER_ROOT_SIZE_MASK) != 0)
 			{
 				return CErrno::Failure();
 			}
 			else
 			{
 
-				nTemp >>= TIMER_ROOT_SIZE_MASK_NUM;
-				nLastTemp >>= TIMER_ROOT_SIZE_MASK_NUM;
+				ullTemp >>= TIMER_ROOT_SIZE_MASK_NUM;
+				ullLastTemp >>= TIMER_ROOT_SIZE_MASK_NUM;
 				INT32 nSize = 0;
 				while (1)
 				{
-					if ((nLastTemp >> TIMER_OTHER_SIZE_MASK_NUM) == (nTemp >> TIMER_OTHER_SIZE_MASK_NUM))
+					if ((ullLastTemp >> TIMER_OTHER_SIZE_MASK_NUM) == (ullTemp >> TIMER_OTHER_SIZE_MASK_NUM))
 					{
 						break;
 					}
-					nLastTemp >>= TIMER_OTHER_SIZE_MASK_NUM;
-					nTemp >>= TIMER_OTHER_SIZE_MASK_NUM;
+					ullLastTemp >>= TIMER_OTHER_SIZE_MASK_NUM;
+					ullTemp >>= TIMER_OTHER_SIZE_MASK_NUM;
 					++nSize;
 				}
 
-				pCurList = &m_aTimer[nSize][nTemp & TIMER_OTHER_SIZE_MASK];
+				pCurList = &m_aTimer[nSize][ullTemp & TIMER_OTHER_SIZE_MASK];
 
 				int nCount = -1;
 				if (pCurList)
@@ -161,39 +160,40 @@ namespace Timer
 					while (pHead)
 					{
 						pNext = pHead->GetNext();
-						pHead->SetValue(pHead->GetStartTime() + pHead->GetTimeInterval() + pHead->GetStartAddTime() - m_nCurTime);
 						InsertNode(pHead->GetTimerID(), pHead, false);
 						pHead = pNext;
 						++nCount;
 					}
 				}
-				//				glb_LogOutput(true , "dispatcher:nSize=%d:nPos=%d:nCurPos=%d:nCount=%d:" , nSize , nTemp & TIMER_OTHER_SIZE_MASK , m_nCurTime , nCount);
-				m_aTimer[nSize][nTemp & TIMER_OTHER_SIZE_MASK].SetTimerHead(NULL);
+				m_aTimer[nSize][ullTemp & TIMER_OTHER_SIZE_MASK].SetTimerHead(NULL);
 			}
 			return CErrno::Success();
 		}
 
-		virtual CErrno  InsertNode(UINT32 unNodeID, TimerNode * pNode, bool bRemoveSame = true)
+		virtual CErrno  InsertNode(UINT32 unTimerID, TimerNode * pNode, bool bRemoveSame = true)
 		{
-			UINT32 nFutureTime = m_nCurTime + pNode->GetValue() + 1;   //5 +1是因为执行时肯定会是下一帧执行
-			UINT32 nOldTime = nFutureTime;
-			pNode->SetStartAddTime(m_nCurTime);
-			UINT32 nTemp = m_nCurTime;
+			UINT64 ullEndTime = pNode->GetEndTime();
+			if (ullEndTime < m_ullCurTime )
+			{
+				return CErrno::Failure();
+			}
+			UINT64 nFutureTime = (ullEndTime);   //5 +1是因为执行时肯定会是下一帧执行,不然insert了,但是没有update
+			UINT64 nTemp = m_ullCurTime;
 
-			MapNodesT::iterator iter = m_mapNodes.find(unNodeID);
+			MapNodesT::iterator iter = m_mapNodes.find(unTimerID);
 			if (bRemoveSame && iter != m_mapNodes.end())
 			{
 				TimerNode * pOldNode = iter->second;
 				pOldNode->SetDelete(TRUE);
-				RemoveNode(unNodeID);
+				RemoveNode(unTimerID);
 			}
 
-			if ((nFutureTime >> TIMER_ROOT_SIZE_MASK_NUM) == ((m_nCurTime) >> TIMER_ROOT_SIZE_MASK_NUM))
+			if ((nFutureTime >> TIMER_ROOT_SIZE_MASK_NUM) == ((m_ullCurTime) >> TIMER_ROOT_SIZE_MASK_NUM))
 			{
-				pNode->SetNodePos(nOldTime);
-				m_mapNodes[unNodeID] = pNode;
+				m_mapNodes[unTimerID] = pNode;
 				m_objRoot[nFutureTime & TIMER_ROOT_SIZE_MASK].AddTimerNode(pNode);
-				//				glb_LogOutput(true , "insert_root:nPos=%d:unNodeID=%d:nCurPos=%d:internal=%d:bDelete=%d" , nFutureTime & TIMER_ROOT_SIZE_MASK , unNodeID , m_nCurTime , nOldTime - m_nCurTime , pNode->IsDelete());
+//				gDebugStream("insert_root:total=" << pNode->GetEndTime() << ":unTimerID=" << pNode->GetTimerID() << "internal=" << pNode->GetTimeInterval() << ":bDelete=%d" << pNode->IsDelete() << ":curTime=" << m_ullCurTime);
+				
 				return CErrno::Success();
 			}
 
@@ -211,10 +211,9 @@ namespace Timer
 				++nSize;
 			}
 
-			pNode->SetNodePos(nOldTime);
 			m_aTimer[nSize][nFutureTime & TIMER_OTHER_SIZE_MASK].AddTimerNode(pNode);
-			m_mapNodes[unNodeID] = pNode;
-			//			glb_LogOutput(true , "insert_other:nSize=%d:nPos=%d:unNodeID=%d:nCurPos=%d:internal=%d:bDelete=%d" , nSize , nFutureTime & TIMER_OTHER_SIZE_MASK , unNodeID , m_nCurTime , nOldTime - m_nCurTime , pNode->IsDelete());
+			m_mapNodes[unTimerID] = pNode;
+//			gDebugStream("insert_other:total=" << pNode->GetEndTime() << ":nTimerPos=" << nSize << ":unTimerID=" << pNode->GetTimerID() << "internal=" << pNode->GetTimeInterval() << ":bDelete=%d" << pNode->IsDelete() << ":curTime=" << m_ullCurTime);
 
 			return CErrno::Success();
 		}
@@ -223,8 +222,8 @@ namespace Timer
 		{
 			TimerList * pCurList = NULL;
 
-			++m_nCurTime;
-			INT32 nTemp = m_nCurTime & TIMER_ROOT_SIZE_MASK;
+			++m_ullCurTime;
+			INT32 nTemp = m_ullCurTime & TIMER_ROOT_SIZE_MASK;
 			if (nTemp == 0)
 			{
 				DispathNode();
@@ -236,10 +235,10 @@ namespace Timer
 			{
 				TimerNode * pNode = pCurList->GetTimerHead();
 				m_objRoot[nTemp].SetTimerHead(NULL);
-				// 				if (pNode)
-				// 				{
-				// 					glb_LogOutput(true , "update:total=%d:unNodeID=%d:nCurPos=%d:internal=%d:bDelete=%d" , pNode->GetStartTime() + pNode->GetStartAddTime() + pNode->GetTimeInterval() , pNode->GetTimerID() , m_nCurTime , pNode->GetTimeInterval() + pNode->GetStartTime() , pNode->IsDelete());
-				// 				}
+// 				if (pNode)
+// 				{
+// 					gDebugStream("update:total=" << pNode->GetEndTime() << ":unTimerID=" << pNode->GetTimerID() << "internal=" << pNode->GetTimeInterval() << ":bDelete=%d" << pNode->IsDelete() << ":curTime=" << m_ullCurTime);
+// 				}
 				return pNode;
 			}
 			else
@@ -249,7 +248,7 @@ namespace Timer
 	private:
 		TimerList   m_objRoot[TIMER_ROOT_SIZE];
 		TimerList   m_aTimer[TIMER_OTHER_WHEEL_SIZE][TIMER_OTHER_SIZE];
-		UINT32      m_nCurTime;
+		UINT64      m_ullCurTime;
 		MapNodesT   m_mapNodes;
 	};
 }

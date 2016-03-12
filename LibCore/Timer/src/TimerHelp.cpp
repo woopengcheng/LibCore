@@ -1,6 +1,4 @@
 #include "Timer/inc/TimerHelp.h"
-#include "Timer/inc/GlobalTimer.h"
-#include "Timer/inc/TimingWheel.h"
 
 #ifdef WIN32
 #include <windows.h>
@@ -9,17 +7,17 @@
 namespace Timer
 {  
 #ifdef WIN32
-	INT64 GetTickCount()
+	UINT64 GetTickCount()
 	{  
-		INT64  llCount = 0;
+		UINT64  llCount = 0;
 		QueryPerformanceCounter((LARGE_INTEGER *)(&llCount));
 
 		return llCount;
 	}
 
-	INT64 GetTickFrequency()
+	UINT64 GetTickFrequency()
 	{
-		static INT64  s_llFrequency = 0;
+		static UINT64  s_llFrequency = 0;
 		if (!s_llFrequency)
 		{
 			QueryPerformanceFrequency((LARGE_INTEGER *)(&s_llFrequency));
@@ -28,22 +26,20 @@ namespace Timer
 		return s_llFrequency;
 	} 
 #else
-	INT64 GetTickCount()
+	UINT64 GetTickCount()
 	{ 
 		timespec t;
 		::clock_gettime(CLOCK_MONOTONIC,&t);              //5 CLOCK_REALTIME不同.这个是过去的某个逝去的时间点的次数.
-		return (INT64)t.tv_sec * TIME_PRECISE + t.tv_nsec / (1e9 / TIME_PRECISE);   //5 微妙级别
-
-		return llCount;
+		return (UINT64)t.tv_sec * TIME_PRECISE + t.tv_nsec / (1e9 / TIME_PRECISE);   //5 微妙级别
 	}
 
-	INT64 GetTickFrequency()
+	UINT64 GetTickFrequency()
 	{  
 		return TIME_PRECISE;
 	}  
 #endif
 
-	INT64 GetTickSecond(INT64 llTime /*= -1*/ )
+	UINT64 GetTickSecond(UINT64 llTime /*= -1*/ )
 	{
 		if (llTime == -1)
 		{
@@ -55,7 +51,7 @@ namespace Timer
 		}
 	}
 
-	INT64 GetTickMicroSecond( INT64 llTime /*= -1*/ )
+	UINT64 GetTickMicroSecond(UINT64 llTime /*= -1*/ )
 	{
 		if (llTime == -1)
 		{
@@ -67,7 +63,7 @@ namespace Timer
 		} 
 	}
 
-	INT64 GetTickMilliSecond( INT64 llTime /*= -1*/ )
+	UINT64 GetTickMilliSecond(UINT64 llTime /*= -1*/ )
 	{
 		if (llTime == -1)
 		{
@@ -79,36 +75,36 @@ namespace Timer
 		} 
 	}
 
-	INT64 GetMilliSecond( INT64 llTime )
+	UINT64 GetMilliSecond(UINT64 llTime )
 	{
 		return llTime * GetTickFrequency() / 1000000;
 
 	}
 
-	INT64 GetMicroSecond( INT64 llTime )
+	UINT64 GetMicroSecond(UINT64 llTime )
 	{
 		return llTime * GetTickFrequency() / 1000;
 	}
 
-	INT64 GetSecond( INT64 llTime )
+	UINT64 GetSecond(UINT64 llTime )
 	{
 		return llTime * GetTickFrequency();
 	}
 
-	INT64 DiffMilliSecond( INT64 llTime1 , INT64 llTime2 )
+	UINT64 DiffMilliSecond(UINT64 llTime1 , UINT64 llTime2 )
 	{
-		return (llTime1 - llTime2) * 1000000 / GetTickFrequency(); 
+		return ::abs((long long)(llTime1 - llTime2)) * 1000000 / GetTickFrequency(); 
 	}
 
-	INT64 DiffMicroSecond( INT64 llTime1 , INT64 llTime2 )
+	UINT64 DiffMicroSecond(UINT64 llTime1 , UINT64 llTime2 )
 	{
-		return (llTime1 - llTime2) * 1000 / GetTickFrequency(); 
+		return ::abs((long long)(llTime1 - llTime2)) * 1000 / GetTickFrequency();
 
 	}
 
-	INT64 DiffSecond( INT64 llTime1 , INT64 llTime2 )
+	UINT64 DiffSecond(UINT64 llTime1 , UINT64 llTime2 )
 	{
-		return (llTime1 - llTime2) / GetTickFrequency(); 
+		return ::abs((long long)(llTime1 - llTime2)) / GetTickFrequency();
 	}
 
 	std::string GetDate(std::string strFormat/* = "%Y-%m-%d"*/)
@@ -124,7 +120,7 @@ namespace Timer
 		return time(0);
 	}
 
-	void sleep(INT64 llMillSec)
+	void sleep(UINT64 llMillSec)
 	{
 #ifdef WIN32
 		::Sleep((DWORD)llMillSec);
@@ -135,40 +131,4 @@ namespace Timer
 		::nanosleep (&objTimeSpec, 0);
 #endif
 	}
-
-	INT32 GetCurTimingwheelPos(INT32 nFutureTime , INT32 & nWheelSize , INT32 & nTimerSize)
-	{
-		if (nFutureTime < 0)
-		{
-			nTimerSize = 0;
-			nWheelSize = -1;
-			return nWheelSize;
-		}
-
-		INT32 nPos = 0; 
-		nFutureTime = nFutureTime << TIMER_ROOT_SIZE_MASK; 
-		if ( nFutureTime < (1 << TIMER_ROOT_SIZE_MASK)) 
-		{ 
-			nTimerSize = nFutureTime % (1 << TIMER_ROOT_SIZE_MASK) ; 
-			nWheelSize = 0;
-			return nWheelSize;
-		}
-
-		INT32 nSize = 0;
-		while(1)
-		{
-			nFutureTime = nFutureTime << TIMER_OTHER_SIZE_MASK;
-			if (nFutureTime < (1 << TIMER_OTHER_SIZE_MASK))
-			{
-				nTimerSize = nFutureTime % (1 << TIMER_OTHER_SIZE_MASK) ; 
-				break;
-			} 
-			++nSize;
-		} 
-
-		nWheelSize = nSize;
-
-		return nWheelSize;
-	} 
-
 }

@@ -447,9 +447,6 @@
     <ClInclude Include="..\..\LibCore\Timer\inc\TimeCount.h">
       <Filter>Timer\inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\LibCore\Timer\inc\TimerClassTypeID.h">
-      <Filter>Timer\inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\LibCore\Timer\inc\TimerCommon.h">
       <Filter>Timer\inc</Filter>
     </ClInclude>
@@ -859,6 +856,9 @@
     </ClCompile>
     <ClCompile Include="..\..\LibCore\Test\Timer_test.cpp">
       <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LibCore\Timer\src\MinHeapTimer.cpp">
+      <Filter>Timer\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

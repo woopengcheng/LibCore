@@ -10,7 +10,7 @@ namespace Timer
 		TIMER_STRATEGY_MIN_HEAP = 0 , 
 		TIMER_STRATEGY_TIMINGWHEEL = 1 , 
 
-		TIMER_STRATEGY_DEFAULT  = TIMER_STRATEGY_TIMINGWHEEL , 
+		TIMER_STRATEGY_DEFAULT  = TIMER_STRATEGY_MIN_HEAP,
 	};
 
 	/**
@@ -43,9 +43,9 @@ namespace Timer
 		// Access:    virtual public 
 		// Returns:   Node<TimerType> *
 		// Qualifier: 如果这里是最小堆实现的.则输入最小堆的位置.一般输入栈顶为0
-		// Parameter: UINT32 unNodeID
+		// Parameter: UINT32 unTimerID
 		//************************************
-		TimerNode 		*	GetNode(UINT32 unNodeID = 0);
+		TimerNode 		*	GetNode(UINT32 unTimerID = 0);
 		CErrno				HandleNode( TimerNode * pNode );
 		CErrno				UpdateNode(TimerNode * pNode);  
 

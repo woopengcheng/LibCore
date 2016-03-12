@@ -38,7 +38,7 @@ namespace Timer
 
 				if (unTimers == 0)
 				{
-					pTask->SetTimer(m_pNode->GetTimeInterval() , unTimers , m_pNode->GetStartTime());
+					pTask->SetTimer(m_pNode->GetTimeInterval() , unTimers);
 				}
 				else if(unTimers == 1)
 				{
