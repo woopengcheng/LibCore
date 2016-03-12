@@ -6,7 +6,7 @@
 
 #include "stdafx.h"
 
-static BOOL	 g_bClosed = 0;
+static BOOL	 g_nClosedCount = 0;
 static INT32 g_nTestTimerOneTimeID = 100;
 static INT32 g_nTestTimerMultiTimesID = 101;
 static INT32 g_nTestTimerLimitTimeID = 102;
@@ -28,7 +28,7 @@ public:
 	{
 		if (unTimerID == g_nTestTimerOneTimeID)  //5 测试1次是否生效
 		{
-			++g_bClosed;
+			++g_nClosedCount;
 			CHECK_EQUAL(unRemainTimers, 1);
 		}
 		else if (unTimerID == g_nTestTimerMultiTimesID)  //5 测试是否多次生效
@@ -36,7 +36,7 @@ public:
 			static INT32 nTimes = g_nTestTimerMultiTimes;
 			CHECK_EQUAL(unRemainTimers, nTimes);
 			--nTimes;
-			++g_bClosed;
+			++g_nClosedCount;
 		}
 		else if (unTimerID == g_nTestTimerLimitTimeID)//5 测试无限次是否生效
 		{
@@ -45,7 +45,7 @@ public:
 		else
 		{
 			CHECK_EQUAL(unRemainTimers,1);  //5 测试自动生成的ID
-			++g_bClosed;
+			++g_nClosedCount;
 		}
 	}
 	virtual INT32	SetTimer(UINT32 unInterval, UINT32 unTimes = 0, UINT32 unStartTimer = 0, UINT32 unTimerID = 0) override
@@ -61,7 +61,7 @@ public:
 
 		CHECK_EQUAL(unTimerID, g_nTestTimerObjectStaticID);
 		CHECK_EQUAL(unRemainTimers, 1);
-		++g_bClosed;
+		++g_nClosedCount;
 	}
 };
 
@@ -76,14 +76,14 @@ static void  RunTimer(void * pObj, UINT32 unTimerID, UINT32 unRemainTimers)
 	if (unTimerID == g_nTestTimerOneTimeID + g_nExtraID)  //5 测试1次是否生效
 	{
 		CHECK_EQUAL(unRemainTimers, 1);
-		++g_bClosed;
+		++g_nClosedCount;
 	}
 	else if (unTimerID == g_nTestTimerMultiTimesID + g_nExtraID)  //5 测试是否多次生效
 	{
 		static INT32 nTimes = g_nTestTimerMultiTimes;
 		CHECK_EQUAL(unRemainTimers, nTimes);
 		--nTimes;
-		++g_bClosed;
+		++g_nClosedCount;
 	}
 	else if (unTimerID == g_nTestTimerLimitTimeID + g_nExtraID)//5 测试无限次是否生效
 	{
@@ -92,7 +92,7 @@ static void  RunTimer(void * pObj, UINT32 unTimerID, UINT32 unRemainTimers)
 	else
 	{
 		CHECK_EQUAL(unTimerID, g_nTestTimerStaticID);
-		++g_bClosed;
+		++g_nClosedCount;
 	}
 
 }
@@ -113,7 +113,7 @@ TEST(Timer_Test)
 	Timer::GlobalTimer::GetInstance().SetTimer(2, g_nTestTimerMultiTimes, 1, NULL, RunTimer, g_nTestTimerMultiTimesID + g_nExtraID);
 	Timer::GlobalTimer::GetInstance().SetTimer(3, 0, 1, NULL, RunTimer, g_nTestTimerLimitTimeID + g_nExtraID);
 	Timer::GlobalTimer::GetInstance().SetTimer(5, 2, 5, NULL, RunTimer, g_nTestTimerStaticID);
-	while (g_bClosed != 12)
+	while (g_nClosedCount != 12)
 	{
 		Timer::GlobalTimer::GetInstance().Update();
 		Timer::sleep(1);

@@ -860,5 +860,8 @@
     <ClCompile Include="..\..\LibCore\Timer\src\MinHeapTimer.cpp">
       <Filter>Timer\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\LibCore\Test\XML_Test.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
