@@ -1,5 +1,5 @@
-#include "UnitTest++/UnitTestPP.h"
+#include "gtest/gtest.h"
 
-TEST(MongoBson)
+TEST(MongoBson , bson)
 {
 }

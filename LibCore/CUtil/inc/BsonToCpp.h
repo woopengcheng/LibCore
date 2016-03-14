@@ -3,7 +3,7 @@
 #include "CUtil/inc/Common.h"
 #include "CUtil/inc/StringEx.h"
 #include "CUtil/inc/Parameter.h"
-#include "bson/bson.h"
+#include "MongoBson/bson/bson.h"
 
 namespace CUtil
 {

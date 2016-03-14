@@ -1,6 +1,7 @@
 #include "CityHash/city.h"
 #include "CityHash/citycrc.h"
-#include "UnitTest++/UnitTestPP.h"
+#include "gtest/gtest.h"
+//#include "UnitTest++/UnitTestPP.h"
 #include <cstdio>
 #include <iostream>
 #include <string.h>
@@ -1307,7 +1308,7 @@ void Dump(int offset, int len) {
 
 #endif
 
-TEST(CityHash)
+TEST(CityHash , hash)
 {
 	setup();
 	int i = 0;
@@ -1315,5 +1316,5 @@ TEST(CityHash)
 		CityHashTest(testdata[i], i * i, i);
 	}
 	CityHashTest(testdata[i], 0, kDataSize);
-	CHECK_EQUAL(errors , 0);
+	EXPECT_EQ(errors , 0);
 }

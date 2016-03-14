@@ -1,7 +1,7 @@
-#include "UnitTest++/UnitTestPP.h"
 #include "XMLLib/inc/xml.h"
 #include "LogLib/inc/Log.h"
 #include "CUtil/inc/CUtil.h" 
+#include "gtest/gtest.h"
 
 static std::string g_strStream = R"(<?xml version="1.0"?>
 <RemoteRPC>
@@ -13,13 +13,13 @@ static std::string g_strStream = R"(<?xml version="1.0"?>
 </RemoteRPC>
 )";
 
-TEST(XML_Test)
+TEST(XML , XML_Test)
 {
 	XML::XML xml;
 	xml.LoadFromString(g_strStream);
 
-	CHECK_EQUAL(xml.GetXMLValue("/RemoteRPC/RPCServer/ListenType"), "tcp");
-	CHECK_EQUAL(xml.GetXMLValue("/RemoteRPC/RPCServer/ListenAddress"), "127.0.0.1");
-	CHECK_EQUAL(xml.GetXMLValue("/RemoteRPC/RPCServer/ListenPort"), "8003");
+	EXPECT_EQ(xml.GetXMLValue("/RemoteRPC/RPCServer/ListenType"), "tcp");
+	EXPECT_EQ(xml.GetXMLValue("/RemoteRPC/RPCServer/ListenAddress"), "127.0.0.1");
+	EXPECT_EQ(xml.GetXMLValue("/RemoteRPC/RPCServer/ListenPort"), "8003");
 
 }

@@ -1,8 +1,10 @@
 #include "CUtil/inc/CRTTI.h"
 #include "CUtil/inc/CObject.h"
-#include "UnitTest++/UnitTestPP.h"
- 
-TEST(CRTTI)
+/*#include "UnitTest++/UnitTestPP.h"*/
+#include "gtest/gtest.h"
+
+
+TEST(CRTTI , RTTI)
 {
 	const INT32 nA = 1;
 	const INT32 nB = 2;
@@ -42,41 +44,41 @@ TEST(CRTTI)
 	}; 
 
 	A a; 
-	CHECK_EQUAL(a.GetRTTI()->GetClassGUID() , 1);
-	CHECK_EQUAL(a.GetRTTI()->GetClassName() , "A");
-	CHECK_EQUAL(a.GetRTTI()->GetClassSize() , sizeof(A));
+	EXPECT_EQ(a.GetRTTI()->GetClassGUID() , 1);
+	EXPECT_EQ(a.GetRTTI()->GetClassName() , "A");
+	EXPECT_EQ(a.GetRTTI()->GetClassSize() , sizeof(A));
 
-	CHECK_EQUAL(a.GetRTTI()->IsDerivedFrom(BASE(CUtil::CObject)) , TRUE);
-	CHECK_EQUAL(B::GetClass()->IsDerivedFrom(BASE(A)) , TRUE);
-	CHECK_EQUAL(C::GetClass()->IsDerivedFrom(BASE(A)) , TRUE);
-	CHECK_EQUAL(D::GetClass()->IsDerivedFrom(BASE(CUtil::CObject)) , TRUE);
-	CHECK_EQUAL(D::GetClass()->IsDerivedFrom(BASE(A)) , TRUE);
-	CHECK_EQUAL(D::GetClass()->IsDerivedFrom(BASE(B)) , TRUE);
-	CHECK_EQUAL(D::GetClass()->IsDerivedFrom(BASE(C)) , TRUE);
-	CHECK_EQUAL(E::GetClass()->IsDerivedFrom(BASE(CUtil::CObject)) , TRUE);
-	CHECK_EQUAL(E::GetClass()->IsDerivedFrom(BASE(A)) , TRUE);
-	CHECK_EQUAL(E::GetClass()->IsDerivedFrom(BASE(B)) , TRUE);
-	CHECK_EQUAL(E::GetClass()->IsDerivedFrom(BASE(C)) , TRUE);
-	CHECK_EQUAL(E::GetClass()->IsDerivedFrom(BASE(D)) , TRUE);
-	CHECK_EQUAL(G::GetClass()->IsDerivedFrom(BASE(CUtil::CObject)) , TRUE); 
-	CHECK_EQUAL(G::GetClass()->IsDerivedFrom(BASE(A)) , TRUE);
-	CHECK_EQUAL(G::GetClass()->IsDerivedFrom(BASE(B)) , TRUE);
-	CHECK_EQUAL(G::GetClass()->IsDerivedFrom(BASE(C)) , TRUE);
-	CHECK_EQUAL(G::GetClass()->IsDerivedFrom(BASE(D)) , TRUE);
-	CHECK_EQUAL(G::GetClass()->IsDerivedFrom(BASE(E)) , TRUE);
-	CHECK_EQUAL(G::GetClass()->IsDerivedFrom(BASE(F)) , TRUE);
-	CHECK_EQUAL(H::GetClass()->IsDerivedFrom(BASE(CUtil::CObject)) , TRUE); 
-	CHECK_EQUAL(H::GetClass()->IsDerivedFrom(BASE(A)) , TRUE);
-	CHECK_EQUAL(H::GetClass()->IsDerivedFrom(BASE(B)) , TRUE);
-	CHECK_EQUAL(H::GetClass()->IsDerivedFrom(BASE(C)) , TRUE); 
-	CHECK_EQUAL(H::GetClass()->IsDerivedFrom(BASE(F)) , TRUE);
+	EXPECT_EQ(a.GetRTTI()->IsDerivedFrom(BASE(CUtil::CObject)) , TRUE);
+	EXPECT_EQ(B::GetClass()->IsDerivedFrom(BASE(A)) , TRUE);
+	EXPECT_EQ(C::GetClass()->IsDerivedFrom(BASE(A)) , TRUE);
+	EXPECT_EQ(D::GetClass()->IsDerivedFrom(BASE(CUtil::CObject)) , TRUE);
+	EXPECT_EQ(D::GetClass()->IsDerivedFrom(BASE(A)) , TRUE);
+	EXPECT_EQ(D::GetClass()->IsDerivedFrom(BASE(B)) , TRUE);
+	EXPECT_EQ(D::GetClass()->IsDerivedFrom(BASE(C)) , TRUE);
+	EXPECT_EQ(E::GetClass()->IsDerivedFrom(BASE(CUtil::CObject)) , TRUE);
+	EXPECT_EQ(E::GetClass()->IsDerivedFrom(BASE(A)) , TRUE);
+	EXPECT_EQ(E::GetClass()->IsDerivedFrom(BASE(B)) , TRUE);
+	EXPECT_EQ(E::GetClass()->IsDerivedFrom(BASE(C)) , TRUE);
+	EXPECT_EQ(E::GetClass()->IsDerivedFrom(BASE(D)) , TRUE);
+	EXPECT_EQ(G::GetClass()->IsDerivedFrom(BASE(CUtil::CObject)) , TRUE); 
+	EXPECT_EQ(G::GetClass()->IsDerivedFrom(BASE(A)) , TRUE);
+	EXPECT_EQ(G::GetClass()->IsDerivedFrom(BASE(B)) , TRUE);
+	EXPECT_EQ(G::GetClass()->IsDerivedFrom(BASE(C)) , TRUE);
+	EXPECT_EQ(G::GetClass()->IsDerivedFrom(BASE(D)) , TRUE);
+	EXPECT_EQ(G::GetClass()->IsDerivedFrom(BASE(E)) , TRUE);
+	EXPECT_EQ(G::GetClass()->IsDerivedFrom(BASE(F)) , TRUE);
+	EXPECT_EQ(H::GetClass()->IsDerivedFrom(BASE(CUtil::CObject)) , TRUE); 
+	EXPECT_EQ(H::GetClass()->IsDerivedFrom(BASE(A)) , TRUE);
+	EXPECT_EQ(H::GetClass()->IsDerivedFrom(BASE(B)) , TRUE);
+	EXPECT_EQ(H::GetClass()->IsDerivedFrom(BASE(C)) , TRUE); 
+	EXPECT_EQ(H::GetClass()->IsDerivedFrom(BASE(F)) , TRUE);
 
 	CUtil::CObject * pCObject = H::CreateObject();
-	CHECK_EQUAL(pCObject->GetRTTI()->IsDerivedFrom(BASE(CUtil::CObject)) , TRUE); 
-	CHECK_EQUAL(pCObject->GetRTTI()->IsDerivedFrom(BASE(A)) , TRUE);
-	CHECK_EQUAL(pCObject->GetRTTI()->IsDerivedFrom(BASE(B)) , TRUE);
-	CHECK_EQUAL(pCObject->GetRTTI()->IsDerivedFrom(BASE(C)) , TRUE); 
-	CHECK_EQUAL(pCObject->GetRTTI()->IsDerivedFrom(BASE(F)) , TRUE);
+	EXPECT_EQ(pCObject->GetRTTI()->IsDerivedFrom(BASE(CUtil::CObject)) , TRUE); 
+	EXPECT_EQ(pCObject->GetRTTI()->IsDerivedFrom(BASE(A)) , TRUE);
+	EXPECT_EQ(pCObject->GetRTTI()->IsDerivedFrom(BASE(B)) , TRUE);
+	EXPECT_EQ(pCObject->GetRTTI()->IsDerivedFrom(BASE(C)) , TRUE); 
+	EXPECT_EQ(pCObject->GetRTTI()->IsDerivedFrom(BASE(F)) , TRUE);
 
 //	SAFE_DELETE(pCObject);
 	delete pCObject;

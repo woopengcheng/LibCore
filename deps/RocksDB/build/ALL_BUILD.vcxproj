@@ -1,8 +1,12 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Lib_Debug_x64|x64">
+      <Configuration>Lib_Debug_x64</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
@@ -23,6 +27,12 @@
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Utility</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
@@ -36,12 +46,23 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-    <PropertyGroup>
-      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>E:\GitHub\LibCore\deps\RocksDB;E:\GitHub\LibCore\deps\RocksDB\include;E:\GitHub\LibCore\deps\RocksDB\third-party\gtest-1.7.0\fused-src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">
     <Midl>
       <AdditionalIncludeDirectories>E:\GitHub\LibCore\deps\RocksDB;E:\GitHub\LibCore\deps\RocksDB\include;E:\GitHub\LibCore\deps\RocksDB\third-party\gtest-1.7.0\fused-src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
@@ -64,6 +85,7 @@
   <ItemGroup>
     <CustomBuild Include="E:\GitHub\LibCore\deps\RocksDB\CMakeLists.txt">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule E:/GitHub/LibCore/deps/RocksDB/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">Building Custom Rule E:/GitHub/LibCore/deps/RocksDB/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
 "D:\Program Files (x86)\CMake\bin\cmake.exe" -HE:/GitHub/LibCore/deps/RocksDB -BE:/GitHub/LibCore/deps/RocksDB/build --check-stamp-file E:\GitHub\LibCore\deps\RocksDB\build\CMakeFiles\generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
@@ -73,9 +95,21 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">setlocal
+"D:\Program Files (x86)\CMake\bin\cmake.exe" -HE:/GitHub/LibCore/deps/RocksDB -BE:/GitHub/LibCore/deps/RocksDB/build --check-stamp-file E:\GitHub\LibCore\deps\RocksDB\build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:/GitHub/LibCore/deps/RocksDB/CMakeLists.txt;E:\GitHub\LibCore\deps\RocksDB\CMakeLists.txt;E:\GitHub\LibCore\deps\RocksDB\build\CMakeFiles\3.4.1\CMakeSystem.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeSystemSpecificInitialize.cmake;E:\GitHub\LibCore\deps\RocksDB\build\CMakeFiles\3.4.1\CMakeCCompiler.cmake;E:\GitHub\LibCore\deps\RocksDB\build\CMakeFiles\3.4.1\CMakeCXXCompiler.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeSystemSpecificInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeGenericSystem.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\WindowsPaths.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC-C.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC.cmake;E:\GitHub\LibCore\deps\RocksDB\build\CMakeFiles\3.4.1\CMakeRCCompiler.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeRCInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCommonLanguageInclude.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCXXInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Compiler\MSVC-CXX.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC-CXX.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCommonLanguageInclude.cmake;E:\GitHub\LibCore\deps\RocksDB\thirdparty.inc;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\FindGit.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\FindPackageHandleStandardArgs.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\FindPackageMessage.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeParseArguments.cmake;E:\GitHub\LibCore\deps\RocksDB\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">E:/GitHub/LibCore/deps/RocksDB/CMakeLists.txt;E:\GitHub\LibCore\deps\RocksDB\CMakeLists.txt;E:\GitHub\LibCore\deps\RocksDB\build\CMakeFiles\3.4.1\CMakeSystem.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeSystemSpecificInitialize.cmake;E:\GitHub\LibCore\deps\RocksDB\build\CMakeFiles\3.4.1\CMakeCCompiler.cmake;E:\GitHub\LibCore\deps\RocksDB\build\CMakeFiles\3.4.1\CMakeCXXCompiler.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeSystemSpecificInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeGenericSystem.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\WindowsPaths.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC-C.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC.cmake;E:\GitHub\LibCore\deps\RocksDB\build\CMakeFiles\3.4.1\CMakeRCCompiler.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeRCInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCommonLanguageInclude.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCXXInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Compiler\MSVC-CXX.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC-CXX.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCommonLanguageInclude.cmake;E:\GitHub\LibCore\deps\RocksDB\thirdparty.inc;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\FindGit.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\FindPackageHandleStandardArgs.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\FindPackageMessage.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeParseArguments.cmake;E:\GitHub\LibCore\deps\RocksDB\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\GitHub\LibCore\deps\RocksDB\build\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">E:\GitHub\LibCore\deps\RocksDB\build\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule E:/GitHub/LibCore/deps/RocksDB/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
 "D:\Program Files (x86)\CMake\bin\cmake.exe" -HE:/GitHub/LibCore/deps/RocksDB -BE:/GitHub/LibCore/deps/RocksDB/build --check-stamp-file E:\GitHub\LibCore\deps\RocksDB\build\CMakeFiles\generate.stamp

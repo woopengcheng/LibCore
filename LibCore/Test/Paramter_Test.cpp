@@ -1,8 +1,9 @@
 #include "CUtil/inc/ParameterHelper.h"
 #include "CUtil/inc/Parameters.h"
-#include "UnitTest++/UnitTestPP.h"
+#include "gtest/gtest.h"
 
-TEST(Parameter)
+
+TEST(Params , Parameter) 
 {
 	char t = 1;
 	UINT8 t1 = 2;
@@ -45,23 +46,23 @@ TEST(Parameter)
 	t25.insert(std::make_pair(1 , t18));
 
 	CUtil::Parameter objParam(t);
-	CHECK_EQUAL(objParam.IsInt8() , true);
+	EXPECT_EQ(objParam.IsInt8() , true);
 	CUtil::Parameter objPramCopy = objParam;
 	CUtil::Parameter objPramCopy2 = objPramCopy;
 	CUtil::Parameter objPramCopy3;
 	objPramCopy2.CopyTo(objPramCopy3);
-	CHECK_EQUAL(objPramCopy , objParam);
-	CHECK_EQUAL(objPramCopy2 , objParam);
-	CHECK_EQUAL(objPramCopy3 , objParam);
-	CHECK_EQUAL(objParam.GetParamStream().GetData().GetChunkData()->GetRefCount() , 4);
+	EXPECT_EQ(objPramCopy , objParam);
+	EXPECT_EQ(objPramCopy2 , objParam);
+	EXPECT_EQ(objPramCopy3 , objParam);
+	EXPECT_EQ(objParam.GetParamStream().GetData().GetChunkData()->GetRefCount() , 4);
 
-	CHECK_EQUAL(objParam.GetSize() , sizeof(t));
-	CHECK_EQUAL(objParam.GetType() , CUtil::PARAMETER_TYPE_SINT8);
+	EXPECT_EQ(objParam.GetSize() , sizeof(t));
+	EXPECT_EQ(objParam.GetType() , CUtil::PARAMETER_TYPE_SINT8);
 	void * pBuf = objParam.GetStreamData();
 	CUtil::Parameter objData;
 	objData.SetSize(objParam.GetSize());
 	objData.GetParamStream().Pushback(pBuf , objParam.GetDataLen());
-	CHECK_EQUAL(objData , objPramCopy2);
+	EXPECT_EQ(objData , objPramCopy2);
 
 	CUtil::Parameter objParamter;
 	char p = objData;
@@ -159,23 +160,23 @@ TEST(Parameter)
 	objParamter.Clear();
 	objParamter = CUtil::Parameter(t25);
 	std::map<INT32, std::set<INT32>> p25 = objParamter;
-	CHECK_EQUAL(objParamter.GetType() , CUtil::PARAMETER_TYPE_STD_CONTAINER_OR_OTHERS);
+	EXPECT_EQ(objParamter.GetType() , CUtil::PARAMETER_TYPE_STD_CONTAINER_OR_OTHERS);
 
-	CHECK_EQUAL(t , p);
-	CHECK_EQUAL(t1 , p1);
-	CHECK_EQUAL(t2 , p2);
-	CHECK_EQUAL(t3 , p3);
-	CHECK_EQUAL(t4 , p4);
-	CHECK_EQUAL(t5 , p5);
-	CHECK_EQUAL(t6 , p6);
-	CHECK_EQUAL(t7 , p7);
-	CHECK_EQUAL(t8 , p8);
-	CHECK_EQUAL(t9 , p9);
-	CHECK_EQUAL(t10 , p10);
-	//	CHECK_EQUAL(t11 , p11);
-	CHECK_EQUAL(t12 , p12);
-	CHECK_EQUAL(t13 , p13);
-	CHECK_EQUAL(t14 , p14);
+	EXPECT_EQ(t , p);
+	EXPECT_EQ(t1 , p1);
+	EXPECT_EQ(t2 , p2);
+	EXPECT_EQ(t3 , p3);
+	EXPECT_EQ(t4 , p4);
+	EXPECT_EQ(t5 , p5);
+	EXPECT_EQ(t6 , p6);
+	EXPECT_EQ(t7 , p7);
+	EXPECT_EQ(t8 , p8);
+	EXPECT_EQ(t9 , p9);
+	EXPECT_EQ(t10 , p10);
+	//	EXPECT_EQ(t11 , p11);
+	EXPECT_EQ(t12 , p12);
+	EXPECT_EQ(t13 , p13);
+	EXPECT_EQ(t14 , p14);
 	Assert(t15 == p15);
 	Assert(t16 == p16);
 	Assert(t17 == p17);
@@ -192,10 +193,10 @@ TEST(Parameter)
 	objCS << objParamter;
 	CUtil::Parameter objTestParam;
 	objCS >> objTestParam;
-	CHECK_EQUAL(objParamter , objTestParam);
+	EXPECT_EQ(objParamter , objTestParam);
 }
 
-TEST(Parameters)
+TEST(Params , Parameters)
 {
 
 	char t = 1;
@@ -251,13 +252,13 @@ TEST(Parameters)
 	CUtil::Parameters objParams6;
 	objParams6.GenParams(t27); 
 
-	CHECK_EQUAL(t27 , objParams4);
-	CHECK_EQUAL(objParams1.GetParamCount() , 8);
-	CHECK_EQUAL(objParams2.GetParamCount() , 8);
-	CHECK_EQUAL(objParams3.GetParamCount() , 8);
-	CHECK_EQUAL(objParams4.GetParamCount() , 2);
-	CHECK_EQUAL(objParams5.GetParamCount() , 1);
-	CHECK_EQUAL(objParams6.GetParamCount() , 1);
+	EXPECT_EQ(t27 , objParams4);
+	EXPECT_EQ(objParams1.GetParamCount() , 8);
+	EXPECT_EQ(objParams2.GetParamCount() , 8);
+	EXPECT_EQ(objParams3.GetParamCount() , 8);
+	EXPECT_EQ(objParams4.GetParamCount() , 2);
+	EXPECT_EQ(objParams5.GetParamCount() , 1);
+	EXPECT_EQ(objParams6.GetParamCount() , 1);
 	 
 	char p = objParams1[0]; 
 	UINT8 p1 = objParams1[1];  
@@ -289,21 +290,21 @@ TEST(Parameters)
 	objParams5[0].GetParameterValue(p26); 
 	CUtil::Parameters p27 = objParams6[0]; 
 
-	CHECK_EQUAL(t , p);
-	CHECK_EQUAL(t1 , p1);
-	CHECK_EQUAL(t2 , p2);
-	CHECK_EQUAL(t3 , p3);
-	CHECK_EQUAL(t4 , p4);
-	CHECK_EQUAL(t5 , p5);
-	CHECK_EQUAL(t6 , p6);
-	CHECK_EQUAL(t7 , p7);
-	CHECK_EQUAL(t8 , p8);
-	CHECK_EQUAL(t9 , p9);
-	CHECK_EQUAL(t10 , p10);
-	//	CHECK_EQUAL(t11 , p11);
-	CHECK_EQUAL(t12 , p12);
-	CHECK_EQUAL(t13 , p13);
-	CHECK_EQUAL(t14 , p14);
+	EXPECT_EQ(t , p);
+	EXPECT_EQ(t1 , p1);
+	EXPECT_EQ(t2 , p2);
+	EXPECT_EQ(t3 , p3);
+	EXPECT_EQ(t4 , p4);
+	EXPECT_EQ(t5 , p5);
+	EXPECT_EQ(t6 , p6);
+	EXPECT_EQ(t7 , p7);
+	EXPECT_EQ(t8 , p8);
+	EXPECT_EQ(t9 , p9);
+	EXPECT_EQ(t10 , p10);
+	//	EXPECT_EQ(t11 , p11);
+	EXPECT_EQ(t12 , p12);
+	EXPECT_EQ(t13 , p13);
+	EXPECT_EQ(t14 , p14);
 	Assert(t15 == p15);
 	Assert(t16 == p16);
 	Assert(t17 == p17);
@@ -315,7 +316,7 @@ TEST(Parameters)
 	Assert(t23 == p23);
 	Assert(t24 == p24);
 	Assert(t25 == p25);
-	CHECK_EQUAL(t26, p26);
-	CHECK_EQUAL(t27 , p27);
+	EXPECT_EQ(t26, p26);
+	EXPECT_EQ(t27 , p27);
 	 
 }

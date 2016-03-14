@@ -9,6 +9,10 @@
       <Configuration>DLL_Debug_x64</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Lib_Debug_x64|x64">
+      <Configuration>Lib_Debug_x64</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
@@ -34,6 +38,12 @@
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
@@ -51,12 +61,16 @@
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">rocksdblib</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">rocksdblib</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">rocksdblib</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">.lib</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">.lib</TargetExt>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\GitHub\LibCore\deps\RocksDB\build\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">rocksdblib.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">rocksdblib</TargetName>
@@ -158,6 +172,54 @@
       <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">
+    <ClCompile>
+      <AdditionalOptions> /d2Zi+ %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\deps\RocksDB;$(SolutionDir)..\deps\RocksDB\include;$(SolutionDir)..\deps\RocksDB\third-party\gtest-1.7.0\fused-src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <CallingConvention>Cdecl</CallingConvention>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4127;4800;4996;4351</DisableSpecificWarnings>
+      <ErrorReporting>Queue</ErrorReporting>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MinimalRebuild>false</MinimalRebuild>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <ProgramDataBaseFileName>$(Configuration)/rocksdblib.pdb</ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <StringPooling>true</StringPooling>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>true</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;WIN32;OS_WIN;_MBCS;WIN64;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;WIN32;OS_WIN;_MBCS;WIN64;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\GitHub\LibCore\deps\RocksDB;E:\GitHub\LibCore\deps\RocksDB\include;E:\GitHub\LibCore\deps\RocksDB\third-party\gtest-1.7.0\fused-src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:\GitHub\LibCore\deps\RocksDB;E:\GitHub\LibCore\deps\RocksDB\include;E:\GitHub\LibCore\deps\RocksDB\third-party\gtest-1.7.0\fused-src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <AdditionalOptions> /d2Zi+ /Oxt %(AdditionalOptions)</AdditionalOptions>
@@ -210,6 +272,7 @@
     <CustomBuild Include="E:\GitHub\LibCore\deps\RocksDB\build\CMakeFiles\ba3645945d46268b487fcdc0e1c513cf\build_version.cc.rule">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ../util/build_version.cc</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">Generating ../util/build_version.cc</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">Generating ../util/build_version.cc</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
 echo #include "build_version.h" &gt; E:/GitHub/LibCore/deps/RocksDB/util/build_version.cc
 if %errorlevel% neq 0 goto :cmEnd
@@ -240,12 +303,30 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">setlocal
+echo #include "build_version.h" &gt; E:/GitHub/LibCore/deps/RocksDB/util/build_version.cc
+if %errorlevel% neq 0 goto :cmEnd
+echo const char* rocksdb_build_git_sha = "rocksdb_build_git_sha:0"; &gt;&gt; E:/GitHub/LibCore/deps/RocksDB/util/build_version.cc
+if %errorlevel% neq 0 goto :cmEnd
+echo const char* rocksdb_build_git_datetime = "rocksdb_build_git_datetime:02/23/16 10:35:25"; &gt;&gt; E:/GitHub/LibCore/deps/RocksDB/util/build_version.cc
+if %errorlevel% neq 0 goto :cmEnd
+echo const char* rocksdb_build_compile_date = __DATE__; &gt;&gt; E:/GitHub/LibCore/deps/RocksDB/util/build_version.cc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:/GitHub/LibCore/deps/RocksDB/build/CMakeFiles/ba3645945d46268b487fcdc0e1c513cf/build_version.cc.rule;%(AdditionalInputs)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">E:/GitHub/LibCore/deps/RocksDB/build/CMakeFiles/ba3645945d46268b487fcdc0e1c513cf/build_version.cc.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">E:/GitHub/LibCore/deps/RocksDB/build/CMakeFiles/ba3645945d46268b487fcdc0e1c513cf/build_version.cc.rule;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\GitHub\LibCore\deps\RocksDB\util\build_version.cc</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">E:\GitHub\LibCore\deps\RocksDB\util\build_version.cc</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">E:\GitHub\LibCore\deps\RocksDB\util\build_version.cc</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">false</LinkObjects>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating ../util/build_version.cc</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
 echo #include "build_version.h" &gt; E:/GitHub/LibCore/deps/RocksDB/util/build_version.cc
@@ -444,14 +525,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="E:\GitHub\LibCore\deps\RocksDB\utilities\ttl\db_ttl_impl.cc" />
     <ClCompile Include="E:\GitHub\LibCore\deps\RocksDB\utilities\write_batch_with_index\write_batch_with_index.cc" />
     <ClCompile Include="E:\GitHub\LibCore\deps\RocksDB\utilities\write_batch_with_index\write_batch_with_index_internal.cc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="E:/GitHub/LibCore/deps/RocksDB/build/ZERO_CHECK.vcxproj">
-      <Project>F6983246-F08B-33E0-AC91-DAA68E80444F</Project>
-    </ProjectReference>
-    <ProjectReference Include="E:/GitHub/LibCore/deps/RocksDB/build/GenerateBuildVersion.vcxproj">
-      <Project>1C22325A-0043-3DA1-B462-121AE9871B0B</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

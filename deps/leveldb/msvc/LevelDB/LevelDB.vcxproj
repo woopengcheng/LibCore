@@ -17,6 +17,14 @@
       <Configuration>DLL_Debug_x64</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Lib_Debug_x64|Win32">
+      <Configuration>Lib_Debug_x64</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Lib_Debug_x64|x64">
+      <Configuration>Lib_Debug_x64</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
@@ -44,6 +52,12 @@
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
@@ -51,6 +65,12 @@
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
@@ -79,10 +99,16 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -100,11 +126,19 @@
     <OutDir>$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|Win32'">
+    <OutDir>$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
+    <OutDir>$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">
     <OutDir>$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
@@ -136,6 +170,20 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)../../;$(ProjectDir)../../db;$(ProjectDir)../../util;$(ProjectDir)../../table;$(ProjectDir)../../include;$(ProjectDir)../../port;$(ProjectDir)../../port/win;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>
@@ -151,6 +199,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_GLOBAL_USING;HAVE_SNPRINTF;LEVELDB_PLATFORM_WINDOWS;OS_WIN;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)../../;$(ProjectDir)../../db;$(ProjectDir)../../include/;$(ProjectDir)../../table;$(ProjectDir)../../util;$(ProjectDir)../../port/win;$(SolutionDir)../deps/boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <StringPooling>false</StringPooling>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
@@ -209,49 +273,60 @@
     <ClCompile Include="..\..\db\c.cc" />
     <ClCompile Include="..\..\db\corruption_test.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\db\c_test.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\db\dbformat.cc" />
     <ClCompile Include="..\..\db\dbformat_test.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\db\db_bench.cc" />
     <ClCompile Include="..\..\db\db_impl.cc" />
     <ClCompile Include="..\..\db\db_iter.cc" />
     <ClCompile Include="..\..\db\db_test.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\db\filename.cc" />
     <ClCompile Include="..\..\db\filename_test.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\db\log_reader.cc" />
     <ClCompile Include="..\..\db\log_test.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\db\log_writer.cc" />
     <ClCompile Include="..\..\db\memtable.cc" />
     <ClCompile Include="..\..\db\repair.cc" />
     <ClCompile Include="..\..\db\skiplist_test.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\db\table_cache.cc" />
     <ClCompile Include="..\..\db\version_edit.cc" />
     <ClCompile Include="..\..\db\version_edit_test.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\db\version_set.cc" />
     <ClCompile Include="..\..\db\version_set_test.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\db\write_batch.cc" />
     <ClCompile Include="..\..\db\write_batch_test.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\helpers\memenv\memenv_test.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\port\port_win.cc" />
     <ClCompile Include="..\..\table\block.cc" />
@@ -263,31 +338,38 @@
     <ClCompile Include="..\..\table\table_builder.cc" />
     <ClCompile Include="..\..\table\table_test.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\table\two_level_iterator.cc" />
     <ClCompile Include="..\..\util\arena.cc" />
     <ClCompile Include="..\..\util\arena_test.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\util\cache.cc" />
     <ClCompile Include="..\..\util\cache_test.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\util\coding.cc" />
     <ClCompile Include="..\..\util\coding_test.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\util\comparator.cc" />
     <ClCompile Include="..\..\util\crc32c.cc" />
     <ClCompile Include="..\..\util\crc32c_test.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\util\env.cc" />
     <ClCompile Include="..\..\util\env_boost.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\util\env_test.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\util\env_win.cc" />
     <ClCompile Include="..\..\util\hash.cc" />
@@ -335,6 +417,8 @@
     <ClInclude Include="..\..\port\port_win.h" />
     <ClInclude Include="..\..\port\win\stdint.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">
       </ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\..\table\block.h" />

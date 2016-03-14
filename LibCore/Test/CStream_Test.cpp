@@ -1,8 +1,9 @@
 #include "Marshal/inc/CStream.h"
-#include "UnitTest++/UnitTestPP.h"
+#include "gtest/gtest.h"
+//#include "UnitTest++/UnitTestPP.h"
 
 
-TEST(CStream_SINT8)
+TEST(CStream , CStream_SINT8)
 {
 	CUtil::CStream cs;
 	SINT8 p1 = 0x00000000;
@@ -23,16 +24,16 @@ TEST(CStream_SINT8)
 	cs << p1 << p2 << p3 << p4 << p5 << p6 << p7;
 	cs >> q1 >> q2 >> q3 >> q4 >> q5 >> q6 >> q7;
 
-	CHECK_EQUAL(p1 , q1); 
-	CHECK_EQUAL(p2 , q2); 
-	CHECK_EQUAL(p3 , q3);
-	CHECK_EQUAL(p4 , q4);  
-	CHECK_EQUAL(p5 , q5); 
-	CHECK_EQUAL(p6 , q6); 
-	CHECK_EQUAL(p7 , q7); 
+	EXPECT_EQ(p1 , q1); 
+	EXPECT_EQ(p2 , q2); 
+	EXPECT_EQ(p3 , q3);
+	EXPECT_EQ(p4 , q4);  
+	EXPECT_EQ(p5 , q5); 
+	EXPECT_EQ(p6 , q6); 
+	EXPECT_EQ(p7, q7);
 } 
 
-TEST(CStream_UINT8)
+TEST(CStream , CStream_UINT8)
 {
 	CUtil::CStream cs;
 	UINT8 p1 = 0x00000000;
@@ -53,16 +54,16 @@ TEST(CStream_UINT8)
 	cs << p1 << p2 << p3 << p4 << p5 << p6 << p7;
 	cs >> q1 >> q2 >> q3 >> q4 >> q5 >> q6 >> q7;
 
-	CHECK_EQUAL(p1 , q1); 
-	CHECK_EQUAL(p2 , q2); 
-	CHECK_EQUAL(p3 , q3);
-	CHECK_EQUAL(p4 , q4);  
-	CHECK_EQUAL(p5 , q5); 
-	CHECK_EQUAL(p6 , q6); 
-	CHECK_EQUAL(p7 , q7); 
+	EXPECT_EQ(p1 , q1); 
+	EXPECT_EQ(p2 , q2); 
+	EXPECT_EQ(p3 , q3);
+	EXPECT_EQ(p4 , q4);  
+	EXPECT_EQ(p5 , q5); 
+	EXPECT_EQ(p6 , q6); 
+	EXPECT_EQ(p7 , q7); 
 } 
 
-TEST(CStream_INT16)
+TEST(CStream , CStream_INT16)
 {
 	CUtil::CStream cs;
 	INT16 p[] = { 0x00000000, 0x0000000F, 0x00000010,	0x000000FF,
@@ -76,11 +77,11 @@ TEST(CStream_INT16)
 		cs << p[i];
 		cs >> q[i];
 
-		CHECK_EQUAL(p[i] , q[i]); 
+		EXPECT_EQ(p[i] , q[i]); 
 	}   
 } 
 
-TEST(CStream_UINT16)
+TEST(CStream , CStream_UINT16)
 {
 	CUtil::CStream cs;
 	UINT16 p[] = { 0x00000000, 0x0000000F, 0x00000010,	0x000000FF,
@@ -94,11 +95,11 @@ TEST(CStream_UINT16)
 		cs << p[i];
 		cs >> q[i];
 
-		CHECK_EQUAL(p[i] , q[i]); 
+		EXPECT_EQ(p[i] , q[i]); 
 	}   
 } 
 
-TEST(CStream_INT32)
+TEST(CStream , CStream_INT32)
 {
 	CUtil::CStream cs;
 	INT32 p[] = { 0x00000000, 0x0000000F, 0x00000010, 0x000000FF,
@@ -116,11 +117,11 @@ TEST(CStream_INT32)
 		cs << p[i];
 		cs >> q[i];
 
-		CHECK_EQUAL(p[i] , q[i]); 
+		EXPECT_EQ(p[i] , q[i]); 
 	}   
 }  
 
-TEST(CStream_UINT32)
+TEST(CStream , CStream_UINT32)
 {
 	CUtil::CStream cs;
 	UINT32 p[] = { 0x00000000, 0x0000000F, 0x00000010, 0x000000FF,
@@ -138,11 +139,11 @@ TEST(CStream_UINT32)
 		cs << p[i];
 		cs >> q[i];
 
-		CHECK_EQUAL(p[i] , q[i]); 
+		EXPECT_EQ(p[i] , q[i]); 
 	}   
 } 
 
-TEST(CStream_INT64)
+TEST(CStream , CStream_INT64)
 {
 	CUtil::CStream cs;
 	INT64 p[] = { 0x0000000000000000 , 0x000000000000000F, 0x0000000000000010,	0x00000000000000FF,
@@ -165,11 +166,11 @@ TEST(CStream_INT64)
 		cs << p[i];
 		cs >> q[i];
 
-		CHECK_EQUAL(p[i] , q[i]); 
+		EXPECT_EQ(p[i] , q[i]); 
 	}  
 } 
 
-TEST(CStream_UINT64)
+TEST(CStream , CStream_UINT64)
 {
 	CUtil::CStream cs;
 	UINT64 p[] = { 0x0000000000000000 , 0x000000000000000F, 0x0000000000000010,	0x00000000000000FF,
@@ -192,11 +193,11 @@ TEST(CStream_UINT64)
 		cs << p[i];
 		cs >> q[i];
 
-		CHECK_EQUAL(p[i] , q[i]); 
+		EXPECT_EQ(p[i] , q[i]); 
 	} 
 }  
 
-TEST(CStream)
+TEST(CStream , CStream)
 {
 	CUtil::CStream c; 
 	CUtil::CStream cs(c); 
@@ -296,48 +297,48 @@ TEST(CStream)
 
 	cs << t << t1 << t2 << t3 << t4 << t5 << t6 << t7 << t8 << t9 << t10 << t11 << t12 << t13 << t14 << t15 << t16 << t17 << t18 << t19 << t20 << t21 << t22 << t23 << t24 << t25 ;
 	INT32 nLengthData = cs.GetDataLen();
-	CHECK_EQUAL(cs.GetCurPos() , 0);
+	EXPECT_EQ(cs.GetCurPos() , 0);
 
 	cs >> CUtil::Marshal::Begin >> p >> p1 >> p2 >> p3 >> p4 >> p5 >> p6 >> p7 >> p8 >> p9 >> p10 >> p11 >> p12 >> p13 >> p14 >> p15 >> p16 >> p17 >> p18 >> p19 >> p20 >> p21 >> p22 >> p23 >> p24 >> p25 >> CUtil::Marshal::Rollback;//  ;
 	INT32 nLengthData2 = cs.GetDataLen();
-	CHECK_EQUAL(nLengthData , nLengthData2);
-	CHECK_EQUAL(cs.GetCurPos() , 0);
+	EXPECT_EQ(nLengthData , nLengthData2);
+	EXPECT_EQ(cs.GetCurPos() , 0);
 
-	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 1);
+	EXPECT_EQ(cs.GetData().GetChunkData()->GetRefCount() , 1);
 	CUtil::CStream csCopy(cs);
-	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 2);
+	EXPECT_EQ(cs.GetData().GetChunkData()->GetRefCount() , 2);
 	CUtil::CStream csCopyData(cs.Begin() , cs.GetDataLen());
-	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 2);
+	EXPECT_EQ(cs.GetData().GetChunkData()->GetRefCount() , 2);
 	CUtil::CStream csCopyChunk(cs.GetData());
-	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 3);
+	EXPECT_EQ(cs.GetData().GetChunkData()->GetRefCount() , 3);
 	CUtil::CStream csCopyFunc;
 	csCopyFunc.Copy(cs);
-	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 4);
+	EXPECT_EQ(cs.GetData().GetChunkData()->GetRefCount() , 4);
 	CUtil::CStream csCopyEqual;
 	csCopyEqual = cs;
-	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 5);
+	EXPECT_EQ(cs.GetData().GetChunkData()->GetRefCount() , 5);
 	CUtil::CStream csNotEqual(cs);
-	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 6);
+	EXPECT_EQ(cs.GetData().GetChunkData()->GetRefCount() , 6);
 	csNotEqual >> p;
 	CUtil::CStream csNotEqual2(cs);
-	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() , 7);
+	EXPECT_EQ(cs.GetData().GetChunkData()->GetRefCount() , 7);
 	csNotEqual2 >> CUtil::Marshal::Begin >> p;
 
 	csCopy >> p >> p1 >> p2 >> p3 >> p4 >> p5 >> p6 >> p7 >> p8 >> p9 >> p10 >> p11 >> p12 >> p13 >> p14 >> p15 >> p16 >> p17 >> p18 >> p19 >> p20 >> p21 >> p22 >> p23 >> p24 >> p25;//  ;
-	CHECK_EQUAL(csCopy.GetDataLen() , nLengthData);
-	CHECK_EQUAL(csCopy.GetCurPos() , nLengthData2);
-	CHECK_EQUAL(csCopyData.GetCurPos() , 0);
-	CHECK_EQUAL(csCopyData.GetDataLen() , nLengthData2);
-	CHECK_EQUAL(csCopyChunk.GetCurPos() , 0);
-	CHECK_EQUAL(csCopyChunk.GetDataLen() , nLengthData2);
-	CHECK_EQUAL(csCopyFunc.GetCurPos() , 0);
-	CHECK_EQUAL(csCopyFunc.GetDataLen() , nLengthData2);
-	CHECK_EQUAL(csCopyEqual.GetCurPos() , 0);
-	CHECK_EQUAL(csCopyEqual.GetDataLen() , nLengthData2);
-	CHECK_EQUAL(cs.GetData().GetChunkData()->GetRefCount() ,7);
-	CHECK_EQUAL(cs != csCopy && cs == csCopyData && cs == csCopyChunk && cs == csCopyFunc && cs == csCopyEqual, true);
-	CHECK_EQUAL(cs != csNotEqual, true);
-	CHECK_EQUAL(cs != csNotEqual2, true);
+	EXPECT_EQ(csCopy.GetDataLen() , nLengthData);
+	EXPECT_EQ(csCopy.GetCurPos() , nLengthData2);
+	EXPECT_EQ(csCopyData.GetCurPos() , 0);
+	EXPECT_EQ(csCopyData.GetDataLen() , nLengthData2);
+	EXPECT_EQ(csCopyChunk.GetCurPos() , 0);
+	EXPECT_EQ(csCopyChunk.GetDataLen() , nLengthData2);
+	EXPECT_EQ(csCopyFunc.GetCurPos() , 0);
+	EXPECT_EQ(csCopyFunc.GetDataLen() , nLengthData2);
+	EXPECT_EQ(csCopyEqual.GetCurPos() , 0);
+	EXPECT_EQ(csCopyEqual.GetDataLen() , nLengthData2);
+	EXPECT_EQ(cs.GetData().GetChunkData()->GetRefCount() ,7);
+	EXPECT_EQ(cs != csCopy && cs == csCopyData && cs == csCopyChunk && cs == csCopyFunc && cs == csCopyEqual, true);
+	EXPECT_EQ(cs != csNotEqual, true);
+	EXPECT_EQ(cs != csNotEqual2, true);
 
 	INT32 nCopyPushBack = 10 , nCopyPushBack2 = 0 ,nCopyPushBack3 = 11 , nCopyPushBack4 = 0,nCopyPushBack5 = 12 , nCopyPushBack6 = 23 , nCopyPushBack7 = 23 , nCopyPushBack8 = 23;
 	csCopy.Pushback(&nCopyPushBack , sizeof(nCopyPushBack));
@@ -350,33 +351,33 @@ TEST(CStream)
 	nCopyPushBack4 = *(INT32*)(pBuf);
 	csCopy.Pop(nCopyPushBack6);
 	csCopy.Pop(nCopyPushBack8);
-	CHECK_EQUAL(nCopyPushBack , nCopyPushBack2);
-	CHECK_EQUAL(nCopyPushBack3 , nCopyPushBack4);
-	CHECK_EQUAL(nCopyPushBack5 , nCopyPushBack6);
-	CHECK_EQUAL(nCopyPushBack7 , nCopyPushBack8);
+	EXPECT_EQ(nCopyPushBack , nCopyPushBack2);
+	EXPECT_EQ(nCopyPushBack3 , nCopyPushBack4);
+	EXPECT_EQ(nCopyPushBack5 , nCopyPushBack6);
+	EXPECT_EQ(nCopyPushBack7 , nCopyPushBack8);
 
 	csCopyData.Clear();
-	CHECK_EQUAL(csCopyData.GetCurPos() , 0);
-	CHECK_EQUAL(csCopyData.GetDataLen() , 0);
+	EXPECT_EQ(csCopyData.GetCurPos() , 0);
+	EXPECT_EQ(csCopyData.GetDataLen() , 0);
 
-	CHECK_EQUAL(t , p);
-	CHECK_EQUAL(t1 , p1);
-	CHECK_EQUAL(t2 , p2);
-	CHECK_EQUAL(t3 , p3);
-	CHECK_EQUAL(t4 , p4);
-	CHECK_EQUAL(t5 , p5);
-	CHECK_EQUAL(t6 , p6);
-	CHECK_EQUAL(t7 , p7);
-	CHECK_EQUAL(t8 , p8);
-	CHECK_EQUAL(t9 , p9);
-	CHECK_EQUAL(t10 , p10);
-//	CHECK_EQUAL(t11 , p11);
-	CHECK_EQUAL(t12 , p12);
+	EXPECT_EQ(t , p);
+	EXPECT_EQ(t1 , p1);
+	EXPECT_EQ(t2 , p2);
+	EXPECT_EQ(t3 , p3);
+	EXPECT_EQ(t4 , p4);
+	EXPECT_EQ(t5 , p5);
+	EXPECT_EQ(t6 , p6);
+	EXPECT_EQ(t7 , p7);
+	EXPECT_EQ(t8 , p8);
+	EXPECT_EQ(t9 , p9);
+	EXPECT_EQ(t10 , p10);
+//	EXPECT_EQ(t11 , p11);
+	EXPECT_EQ(t12 , p12);
 	p13 >> p13;
-	CHECK_EQUAL(p13.GetDataLen() , 12);
+	EXPECT_EQ(p13.GetDataLen() , 12);
 	std::string str((char *)t13.Begin());
-	CHECK_EQUAL(str , std::string("14"));
-	CHECK_EQUAL(t14 , p14);
+	EXPECT_EQ(str , std::string("14"));
+	EXPECT_EQ(t14 , p14);
 	Assert(t15 == p15);
  	Assert(t16 == p16);
 	Assert(t17 == p17);

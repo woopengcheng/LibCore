@@ -1,54 +1,54 @@
-#include "CUtil/inc/ReferCount.h"
-#include "UnitTest++/UnitTestPP.h"
-
-class TestChunk : public CUtil::HoderObject
-{
-public:
-	boost::intrusive_ptr< CUtil::Holder<TestChunk> > _holder;
-	TestChunk(char *& pD)
-		: pData(pD)
-	{
-		CUtil::Holder<TestChunk> * p = (CUtil::Holder<TestChunk> *)pD;
-		_holder = p;
-	}
-
-	TestChunk(const TestChunk & test)
-		: _holder(test._holder)
-		, pData(test.pData)
-	{
-	}
-
-	TestChunk &operator=(const TestChunk &rRHS) 
-	{
-		if (this != &rRHS)
-		{
-			pData = rRHS.pData;
-			_holder = rRHS._holder;
-		}
-		return *this;
-	}
-	virtual ~TestChunk()
-	{
-	}
-	char * GetData()
-	{
-		return pData;
-	}
-
-public:
-	virtual BOOL Release() override
-	{
-		delete pData;
-		pData = NULL;
-		delete _holder;
-
-		return TRUE;
-	}
-
-public:
-	char *& pData;
-};
-
+// #include "CUtil/inc/ReferCount.h"
+// #include "UnitTest++/UnitTestPP.h"
+// 
+// class TestChunk : public CUtil::HoderObject
+// {
+// public:
+// 	boost::intrusive_ptr< CUtil::Holder<TestChunk> > _holder;
+// 	TestChunk(char *& pD)
+// 		: pData(pD)
+// 	{
+// 		CUtil::Holder<TestChunk> * p = (CUtil::Holder<TestChunk> *)pD;
+// 		_holder = p;
+// 	}
+// 
+// 	TestChunk(const TestChunk & test)
+// 		: _holder(test._holder)
+// 		, pData(test.pData)
+// 	{
+// 	}
+// 
+// 	TestChunk &operator=(const TestChunk &rRHS) 
+// 	{
+// 		if (this != &rRHS)
+// 		{
+// 			pData = rRHS.pData;
+// 			_holder = rRHS._holder;
+// 		}
+// 		return *this;
+// 	}
+// 	virtual ~TestChunk()
+// 	{
+// 	}
+// 	char * GetData()
+// 	{
+// 		return pData;
+// 	}
+// 
+// public:
+// 	virtual BOOL Release() override
+// 	{
+// 		delete pData;
+// 		pData = NULL;
+// 		delete _holder;
+// 
+// 		return TRUE;
+// 	}
+// 
+// public:
+// 	char *& pData;
+// };
+//
 // TEST(ReferCount)
 // {  
 // 	char * pData = new char[1024];

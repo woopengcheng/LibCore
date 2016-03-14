@@ -25,6 +25,14 @@
       <Configuration>LibDebug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Lib_Debug_x64|Win32">
+      <Configuration>Lib_Debug_x64</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Lib_Debug_x64|x64">
+      <Configuration>Lib_Debug_x64</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
@@ -59,6 +67,12 @@
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
@@ -72,6 +86,12 @@
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
@@ -103,6 +123,9 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -110,6 +133,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -128,6 +154,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|Win32'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
@@ -135,6 +164,12 @@
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\</OutDir>
+    <TargetName>$(ProjectName)</TargetName>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\</OutDir>
     <TargetName>$(ProjectName)</TargetName>
@@ -185,6 +220,19 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>
@@ -218,7 +266,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>DLL_EXPORTS;HAVE_STRUCT_TIMESPEC;NOMINMAX;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)../GameDBCommon/src;$(ProjectDir)src\rpc;$(SolutionDir)..\LibCore\;$(SolutionDir)..\deps\boost;$(SolutionDir)..\deps\tbb\include;$(SolutionDir)..\deps\pthread\include;$(SolutionDir)LibCore;$(SolutionDir)../LibCore/;$(SolutionDir)../deps/leveldb/;$(SolutionDir)../deps/leveldb/db;$(SolutionDir)../deps/leveldb/util;$(SolutionDir)../deps/leveldb/port;$(SolutionDir)../deps/leveldb/table;$(SolutionDir)../deps/leveldb/include;$(SolutionDir)../deps/boost;$(SolutionDir)../deps/expat/lib;$(SolutionDir)../deps/zeromq/include;$(SolutionDir)../deps/tbb/include;$(SolutionDir)../deps/UnitTest++/;$(SolutionDir)../deps/protobuf/src;$(SolutionDir)../deps/raknet/source;$(SolutionDir)../deps/pthread/include;$(SolutionDir)../deps/glog/src/windows;$(SolutionDir)../deps/log4cpp/include;$(SolutionDir)../deps/log4cplus/include;$(SolutionDir)../deps/lua/src;$(SolutionDir)../deps/jsoncpp/include;$(SolutionDir)../deps/libiconv/source/include;$(SolutionDir)../deps/Snappy;$(SolutionDir)../deps/Mongobson;$(SolutionDir)../deps/CityHash/src;$(SolutionDir)../deps/openssl/openssl/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\rpc;$(SolutionDir)LibCore;$(SolutionDir)../LibCore/;$(SolutionDir)../deps/leveldb/;$(SolutionDir)../deps/leveldb/db;$(SolutionDir)../deps/leveldb/util;$(SolutionDir)../deps/leveldb/port;$(SolutionDir)../deps/leveldb/table;$(SolutionDir)../deps/leveldb/include;$(SolutionDir)../deps/boost;$(SolutionDir)../deps/expat/lib;$(SolutionDir)../deps/zeromq/include;$(SolutionDir)../deps/tbb/include;$(SolutionDir)../deps/protobuf/src;$(SolutionDir)../deps/raknet/source;$(SolutionDir)../deps/pthread/include;$(SolutionDir)../deps/log4cpp/include;$(SolutionDir)../deps/log4cplus/include;$(SolutionDir)../deps/Snappy;$(SolutionDir)../deps/lua/src;$(SolutionDir)../deps/jsoncpp/include;$(SolutionDir)../deps/libiconv/source/include;$(SolutionDir)../deps/openssl/openssl/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -227,6 +275,30 @@
       <AdditionalDependencies>leveldb.lib;LibCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ForceSymbolReferences>
       </ForceSymbolReferences>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>HAVE_STRUCT_TIMESPEC;_CRT_SECURE_NO_WARNINGS;_AFXEXT;CLOSE_RPC_TIMEOUT;NOMINMAX;BSON_COMPILATION;LEVELDB_PLATFORM_WINDOWS;OS_WIN;HYCOMMONWINAPI_EXPORTS;DLL_EXPORTS;USE_RAKNET;WIN32;USE_LOG4CPLUS;_CONSOLE;_WINDLL;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src/rpc;$(SolutionDir)LibCore;$(SolutionDir)../LibCore/;$(SolutionDir)../deps/leveldb/;$(SolutionDir)../deps/leveldb/db;$(SolutionDir)../deps/leveldb/util;$(SolutionDir)../deps/leveldb/port;$(SolutionDir)../deps/leveldb/table;$(SolutionDir)../deps/leveldb/include;$(SolutionDir)../deps/boost;$(SolutionDir)../deps/expat/lib;$(SolutionDir)../deps/zeromq/include;$(SolutionDir)../deps/tbb/include;$(SolutionDir)../deps/protobuf/src;$(SolutionDir)../deps/raknet/source;$(SolutionDir)../deps/pthread/include;$(SolutionDir)../deps/log4cplus/include;$(SolutionDir)../deps/lua/src;$(SolutionDir)../deps/Snappy;$(SolutionDir)../deps/jsoncpp/include;$(SolutionDir)../deps/libiconv/source/include;$(SolutionDir)../deps/gtest/googletest/include;$(SolutionDir)../deps/openssl/openssl/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\tbb\lib\intel64\vc10;$(SolutionDir)..\deps\pthread\lib\x64;$(SolutionDir)..\deps\gperftools-2.1\debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>gtestd.lib;Rpcrt4.lib;leveldb.lib;libtcmalloc_minimal.lib;libiconv_static.lib;lib_json.lib;lua.lib;libzmq_d.lib;ws2_32.lib;gtestd.lib;tbb_debug.lib;pthreadVC2.lib;log4cplusSUD.lib;LibStatic.lib;expat.lib;Snappy.lib;Ws2_32.lib;openssl.lib;LibCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ForceSymbolReferences>
+      </ForceSymbolReferences>
+      <IgnoreSpecificDefaultLibraries>LIBCMTD;MSVCRT;</IgnoreSpecificDefaultLibraries>
+      <OptimizeReferences>false</OptimizeReferences>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

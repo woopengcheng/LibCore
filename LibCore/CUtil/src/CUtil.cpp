@@ -10,7 +10,7 @@
 #include <openssl/pem.h>
 #include <openssl/err.h>
 #include <openssl/hmac.h>
-#include "city.h"
+#include "CityHash/city.h"
 #include "snappy.h"
 
 #ifdef WIN32
@@ -51,7 +51,8 @@ namespace CUtil
 		Assert_ReF(!Net::InitNet()); 
 
 		UnitTestStart();
-
+		char * p = ".";
+		GoogleTestStart(1, &p);
 		return CErrno::Success();
 	}
 

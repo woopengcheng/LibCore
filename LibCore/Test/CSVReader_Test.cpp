@@ -1,6 +1,7 @@
 #include "CUtil/inc/CSVReader.h"
-#include "UnitTest++/UnitTestPP.h"
+//#include "UnitTest++/UnitTestPP.h"
 #include "CUtil/inc/CUtil.h"
+#include "gtest/gtest.h"
 
 const char * g_strTest = R"("轨迹ID"	"生效场景 --不配表示所有场景中生效 --否则仅在配置场景中生效"	"循环方式"	"界面中图标"	"属性修改值"	"起始点"	"备注1"	"坐标系"	
 "curve_id"	"validStages"	"wrapMode"	"InterfaceIcon"	"attr_mod_val"	"start_x"	"col_1"	"isLocal"	
@@ -23,10 +24,10 @@ struct SAction
 	bool isLocal;	// 坐标系
 };
 
-TEST(CSVReader)
+TEST(CSVReader , read)
 {
 	CUtil::CSVReader csv;
-	CHECK_EQUAL(csv.Load(g_strTest) , 0);
+	EXPECT_EQ(csv.Load(g_strTest) , 0);
 
 	size_t index_curve_id = csv.GetIndex("curve_id", 1);
 	MsgAssert(index_curve_id != (size_t)-1 , "error");
@@ -83,20 +84,20 @@ TEST(CSVReader)
 		vec.push_back(conf);
 	}
 
-	CHECK_EQUAL(vec[0].curve_id, 1);
-	CHECK_EQUAL(vec[0].validStages[0], 2003);
-	CHECK_EQUAL(vec[0].validStages[1], 2005);
-	CHECK_EQUAL(vec[0].validStages[2], 2006);
-	CHECK_EQUAL(vec[0].wrapMode, "once");
-	CHECK_EQUAL(vec[0].InterfaceIcon[0], "act_image");
-	CHECK_EQUAL(vec[0].InterfaceIcon[1], "molong");
-// 	CHECK_EQUAL(vec[0].attr_mod_val, 25.5);
-// 	CHECK_EQUAL(vec[1].attr_mod_val, 50.7);
-// 	CHECK_EQUAL(vec[2].attr_mod_val, 25.6);
-// 	CHECK_EQUAL(vec[0].start_x[0], 9.76649);
-// 	CHECK_EQUAL(vec[0].start_x[1], 8.890732);
-// 	CHECK_EQUAL(vec[0].start_x[2], -16.13906);
-	CHECK_EQUAL(vec[0].col_1, 410);
-	CHECK_EQUAL(vec[0].isLocal, true);
-	CHECK_EQUAL(vec[2].isLocal, false);
+	EXPECT_EQ(vec[0].curve_id, 1);
+	EXPECT_EQ(vec[0].validStages[0], 2003);
+	EXPECT_EQ(vec[0].validStages[1], 2005);
+	EXPECT_EQ(vec[0].validStages[2], 2006);
+	EXPECT_EQ(vec[0].wrapMode, "once");
+	EXPECT_EQ(vec[0].InterfaceIcon[0], "act_image");
+	EXPECT_EQ(vec[0].InterfaceIcon[1], "molong");
+// 	EXPECT_EQ(vec[0].attr_mod_val, 25.5);
+// 	EXPECT_EQ(vec[1].attr_mod_val, 50.7);
+// 	EXPECT_EQ(vec[2].attr_mod_val, 25.6);
+// 	EXPECT_EQ(vec[0].start_x[0], 9.76649);
+// 	EXPECT_EQ(vec[0].start_x[1], 8.890732);
+// 	EXPECT_EQ(vec[0].start_x[2], -16.13906);
+	EXPECT_EQ(vec[0].col_1, 410);
+	EXPECT_EQ(vec[0].isLocal, true);
+	EXPECT_EQ(vec[2].isLocal, false);
 }

@@ -1,6 +1,7 @@
 #include "Coroutine/Coroutine.h"
-#include "UnitTest++/UnitTestPP.h"
+// #include "UnitTest++/UnitTestPP.h"
 #include "CUtil/inc/CUtil.h"
+#include "gtest/gtest.h"
 
 const INT64 CO_NUM = 5;
 static INT64 g_curIndex = 0;
@@ -22,17 +23,17 @@ static void fiberProc(void * pArg)
 		{
 			nIndex = (INT64)(pTask->pArg);
 
-			CHECK_EQUAL(nIndex, g_curIndex);
+			EXPECT_EQ(nIndex, g_curIndex);
 
 			INT64 nPrevIndex = g_randIndex;
 			g_randIndexRecord[nIndex] = g_randIndex;
 			Coroutine::CoYieldCur();
-			CHECK_EQUAL(nPrevIndex, g_randIndexRecord[nIndex]);
+			EXPECT_EQ(nPrevIndex, g_randIndexRecord[nIndex]);
 		}
 	}
 }
 
-TEST(Coroutine)
+TEST(Coroutine , co)
 {
 	typedef std::map<INT64, CoTask*> MapCoTasksT;
 	MapCoTasksT	mapCoTasks;

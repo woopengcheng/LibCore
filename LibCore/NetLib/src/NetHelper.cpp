@@ -207,7 +207,7 @@ namespace Net
 		pBuf = (char *)zmq_msg_data(pZmqMsg);
 		size_t usSize = zmq_msg_size(pZmqMsg);
 
-		return  usSize;
+		return  (INT32)usSize;
 	}
 
 	BOOL NetHelper::IsSocketEagain()

@@ -3,7 +3,7 @@
 #include "MsgLib/inc/MsgHelper.h"
 #include "MsgLib/inc/RpcCheckParams.h"
 #include "Timer/inc/TimerHelp.h"
-#include "UnitTest++/UnitTestPP.h"
+// #include "UnitTest++/UnitTestPP.h"
 #include "CUtil/inc/CUtil.h"
 #include "CUtil/inc/Chunk.h"
 #include "Test/MsgNameDefine.h"
@@ -11,6 +11,7 @@
 #include "Test/RpcDatas.h"
 #include "ThreadPool/inc/ThreadPoolInterface.h"
 #include "ThreadPool/inc/ThreadTask.h"
+#include "gtest/gtest.h"
 
 static bool g_sClosed = false;
 static bool g_sBCheck1 = false;
@@ -232,32 +233,32 @@ Msg::ObjectMsgCall * FooHandler::testParamsAndRpcDatas_RpcServer(INT32 nSessionI
 	test1.p5.push_back(2);
 	TestRpcData2 test2;
 
-	CHECK_EQUAL(rpcData.p1, test1.p1);
-	CHECK_EQUAL(rpcData.p2, test1.p2);
-	CHECK_EQUAL(rpcData.p3, test1.p3);
-	CHECK_EQUAL(rpcData.p4, test1.p4);
-	CHECK_EQUAL(rpcData.p5[0], test1.p5[0]);
-	CHECK_EQUAL(rpcData.p5[1], test1.p5[1]);
-	CHECK_EQUAL(rpcData.p5.size() , 2);
-	CHECK_EQUAL(rpcData.p6, test1.p6);
-	CHECK_EQUAL(rpcData.p7, test1.p7);
-	CHECK_EQUAL(rpcData.p8, test1.p8);
-	CHECK_EQUAL(rpcData.p9, test1.p9);
-	CHECK_EQUAL(rpcData.p10, test1.p10);
-	CHECK_EQUAL(rpcData.p11, test1.p11);
-	CHECK_EQUAL(rpcData.p12, test1.p12);
-	CHECK_EQUAL(rpcData.p13, test1.p13);
+	EXPECT_EQ(rpcData.p1, test1.p1);
+	EXPECT_EQ(rpcData.p2, test1.p2);
+	EXPECT_EQ(rpcData.p3, test1.p3);
+	EXPECT_EQ(rpcData.p4, test1.p4);
+	EXPECT_EQ(rpcData.p5[0], test1.p5[0]);
+	EXPECT_EQ(rpcData.p5[1], test1.p5[1]);
+	EXPECT_EQ(rpcData.p5.size() , 2);
+	EXPECT_EQ(rpcData.p6, test1.p6);
+	EXPECT_EQ(rpcData.p7, test1.p7);
+	EXPECT_EQ(rpcData.p8, test1.p8);
+	EXPECT_EQ(rpcData.p9, test1.p9);
+	EXPECT_EQ(rpcData.p10, test1.p10);
+	EXPECT_EQ(rpcData.p11, test1.p11);
+	EXPECT_EQ(rpcData.p12, test1.p12);
+	EXPECT_EQ(rpcData.p13, test1.p13);
 
-	CHECK_EQUAL(rpcData2.p1, test2.p1);
-	CHECK_EQUAL(rpcData2.p2, test2.p2);
-	CHECK_EQUAL(rpcData2.p3, test2.p3);
-	CHECK_EQUAL(rpcData2.p4, test2.p4);
-	CHECK_EQUAL(rpcData2.p6, test2.p6);
-	CHECK_EQUAL(rpcData2.p7, test2.p7);
-	CHECK_EQUAL(rpcData2.p8, test2.p8);
-	CHECK_EQUAL(rpcData2.p9, test2.p9);
+	EXPECT_EQ(rpcData2.p1, test2.p1);
+	EXPECT_EQ(rpcData2.p2, test2.p2);
+	EXPECT_EQ(rpcData2.p3, test2.p3);
+	EXPECT_EQ(rpcData2.p4, test2.p4);
+	EXPECT_EQ(rpcData2.p6, test2.p6);
+	EXPECT_EQ(rpcData2.p7, test2.p7);
+	EXPECT_EQ(rpcData2.p8, test2.p8);
+	EXPECT_EQ(rpcData2.p9, test2.p9);
 
-	CHECK_EQUAL(Vec.size(), 1);
+	EXPECT_EQ(Vec.size(), 1);
 
 	static INT32 nCount = 100;
 	while (nCount-- != 2)
@@ -470,7 +471,7 @@ public:
 	}
 	virtual INT32 OnCall(void * pContext) override
 	{
-		CHECK_EQUAL(m_nTest, 333);
+		EXPECT_EQ(m_nTest, 333);
 
 		return -1;
 	}
@@ -518,7 +519,7 @@ public:
 				ProxyCallback * pCallback = new ProxyCallback;
 				pCallback->m_nTest = 333;
 				INT32 nResult = rpc_testParamsAndRpcDatas(nSessionID, FOO_HANDLER_ID, fooHandler.GetObjectID(), test1, test2 ,std::vector<INT32>(1) ,pCallback);
-				CHECK_EQUAL(nResult, -1);  //5 测试rpc_enable是否是关闭的.
+				EXPECT_EQ(nResult, -1);  //5 测试rpc_enable是否是关闭的.
 
 				Msg::MethodImpl * pMethod = pRpcInterface->GetRpcManager()->GetMethodImpl(Msg::g_sztestParamsAndRpcDatas_RpcClient);
 				if (pMethod)
@@ -531,7 +532,7 @@ public:
 				nResult = rpc_testParamsAndRpcDatas(nSessionID, FOO_HANDLER_ID, fooHandler.GetObjectID(), test1, test2, std::vector<INT32>(1), pCallback);
 				if (nResult == -1)
 				{
-					CHECK_EQUAL(nResult , 0);//5 测试rpc_enable是否是开启的.
+					EXPECT_EQ(nResult , 0);//5 测试rpc_enable是否是开启的.
 				}
 
 				bFirst = false;
@@ -650,7 +651,7 @@ INT32  rpc_testParamsAndRpcDatas(INT32 nSessionID, Msg::Object objSrc, TestRpcDa
 Msg::ObjectMsgCall * ProxyHandler::testParamsAndRpcDatas_RpcClient(INT32 nSessionID, Msg::Object objSrc, INT32 res/* = 0*/)
 {
 	CUtil::Parameters * pParams = GetInParams();
-	CHECK_EQUAL(!pParams, false);
+	EXPECT_EQ(!pParams, false);
 	if (pParams)
 	{
 		TestRpcData test1;
@@ -673,39 +674,39 @@ Msg::ObjectMsgCall * ProxyHandler::testParamsAndRpcDatas_RpcClient(INT32 nSessio
 		TestRpcData   rpcData = pParams->GetValue<TestRpcData>(0);
 		TestRpcData2  rpcData2 = pParams->GetValue<TestRpcData2>(1);
 
-		CHECK_EQUAL(rpcData.p1, test1.p1);
-		CHECK_EQUAL(rpcData.p2, test1.p2);
-		CHECK_EQUAL(rpcData.p3, test1.p3);
-		CHECK_EQUAL(rpcData.p4, test1.p4);
-		CHECK_EQUAL(rpcData.p5[0], test1.p5[0]);
-		CHECK_EQUAL(rpcData.p5[1], test1.p5[1]);
-		CHECK_EQUAL(rpcData.p5.size(), 2);
-		CHECK_EQUAL(rpcData.p6, test1.p6);
-		CHECK_EQUAL(rpcData.p7, test1.p7);
-		CHECK_EQUAL(rpcData.p8, test1.p8);
-		CHECK_EQUAL(rpcData.p9, test1.p9);
-		CHECK_EQUAL(rpcData.p10, test1.p10);
-		CHECK_EQUAL(rpcData.p11, test1.p11);
-		CHECK_EQUAL(rpcData.p12, test1.p12);
-		CHECK_EQUAL(rpcData.p13, test1.p13);
+		EXPECT_EQ(rpcData.p1, test1.p1);
+		EXPECT_EQ(rpcData.p2, test1.p2);
+		EXPECT_EQ(rpcData.p3, test1.p3);
+		EXPECT_EQ(rpcData.p4, test1.p4);
+		EXPECT_EQ(rpcData.p5[0], test1.p5[0]);
+		EXPECT_EQ(rpcData.p5[1], test1.p5[1]);
+		EXPECT_EQ(rpcData.p5.size(), 2);
+		EXPECT_EQ(rpcData.p6, test1.p6);
+		EXPECT_EQ(rpcData.p7, test1.p7);
+		EXPECT_EQ(rpcData.p8, test1.p8);
+		EXPECT_EQ(rpcData.p9, test1.p9);
+		EXPECT_EQ(rpcData.p10, test1.p10);
+		EXPECT_EQ(rpcData.p11, test1.p11);
+		EXPECT_EQ(rpcData.p12, test1.p12);
+		EXPECT_EQ(rpcData.p13, test1.p13);
 
-		CHECK_EQUAL(rpcData2.p1, test2.p1);
-		CHECK_EQUAL(rpcData2.p2, test2.p2);
-		CHECK_EQUAL(rpcData2.p3, test2.p3);
-		CHECK_EQUAL(rpcData2.p4, test2.p4);
-		CHECK_EQUAL(rpcData2.p6, test2.p6);
-		CHECK_EQUAL(rpcData2.p7, test2.p7);
-		CHECK_EQUAL(rpcData2.p8, test2.p8);
-		CHECK_EQUAL(rpcData2.p9, test2.p9);
+		EXPECT_EQ(rpcData2.p1, test2.p1);
+		EXPECT_EQ(rpcData2.p2, test2.p2);
+		EXPECT_EQ(rpcData2.p3, test2.p3);
+		EXPECT_EQ(rpcData2.p4, test2.p4);
+		EXPECT_EQ(rpcData2.p6, test2.p6);
+		EXPECT_EQ(rpcData2.p7, test2.p7);
+		EXPECT_EQ(rpcData2.p8, test2.p8);
+		EXPECT_EQ(rpcData2.p9, test2.p9);
 
 		std::vector<INT32> Vec2;
 		std::vector<INT32> Vec3;
 		std::vector<INT32> &  Vec = pParams->GetValue<std::vector<INT32>>(2);
 		pParams->GetValue(2, Vec2);
 //		Vec3 = static_cast<std::vector<INT32>>((*pParams)[2]);
-		CHECK_EQUAL(Vec.size(), 1);
-		CHECK_EQUAL(Vec2.size(), 1);
-		CHECK_EQUAL(Vec3.size(), 0);
+		EXPECT_EQ(Vec.size(), 1);
+		EXPECT_EQ(Vec2.size(), 1);
+		EXPECT_EQ(Vec3.size(), 0);
 		
 		TestRpcData   rpcData3;
 		TestRpcData2  rpcData4;
@@ -713,52 +714,52 @@ Msg::ObjectMsgCall * ProxyHandler::testParamsAndRpcDatas_RpcClient(INT32 nSessio
 		std::vector<INT32> Vec4;
 		pParams->GetValueEx(rpcData3, rpcData4, Vec4);
 		rpcData5 = (*pParams)[1];
-		CHECK_EQUAL(Vec4.size(), 1);
+		EXPECT_EQ(Vec4.size(), 1);
 
-		CHECK_EQUAL(rpcData3.p1, test1.p1);
-		CHECK_EQUAL(rpcData3.p2, test1.p2);
-		CHECK_EQUAL(rpcData3.p3, test1.p3);
-		CHECK_EQUAL(rpcData3.p4, test1.p4);
-		CHECK_EQUAL(rpcData3.p5[0], test1.p5[0]);
-		CHECK_EQUAL(rpcData3.p5[1], test1.p5[1]);
-		CHECK_EQUAL(rpcData3.p5.size(), 2);
-		CHECK_EQUAL(rpcData3.p6, test1.p6);
-		CHECK_EQUAL(rpcData3.p7, test1.p7);
-		CHECK_EQUAL(rpcData3.p8, test1.p8);
-		CHECK_EQUAL(rpcData3.p9, test1.p9);
-		CHECK_EQUAL(rpcData3.p10, test1.p10);
-		CHECK_EQUAL(rpcData3.p11, test1.p11);
-		CHECK_EQUAL(rpcData3.p12, test1.p12);
-		CHECK_EQUAL(rpcData3.p13, test1.p13);
+		EXPECT_EQ(rpcData3.p1, test1.p1);
+		EXPECT_EQ(rpcData3.p2, test1.p2);
+		EXPECT_EQ(rpcData3.p3, test1.p3);
+		EXPECT_EQ(rpcData3.p4, test1.p4);
+		EXPECT_EQ(rpcData3.p5[0], test1.p5[0]);
+		EXPECT_EQ(rpcData3.p5[1], test1.p5[1]);
+		EXPECT_EQ(rpcData3.p5.size(), 2);
+		EXPECT_EQ(rpcData3.p6, test1.p6);
+		EXPECT_EQ(rpcData3.p7, test1.p7);
+		EXPECT_EQ(rpcData3.p8, test1.p8);
+		EXPECT_EQ(rpcData3.p9, test1.p9);
+		EXPECT_EQ(rpcData3.p10, test1.p10);
+		EXPECT_EQ(rpcData3.p11, test1.p11);
+		EXPECT_EQ(rpcData3.p12, test1.p12);
+		EXPECT_EQ(rpcData3.p13, test1.p13);
 
-		CHECK_EQUAL(rpcData4.p1, test2.p1);
-		CHECK_EQUAL(rpcData4.p2, test2.p2);
-		CHECK_EQUAL(rpcData4.p3, test2.p3);
-		CHECK_EQUAL(rpcData4.p4, test2.p4);
-		CHECK_EQUAL(rpcData4.p6, test2.p6);
-		CHECK_EQUAL(rpcData4.p7, test2.p7);
-		CHECK_EQUAL(rpcData4.p8, test2.p8);
-		CHECK_EQUAL(rpcData4.p9, test2.p9);
+		EXPECT_EQ(rpcData4.p1, test2.p1);
+		EXPECT_EQ(rpcData4.p2, test2.p2);
+		EXPECT_EQ(rpcData4.p3, test2.p3);
+		EXPECT_EQ(rpcData4.p4, test2.p4);
+		EXPECT_EQ(rpcData4.p6, test2.p6);
+		EXPECT_EQ(rpcData4.p7, test2.p7);
+		EXPECT_EQ(rpcData4.p8, test2.p8);
+		EXPECT_EQ(rpcData4.p9, test2.p9);
 
-		CHECK_EQUAL(rpcData5.p1, test2.p1);
-		CHECK_EQUAL(rpcData5.p2, test2.p2);
-		CHECK_EQUAL(rpcData5.p3, test2.p3);
-		CHECK_EQUAL(rpcData5.p4, test2.p4);
-		CHECK_EQUAL(rpcData5.p6, test2.p6);
-		CHECK_EQUAL(rpcData5.p7, test2.p7);
-		CHECK_EQUAL(rpcData5.p8, test2.p8);
-		CHECK_EQUAL(rpcData5.p9, test2.p9);
+		EXPECT_EQ(rpcData5.p1, test2.p1);
+		EXPECT_EQ(rpcData5.p2, test2.p2);
+		EXPECT_EQ(rpcData5.p3, test2.p3);
+		EXPECT_EQ(rpcData5.p4, test2.p4);
+		EXPECT_EQ(rpcData5.p6, test2.p6);
+		EXPECT_EQ(rpcData5.p7, test2.p7);
+		EXPECT_EQ(rpcData5.p8, test2.p8);
+		EXPECT_EQ(rpcData5.p9, test2.p9);
 	}
 
-	CHECK_EQUAL(res , 1);
+	EXPECT_EQ(res , 1);
 
 	g_rpcCallbackTest = GetCallback();
 	if (g_rpcCallbackTest)
 	{
 		INT32 * t = NULL;
-		CHECK_EQUAL(g_rpcCallbackTest->OnCall(t), -1);
+		EXPECT_EQ(g_rpcCallbackTest->OnCall(t), -1);
 	}
-	CHECK_EQUAL(!g_rpcCallbackTest, false);
+	EXPECT_EQ(!g_rpcCallbackTest, false);
 	ReturnNULL;
 }
 
@@ -932,7 +933,7 @@ CollectionObjectFuncsT ProxyHandler::s_setFuncs;
 CollectionObjectFuncsT BarHandler::s_setFuncs;
 
 
-TEST(RPC)
+TEST(RPC , rpcTest)
 {
 // 	ThreadPool::ThreadPoolInterface::GetInstance().Init(std::map<UINT32, UINT32>());
 // 	ThreadPool::ThreadPoolInterface::GetInstance().Startup();
@@ -966,11 +967,11 @@ TEST(RPC)
 // 		FooRpcInterface::GetInstance().Update();
 // 	}
 // 
-// 	CHECK_EQUAL(g_rpcCallbackTest.use_count(), 1);
+// 	EXPECT_EQ(g_rpcCallbackTest.use_count(), 1);
 // 	BarRpcInterface::GetInstance().Cleanup();
 // 	ProxyRpcInterface::GetInstance().Cleanup();
 // 	FooRpcInterface::GetInstance().Cleanup();
 // 
-// 	CHECK_EQUAL(g_sBCheck1, true);
-// 	CHECK_EQUAL(g_sBCheck3, 1);
+// 	EXPECT_EQ(g_sBCheck1, true);
+// 	EXPECT_EQ(g_sBCheck3, 1);
 }

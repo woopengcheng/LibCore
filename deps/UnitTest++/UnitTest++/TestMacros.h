@@ -41,7 +41,9 @@
     class Test##Name : public UnitTest::Test                               \
     {                                                                      \
     public:                                                                \
-		Test##Name() : Test(#Name, UnitTestSuite::GetSuiteName(), __FILE__, __LINE__) {}  \
+		Test##Name() : Test(#Name, UnitTestSuite::GetSuiteName(), __FILE__, __LINE__) { }\
+		bool LinkProc()\
+		{ return true;	}\
     private:                                                               \
         virtual void RunImpl() const;   \
     } test##Name##Instance;                                                \

@@ -25,6 +25,14 @@
       <Configuration>LibDebug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Lib_Debug_x64|Win32">
+      <Configuration>Lib_Debug_x64</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Lib_Debug_x64|x64">
+      <Configuration>Lib_Debug_x64</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
@@ -73,6 +81,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='LibDebug|x64'">
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
@@ -82,10 +93,18 @@
     <PlatformToolset>v140</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'" Label="Configuration">
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='LibDebug|Win32'">
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|Win32'">
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|Win32'" Label="Configuration">
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -125,6 +144,12 @@
     <TargetName>$(ProjectName)_vs$(VisualStudioVersion)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
+    <OutDir>$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\</OutDir>
+    <TargetName>$(ProjectName)</TargetName>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">
     <OutDir>$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\</OutDir>
     <TargetName>$(ProjectName)</TargetName>
     <IgnoreImportLibrary>false</IgnoreImportLibrary>
@@ -209,6 +234,33 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug_x64|x64'">
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\tbb\lib\intel64\vc10;$(SolutionDir)..\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\boost\lib;$(SolutionDir)..\deps\pthread\lib\x64;$(SolutionDir)..\deps\gperftools-2.1\debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>gtestd.lib;Rpcrt4.lib;leveldb.lib;libtcmalloc_minimal.lib;libiconv_static.lib;lib_json.lib;lua.lib;libzmq_d.lib;ws2_32.lib;tbb_debug.lib;pthreadVC2.lib;log4cplusSUD.lib;LibStatic.lib;expat.lib;Snappy.lib;Ws2_32.lib;openssl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>LIBCMTD;MSVCRT;</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <HeapReserveSize>104857600</HeapReserveSize>
+      <HeapCommitSize>104857600</HeapCommitSize>
+      <StackReserveSize>104857600</StackReserveSize>
+      <StackCommitSize>104857600</StackCommitSize>
+      <AssemblyDebug>false</AssemblyDebug>
+      <ForceSymbolReferences>
+      </ForceSymbolReferences>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)LibCore;$(SolutionDir)../LibCore/;$(SolutionDir)../LibCore/MongoBson;$(SolutionDir)../deps/leveldb/db;$(SolutionDir)../deps/leveldb/util;$(SolutionDir)../deps/leveldb/port;$(SolutionDir)../deps/leveldb/include;$(SolutionDir)../deps/leveldb/table;$(SolutionDir)../deps/leveldb/;$(SolutionDir)../deps/RocksDB;$(SolutionDir)../deps/RocksDB/db;$(SolutionDir)../deps/RocksDB/table;$(SolutionDir)../deps/RocksDB/port;$(SolutionDir)../deps/RocksDB/util;$(SolutionDir)../deps/RocksDB\include;$(SolutionDir)../deps/boost;$(SolutionDir)../deps/expat/lib;$(SolutionDir)../deps/zeromq/include;$(SolutionDir)../deps/tbb/include;$(SolutionDir)../deps/protobuf/src;$(SolutionDir)../deps/raknet/source;$(SolutionDir)../deps/pthread/include;$(SolutionDir)../deps/log4cplus/include;$(SolutionDir)../deps/Snappy;$(SolutionDir)../deps/lua/src;$(SolutionDir)../deps/jsoncpp/include;$(SolutionDir)../deps/libiconv/source/include;$(SolutionDir)../deps/openssl/openssl/include/;$(SolutionDir)../deps/gtest/googletest/include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_STRUCT_TIMESPEC;_CRT_SECURE_NO_WARNINGS;_AFXEXT;CLOSE_RPC_TIMEOUT;NOMINMAX;BSON_COMPILATION;LEVELDB_PLATFORM_WINDOWS;OS_WIN;HYCOMMONWINAPI_EXPORTS;DLL_EXPORTS;USE_RAKNET;WIN32;_DEBUG;USE_LOG4CPLUS;_CONSOLE;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <CallingConvention>StdCall</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <UndefinePreprocessorDefinitions>
+      </UndefinePreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug_x64|x64'">
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\bin\vs$(VisualStudioVersion)\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\tbb\lib\intel64\vc10;$(SolutionDir)..\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\deps\boost\lib;$(SolutionDir)..\deps\pthread\lib\x64;$(SolutionDir)..\deps\gperftools-2.1\debug</AdditionalLibraryDirectories>
       <AdditionalDependencies>Rpcrt4.lib;leveldb.lib;libtcmalloc_minimal.lib;libiconv_static.lib;lib_json.lib;lua.lib;libzmq_d.lib;ws2_32.lib;tbb_debug.lib;pthreadVC2.lib;log4cplusSUD.lib;LibStatic.lib;expat.lib;UnitTest.lib;Snappy.lib;Ws2_32.lib;openssl.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>LIBCMTD;MSVCRT;</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -221,8 +273,8 @@
       </ForceSymbolReferences>
     </Link>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)LibCore;$(SolutionDir)../LibCore/;$(SolutionDir)../deps/leveldb/db;$(SolutionDir)../deps/leveldb/util;$(SolutionDir)../deps/leveldb/port;$(SolutionDir)../deps/leveldb/include;$(SolutionDir)../deps/leveldb/table;$(SolutionDir)../deps/leveldb/;$(SolutionDir)../deps/RocksDB;$(SolutionDir)../deps/RocksDB/db;$(SolutionDir)../deps/RocksDB/table;$(SolutionDir)../deps/RocksDB/port;$(SolutionDir)../deps/RocksDB/util;$(SolutionDir)../deps/RocksDB\include;$(SolutionDir)../deps/boost;$(SolutionDir)../deps/expat/lib;$(SolutionDir)../deps/zeromq/include;$(SolutionDir)../deps/tbb/include;$(SolutionDir)../deps/UnitTest++/;$(SolutionDir)../deps/protobuf/src;$(SolutionDir)../deps/raknet/source;$(SolutionDir)../deps/pthread/include;$(SolutionDir)../deps/log4cplus/include;$(SolutionDir)../deps/lua/src;$(SolutionDir)../deps/jsoncpp/include;$(SolutionDir)../deps/libiconv/source/include;$(SolutionDir)../deps/Snappy;$(SolutionDir)../deps/CityHash/src;$(SolutionDir)../deps/MongoBson/;$(SolutionDir)../deps/openssl/openssl/include/</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>HAVE_STRUCT_TIMESPEC;_CRT_SECURE_NO_WARNINGS;_AFXEXT;CLOSE_RPC_TIMEOUT;NOMINMAX;BSON_COMPILATION;LEVELDB_PLATFORM_WINDOWS;OS_WIN;HYCOMMONWINAPI_EXPORTS;DLL_EXPORTS;USE_RAKNET;WIN32;_DEBUG;USE_LOG4CPLUS;_CONSOLE;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)LibCore;$(SolutionDir)../LibCore/;$(SolutionDir)../LibCore/MongoBson;$(SolutionDir)../deps/leveldb/db;$(SolutionDir)../deps/leveldb/util;$(SolutionDir)../deps/leveldb/port;$(SolutionDir)../deps/leveldb/include;$(SolutionDir)../deps/leveldb/table;$(SolutionDir)../deps/leveldb/;$(SolutionDir)../deps/RocksDB;$(SolutionDir)../deps/RocksDB/db;$(SolutionDir)../deps/RocksDB/table;$(SolutionDir)../deps/RocksDB/port;$(SolutionDir)../deps/RocksDB/util;$(SolutionDir)../deps/RocksDB\include;$(SolutionDir)../deps/boost;$(SolutionDir)../deps/expat/lib;$(SolutionDir)../deps/zeromq/include;$(SolutionDir)../deps/tbb/include;$(SolutionDir)../deps/gtest/googletest/include;$(SolutionDir)../deps/protobuf/src;$(SolutionDir)../deps/raknet/source;$(SolutionDir)../deps/pthread/include;$(SolutionDir)../deps/log4cplus/include;$(SolutionDir)../deps/Snappy;$(SolutionDir)../deps/lua/src;$(SolutionDir)../deps/jsoncpp/include;$(SolutionDir)../deps/libiconv/source/include;$(SolutionDir)../deps/openssl/openssl/include/</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_STRUCT_TIMESPEC;_CRT_SECURE_NO_WARNINGS;_AFXEXT;CLOSE_RPC_TIMEOUT;NOMINMAX;BSON_COMPILATION;LEVELDB_PLATFORM_WINDOWS;OS_WIN;HYCOMMONWINAPI_EXPORTS;DLL_EXPORTS;USE_RAKNET;WIN32;USE_LOG4CPLUS;_CONSOLE;_WINDLL;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level3</WarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -472,7 +524,6 @@
     <ClCompile Include="..\..\LibCore\MsgLib\src\MsgDispatcher.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\MsgQueue.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\NetNode.cpp" />
-    <ClCompile Include="..\..\LibCore\MsgLib\src\Object.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\ObjectMsgCall.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\src\RpcBase.cpp" />
     <ClCompile Include="..\..\LibCore\MsgLib\Src\RpcCheckParams.cpp" />
@@ -507,6 +558,7 @@
     <ClCompile Include="..\..\LibCore\Test\Coroutine_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\CStream_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\CSVReader_Test.cpp" />
+    <ClCompile Include="..\..\LibCore\Test\HttpProtocol_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\LibCore_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\MongoBson_Test.cpp" />
     <ClCompile Include="..\..\LibCore\Test\Paramter_Test.cpp" />
